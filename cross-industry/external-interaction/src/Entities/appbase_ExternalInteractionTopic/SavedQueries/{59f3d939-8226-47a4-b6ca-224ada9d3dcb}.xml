@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{59f3d939-8226-47a4-b6ca-224ada9d3dcb}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
+        <row name="result" id="appbase_externalinteractiontopicid">
+          <cell name="appbase_name" width="300" />
+          <cell name="appbase_parenttopic" width="216" />
+          <cell name="appbase_description" width="300" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="appbase_externalinteractiontopic">
+          <attribute name="appbase_externalinteractiontopicid" />
+          <attribute name="appbase_name" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="appbase_parenttopic" />
+          <order attribute="appbase_parenttopic" descending="false" />
+          <order attribute="appbase_name" descending="false" />
+          <attribute name="appbase_description" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active External Interaction Topics" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>
