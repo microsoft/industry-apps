@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.25114.191" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.25114.191" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.25123.00162">
+<ImportExportXml version="9.2.25114.191" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.25114.191" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.25123.00166">
   <SolutionManifest>
     <UniqueName>appbase_core</UniqueName>
     <LocalizedNames>
@@ -81,15 +81,59 @@
     </Publisher>
     <RootComponents>
       <RootComponent type="1" schemaName="account" behavior="1" />
+      <RootComponent type="1" schemaName="appbase_agreement" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_analysis" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_clearancelevel" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_competency" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_complianceframework" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_complianceframeworkcategory" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_compliancerequirement" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_contenttemplate" behavior="0" />
       <RootComponent type="1" schemaName="appbase_country" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_discussionitem" behavior="0" />
       <RootComponent type="1" schemaName="appbase_document" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_individualvote" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_fiscalperiod" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_formaldecision" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_graderank" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_impact" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_jobseries" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_judicialdistrict" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_legalamendment" behavior="0" />
       <RootComponent type="1" schemaName="appbase_legalauthority" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_legalcrossreference" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_location" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_organizationinitiative" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_organizationunit" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_organizationunittype" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_paygrade" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_personalinformation" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_personalinformationtype" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_personneltype" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_privacyconsent" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_product" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_riskitem" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_stateorprovince" behavior="0" />
       <RootComponent type="1" schemaName="appbase_vote" behavior="0" />
+      <RootComponent type="1" schemaName="contact" behavior="1" />
+      <RootComponent type="62" schemaName="appbase_Core" behavior="0" />
+      <RootComponent type="80" schemaName="appbase_Core" behavior="0" />
       <RootComponent type="9" schemaName="appbase_actionstatus" behavior="0" />
       <RootComponent type="9" schemaName="appbase_methodofreceipt" behavior="0" />
       <RootComponent type="9" schemaName="appbase_priority" behavior="0" />
     </RootComponents>
-    <MissingDependencies />
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)">
+          <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
+        </Required>
+        <Dependent type="80" schemaName="appbase_Core" displayName="Core" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.15)" id.uniquename="AppChannel">
+          <package appName="PowerAppsAppFramework Package" version="1.0.0.23">PowerAppsAppFramework_Anchor (1.0.0.23)</package>
+        </Required>
+        <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=appbase_Core,settingdefinitionid.uniquename=AppChannel" id.parentappmoduleid.uniquename="appbase_Core" id.settingdefinitionid.uniquename="AppChannel" />
+      </MissingDependency>
+    </MissingDependencies>
   </SolutionManifest>
 </ImportExportXml>
