@@ -1400,13 +1400,35 @@ function Select-ModuleWithCategory {
         return $null
     }
     
-    # Sort by category then module name
-    $sortedModuleKeys = $allModules.Keys | Sort-Object
-    
-    # Present to user as a list
-    $selected = Select-ItemFromList -choices $sortedModuleKeys
-    
-    return $selected
+    # Two-step selection: category first, then module
+    do {
+        # Step 1: Select category
+        Write-Host ""
+        Write-Host "Select a category:" -ForegroundColor Cyan
+        $categories = Get-ModuleCategories -projectRoot $projectRoot
+        $selectedCategory = Select-ItemFromList -choices $categories
+        
+        # Step 2: Select module within category (with back option)
+        Write-Host ""
+        Write-Host "Select a module in '$selectedCategory':" -ForegroundColor Cyan
+        
+        # Get modules in the selected category
+        $categoryModules = $allModules.Keys | Where-Object { $_ -like "$selectedCategory/*" } | Sort-Object
+        $moduleNames = $categoryModules | ForEach-Object { $_ -replace "^$selectedCategory/", "" }
+        
+        # Add back option at the end
+        $choicesWithBack = $moduleNames + @("(Back to categories)")
+        $selection = Select-ItemFromList -choices $choicesWithBack
+        
+        # Check if user selected back
+        if ($selection -eq "(Back to categories)") {
+            continue  # Go back to category selection
+        }
+        
+        # Return the full category/module-name format
+        return "$selectedCategory/$selection"
+        
+    } while ($true)
 }
 
 function Get-Config {
@@ -1477,16 +1499,12 @@ function Get-ModuleDevelopmentEnvironment {
         $fullConfig.DefaultModule
     }
     
-    # Get the deployment for this module
-    $deployment = $fullConfig.Deployments.($moduleConfig.Tenant)
-    if (-not $deployment) {
-        Write-Host "Warning: Tenant '$($moduleConfig.Tenant)' not found. Using current deployment." -ForegroundColor Yellow
-        $deployment = $DeploymentConfig
-    }
-    
-    # Return the development environment
+    # Use the user-selected deployment config to resolve the environment,
+    # rather than looking up the deployment by the module's hardcoded Tenant.
+    # This ensures that when the user selects e.g. "Test", the environment
+    # is resolved from the Test deployment, not always from Development.
     $envKey = $moduleConfig.Environment
-    return $deployment.Environments.$envKey
+    return $DeploymentConfig.Environments.$envKey
 }
 
 function Get-ModuleDeploymentTargets {
@@ -1508,14 +1526,8 @@ function Get-ModuleDeploymentTargets {
         $fullConfig.DefaultModule
     }
     
-    # Get the deployment for this module
-    $deployment = $fullConfig.Deployments.($moduleConfig.Tenant)
-    if (-not $deployment) {
-        Write-Host "Warning: Tenant '$($moduleConfig.Tenant)' not found. Using current deployment." -ForegroundColor Yellow
-        $deployment = $DeploymentConfig
-    }
-    
-    # Return the deployment target environments
+    # Use the user-selected deployment config to resolve the target environments,
+    # rather than looking up the deployment by the module's hardcoded Tenant.
     $envKeys = $moduleConfig.DeploymentTargets
-    return $envKeys | ForEach-Object { $deployment.Environments.$_ }
+    return $envKeys | ForEach-Object { $DeploymentConfig.Environments.$_ }
 }

@@ -1,0 +1,144 @@
+function openActionPane(context, isSelected = true, title = "Action Pane", width = 400, hideHeader = false) {
+     console.log("Hellooooo");
+	const customPageName = "appbase_actionpane_2bd48"
+	const icon = "WebResources/govcdm_actionpaneicon"
+	openPane(context, isSelected, title, customPageName, icon, width, hideHeader);
+}
+
+function openPane(context, isSelected, title, customPageName, icon, width = 400, hideHeader = false) {
+	const formContext = getFormContext(context);
+	function createPane() {
+		let entityName = formContext.data.entity.getEntityName();
+		entityName += "s";
+		let recordId = formContext.data.entity.getId().replace(/[\{\}]/g, '');
+		
+		// Check if this is a new record form
+		const isNewRecord = !recordId || recordId === "00000000-0000-0000-0000-000000000000" || 
+						   formContext.ui.getFormType() === 1; // FormType.Create = 1
+		
+		// Set pane width based on whether it's a new record
+		const paneWidth = isNewRecord ? 50 : width; // Minimized width for new records
+		const paneIsSelected = isNewRecord ? false : isSelected; // Not selected (minimized) for new records
+
+		Xrm.App.sidePanes.createPane({
+			title,
+			imageSrc: icon,
+			paneId: title,
+			hideHeader,
+			canClose: true,
+			width: paneWidth,
+			isSelected: paneIsSelected
+		}).then((pane) => {
+			setTimeout(
+				pane.navigate({
+					pageType: "custom",
+					name: customPageName,
+					entityName,
+					recordId
+				}),
+				2000
+			);
+		});
+
+		startStateManagement(context);
+	}
+
+	const pane = Xrm.App.sidePanes.getPane(title);
+	if (pane) {
+		pane.close().then(createPane);
+	} else {
+		createPane();
+	}
+}
+
+function getFormContext(context) {
+	return context.getFormContext ? context.getFormContext() : context;
+}
+function findProcessAndTaskingStateField(formContext) {
+	const attributes = formContext.data.entity.attributes.get();
+	for (let i = 0; i < attributes.length; i++) {
+		const name = attributes[i].getName();
+		if (name.endsWith("_processautomationstate")) {
+			return name;
+		}
+	}
+	// fallback to default
+	return "appbase_processautomationstate";
+}
+
+var isStateManaged = false;
+
+function startStateManagement(context) {
+	if (isStateManaged) return;
+	setProcessAndTaskingState(context);
+	isStateManaged = true;
+	intervalId = setInterval(() => setProcessAndTaskingState(context), 3000);
+}
+
+function closeSidePanes() {
+	closeSidePane("Action Pane");
+}
+
+function closeSidePane(paneId) {
+	const pane = Xrm.App.sidePanes.getPane(paneId);
+	if (pane) pane.close();
+}
+
+
+function setProcessAndTaskingState(context) {
+	const formContext = getFormContext(context);
+	const uniqueValue = new Date().toISOString();
+	const fieldName = findProcessAndTaskingStateField(formContext);
+	formContext.getAttribute(fieldName).setValue(uniqueValue);
+}
+
+
+function handleOnSaveEvent(context) {
+	const formContext = getFormContext(context);
+	const fieldName = findProcessAndTaskingStateField(formContext);
+	formContext.getAttribute(fieldName).setValue("");
+	const saveMode = context.getEventArgs().getSaveMode();
+	if (saveMode === 2) closeSidePanes();
+	else setProcessAndTaskingState(context);
+}
+
+function registerClosePanes(context) {
+	const formContext = getFormContext(context);
+	formContext.data.entity.addOnSave(handleOnSaveEvent);
+}
+
+function getLookupValue(formContext, controlName) {
+	const lookupField = formContext.getAttribute(controlName);
+	if (!lookupField) return null;
+	const lookupValue = lookupField.getValue();
+	return (lookupValue && lookupValue.length > 0) ? lookupValue[0].id.replace(/[\{\}]/g, '') : null;
+}
+
+function openActionPaneDialog(context, title = "Action Item", widthPercent = 60) {
+    const customPageName = "appbase_actionpane_2bd48";
+    openCustomPageAsDialog(context, title, customPageName, widthPercent);
+}
+
+function openCustomPageAsDialog(context, title, customPageName, widthPercent = 60) {
+    const formContext = context.getAttribute ? context : context.getFormContext();
+    const entityName = formContext.data.entity.getEntityName() + "s";
+    const recordId = formContext.data.entity.getId().replace(/[{}]/g, '');
+
+    const pageInput = {
+        pageType: "custom",
+        name: customPageName,
+        entityName: entityName,
+        recordId: recordId
+    };
+
+    const navigationOptions = {
+        target: 2, // dialog
+        position: 1, // centered
+        width: { value: widthPercent, unit: "%" },
+        title: title
+    };
+
+    Xrm.Navigation.navigateTo(pageInput, navigationOptions).catch(function (error) {
+        console.error("Dialog failed to open:", error);
+    });
+}

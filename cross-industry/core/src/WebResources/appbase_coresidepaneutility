@@ -1,0 +1,328 @@
+function openSidePane(context, title, customPageName, icon, isSelected = true, width = 400, hideHeader = false, enableTwoWayComms = false, pollInterval = 1000) {
+    openPane(context, isSelected, title, customPageName, icon, width, hideHeader, enableTwoWayComms, pollInterval);
+    registerClosePanes(context);
+};
+
+function openSidePaneWithComms(context, title, customPageName, icon, isSelected = true, width = 400, hideHeader = false, pollInterval = 1000) {
+    openPane(context, isSelected, title, customPageName, icon, width, hideHeader, true, pollInterval);
+    registerClosePanes(context);
+};
+
+function openPane(context, isSelected, title, customPageName, icon, width = 400, hideHeader = false, enableTwoWayComms = false, pollInterval = 1000) {
+    const formContext = getFormContext(context);
+    function createPane() {
+        let entityName = formContext.data.entity.getEntityName();
+        entityName += "s";
+        let recordId = formContext.data.entity.getId().replace(/[\{\}]/g, '');
+
+        const paneOptions = {
+            title,
+            paneId: title,
+            hideHeader,
+            canClose: true,
+            width,
+            isSelected
+        };
+        if (icon) paneOptions.imageSrc = icon;
+
+        Xrm.App.sidePanes.createPane(paneOptions).then((pane) => {
+            setTimeout(
+                pane.navigate({
+                    pageType: "custom",
+                    name: customPageName,
+                    entityName,
+                    recordId
+                }),
+                2000
+            );
+        });
+
+        // Add title to the array if not already present
+        if (!openedPaneTitles.includes(title)) {
+            openedPaneTitles.push(title);
+        }
+
+        startStateManagement(context, enableTwoWayComms, pollInterval);
+    }
+
+    const pane = Xrm.App.sidePanes.getPane(title);
+    if (pane) {
+        pane.close().then(createPane);
+    } else {
+        createPane();
+    }
+};
+
+var isStateManaged = false;
+var intervalId = null;
+
+function startStateManagement(context, enableTwoWayComms = false, pollInterval = 3000) {
+	if (isStateManaged) return;
+	
+	setCustomPageState(context);
+	isStateManaged = true;
+	
+	if (enableTwoWayComms) {
+		intervalId = setInterval(() => pollCustomPageState(context), pollInterval);
+	} else {
+		intervalId = setInterval(() => setCustomPageState(context), pollInterval);
+	}
+};
+
+function stopStateManagement() {
+	if (intervalId) {
+		clearInterval(intervalId);
+		intervalId = null;
+	}
+	isStateManaged = false;
+	lastProcessedMessage = "";
+};
+
+function getFormContext(context) {
+	return context.getFormContext ? context.getFormContext() : context;
+};
+
+var lastProcessedMessage = "";
+
+function pollCustomPageState(context) {
+	const formContext = getFormContext(context);
+	const entityName = formContext.data.entity.getEntityName();
+	const recordId = formContext.data.entity.getId().replace(/[\{\}]/g, '');
+	
+	// Query Dataverse directly for the server value (form's in-memory value won't reflect custom page patches)
+	Xrm.WebApi.retrieveRecord(entityName, recordId, "?$select=appbase_custompagestate").then(
+		function(result) {
+			const serverValue = result.appbase_custompagestate;
+			
+			if (!serverValue || serverValue === lastProcessedMessage) return;
+			
+			try {
+				const message = JSON.parse(serverValue);
+				
+				if (message.direction === "toForm") {
+					lastProcessedMessage = serverValue;
+					handleCustomPageMessage(context, message);
+				}
+			} catch (e) {
+				// Not valid JSON, ignore
+			}
+		},
+		function(error) {
+			// WebApi error
+		}
+	);
+};
+
+function handleCustomPageMessage(context, message) {
+	const formContext = getFormContext(context);
+	const entityName = formContext.data.entity.getEntityName();
+	const recordId = formContext.data.entity.getId().replace(/[\{\}]/g, '');
+	
+	console.log("[SidePane] Processing command: " + message.command);
+	
+	// Process the command
+	switch (message.command) {
+		case "refresh":
+			formContext.getAttribute("appbase_custompagestate").setValue(null);
+			formContext.getAttribute("appbase_custompagestate").setSubmitMode("never");
+			
+			formContext.data.refresh(false).then(function() {
+				formContext.getAttribute("appbase_custompagestate").setSubmitMode("always");
+				setCustomPageState(context);
+			});
+			
+			refreshAllRelatedControls(formContext);
+			break;
+			
+		case "close":
+			closeSidePanes();
+			break;
+			
+		default:
+			console.warn("[SidePane] Unknown command from custom page: " + message.command);
+	}
+	
+	var clearData = {};
+	clearData["appbase_custompagestate"] = "";
+	Xrm.WebApi.updateRecord(entityName, recordId, clearData).then(
+		function() {
+			lastProcessedMessage = "";
+		},
+		function(error) {
+			// Error clearing state
+		}
+	);
+};
+
+function setCustomPageState(context) {
+	const formContext = getFormContext(context);
+	const message = {
+		direction: "toPage",
+		timestamp: new Date().toISOString()
+	};
+	const messageString = JSON.stringify(message);
+	formContext.getAttribute("appbase_custompagestate").setValue(messageString);
+};
+
+function refreshAllRelatedControls(formContext) {
+	var controls = formContext.ui.controls.getAll();
+	controls.forEach(function(control) {
+		var controlType = control.getControlType();
+		if (controlType === "subgrid" || controlType === "timelinewall") {
+			control.refresh();
+		}
+	});
+};
+
+function registerClosePanes(context) {
+	const formContext = getFormContext(context);
+	formContext.data.entity.addOnSave(handleOnSaveEvent);
+};
+
+// Track opened pane titles
+var openedPaneTitles = [];
+
+// Enhanced closeSidePanes to close all tracked panes
+function closeSidePanes() {
+    openedPaneTitles.forEach(function(title) {
+        var pane = Xrm.App.sidePanes.getPane(title);
+        if (pane) {
+            pane.close();
+        }
+    });
+    openedPaneTitles = [];
+    stopStateManagement();
+}
+
+function handleOnSaveEvent(context) {
+	const formContext = getFormContext(context);
+	formContext.getAttribute("appbase_custompagestate").setValue("");
+	const saveMode = context.getEventArgs().getSaveMode();
+	if (saveMode === 2) closeSidePanes();
+	else setCustomPageState(context);
+};
+
+// open a custom page as a panel
+function openCustomPageAsPanel(title, customPageName, entityName, recordId, width = 200, hideHeader = false) {
+	// console.log("ID: " + selectedItemId);
+	Xrm.App.sidePanes
+		.createPane({
+			title: title,
+			paneId: title,
+			hideHeader: hideHeader,
+			canClose: true,
+			width: width,
+		})
+		.then((pane) => {
+			setTimeout(
+				pane.navigate({
+					pageType: "custom",
+					name: customPageName,
+					entityName: entityName,
+					recordId: recordId,
+				}),
+				2000
+			);
+		});
+};
+
+function openCustomPageAsDialog(title, customPageName, entityName, recordId, widthPercent = 60) {
+	// Centered Dialog
+	var pageInput = {
+		pageType: "custom",
+		name: customPageName,
+		entityName: entityName,
+		recordId: recordId,
+	};
+	var navigationOptions = {
+		target: 2,
+		position: 1,
+		width: { value: widthPercent, unit: "%" },
+		title: title
+	};
+	Xrm.Navigation.navigateTo(pageInput, navigationOptions)
+		.then(
+			function () {
+				// Called when the dialog closes
+			}
+		).catch(
+			function (error) {
+				// Handle error
+			}
+		);
+}
+
+function openCustomPageAsPanelViaLookup(title, customPageName, entityName, primaryControl, lookupControlName, width = 200, hideHeader = false) {
+	// console.log("ID: " + selectedItemId);
+	var formContext = primaryControl;
+	var recordId = getLookupValue(formContext, lookupControlName);
+	Xrm.App.sidePanes
+		.createPane({
+			title: title,
+			paneId: title,
+			hideHeader: hideHeader,
+			canClose: true,
+			width: width,
+		})
+		.then((pane) => {
+			setTimeout(
+				pane.navigate({
+					pageType: "custom",
+					name: customPageName,
+					entityName: entityName,
+					recordId: recordId,
+				}),
+				2000
+			);
+		});
+};
+
+function getLookupValue(formContext, controlName) {
+	var lookupField = formContext.getAttribute(controlName);
+
+	if (lookupField) {
+		var lookupValue = lookupField.getValue(); // Get the lookup value
+		if (lookupValue && lookupValue.length > 0) {
+			var recordId = lookupValue[0].id;
+			recordId = recordId.replace(/[\{\}]/g, '');
+			return recordId;
+		} else {
+			//console.log("No record is selected in the lookup.");
+			return null; // No record selected
+		}
+	} else {
+		//console.log("Lookup field not found on the form.");
+		return null; // Field not found on the form
+	}
+}
+
+function scrubHTMLFromRichTextControl(formContext, controlName) {
+    // Get the control value
+    var controlValue = formContext.getAttribute(controlName).getValue();
+
+    // Function to remove HTML tags
+    function stripHTML(html) {
+        var div = document.createElement("div");
+        div.innerHTML = html;
+        return div.textContent || div.innerText || "";
+    }
+
+    // Scrub the HTML from the control value
+    var scrubbedValue = stripHTML(controlValue);
+
+    // Set the scrubbed value back to the control
+    formContext.getAttribute(controlName).setValue(scrubbedValue);
+    formContext.getAttribute(controlName).setSubmitMode("always");
+}
+
+function scrubHTMLFromRichText(executionContext) {
+    // Get the form context
+    var formContext = executionContext.getFormContext();
+
+    // Get the control that triggered the event
+    var control = executionContext.getEventSource();
+    var controlName = control.getName();
+
+    // Call the helper function
+    scrubHTMLFromRichTextControl(formContext, controlName);
+}

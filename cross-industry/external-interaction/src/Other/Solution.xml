@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.25112.171" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.25112.171" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.25123.00166">
+<ImportExportXml version="9.2.25123.166" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.25123.166" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.25123.00166">
   <SolutionManifest>
     <UniqueName>appbase_externalinteraction</UniqueName>
     <LocalizedNames>
       <LocalizedName description="Base Industry Module - External Interaction" languagecode="1033" />
     </LocalizedNames>
     <Descriptions />
-    <Version>1.0</Version>
+    <Version>1.0.0.1</Version>
     <Managed>2</Managed>
     <Publisher>
       <UniqueName>appbase</UniqueName>
@@ -80,9 +80,16 @@
       </Addresses>
     </Publisher>
     <RootComponents>
+      <RootComponent type="1" schemaName="appbase_country" behavior="1" />
       <RootComponent type="1" schemaName="appbase_externalinteraction" behavior="0" />
       <RootComponent type="1" schemaName="appbase_externalinteractionsource" behavior="0" />
       <RootComponent type="1" schemaName="appbase_externalinteractiontopic" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_stateorprovince" behavior="1" />
+      <RootComponent type="1" schemaName="contact" behavior="1" />
+      <RootComponent type="1" schemaName="queue" behavior="2" />
+      <RootComponent type="1" schemaName="queueitem" behavior="2" />
+      <RootComponent type="300" schemaName="appbase_interactionassistant_aae2b" behavior="0" />
+      <RootComponent type="401" id="{14af0f5a-68d0-4db5-9de8-b6e273cbced5}" behavior="0" />
       <RootComponent type="61" schemaName="appbase_externalinteractionicon" behavior="0" />
       <RootComponent type="61" schemaName="appbase_externalinteractionsourceicon" behavior="0" />
       <RootComponent type="61" schemaName="appbase_externalinteractiontopicicon" behavior="0" />
@@ -91,6 +98,32 @@
       <RootComponent type="9" schemaName="appbase_externalinteractiontype" behavior="0" />
     </RootComponents>
     <MissingDependencies>
+      <MissingDependency>
+        <Required type="1" schemaName="appbase_country" displayName="Country" solution="appbase_core (1.0)" />
+        <Dependent type="1" schemaName="appbase_country" displayName="Country" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="appbase_stateorprovince" displayName="State or Province" solution="appbase_core (1.0)" />
+        <Dependent type="1" schemaName="appbase_stateorprovince" displayName="State or Province" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="msdyn_aimodel" displayName="AI Model" solution="msdyn_AISolution (202509.3.9.1)">
+          <package appName="PowerAI" version="202509.3.9.1">msdyn_AISolutionAnchor (202509.3.9.1)</package>
+        </Required>
+        <Dependent type="300" schemaName="appbase_interactionassistant_aae2b" displayName="Interaction Assistant" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_country" parentDisplayName="Country" solution="appbase_core (1.0)" />
+        <Dependent type="10" schemaName="appbase_externalinteraction_Country_appbase_country" displayName="appbase_externalinteraction_Country_appbase_country" parentSchemaName="appbase_country" parentDisplayName="Country" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_stateorprovince" parentDisplayName="State or Province" solution="appbase_core (1.0)" />
+        <Dependent type="10" schemaName="appbase_externalinteraction_StateorProvince_appbase_stateorprovince" displayName="appbase_externalinteraction_StateorProvince_appbase_stateorprovince" parentSchemaName="appbase_stateorprovince" parentDisplayName="State or Province" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="61" schemaName="appbase_coresidepaneutility" displayName="appbase_coresidepaneutility" solution="appbase_core (1.0)" />
+        <Dependent type="60" displayName="Information" parentDisplayName="External Interaction" id="{fbcc6bbf-d5d4-4d34-ae93-cdc15d3beabf}" />
+      </MissingDependency>
       <MissingDependency>
         <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)">
           <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
@@ -104,6 +137,10 @@
       <MissingDependency>
         <Required type="9" schemaName="appbase_methodofreceipt" displayName="Method of Receipt" solution="appbase_core (1.0)" />
         <Dependent type="2" schemaName="appbase_methodofreceipt" displayName="Method of Receipt" parentSchemaName="appbase_externalinteraction" parentDisplayName="External Interaction" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_priority" displayName="Priority" solution="appbase_core (1.0)" />
+        <Dependent type="2" schemaName="appbase_priority" displayName="Priority" parentSchemaName="appbase_externalinteraction" parentDisplayName="External Interaction" />
       </MissingDependency>
       <MissingDependency>
         <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.15)" id.uniquename="AppChannel">
