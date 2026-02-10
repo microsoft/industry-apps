@@ -15,6 +15,14 @@
   let operationStatus = '';
   let outputLines = [];
   
+  // Queue state
+  let operationQueue = [];
+  let queueExecuting = false;
+  let currentQueueIndex = -1;
+  let showErrorDialog = false;
+  let errorDialogData = null;
+  let nextQueueId = 1;
+  
   let showCreateModuleDialog = false;
   let newModuleName = '';
   let newModuleCategory = '';
@@ -97,14 +105,23 @@
   
   // Drag and drop handlers
   function handleDragStart(event, module) {
+    console.log('handleDragStart', module.name);
     draggedModule = module;
     event.dataTransfer.effectAllowed = 'move';
     event.dataTransfer.setData('text/html', event.target.innerHTML);
   }
   
   function handleDragEnd() {
-    draggedModule = null;
-    dragOverZone = null;
+    console.log('handleDragEnd called');
+    // Delay clearing to allow drop event to fire first
+    // Drop zones are conditionally rendered, so clearing immediately unmounts them
+    setTimeout(() => {
+      if (draggedModule) {
+        console.log('Cleaning up drag state after timeout');
+        draggedModule = null;
+        dragOverZone = null;
+      }
+    }, 100);
   }
   
   function handleDragOver(event, zone) {
@@ -119,21 +136,200 @@
   
   async function handleDrop(event, action, tenant, deploymentName, environment, environmentKey, isSourceEnv) {
     event.preventDefault();
-    dragOverZone = null;
     
-    if (!draggedModule) return;
+    console.log('handleDrop called', { action, draggedModule: !!draggedModule });
+    
+    if (!draggedModule) {
+      console.log('No draggedModule, returning');
+      return;
+    }
     
     const module = draggedModule;
-    draggedModule = null;
     
-    // Determine the action and execute
-    if (action === 'sync') {
-      await syncModule(module);
-    } else if (action === 'deploy') {
-      await deployModule(module, deploymentName, environmentKey, isSourceEnv);
-    } else if (action === 'ship') {
-      await shipModule(module, tenant, environment);
+    // Clear drag state immediately
+    draggedModule = null;
+    dragOverZone = null;
+    
+    console.log('Adding to queue:', action, module.name);
+    
+    // Add to queue
+    addToQueue(action, module, tenant, deploymentName, environment, environmentKey, isSourceEnv);
+    
+    console.log('Queue after add:', operationQueue.length);
+  }
+  
+  // Queue management functions
+  function addToQueue(action, module, tenant, deploymentName, environment, environmentKey, isSourceEnv) {
+    console.log('addToQueue called', { action, moduleName: module.name, queueLength: operationQueue.length });
+    
+    const queueItem = {
+      id: nextQueueId++,
+      type: action,
+      module: module,
+      tenant: tenant,
+      deployment: deploymentName,
+      environment: environment,
+      environmentKey: environmentKey,
+      isSourceEnv: isSourceEnv,
+      status: 'queued', // queued, running, success, failed
+      output: [],
+      error: null
+    };
+    
+    operationQueue = [...operationQueue, queueItem];
+    console.log('Queue updated, new length:', operationQueue.length);
+  }
+  
+  function removeFromQueue(id) {
+    operationQueue = operationQueue.filter(item => item.id !== id);
+  }
+  
+  function clearQueue() {
+    if (queueExecuting) return;
+    operationQueue = [];
+  }
+  
+  function resetQueue() {
+    if (queueExecuting) return;
+    operationQueue = operationQueue.map(item => ({
+      ...item,
+      status: 'queued',
+      error: null,
+      output: []
+    }));
+  }
+  
+  async function executeQueue() {
+    if (queueExecuting || operationQueue.length === 0) return;
+    
+    queueExecuting = true;
+    
+    for (let i = 0; i < operationQueue.length; i++) {
+      currentQueueIndex = i;
+      const item = operationQueue[i];
+      
+      // Skip already completed operations
+      if (item.status === 'success') {
+        continue;
+      }
+      
+      // Update status to running
+      operationQueue[i] = { ...item, status: 'running' };
+      operationQueue = operationQueue;
+      
+      // Execute the operation
+      try {
+        if (item.type === 'sync') {
+          await syncModule(item.module);
+        } else if (item.type === 'deploy') {
+          await deployModule(item.module, item.deployment, item.environmentKey, item.isSourceEnv);
+        } else if (item.type === 'ship') {
+          await shipModule(item.module, item.tenant, item.environment);
+        }
+        
+        // Mark as success
+        operationQueue[i] = { ...item, status: 'success', output: [...outputLines] };
+        operationQueue = operationQueue;
+      } catch (error) {
+        // Mark as failed
+        operationQueue[i] = { ...item, status: 'failed', error: error.message, output: [...outputLines] };
+        operationQueue = operationQueue;
+        
+        // Show error dialog and wait for user decision
+        errorDialogData = { item, index: i };
+        showErrorDialog = true;
+        
+        // Wait for user to close the error dialog
+        await new Promise((resolve) => {
+          const checkDialog = setInterval(() => {
+            if (!showErrorDialog) {
+              clearInterval(checkDialog);
+              resolve();
+            }
+          }, 100);
+        });
+        
+        // If user chose to stop, break out of the loop
+        if (errorDialogData?.action === 'stop') {
+          break;
+        } else if (errorDialogData?.action === 'retry') {
+          // Retry the current operation
+          i--;
+        }
+        // If 'continue', just move to next iteration
+      }
     }
+    
+    queueExecuting = false;
+    currentQueueIndex = -1;
+  }
+  
+  function handleErrorDialogAction(action) {
+    errorDialogData = { ...errorDialogData, action };
+    showErrorDialog = false;
+  }
+  
+  // Queue reordering handlers
+  function handleQueueDragStart(event, item, index) {
+    if (queueExecuting || draggedModule) {
+      event.preventDefault();
+      return;
+    }
+    console.log('Queue drag start:', item.module.name);
+    draggedQueueItem = { item, index };
+    event.dataTransfer.effectAllowed = 'move';
+    event.stopPropagation();
+  }
+  
+  function handleQueueDragEnd() {
+    console.log('Queue drag end');
+    draggedQueueItem = null;
+    dragOverQueueIndex = null;
+  }
+  
+  function handleQueueDragOver(event, targetIndex) {
+    // Completely ignore if dragging a module
+    if (draggedModule) return;
+    if (!draggedQueueItem || queueExecuting) return;
+    event.preventDefault();
+    event.stopPropagation();
+    event.dataTransfer.dropEffect = 'move';
+    dragOverQueueIndex = targetIndex;
+  }
+  
+  function handleQueueDragLeave(event) {
+    // Completely ignore if dragging a module
+    if (draggedModule) return;
+    if (!draggedQueueItem) return;
+    dragOverQueueIndex = null;
+  }
+  
+  function handleQueueDrop(event, targetIndex) {
+    // Completely ignore if dragging a module
+    if (draggedModule) {
+      console.log('Queue drop ignored - dragging module');
+      return;
+    }
+    if (!draggedQueueItem || queueExecuting) return;
+    console.log('Queue drop:', draggedQueueItem.index, '->', targetIndex);
+    event.preventDefault();
+    event.stopPropagation();
+    
+    const sourceIndex = draggedQueueItem.index;
+    if (sourceIndex === targetIndex) {
+      draggedQueueItem = null;
+      dragOverQueueIndex = null;
+      return;
+    }
+    
+    // Reorder the queue
+    const newQueue = [...operationQueue];
+    const [movedItem] = newQueue.splice(sourceIndex, 1);
+    newQueue.splice(targetIndex, 0, movedItem);
+    operationQueue = newQueue;
+    
+    draggedQueueItem = null;
+    dragOverQueueIndex = null;
   }
   
   async function syncModule(module) {
@@ -556,12 +752,130 @@
       </div>
       </div>
     </div>
+    
+    <!-- Queue Column -->
+    <div class="column queue-column">
+      <h2>📋 Operation Queue</h2>
+      
+      <div class="queue-header">
+        <button 
+          class="btn btn-primary" 
+          disabled={operationQueue.length === 0 || queueExecuting}
+          on:click={executeQueue}>
+          {queueExecuting ? '⏳ Executing...' : '▶️ Execute All'}
+        </button>
+        <button 
+          class="btn btn-secondary" 
+          disabled={operationQueue.length === 0 || queueExecuting}
+          on:click={resetQueue}>
+          🔄 Reset
+        </button>
+        <button 
+          class="btn btn-text" 
+          disabled={operationQueue.length === 0 || queueExecuting}
+          on:click={clearQueue}>
+          🗑️ Clear
+        </button>
+      </div>
+      
+      <div class="queue-list">
+        {#if operationQueue.length === 0}
+          <div class="empty-state">
+            <p>No operations queued</p>
+            <p class="hint">Drag modules to environments to add operations to the queue</p>
+          </div>
+        {:else}
+          {#each operationQueue as item, index}
+            <div class="queue-item {item.status}">
+              <div class="queue-item-header">
+                <div class="queue-item-status">
+                  {#if item.status === 'queued'}⏸️
+                  {:else if item.status === 'running'}⏳
+                  {:else if item.status === 'success'}✅
+                  {:else if item.status === 'failed'}❌
+                  {/if}
+                </div>
+                <div class="queue-item-title">
+                  {#if item.type === 'sync'}
+                    ⬇️ Sync
+                  {:else if item.type === 'deploy'}
+                    📤 Deploy
+                  {:else if item.type === 'ship'}
+                    🚢 Ship
+                  {/if}
+                  <strong>{item.module.name}</strong>
+                </div>
+                {#if item.status === 'queued'}
+                  <button 
+                    class="btn btn-icon" 
+                    title="Remove from queue"
+                    disabled={queueExecuting}
+                    on:click={() => removeFromQueue(item.id)}>
+                    ✕
+                  </button>
+                {/if}
+              </div>
+              
+              <div class="queue-item-details">
+                {#if item.type === 'sync'}
+                  <div class="detail">From: {item.module.sourceEnvironment}</div>
+                {:else if item.type === 'deploy'}
+                  <div class="detail">To: {item.environment}</div>
+                  <div class="detail">Tenant: {item.tenant || item.module.tenant}</div>
+                {:else if item.type === 'ship'}
+                  <div class="detail">To: {item.environment}</div>
+                  <div class="detail">Tenant: {item.tenant}</div>
+                {/if}
+              </div>
+              
+              {#if item.error}
+                <div class="queue-item-error">
+                  ❌ {item.error}
+                </div>
+              {/if}
+            </div>
+          {/each}
+        {/if}
+      </div>
+    </div>
   </div>
   
   <!-- Drag Preview -->
   {#if draggedModule && dragOverZone}
     <div class="drag-preview">
       {getActionPreview(draggedModule, dragOverZone)}
+    </div>
+  {/if}
+  
+  <!-- Error Dialog -->
+  {#if showErrorDialog && errorDialogData}
+    <div class="dialog-overlay">
+      <div class="dialog error-dialog" on:click={(e) => e.stopPropagation()}>
+        <h2>❌ Operation Failed</h2>
+        
+        <div class="error-content">
+          <p><strong>Module:</strong> {errorDialogData.item.module.name}</p>
+          <p><strong>Operation:</strong> {errorDialogData.item.type}</p>
+          {#if errorDialogData.item.environment}
+            <p><strong>Target:</strong> {errorDialogData.item.environment}</p>
+          {/if}
+          {#if errorDialogData.item.error}
+            <p class="error-message">{errorDialogData.item.error}</p>
+          {/if}
+        </div>
+        
+        <div class="dialog-actions">
+          <button class="btn btn-primary" on:click={() => handleErrorDialogAction('continue')}>
+            Continue with Next
+          </button>
+          <button class="btn btn-secondary" on:click={() => handleErrorDialogAction('retry')}>
+            Retry This Operation
+          </button>
+          <button class="btn btn-text" on:click={() => handleErrorDialogAction('stop')}>
+            Stop Queue
+          </button>
+        </div>
+      </div>
     </div>
   {/if}
   
@@ -808,7 +1122,7 @@
   
   .workspace {
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 25% 50% 25%;
     gap: 20px;
     min-height: 0;
   }
@@ -837,6 +1151,143 @@
     border: none;
     box-shadow: none;
     padding: 0;
+  }
+  
+  .queue-column {
+    max-height: calc(100vh - 220px);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+  }
+  
+  .queue-header {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .queue-header .btn {
+    flex: 1;
+  }
+  
+  .queue-list {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .queue-item {
+    background: #252526;
+    border: 1px solid #3c3c3c;
+    border-radius: 8px;
+    padding: 12px;
+    transition: all 0.2s;
+  }
+  
+  .queue-item.disabled {
+    pointer-events: none;
+    opacity: 0.6;
+  }
+  
+  .queue-item[draggable="true"] {
+    cursor: grab;
+  }
+  
+  .queue-item[draggable="true"]:active {
+    cursor: grabbing;
+  }
+  
+  .queue-item.drag-over {
+    border-color: #0078d4;
+    border-width: 2px;
+    margin-top: 4px;
+    transform: translateY(2px);
+  }
+  
+  .queue-item.running {
+    border-color: #0078d4;
+    background: #1a2332;
+  }
+  
+  .queue-item.success {
+    border-color: #4caf50;
+    background: #1a2a1b;
+  }
+  
+  .queue-item.failed {
+    border-color: #f44336;
+    background: #2a1a1b;
+  }
+  
+  .queue-item-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .queue-item-status {
+    font-size: 18px;
+    line-height: 1;
+  }
+  
+  .queue-item-title {
+    flex: 1;
+    font-size: 13px;
+    color: #cccccc;
+  }
+  
+  .queue-item-title strong {
+    color: #ffffff;
+  }
+  
+  .queue-item-details {
+    margin-left: 26px;
+    font-size: 12px;
+    color: #858585;
+  }
+  
+  .queue-item-details .detail {
+    margin-bottom: 2px;
+  }
+  
+  .queue-item-error {
+    margin-top: 8px;
+    margin-left: 26px;
+    padding: 6px 8px;
+    background: #2a1a1b;
+    border: 1px solid #f44336;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #f48771;
+  }
+  
+  .error-dialog {
+    max-width: 500px;
+  }
+  
+  .error-content {
+    margin: 16px 0;
+    padding: 12px;
+    background: #2a1a1b;
+    border: 1px solid #f44336;
+    border-radius: 6px;
+  }
+  
+  .error-content p {
+    margin: 8px 0;
+    font-size: 13px;
+  }
+  
+  .error-message {
+    color: #f48771;
+    font-family: 'Consolas', monospace;
+    margin-top: 12px !important;
+    padding-top: 12px;
+    border-top: 1px solid #3c3c3c;
   }
   
   .section-container {
