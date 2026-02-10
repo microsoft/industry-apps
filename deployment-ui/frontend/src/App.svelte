@@ -455,6 +455,10 @@
     
     <!-- Right Column: Local Sync & Target Environments -->
     <div class="column targets-column">
+      <div class="info-box">
+        Drag a module to Local (Sync From) to sync, or to an environment to deploy.
+      </div>
+      
       <!-- Local Sync Section -->
       <div class="section-container">
         <h2>⬇️ Local (Sync From)</h2>
@@ -494,10 +498,6 @@
           {/each}
         </div>
         
-        <div class="info-box">
-          Drag a module to Local (Sync From) to sync, or to an environment to deploy.
-        </div>
-      
       <div class="tenant-list">
         {#if tenants[selectedTenantIndex]}
           {@const tenant = tenants[selectedTenantIndex]}
@@ -815,7 +815,7 @@
     max-height: calc(100vh - 220px);
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 12px;
     background: transparent;
     border: none;
     box-shadow: none;
@@ -898,7 +898,7 @@
     border: 1px solid #2b5a8e;
     border-radius: 4px;
     padding: 12px;
-    margin-bottom: 16px;
+    margin-bottom: 0;
     font-size: 13px;
     color: #9cdcfe;
   }
@@ -1421,6 +1421,8 @@
     background-color: #3c3c3c;
   }
 </style>
+
+
 
 
 
