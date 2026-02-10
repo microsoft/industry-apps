@@ -105,19 +105,16 @@
   
   // Drag and drop handlers
   function handleDragStart(event, module) {
-    console.log('handleDragStart', module.name);
     draggedModule = module;
     event.dataTransfer.effectAllowed = 'move';
     event.dataTransfer.setData('text/html', event.target.innerHTML);
   }
   
   function handleDragEnd() {
-    console.log('handleDragEnd called');
     // Delay clearing to allow drop event to fire first
     // Drop zones are conditionally rendered, so clearing immediately unmounts them
     setTimeout(() => {
       if (draggedModule) {
-        console.log('Cleaning up drag state after timeout');
         draggedModule = null;
         dragOverZone = null;
       }
@@ -137,12 +134,7 @@
   async function handleDrop(event, action, tenant, deploymentName, environment, environmentKey, isSourceEnv) {
     event.preventDefault();
     
-    console.log('handleDrop called', { action, draggedModule: !!draggedModule });
-    
-    if (!draggedModule) {
-      console.log('No draggedModule, returning');
-      return;
-    }
+    if (!draggedModule) return;
     
     const module = draggedModule;
     
@@ -150,18 +142,12 @@
     draggedModule = null;
     dragOverZone = null;
     
-    console.log('Adding to queue:', action, module.name);
-    
     // Add to queue
     addToQueue(action, module, tenant, deploymentName, environment, environmentKey, isSourceEnv);
-    
-    console.log('Queue after add:', operationQueue.length);
   }
   
   // Queue management functions
   function addToQueue(action, module, tenant, deploymentName, environment, environmentKey, isSourceEnv) {
-    console.log('addToQueue called', { action, moduleName: module.name, queueLength: operationQueue.length });
-    
     const queueItem = {
       id: nextQueueId++,
       type: action,
@@ -177,11 +163,24 @@
     };
     
     operationQueue = [...operationQueue, queueItem];
-    console.log('Queue updated, new length:', operationQueue.length);
   }
   
   function removeFromQueue(id) {
     operationQueue = operationQueue.filter(item => item.id !== id);
+  }
+  
+  function moveQueueItemUp(index) {
+    if (index === 0 || queueExecuting) return;
+    const newQueue = [...operationQueue];
+    [newQueue[index - 1], newQueue[index]] = [newQueue[index], newQueue[index - 1]];
+    operationQueue = newQueue;
+  }
+  
+  function moveQueueItemDown(index) {
+    if (index === operationQueue.length - 1 || queueExecuting) return;
+    const newQueue = [...operationQueue];
+    [newQueue[index], newQueue[index + 1]] = [newQueue[index + 1], newQueue[index]];
+    operationQueue = newQueue;
   }
   
   function clearQueue() {
@@ -267,69 +266,6 @@
   function handleErrorDialogAction(action) {
     errorDialogData = { ...errorDialogData, action };
     showErrorDialog = false;
-  }
-  
-  // Queue reordering handlers
-  function handleQueueDragStart(event, item, index) {
-    if (queueExecuting || draggedModule) {
-      event.preventDefault();
-      return;
-    }
-    console.log('Queue drag start:', item.module.name);
-    draggedQueueItem = { item, index };
-    event.dataTransfer.effectAllowed = 'move';
-    event.stopPropagation();
-  }
-  
-  function handleQueueDragEnd() {
-    console.log('Queue drag end');
-    draggedQueueItem = null;
-    dragOverQueueIndex = null;
-  }
-  
-  function handleQueueDragOver(event, targetIndex) {
-    // Completely ignore if dragging a module
-    if (draggedModule) return;
-    if (!draggedQueueItem || queueExecuting) return;
-    event.preventDefault();
-    event.stopPropagation();
-    event.dataTransfer.dropEffect = 'move';
-    dragOverQueueIndex = targetIndex;
-  }
-  
-  function handleQueueDragLeave(event) {
-    // Completely ignore if dragging a module
-    if (draggedModule) return;
-    if (!draggedQueueItem) return;
-    dragOverQueueIndex = null;
-  }
-  
-  function handleQueueDrop(event, targetIndex) {
-    // Completely ignore if dragging a module
-    if (draggedModule) {
-      console.log('Queue drop ignored - dragging module');
-      return;
-    }
-    if (!draggedQueueItem || queueExecuting) return;
-    console.log('Queue drop:', draggedQueueItem.index, '->', targetIndex);
-    event.preventDefault();
-    event.stopPropagation();
-    
-    const sourceIndex = draggedQueueItem.index;
-    if (sourceIndex === targetIndex) {
-      draggedQueueItem = null;
-      dragOverQueueIndex = null;
-      return;
-    }
-    
-    // Reorder the queue
-    const newQueue = [...operationQueue];
-    const [movedItem] = newQueue.splice(sourceIndex, 1);
-    newQueue.splice(targetIndex, 0, movedItem);
-    operationQueue = newQueue;
-    
-    draggedQueueItem = null;
-    dragOverQueueIndex = null;
   }
   
   async function syncModule(module) {
@@ -805,15 +741,6 @@
                   {/if}
                   <strong>{item.module.name}</strong>
                 </div>
-                {#if item.status === 'queued'}
-                  <button 
-                    class="btn btn-icon" 
-                    title="Remove from queue"
-                    disabled={queueExecuting}
-                    on:click={() => removeFromQueue(item.id)}>
-                    ✕
-                  </button>
-                {/if}
               </div>
               
               <div class="queue-item-details">
@@ -825,6 +752,33 @@
                 {:else if item.type === 'ship'}
                   <div class="detail">To: {item.environment}</div>
                   <div class="detail">Tenant: {item.tenant}</div>
+                {/if}
+              </div>
+              
+              <div class="queue-item-actions">
+                <button 
+                  class="btn btn-icon-sm" 
+                  title="Move up"
+                  disabled={queueExecuting || index === 0}
+                  on:click={() => moveQueueItemUp(index)}>
+                  ▲
+                </button>
+                <button 
+                  class="btn btn-icon-sm" 
+                  title="Move down"
+                  disabled={queueExecuting || index === operationQueue.length - 1}
+                  on:click={() => moveQueueItemDown(index)}>
+                  ▼
+                </button>
+                {#if item.status === 'queued'}
+                  <div class="action-divider"></div>
+                  <button 
+                    class="btn btn-icon-sm remove" 
+                    title="Remove from queue"
+                    disabled={queueExecuting}
+                    on:click={() => removeFromQueue(item.id)}>
+                    ✕
+                  </button>
                 {/if}
               </div>
               
@@ -1224,30 +1178,78 @@
   
   .queue-item-header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 8px;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
   
   .queue-item-status {
     font-size: 18px;
     line-height: 1;
+    flex-shrink: 0;
   }
   
   .queue-item-title {
     flex: 1;
     font-size: 13px;
     color: #cccccc;
+    line-height: 1.4;
   }
   
   .queue-item-title strong {
     color: #ffffff;
   }
   
+  .queue-item-actions {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    padding-top: 6px;
+    border-top: 1px solid #3c3c3c;
+    margin-top: 8px;
+  }
+  
+  .action-divider {
+    width: 1px;
+    height: 16px;
+    background: #3c3c3c;
+    margin: 0 4px;
+  }
+  
+  .btn-icon-sm {
+    background: transparent;
+    border: 1px solid #3c3c3c;
+    color: #cccccc;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 11px;
+    line-height: 1;
+    transition: all 0.2s;
+    min-width: 28px;
+  }
+  
+  .btn-icon-sm:hover:not(:disabled) {
+    background: #0078d4;
+    border-color: #0078d4;
+    color: white;
+  }
+  
+  .btn-icon-sm.remove:hover:not(:disabled) {
+    background: #d32f2f;
+    border-color: #d32f2f;
+  }
+  
+  .btn-icon-sm:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+  
   .queue-item-details {
     margin-left: 26px;
     font-size: 12px;
     color: #858585;
+    margin-bottom: 2px;
   }
   
   .queue-item-details .detail {
