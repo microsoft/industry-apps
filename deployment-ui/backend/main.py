@@ -25,6 +25,7 @@ class DeployRequest(BaseModel):
     deployment: str
     category: str
     module: str
+    managed: bool = True
 
 class SyncRequest(BaseModel):
     deployment: str
@@ -40,6 +41,9 @@ class ShipRequest(BaseModel):
 class CreateModuleRequest(BaseModel):
     category: str
     moduleName: str
+    deployment: str
+    sourceEnvironment: str
+    targetEnvironments: list[str] = []
     deploy: bool = False
 
 class ReleaseRequest(BaseModel):
@@ -91,12 +95,14 @@ async def get_modules():
     modules = []
     exclude_folders = {"__pycache__", ".scripts", ".config", ".git", ".vscode", "bin", "obj", "deployment-ui", "releases"}
     
-    # Scan for all modules
-    for category_dir in PROJECT_ROOT.iterdir():
-        if category_dir.is_dir() and category_dir.name not in exclude_folders:
-            for module_dir in category_dir.iterdir():
-                if module_dir.is_dir() and list(module_dir.glob("*.cdsproj")):
-                    module_name = module_dir.name
+    # Recursively scan for all modules (handles nested folder structures)
+    def scan_for_modules(base_path, relative_path=""):
+        for item in base_path.iterdir():
+            if item.is_dir() and item.name not in exclude_folders:
+                # Check if this directory contains a .cdsproj file (it's a module)
+                if list(item.glob("*.cdsproj")):
+                    module_name = item.name
+                    category = relative_path if relative_path else item.parent.name
                     
                     # Get module-specific config or use default
                     mod_config = module_configs.get(module_name, default_config)
@@ -116,7 +122,7 @@ async def get_modules():
                         
                         modules.append({
                             "name": module_name,
-                            "category": category_dir.name,
+                            "category": category,
                             "tenant": tenant,
                             "deployment": deployment_name,
                             "sourceEnvironment": source_env,
@@ -124,6 +130,15 @@ async def get_modules():
                             "targetEnvironments": target_envs,
                             "targetEnvironmentKeys": target_env_keys
                         })
+                else:
+                    # Recursively scan subdirectories
+                    new_relative = f"{relative_path}/{item.name}" if relative_path else item.name
+                    scan_for_modules(item, new_relative)
+    
+    # Scan for all modules starting from project root
+    for category_dir in PROJECT_ROOT.iterdir():
+        if category_dir.is_dir() and category_dir.name not in exclude_folders:
+            scan_for_modules(category_dir, category_dir.name)
     
     return {"modules": modules}
 
@@ -162,18 +177,32 @@ async def get_environments():
 async def stream_powershell_output(script_path: str, *args):
     """Stream PowerShell script output in real-time"""
     try:
+        # Try pwsh first, fall back to powershell
+        powershell_cmd = "pwsh"
+        try:
+            # Check if pwsh exists
+            test_process = await asyncio.create_subprocess_exec(
+                "pwsh", "-NoProfile", "-Command", "exit",
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE
+            )
+            await test_process.wait()
+        except FileNotFoundError:
+            # Fall back to Windows PowerShell
+            powershell_cmd = "powershell"
+        
         # Build PowerShell command
-        cmd = ["pwsh", "-NoProfile", "-File", str(script_path)] + list(args)
+        cmd = [powershell_cmd, "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(script_path)] + list(args)
         
         # Start process
         process = await asyncio.create_subprocess_exec(
             *cmd,
             stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.STDOUT,  # Merge stderr into stdout
             cwd=str(PROJECT_ROOT)
         )
         
-        # Stream stdout
+        # Stream stdout (includes stderr now)
         while True:
             line = await process.stdout.readline()
             if not line:
@@ -194,13 +223,18 @@ async def deploy_module(request: DeployRequest):
     """Deploy a module to the selected environment"""
     script_path = PROJECT_ROOT / "deployment-ui" / "scripts" / "Deploy-Module-UI.ps1"
     
+    args = [
+        str(script_path),
+        "-Deployment", request.deployment,
+        "-Category", request.category,
+        "-Module", request.module
+    ]
+    
+    if request.managed:
+        args.append("-Managed")
+    
     return StreamingResponse(
-        stream_powershell_output(
-            str(script_path),
-            "-Deployment", request.deployment,
-            "-Category", request.category,
-            "-Module", request.module
-        ),
+        stream_powershell_output(*args),
         media_type="text/event-stream"
     )
 
@@ -240,6 +274,32 @@ async def create_module(request: CreateModuleRequest):
     """Create a new module"""
     script_path = PROJECT_ROOT / "deployment-ui" / "scripts" / "New-Module-UI.ps1"
     
+    # First, save the module configuration to deployments.json
+    config_path = PROJECT_ROOT / ".config" / "deployments.json"
+    
+    with open(config_path, "r") as f:
+        config = json.load(f)
+    
+    # Determine the module folder name (lowercase with hyphens)
+    module_folder = request.moduleName.lower()
+    module_folder = ''.join(c if c.isalnum() else '-' for c in module_folder)
+    module_folder = '-'.join(filter(None, module_folder.split('-')))
+    
+    # Add or update module configuration
+    if "Modules" not in config:
+        config["Modules"] = {}
+    
+    config["Modules"][module_folder] = {
+        "Tenant": request.deployment,
+        "Environment": request.sourceEnvironment,
+        "DeploymentTargets": request.targetEnvironments
+    }
+    
+    # Save updated config
+    with open(config_path, "w") as f:
+        json.dump(config, f, indent=4)
+    
+    # Run the creation script
     args = [
         str(script_path),
         "-Category", request.category,

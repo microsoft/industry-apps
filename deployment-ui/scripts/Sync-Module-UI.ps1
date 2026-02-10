@@ -16,7 +16,7 @@ param(
 $ErrorActionPreference = "Stop"
 
 # Get project root (go up from deployment-ui/scripts to repo root)
-$projectRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $PSScriptRoot))
+$projectRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 
 # Source utility functions
 . "$projectRoot\.scripts\Util.ps1"
@@ -70,7 +70,8 @@ try {
     Connect-DataverseEnvironment -envName $targetEnv
     
     # Sync the module
-    $modulePath = "$projectRoot\$Category\$Module"
+    $modulePath = Join-Path $projectRoot $Category
+    $modulePath = Join-Path $modulePath $Module
     
     if (-not (Test-Path $modulePath)) {
         throw "Module path not found: $modulePath"

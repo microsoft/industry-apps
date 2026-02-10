@@ -18,11 +18,34 @@
   let newModuleName = '';
   let newModuleCategory = '';
   let newModuleDeploy = false;
+  let newModuleDeployment = '';
+  let newModuleSourceEnv = '';
+  let newModuleTargetEnvs = [];
+  
+  let config = null;
+  let deployments = [];
+  let availableEnvironments = [];
   
   onMount(async () => {
+    await loadConfig();
     await loadModules();
     await loadEnvironments();
   });
+  
+  async function loadConfig() {
+    try {
+      const response = await fetch('/api/config');
+      if (!response.ok) {
+        console.error('Failed to load config:', response.status, response.statusText);
+        return;
+      }
+      config = await response.json();
+      console.log('Loaded config:', config);
+      deployments = Object.keys(config.deployments || {});
+    } catch (error) {
+      console.error('Error loading config:', error);
+    }
+  }
   
   async function loadModules() {
     try {
@@ -93,7 +116,7 @@
     dragOverZone = null;
   }
   
-  async function handleDrop(event, action, tenant, environment) {
+  async function handleDrop(event, action, tenant, environment, isSourceEnv) {
     event.preventDefault();
     dragOverZone = null;
     
@@ -106,7 +129,7 @@
     if (action === 'sync') {
       await syncModule(module);
     } else if (action === 'deploy') {
-      await deployModule(module, environment);
+      await deployModule(module, environment, isSourceEnv);
     } else if (action === 'ship') {
       await shipModule(module, tenant, environment);
     }
@@ -135,8 +158,9 @@
     }
   }
   
-  async function deployModule(module, targetEnvKey) {
-    activeOperation = `deploy-${module.name}`;
+  async function deployModule(module, targetEnvKey, isSourceEnv) {
+    const deployType = isSourceEnv ? 'push (unmanaged)' : 'deploy (managed)';
+    activeOperation = `${deployType}-${module.name}`;
     operationStatus = 'running';
     outputLines = [];
     
@@ -147,7 +171,8 @@
         body: JSON.stringify({
           deployment: module.deployment,
           category: module.category,
-          module: module.name
+          module: module.name,
+          managed: !isSourceEnv
         })
       });
       
@@ -234,11 +259,32 @@
     operationStatus = '';
   }
   
+  // Update available environments when deployment changes
+  $: if (newModuleDeployment && config) {
+    const deployment = config.deployments[newModuleDeployment];
+    if (deployment && deployment.Environments) {
+      availableEnvironments = Object.keys(deployment.Environments);
+    } else {
+      availableEnvironments = [];
+    }
+  }
+  
   function openCreateModuleDialog() {
     showCreateModuleDialog = true;
     newModuleName = '';
     newModuleCategory = selectedCategory !== 'all' ? selectedCategory : '';
     newModuleDeploy = false;
+    
+    // Set defaults from DefaultModule
+    if (config && config.defaultModule) {
+      newModuleDeployment = config.defaultModule.Tenant || '';
+      newModuleSourceEnv = config.defaultModule.Environment || '';
+      newModuleTargetEnvs = config.defaultModule.DeploymentTargets || [];
+    } else {
+      newModuleDeployment = deployments[0] || '';
+      newModuleSourceEnv = '';
+      newModuleTargetEnvs = [];
+    }
   }
   
   function closeCreateModuleDialog() {
@@ -246,7 +292,7 @@
   }
   
   async function createModule() {
-    if (!newModuleName || !newModuleCategory) return;
+    if (!newModuleName || !newModuleCategory || !newModuleDeployment || !newModuleSourceEnv) return;
     
     activeOperation = 'create-module';
     operationStatus = 'running';
@@ -260,6 +306,9 @@
         body: JSON.stringify({
           category: newModuleCategory,
           moduleName: newModuleName,
+          deployment: newModuleDeployment,
+          sourceEnvironment: newModuleSourceEnv,
+          targetEnvironments: newModuleTargetEnvs,
           deploy: newModuleDeploy
         })
       });
@@ -298,11 +347,13 @@
     if (!module || !zone) return '';
     
     if (zone.action === 'sync') {
-      return `⬇️ Pull ${module.name} from ${module.sourceEnvironment}`;
+      return `⬇️ Sync: ${module.name} from ${module.sourceEnvironment}`;
     } else if (zone.action === 'deploy') {
-      return `⬆️ Deploy ${module.name} to ${zone.environment}`;
+      const isSource = zone.environment === module.sourceEnvironment;
+      const deployType = isSource ? 'Push (Unmanaged)' : 'Deploy (Managed)';
+      return `⬆️ ${deployType}: ${module.name} → ${zone.environment}`;
     } else if (zone.action === 'ship') {
-      return `🚀 Ship ${module.name} to ${zone.tenant}/${zone.environment}`;
+      return `🚀 Ship (Managed): ${module.name} → ${zone.tenant}/${zone.environment}`;
     }
     
     return '';
@@ -355,15 +406,27 @@
                 
                 <div class="module-header">
                   <div class="module-name">{module.name}</div>
-                  <button 
-                    class="icon-btn" 
-                    title="Create Release"
-                    on:click={() => createRelease(module)}>
-                    📦
-                  </button>
+                  <div class="module-actions">
+                    <button 
+                      class="icon-btn" 
+                      title="Sync from {module.sourceEnvironment}"
+                      on:click={() => syncModule(module)}>
+                      ⬇️
+                    </button>
+                    <button 
+                      class="icon-btn" 
+                      title="Create Release"
+                      on:click={() => createRelease(module)}>
+                      📦
+                    </button>
+                  </div>
                 </div>
                 
                 <div class="module-meta">
+                  <div class="meta-item">
+                    <span class="label">Category:</span>
+                    <span class="value">{module.category}</span>
+                  </div>
                   <div class="meta-item">
                     <span class="label">Tenant:</span>
                     <span class="value">{module.tenant}</span>
@@ -381,7 +444,7 @@
                 </div>
                 
                 <div class="module-hint">
-                  Drag to sync or deploy →
+                  Drag to deploy →
                 </div>
               </div>
             {/each}
@@ -397,42 +460,38 @@
       </div>
     </div>
     
-    <!-- Middle Column: Source Environments -->
-    <div class="column source-column">
-      <h2>📥 Source (Sync From)</h2>
-      
-      <div class="info-box">
-        Drag a module here to sync (pull) from its source environment
-      </div>
-      
-      {#if draggedModule}
-        <div 
-          class="drop-zone {dragOverZone?.action === 'sync' ? 'drag-over' : ''}"
-          on:dragover={(e) => handleDragOver(e, { action: 'sync' })}
-          on:dragleave={handleDragLeave}
-          on:drop={(e) => handleDrop(e, 'sync')}>
-          
-          <div class="zone-content">
-            <div class="zone-icon">⬇️</div>
-            <div class="zone-title">Sync: {draggedModule.name}</div>
-            <div class="zone-subtitle">From: {draggedModule.sourceEnvironment}</div>
-          </div>
-        </div>
-      {:else}
-        <div class="placeholder-zone">
-          <div class="placeholder-icon">⬇️</div>
-          <div class="placeholder-text">Drag a module to sync</div>
-        </div>
-      {/if}
-    </div>
-    
-    <!-- Right Column: Target Environments -->
+    <!-- Right Column: Local Sync & Target Environments -->
     <div class="column targets-column">
-      <h2>📤 Targets (Deploy To)</h2>
-      
-      <div class="info-box">
-        Drag a module here to deploy (push) to target environments
+      <!-- Local Sync Section -->
+      <div class="section-container">
+        <h2>⬇️ Local (Sync From)</h2>
+        
+        {#if draggedModule}
+          <div 
+            class="drop-zone local-sync-zone {dragOverZone?.action === 'sync' ? 'drag-over' : ''}"
+            on:dragover={(e) => handleDragOver(e, { action: 'sync' })}
+            on:dragleave={handleDragLeave}
+            on:drop={(e) => handleDrop(e, 'sync')}>
+            
+            <div class="zone-content">
+              <div class="zone-icon">⬇️</div>
+            </div>
+          </div>
+        {:else}
+          <div class="placeholder-zone local-placeholder">
+            <div class="placeholder-icon">⬇️</div>
+            <div class="placeholder-text">Drag a module here to sync from source</div>
+          </div>
+        {/if}
       </div>
+      
+      <!-- Targets Section -->
+      <div class="section-container">
+        <h2>📤 Targets (Deploy To)</h2>
+        
+        <div class="info-box">
+          Drag a module to an environment to deploy. Use the ⬇️ button on module cards for quick sync.
+        </div>
       
       <div class="tenant-list">
         {#each tenants as tenant}
@@ -452,9 +511,9 @@
                   
                   <div 
                     class="drop-zone environment-zone {dragOverZone?.environment === env.name ? 'drag-over' : ''} {isSourceEnv ? 'source-env' : ''} {isTargetEnv ? 'target-env' : ''}"
-                    on:dragover={(e) => handleDragOver(e, { action, tenant: tenant.name, environment: env.name })}
+                    on:dragover={(e) => handleDragOver(e, { action, tenant: tenant.name, environment: env.name, isSourceEnv })}
                     on:dragleave={handleDragLeave}
-                    on:drop={(e) => handleDrop(e, action, tenant.name, env.name)}>
+                    on:drop={(e) => handleDrop(e, action, tenant.name, env.name, isSourceEnv)}>
                     
                     <div class="zone-content">
                       <div class="zone-icon">{isSameTenant ? '⬆️' : '🚀'}</div>
@@ -477,6 +536,7 @@
           </div>
         {/each}
       </div>
+      </div>
     </div>
   </div>
   
@@ -487,23 +547,33 @@
     </div>
   {/if}
   
-  <!-- Output Panel -->
+  <!-- Output Modal Dialog -->
   {#if outputLines.length > 0}
-    <div class="output-panel {operationStatus}">
-      <div class="output-header">
-        <h3>
-          {#if operationStatus === 'running'}⏳{:else if operationStatus === 'success'}✅{:else}❌{/if}
-          Operation Output
-        </h3>
-        <button class="btn btn-text" on:click={clearOutput}>✕ Close</button>
-      </div>
-      
-      <div class="output">
-        {#each outputLines as line}
-          <div>{line}</div>
-        {/each}
-        {#if operationStatus === 'running'}
-          <div class="processing">⏳ Processing...</div>
+    <div class="dialog-overlay" on:click={operationStatus !== 'running' ? clearOutput : null}>
+      <div class="dialog output-dialog {operationStatus}" on:click={(e) => e.stopPropagation()}>
+        <div class="output-header">
+          <h2>
+            {#if operationStatus === 'running'}⏳{:else if operationStatus === 'success'}✅{:else}❌{/if}
+            Operation Output
+          </h2>
+          {#if operationStatus !== 'running'}
+            <button class="btn btn-text" on:click={clearOutput}>✕ Close</button>
+          {/if}
+        </div>
+        
+        <div class="output">
+          {#each outputLines as line}
+            <div>{line}</div>
+          {/each}
+          {#if operationStatus === 'running'}
+            <div class="processing">⏳ Processing...</div>
+          {/if}
+        </div>
+        
+        {#if operationStatus !== 'running'}
+          <div class="dialog-actions">
+            <button class="btn btn-primary" on:click={clearOutput}>Close</button>
+          </div>
         {/if}
       </div>
     </div>
@@ -535,10 +605,60 @@
             style="margin-top: 8px;" />
         </div>
         
+        <div class="form-divider"></div>
+        
+        <div class="form-group">
+          <label>Development Deployment</label>
+          <select bind:value={newModuleDeployment}>
+            <option value="">-- Select Deployment --</option>
+            {#each deployments as deployment}
+              <option value={deployment}>{deployment}</option>
+            {/each}
+          </select>
+          <div class="help-text">Where this module will be developed</div>
+        </div>
+        
+        <div class="form-group">
+          <label>Source Environment</label>
+          <select bind:value={newModuleSourceEnv} disabled={!newModuleDeployment}>
+            <option value="">-- Select Environment --</option>
+            {#each availableEnvironments as env}
+              <option value={env}>{env}</option>
+            {/each}
+          </select>
+          <div class="help-text">Environment to sync from and push to during development</div>
+        </div>
+        
+        <div class="form-group">
+          <label>Target Environments (Optional)</label>
+          <div class="checkbox-list">
+            {#each availableEnvironments as env}
+              <label class="checkbox-label">
+                <input 
+                  type="checkbox" 
+                  value={env}
+                  checked={newModuleTargetEnvs.includes(env)}
+                  on:change={(e) => {
+                    if (e.target.checked) {
+                      newModuleTargetEnvs = [...newModuleTargetEnvs, env];
+                    } else {
+                      newModuleTargetEnvs = newModuleTargetEnvs.filter(t => t !== env);
+                    }
+                  }}
+                  disabled={!newModuleDeployment} />
+                {env}
+              </label>
+            {/each}
+          </div>
+          <div class="help-text">Downstream environments for managed deployments</div>
+        </div>
+        
+        <div class="form-divider"></div>
+        
         <div class="form-group">
           <label class="checkbox-label">
             <input type="checkbox" bind:checked={newModuleDeploy} />
-            Deploy to development environment after creation
+            Build and deploy to source environment immediately
           </label>
         </div>
         
@@ -547,7 +667,7 @@
           <button 
             class="btn btn-primary" 
             on:click={createModule}
-            disabled={!newModuleName || !newModuleCategory}>
+            disabled={!newModuleName || !newModuleCategory || !newModuleDeployment || !newModuleSourceEnv}>
             Create Module
           </button>
         </div>
@@ -557,16 +677,35 @@
 </main>
 
 <style>
+  :global(html) {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
   :global(body) {
     margin: 0;
+    padding: 0;
+    height: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f5f5;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    overflow-y: auto;
+  }
+  
+  :global(#app) {
+    min-height: 100%;
   }
   
   main {
-    padding: 20px;
+    padding: 20px 20px 0 20px;
     max-width: 1800px;
     margin: 0 auto;
+    display: block;
+  }
+  
+  main > *:last-child {
+    margin-bottom: 0;
   }
   
   .header {
@@ -577,24 +716,25 @@
   }
   
   h1 {
-    color: #323130;
+    color: #ffffff;
     font-weight: 600;
     margin: 0;
   }
   
   h2 {
-    color: #323130;
+    color: #ffffff;
     font-size: 18px;
     font-weight: 600;
     margin: 0 0 16px 0;
   }
   
   .toolbar {
-    background: white;
+    background: #252526;
     border-radius: 8px;
     padding: 16px;
     margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    border: 1px solid #3c3c3c;
   }
   
   .search-box {
@@ -604,15 +744,18 @@
   .search-box input {
     width: 100%;
     padding: 10px 16px;
-    border: 1px solid #d1d1d1;
+    border: 1px solid #3c3c3c;
     border-radius: 4px;
     font-size: 14px;
     font-family: inherit;
+    background: #1e1e1e;
+    color: #e0e0e0;
   }
   
   .search-box input:focus {
     outline: none;
     border-color: #0078d4;
+    background: #252526;
   }
   
   .category-filter {
@@ -623,18 +766,20 @@
   
   .category-chip {
     padding: 6px 16px;
-    border: 1px solid #d1d1d1;
+    border: 1px solid #3c3c3c;
     border-radius: 20px;
-    background: white;
+    background: #2d2d30;
     cursor: pointer;
     font-size: 14px;
     font-family: inherit;
     transition: all 0.2s;
+    color: #cccccc;
   }
   
   .category-chip:hover {
     border-color: #0078d4;
-    background: #f3f8fc;
+    background: #264f78;
+    color: #ffffff;
   }
   
   .category-chip.active {
@@ -645,39 +790,92 @@
   
   .workspace {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 30% 70%;
     gap: 20px;
-    min-height: 600px;
+    min-height: 0;
   }
   
   .column {
-    background: white;
+    background: #252526;
     border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    border: 1px solid #3c3c3c;
     display: flex;
     flex-direction: column;
   }
   
   .modules-column {
     overflow-y: auto;
-    max-height: calc(100vh - 300px);
+    max-height: calc(100vh - 220px);
   }
   
-  .source-column,
   .targets-column {
     overflow-y: auto;
-    max-height: calc(100vh - 300px);
+    max-height: calc(100vh - 220px);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+  
+  .section-container {
+    background: #252526;
+    border: 1px solid #3c3c3c;
+    border-radius: 12px;
+    padding: 14px;
+  }
+  
+  .section-container h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 15px;
+  }
+  
+  .local-sync-zone,
+  .local-placeholder {
+    min-height: 45px;
+  }
+  
+  .local-sync-zone {
+    padding: 12px;
+  }
+  
+  .local-sync-zone .zone-icon {
+    font-size: 20px;
+  }
+  
+  .local-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #2d2d2d;
+    border: 2px dashed #505050;
+    border-radius: 8px;
+    padding: 10px;
+  }
+  
+  .local-placeholder .placeholder-icon {
+    font-size: 18px;
+  }
+  
+  .local-placeholder .placeholder-text {
+    color: #888;
+    font-size: 13px;
   }
   
   .info-box {
-    background: #f3f8fc;
-    border: 1px solid #c7e0f4;
+    background: #1e3a5f;
+    border: 1px solid #2b5a8e;
     border-radius: 4px;
     padding: 12px;
     margin-bottom: 16px;
     font-size: 13px;
-    color: #0078d4;
+    color: #9cdcfe;
   }
   
   .module-list {
@@ -695,15 +893,15 @@
   .category-header {
     font-size: 12px;
     font-weight: 600;
-    color: #8a8886;
+    color: #999999;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 4px;
   }
   
   .module-card {
-    background: #fafafa;
-    border: 2px solid #e1dfdd;
+    background: #2d2d30;
+    border: 2px solid #3c3c3c;
     border-radius: 6px;
     padding: 14px;
     cursor: grab;
@@ -712,8 +910,9 @@
   
   .module-card:hover {
     border-color: #0078d4;
-    box-shadow: 0 4px 12px rgba(0, 120, 212, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 120, 212, 0.3);
     transform: translateY(-2px);
+    background: #333333;
   }
   
   .module-card:active {
@@ -727,19 +926,27 @@
     margin-bottom: 12px;
   }
   
-  .module-name {
-    font-weight: 600;
-    color: #323130;
-    font-size: 15px;
+  .module-actions {
+    display: flex;
+    gap: 4px;
   }
   
-  .icon-btn {
-    background: transparent;
-    border: none;
+  .module-name {
+    font-weight: 600;
+    color: #ffff#3c3c3c;
+    border: 1px solid #505050;
+    border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    padding: 4px;
-    opacity: 0.7;
+    padding: 6px 8px;
+    opacity: 0.9;
+    transition: all 0.2s;
+  }
+  
+  .icon-btn:hover {
+    opacity: 1;
+    background: #505050;
+    transform: scale(1.1).7;
     transition: opacity 0.2s;
   }
   
@@ -761,53 +968,53 @@
   }
   
   .meta-item .label {
-    color: #8a8886;
+    color: #999999;
     font-weight: 600;
   }
   
   .meta-item .value {
-    color: #323130;
+    color: #cccccc;
   }
   
   .meta-item .source {
-    color: #0078d4;
+    color: #4fc3f7;
     font-weight: 600;
   }
   
   .meta-item .targets {
-    color: #107c10;
+    color: #81c784;
   }
   
   .module-hint {
     font-size: 11px;
-    color: #8a8886;
+    color: #808080;
     font-style: italic;
   }
   
   .drop-zone {
-    border: 2px dashed #d1d1d1;
+    border: 2px dashed #3c3c3c;
     border-radius: 8px;
     padding: 24px;
     text-align: center;
     transition: all 0.2s;
-    background: #fafafa;
+    background: #2d2d30;
     margin-bottom: 12px;
   }
   
   .drop-zone.drag-over {
     border-color: #0078d4;
-    background: #f3f8fc;
+    background: #1e3a5f;
     transform: scale(1.02);
   }
   
   .drop-zone.source-env {
-    border-color: #0078d4;
-    background: #f0f8ff;
+    border-color: #2b5a8e;
+    background: #1e3a5f;
   }
   
   .drop-zone.target-env {
-    border-color: #107c10;
-    background: #f0fff0;
+    border-color: #2e7d32;
+    background: #1b3d1b;
   }
   
   .zone-content {
@@ -823,13 +1030,13 @@
   
   .zone-title {
     font-weight: 600;
-    color: #323130;
+    color: #ffffff;
     font-size: 14px;
   }
   
   .zone-subtitle {
     font-size: 12px;
-    color: #8a8886;
+    color: #999999;
   }
   
   .zone-badge {
@@ -841,21 +1048,21 @@
   }
   
   .source-badge {
-    background: #e6f4ff;
-    color: #0078d4;
+    background: #1e3a5f;
+    color: #4fc3f7;
   }
   
   .target-badge {
-    background: #e6ffe6;
-    color: #107c10;
+    background: #1b3d1b;
+    color: #81c784;
   }
   
   .placeholder-zone {
-    border: 2px dashed #e1dfdd;
+    border: 2px dashed #3c3c3c;
     border-radius: 8px;
     padding: 40px 20px;
     text-align: center;
-    color: #8a8886;
+    color: #666666;
   }
   
   .placeholder-icon {
@@ -875,7 +1082,7 @@
   
   .environment-placeholder .placeholder-text {
     font-size: 13px;
-    color: #605e5c;
+    color: #999999;
   }
   
   .tenant-list {
@@ -895,10 +1102,10 @@
     align-items: center;
     gap: 8px;
     font-weight: 600;
-    color: #323130;
+    color: #ffffff;
     font-size: 14px;
     padding-bottom: 8px;
-    border-bottom: 2px solid #e1dfdd;
+    border-bottom: 2px solid #3c3c3c;
   }
   
   .tenant-icon {
@@ -915,73 +1122,80 @@
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: #323130;
+    background: #0078d4;
     color: white;
     padding: 12px 24px;
     border-radius: 8px;
     font-weight: 600;
     font-size: 14px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 16px rgba(0, 120, 212, 0.5);
     z-index: 1000;
     pointer-events: none;
   }
   
-  .output-panel {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: white;
-    border-top: 3px solid #0078d4;
-    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.2);
-    z-index: 100;
-    max-height: 400px;
+  .output-dialog {
+    width: 1200px;
+    max-width: 95%;
+    max-height: 90vh;
     display: flex;
     flex-direction: column;
   }
   
-  .output-panel.success {
-    border-top-color: #107c10;
+  .output-dialog.running {
+    border-top: 4px solid #0078d4;
   }
   
-  .output-panel.error {
-    border-top-color: #d13438;
+  .output-dialog.success {
+    border-top: 4px solid #4caf50;
   }
   
-  .output-header {
+  .output-dialog.error {
+    border-top: 4px solid #f44336;
+  }
+  
+  .output-dialog .output-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 24px;
-    border-bottom: 1px solid #e1dfdd;
+    margin-bottom: 16px;
   }
   
-  .output-header h3 {
+  .output-dialog .output-header h2 {
     margin: 0;
-    font-size: 16px;
-    color: #323130;
+    font-size: 18px;
+    color: #ffffff;
   }
   
   .output {
     background: #1e1e1e;
     color: #d4d4d4;
     padding: 16px;
+    border-radius: 4px;
     font-family: 'Consolas', 'Courier New', monospace;
     font-size: 13px;
     overflow-y: auto;
     line-height: 1.5;
     flex: 1;
+    max-height: 650px;
+    min-height: 300px;
+    border: 1px solid #3c3c3c;
   }
   
   .processing {
     color: #4ec9b0;
     margin-top: 8px;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
   }
   
   .empty-state {
     text-align: center;
     padding: 40px 20px;
-    color: #8a8886;
+    color: #999999;
   }
   
   .empty-state p {
@@ -994,7 +1208,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.8);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1002,12 +1216,13 @@
   }
   
   .dialog {
-    background: white;
+    background: #252526;
     border-radius: 8px;
     padding: 24px;
     width: 500px;
     max-width: 90%;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    border: 1px solid #3c3c3c;
   }
   
   .dialog h2 {
@@ -1022,7 +1237,7 @@
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
-    color: #323130;
+    color: #cccccc;
     font-size: 14px;
   }
   
@@ -1030,16 +1245,40 @@
   .form-group select {
     width: 100%;
     padding: 8px 12px;
-    border: 1px solid #d1d1d1;
+    border: 1px solid #3c3c3c;
     border-radius: 4px;
     font-size: 14px;
     font-family: inherit;
+    background: #1e1e1e;
+    color: #e0e0e0;
   }
   
   .form-group input[type="text"]:focus,
   .form-group select:focus {
     outline: none;
     border-color: #0078d4;
+    background: #252526;
+  }
+  
+  .form-divider {
+    height: 1px;
+    background: #3c3c3c;
+    margin: 24px 0;
+  }
+  
+  .help-text {
+    font-size: 12px;
+    color: #808080;
+    margin-top: 4px;
+  }
+  
+  .checkbox-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 0;
+    max-height: 150px;
+    overflow-y: auto;
   }
   
   .checkbox-label {
@@ -1047,6 +1286,8 @@
     align-items: center;
     gap: 8px;
     cursor: pointer;
+    font-weight: normal;
+    color: #cccccc;
   }
   
   .checkbox-label input[type="checkbox"] {
@@ -1084,16 +1325,16 @@
   }
   
   .btn-primary:hover:not(:disabled) {
-    background-color: #106ebe;
+    background-color: #1a86e0;
   }
   
   .btn-secondary {
-    background-color: #f3f2f1;
-    color: #323130;
+    background-color: #3c3c3c;
+    color: #ffffff;
   }
   
   .btn-secondary:hover:not(:disabled) {
-    background-color: #e1dfdd;
+    background-color: #505050;
   }
   
   .btn-text {
@@ -1103,6 +1344,10 @@
   }
   
   .btn-text:hover {
-    background-color: #f3f2f1;
+    background-color: #3c3c3c;
   }
 </style>
+
+
+
+

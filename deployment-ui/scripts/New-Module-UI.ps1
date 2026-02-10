@@ -16,7 +16,7 @@ param(
 $ErrorActionPreference = "Stop"
 
 # Get project root (go up from deployment-ui/scripts to repo root)
-$projectRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $PSScriptRoot))
+$projectRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 
 # Source utility functions
 . "$projectRoot\.scripts\Util.ps1"
@@ -68,22 +68,55 @@ try {
     $solutionUniqueName = "${publisherSchemaName}_${solutionUniqueName}"
     $projectName = "${pacFriendlyPrefix}-${projectCasedHyphenName}"
     
-    # Module path
+    # Module paths
     $moduleFolderPath = Join-Path $categoryPath $solutionFolderName
+    $tempModulePath = Join-Path $categoryPath $pacFriendlyName
     
     # Check if module already exists
     if (Test-Path $moduleFolderPath) {
         throw "Module already exists at: $moduleFolderPath"
     }
     
-    Write-Host "Creating module folder: $moduleFolderPath" -ForegroundColor Yellow
-    New-Item -ItemType Directory -Path $moduleFolderPath -Force | Out-Null
+    Write-Host "Creating module folder: $tempModulePath" -ForegroundColor Yellow
     
-    # Create solution using PAC CLI
+    # Create solution using PAC CLI with schema name (no spaces)
     Write-Host "Creating solution structure..." -ForegroundColor Yellow
-    Set-Location $moduleFolderPath
     
-    pac solution init --publisher-name $publisherName --publisher-prefix $customizationPrefix --outputDirectory .
+    pac solution init --publisher-name $publisherSchemaName --publisher-prefix $customizationPrefix --outputDirectory $tempModulePath
+    
+    # Rename folder to final name if needed (Windows requires two-step rename for case-only changes)
+    if ($pacFriendlyName -cne $solutionFolderName) {
+        Write-Host "Renaming to: $moduleFolderPath" -ForegroundColor Yellow
+        
+        # Two-step rename to handle case-only changes on Windows
+        $tempRenamePath = Join-Path $categoryPath "$pacFriendlyName-temp-rename"
+        Rename-Item $tempModulePath $tempRenamePath
+        Rename-Item $tempRenamePath $solutionFolderName
+    }
+    
+    # Update Solution.xml with friendly names
+    $solutionXmlPath = Join-Path $moduleFolderPath "src\Other\Solution.xml"
+    if (Test-Path $solutionXmlPath) {
+        Write-Host "Updating Solution.xml..." -ForegroundColor Yellow
+        
+        [xml]$solutionXml = Get-Content $solutionXmlPath
+        
+        # Update solution unique name
+        $solutionXml.ImportExportXml.SolutionManifest.UniqueName = $solutionUniqueName
+        
+        # Update solution friendly name
+        $solutionXml.ImportExportXml.SolutionManifest.LocalizedNames.LocalizedName.description = "$friendlyPrefix - $ModuleName"
+        
+        # Update publisher display name
+        $publisherNode = $solutionXml.ImportExportXml.SolutionManifest.Publisher
+        if ($publisherNode) {
+            $publisherNode.LocalizedNames.LocalizedName.description = $publisherName
+        }
+        
+        $solutionXml.Save($solutionXmlPath)
+        
+        Write-Host "Solution unique name: $solutionUniqueName" -ForegroundColor Green
+    }
     
     # Rename the .cdsproj file
     $defaultProjectFile = Get-ChildItem -Path $moduleFolderPath -Filter "*.cdsproj" | Select-Object -First 1
@@ -91,19 +124,6 @@ try {
         $newProjectFileName = "$projectName.cdsproj"
         Rename-Item -Path $defaultProjectFile.FullName -NewName $newProjectFileName
         Write-Host "Created project file: $newProjectFileName" -ForegroundColor Green
-    }
-    
-    # Update Solution.xml
-    $solutionXmlPath = Join-Path $moduleFolderPath "src\Other\Solution.xml"
-    if (Test-Path $solutionXmlPath) {
-        Write-Host "Updating Solution.xml..." -ForegroundColor Yellow
-        
-        [xml]$solutionXml = Get-Content $solutionXmlPath
-        $solutionXml.ImportExportXml.SolutionManifest.UniqueName = $solutionUniqueName
-        $solutionXml.ImportExportXml.SolutionManifest.LocalizedNames.LocalizedName.description = "$friendlyPrefix $ModuleName"
-        $solutionXml.Save($solutionXmlPath)
-        
-        Write-Host "Solution unique name: $solutionUniqueName" -ForegroundColor Green
     }
     
     Write-Host ""
@@ -130,6 +150,7 @@ try {
                 Connect-DataverseTenant -authProfile $tenant
                 Connect-DataverseEnvironment -envName $targetEnv
                 
+                Set-Location $moduleFolderPath
                 Deploy-Solution $moduleFolderPath -AutoConfirm
             }
         }

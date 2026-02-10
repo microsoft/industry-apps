@@ -3,23 +3,16 @@
 # Called by the Deployment UI
 
 param(
-    [Parameter(Mandatory=$true)]
-    [string]$Deployment,
-    
-    [Parameter(Mandatory=$true)]
-    [string]$Environment,
-    
-    [Parameter(Mandatory=$true)]
-    [string]$Category,
-    
-    [Parameter(Mandatory=$true)]
-    [string]$Module
+    [Parameter(Mandatory=$true)][string]$Deployment,
+    [Parameter(Mandatory=$true)][string]$Environment,
+    [Parameter(Mandatory=$true)][string]$Category,
+    [Parameter(Mandatory=$true)][string]$Module
 )
 
 $ErrorActionPreference = "Stop"
 
 # Get project root (go up from deployment-ui/scripts to repo root)
-$projectRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $PSScriptRoot))
+$projectRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 
 # Source utility functions
 . "$projectRoot\.scripts\Util.ps1"
@@ -65,7 +58,8 @@ try {
     Connect-DataverseEnvironment -envName $targetEnv
     
     # Ship the module (managed)
-    $modulePath = "$projectRoot\$Category\$Module"
+    $modulePath = Join-Path $projectRoot $Category
+    $modulePath = Join-Path $modulePath $Module
     
     if (-not (Test-Path $modulePath)) {
         throw "Module path not found: $modulePath"

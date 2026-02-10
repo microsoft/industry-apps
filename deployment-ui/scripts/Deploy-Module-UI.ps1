@@ -10,13 +10,16 @@ param(
     [string]$Category,
     
     [Parameter(Mandatory=$true)]
-    [string]$Module
+    [string]$Module,
+    
+    [Parameter(Mandatory=$false)]
+    [switch]$Managed
 )
 
 $ErrorActionPreference = "Stop"
 
 # Get project root (go up from deployment-ui/scripts to repo root)
-$projectRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $PSScriptRoot))
+$projectRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 
 # Source utility functions
 . "$projectRoot\.scripts\Util.ps1"
@@ -70,7 +73,8 @@ try {
     Connect-DataverseEnvironment -envName $targetEnv
     
     # Deploy the module
-    $modulePath = "$projectRoot\$Category\$Module"
+    $modulePath = Join-Path $projectRoot $Category
+    $modulePath = Join-Path $modulePath $Module
     
     if (-not (Test-Path $modulePath)) {
         throw "Module path not found: $modulePath"
@@ -79,10 +83,21 @@ try {
     Write-Host ""
     Write-Host "Building and deploying solution..." -ForegroundColor Yellow
     Write-Host "Path: $modulePath" -ForegroundColor Gray
+    
+    if ($Managed) {
+        Write-Host "Type: Managed Solution" -ForegroundColor Cyan
+    } else {
+        Write-Host "Type: Unmanaged Solution" -ForegroundColor Cyan
+    }
+    
     Write-Host ""
     
     # Use the existing Deploy-Solution function from Util.ps1
-    Deploy-Solution -SolutionPath $modulePath -AutoConfirm
+    if ($Managed) {
+        Deploy-Solution -SolutionPath $modulePath -Managed -AutoConfirm
+    } else {
+        Deploy-Solution -SolutionPath $modulePath -AutoConfirm
+    }
     
     Write-Host ""
     Write-Host "=== Deployment Complete ===" -ForegroundColor Green

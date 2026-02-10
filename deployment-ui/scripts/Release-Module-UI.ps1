@@ -13,7 +13,7 @@ param(
 $ErrorActionPreference = "Stop"
 
 # Get project root (go up from deployment-ui/scripts to repo root)
-$projectRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $PSScriptRoot))
+$projectRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 
 # Source utility functions
 . "$projectRoot\.scripts\Util.ps1"
