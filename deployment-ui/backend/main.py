@@ -6,6 +6,9 @@ import asyncio
 import json
 from pathlib import Path
 from typing import Optional
+import sys
+import subprocess
+import shutil
 
 app = FastAPI(title="Module Deployment API")
 
@@ -25,6 +28,7 @@ class DeployRequest(BaseModel):
     deployment: str
     category: str
     module: str
+    targetEnvironment: str = None
     managed: bool = True
 
 class SyncRequest(BaseModel):
@@ -179,44 +183,43 @@ async def stream_powershell_output(script_path: str, *args):
     try:
         # Try pwsh first, fall back to powershell
         powershell_cmd = "pwsh"
-        try:
-            # Check if pwsh exists
-            test_process = await asyncio.create_subprocess_exec(
-                "pwsh", "-NoProfile", "-Command", "exit",
-                stdout=asyncio.subprocess.PIPE,
-                stderr=asyncio.subprocess.PIPE
-            )
-            await test_process.wait()
-        except FileNotFoundError:
-            # Fall back to Windows PowerShell
+        if not shutil.which("pwsh"):
             powershell_cmd = "powershell"
         
         # Build PowerShell command
         cmd = [powershell_cmd, "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(script_path)] + list(args)
         
-        # Start process
-        process = await asyncio.create_subprocess_exec(
-            *cmd,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.STDOUT,  # Merge stderr into stdout
-            cwd=str(PROJECT_ROOT)
+        print(f"[DEBUG] Running command: {' '.join(cmd)}")
+        
+        # Start process using subprocess.Popen (synchronous but non-blocking)
+        process = subprocess.Popen(
+            cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,  # Merge stderr into stdout
+            cwd=str(PROJECT_ROOT),
+            text=True,
+            bufsize=1,  # Line buffered
+            universal_newlines=True
         )
         
         # Stream stdout (includes stderr now)
-        while True:
-            line = await process.stdout.readline()
-            if not line:
-                break
-            yield f"data: {json.dumps({'type': 'output', 'line': line.decode('utf-8', errors='replace').rstrip()})}\n\n"
+        for line in iter(process.stdout.readline, ''):
+            if line:
+                yield f"data: {json.dumps({'type': 'output', 'line': line.rstrip()})}\n\n"
+                await asyncio.sleep(0)  # Yield control to allow async processing
         
         # Wait for process to complete
-        await process.wait()
+        process.wait()
         
         # Send completion status
         yield f"data: {json.dumps({'type': 'complete', 'exitCode': process.returncode})}\n\n"
         
     except Exception as e:
-        yield f"data: {json.dumps({'type': 'error', 'message': str(e)})}\n\n"
+        error_msg = str(e) if str(e) else f"{type(e).__name__}: {repr(e)}"
+        print(f"[ERROR] Stream exception: {error_msg}")  # Debug logging
+        import traceback
+        traceback.print_exc()
+        yield f"data: {json.dumps({'type': 'error', 'message': error_msg})}\n\n"
 
 @app.post("/api/deploy")
 async def deploy_module(request: DeployRequest):
@@ -230,8 +233,13 @@ async def deploy_module(request: DeployRequest):
         "-Module", request.module
     ]
     
+    if request.targetEnvironment:
+        args.extend(["-Environment", request.targetEnvironment])
+    
     if request.managed:
         args.append("-Managed")
+    
+    print(f"[DEBUG] Deploy args: {args}")  # Debug logging
     
     return StreamingResponse(
         stream_powershell_output(*args),

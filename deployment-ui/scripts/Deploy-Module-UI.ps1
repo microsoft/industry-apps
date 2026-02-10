@@ -13,6 +13,9 @@ param(
     [string]$Module,
     
     [Parameter(Mandatory=$false)]
+    [string]$Environment,
+    
+    [Parameter(Mandatory=$false)]
     [switch]$Managed
 )
 
@@ -48,13 +51,18 @@ try {
     Write-Host "Tenant: $tenant" -ForegroundColor Green
     
     # Get module config to determine environment
-    $moduleConfig = if ($config.Modules.$Module) {
-        $config.Modules.$Module
+    if ($Environment) {
+        # Use provided environment
+        $envKey = $Environment
     } else {
-        $config.DefaultModule
+        # Fall back to module config
+        $moduleConfig = if ($config.Modules.$Module) {
+            $config.Modules.$Module
+        } else {
+            $config.DefaultModule
+        }
+        $envKey = $moduleConfig.Environment
     }
-    
-    $envKey = $moduleConfig.Environment
     
     if (-not $deploymentConfig.Environments.$envKey) {
         throw "Environment '$envKey' not found in deployment '$Deployment'"

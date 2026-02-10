@@ -117,7 +117,7 @@
     dragOverZone = null;
   }
   
-  async function handleDrop(event, action, tenant, environment, isSourceEnv) {
+  async function handleDrop(event, action, tenant, deploymentName, environment, environmentKey, isSourceEnv) {
     event.preventDefault();
     dragOverZone = null;
     
@@ -130,7 +130,7 @@
     if (action === 'sync') {
       await syncModule(module);
     } else if (action === 'deploy') {
-      await deployModule(module, environment, isSourceEnv);
+      await deployModule(module, deploymentName, environmentKey, isSourceEnv);
     } else if (action === 'ship') {
       await shipModule(module, tenant, environment);
     }
@@ -159,7 +159,7 @@
     }
   }
   
-  async function deployModule(module, targetEnvKey, isSourceEnv) {
+  async function deployModule(module, deploymentName, targetEnvKey, isSourceEnv) {
     const deployType = isSourceEnv ? 'push (unmanaged)' : 'deploy (managed)';
     activeOperation = `${deployType}-${module.name}`;
     operationStatus = 'running';
@@ -170,16 +170,21 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          deployment: module.deployment,
+          deployment: deploymentName,
           category: module.category,
           module: module.name,
+          targetEnvironment: targetEnvKey,
           managed: !isSourceEnv
         })
       });
       
+      if (!response.ok) {
+        throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+      }
+      
       await streamResponse(response);
     } catch (error) {
-      outputLines = [...outputLines, `\n✗ Connection error: ${error.message}`];
+      outputLines = [...outputLines, `\n✗ Connection error: ${error.message || error}`];
       operationStatus = 'error';
     }
   }
@@ -229,28 +234,40 @@
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
     
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      
-      const text = decoder.decode(value);
-      const lines = text.split('\n');
-      
-      for (const line of lines) {
-        if (line.startsWith('data: ')) {
-          const data = JSON.parse(line.substring(6));
-          
-          if (data.type === 'output') {
-            outputLines = [...outputLines, data.line];
-          } else if (data.type === 'complete') {
-            operationStatus = data.exitCode === 0 ? 'success' : 'error';
-            outputLines = [...outputLines, `\n${data.exitCode === 0 ? '✓' : '✗'} Completed with exit code: ${data.exitCode}`];
-          } else if (data.type === 'error') {
-            operationStatus = 'error';
-            outputLines = [...outputLines, `\n✗ Error: ${data.message}`];
+    try {
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        
+        const text = decoder.decode(value);
+        const lines = text.split('\n');
+        
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            try {
+              const data = JSON.parse(line.substring(6));
+              console.log('[DEBUG] SSE data:', data);  // Debug logging
+              
+              if (data.type === 'output') {
+                outputLines = [...outputLines, data.line];
+              } else if (data.type === 'complete') {
+                operationStatus = data.exitCode === 0 ? 'success' : 'error';
+                outputLines = [...outputLines, `\n${data.exitCode === 0 ? '✓' : '✗'} Completed with exit code: ${data.exitCode}`];
+              } else if (data.type === 'error') {
+                operationStatus = 'error';
+                console.error('[ERROR] Backend error:', data);  // Error logging
+                outputLines = [...outputLines, `\n✗ Error: ${data.message || 'Unknown error'}`];
+              }
+            } catch (parseError) {
+              console.error('Failed to parse SSE data:', line, parseError);
+              outputLines = [...outputLines, `\n✗ Parse error: ${line}`];
+            }
           }
         }
       }
+    } catch (error) {
+      operationStatus = 'error';
+      outputLines = [...outputLines, `\n✗ Stream error: ${error.message || error}`];
     }
   }
   
@@ -513,9 +530,9 @@
                   
                   <div 
                     class="drop-zone environment-zone {dragOverZone?.environment === env.name ? 'drag-over' : ''} {isSourceEnv ? 'source-env' : ''} {isTargetEnv ? 'target-env' : ''}"
-                    on:dragover={(e) => handleDragOver(e, { action, tenant: tenant.name, environment: env.name, isSourceEnv })}
+                    on:dragover={(e) => handleDragOver(e, { action, tenant: tenant.name, environment: env.name, environmentKey: env.key, isSourceEnv })}
                     on:dragleave={handleDragLeave}
-                    on:drop={(e) => handleDrop(e, action, tenant.name, env.name, isSourceEnv)}>
+                    on:drop={(e) => handleDrop(e, action, tenant.name, deployment.name, env.name, env.key, isSourceEnv)}>
                     
                     <div class="zone-content">
                       <div class="zone-title">{env.name}</div>
@@ -1419,6 +1436,10 @@
     background-color: #3c3c3c;
   }
 </style>
+
+
+
+
 
 
 
