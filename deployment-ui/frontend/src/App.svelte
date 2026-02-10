@@ -995,21 +995,19 @@
   
   .module-name {
     font-weight: 600;
-    color: #ffff#3c3c3c;
-    border: 1px solid #505050;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 6px 8px;
-    opacity: 0.9;
-    transition: all 0.2s;
+    color: #ffffff;
+    font-size: 15px;
   }
   
-  .icon-btn:hover {
-    opacity: 1;
-    background: #505050;
-    transform: scale(1.1).7;
+  .icon-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 4px;
+    opacity: 0.7;
     transition: opacity 0.2s;
+    filter: grayscale(0);
   }
   
   .icon-btn:hover {
@@ -1421,6 +1419,7 @@
     background-color: #3c3c3c;
   }
 </style>
+
 
 
 
