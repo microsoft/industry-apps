@@ -6,6 +6,7 @@
   let categories = new Set();
   let selectedCategory = 'all';
   let searchQuery = '';
+  let selectedTenantIndex = 0;
   
   let draggedModule = null;
   let dragOverZone = null;
@@ -406,20 +407,12 @@
                 
                 <div class="module-header">
                   <div class="module-name">{module.name}</div>
-                  <div class="module-actions">
-                    <button 
-                      class="icon-btn" 
-                      title="Sync from {module.sourceEnvironment}"
-                      on:click={() => syncModule(module)}>
-                      ⬇️
-                    </button>
-                    <button 
-                      class="icon-btn" 
-                      title="Create Release"
-                      on:click={() => createRelease(module)}>
-                      📦
-                    </button>
-                  </div>
+                  <button 
+                    class="icon-btn" 
+                    title="Create Release"
+                    on:click={() => createRelease(module)}>
+                    📦
+                  </button>
                 </div>
                 
                 <div class="module-meta">
@@ -486,20 +479,29 @@
       </div>
       
       <!-- Targets Section -->
-      <div class="section-container">
+      <div class="section-container targets-section">
         <h2>📤 Targets (Deploy To)</h2>
         
+        <!-- Tenant Tabs -->
+        <div class="tenant-tabs">
+          {#each tenants as tenant, index}
+            <button
+              class="tenant-tab {selectedTenantIndex === index ? 'active' : ''}"
+              on:click={() => selectedTenantIndex = index}>
+              <span class="tenant-icon">🏢</span>
+              {tenant.name}
+            </button>
+          {/each}
+        </div>
+        
         <div class="info-box">
-          Drag a module to an environment to deploy. Use the ⬇️ button on module cards for quick sync.
+          Drag a module to Local (Sync From) to sync, or to an environment to deploy.
         </div>
       
       <div class="tenant-list">
-        {#each tenants as tenant}
+        {#if tenants[selectedTenantIndex]}
+          {@const tenant = tenants[selectedTenantIndex]}
           <div class="tenant-group">
-            <div class="tenant-header">
-              <span class="tenant-icon">🏢</span>
-              {tenant.name}
-            </div>
             
             {#each tenant.deployments as deployment}
               {#each deployment.environments as env}
@@ -516,7 +518,6 @@
                     on:drop={(e) => handleDrop(e, action, tenant.name, env.name, isSourceEnv)}>
                     
                     <div class="zone-content">
-                      <div class="zone-icon">{isSameTenant ? '⬆️' : '🚀'}</div>
                       <div class="zone-title">{env.name}</div>
                       {#if isSourceEnv}
                         <div class="zone-badge source-badge">Source</div>
@@ -534,7 +535,7 @@
               {/each}
             {/each}
           </div>
-        {/each}
+        {/if}
       </div>
       </div>
     </div>
@@ -811,7 +812,6 @@
   }
   
   .targets-column {
-    overflow-y: auto;
     max-height: calc(100vh - 220px);
     display: flex;
     flex-direction: column;
@@ -835,17 +835,42 @@
     font-size: 15px;
   }
   
-  .local-sync-zone,
-  .local-placeholder {
-    min-height: 45px;
+  .section-container:first-child {
+    padding: 10px;
   }
   
-  .local-sync-zone {
-    padding: 12px;
+  .targets-section {
+    flex: 1;
+    overflow-y: auto;
+    max-height: calc(100vh - 340px);
+  }
+  
+  .local-sync-zone,
+  .local-placeholder {
+    min-height: 40px;
+    height: 40px;
+    box-sizing: border-box;
+  }
+  
+  .drop-zone.local-sync-zone {
+    padding: 8px !important;
+    margin-bottom: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .drop-zone.local-sync-zone .zone-content {
+    gap: 0;
+    flex-direction: row;
+  }
+  
+  .drop-zone.local-sync-zone.drag-over {
+    transform: none !important;
   }
   
   .local-sync-zone .zone-icon {
-    font-size: 20px;
+    font-size: 18px;
   }
   
   .local-placeholder {
@@ -856,7 +881,7 @@
     background: #2d2d2d;
     border: 2px dashed #505050;
     border-radius: 8px;
-    padding: 10px;
+    padding: 8px !important;
   }
   
   .local-placeholder .placeholder-icon {
@@ -876,6 +901,43 @@
     margin-bottom: 16px;
     font-size: 13px;
     color: #9cdcfe;
+  }
+  
+  .tenant-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #3c3c3c;
+    padding-bottom: 0;
+  }
+  
+  .tenant-tab {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 10px 16px;
+    cursor: pointer;
+    color: #888;
+    font-size: 14px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: -1px;
+  }
+  
+  .tenant-tab:hover {
+    color: #c0c0c0;
+    background: #2d2d2d;
+  }
+  
+  .tenant-tab.active {
+    color: #ffffff;
+    border-bottom-color: #0078d4;
+  }
+  
+  .tenant-tab .tenant-icon {
+    font-size: 16px;
   }
   
   .module-list {
@@ -1028,10 +1090,18 @@
     font-size: 32px;
   }
   
-  .zone-title {
-    font-weight: 600;
+  .environment-zone .zone-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+  }
+  
+  .environment-zone .zone-title {
+    font-weight: 500;
     color: #ffffff;
-    font-size: 14px;
+    font-size: 13px;
   }
   
   .zone-subtitle {
@@ -1113,8 +1183,12 @@
   }
   
   .environment-zone {
-    padding: 16px;
+    padding: 12px;
     margin-bottom: 8px;
+  }
+  
+  .environment-zone.drag-over {
+    transform: none !important;
   }
   
   .drag-preview {
@@ -1347,6 +1421,17 @@
     background-color: #3c3c3c;
   }
 </style>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
