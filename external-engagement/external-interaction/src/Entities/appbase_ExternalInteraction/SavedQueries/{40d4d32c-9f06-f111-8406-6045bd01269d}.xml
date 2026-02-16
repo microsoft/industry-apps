@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{40d4d32c-9f06-f111-8406-6045bd01269d}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
+        <row name="result" id="appbase_externalinteractionid">
+          <cell name="appbase_name" width="215" />
+          <cell name="appbase_referencenumber" width="147" />
+          <cell name="appbase_receiveddatetime" width="155" />
+          <cell name="appbase_methodofreceipt" width="145" />
+          <cell name="appbase_priority" width="100" />
+          <cell name="appbase_actionstatus" width="116" />
+          <cell name="appbase_topic" width="100" />
+          <cell name="appbase_interactiontype" width="132" />
+          <cell name="appbase_firstresponsedue" width="150" />
+          <cell name="appbase_resolutiondueon" width="149" />
+          <cell name="appbase_source" width="100" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical" distinct="true">
+        <entity name="appbase_externalinteraction">
+          <attribute name="appbase_externalinteractionid" />
+          <attribute name="appbase_name" />
+          <attribute name="appbase_referencenumber" />
+          <attribute name="appbase_receiveddatetime" />
+          <attribute name="appbase_actionstatus" />
+          <attribute name="appbase_topic" />
+          <attribute name="appbase_interactiontype" />
+          <attribute name="appbase_methodofreceipt" />
+          <attribute name="appbase_firstresponsedue" />
+          <attribute name="appbase_resolutiondueon" />
+          <attribute name="appbase_source" />
+          <attribute name="appbase_priority" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+            <condition attribute="appbase_priority" operator="in">
+              <value>147130003</value>
+              <value>147130002</value>
+            </condition>
+          </filter>
+          <order attribute="appbase_receiveddatetime" descending="false" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0.0.1</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="High Priority Interactions" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>
