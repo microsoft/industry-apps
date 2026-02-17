@@ -10,7 +10,13 @@ param(
     [string]$ModuleName,
     
     [Parameter(Mandatory=$false)]
-    [switch]$Deploy
+    [switch]$Deploy,
+    
+    [Parameter(Mandatory=$false)]
+    [string]$Deployment,
+    
+    [Parameter(Mandatory=$false)]
+    [string]$Environment
 )
 
 $ErrorActionPreference = "Stop"
@@ -122,8 +128,14 @@ try {
     $defaultProjectFile = Get-ChildItem -Path $moduleFolderPath -Filter "*.cdsproj" | Select-Object -First 1
     if ($defaultProjectFile) {
         $newProjectFileName = "$projectName.cdsproj"
+        $newProjectFilePath = Join-Path $moduleFolderPath $newProjectFileName
         Rename-Item -Path $defaultProjectFile.FullName -NewName $newProjectFileName
         Write-Host "Created project file: $newProjectFileName" -ForegroundColor Green
+        
+        # Update the project file to build both managed and unmanaged packages
+        Write-Host "Configuring package build settings..." -ForegroundColor Yellow
+        Update-SolutionProjectManaged $newProjectFilePath
+        Write-Host "✓ Package type set to Both (managed and unmanaged)" -ForegroundColor Green
     }
     
     Write-Host ""
@@ -133,26 +145,40 @@ try {
     # Optionally deploy to development
     if ($Deploy) {
         Write-Host ""
-        Write-Host "Deploying to development environment..." -ForegroundColor Yellow
+        Write-Host "Deploying to specified environment..." -ForegroundColor Yellow
+        Write-Host "DEBUG: Deployment parameter value: '$Deployment'" -ForegroundColor Magenta
+        Write-Host "DEBUG: Environment parameter value: '$Environment'" -ForegroundColor Magenta
         
-        # Load config to get default deployment settings
-        $configPath = "$projectRoot\.config\deployments.json"
-        if (Test-Path $configPath) {
-            $config = Get-Content $configPath | ConvertFrom-Json
-            $defaultDeployment = $config.DefaultModule.Tenant
-            $defaultEnv = $config.DefaultModule.Environment
+        # Use provided deployment and environment parameters
+        if ($Deployment -and $Environment) {
+            Write-Host "Deployment: $Deployment" -ForegroundColor Cyan
+            Write-Host "Environment: $Environment" -ForegroundColor Cyan
             
-            if ($defaultDeployment -and $defaultEnv) {
-                $deploymentConfig = $config.Deployments.$defaultDeployment
-                $tenant = $deploymentConfig.Tenant
-                $targetEnv = $deploymentConfig.Environments.$defaultEnv
+            # Load config to get deployment details
+            $configPath = "$projectRoot\.config\deployments.json"
+            if (Test-Path $configPath) {
+                $config = Get-Content $configPath | ConvertFrom-Json
                 
-                Connect-DataverseTenant -authProfile $tenant
-                Connect-DataverseEnvironment -envName $targetEnv
-                
-                Set-Location $moduleFolderPath
-                Deploy-Solution $moduleFolderPath -AutoConfirm
+                $deploymentConfig = $config.Deployments.$Deployment
+                if ($deploymentConfig) {
+                    $tenant = $deploymentConfig.Tenant
+                    $targetEnv = $deploymentConfig.Environments.$Environment
+                    
+                    if ($tenant -and $targetEnv) {
+                        Connect-DataverseTenant -authProfile $tenant
+                        Connect-DataverseEnvironment -envName $targetEnv
+                        
+                        Set-Location $moduleFolderPath
+                        Deploy-Solution $moduleFolderPath -AutoConfirm
+                    } else {
+                        Write-Host "ERROR: Could not find environment '$Environment' in deployment '$Deployment'" -ForegroundColor Red
+                    }
+                } else {
+                    Write-Host "ERROR: Could not find deployment '$Deployment' in config" -ForegroundColor Red
+                }
             }
+        } else {
+            Write-Host "ERROR: Deployment and Environment parameters required when using -Deploy" -ForegroundColor Red
         }
     }
     

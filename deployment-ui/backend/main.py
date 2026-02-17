@@ -280,6 +280,16 @@ async def ship_module(request: ShipRequest):
 @app.post("/api/modules/create")
 async def create_module(request: CreateModuleRequest):
     """Create a new module"""
+    
+    # Debug logging
+    print(f"DEBUG: Received create module request:")
+    print(f"  - category: {request.category}")
+    print(f"  - moduleName: {request.moduleName}")
+    print(f"  - deployment: {request.deployment}")
+    print(f"  - sourceEnvironment: {request.sourceEnvironment}")
+    print(f"  - targetEnvironments: {request.targetEnvironments}")
+    print(f"  - deploy: {request.deploy}")
+    
     script_path = PROJECT_ROOT / "deployment-ui" / "scripts" / "New-Module-UI.ps1"
     
     # First, save the module configuration to deployments.json
@@ -293,19 +303,28 @@ async def create_module(request: CreateModuleRequest):
     module_folder = ''.join(c if c.isalnum() else '-' for c in module_folder)
     module_folder = '-'.join(filter(None, module_folder.split('-')))
     
-    # Add or update module configuration
-    if "Modules" not in config:
-        config["Modules"] = {}
+    # Check if module configuration matches DefaultModule
+    default_module = config.get("DefaultModule", {})
+    matches_default = (
+        default_module.get("Tenant") == request.deployment and
+        default_module.get("Environment") == request.sourceEnvironment and
+        default_module.get("DeploymentTargets", []) == request.targetEnvironments
+    )
     
-    config["Modules"][module_folder] = {
-        "Tenant": request.deployment,
-        "Environment": request.sourceEnvironment,
-        "DeploymentTargets": request.targetEnvironments
-    }
-    
-    # Save updated config
-    with open(config_path, "w") as f:
-        json.dump(config, f, indent=4)
+    # Only add to Modules if it differs from DefaultModule
+    if not matches_default:
+        if "Modules" not in config:
+            config["Modules"] = {}
+        
+        config["Modules"][module_folder] = {
+            "Tenant": request.deployment,
+            "Environment": request.sourceEnvironment,
+            "DeploymentTargets": request.targetEnvironments
+        }
+        
+        # Save updated config
+        with open(config_path, "w") as f:
+            json.dump(config, f, indent=4)
     
     # Run the creation script
     args = [
@@ -315,7 +334,11 @@ async def create_module(request: CreateModuleRequest):
     ]
     
     if request.deploy:
+        if not request.deployment or not request.sourceEnvironment:
+            raise HTTPException(status_code=400, detail="Deployment and sourceEnvironment are required when deploy=true")
         args.append("-Deploy")
+        args.extend(["-Deployment", request.deployment])
+        args.extend(["-Environment", request.sourceEnvironment])
     
     return StreamingResponse(
         stream_powershell_output(*args),

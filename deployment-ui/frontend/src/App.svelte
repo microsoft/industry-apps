@@ -444,6 +444,17 @@
   async function createModule() {
     if (!newModuleName || !newModuleCategory || !newModuleDeployment || !newModuleSourceEnv) return;
     
+    const requestData = {
+      category: newModuleCategory,
+      moduleName: newModuleName,
+      deployment: newModuleDeployment,
+      sourceEnvironment: newModuleSourceEnv,
+      targetEnvironments: newModuleTargetEnvs,
+      deploy: newModuleDeploy
+    };
+    
+    console.log('Creating module with data:', requestData);
+    
     activeOperation = 'create-module';
     operationStatus = 'running';
     outputLines = [];
@@ -453,14 +464,7 @@
       const response = await fetch('/api/modules/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          category: newModuleCategory,
-          moduleName: newModuleName,
-          deployment: newModuleDeployment,
-          sourceEnvironment: newModuleSourceEnv,
-          targetEnvironments: newModuleTargetEnvs,
-          deploy: newModuleDeploy
-        })
+        body: JSON.stringify(requestData)
       });
       
       await streamResponse(response);

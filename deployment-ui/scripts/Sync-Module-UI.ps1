@@ -86,6 +86,30 @@ try {
     pac solution sync
     
     Write-Host ""
+    Write-Host "Building unmanaged and managed solution packages..." -ForegroundColor Yellow
+    
+    # Build to create both unmanaged and managed zip files
+    dotnet build /p:configuration=Release
+    
+    # Verify both zip files were created
+    $cdsprojFile = Get-ChildItem -Path $modulePath -Filter *.cdsproj | Select-Object -First 1
+    $baseName = $cdsprojFile.BaseName
+    $unmanagedZip = Join-Path $modulePath "bin\debug\${baseName}.zip"
+    $managedZip = Join-Path $modulePath "bin\debug\${baseName}_managed.zip"
+    
+    if (Test-Path $unmanagedZip) {
+        Write-Host "✓ Unmanaged solution package created" -ForegroundColor Green
+    } else {
+        Write-Host "⚠ Unmanaged solution package not found: $unmanagedZip" -ForegroundColor Yellow
+    }
+    
+    if (Test-Path $managedZip) {
+        Write-Host "✓ Managed solution package created" -ForegroundColor Green
+    } else {
+        Write-Host "⚠ Managed solution package not found: $managedZip" -ForegroundColor Yellow
+    }
+    
+    Write-Host ""
     Write-Host "=== Sync Complete ===" -ForegroundColor Green
     
 } catch {
