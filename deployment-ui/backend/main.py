@@ -30,6 +30,7 @@ class DeployRequest(BaseModel):
     module: str
     targetEnvironment: str = None
     managed: bool = True
+    upgrade: bool = False
 
 class SyncRequest(BaseModel):
     deployment: str
@@ -238,6 +239,9 @@ async def deploy_module(request: DeployRequest):
     
     if request.managed:
         args.append("-Managed")
+    
+    if request.upgrade:
+        args.append("-Upgrade")
     
     print(f"[DEBUG] Deploy args: {args}")  # Debug logging
     

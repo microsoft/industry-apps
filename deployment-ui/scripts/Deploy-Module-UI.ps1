@@ -16,7 +16,10 @@ param(
     [string]$Environment,
     
     [Parameter(Mandatory=$false)]
-    [switch]$Managed
+    [switch]$Managed,
+    
+    [Parameter(Mandatory=$false)]
+    [switch]$Upgrade
 )
 
 $ErrorActionPreference = "Stop"
@@ -94,6 +97,9 @@ try {
     
     if ($Managed) {
         Write-Host "Type: Managed Solution" -ForegroundColor Cyan
+        if ($Upgrade) {
+            Write-Host "Mode: Upgrade (will delete removed components)" -ForegroundColor Yellow
+        }
     } else {
         Write-Host "Type: Unmanaged Solution" -ForegroundColor Cyan
     }
@@ -102,7 +108,11 @@ try {
     
     # Use the existing Deploy-Solution function from Util.ps1
     if ($Managed) {
-        Deploy-Solution -SolutionPath $modulePath -Managed -AutoConfirm
+        if ($Upgrade) {
+            Deploy-Solution -SolutionPath $modulePath -Managed -Upgrade -AutoConfirm
+        } else {
+            Deploy-Solution -SolutionPath $modulePath -Managed -AutoConfirm
+        }
     } else {
         Deploy-Solution -SolutionPath $modulePath -AutoConfirm
     }

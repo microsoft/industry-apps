@@ -666,7 +666,10 @@ function Deploy-Solution {
         [switch]$SkipBuild,
 
         [Parameter(Mandatory = $false)]
-        [switch]$AutoConfirm
+        [switch]$AutoConfirm,
+        
+        [Parameter(Mandatory = $false)]
+        [switch]$Upgrade
     )
 
     $cdsprojFile = Get-ChildItem -Path $SolutionPath -Filter *.cdsproj | Select-Object -First 1
@@ -753,62 +756,81 @@ function Deploy-Solution {
     # Check if solution file is accessible before attempting import
     $solutionFile = Join-Path $SolutionPath $path
     
-    # Retry logic for solution import in case of file locking issues
-    $maxRetries = 5
-    $retryCount = 0
-    $importSuccessful = $false
-    
-    while (-not $importSuccessful -and $retryCount -lt $maxRetries) {
-        # Check if the solution file is in use
-        if (Test-FileInUse $solutionFile) {
-            Write-Host "Solution file is currently in use by another process (attempt $($retryCount + 1) of $maxRetries)..." -ForegroundColor Yellow
-            if ($retryCount -eq 0) {
-                Get-FileUsingProcesses $solutionFile
-            }
-            Start-Sleep -Seconds (3 + $retryCount * 2) # 3s, 5s, 7s, 9s, 11s
-            $retryCount++
-            continue
-        }
+    if (-not $Upgrade) {
+        # Standard import with retry logic for file locking issues
+        $maxRetries = 5
+        $retryCount = 0
+        $importSuccessful = $false
         
+        while (-not $importSuccessful -and $retryCount -lt $maxRetries) {
+            # Check if the solution file is in use
+            if (Test-FileInUse $solutionFile) {
+                Write-Host "Solution file is currently in use by another process (attempt $($retryCount + 1) of $maxRetries)..." -ForegroundColor Yellow
+                if ($retryCount -eq 0) {
+                    Get-FileUsingProcesses $solutionFile
+                }
+                Start-Sleep -Seconds (3 + $retryCount * 2) # 3s, 5s, 7s, 9s, 11s
+                $retryCount++
+                continue
+            }
+            
+            try {
+                if ($retryCount -gt 0) {
+                    Write-Host "Retrying solution import (attempt $($retryCount + 1) of $maxRetries)..."
+                }
+                
+                # Additional check: ensure parent directories are not locked
+                $parentDir = Split-Path $solutionFile -Parent
+                if (Test-Path $parentDir) {
+                    $testFile = Join-Path $parentDir "test_lock_$(Get-Random).tmp"
+                    try {
+                        [System.IO.File]::WriteAllText($testFile, "test")
+                        Remove-Item $testFile -Force -ErrorAction SilentlyContinue
+                    }
+                    catch {
+                        Write-Host "Parent directory appears to be locked. Waiting..." -ForegroundColor Yellow
+                        Start-Sleep -Seconds 5
+                        $retryCount++
+                        continue
+                    }
+                }
+                
+                pac solution import --path $path
+                $importSuccessful = $true
+                Write-Host "Solution import completed successfully." -ForegroundColor Green
+            }
+            catch {
+                $retryCount++
+                if ($retryCount -ge $maxRetries) {
+                    Write-Host "Failed to import solution after $maxRetries attempts. Error: $($_.Exception.Message)" -ForegroundColor Red
+                    Write-Host "This may be due to persistent file locks from background processes like CodeQL, Windows Defender, or other scanning tools." -ForegroundColor Red
+                    Write-Host "Try closing VS Code, waiting a few minutes, and running the script again." -ForegroundColor Yellow
+                    throw
+                }
+                else {
+                    $waitTime = 5 + ($retryCount * 3) # 5s, 8s, 11s, 14s
+                    Write-Host "Solution import failed (attempt $retryCount of $maxRetries). Waiting $waitTime seconds before retry..." -ForegroundColor Yellow
+                    Write-Host "Error: $($_.Exception.Message)" -ForegroundColor Gray
+                    Start-Sleep -Seconds $waitTime
+                }
+            }
+        }
+    }
+    else {
+        # Import with upgrade flag (stage and upgrade)
+        Write-Host "Importing solution with upgrade mode (will delete removed components)..." -ForegroundColor Yellow
         try {
-            if ($retryCount -gt 0) {
-                Write-Host "Retrying solution import (attempt $($retryCount + 1) of $maxRetries)..."
-            }
+            pac solution import --path $path --stage-and-upgrade
+            Write-Host "Solution staged for upgrade successfully." -ForegroundColor Green
             
-            # Additional check: ensure parent directories are not locked
-            $parentDir = Split-Path $solutionFile -Parent
-            if (Test-Path $parentDir) {
-                $testFile = Join-Path $parentDir "test_lock_$(Get-Random).tmp"
-                try {
-                    [System.IO.File]::WriteAllText($testFile, "test")
-                    Remove-Item $testFile -Force -ErrorAction SilentlyContinue
-                }
-                catch {
-                    Write-Host "Parent directory appears to be locked. Waiting..." -ForegroundColor Yellow
-                    Start-Sleep -Seconds 5
-                    $retryCount++
-                    continue
-                }
-            }
-            
-            pac solution import --path $path
-            $importSuccessful = $true
-            Write-Host "Solution import completed successfully." -ForegroundColor Green
+            # Apply the upgrade
+            Write-Host "Applying upgrade..." -ForegroundColor Yellow
+            pac solution upgrade --solution-name $Name --async
+            Write-Host "Solution upgrade completed successfully." -ForegroundColor Green
         }
         catch {
-            $retryCount++
-            if ($retryCount -ge $maxRetries) {
-                Write-Host "Failed to import solution after $maxRetries attempts. Error: $($_.Exception.Message)" -ForegroundColor Red
-                Write-Host "This may be due to persistent file locks from background processes like CodeQL, Windows Defender, or other scanning tools." -ForegroundColor Red
-                Write-Host "Try closing VS Code, waiting a few minutes, and running the script again." -ForegroundColor Yellow
-                throw
-            }
-            else {
-                $waitTime = 5 + ($retryCount * 3) # 5s, 8s, 11s, 14s
-                Write-Host "Solution import failed (attempt $retryCount of $maxRetries). Waiting $waitTime seconds before retry..." -ForegroundColor Yellow
-                Write-Host "Error: $($_.Exception.Message)" -ForegroundColor Gray
-                Start-Sleep -Seconds $waitTime
-            }
+            Write-Host "Failed to import/upgrade solution. Error: $($_.Exception.Message)" -ForegroundColor Red
+            throw
         }
     }
     # pac solution import --path $path -up

@@ -159,7 +159,8 @@
       isSourceEnv: isSourceEnv,
       status: 'queued', // queued, running, success, failed
       output: [],
-      error: null
+      error: null,
+      upgrade: false // upgrade flag for managed deployments
     };
     
     operationQueue = [...operationQueue, queueItem];
@@ -181,6 +182,12 @@
     const newQueue = [...operationQueue];
     [newQueue[index], newQueue[index + 1]] = [newQueue[index + 1], newQueue[index]];
     operationQueue = newQueue;
+  }
+  
+  function toggleQueueItemUpgrade(id) {
+    operationQueue = operationQueue.map(item => 
+      item.id === id ? { ...item, upgrade: !item.upgrade } : item
+    );
   }
   
   function clearQueue() {
@@ -221,7 +228,7 @@
         if (item.type === 'sync') {
           await syncModule(item.module);
         } else if (item.type === 'deploy') {
-          await deployModule(item.module, item.deployment, item.environmentKey, item.isSourceEnv);
+          await deployModule(item.module, item.deployment, item.environmentKey, item.isSourceEnv, item.upgrade);
         } else if (item.type === 'ship') {
           await shipModule(item.module, item.tenant, item.environment);
         }
@@ -291,7 +298,7 @@
     }
   }
   
-  async function deployModule(module, deploymentName, targetEnvKey, isSourceEnv) {
+  async function deployModule(module, deploymentName, targetEnvKey, isSourceEnv, upgrade = false) {
     const deployType = isSourceEnv ? 'push (unmanaged)' : 'deploy (managed)';
     activeOperation = `${deployType}-${module.name}`;
     operationStatus = 'running';
@@ -306,7 +313,8 @@
           category: module.category,
           module: module.name,
           targetEnvironment: targetEnvKey,
-          managed: !isSourceEnv
+          managed: !isSourceEnv,
+          upgrade: upgrade && !isSourceEnv // Only upgrade for managed deployments
         })
       });
       
@@ -753,6 +761,16 @@
                 {:else if item.type === 'deploy'}
                   <div class="detail">To: {item.environment}</div>
                   <div class="detail">Tenant: {item.tenant || item.module.tenant}</div>
+                  {#if !item.isSourceEnv && item.status === 'queued'}
+                    <label class="upgrade-checkbox">
+                      <input 
+                        type="checkbox" 
+                        checked={item.upgrade}
+                        on:change={() => toggleQueueItemUpgrade(item.id)}
+                        disabled={queueExecuting} />
+                      <span>Upgrade (delete removed components)</span>
+                    </label>
+                  {/if}
                 {:else if item.type === 'ship'}
                   <div class="detail">To: {item.environment}</div>
                   <div class="detail">Tenant: {item.tenant}</div>
@@ -1258,6 +1276,28 @@
   
   .queue-item-details .detail {
     margin-bottom: 2px;
+  }
+  
+  .upgrade-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+    font-size: 12px;
+    color: #cccccc;
+    cursor: pointer;
+  }
+  
+  .upgrade-checkbox input[type="checkbox"] {
+    cursor: pointer;
+  }
+  
+  .upgrade-checkbox input[type="checkbox"]:disabled {
+    cursor: not-allowed;
+  }
+  
+  .upgrade-checkbox span {
+    user-select: none;
   }
   
   .queue-item-error {
