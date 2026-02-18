@@ -98,15 +98,15 @@ try {
     $managedZip = Join-Path $modulePath "bin\debug\${baseName}_managed.zip"
     
     if (Test-Path $unmanagedZip) {
-        Write-Host "✓ Unmanaged solution package created" -ForegroundColor Green
+        Write-Host "[OK] Unmanaged solution package created" -ForegroundColor Green
     } else {
-        Write-Host "⚠ Unmanaged solution package not found: $unmanagedZip" -ForegroundColor Yellow
+        Write-Host "[WARN] Unmanaged solution package not found: $unmanagedZip" -ForegroundColor Yellow
     }
     
     if (Test-Path $managedZip) {
-        Write-Host "✓ Managed solution package created" -ForegroundColor Green
+        Write-Host "[OK] Managed solution package created" -ForegroundColor Green
     } else {
-        Write-Host "⚠ Managed solution package not found: $managedZip" -ForegroundColor Yellow
+        Write-Host "[WARN] Managed solution package not found: $managedZip" -ForegroundColor Yellow
     }
     
     Write-Host ""
@@ -114,7 +114,7 @@ try {
     
 } catch {
     Write-Host ""
-    Write-Host "ERROR: $_" -ForegroundColor Red
+    Write-Host "ERROR: $($_.Exception.Message)" -ForegroundColor Red
     Write-Host $_.ScriptStackTrace -ForegroundColor Gray
     exit 1
 }

@@ -135,7 +135,7 @@ try {
         # Update the project file to build both managed and unmanaged packages
         Write-Host "Configuring package build settings..." -ForegroundColor Yellow
         Update-SolutionProjectManaged $newProjectFilePath
-        Write-Host "✓ Package type set to Both (managed and unmanaged)" -ForegroundColor Green
+        Write-Host "[OK] Package type set to Both (managed and unmanaged)" -ForegroundColor Green
     }
     
     Write-Host ""
@@ -184,7 +184,7 @@ try {
     
 } catch {
     Write-Host ""
-    Write-Host "ERROR: $_" -ForegroundColor Red
+    Write-Host "ERROR: $($_.Exception.Message)" -ForegroundColor Red
     Write-Host $_.ScriptStackTrace -ForegroundColor Gray
     exit 1
 }
