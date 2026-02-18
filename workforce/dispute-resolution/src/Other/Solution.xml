@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ImportExportXml version="9.2.26012.156" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26012.156" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26012.00156">
   <SolutionManifest>
-    <UniqueName>appbase_workplacedispute</UniqueName>
+    <UniqueName>appbase_disputeresolution</UniqueName>
     <LocalizedNames>
-      <LocalizedName description="Base Industry Module - Workplace Dispute" languagecode="1033" />
+      <LocalizedName description="Base Industry Module - Dispute Resolution" languagecode="1033" />
     </LocalizedNames>
     <Descriptions />
     <Version>1.0</Version>
@@ -14,7 +14,7 @@
         <LocalizedName description="Base Industry Modules" languagecode="1033" />
       </LocalizedNames>
       <Descriptions>
-        <Description description="Base Industry Modules" languagecode="1033" />
+        <Description description="appbase" languagecode="1033" />
       </Descriptions>
       <EMailAddress xsi:nil="true"></EMailAddress>
       <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
@@ -93,7 +93,22 @@
       <RootComponent type="1" schemaName="appbase_disputemediation" behavior="0" />
       <RootComponent type="1" schemaName="appbase_disputeparty" behavior="0" />
       <RootComponent type="1" schemaName="appbase_disputereferral" behavior="0" />
+      <RootComponent type="62" schemaName="appbase_DisputeResolution" behavior="0" />
+      <RootComponent type="80" schemaName="appbase_DisputeResolution" behavior="0" />
     </RootComponents>
-    <MissingDependencies />
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)">
+          <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
+        </Required>
+        <Dependent type="80" schemaName="appbase_DisputeResolution" displayName="Dispute Resolution" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.15)" id.uniquename="AppChannel">
+          <package appName="PowerAppsAppFramework Package" version="1.0.0.25">PowerAppsAppFramework_Anchor (1.0.0.25)</package>
+        </Required>
+        <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=appbase_DisputeResolution,settingdefinitionid.uniquename=AppChannel" id.parentappmoduleid.uniquename="appbase_DisputeResolution" id.settingdefinitionid.uniquename="AppChannel" />
+      </MissingDependency>
+    </MissingDependencies>
   </SolutionManifest>
 </ImportExportXml>
