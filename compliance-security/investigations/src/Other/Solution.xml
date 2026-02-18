@@ -14,7 +14,7 @@
         <LocalizedName description="Base Industry Modules" languagecode="1033" />
       </LocalizedNames>
       <Descriptions>
-        <Description description="Base Industry Modules" languagecode="1033" />
+        <Description description="appbase" languagecode="1033" />
       </Descriptions>
       <EMailAddress xsi:nil="true"></EMailAddress>
       <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
@@ -80,16 +80,49 @@
       </Addresses>
     </Publisher>
     <RootComponents>
+      <RootComponent type="1" schemaName="appbase_evidenceaccesslog" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_evidencecustodyrecord" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_evidenceitem" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_evidencelink" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_evidencestoragelocation" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_evidencetype" behavior="0" />
       <RootComponent type="1" schemaName="appbase_investigation" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_investigativeevidence" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_investigativelead" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_investigativeoutcome" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_investigativeparty" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_investigativepartyviolation" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_investigativereferral" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_investigativeviolation" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_investigativeviolationcode" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_investigationallegation" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_investigationcorrectiveaction" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_investigationfinding" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_investigationintake" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_investigationinterview" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_investigationinterviewparticipant" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_investigationlocation" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_investigationoutcome" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_investigationparty" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_investigationplan" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_investigationrecommendation" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_investigationrecoveryrecord" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_investigationreferral" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_investigationrelatedcases" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_investigationreport" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_investigativecategory" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_investigativeissue" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_investigativepartyrole" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_investigativereferraltype" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_investigativetype" behavior="0" />
+      <RootComponent type="62" schemaName="appbase_Investigations" behavior="0" />
+      <RootComponent type="80" schemaName="appbase_Investigations" behavior="0" />
     </RootComponents>
-    <MissingDependencies />
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)">
+          <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
+        </Required>
+        <Dependent type="80" schemaName="appbase_Investigations" displayName="Investigations" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.15)" id.uniquename="AppChannel">
+          <package appName="PowerAppsAppFramework Package" version="1.0.0.25">PowerAppsAppFramework_Anchor (1.0.0.25)</package>
+        </Required>
+        <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=appbase_Investigations,settingdefinitionid.uniquename=AppChannel" id.parentappmoduleid.uniquename="appbase_Investigations" id.settingdefinitionid.uniquename="AppChannel" />
+      </MissingDependency>
+    </MissingDependencies>
   </SolutionManifest>
 </ImportExportXml>
