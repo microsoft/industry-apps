@@ -14,7 +14,7 @@
         <LocalizedName description="Base Industry Modules" languagecode="1033" />
       </LocalizedNames>
       <Descriptions>
-        <Description description="Base Industry Modules" languagecode="1033" />
+        <Description description="appbase" languagecode="1033" />
       </Descriptions>
       <EMailAddress xsi:nil="true"></EMailAddress>
       <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
@@ -80,23 +80,39 @@
       </Addresses>
     </Publisher>
     <RootComponents>
-      <RootComponent type="1" schemaName="appbase_benefitbundle" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_benefitcoverageoption" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_benefiteligibilityrule" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_benefitlifeeventoption" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_benefitlifeeventtype" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_benefitperiod" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_benefitpersonalcontact" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_benefitpersonlifeevent" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_benefitplan" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_benefitplancoverageoption" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_benefitplaneligibilityrule" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_benefitplanperiod" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_benefitplanperson" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_benefitplantype" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_benefitplantypecoverageoption" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_benefitprogram" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_hrbenefitbeneficiary" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_hrbenefitclaim" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_hrbenefitcontributionrate" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_hrbenefitcostallocation" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_hrbenefitcoveragelevel" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_hrbenefitdeductioncode" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_hrbenefitelection" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_hrbenefiteligibilityrule" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_hrbenefitenrollment" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_hrbenefitenrollmentperiod" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_hrbenefitlifeevent" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_hrbenefitlifeeventchange" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_hrbenefitoption" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_hrbenefitplan" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_hrbenefitplandocument" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_hrbenefitprovider" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_hrbenefitwaitingperiod" behavior="0" />
+      <RootComponent type="62" schemaName="appbase_HRBenefits" behavior="0" />
+      <RootComponent type="80" schemaName="appbase_HRBenefits" behavior="0" />
     </RootComponents>
-    <MissingDependencies />
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)">
+          <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
+        </Required>
+        <Dependent type="80" schemaName="appbase_HRBenefits" displayName="HR Benefits" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.15)" id.uniquename="AppChannel">
+          <package appName="PowerAppsAppFramework Package" version="1.0.0.25">PowerAppsAppFramework_Anchor (1.0.0.25)</package>
+        </Required>
+        <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=appbase_HRBenefits,settingdefinitionid.uniquename=AppChannel" id.parentappmoduleid.uniquename="appbase_HRBenefits" id.settingdefinitionid.uniquename="AppChannel" />
+      </MissingDependency>
+    </MissingDependencies>
   </SolutionManifest>
 </ImportExportXml>
