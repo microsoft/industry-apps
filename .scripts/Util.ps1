@@ -669,7 +669,10 @@ function Deploy-Solution {
         [switch]$AutoConfirm,
         
         [Parameter(Mandatory = $false)]
-        [switch]$Upgrade
+        [switch]$Upgrade,
+        
+        [Parameter(Mandatory = $false)]
+        [string]$SettingsFile
     )
 
     $cdsprojFile = Get-ChildItem -Path $SolutionPath -Filter *.cdsproj | Select-Object -First 1
@@ -795,7 +798,13 @@ function Deploy-Solution {
                     }
                 }
                 
-                pac solution import --path $path
+                # Build import command with optional settings file
+                if ($SettingsFile -and (Test-Path $SettingsFile)) {
+                    Write-Host "Using settings file: $SettingsFile" -ForegroundColor Cyan
+                    pac solution import --path $path --settings-file $SettingsFile
+                } else {
+                    pac solution import --path $path
+                }
                 $importSuccessful = $true
                 Write-Host "Solution import completed successfully." -ForegroundColor Green
             }
@@ -820,7 +829,14 @@ function Deploy-Solution {
         # Import with upgrade flag (stage and upgrade)
         Write-Host "Importing solution with upgrade mode (will delete removed components)..." -ForegroundColor Yellow
         try {
-            pac solution import --path $path --stage-and-upgrade
+            # Build import command with optional settings file
+            $importCmd = "pac solution import --path `"$path`" --stage-and-upgrade"
+            if ($SettingsFile -and (Test-Path $SettingsFile)) {
+                Write-Host "Using settings file: $SettingsFile" -ForegroundColor Cyan
+                $importCmd += " --settings-file `"$SettingsFile`""
+            }
+            
+            Invoke-Expression $importCmd
             Write-Host "Solution staged for upgrade successfully." -ForegroundColor Green
             
             # Apply the upgrade

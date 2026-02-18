@@ -68,9 +68,22 @@ try {
     Write-Host ""
     Write-Host "Shipping managed solution to external tenant..." -ForegroundColor Yellow
     Write-Host "Path: $modulePath" -ForegroundColor Gray
+    
+    # Construct settings file path
+    $settingsFolder = "$projectRoot\.config\$tenant"
+    $envFileName = $Environment -replace ' ', '-'
+    $settingsFile = "$settingsFolder\$envFileName.json"
+    
+    # Debug: Show settings file path and whether it exists
+    Write-Host "Settings file path: $settingsFile" -ForegroundColor Gray
+    if (Test-Path $settingsFile) {
+        Write-Host "Settings file found" -ForegroundColor Green
+    } else {
+        Write-Host "Settings file not found (will deploy without settings)" -ForegroundColor Yellow
+    }
     Write-Host ""
     
-    Deploy-Solution $modulePath -Managed -AutoConfirm
+    Deploy-Solution $modulePath -Managed -AutoConfirm -SettingsFile $settingsFile
     
     Write-Host ""
     Write-Host "=== Ship Complete ===" -ForegroundColor Green

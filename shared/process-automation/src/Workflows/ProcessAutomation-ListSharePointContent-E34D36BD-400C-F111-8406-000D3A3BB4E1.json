@@ -1,0 +1,139 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_sharepointonline": {
+        "api": {
+          "name": "shared_sharepointonline"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "appbase_sharedsharepointonline_9fb4f"
+        },
+        "runtimeSource": "invoker"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "SharePoint Site",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "Folder Path",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1"
+              ]
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "e7b32055-ecdc-4574-9d33-41e1bf5f9dc1"
+          }
+        }
+      },
+      "actions": {
+        "Get_Files": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "@triggerBody()['text']",
+              "table": "Documents",
+              "folderPath": "@triggerBody()?['text_1']",
+              "viewScopeOption": "Default"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "operationId": "GetFileItems",
+              "connectionName": "shared_sharepointonline"
+            }
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "a56cb751-b1c8-4d6e-9bfc-550ec41fa09c"
+          }
+        },
+        "Select_Items": {
+          "type": "Select",
+          "inputs": {
+            "from": "@outputs('Get_Files')?['body/value']",
+            "select": {
+              "Name": "@item()?['{Name}']",
+              "FullPath": "@item()?['{FullPath}']",
+              "Link": "@item()?['{Link}']",
+              "IsFolder": "@item()?['{IsFolder}']",
+              "ThumbnailSmall": "@item()?['{Thumbnail}']?['Small']",
+              "Editor": "@item()?['Editor']?['DisplayName']",
+              "ModifiedOn": "@item()?['Modified']"
+            }
+          },
+          "runAfter": {
+            "Get_Files": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "5001c9b4-dbdb-4d5b-a20c-ed4c51ea0d6e"
+          }
+        },
+        "Respond_to_a_Power_App_or_flow": {
+          "type": "Response",
+          "kind": "PowerApp",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "title": "Result",
+                  "x-ms-dynamically-added": true,
+                  "type": "string"
+                }
+              },
+              "additionalProperties": {}
+            },
+            "statusCode": 200,
+            "body": {
+              "result": "@{body('Select_Items')}"
+            }
+          },
+          "runAfter": {
+            "Select_Items": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "73c436a2-25d9-438d-aeaa-045abe29f9d2"
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

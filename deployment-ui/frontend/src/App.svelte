@@ -35,6 +35,10 @@
   let deployments = [];
   let availableEnvironments = [];
   
+  // Version management state
+  let editingVersionModule = null;  // Module currently being edited
+  let editVersionValue = '';        // Current input value
+
   onMount(async () => {
     await loadConfig();
     await loadModules();
@@ -505,6 +509,83 @@
     }
   }
   
+  // Version Management Functions
+  function startEditingVersion(module) {
+    editingVersionModule = module;
+    editVersionValue = module.version || '1.0.0.0';
+  }
+  
+  function cancelEditingVersion() {
+    editingVersionModule = null;
+    editVersionValue = '';
+  }
+  
+  function incrementVersion(part) {
+    const parts = editVersionValue.split('.').map(p => parseInt(p) || 0);
+    while (parts.length < 4) parts.push(0);
+    
+    if (part === 'major') {
+      parts[0]++;
+      parts[1] = 0;
+      parts[2] = 0;
+      parts[3] = 0;
+    } else if (part === 'minor') {
+      parts[1]++;
+      parts[2] = 0;
+      parts[3] = 0;
+    } else if (part === 'build') {
+      parts[2]++;
+      parts[3] = 0;
+    } else if (part === 'revision') {
+      parts[3]++;
+    }
+    
+    editVersionValue = parts.join('.');
+  }
+  
+  function isValidVersion(version) {
+    return /^\d+\.\d+\.\d+\.\d+$/.test(version);
+  }
+  
+  async function updateVersion() {
+    if (!editingVersionModule || !isValidVersion(editVersionValue)) {
+      return;
+    }
+    
+    // Close the editor and open the modal
+    const module = editingVersionModule;
+    const version = editVersionValue;
+    cancelEditingVersion();
+    
+    // Use the same modal system as deployments
+    activeOperation = `version-${module.name}`;
+    operationStatus = 'running';
+    outputLines = [];
+    
+    try {
+      const response = await fetch('/api/version', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          deployment: module.deployment,
+          category: module.category,
+          module: module.name,
+          version: version
+        })
+      });
+      
+      await streamResponse(response);
+      
+      // Reload modules after successful update
+      if (operationStatus === 'success') {
+        await loadModules();
+      }
+    } catch (error) {
+      outputLines = [...outputLines, `\n✗ Connection error: ${error.message}`];
+      operationStatus = 'error';
+    }
+  }
+  
   function getActionPreview(module, zone) {
     if (!module || !zone) return '';
     
@@ -586,6 +667,16 @@
                     <span class="value">{module.tenant}</span>
                   </div>
                   <div class="meta-item">
+                    <span class="label">Version:</span>
+                    <span class="value version">{module.version}</span>
+                    <button 
+                      class="version-edit-btn" 
+                      title="Update Version"
+                      on:click|stopPropagation={() => startEditingVersion(module)}>
+                      ✏️
+                    </button>
+                  </div>
+                  <div class="meta-item">
                     <span class="label">Source:</span>
                     <span class="value source">{module.sourceEnvironment}</span>
                   </div>
@@ -596,6 +687,36 @@
                     </div>
                   {/if}
                 </div>
+                
+                {#if editingVersionModule?.name === module.name}
+                  <div class="version-editor">
+                    <div class="version-editor-header">
+                      <strong>Update Version</strong>
+                      <button class="icon-btn-small" on:click={cancelEditingVersion}>✕</button>
+                    </div>
+                    
+                    <div class="version-input-row">
+                      <input 
+                        type="text" 
+                        bind:value={editVersionValue}
+                        placeholder="1.0.0.0"
+                        class:invalid={!isValidVersion(editVersionValue)} />
+                      <button 
+                        class="btn btn-primary btn-small"
+                        disabled={!isValidVersion(editVersionValue)}
+                        on:click={updateVersion}>
+                        Update
+                      </button>
+                    </div>
+                    
+                    <div class="version-increment-buttons">
+                      <button class="btn btn-secondary btn-tiny" on:click={() => incrementVersion('major')}>Maj</button>
+                      <button class="btn btn-secondary btn-tiny" on:click={() => incrementVersion('minor')}>Min</button>
+                      <button class="btn btn-secondary btn-tiny" on:click={() => incrementVersion('build')}>Bld</button>
+                      <button class="btn btn-secondary btn-tiny" on:click={() => incrementVersion('revision')}>Rev</button>
+                    </div>
+                  </div>
+                {/if}
                 
                 <div class="module-hint">
                   Drag to deploy →
@@ -1007,7 +1128,7 @@
   
   main {
     padding: 20px 20px 0 20px;
-    max-width: 1800px;
+    max-width: 2400px;
     margin: 0 auto;
     display: block;
   }
@@ -1559,6 +1680,104 @@
     color: #81c784;
   }
   
+  .meta-item .version {
+    color: #a5d6a7;
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+  }
+  
+  .version-edit-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 0 4px;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+    margin-left: 4px;
+  }
+  
+  .version-edit-btn:hover {
+    opacity: 1;
+  }
+  
+  .version-editor {
+    background: #1e1e1e;
+    border: 1px solid #0078d4;
+    border-radius: 6px;
+    padding: 12px;
+    margin: 12px 0;
+  }
+  
+  .version-editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    color: #ffffff;
+  }
+  
+  .icon-btn-small {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 2px 4px;
+    opacity: 0.7;
+    color: #ffffff;
+  }
+  
+  .icon-btn-small:hover {
+    opacity: 1;
+  }
+  
+  .version-input-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .version-input-row input {
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 140px;
+    padding: 6px 10px;
+    border: 1px solid #3c3c3c;
+    border-radius: 4px;
+    background: #252526;
+    color: #e0e0e0;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+  }
+  
+  .version-input-row input:focus {
+    outline: none;
+    border-color: #0078d4;
+  }
+  
+  .version-input-row input.invalid {
+    border-color: #f44336;
+  }
+  
+  .version-increment-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+  
+  .btn-tiny {
+    padding: 4px 8px;
+    font-size: 11px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  
+  .btn-small {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  
   .module-hint {
     font-size: 11px;
     color: #808080;
@@ -1719,39 +1938,6 @@
     pointer-events: none;
   }
   
-  .output-dialog {
-    width: 1200px;
-    max-width: 95%;
-    max-height: 90vh;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .output-dialog.running {
-    border-top: 4px solid #0078d4;
-  }
-  
-  .output-dialog.success {
-    border-top: 4px solid #4caf50;
-  }
-  
-  .output-dialog.error {
-    border-top: 4px solid #f44336;
-  }
-  
-  .output-dialog .output-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-  
-  .output-dialog .output-header h2 {
-    margin: 0;
-    font-size: 18px;
-    color: #ffffff;
-  }
-  
   .output {
     background: #1e1e1e;
     color: #d4d4d4;
@@ -1813,6 +1999,39 @@
   
   .dialog h2 {
     margin: 0 0 20px 0;
+  }
+  
+  .output-dialog {
+    width: 1000px;
+    max-width: 95%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .output-dialog.running {
+    border-top: 4px solid #0078d4;
+  }
+  
+  .output-dialog.success {
+    border-top: 4px solid #4caf50;
+  }
+  
+  .output-dialog.error {
+    border-top: 4px solid #f44336;
+  }
+  
+  .output-dialog .output-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .output-dialog .output-header h2 {
+    margin: 0;
+    font-size: 18px;
+    color: #ffffff;
   }
   
   .form-group {

@@ -106,15 +106,29 @@ try {
     
     Write-Host ""
     
+    # Construct settings file path
+    $settingsFolder = "$projectRoot\.config\$tenant"
+    $envFileName = $envKey -replace ' ', '-'
+    $settingsFile = "$settingsFolder\$envFileName.json"
+    
+    # Debug: Show settings file path and whether it exists
+    Write-Host "Settings file path: $settingsFile" -ForegroundColor Gray
+    if (Test-Path $settingsFile) {
+        Write-Host "Settings file found" -ForegroundColor Green
+    } else {
+        Write-Host "Settings file not found (will deploy without settings)" -ForegroundColor Yellow
+    }
+    Write-Host ""
+    
     # Use the existing Deploy-Solution function from Util.ps1
     if ($Managed) {
         if ($Upgrade) {
-            Deploy-Solution -SolutionPath $modulePath -Managed -Upgrade -AutoConfirm
+            Deploy-Solution -SolutionPath $modulePath -Managed -Upgrade -AutoConfirm -SettingsFile $settingsFile
         } else {
-            Deploy-Solution -SolutionPath $modulePath -Managed -AutoConfirm
+            Deploy-Solution -SolutionPath $modulePath -Managed -AutoConfirm -SettingsFile $settingsFile
         }
     } else {
-        Deploy-Solution -SolutionPath $modulePath -AutoConfirm
+        Deploy-Solution -SolutionPath $modulePath -AutoConfirm -SettingsFile $settingsFile
     }
     
     Write-Host ""

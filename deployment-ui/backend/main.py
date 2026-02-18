@@ -9,6 +9,7 @@ from typing import Optional
 import sys
 import subprocess
 import shutil
+import xml.etree.ElementTree as ET
 
 app = FastAPI(title="Module Deployment API")
 
@@ -23,6 +24,44 @@ app.add_middleware(
 
 # Get project root (go up from backend to repo root)
 PROJECT_ROOT = Path(__file__).parent.parent.parent
+
+def read_solution_version(module_path: Path) -> str:
+    """Read version from Solution.xml file"""
+    solution_xml_path = module_path / "src" / "Other" / "Solution.xml"
+    
+    if not solution_xml_path.exists():
+        print(f"Version file not found: {solution_xml_path}", file=sys.stderr)
+        return "1.0.0.0"  # Default version if not found
+    
+    try:
+        tree = ET.parse(solution_xml_path)
+        root = tree.getroot()
+        
+        # Find the Version element (no namespace in these files)
+        version_elem = root.find(".//{http://www.w3.org/2001/XMLSchema-instance}Version")
+        if version_elem is None:
+            # Try without namespace
+            version_elem = root.find(".//Version")
+        
+        if version_elem is not None and version_elem.text:
+            version = version_elem.text.strip()
+            
+            # Normalize to 4-part version
+            parts = version.split('.')
+            while len(parts) < 4:
+                parts.append('0')
+            
+            normalized = '.'.join(parts[:4])
+            print(f"Read version {version} -> {normalized} from {solution_xml_path}", file=sys.stderr)
+            return normalized
+        
+        print(f"Version element not found in {solution_xml_path}", file=sys.stderr)
+        return "1.0.0.0"
+    except Exception as e:
+        print(f"Error reading version from {solution_xml_path}: {e}", file=sys.stderr)
+        import traceback
+        traceback.print_exc(file=sys.stderr)
+        return "1.0.0.0"
 
 class DeployRequest(BaseModel):
     deployment: str
@@ -54,6 +93,12 @@ class CreateModuleRequest(BaseModel):
 class ReleaseRequest(BaseModel):
     category: str
     module: str
+
+class UpdateVersionRequest(BaseModel):
+    deployment: str
+    category: str
+    module: str
+    version: str
 
 @app.get("/api/config")
 async def get_config():
@@ -125,6 +170,9 @@ async def get_modules():
                         source_env = environments.get(source_env_key, source_env_key)
                         target_envs = [environments.get(key, key) for key in target_env_keys]
                         
+                        # Read version from Solution.xml
+                        version = read_solution_version(item)
+                        
                         modules.append({
                             "name": module_name,
                             "category": category,
@@ -133,7 +181,8 @@ async def get_modules():
                             "sourceEnvironment": source_env,
                             "sourceEnvironmentKey": source_env_key,
                             "targetEnvironments": target_envs,
-                            "targetEnvironmentKeys": target_env_keys
+                            "targetEnvironmentKeys": target_env_keys,
+                            "version": version
                         })
                 else:
                     # Recursively scan subdirectories
@@ -261,6 +310,22 @@ async def sync_module(request: SyncRequest):
             "-Deployment", request.deployment,
             "-Category", request.category,
             "-Module", request.module
+        ),
+        media_type="text/event-stream"
+    )
+
+@app.post("/api/version")
+async def update_version(request: UpdateVersionRequest):
+    """Update a module's version (online and local)"""
+    script_path = PROJECT_ROOT / "deployment-ui" / "scripts" / "Update-Version-UI.ps1"
+    
+    return StreamingResponse(
+        stream_powershell_output(
+            str(script_path),
+            "-Deployment", request.deployment,
+            "-Category", request.category,
+            "-Module", request.module,
+            "-Version", request.version
         ),
         media_type="text/event-stream"
     )
