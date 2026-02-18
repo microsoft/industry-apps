@@ -14,7 +14,7 @@
         <LocalizedName description="Base Industry Modules" languagecode="1033" />
       </LocalizedNames>
       <Descriptions>
-        <Description description="Base Industry Modules" languagecode="1033" />
+        <Description description="appbase" languagecode="1033" />
       </Descriptions>
       <EMailAddress xsi:nil="true"></EMailAddress>
       <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
@@ -80,18 +80,33 @@
       </Addresses>
     </Publisher>
     <RootComponents>
-      <RootComponent type="1" schemaName="appbase_finding" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_incident" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_inspection" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_inspectionitem" behavior="0" />
       <RootComponent type="1" schemaName="appbase_operationalevent" behavior="0" />
       <RootComponent type="1" schemaName="appbase_operationaleventobjective" behavior="0" />
       <RootComponent type="1" schemaName="appbase_operationaleventoutcome" behavior="0" />
       <RootComponent type="1" schemaName="appbase_operationaleventparticipant" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_operationalfinding" behavior="0" />
       <RootComponent type="1" schemaName="appbase_operationalimpact" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_operationalincident" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_operationalinspection" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_operationalitem" behavior="0" />
       <RootComponent type="1" schemaName="appbase_operationalreadinessassessment" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_recommendation" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_operationalrecommendation" behavior="0" />
+      <RootComponent type="62" schemaName="appbase_OperationalExcellence" behavior="0" />
+      <RootComponent type="80" schemaName="appbase_OperationalExcellence" behavior="0" />
     </RootComponents>
-    <MissingDependencies />
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)">
+          <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
+        </Required>
+        <Dependent type="80" schemaName="appbase_OperationalExcellence" displayName="Operational Excellence" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.15)" id.uniquename="AppChannel">
+          <package appName="PowerAppsAppFramework Package" version="1.0.0.25">PowerAppsAppFramework_Anchor (1.0.0.25)</package>
+        </Required>
+        <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=appbase_OperationalExcellence,settingdefinitionid.uniquename=AppChannel" id.parentappmoduleid.uniquename="appbase_OperationalExcellence" id.settingdefinitionid.uniquename="AppChannel" />
+      </MissingDependency>
+    </MissingDependencies>
   </SolutionManifest>
 </ImportExportXml>
