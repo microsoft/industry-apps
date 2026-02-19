@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.26012.156" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26012.156" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26012.00156">
+<ImportExportXml version="9.2.26012.156" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26012.156" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26013.00152">
   <SolutionManifest>
     <UniqueName>appbase_assetmanagement</UniqueName>
     <LocalizedNames>
-      <LocalizedName description="Base Industry Module - Asset Management" languagecode="1033" />
+      <LocalizedName description="App Base - Asset Management" languagecode="1033" />
     </LocalizedNames>
     <Descriptions />
-    <Version>1.0</Version>
+    <Version>1.0.0.1</Version>
     <Managed>2</Managed>
     <Publisher>
       <UniqueName>appbase</UniqueName>
       <LocalizedNames>
-        <LocalizedName description="Base Industry Modules" languagecode="1033" />
+        <LocalizedName description="App Base" languagecode="1033" />
       </LocalizedNames>
       <Descriptions>
-        <Description description="Base Industry Modules" languagecode="1033" />
+        <Description description="App Base Modules" languagecode="1033" />
       </Descriptions>
       <EMailAddress xsi:nil="true"></EMailAddress>
       <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
@@ -81,9 +81,19 @@
     </Publisher>
     <RootComponents>
       <RootComponent type="1" schemaName="appbase_asset" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_assetacquisition" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_assetassignment" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_assetaudit" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_assetaudititem" behavior="0" />
       <RootComponent type="1" schemaName="appbase_assetcategory" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_assetcostentry" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_assetcustodyevent" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_assetdisposition" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_assetinspectionrequirement" behavior="0" />
       <RootComponent type="1" schemaName="appbase_assetowner" behavior="0" />
       <RootComponent type="1" schemaName="appbase_assetservicerecord" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_assetservicetype" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_assettype" behavior="0" />
       <RootComponent type="1" schemaName="appbase_location" behavior="1" />
       <RootComponent type="1" schemaName="appbase_organizationunit" behavior="1" />
       <RootComponent type="1" schemaName="appbase_product" behavior="1" />
@@ -94,47 +104,47 @@
     </RootComponents>
     <MissingDependencies>
       <MissingDependency>
-        <Required type="1" schemaName="appbase_location" displayName="Location" solution="appbase_core (1.0)" />
+        <Required type="1" schemaName="appbase_location" displayName="Location" solution="appbase_core (1.0.0.1)" />
         <Dependent type="1" schemaName="appbase_location" displayName="Location" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="1" schemaName="appbase_location" displayName="Location" solution="appbase_core (1.0)" />
+        <Required type="1" schemaName="appbase_location" displayName="Location" solution="appbase_core (1.0.0.1)" />
         <Dependent type="62" schemaName="appbase_AssetManagement" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="1" schemaName="appbase_location" displayName="Location" solution="appbase_core (1.0)" />
+        <Required type="1" schemaName="appbase_location" displayName="Location" solution="appbase_core (1.0.0.1)" />
         <Dependent type="80" schemaName="appbase_AssetManagement" displayName="Asset Management" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="1" schemaName="appbase_organizationunit" displayName="Organization Unit" solution="appbase_core (1.0)" />
+        <Required type="1" schemaName="appbase_organizationunit" displayName="Organization Unit" solution="appbase_core (1.0.0.1)" />
         <Dependent type="1" schemaName="appbase_organizationunit" displayName="Organization Unit" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="1" schemaName="appbase_product" displayName="Product" solution="appbase_core (1.0)" />
+        <Required type="1" schemaName="appbase_product" displayName="Product" solution="appbase_core (1.0.0.1)" />
         <Dependent type="1" schemaName="appbase_product" displayName="Product" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="1" schemaName="appbase_product" displayName="Product" solution="appbase_core (1.0)" />
+        <Required type="1" schemaName="appbase_product" displayName="Product" solution="appbase_core (1.0.0.1)" />
         <Dependent type="62" schemaName="appbase_AssetManagement" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="1" schemaName="appbase_product" displayName="Product" solution="appbase_core (1.0)" />
+        <Required type="1" schemaName="appbase_product" displayName="Product" solution="appbase_core (1.0.0.1)" />
         <Dependent type="80" schemaName="appbase_AssetManagement" displayName="Asset Management" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_location" parentDisplayName="Location" solution="appbase_core (1.0)" />
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_location" parentDisplayName="Location" solution="appbase_core (1.0.0.1)" />
         <Dependent type="10" schemaName="appbase_asset_Location_appbase_location" displayName="appbase_asset_Location_appbase_location" parentSchemaName="appbase_location" parentDisplayName="Location" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_location" parentDisplayName="Location" solution="appbase_core (1.0)" />
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_location" parentDisplayName="Location" solution="appbase_core (1.0.0.1)" />
         <Dependent type="10" schemaName="appbase_assetservicerecord_ServiceLocation_appbase_location" displayName="appbase_assetservicerecord_ServiceLocation_appbase_location" parentSchemaName="appbase_location" parentDisplayName="Location" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.0)" />
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.0.0.1)" />
         <Dependent type="10" schemaName="appbase_asset_OrganizationUnit_appbase_organizationunit" displayName="appbase_asset_OrganizationUnit_appbase_organizationunit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_product" parentDisplayName="Product" solution="appbase_core (1.0)" />
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_product" parentDisplayName="Product" solution="appbase_core (1.0.0.1)" />
         <Dependent type="10" schemaName="appbase_asset_RelatedProduct_appbase_product" displayName="appbase_asset_RelatedProduct_appbase_product" parentSchemaName="appbase_product" parentDisplayName="Product" />
       </MissingDependency>
       <MissingDependency>

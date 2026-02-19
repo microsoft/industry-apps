@@ -67,8 +67,8 @@ try {
     
     $customizationPrefix = "appbase"
     $publisherSchemaName = "appbase"
-    $publisherName = "Base Industry Modules"
-    $friendlyPrefix = "Base Industry Module"
+    $publisherName = "App Base"
+    $friendlyPrefix = "App Base"
     $pacFriendlyPrefix = "App-Base"
     
     $solutionUniqueName = "${publisherSchemaName}_${solutionUniqueName}"

@@ -38,6 +38,9 @@
   // Version management state
   let editingVersionModule = null;  // Module currently being edited
   let editVersionValue = '';        // Current input value
+  
+  // Sync settings
+  let autoIncrementOnSync = true;   // Auto-increment revision on sync
 
   onMount(async () => {
     await loadConfig();
@@ -272,6 +275,12 @@
     
     queueExecuting = false;
     currentQueueIndex = -1;
+    
+    // Reload modules if any sync operations were successful
+    const hadSuccessfulSync = operationQueue.some(item => item.type === 'sync' && item.status === 'success');
+    if (hadSuccessfulSync) {
+      await loadModules();
+    }
   }
   
   function handleErrorDialogAction(action) {
@@ -285,17 +294,47 @@
     outputLines = [];
     
     try {
-      const response = await fetch('/api/sync', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          deployment: module.deployment,
-          category: module.category,
-          module: module.name
-        })
-      });
-      
-      await streamResponse(response);
+      // If auto-increment is enabled, update version (which includes sync)
+      if (autoIncrementOnSync) {
+        outputLines = [...outputLines, 'Auto-incrementing revision number...'];
+        
+        // Calculate new version (increment revision)
+        const parts = module.version.split('.').map(p => parseInt(p) || 0);
+        while (parts.length < 4) parts.push(0);
+        parts[3]++; // Increment revision
+        const newVersion = parts.join('.');
+        
+        outputLines = [...outputLines, `Updating version: ${module.version} → ${newVersion}`];
+        outputLines = [...outputLines, '(Version update includes sync operation)'];
+        outputLines = [...outputLines, ''];
+        
+        // Call version update endpoint (which already includes sync)
+        const versionResponse = await fetch('/api/version', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            deployment: module.deployment,
+            category: module.category,
+            module: module.name,
+            version: newVersion
+          })
+        });
+        
+        await streamResponse(versionResponse);
+      } else {
+        // Just do a regular sync without version update
+        const response = await fetch('/api/sync', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            deployment: module.deployment,
+            category: module.category,
+            module: module.name
+          })
+        });
+        
+        await streamResponse(response);
+      }
     } catch (error) {
       outputLines = [...outputLines, `\n✗ Connection error: ${error.message}`];
       operationStatus = 'error';
@@ -371,6 +410,16 @@
     } catch (error) {
       outputLines = [...outputLines, `\n✗ Connection error: ${error.message}`];
       operationStatus = 'error';
+    }
+  }
+  
+  async function pushToSource(module) {
+    // Push unmanaged solution to the source environment
+    await deployModule(module, module.deployment, module.sourceEnvironmentKey, true, false);
+    
+    // Reload modules after successful push
+    if (operationStatus === 'success') {
+      await loadModules();
     }
   }
   
@@ -649,12 +698,20 @@
                 
                 <div class="module-header">
                   <div class="module-name">{module.name}</div>
-                  <button 
-                    class="icon-btn" 
-                    title="Create Release"
-                    on:click={() => createRelease(module)}>
-                    📦
-                  </button>
+                  <div class="header-buttons">
+                    <button 
+                      class="icon-btn push-btn" 
+                      title="Push to {module.sourceEnvironment} (unmanaged)"
+                      on:click|stopPropagation={() => pushToSource(module)}>
+                      ⬆️
+                    </button>
+                    <button 
+                      class="icon-btn" 
+                      title="Create Release"
+                      on:click={() => createRelease(module)}>
+                      📦
+                    </button>
+                  </div>
                 </div>
                 
                 <div class="module-meta">
@@ -743,7 +800,13 @@
       
       <!-- Local Sync Section -->
       <div class="section-container">
-        <h2>⬇️ Local (Sync From)</h2>
+        <div class="section-header-with-options">
+          <h2>⬇️ Local (Sync From)</h2>
+          <label class="sync-option">
+            <input type="checkbox" bind:checked={autoIncrementOnSync} />
+            <span>Auto-increment revision</span>
+          </label>
+        </div>
         
         {#if draggedModule}
           <div 
@@ -1470,6 +1533,37 @@
     font-size: 15px;
   }
   
+  .section-header-with-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .section-header-with-options h2 {
+    margin: 0;
+  }
+  
+  .sync-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #cccccc;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .sync-option input[type="checkbox"] {
+    cursor: pointer;
+    width: 14px;
+    height: 14px;
+  }
+  
+  .sync-option span {
+    cursor: pointer;
+  }
+  
   .section-container:first-child {
     padding: 10px;
   }
@@ -1634,6 +1728,12 @@
     font-size: 15px;
   }
   
+  .header-buttons {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  
   .icon-btn {
     background: transparent;
     border: none;
@@ -1647,6 +1747,15 @@
   
   .icon-btn:hover {
     opacity: 1;
+  }
+  
+  .push-btn {
+    font-size: 16px;
+    opacity: 0.6;
+  }
+  
+  .push-btn:hover {
+    opacity: 0.9;
   }
   
   .module-meta {
