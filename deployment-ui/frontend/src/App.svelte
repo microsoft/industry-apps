@@ -552,6 +552,11 @@
       });
       
       await streamResponse(response);
+      
+      // Reload modules after successful release (version unchanged, just rebuild)
+      if (operationStatus === 'success') {
+        await loadModules();
+      }
     } catch (error) {
       outputLines = [...outputLines, `\n✗ Connection error: ${error.message}`];
       operationStatus = 'error';

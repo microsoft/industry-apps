@@ -10,8 +10,16 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_assetservicerecordid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="230" />
+          <cell name="appbase_assetservicetype" width="148" />
+          <cell name="appbase_asset" width="100" />
+          <cell name="appbase_servicerequestdescription" width="200" />
+          <cell name="appbase_servicerequestdatetime" width="194" />
+          <cell name="appbase_servicestartdatetime" width="175" />
+          <cell name="appbase_servicelocation" width="136" />
+          <cell name="appbase_serviceenddatetime" width="171" />
+          <cell name="appbase_expectedreturndatetime" width="197" />
+          <cell name="appbase_actualreturndatetime" width="182" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +29,19 @@
         <entity name="appbase_assetservicerecord">
           <attribute name="appbase_assetservicerecordid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_asset" />
+          <attribute name="appbase_servicerequestdatetime" />
+          <attribute name="appbase_servicelocation" />
+          <attribute name="appbase_servicestartdatetime" />
+          <attribute name="appbase_serviceenddatetime" />
+          <attribute name="appbase_expectedreturndatetime" />
+          <attribute name="appbase_actualreturndatetime" />
+          <attribute name="appbase_assetservicetype" />
+          <attribute name="appbase_servicerequestdescription" />
         </entity>
       </fetch>
     </fetchxml>

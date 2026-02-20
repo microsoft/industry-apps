@@ -8,22 +8,22 @@
 Individual, accountable item instance. Stores identifying details, current status/condition, links to Product, Asset Type, ownership, assignment, and lifecycle records.
 
 **Fields:**
-- Name: Text
-- Asset Tag: Text
-- Serial Number: Text
-- Asset Type: Lookup (Asset Type)
-- Asset Category: Lookup (Asset Category)
-- Product: Lookup (Product)
-- Description: Memo
-- Asset Status: Choice (Asset Status)
-- Condition: Choice (Asset Condition)
-- Acquisition Date: Date
-- In Service Date: Date
-- Expected Useful Life (Years): Integer
+- Name: Text ok
+- Asset Number: Text ok
+- Serial Number: Text ok
+- Asset Type: Lookup (Asset Type) ok
+- Asset Category: Lookup (Asset Category) ok
+- Related Product: Lookup (Product) ok
+- Description: Memo ok
+- Asset Status: Choice (Asset Status) ok
+- Condition: Choice (Asset Condition) ok
+- Acquired Date Time: Date Time ok
+- In Service Date: Date ok
+- Expected Useful Life (Years): Integer ok
 - Estimated Value: Currency
 - Depreciation Method: Choice (Depreciation Method)
 - Barcode: Text
-- RFID Tag: Text
+- RF Tag: Text ok
 - Is Disposable: Yes / No
 - Requires Inspection: Yes / No
 - Current Location: Lookup (Location)
@@ -120,15 +120,15 @@ Tracks legal or financial ownership of the asset over time (e.g., owned, leased,
 Tracks custody or responsibility for the asset over time (assigned to a person, organization unit, or team). Includes start and end dates.
 
 **Fields:**
-- Name: Text
-- Asset: Lookup (Asset)
-- Assigned To Person: Lookup (Person)
-- Assigned To Organization Unit: Lookup (Organization Unit)
-- Assignment Date: Date
-- Expected Return Date: Date
-- Actual Return Date: Date
+- Name: Text ok
+- Asset: Lookup (Asset) ok
+- Assigned To Person: Lookup (Person) ok
+- Assigned To Organization Unit: Lookup (Organization Unit) ok
+- Assignment Date: Date ok
+- Expected Return Date: Date ok
+- Actual Return Date: Date ok
 - Assignment Status: Choice (Assignment Status)
-- Assignment Purpose: Memo
+- Assignment Purpose: Memo ok
 - Is Current: Yes / No
 - Notes: Memo
 
@@ -272,19 +272,19 @@ Captures retirement and disposal details for an asset, including retirement reas
 
 ## New Choice Fields
 
-### Asset Status
-- Available
-- In Use
-- In Storage
-- In Maintenance
-- In Transit
-- Reserved
-- Retired
-- Disposed
-- Lost
-- Stolen
+### Asset Status ok
+- Available ok
+- In Use ok
+- In Storage ok
+- In Maintenance ok
+- In Transit ok
+- Reserved ok
+- Retired ok
+- Disposed ok
+- Lost ok
+- Stolen ok
 
-### Asset Condition
+### Asset Condition ok
 - Excellent
 - Good
 - Fair
