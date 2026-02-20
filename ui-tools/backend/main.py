@@ -10,6 +10,7 @@ import sys
 import subprocess
 import shutil
 import xml.etree.ElementTree as ET
+from dataverse_client import DataverseClient
 
 app = FastAPI(title="Module Deployment API")
 
@@ -98,7 +99,12 @@ class UpdateVersionRequest(BaseModel):
     deployment: str
     category: str
     module: str
-    version: str
+
+class CreateFieldsRequest(BaseModel):
+    deployment: str
+    environment: str
+    tableName: str
+    fields: list[dict]
 
 @app.get("/api/config")
 async def get_config():
@@ -110,7 +116,7 @@ async def get_config():
     
     # Get categories and modules
     categories = {}
-    exclude_folders = {"__pycache__", ".scripts", ".config", ".git", ".vscode", "bin", "obj", "deployment-ui"}
+    exclude_folders = {"__pycache__", ".scripts", ".config", ".git", ".vscode", "bin", "obj", "ui-tools"}
     
     for item in PROJECT_ROOT.iterdir():
         if item.is_dir() and item.name not in exclude_folders:
@@ -143,7 +149,7 @@ async def get_modules():
     default_config = config.get("DefaultModule", {})
     
     modules = []
-    exclude_folders = {"__pycache__", ".scripts", ".config", ".git", ".vscode", "bin", "obj", "deployment-ui", "releases"}
+    exclude_folders = {"__pycache__", ".scripts", ".config", ".git", ".vscode", "bin", "obj", "ui-tools", "releases"}
     
     # Recursively scan for all modules (handles nested folder structures)
     def scan_for_modules(base_path, relative_path=""):
@@ -274,7 +280,7 @@ async def stream_powershell_output(script_path: str, *args):
 @app.post("/api/deploy")
 async def deploy_module(request: DeployRequest):
     """Deploy a module to the selected environment"""
-    script_path = PROJECT_ROOT / "deployment-ui" / "scripts" / "Deploy-Module-UI.ps1"
+    script_path = PROJECT_ROOT / "ui-tools" / "scripts" / "Deploy-Module-UI.ps1"
     
     args = [
         str(script_path),
@@ -302,7 +308,7 @@ async def deploy_module(request: DeployRequest):
 @app.post("/api/sync")
 async def sync_module(request: SyncRequest):
     """Sync a module from the selected environment"""
-    script_path = PROJECT_ROOT / "deployment-ui" / "scripts" / "Sync-Module-UI.ps1"
+    script_path = PROJECT_ROOT / "ui-tools" / "scripts" / "Sync-Module-UI.ps1"
     
     return StreamingResponse(
         stream_powershell_output(
@@ -317,7 +323,7 @@ async def sync_module(request: SyncRequest):
 @app.post("/api/version")
 async def update_version(request: UpdateVersionRequest):
     """Update a module's version (online and local)"""
-    script_path = PROJECT_ROOT / "deployment-ui" / "scripts" / "Update-Version-UI.ps1"
+    script_path = PROJECT_ROOT / "ui-tools" / "scripts" / "Update-Version-UI.ps1"
     
     return StreamingResponse(
         stream_powershell_output(
@@ -333,7 +339,7 @@ async def update_version(request: UpdateVersionRequest):
 @app.post("/api/ship")
 async def ship_module(request: ShipRequest):
     """Ship a module to an external tenant/environment"""
-    script_path = PROJECT_ROOT / "deployment-ui" / "scripts" / "Ship-Module-UI.ps1"
+    script_path = PROJECT_ROOT / "ui-tools" / "scripts" / "Ship-Module-UI.ps1"
     
     return StreamingResponse(
         stream_powershell_output(
@@ -359,7 +365,7 @@ async def create_module(request: CreateModuleRequest):
     print(f"  - targetEnvironments: {request.targetEnvironments}")
     print(f"  - deploy: {request.deploy}")
     
-    script_path = PROJECT_ROOT / "deployment-ui" / "scripts" / "New-Module-UI.ps1"
+    script_path = PROJECT_ROOT / "ui-tools" / "scripts" / "New-Module-UI.ps1"
     
     # First, save the module configuration to deployments.json
     config_path = PROJECT_ROOT / ".config" / "deployments.json"
@@ -417,7 +423,7 @@ async def create_module(request: CreateModuleRequest):
 @app.post("/api/modules/release")
 async def create_release(request: ReleaseRequest):
     """Create a release for a module"""
-    script_path = PROJECT_ROOT / "deployment-ui" / "scripts" / "Release-Module-UI.ps1"
+    script_path = PROJECT_ROOT / "ui-tools" / "scripts" / "Release-Module-UI.ps1"
     
     return StreamingResponse(
         stream_powershell_output(
@@ -427,7 +433,120 @@ async def create_release(request: ReleaseRequest):
         ),
         media_type="text/event-stream"
     )
-
+@app.post("/api/helpers/create-fields")
+async def create_fields(request: CreateFieldsRequest):
+    """Mass create fields on a Dataverse table using Python Dataverse client"""
+    
+    async def stream_field_creation():
+        try:
+            # Load deployment configuration
+            config_path = PROJECT_ROOT / ".config" / "deployments.json"
+            if not config_path.exists():
+                yield f"data: {{\"type\": \"error\", \"message\": \"Configuration not found at {config_path}\"}}\n\n"
+                return
+            
+            with open(config_path) as f:
+                config = json.load(f)
+            
+            # Get the deployment configuration
+            if request.deployment not in config.get("Deployments", {}):
+                yield f"data: {{\"type\": \"error\", \"message\": \"Deployment '{request.deployment}' not found in configuration\"}}\n\n"
+                return
+            
+            deployment_config = config["Deployments"][request.deployment]
+            
+            # Get authentication configuration from deployment
+            if "Auth" not in deployment_config:
+                yield f"data: {{\"type\": \"error\", \"message\": \"Auth configuration missing for deployment '{request.deployment}'. Please add Auth section with TenantId, ClientId, ClientSecret, and EnvironmentUrls.\"}}\n\n"
+                return
+            
+            auth_config = deployment_config["Auth"]
+            tenant_id = auth_config.get("TenantId")
+            client_id = auth_config.get("ClientId")
+            client_secret = auth_config.get("ClientSecret")
+            
+            if not all([tenant_id, client_id, client_secret]):
+                yield f"data: {{\"type\": \"error\", \"message\": \"Incomplete auth configuration for deployment '{request.deployment}'. TenantId, ClientId, and ClientSecret are required.\"}}\n\n"
+                return
+            
+            # Get environment URL from auth configuration
+            environment_url = auth_config.get("EnvironmentUrls", {}).get(request.environment)
+            if not environment_url:
+                yield f"data: {{\"type\": \"error\", \"message\": \"Environment URL not configured for '{request.environment}' in deployment '{request.deployment}'\"}}\n\n"
+                return
+            
+            # Initialize message
+            yield f"data: {{\"type\": \"output\", \"line\": \"=== Create Fields on Table: {request.tableName} ===\"}}\n\n"
+            yield f"data: {{\"type\": \"output\", \"line\": \"\"}}\n\n"
+            yield f"data: {{\"type\": \"output\", \"line\": \"Deployment: {request.deployment}\"}}\n\n"
+            yield f"data: {{\"type\": \"output\", \"line\": \"Environment: {request.environment}\"}}\n\n"
+            yield f"data: {{\"type\": \"output\", \"line\": \"Table: {request.tableName}\"}}\n\n"
+            yield f"data: {{\"type\": \"output\", \"line\": \"Fields to create: {len(request.fields)}\"}}\n\n"
+            yield f"data: {{\"type\": \"output\", \"line\": \"\"}}\n\n"
+            
+            # Create Dataverse client
+            yield f"data: {{\"type\": \"output\", \"line\": \"Connecting to Dataverse...\"}}\n\n"
+            client = DataverseClient(
+                environment_url=environment_url,
+                tenant_id=tenant_id,
+                client_id=client_id,
+                client_secret=client_secret
+            )
+            
+            # Authenticate
+            client.authenticate()
+            yield f"data: {{\"type\": \"output\", \"line\": \"✓ Connected successfully\"}}\n\n"
+            yield f"data: {{\"type\": \"output\", \"line\": \"\"}}\n\n"
+            yield f"data: {{\"type\": \"output\", \"line\": \"Creating fields...\"}}\n\n"
+            yield f"data: {{\"type\": \"output\", \"line\": \"\"}}\n\n"
+            
+            # Create fields
+            success_count = 0
+            fail_count = 0
+            
+            for i, field in enumerate(request.fields, 1):
+                schema_name = field.get("schemaName")
+                display_name = field.get("displayName")
+                field_type = field.get("type")
+                
+                yield f"data: {{\"type\": \"output\", \"line\": \"[{i}/{len(request.fields)}] Creating: {schema_name} ({display_name})\"}}\n\n"
+                yield f"data: {{\"type\": \"output\", \"line\": \"  Type: {field_type}\"}}\n\n"
+                
+                # Create the field
+                result = client.create_field(request.tableName, field)
+                
+                if result.get("success"):
+                    yield f"data: {{\"type\": \"output\", \"line\": \"  ✓ Field created successfully\"}}\n\n"
+                    success_count += 1
+                else:
+                    error_msg = result.get("error", "Unknown error")
+                    yield f"data: {{\"type\": \"output\", \"line\": \"  ✗ Failed: {error_msg}\"}}\n\n"
+                    fail_count += 1
+                
+                yield f"data: {{\"type\": \"output\", \"line\": \"\"}}\n\n"
+            
+            # Summary
+            yield f"data: {{\"type\": \"output\", \"line\": \"=== Summary ===\"}}\n\n"
+            yield f"data: {{\"type\": \"output\", \"line\": \"Total fields: {len(request.fields)}\"}}\n\n"
+            yield f"data: {{\"type\": \"output\", \"line\": \"✓ Successful: {success_count}\"}}\n\n"
+            if fail_count > 0:
+                yield f"data: {{\"type\": \"output\", \"line\": \"✗ Failed: {fail_count}\"}}\n\n"
+            yield f"data: {{\"type\": \"output\", \"line\": \"\"}}\n\n"
+            
+            # Complete
+            exit_code = 0 if fail_count == 0 else 1
+            yield f"data: {{\"type\": \"complete\", \"exitCode\": {exit_code}}}\n\n"
+            
+        except Exception as e:
+            import traceback
+            error_msg = str(e).replace('"', '\\"').replace('\n', ' ')
+            yield f"data: {{\"type\": \"error\", \"message\": \"{error_msg}\"}}\n\n"
+            traceback.print_exc()
+    
+    return StreamingResponse(
+        stream_field_creation(),
+        media_type="text/event-stream"
+    )
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)

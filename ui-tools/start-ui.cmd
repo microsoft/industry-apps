@@ -1,13 +1,13 @@
 @echo off
-REM Simple launcher for Deployment UI using cmd.exe
+REM Simple launcher for UI Tools using cmd.exe
 REM No PowerShell execution policy issues
 
-echo Starting Module Deployment UI...
+echo Starting UI Tools...
 echo.
 
 REM Start backend in new window
 echo Starting backend server...
-start "Deployment UI - Backend" cmd /k "cd backend && python main.py"
+start "UI Tools - Backend" cmd /k "cd backend && python main.py"
 
 timeout /t 3 /nobreak >nul
 
