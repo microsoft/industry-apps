@@ -8,11 +8,13 @@
   // Import route components
   import Deploy from './routes/Deploy.svelte';
   import FieldCreator from './routes/FieldCreator.svelte';
+  import ChoiceCreator from './routes/ChoiceCreator.svelte';
   
   // Define routes
   const routes = {
     '/': Deploy,
     '/field-creator': FieldCreator,
+    '/choice-creator': ChoiceCreator,
   };
   
   // Load initial data

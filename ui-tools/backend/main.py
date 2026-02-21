@@ -650,6 +650,347 @@ async def get_field_template(name: str):
     else:
         return {"success": False, "error": f"Template '{name}' not found"}
 
+# ============================================================================
+# GLOBAL CHOICE / OPTION SET MANAGEMENT
+# ============================================================================
+
+@app.get("/api/helpers/solutions/list")
+async def list_solutions():
+    """Scan all modules for Solution.xml files and extract solution information"""
+    solutions = []
+    
+    # Scan all category/module folders
+    exclude_folders = {"__pycache__", ".scripts", ".config", ".git", ".vscode", "bin", "obj", "ui-tools"}
+    
+    for category_dir in PROJECT_ROOT.iterdir():
+        if not category_dir.is_dir() or category_dir.name in exclude_folders:
+            continue
+        
+        for module_dir in category_dir.iterdir():
+            if not module_dir.is_dir():
+                continue
+            
+            solution_xml = module_dir / "src" / "Other" / "Solution.xml"
+            if solution_xml.exists():
+                try:
+                    tree = ET.parse(solution_xml)
+                    root = tree.getroot()
+                    
+                    # Extract solution details
+                    manifest = root.find(".//SolutionManifest")
+                    if manifest is not None:
+                        unique_name = manifest.find("UniqueName")
+                        localized_name = manifest.find(".//LocalizedName")
+                        publisher = manifest.find(".//Publisher")
+                        
+                        solution_info = {
+                            "uniqueName": unique_name.text if unique_name is not None else "",
+                            "displayName": localized_name.get("description") if localized_name is not None else "",
+                            "category": category_dir.name,
+                            "module": module_dir.name,
+                            "path": str(module_dir.relative_to(PROJECT_ROOT))
+                        }
+                        
+                        # Extract publisher prefix and option value prefix
+                        if publisher is not None:
+                            prefix_elem = publisher.find("CustomizationPrefix")
+                            option_prefix_elem = publisher.find("CustomizationOptionValuePrefix")
+                            solution_info["prefix"] = prefix_elem.text if prefix_elem is not None else ""
+                            solution_info["optionValuePrefix"] = option_prefix_elem.text if option_prefix_elem is not None else ""
+                        
+                        solutions.append(solution_info)
+                        
+                except Exception as e:
+                    print(f"Error parsing solution XML {solution_xml}: {e}", file=sys.stderr)
+    
+    return {"solutions": sorted(solutions, key=lambda s: (s.get("category", ""), s.get("module", "")))}
+
+@app.get("/api/helpers/option-sets/scan")
+async def scan_option_sets():
+    """Scan all modules for existing global option sets"""
+    option_sets = []
+    
+    # Scan all OptionSets folders
+    exclude_folders = {"__pycache__", ".scripts", ".config", ".git", ".vscode", "bin", "obj", "ui-tools"}
+    
+    print(f"[DEBUG] Starting option sets scan in {PROJECT_ROOT}")
+    
+    for category_dir in PROJECT_ROOT.iterdir():
+        if not category_dir.is_dir() or category_dir.name in exclude_folders:
+            continue
+        
+        for module_dir in category_dir.iterdir():
+            if not module_dir.is_dir():
+                continue
+            
+            option_sets_dir = module_dir / "src" / "OptionSets"
+            if option_sets_dir.exists():
+                print(f"[DEBUG] Found OptionSets dir: {option_sets_dir}")
+                for optionset_xml in option_sets_dir.glob("*.xml"):
+                    try:
+                        tree = ET.parse(optionset_xml)
+                        root = tree.getroot()
+                        
+                        # Extract option set details
+                        schema_name = root.get("Name", "")
+                        display_name = root.get("localizedName", "")
+                        
+                        # Extract options
+                        options = []
+                        for option_elem in root.findall(".//option"):
+                            value = option_elem.get("value", "")
+                            label_elem = option_elem.find(".//label")
+                            label = label_elem.get("description", "") if label_elem is not None else ""
+                            
+                            if label:  # Only include options with labels
+                                options.append({
+                                    "value": value,
+                                    "label": label
+                                })
+                        
+                        option_set_info = {
+                            "schemaName": schema_name,
+                            "displayName": display_name,
+                            "options": options,
+                            "category": category_dir.name,
+                            "module": module_dir.name,
+                            "filePath": str(optionset_xml.relative_to(PROJECT_ROOT))
+                        }
+                        option_sets.append(option_set_info)
+                        print(f"[DEBUG] Parsed option set: {display_name} ({schema_name}) with {len(options)} options")
+                        
+                    except Exception as e:
+                        print(f"Error parsing option set XML {optionset_xml}: {e}", file=sys.stderr)
+    
+    print(f"[DEBUG] Scan complete. Found {len(option_sets)} option sets")
+    return {"optionSets": sorted(option_sets, key=lambda o: (o.get("category", ""), o.get("module", ""), o.get("displayName", "")))}
+
+class OptionSetSearchRequest(BaseModel):
+    displayName: Optional[str] = None
+    optionLabels: Optional[list[str]] = None
+
+@app.post("/api/helpers/option-sets/search")
+async def search_option_sets(request: OptionSetSearchRequest):
+    """Search for similar option sets based on name or option values"""
+    print(f"[DEBUG] Search request: displayName={request.displayName}, optionLabels={request.optionLabels}")
+    
+    # First, get all option sets
+    all_option_sets_response = await scan_option_sets()
+    all_option_sets = all_option_sets_response["optionSets"]
+    
+    print(f"[DEBUG] Searching through {len(all_option_sets)} option sets")
+    
+    matches = []
+    
+    for option_set in all_option_sets:
+        match_score = 0
+        match_reasons = []
+        matched_count = 0  # Initialize here for use across all matching logic
+        
+        # Name matching
+        if request.displayName:
+            search_name = request.displayName.lower()
+            display_name = option_set.get("displayName", "").lower()
+            schema_name = option_set.get("schemaName", "").lower()
+            
+            # Exact match
+            if search_name == display_name or search_name == schema_name:
+                match_score += 100
+                match_reasons.append("Exact name match")
+            # Contains match
+            elif search_name in display_name or search_name in schema_name:
+                match_score += 50
+                match_reasons.append("Partial name match")
+            # Word match
+            elif any(word in display_name or word in schema_name for word in search_name.split()):
+                match_score += 25
+                match_reasons.append("Word match")
+        
+        # Option label matching
+        if request.optionLabels and len(request.optionLabels) > 0:
+            existing_labels = [opt["label"].lower() for opt in option_set.get("options", [])]
+            search_terms = [label.lower() for label in request.optionLabels]
+            
+            print(f"[DEBUG] Matching option set '{option_set.get('displayName')}' - search terms: {search_terms}, existing labels: {existing_labels}")
+            
+            # Check for exact matches AND partial matches (for multi-word labels)
+            matched_count = 0
+            matched_labels = []
+            
+            for search_term in search_terms:
+                # Check if search term matches any label exactly or partially
+                for existing_label in existing_labels:
+                    # Exact match
+                    if search_term == existing_label:
+                        matched_count += 1
+                        matched_labels.append(existing_label)
+                        print(f"[DEBUG]   Exact match: '{search_term}' == '{existing_label}'")
+                        break
+                    # Partial match (search term appears in label, e.g., "Progress" matches "In Progress")
+                    elif search_term in existing_label or existing_label in search_term:
+                        matched_count += 1
+                        matched_labels.append(existing_label)
+                        print(f"[DEBUG]   Partial match: '{search_term}' <-> '{existing_label}'")
+                        break
+            
+            print(f"[DEBUG]   Matched {matched_count}/{len(search_terms)} terms")
+            
+            overlap_percentage = (matched_count / len(search_terms) * 100) if search_terms else 0
+            
+            if overlap_percentage >= 75:
+                match_score += 80
+                match_reasons.append(f"{int(overlap_percentage)}% option values match ({matched_count}/{len(search_terms)})")
+            elif overlap_percentage >= 50:
+                match_score += 50
+                match_reasons.append(f"{int(overlap_percentage)}% option values match ({matched_count}/{len(search_terms)})")
+            elif overlap_percentage >= 25:
+                match_score += 25
+                match_reasons.append(f"{int(overlap_percentage)}% option values match ({matched_count}/{len(search_terms)})")
+            elif matched_count > 0:
+                # Even a single match should show up with a small score
+                match_score += 15
+                match_reasons.append(f"Partial match ({matched_count}/{len(search_terms)} values)")
+        
+        # Only include results that actually matched something
+        if match_score > 0 or matched_count > 0:
+            if match_score == 0 and matched_count > 0:
+                match_score = 1  # Give minimal score for sorting
+                
+            matches.append({
+                **option_set,
+                "matchScore": match_score,
+                "matchReasons": match_reasons if match_reasons else ["Result"]
+            })
+    
+    # Sort by match score descending
+    matches.sort(key=lambda m: m["matchScore"], reverse=True)
+    
+    print(f"[DEBUG] Search complete. Found {len(matches)} matches")
+    
+    return {"matches": matches}
+
+class OptionSetCreateRequest(BaseModel):
+    schemaName: str
+    displayName: str
+    description: str = ""
+    options: list[dict]  # [{label: str, value: Optional[str]}]
+    targetSolution: str  # solution unique name
+
+@app.post("/api/helpers/option-sets/create")
+async def create_option_set(request: OptionSetCreateRequest):
+    """Create a new global option set in the specified solution"""
+    try:
+        # Find the target solution
+        solutions_response = await list_solutions()
+        target_solution = None
+        
+        for solution in solutions_response["solutions"]:
+            if solution["uniqueName"] == request.targetSolution:
+                target_solution = solution
+                break
+        
+        if not target_solution:
+            return {"success": False, "error": f"Solution '{request.targetSolution}' not found"}
+        
+        # Validate schema name
+        if not request.schemaName or not request.schemaName.replace('_', '').isalnum():
+            return {"success": False, "error": "Invalid schema name. Use only letters, numbers, and underscores."}
+        
+        # Build the target path
+        solution_path = PROJECT_ROOT / target_solution["path"]
+        option_sets_dir = solution_path / "src" / "OptionSets"
+        option_sets_dir.mkdir(parents=True, exist_ok=True)
+        
+        target_file = option_sets_dir / f"{request.schemaName}.xml"
+        
+        # Check if file already exists
+        if target_file.exists():
+            return {"success": False, "error": f"Option set '{request.schemaName}' already exists in this solution"}
+        
+        # Get option value prefix and find next available value
+        option_value_prefix = target_solution.get("optionValuePrefix", "14713")
+        
+        # Scan existing option sets in this solution to find max value
+        max_value = 0
+        if option_sets_dir.exists():
+            for existing_xml in option_sets_dir.glob("*.xml"):
+                try:
+                    tree = ET.parse(existing_xml)
+                    for option_elem in tree.findall(".//option"):
+                        value_str = option_elem.get("value", "0")
+                        try:
+                            value_int = int(value_str)
+                            if value_int > max_value:
+                                max_value = value_int
+                        except ValueError:
+                            pass
+                except Exception:
+                    pass
+        
+        # Generate values for options
+        next_value = max_value + 1 if max_value >= int(option_value_prefix + "0000") else int(option_value_prefix + "0000")
+        
+        options_with_values = []
+        for opt in request.options:
+            if opt.get("value"):
+                options_with_values.append(opt)
+            else:
+                options_with_values.append({
+                    "label": opt["label"],
+                    "value": str(next_value)
+                })
+                next_value += 1
+        
+        # Generate XML
+        xml_content = f'''<?xml version="1.0" encoding="utf-8"?>
+<optionset Name="{request.schemaName}" localizedName="{request.displayName}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <OptionSetType>picklist</OptionSetType>
+  <IsGlobal>1</IsGlobal>
+  <IntroducedVersion>1.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <ExternalTypeName></ExternalTypeName>
+  <displaynames>
+    <displayname description="{request.displayName}" languagecode="1033" />
+  </displaynames>
+  <Descriptions>
+    <Description description="{request.description}" languagecode="1033" />
+  </Descriptions>
+  <options>'''
+        
+        for opt in options_with_values:
+            xml_content += f'''
+    <option value="{opt['value']}" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="{opt['label']}" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>'''
+        
+        xml_content += '''
+  </options>
+</optionset>
+'''
+        
+        # Write file
+        with open(target_file, 'w', encoding='utf-8') as f:
+            f.write(xml_content)
+        
+        return {
+            "success": True,
+            "message": f"Option set '{request.displayName}' created successfully",
+            "filePath": str(target_file.relative_to(PROJECT_ROOT)),
+            "schemaName": request.schemaName,
+            "optionCount": len(options_with_values)
+        }
+        
+    except Exception as e:
+        print(f"Error creating option set: {e}", file=sys.stderr)
+        import traceback
+        traceback.print_exc()
+        return {"success": False, "error": str(e)}
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)

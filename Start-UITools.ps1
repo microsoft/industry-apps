@@ -1,5 +1,10 @@
 # UI Tools Launcher
 # Starts both the FastAPI backend and Svelte frontend
+#
+# DEVELOPMENT TIP: For better debugging, run backend and frontend separately:
+#   Terminal 1: .\Start-Backend.ps1
+#   Terminal 2: .\Start-Frontend.ps1
+# This gives you full log visibility and independent restart capability.
 
 Write-Host "Starting UI Tools..." -ForegroundColor Cyan
 Write-Host ""
