@@ -106,6 +106,12 @@ class CreateFieldsRequest(BaseModel):
     tableName: str
     fields: list[dict]
 
+class FieldTemplateRequest(BaseModel):
+    name: str
+    description: str = ""
+    publisherPrefix: str = ""
+    fields: list[dict]
+
 @app.get("/api/config")
 async def get_config():
     """Get deployment configuration and available modules"""
@@ -547,6 +553,92 @@ async def create_fields(request: CreateFieldsRequest):
         stream_field_creation(),
         media_type="text/event-stream"
     )
+
+@app.get("/api/helpers/field-templates")
+async def get_field_templates():
+    """Get list of all saved field templates"""
+    templates_dir = Path(__file__).parent / "templates"
+    templates_dir.mkdir(exist_ok=True)
+    
+    templates = []
+    for template_file in templates_dir.glob("*.json"):
+        try:
+            with open(template_file) as f:
+                template_data = json.load(f)
+                templates.append({
+                    "name": template_data.get("name", template_file.stem),
+                    "description": template_data.get("description", ""),
+                    "fieldCount": len(template_data.get("fields", []))
+                })
+        except Exception as e:
+            print(f"Error reading template {template_file}: {e}", file=sys.stderr)
+    
+    return {"templates": templates}
+
+@app.post("/api/helpers/field-templates")
+async def save_field_template(request: FieldTemplateRequest):
+    """Save a field template"""
+    templates_dir = Path(__file__).parent / "templates"
+    templates_dir.mkdir(exist_ok=True)
+    
+    # Sanitize filename
+    safe_name = "".join(c for c in request.name if c.isalnum() or c in (' ', '-', '_')).strip()
+    safe_name = safe_name.replace(' ', '_').lower()
+    template_file = templates_dir / f"{safe_name}.json"
+    
+    template_data = {
+        "name": request.name,
+        "description": request.description,
+        "publisherPrefix": request.publisherPrefix,
+        "fields": request.fields
+    }
+    
+    try:
+        with open(template_file, 'w') as f:
+            json.dump(template_data, f, indent=2)
+        return {"success": True, "message": f"Template '{request.name}' saved successfully"}
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+@app.delete("/api/helpers/field-templates/{name}")
+async def delete_field_template(name: str):
+    """Delete a field template"""
+    templates_dir = Path(__file__).parent / "templates"
+    
+    # Sanitize filename
+    safe_name = "".join(c for c in name if c.isalnum() or c in (' ', '-', '_')).strip()
+    safe_name = safe_name.replace(' ', '_').lower()
+    template_file = templates_dir / f"{safe_name}.json"
+    
+    if template_file.exists():
+        try:
+            template_file.unlink()
+            return {"success": True, "message": f"Template '{name}' deleted successfully"}
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+    else:
+        return {"success": False, "error": f"Template '{name}' not found"}
+
+@app.get("/api/helpers/field-templates/{name}")
+async def get_field_template(name: str):
+    """Get a specific field template"""
+    templates_dir = Path(__file__).parent / "templates"
+    
+    # Sanitize filename
+    safe_name = "".join(c for c in name if c.isalnum() or c in (' ', '-', '_')).strip()
+    safe_name = safe_name.replace(' ', '_').lower()
+    template_file = templates_dir / f"{safe_name}.json"
+    
+    if template_file.exists():
+        try:
+            with open(template_file) as f:
+                template_data = json.load(f)
+            return template_data
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+    else:
+        return {"success": False, "error": f"Template '{name}' not found"}
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)

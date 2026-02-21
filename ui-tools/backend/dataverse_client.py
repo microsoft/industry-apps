@@ -320,6 +320,255 @@ class DataverseClient:
         
         return self._create_attribute(table_name, attribute)
     
+    def create_memo_field(
+        self,
+        table_name: str,
+        schema_name: str,
+        display_name: str,
+        max_length: int = 4000,
+        required: bool = False,
+        description: str = ""
+    ) -> Dict[str, Any]:
+        """Create a multiline text (memo) field"""
+        
+        attribute = {
+            "@odata.type": "Microsoft.Dynamics.CRM.MemoAttributeMetadata",
+            "AttributeType": "Memo",
+            "AttributeTypeName": {
+                "Value": "MemoType"
+            },
+            "SchemaName": schema_name,
+            "RequiredLevel": {
+                "Value": "ApplicationRequired" if required else "None",
+                "CanBeChanged": True
+            },
+            "DisplayName": {
+                "@odata.type": "Microsoft.Dynamics.CRM.Label",
+                "LocalizedLabels": [
+                    {
+                        "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
+                        "Label": display_name,
+                        "LanguageCode": 1033
+                    }
+                ]
+            },
+            "Description": {
+                "@odata.type": "Microsoft.Dynamics.CRM.Label",
+                "LocalizedLabels": [
+                    {
+                        "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
+                        "Label": description,
+                        "LanguageCode": 1033
+                    }
+                ]
+            },
+            "MaxLength": max_length,
+            "Format": "TextArea"
+        }
+        
+        return self._create_attribute(table_name, attribute)
+    
+    def create_richtext_field(
+        self,
+        table_name: str,
+        schema_name: str,
+        display_name: str,
+        max_length: int = 1048576,
+        required: bool = False,
+        description: str = ""
+    ) -> Dict[str, Any]:
+        """Create a rich text (HTML) field"""
+        
+        attribute = {
+            "@odata.type": "Microsoft.Dynamics.CRM.MemoAttributeMetadata",
+            "AttributeType": "Memo",
+            "AttributeTypeName": {
+                "Value": "MemoType"
+            },
+            "SchemaName": schema_name,
+            "RequiredLevel": {
+                "Value": "ApplicationRequired" if required else "None",
+                "CanBeChanged": True
+            },
+            "DisplayName": {
+                "@odata.type": "Microsoft.Dynamics.CRM.Label",
+                "LocalizedLabels": [
+                    {
+                        "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
+                        "Label": display_name,
+                        "LanguageCode": 1033
+                    }
+                ]
+            },
+            "Description": {
+                "@odata.type": "Microsoft.Dynamics.CRM.Label",
+                "LocalizedLabels": [
+                    {
+                        "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
+                        "Label": description,
+                        "LanguageCode": 1033
+                    }
+                ]
+            },
+            "MaxLength": max_length,
+            "Format": "Text"
+        }
+        
+        return self._create_attribute(table_name, attribute)
+    
+    def create_url_field(
+        self,
+        table_name: str,
+        schema_name: str,
+        display_name: str,
+        max_length: int = 200,
+        required: bool = False,
+        description: str = ""
+    ) -> Dict[str, Any]:
+        """Create a URL formatted text field"""
+        
+        attribute = {
+            "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+            "AttributeType": "String",
+            "AttributeTypeName": {
+                "Value": "StringType"
+            },
+            "SchemaName": schema_name,
+            "RequiredLevel": {
+                "Value": "ApplicationRequired" if required else "None",
+                "CanBeChanged": True
+            },
+            "DisplayName": {
+                "@odata.type": "Microsoft.Dynamics.CRM.Label",
+                "LocalizedLabels": [
+                    {
+                        "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
+                        "Label": display_name,
+                        "LanguageCode": 1033
+                    }
+                ]
+            },
+            "Description": {
+                "@odata.type": "Microsoft.Dynamics.CRM.Label",
+                "LocalizedLabels": [
+                    {
+                        "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
+                        "Label": description,
+                        "LanguageCode": 1033
+                    }
+                ]
+            },
+            "MaxLength": max_length,
+            "FormatName": {
+                "Value": "Url"
+            }
+        }
+        
+        return self._create_attribute(table_name, attribute)
+    
+    def create_decimal_field(
+        self,
+        table_name: str,
+        schema_name: str,
+        display_name: str,
+        required: bool = False,
+        precision: int = 2,
+        min_value: float = -100000000000.0,
+        max_value: float = 100000000000.0,
+        description: str = ""
+    ) -> Dict[str, Any]:
+        """Create a decimal (float) field"""
+        
+        attribute = {
+            "@odata.type": "Microsoft.Dynamics.CRM.DecimalAttributeMetadata",
+            "AttributeType": "Decimal",
+            "AttributeTypeName": {
+                "Value": "DecimalType"
+            },
+            "SchemaName": schema_name,
+            "RequiredLevel": {
+                "Value": "ApplicationRequired" if required else "None",
+                "CanBeChanged": True
+            },
+            "DisplayName": {
+                "@odata.type": "Microsoft.Dynamics.CRM.Label",
+                "LocalizedLabels": [
+                    {
+                        "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
+                        "Label": display_name,
+                        "LanguageCode": 1033
+                    }
+                ]
+            },
+            "Description": {
+                "@odata.type": "Microsoft.Dynamics.CRM.Label",
+                "LocalizedLabels": [
+                    {
+                        "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
+                        "Label": description,
+                        "LanguageCode": 1033
+                    }
+                ]
+            },
+            "Precision": precision,
+            "MinValue": min_value,
+            "MaxValue": max_value
+        }
+        
+        return self._create_attribute(table_name, attribute)
+    
+    def create_currency_field(
+        self,
+        table_name: str,
+        schema_name: str,
+        display_name: str,
+        required: bool = False,
+        precision: int = 2,
+        min_value: float = -922337203685477.0,
+        max_value: float = 922337203685477.0,
+        description: str = ""
+    ) -> Dict[str, Any]:
+        """Create a currency (money) field"""
+        
+        attribute = {
+            "@odata.type": "Microsoft.Dynamics.CRM.MoneyAttributeMetadata",
+            "AttributeType": "Money",
+            "AttributeTypeName": {
+                "Value": "MoneyType"
+            },
+            "SchemaName": schema_name,
+            "RequiredLevel": {
+                "Value": "ApplicationRequired" if required else "None",
+                "CanBeChanged": True
+            },
+            "DisplayName": {
+                "@odata.type": "Microsoft.Dynamics.CRM.Label",
+                "LocalizedLabels": [
+                    {
+                        "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
+                        "Label": display_name,
+                        "LanguageCode": 1033
+                    }
+                ]
+            },
+            "Description": {
+                "@odata.type": "Microsoft.Dynamics.CRM.Label",
+                "LocalizedLabels": [
+                    {
+                        "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
+                        "Label": description,
+                        "LanguageCode": 1033
+                    }
+                ]
+            },
+            "Precision": precision,
+            "PrecisionSource": 2,
+            "MinValue": min_value,
+            "MaxValue": max_value
+        }
+        
+        return self._create_attribute(table_name, attribute)
+    
     def _create_attribute(self, table_name: str, attribute: Dict[str, Any]) -> Dict[str, Any]:
         """
         Create an attribute (field) on a table
@@ -399,6 +648,33 @@ class DataverseClient:
                 required=required,
                 description=description
             )
+        elif field_type in ["Memo", "MultilineText"]:
+            return self.create_memo_field(
+                table_name,
+                schema_name,
+                display_name,
+                max_length=max_length or 4000,
+                required=required,
+                description=description
+            )
+        elif field_type in ["RichText", "HTML"]:
+            return self.create_richtext_field(
+                table_name,
+                schema_name,
+                display_name,
+                max_length=max_length or 1048576,
+                required=required,
+                description=description
+            )
+        elif field_type in ["URL", "Url"]:
+            return self.create_url_field(
+                table_name,
+                schema_name,
+                display_name,
+                max_length=max_length or 200,
+                required=required,
+                description=description
+            )
         elif field_type in ["Number", "Integer"]:
             return self.create_integer_field(
                 table_name,
@@ -407,7 +683,23 @@ class DataverseClient:
                 required=required,
                 description=description
             )
-        elif field_type in ["Boolean", "TwoOptions"]:
+        elif field_type in ["Decimal", "Float", "Double"]:
+            return self.create_decimal_field(
+                table_name,
+                schema_name,
+                display_name,
+                required=required,
+                description=description
+            )
+        elif field_type in ["Currency", "Money"]:
+            return self.create_currency_field(
+                table_name,
+                schema_name,
+                display_name,
+                required=required,
+                description=description
+            )
+        elif field_type in ["Boolean", "TwoOptions", "YesNo"]:
             return self.create_boolean_field(
                 table_name,
                 schema_name,

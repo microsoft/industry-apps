@@ -2,7 +2,7 @@
   import { outputLines, operationStatus, clearOutput } from './stores.js';
   import Modal from './Modal.svelte';
 
-  $: showModal = $outputLines.length > 0;
+  $: showModal = $outputLines.length > 0 || $operationStatus === 'running';
   $: canClose = $operationStatus !== 'running';
 </script>
 
