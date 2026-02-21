@@ -10,11 +10,22 @@ The **HR Administration module** manages the core employment structure, transact
 Represents an authorized position within the organization (distinct from the person occupying it).
 
 **Completed:**
+- Name: Text
+
+**Skipped:**
+- Position Title: Text
+- Notes: Memo
 
 **Planned:**
-- Name: Text
 - Position Number: Text
-- Position Title: Text
+- Full Time Equivalent: Float
+- Authorized Date: Date
+- Effective Start Date: Date
+- Effective End Date: Date
+- Bargaining Unit: Text
+- Budget Code: Text
+- Description: Memo
+
 - HR Job Classification: Lookup (HR Job Classification)
 - Job Series: Lookup (Job Series)
 - Pay Grade: Lookup (Pay Grade)
@@ -25,19 +36,11 @@ Represents an authorized position within the organization (distinct from the per
 - Position Designation: Choice (Position Designation)
 - Employment Type: Choice (Employment Type)
 - Position Status: Choice (Position Status)
-- Full Time Equivalent: Float
-- Authorized Date: Date
-- Effective Start Date: Date
-- Effective End Date: Date
 - Location: Lookup (Location)
 - Is Supervisory: Yes / No
 - Is Management: Yes / No
 - Requires Clearance: Yes / No
 - Required Clearance Level: Lookup (Clearance Level)
-- Bargaining Unit: Text
-- Budget Code: Text
-- Description: Memo
-- Notes: Memo
 
 ---
 

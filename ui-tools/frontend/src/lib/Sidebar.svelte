@@ -1,20 +1,28 @@
 <script>
   import { location } from 'svelte-spa-router';
+  import { sidebarCollapsed } from './stores.js';
 
   // Navigation items
   const navItems = [
     { path: '/', label: 'Deploy', icon: '🚀', description: 'Solution deployment' },
     { path: '/field-creator', label: 'Field Creator', icon: '📋', description: 'Mass create fields' },
   ];
+
+  function toggleSidebar() {
+    sidebarCollapsed.update(val => !val);
+  }
 </script>
 
-<aside class="sidebar">
+<aside class="sidebar" class:collapsed={$sidebarCollapsed}>
   <div class="sidebar-header">
     <h1 class="app-title">
       <span class="icon">🛠️</span>
-      <span class="title-text">UI Tools</span>
+      <span class="title-text">FAST Tools</span>
     </h1>
     <p class="subtitle">Dataverse Solution Management</p>
+    <button class="toggle-btn" on:click={toggleSidebar} title={$sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}>
+      {$sidebarCollapsed ? '▶' : '◀'}
+    </button>
   </div>
 
   <nav class="nav-menu">
@@ -49,11 +57,44 @@
     left: 0;
     top: 0;
     z-index: 100;
+    transition: width 0.3s ease;
+  }
+
+  .sidebar.collapsed {
+    width: 70px;
   }
 
   .sidebar-header {
     padding: 1.5rem 1rem;
     border-bottom: 1px solid #334155;
+    position: relative;
+  }
+
+  .toggle-btn {
+    position: absolute;
+    top: 1rem;
+    right: 0.5rem;
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+    border: 1px solid #334155;
+    border-radius: 0.375rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: all 0.2s ease;
+  }
+
+  .toggle-btn:hover {
+    background: rgba(59, 130, 246, 0.3);
+    transform: scale(1.05);
+  }
+
+  .collapsed .toggle-btn {
+    right: 0.25rem;
   }
 
   .app-title {
@@ -64,6 +105,15 @@
     align-items: center;
     gap: 0.5rem;
     color: #f1f5f9;
+    overflow: hidden;
+  }
+
+  .collapsed .app-title {
+    justify-content: center;
+  }
+
+  .collapsed .title-text {
+    display: none;
   }
 
   .icon {
@@ -82,6 +132,13 @@
     font-size: 0.75rem;
     color: #94a3b8;
     padding-left: 2rem;
+    transition: opacity 0.2s ease;
+  }
+
+  .collapsed .subtitle {
+    opacity: 0;
+    height: 0;
+    margin: 0;
   }
 
   .nav-menu {
@@ -139,6 +196,18 @@
   .nav-label {
     font-size: 0.9rem;
     font-weight: 500;
+    white-space: nowrap;
+    transition: opacity 0.2s ease;
+  }
+
+  .collapsed .nav-label {
+    opacity: 0;
+    width: 0;
+  }
+
+  .collapsed .nav-item {
+    justify-content: center;
+    padding: 0.75rem 0.5rem;
   }
 
   .sidebar-footer {

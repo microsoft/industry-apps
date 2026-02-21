@@ -6,7 +6,8 @@ param(
     [Parameter(Mandatory=$true)][string]$Deployment,
     [Parameter(Mandatory=$true)][string]$Environment,
     [Parameter(Mandatory=$true)][string]$Category,
-    [Parameter(Mandatory=$true)][string]$Module
+    [Parameter(Mandatory=$true)][string]$Module,
+    [Parameter(Mandatory=$false)][switch]$Managed
 )
 
 $ErrorActionPreference = "Stop"
@@ -66,7 +67,8 @@ try {
     }
     
     Write-Host ""
-    Write-Host "Shipping managed solution to external tenant..." -ForegroundColor Yellow
+    $deployType = if ($Managed) { "managed" } else { "unmanaged" }
+    Write-Host "Shipping $deployType solution to external tenant..." -ForegroundColor Yellow
     Write-Host "Path: $modulePath" -ForegroundColor Gray
     
     # Construct settings file path
@@ -83,7 +85,11 @@ try {
     }
     Write-Host ""
     
-    Deploy-Solution $modulePath -Managed -AutoConfirm -SettingsFile $settingsFile
+    if ($Managed) {
+        Deploy-Solution $modulePath -Managed -AutoConfirm -SettingsFile $settingsFile
+    } else {
+        Deploy-Solution $modulePath -AutoConfirm -SettingsFile $settingsFile
+    }
     
     Write-Host ""
     Write-Host "=== Ship Complete ===" -ForegroundColor Green

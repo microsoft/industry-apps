@@ -805,6 +805,11 @@ function Deploy-Solution {
                 } else {
                     pac solution import --path $path
                 }
+                
+                if ($LASTEXITCODE -ne 0) {
+                    throw "PAC CLI solution import failed with exit code: $LASTEXITCODE"
+                }
+                
                 $importSuccessful = $true
                 Write-Host "Solution import completed successfully." -ForegroundColor Green
             }
@@ -837,11 +842,21 @@ function Deploy-Solution {
             }
             
             Invoke-Expression $importCmd
+            
+            if ($LASTEXITCODE -ne 0) {
+                throw "PAC CLI solution stage and upgrade failed with exit code: $LASTEXITCODE"
+            }
+            
             Write-Host "Solution staged for upgrade successfully." -ForegroundColor Green
             
             # Apply the upgrade
             Write-Host "Applying upgrade..." -ForegroundColor Yellow
             pac solution upgrade --solution-name $Name --async
+            
+            if ($LASTEXITCODE -ne 0) {
+                throw "PAC CLI solution upgrade failed with exit code: $LASTEXITCODE"
+            }
+            
             Write-Host "Solution upgrade completed successfully." -ForegroundColor Green
         }
         catch {
@@ -870,6 +885,11 @@ function Sync-Module {
     Write-Host "Synchronizing $SolutionPath ..."
     Set-Location $SolutionPath
     pac solution sync
+    
+    if ($LASTEXITCODE -ne 0) {
+        Set-Location $originalDir
+        throw "Failed to synchronize solution at: $SolutionPath"
+    }
 
     Set-Location $originalDir
 }
@@ -1373,6 +1393,10 @@ function Connect-DataverseTenant {
         pac auth list
         $authProfile = Read-Host "Enter Tenant ID"
         pac auth select --index $authProfile
+        
+        if ($LASTEXITCODE -ne 0) {
+            throw "Failed to select authentication profile with index: $authProfile"
+        }
     }
     else {
 
@@ -1386,6 +1410,10 @@ function Connect-DataverseTenant {
 
         # now connect
         pac auth select --name $authProfile
+        
+        if ($LASTEXITCODE -ne 0) {
+            throw "Failed to select authentication profile: $authProfile. Please ensure the authentication profile exists and is configured correctly."
+        }
     }
 }
 
@@ -1410,6 +1438,11 @@ function Connect-DataverseEnvironment {
         $envName = Read-Host "Enter Environment Name"
     }
     pac org select --environment $envName
+    
+    if ($LASTEXITCODE -ne 0) {
+        throw "Failed to select environment: $envName. Please ensure the environment exists and is accessible."
+    }
+    
     Write-Host ""
 }
 

@@ -82,6 +82,7 @@ class ShipRequest(BaseModel):
     environment: str
     category: str
     module: str
+    managed: bool = True
 
 class CreateModuleRequest(BaseModel):
     category: str
@@ -241,7 +242,7 @@ async def get_environments():
     return {"tenants": list(tenants.values())}
 
 async def stream_powershell_output(script_path: str, *args):
-    """Stream PowerShell script output in real-time"""
+    """Stream PowerShell script output in real-time using async subprocess"""
     try:
         # Try pwsh first, fall back to powershell
         powershell_cmd = "pwsh"
@@ -253,25 +254,27 @@ async def stream_powershell_output(script_path: str, *args):
         
         print(f"[DEBUG] Running command: {' '.join(cmd)}")
         
-        # Start process using subprocess.Popen (synchronous but non-blocking)
-        process = subprocess.Popen(
-            cmd,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,  # Merge stderr into stdout
-            cwd=str(PROJECT_ROOT),
-            text=True,
-            bufsize=1,  # Line buffered
-            universal_newlines=True
+        # Start async process
+        process = await asyncio.create_subprocess_exec(
+            *cmd,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.STDOUT,  # Merge stderr into stdout
+            cwd=str(PROJECT_ROOT)
         )
         
-        # Stream stdout (includes stderr now)
-        for line in iter(process.stdout.readline, ''):
-            if line:
-                yield f"data: {json.dumps({'type': 'output', 'line': line.rstrip()})}\n\n"
-                await asyncio.sleep(0)  # Yield control to allow async processing
+        # Stream stdout (includes stderr now) using async readline
+        while True:
+            line = await process.stdout.readline()
+            if not line:
+                break
+            
+            line_str = line.decode('utf-8', errors='replace').rstrip()
+            if line_str:
+                yield f"data: {json.dumps({'type': 'output', 'line': line_str})}\n\n"
+                await asyncio.sleep(0)  # Yield control to event loop
         
         # Wait for process to complete
-        process.wait()
+        await process.wait()
         
         # Send completion status
         yield f"data: {json.dumps({'type': 'complete', 'exitCode': process.returncode})}\n\n"
@@ -347,14 +350,22 @@ async def ship_module(request: ShipRequest):
     """Ship a module to an external tenant/environment"""
     script_path = PROJECT_ROOT / "ui-tools" / "scripts" / "Ship-Module-UI.ps1"
     
+    args = [
+        str(script_path),
+        "-Deployment", request.tenant,
+        "-Environment", request.environment,
+        "-Category", request.category,
+        "-Module", request.module
+    ]
+    
+    if request.managed:
+        args.append("-Managed")
+    
+    print(f"[DEBUG] Ship args: {args}")  # Debug logging
+    print(f"[DEBUG] request.managed: {request.managed}, type: {type(request.managed)}")
+    
     return StreamingResponse(
-        stream_powershell_output(
-            str(script_path),
-            "-Deployment", request.tenant,
-            "-Environment", request.environment,
-            "-Category", request.category,
-            "-Module", request.module
-        ),
+        stream_powershell_output(*args),
         media_type="text/event-stream"
     )
 

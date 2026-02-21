@@ -124,7 +124,8 @@
       status: 'queued', // queued, running, success, failed
       output: [],
       error: null,
-      upgrade: false // upgrade flag for managed deployments
+      upgrade: false, // upgrade flag for managed deployments
+      forceUnmanaged: false // force unmanaged deployment (override default)
     };
     
     operationQueue = [...operationQueue, queueItem];
@@ -151,6 +152,12 @@
   function toggleQueueItemUpgrade(id) {
     operationQueue = operationQueue.map(item => 
       item.id === id ? { ...item, upgrade: !item.upgrade } : item
+    );
+  }
+  
+  function toggleQueueItemUnmanaged(id) {
+    operationQueue = operationQueue.map(item => 
+      item.id === id ? { ...item, forceUnmanaged: !item.forceUnmanaged } : item
     );
   }
   
@@ -192,9 +199,9 @@
         if (item.type === 'sync') {
           await syncModule(item.module);
         } else if (item.type === 'deploy') {
-          await deployModule(item.module, item.deployment, item.environmentKey, item.isSourceEnv, item.upgrade);
+          await deployModule(item.module, item.deployment, item.environmentKey, item.isSourceEnv, item.upgrade, item.forceUnmanaged);
         } else if (item.type === 'ship') {
-          await shipModule(item.module, item.tenant, item.environment);
+          await shipModule(item.module, item.deployment, item.environment, item.environmentKey, item.forceUnmanaged);
         }
         
         // Mark as success
@@ -298,8 +305,10 @@
     }
   }
   
-  async function deployModule(module, deploymentName, targetEnvKey, isSourceEnv, upgrade = false) {
-    const deployType = isSourceEnv ? 'push (unmanaged)' : 'deploy (managed)';
+  async function deployModule(module, deploymentName, targetEnvKey, isSourceEnv, upgrade = false, forceUnmanaged = false) {
+    // Determine if this should be managed or unmanaged
+    const isManaged = forceUnmanaged ? false : !isSourceEnv;
+    const deployType = isManaged ? 'deploy (managed)' : 'push (unmanaged)';
     activeOperation.set(`${deployType}-${module.name}`);
     operationStatus.set('running');
     outputLines.set([]);
@@ -313,8 +322,8 @@
           category: module.category,
           module: module.name,
           targetEnvironment: targetEnvKey,
-          managed: !isSourceEnv,
-          upgrade: upgrade && !isSourceEnv // Only upgrade for managed deployments
+          managed: isManaged,
+          upgrade: upgrade && isManaged // Only upgrade for managed deployments
         })
       });
       
@@ -329,37 +338,23 @@
     }
   }
   
-  async function shipModule(module, tenantName, environmentName) {
-    activeOperation.set(`ship-${module.name}`);
+  async function shipModule(module, deploymentName, environmentName, environmentKey, forceUnmanaged = false) {
+    const isManaged = !forceUnmanaged;
+    const deployType = isManaged ? 'ship (managed)' : 'ship (unmanaged)';
+    activeOperation.set(`${deployType}-${module.name}`);
     operationStatus.set('running');
     outputLines.set([]);
-    
-    // Find the deployment name for this tenant
-    const tenant = $tenants.find(t => t.name === tenantName);
-    if (!tenant || tenant.deployments.length === 0) {
-      outputLines.set([`\n✗ Could not find deployment for tenant: ${tenantName}`]);
-      operationStatus.set('error');
-      return;
-    }
-    
-    const deployment = tenant.deployments[0];
-    const env = deployment.environments.find(e => e.name === environmentName);
-    
-    if (!env) {
-      outputLines.set([`\n✗ Could not find environment: ${environmentName}`]);
-      operationStatus.set('error');
-      return;
-    }
     
     try {
       const response = await fetch('/api/ship', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          tenant: deployment.name,
-          environment: env.key,
+          tenant: deploymentName,
+          environment: environmentKey,
           category: module.category,
-          module: module.name
+          module: module.name,
+          managed: isManaged
         })
       });
       
@@ -901,19 +896,41 @@
                 {:else if item.type === 'deploy'}
                   <div class="detail">To: {item.environment}</div>
                   <div class="detail">Tenant: {item.tenant || item.module.tenant}</div>
-                  {#if !item.isSourceEnv && item.status === 'queued'}
-                    <label class="upgrade-checkbox">
-                      <input 
-                        type="checkbox" 
-                        checked={item.upgrade}
-                        on:change={() => toggleQueueItemUpgrade(item.id)}
-                        disabled={queueExecuting} />
-                      <span>Upgrade (delete removed components)</span>
-                    </label>
+                  {#if item.status === 'queued'}
+                    {#if !item.isSourceEnv && !item.forceUnmanaged}
+                      <label class="upgrade-checkbox">
+                        <input 
+                          type="checkbox" 
+                          checked={item.upgrade}
+                          on:change={() => toggleQueueItemUpgrade(item.id)}
+                          disabled={queueExecuting} />
+                        <span>Upgrade (delete removed components)</span>
+                      </label>
+                    {/if}
+                    {#if !item.isSourceEnv}
+                      <label class="upgrade-checkbox">
+                        <input 
+                          type="checkbox" 
+                          checked={item.forceUnmanaged}
+                          on:change={() => toggleQueueItemUnmanaged(item.id)}
+                          disabled={queueExecuting} />
+                        <span>🔓 Deploy as Unmanaged (override)</span>
+                      </label>
+                    {/if}
                   {/if}
                 {:else if item.type === 'ship'}
                   <div class="detail">To: {item.environment}</div>
                   <div class="detail">Tenant: {item.tenant}</div>
+                  {#if item.status === 'queued'}
+                    <label class="upgrade-checkbox">
+                      <input 
+                        type="checkbox" 
+                        checked={item.forceUnmanaged}
+                        on:change={() => toggleQueueItemUnmanaged(item.id)}
+                        disabled={queueExecuting} />
+                      <span>🔓 Ship as Unmanaged (override)</span>
+                    </label>
+                  {/if}
                 {/if}
               </div>
               

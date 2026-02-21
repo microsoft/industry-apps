@@ -20,6 +20,9 @@ export const outputLines = writable([]);
 export const operationStatus = writable(''); // '', 'running', 'success', 'error'
 export const activeOperation = writable(null);
 
+// Sidebar state
+export const sidebarCollapsed = writable(false);
+
 // Helper function to load config
 export async function loadConfig() {
   try {

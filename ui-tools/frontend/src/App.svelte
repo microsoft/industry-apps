@@ -3,7 +3,7 @@
   import Router from 'svelte-spa-router';
   import Sidebar from './lib/Sidebar.svelte';
   import OutputStream from './lib/OutputStream.svelte';
-  import { loadConfig, loadModules, loadEnvironments } from './lib/stores.js';
+  import { loadConfig, loadModules, loadEnvironments, sidebarCollapsed } from './lib/stores.js';
   
   // Import route components
   import Deploy from './routes/Deploy.svelte';
@@ -32,7 +32,7 @@
 <div class="app-container">
   <Sidebar />
   
-  <main class="main-content">
+  <main class="main-content" class:collapsed={$sidebarCollapsed}>
     <Router {routes} />
   </main>
   
@@ -71,6 +71,11 @@
     height: 100vh;
     overflow-y: auto;
     background: #1a1a1a;
+    transition: margin-left 0.3s ease;
+  }
+
+  .main-content.collapsed {
+    margin-left: 70px;
   }
 
   .main-content::-webkit-scrollbar {
