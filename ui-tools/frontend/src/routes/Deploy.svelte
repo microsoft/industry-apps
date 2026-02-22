@@ -9,6 +9,7 @@
   let selectedTenantIndex = 0;
   
   let draggedModule = null;
+  let draggedEnvironment = null; // For reverse drag (environment → module)
   let dragOverZone = null;
   
   // Queue state
@@ -18,6 +19,10 @@
   let showErrorDialog = false;
   let errorDialogData = null;
   let nextQueueId = 1;
+  
+  // Sync-from confirmation dialog
+  let showSyncFromDialog = false;
+  let syncFromDialogData = null;
   
   let showCreateModuleDialog = false;
   let newModuleName = '';
@@ -85,9 +90,25 @@
     }, 100);
   }
   
+  // Environment drag handlers (for reverse drag: environment → module)
+  function handleEnvDragStart(event, envData) {
+    draggedEnvironment = envData;
+    event.dataTransfer.effectAllowed = 'copy'; // Use 'copy' to differentiate from module drag
+    event.dataTransfer.setData('text/html', event.target.innerHTML);
+  }
+  
+  function handleEnvDragEnd() {
+    setTimeout(() => {
+      if (draggedEnvironment) {
+        draggedEnvironment = null;
+        dragOverZone = null;
+      }
+    }, 100);
+  }
+  
   function handleDragOver(event, zone) {
     event.preventDefault();
-    event.dataTransfer.dropEffect = 'move';
+    event.dataTransfer.dropEffect = draggedEnvironment ? 'copy' : 'move';
     dragOverZone = zone;
   }
   
@@ -108,6 +129,58 @@
     
     // Add to queue
     addToQueue(action, module, tenant, deploymentName, environment, environmentKey, isSourceEnv);
+  }
+  
+  // Handle drop of environment onto module (sync-from)
+  async function handleEnvDropOnModule(event, module) {
+    event.preventDefault();
+    
+    if (!draggedEnvironment) return;
+    
+    const envData = draggedEnvironment;
+    
+    // Clear drag state
+    draggedEnvironment = null;
+    dragOverZone = null;
+    
+    // Show confirmation dialog
+    syncFromDialogData = {
+      module: module,
+      environment: envData
+    };
+    showSyncFromDialog = true;
+  }
+  
+  function confirmSyncFrom() {
+    if (!syncFromDialogData) return;
+    
+    const { module, environment } = syncFromDialogData;
+    
+    // Add sync-from to queue
+    const queueItem = {
+      id: nextQueueId++,
+      type: 'sync-from',
+      module: module,
+      tenant: environment.tenant,
+      deployment: environment.deployment,
+      environment: environment.name,
+      environmentKey: environment.key,
+      isSourceEnv: false,
+      status: 'queued',
+      output: [],
+      error: null
+    };
+    
+    operationQueue = [...operationQueue, queueItem];
+    
+    // Close dialog
+    showSyncFromDialog = false;
+    syncFromDialogData = null;
+  }
+  
+  function cancelSyncFrom() {
+    showSyncFromDialog = false;
+    syncFromDialogData = null;
   }
   
   // Queue management functions
@@ -198,6 +271,8 @@
       try {
         if (item.type === 'sync') {
           await syncModule(item.module);
+        } else if (item.type === 'sync-from') {
+          await syncModuleFromEnvironment(item.module, item.deployment, item.environment);
         } else if (item.type === 'deploy') {
           await deployModule(item.module, item.deployment, item.environmentKey, item.isSourceEnv, item.upgrade, item.forceUnmanaged);
         } else if (item.type === 'ship') {
@@ -241,7 +316,9 @@
     currentQueueIndex = -1;
     
     // Reload modules if any sync operations were successful
-    const hadSuccessfulSync = operationQueue.some(item => item.type === 'sync' && item.status === 'success');
+    const hadSuccessfulSync = operationQueue.some(item => 
+      (item.type === 'sync' || item.type === 'sync-from') && item.status === 'success'
+    );
     if (hadSuccessfulSync) {
       await loadModules();
     }
@@ -299,6 +376,30 @@
         
         await streamResponse(response);
       }
+    } catch (error) {
+      outputLines.update(lines => [...lines, `\n✗ Connection error: ${error.message}`]);
+      operationStatus.set('error');
+    }
+  }
+  
+  async function syncModuleFromEnvironment(module, deploymentName, environmentName) {
+    activeOperation.set(`sync-from-${module.name}`);
+    operationStatus.set('running');
+    outputLines.set([]);
+    
+    try {
+      const response = await fetch('/api/sync-from', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          deployment: deploymentName,
+          category: module.category,
+          module: module.name,
+          sourceEnvironment: environmentName
+        })
+      });
+      
+      await streamResponse(response);
     } catch (error) {
       outputLines.update(lines => [...lines, `\n✗ Connection error: ${error.message}`]);
       operationStatus.set('error');
@@ -641,11 +742,27 @@
             <div class="category-header">{category}</div>
             
             {#each categoryModules as module}
-              <div 
-                class="module-card"
-                draggable="true"
-                on:dragstart={(e) => handleDragStart(e, module)}
-                on:dragend={handleDragEnd}>
+              {#if draggedEnvironment}
+                <!-- Module becomes a drop zone when environment is being dragged -->
+                <div 
+                  class="drop-zone module-drop-zone {dragOverZone?.module === module.name ? 'drag-over-reverse' : ''}"
+                  on:dragover={(e) => handleDragOver(e, { action: 'sync-from', module: module.name })}
+                  on:dragleave={handleDragLeave}
+                  on:drop={(e) => handleEnvDropOnModule(e, module)}>
+                  
+                  <div class="zone-content">
+                    <div class="zone-icon">⬇️</div>
+                    <div class="zone-title">{module.name}</div>
+                    <div class="zone-hint">Drop to sync FROM {draggedEnvironment.name}</div>
+                  </div>
+                </div>
+              {:else}
+                <!-- Normal module card (draggable to environments) -->
+                <div 
+                  class="module-card"
+                  draggable="true"
+                  on:dragstart={(e) => handleDragStart(e, module)}
+                  on:dragend={handleDragEnd}>
                 
                 <div class="module-header">
                   <div class="module-name">{module.name}</div>
@@ -730,6 +847,7 @@
                   Drag to deploy →
                 </div>
               </div>
+              {/if}
             {/each}
           </div>
         {/each}
@@ -824,8 +942,14 @@
                     </div>
                   </div>
                 {:else}
-                  <div class="placeholder-zone environment-placeholder">
+                  <!-- Environment zones are draggable when not in module-drag mode -->
+                  <div 
+                    class="placeholder-zone environment-placeholder {draggedEnvironment?.environment === env.name ? 'dragging' : ''}"
+                    draggable="true"
+                    on:dragstart={(e) => handleEnvDragStart(e, { name: env.name, key: env.key, tenant: tenant.name, deployment: deployment.name })}
+                    on:dragend={handleEnvDragEnd}>
                     <div class="placeholder-text">{env.name}</div>
+                    <div class="drag-hint">↖️ Drag to module to sync FROM this environment</div>
                   </div>
                 {/if}
               {/each}
@@ -865,7 +989,8 @@
         {#if operationQueue.length === 0}
           <div class="empty-state">
             <p>No operations queued</p>
-            <p class="hint">Drag modules to environments to add operations to the queue</p>
+            <p class="hint">Drag modules → environments to deploy</p>
+            <p class="hint">Drag environments → modules to sync FROM</p>
           </div>
         {:else}
           {#each operationQueue as item, index}
@@ -881,8 +1006,14 @@
                 <div class="queue-item-title">
                   {#if item.type === 'sync'}
                     ⬇️ Sync
+                  {:else if item.type === 'sync-from'}
+                    ⬆️ Sync FROM
                   {:else if item.type === 'deploy'}
-                    📤 Deploy
+                    {#if item.isSourceEnv}
+                      ⬆️ Push
+                    {:else}
+                      📤 Deploy
+                    {/if}
                   {:else if item.type === 'ship'}
                     🚢 Ship
                   {/if}
@@ -893,6 +1024,10 @@
               <div class="queue-item-details">
                 {#if item.type === 'sync'}
                   <div class="detail">From: {item.module.sourceEnvironment}</div>
+                {:else if item.type === 'sync-from'}
+                  <div class="detail">⚠️ FROM: {item.environment}</div>
+                  <div class="detail">Deployment: {item.deployment}</div>
+                  <div class="detail" style="color: #ff9800; font-size: 11px;">Will overwrite local files</div>
                 {:else if item.type === 'deploy'}
                   <div class="detail">To: {item.environment}</div>
                   <div class="detail">Tenant: {item.tenant || item.module.tenant}</div>
@@ -977,6 +1112,37 @@
   {#if draggedModule && dragOverZone}
     <div class="drag-preview">
       {getActionPreview(draggedModule, dragOverZone)}
+    </div>
+  {/if}
+  
+  <!-- Sync-From Confirmation Dialog -->
+  {#if showSyncFromDialog && syncFromDialogData}
+    <div class="dialog-overlay" on:click={cancelSyncFrom}>
+      <div class="dialog warning-dialog" on:click={(e) => e.stopPropagation()}>
+        <h2>⚠️ Sync FROM Environment</h2>
+        
+        <div class="warning-content">
+          <p><strong>Module:</strong> {syncFromDialogData.module.name}</p>
+          <p><strong>Source Environment:</strong> {syncFromDialogData.environment.name}</p>
+          <p><strong>Deployment:</strong> {syncFromDialogData.environment.deployment}</p>
+          
+          <div class="warning-box">
+            <p><strong>⚠️ Warning:</strong></p>
+            <p>This will OVERWRITE your local module files with the solution from the selected environment.</p>
+            <p>Use this for rare "hotfix" scenarios where you need to pull changes from a non-default environment.</p>
+            <p><strong>Make sure you have committed any local changes before proceeding!</strong></p>
+          </div>
+        </div>
+        
+        <div class="dialog-actions">
+          <button class="btn btn-primary" on:click={confirmSyncFrom}>
+            ✓ Add to Queue
+          </button>
+          <button class="btn btn-secondary" on:click={cancelSyncFrom}>
+            ✕ Cancel
+          </button>
+        </div>
+      </div>
     </div>
   {/if}
   
@@ -2145,4 +2311,78 @@
   .btn-text:hover {
     background-color: #3c3c3c;
   }
+  
+  /* Bidirectional drag styles */
+  .module-drop-zone {
+    border: 2px dashed #ff9800;
+    background: #3d2a1f;
+  }
+  
+  .module-drop-zone.drag-over-reverse {
+    border-color: #ff9800;
+    background: #5d3a2f;
+    transform: scale(1.02);
+  }
+  
+  .zone-hint {
+    font-size: 11px;
+    color: #ff9800;
+    margin-top: 4px;
+  }
+  
+  .drag-hint {
+    font-size: 10px;
+    color: #999999;
+    margin-top: 4px;
+    opacity: 0.7;
+  }
+  
+  .environment-placeholder.dragging {
+    opacity: 0.5;
+    border-color: #ff9800;
+  }
+  
+  .environment-placeholder:hover {
+    border-color: #ff9800;
+    background: #2d2d30;
+    cursor: grab;
+  }
+  
+  .environment-placeholder:hover .drag-hint {
+    opacity: 1;
+    color: #ff9800;
+  }
+  
+  /* Warning dialog */
+  .warning-dialog {
+    max-width: 500px;
+  }
+  
+  .warning-content {
+    margin: 20px 0;
+    color: #cccccc;
+  }
+  
+  .warning-content p {
+    margin: 8px 0;
+  }
+  
+  .warning-box {
+    background: #3d2a1f;
+    border: 2px solid #ff9800;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 16px;
+  }
+  
+  .warning-box p {
+    margin: 6px 0;
+    color: #ff9800;
+  }
+  
+  .warning-box p:first-child {
+    font-weight: 700;
+    font-size: 14px;
+  }
 </style>
+

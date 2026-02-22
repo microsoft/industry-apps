@@ -82,7 +82,7 @@ def read_solution_version(module_path: Path) -> str:
                 parts.append('0')
             
             normalized = '.'.join(parts[:4])
-            print(f"Read version {version} -> {normalized} from {solution_xml_path}", file=sys.stderr)
+            # print(f"Read version {version} -> {normalized} from {solution_xml_path}", file=sys.stderr)
             return normalized
         
         print(f"Version element not found in {solution_xml_path}", file=sys.stderr)
@@ -105,6 +105,12 @@ class SyncRequest(BaseModel):
     deployment: str
     category: str
     module: str
+
+class SyncFromRequest(BaseModel):
+    deployment: str
+    category: str
+    module: str
+    sourceEnvironment: str
 
 class ShipRequest(BaseModel):
     tenant: str
@@ -129,6 +135,7 @@ class UpdateVersionRequest(BaseModel):
     deployment: str
     category: str
     module: str
+    version: str
 
 class CreateFieldsRequest(BaseModel):
     deployment: str
@@ -271,7 +278,11 @@ async def get_environments():
     return {"tenants": list(tenants.values())}
 
 async def stream_powershell_output(script_path: str, *args):
-    """Stream PowerShell script output in real-time using async subprocess"""
+    """Stream PowerShell script output in real-time using subprocess with threading"""
+    import subprocess
+    import threading
+    from queue import Queue
+    
     try:
         # Try pwsh first, fall back to powershell
         powershell_cmd = "pwsh"
@@ -283,27 +294,56 @@ async def stream_powershell_output(script_path: str, *args):
         
         print(f"[DEBUG] Running command: {' '.join(cmd)}")
         
-        # Start async process
-        process = await asyncio.create_subprocess_exec(
-            *cmd,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.STDOUT,  # Merge stderr into stdout
+        # Use synchronous subprocess (Windows-compatible)
+        process = subprocess.Popen(
+            cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,  # Merge stderr into stdout
+            text=True,
+            bufsize=1,
             cwd=str(PROJECT_ROOT)
         )
         
-        # Stream stdout (includes stderr now) using async readline
+        # Use a queue to communicate between threads
+        output_queue = Queue()
+        
+        def read_output():
+            """Read output in a separate thread"""
+            try:
+                for line in process.stdout:
+                    output_queue.put(('line', line.rstrip()))
+            except Exception as e:
+                output_queue.put(('error', str(e)))
+            finally:
+                output_queue.put(('done', None))
+        
+        # Start reading thread
+        reader_thread = threading.Thread(target=read_output, daemon=True)
+        reader_thread.start()
+        
+        # Stream output from queue
         while True:
-            line = await process.stdout.readline()
-            if not line:
-                break
-            
-            line_str = line.decode('utf-8', errors='replace').rstrip()
-            if line_str:
-                yield f"data: {json.dumps({'type': 'output', 'line': line_str})}\n\n"
+            # Check queue with timeout to allow asyncio event loop to run
+            try:
+                import queue
+                msg_type, msg_data = output_queue.get(timeout=0.1)
+                
+                if msg_type == 'line':
+                    if msg_data:
+                        yield f"data: {json.dumps({'type': 'output', 'line': msg_data})}\n\n"
+                elif msg_type == 'error':
+                    yield f"data: {json.dumps({'type': 'error', 'message': msg_data})}\n\n"
+                    break
+                elif msg_type == 'done':
+                    break
+                    
                 await asyncio.sleep(0)  # Yield control to event loop
+            except:
+                # Timeout - continue loop to allow event loop to process
+                await asyncio.sleep(0.01)
         
         # Wait for process to complete
-        await process.wait()
+        process.wait()
         
         # Send completion status
         yield f"data: {json.dumps({'type': 'complete', 'exitCode': process.returncode})}\n\n"
@@ -354,6 +394,22 @@ async def sync_module(request: SyncRequest):
             "-Deployment", request.deployment,
             "-Category", request.category,
             "-Module", request.module
+        ),
+        media_type="text/event-stream"
+    )
+
+@app.post("/api/sync-from")
+async def sync_module_from_environment(request: SyncFromRequest):
+    """Sync a module FROM a specific environment (bidirectional sync for hotfixes)"""
+    script_path = PROJECT_ROOT / "ui-tools" / "scripts" / "Sync-Module-From-Environment-UI.ps1"
+    
+    return StreamingResponse(
+        stream_powershell_output(
+            str(script_path),
+            "-Deployment", request.deployment,
+            "-Category", request.category,
+            "-Module", request.module,
+            "-SourceEnvironment", request.sourceEnvironment
         ),
         media_type="text/event-stream"
     )

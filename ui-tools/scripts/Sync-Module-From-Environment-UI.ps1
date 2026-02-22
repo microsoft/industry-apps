@@ -1,6 +1,7 @@
-# Sync-Module-UI.ps1
-# Non-interactive script to sync a module from an environment
-# Called by the Deployment UI
+# Sync-Module-From-Environment-UI.ps1
+# Non-interactive script to sync a module FROM a specific environment (bidirectional sync)
+# Called by the Deployment UI for hotfix scenarios
+# This overwrites local files with the solution from the specified environment
 
 param(
     [Parameter(Mandatory=$true)]
@@ -10,19 +11,26 @@ param(
     [string]$Category,
     
     [Parameter(Mandatory=$true)]
-    [string]$Module
+    [string]$Module,
+    
+    [Parameter(Mandatory=$true)]
+    [string]$SourceEnvironment
 )
 
 $ErrorActionPreference = "Stop"
 
-# Get project root (go up from deployment-ui/scripts to repo root)
+# Get project root (go up from ui-tools/scripts to repo root)
 $projectRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 
 # Source utility functions
 . "$projectRoot\.scripts\Util.ps1"
 
 try {
-    Write-Host "=== Sync Module: $Category/$Module ===" -ForegroundColor Cyan
+    Write-Host "=== Sync Module FROM Environment ===" -ForegroundColor Cyan
+    Write-Host ""
+    Write-Host "WARNING: This will OVERWRITE local module files!" -ForegroundColor Yellow
+    Write-Host "    Module: $Category/$Module" -ForegroundColor Yellow
+    Write-Host "    Source: $SourceEnvironment" -ForegroundColor Yellow
     Write-Host ""
     
     # Load deployment config
@@ -44,21 +52,20 @@ try {
     Write-Host "Deployment: $Deployment" -ForegroundColor Green
     Write-Host "Tenant: $tenant" -ForegroundColor Green
     
-    # Get module config to determine environment
-    $moduleConfig = if ($config.Modules.$Module) {
-        $config.Modules.$Module
-    } else {
-        $config.DefaultModule
+    # Find the environment by name (not key!)
+    $targetEnv = $null
+    foreach ($envKey in $deploymentConfig.Environments.PSObject.Properties.Name) {
+        if ($deploymentConfig.Environments.$envKey -eq $SourceEnvironment) {
+            $targetEnv = $SourceEnvironment
+            break
+        }
     }
     
-    $envKey = $moduleConfig.Environment
-    
-    if (-not $deploymentConfig.Environments.$envKey) {
-        throw "Environment '$envKey' not found in deployment '$Deployment'"
+    if (-not $targetEnv) {
+        throw "Environment '$SourceEnvironment' not found in deployment '$Deployment'"
     }
     
-    $targetEnv = $deploymentConfig.Environments.$envKey
-    Write-Host "Environment: $targetEnv" -ForegroundColor Green
+    Write-Host "Source Environment: $targetEnv" -ForegroundColor Green
     Write-Host ""
     
     # Connect to tenant
@@ -69,7 +76,7 @@ try {
     Write-Host "Connecting to environment ($targetEnv)..." -ForegroundColor Yellow
     Connect-DataverseEnvironment -envName $targetEnv
     
-    # Sync the module
+    # Sync the module (this will overwrite local files)
     $modulePath = Join-Path $projectRoot $Category
     $modulePath = Join-Path $modulePath $Module
     
@@ -78,15 +85,22 @@ try {
     }
     
     Write-Host ""
-    Write-Host "Syncing module from environment..." -ForegroundColor Yellow
+    Write-Host "Syncing module FROM environment (OVERWRITING local files)..." -ForegroundColor Yellow
     Write-Host "Path: $modulePath" -ForegroundColor Gray
     Write-Host ""
     
     Set-Location $modulePath
     pac solution sync
     
+    if ($LASTEXITCODE -ne 0) {
+        throw "pac solution sync failed with exit code $LASTEXITCODE"
+    }
+    
     Write-Host ""
-    Write-Host "=== Sync Complete ===" -ForegroundColor Green
+    Write-Host "=== Sync FROM Environment Complete ===" -ForegroundColor Green
+    Write-Host ""
+    Write-Host "Local module files have been updated with solution from $SourceEnvironment" -ForegroundColor Green
+    Write-Host "Remember to commit these changes if you want to keep them!" -ForegroundColor Cyan
     
 } catch {
     Write-Host ""
