@@ -599,6 +599,53 @@ async def create_fields(request: CreateFieldsRequest):
             client.authenticate()
             yield f"data: {{\"type\": \"output\", \"line\": \"✓ Connected successfully\"}}\n\n"
             yield f"data: {{\"type\": \"output\", \"line\": \"\"}}\n\n"
+            
+            # Validate choice fields have existing option sets
+            choice_fields = [f for f in request.fields if f.get("type") in ["Choice", "Picklist"]]
+            if choice_fields:
+                yield f"data: {{\"type\": \"output\", \"line\": \"Validating choice fields...\"}}\n\n"
+                
+                # Scan available option sets
+                option_sets_response = await scan_option_sets()
+                all_option_sets = option_sets_response.get("optionSets", [])
+                
+                # Build lookup maps: schema name -> schema name, display name -> schema name
+                option_set_by_schema = {os["schemaName"]: os["schemaName"] for os in all_option_sets}
+                option_set_by_display = {os["displayName"]: os["schemaName"] for os in all_option_sets}
+                
+                # Check each choice field and normalize option set references
+                missing_option_sets = []
+                for field in choice_fields:
+                    option_set_name = field.get("optionSetSchemaName")
+                    if not option_set_name:
+                        missing_option_sets.append(f"{field.get('schemaName', 'unknown')} - missing optionSetSchemaName")
+                    else:
+                        # Try to find by schema name first, then by display name
+                        if option_set_name in option_set_by_schema:
+                            # Already using schema name, no change needed
+                            pass
+                        elif option_set_name in option_set_by_display:
+                            # Convert display name to schema name
+                            schema_name = option_set_by_display[option_set_name]
+                            field["optionSetSchemaName"] = schema_name
+                            yield f"data: {{\"type\": \"output\", \"line\": \"  ℹ Resolved '{option_set_name}' to '{schema_name}'\"}}\n\n"
+                        else:
+                            # Not found by either name
+                            missing_option_sets.append(f"{field.get('schemaName', 'unknown')} - option set '{option_set_name}' not found")
+                
+                if missing_option_sets:
+                    yield f"data: {{\"type\": \"output\", \"line\": \"✗ Validation failed:\"}}\n\n"
+                    for error in missing_option_sets:
+                        error_escaped = error.replace('"', '\\"')
+                        yield f"data: {{\"type\": \"output\", \"line\": \"  - {error_escaped}\"}}\n\n"
+                    yield f"data: {{\"type\": \"output\", \"line\": \"\"}}\n\n"
+                    yield f"data: {{\"type\": \"output\", \"line\": \"Please ensure all referenced option sets exist (use Choice Creator to create them)\"}}\n\n"
+                    yield f"data: {{\"type\": \"complete\", \"exitCode\": 1}}\n\n"
+                    return
+                
+                yield f"data: {{\"type\": \"output\", \"line\": \"✓ All choice field option sets found\"}}\n\n"
+                yield f"data: {{\"type\": \"output\", \"line\": \"\"}}\n\n"
+            
             yield f"data: {{\"type\": \"output\", \"line\": \"Creating fields...\"}}\n\n"
             yield f"data: {{\"type\": \"output\", \"line\": \"\"}}\n\n"
             

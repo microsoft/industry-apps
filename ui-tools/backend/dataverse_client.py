@@ -273,6 +273,70 @@ class DataverseClient:
         
         return self._create_attribute(table_name, attribute)
     
+    def create_picklist_field(
+        self,
+        table_name: str,
+        schema_name: str,
+        display_name: str,
+        option_set_schema_name: str,
+        required: bool = False,
+        description: str = ""
+    ) -> Dict[str, Any]:
+        """Create a choice (picklist) field that references an existing global option set"""
+        
+        # First, get the global option set metadata to obtain its GUID
+        optionset_metadata = self.get_global_optionset_metadata(option_set_schema_name)
+        if not optionset_metadata:
+            return {
+                "success": False,
+                "schema_name": schema_name,
+                "error": f"Global option set '{option_set_schema_name}' not found in Dataverse"
+            }
+        
+        optionset_id = optionset_metadata.get("MetadataId")
+        if not optionset_id:
+            return {
+                "success": False,
+                "schema_name": schema_name,
+                "error": f"Could not retrieve MetadataId for global option set '{option_set_schema_name}'"
+            }
+        
+        attribute = {
+            "@odata.type": "Microsoft.Dynamics.CRM.PicklistAttributeMetadata",
+            "AttributeType": "Picklist",
+            "AttributeTypeName": {
+                "Value": "PicklistType"
+            },
+            "SchemaName": schema_name,
+            "RequiredLevel": {
+                "Value": "ApplicationRequired" if required else "None",
+                "CanBeChanged": True
+            },
+            "DisplayName": {
+                "@odata.type": "Microsoft.Dynamics.CRM.Label",
+                "LocalizedLabels": [
+                    {
+                        "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
+                        "Label": display_name,
+                        "LanguageCode": 1033
+                    }
+                ]
+            },
+            "Description": {
+                "@odata.type": "Microsoft.Dynamics.CRM.Label",
+                "LocalizedLabels": [
+                    {
+                        "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
+                        "Label": description,
+                        "LanguageCode": 1033
+                    }
+                ]
+            },
+            "GlobalOptionSet@odata.bind": f"/GlobalOptionSetDefinitions({optionset_id})"
+        }
+        
+        return self._create_attribute(table_name, attribute)
+    
     def create_datetime_field(
         self,
         table_name: str,
@@ -707,6 +771,22 @@ class DataverseClient:
                 required=required,
                 description=description
             )
+        elif field_type in ["Choice", "Picklist"]:
+            option_set_schema_name = field_definition.get("optionSetSchemaName")
+            if not option_set_schema_name:
+                return {
+                    "success": False,
+                    "schema_name": schema_name,
+                    "error": "Choice fields require optionSetSchemaName"
+                }
+            return self.create_picklist_field(
+                table_name,
+                schema_name,
+                display_name,
+                option_set_schema_name=option_set_schema_name,
+                required=required,
+                description=description
+            )
         elif field_type in ["Date", "DateTime"]:
             include_time = field_type == "DateTime"
             return self.create_datetime_field(
@@ -869,4 +949,34 @@ class DataverseClient:
                     
         except Exception as e:
             logger.error(f"Error getting table metadata: {e}")
+            return None
+    
+    def get_global_optionset_metadata(self, option_set_name: str) -> Optional[Dict[str, Any]]:
+        """
+        Get metadata for a global option set by name
+        
+        Args:
+            option_set_name: Name (schema name) of the global option set
+            
+        Returns:
+            Option set metadata or None if not found
+        """
+        url = f"{self.environment_url}/api/data/{self.API_VERSION}/GlobalOptionSetDefinitions(Name='{option_set_name}')"
+        
+        try:
+            with httpx.Client() as client:
+                response = client.get(
+                    url,
+                    headers=self._get_headers(),
+                    timeout=15.0
+                )
+                
+                if response.status_code == 200:
+                    return response.json()
+                else:
+                    logger.warning(f"Global option set {option_set_name} not found or error: {response.status_code}")
+                    return None
+                    
+        except Exception as e:
+            logger.error(f"Error getting global option set metadata: {e}")
             return None

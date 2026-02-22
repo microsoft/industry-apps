@@ -20,8 +20,14 @@
   let quickType = 'Text';
   let quickRequired = false;
   let quickMaxLength = '';
+  let quickOptionSet = '';
+  let quickOptionSetSearch = '';
   let publisherPrefix = '';
   let displayNameInput;
+  
+  // Option sets for choice fields
+  let availableOptionSets = [];
+  let filteredOptionSets = [];
   
   // Template variables
   let templates = [];
@@ -55,6 +61,9 @@
     
     // Load templates
     loadTemplates();
+    
+    // Load option sets
+    loadOptionSets();
   });
   
   async function loadTemplates() {
@@ -64,6 +73,31 @@
       templates = data.templates || [];
     } catch (error) {
       console.error('Error loading templates:', error);
+    }
+  }
+  
+  async function loadOptionSets() {
+    try {
+      const response = await fetch('/api/helpers/option-sets/scan');
+      const data = await response.json();
+      availableOptionSets = data.optionSets || [];
+      filteredOptionSets = availableOptionSets;
+    } catch (error) {
+      console.error('Error loading option sets:', error);
+    }
+  }
+  
+  // Filter option sets based on search
+  $: {
+    if (!quickOptionSetSearch || quickOptionSetSearch.trim() === '') {
+      filteredOptionSets = availableOptionSets;
+    } else {
+      const search = quickOptionSetSearch.toLowerCase();
+      filteredOptionSets = availableOptionSets.filter(os => 
+        os.schemaName.toLowerCase().includes(search) ||
+        os.displayName.toLowerCase().includes(search) ||
+        os.options.some(opt => opt.label.toLowerCase().includes(search))
+      );
     }
   }
   
@@ -227,14 +261,25 @@
       return;
     }
     
+    if (quickType === 'Choice' && !quickOptionSet) {
+      alert('Please select an option set for the choice field');
+      return;
+    }
+    
     const schemaName = generateSchemaName(quickDisplayName);
     const required = quickRequired ? 'true' : 'false';
     const maxLen = quickMaxLength || '';
     
-    // Build field line
-    let fieldLine = `${schemaName}|${quickDisplayName}|${quickType}|${required}`;
-    if (maxLen) {
-      fieldLine += `|${maxLen}`;
+    // Build field line - for choice fields, use BUILD.md format with parentheses
+    let fieldLine;
+    if (quickType === 'Choice') {
+      // Use BUILD.md format: "Display Name: Choice (OptionSetSchemaName)"
+      fieldLine = `${quickDisplayName}: Choice (${quickOptionSet})`;
+    } else {
+      fieldLine = `${schemaName}|${quickDisplayName}|${quickType}|${required}`;
+      if (maxLen) {
+        fieldLine += `|${maxLen}`;
+      }
     }
     
     // Append to textarea
@@ -249,6 +294,8 @@
     quickType = 'Text';
     quickRequired = false;
     quickMaxLength = '';
+    quickOptionSet = '';
+    quickOptionSetSearch = '';
     
     // Focus back on display name input
     setTimeout(() => {
@@ -294,7 +341,7 @@
       const line = lines[i];
       if (!line.trim() || line.trim().startsWith('#')) continue;
       
-      let schemaName, displayName, type, required, maxLength;
+      let schemaName, displayName, type, required, maxLength, optionSetSchemaName;
       
       // Check for BUILD.md format: "Display Name: Type" or "Display Name: Type (details)"
       if (line.includes(': ') && !line.includes('|') && !line.includes('::')) {
@@ -306,9 +353,15 @@
         displayName = displayName.replace(/^[-•]\s*/, '');
         
         // Extract type (handle parentheses for lookups/choices)
+        optionSetSchemaName = null;
         if (typeInfo.includes('(')) {
           const parenIndex = typeInfo.indexOf('(');
           type = typeInfo.substring(0, parenIndex).trim();
+          // Extract content from parentheses for choice fields
+          const parenContent = typeInfo.substring(parenIndex + 1, typeInfo.lastIndexOf(')')).trim();
+          if (type === 'Choice' && parenContent) {
+            optionSetSchemaName = parenContent;
+          }
         } else {
           type = typeInfo;
         }
@@ -319,9 +372,12 @@
         } else if (type === 'Lookup') {
           warnings.push(`Line ${i + 1}: Lookup fields not yet supported - skipping "${displayName}"`);
           continue;
-        } else if (type === 'Choice') {
-          warnings.push(`Line ${i + 1}: Choice fields not yet supported - skipping "${displayName}"`);
-          continue;
+        } else if (type === 'Choice' || type === 'Picklist' || type === 'OptionSet') {
+          type = 'Choice';
+          if (!optionSetSchemaName) {
+            warnings.push(`Line ${i + 1}: Choice field "${displayName}" missing option set reference in parentheses - skipping`);
+            continue;
+          }
         }
         
         required = false;
@@ -382,13 +438,20 @@
         else if (type === 'URL' || type === 'Url') maxLength = 200;
       }
       
-      fields.push({
+      const field = {
         schemaName,
         displayName,
         type,
         required,
         maxLength
-      });
+      };
+      
+      // Add optionSetSchemaName for choice fields
+      if (type === 'Choice' && optionSetSchemaName) {
+        field.optionSetSchemaName = optionSetSchemaName;
+      }
+      
+      fields.push(field);
     }
     
     // Show warnings if any
@@ -631,8 +694,55 @@ Notes|Memo`;
                       <option value="Date">Date</option>
                       <option value="DateTime">Date & Time</option>
                       <option value="YesNo">Yes/No</option>
+                      <option value="Choice">Choice</option>
                     </select>
                   </div>
+                  
+                  {#if quickType === 'Choice'}
+                    <div class="form-group choice-selector">
+                      <label for="quickOptionSetSearch">Option Set</label>
+                      <input 
+                        type="text" 
+                        id="quickOptionSetSearch"
+                        bind:value={quickOptionSetSearch}
+                        placeholder="Search option sets..."
+                      />
+                      <div class="option-set-dropdown">
+                        {#if filteredOptionSets.length === 0}
+                          <div class="no-results">No option sets found</div>
+                        {:else}
+                          {#each filteredOptionSets.slice(0, 10) as os}
+                            <div 
+                              class="option-set-item" 
+                              class:selected={quickOptionSet === os.schemaName}
+                              role="button"
+                              tabindex="0"
+                              on:click={() => { 
+                                quickOptionSet = os.schemaName; 
+                                quickOptionSetSearch = os.displayName;
+                                if (!quickDisplayName) {
+                                  quickDisplayName = os.displayName;
+                                }
+                              }}
+                              on:keydown={(e) => { 
+                                if (e.key === 'Enter' || e.key === ' ') { 
+                                  quickOptionSet = os.schemaName; 
+                                  quickOptionSetSearch = os.displayName;
+                                  if (!quickDisplayName) {
+                                    quickDisplayName = os.displayName;
+                                  }
+                                } 
+                              }}
+                            >
+                              <div class="os-name">{os.displayName}</div>
+                              <div class="os-schema">{os.schemaName}</div>
+                              <div class="os-options">{os.options.length} options</div>
+                            </div>
+                          {/each}
+                        {/if}
+                      </div>
+                    </div>
+                  {/if}
 
                   <div class="form-group quick-checkbox">
                     <label>
@@ -680,7 +790,7 @@ Notes|Memo`;
                 rows="20"
               ></textarea>
               <p class="help-text">
-                📋 <strong>Copy/paste from BUILD.md:</strong> Bullet points auto-removed • Format: <code>- Name: Type</code> or <code>Display Name: Type</code> • Use <code>#</code> for comments • Lookup/Choice fields skipped with warning
+                📋 <strong>Copy/paste from BUILD.md:</strong> Bullet points auto-removed • Format: <code>- Name: Type</code> or <code>Display Name: Type</code> • Choice fields: <code>- Name: Choice (OptionSetSchemaName)</code> • Use <code>#</code> for comments • Lookup fields skipped with warning
               </p>
             </div>
           </div>
@@ -795,7 +905,7 @@ Notes|Memo`;
               <li>Enter the table logical name (this changes table-by-table)</li>
               <li><strong>Copy/paste from BUILD.md</strong> or use Quick Add form</li>
               <li>Review and edit field definitions as needed</li>
-              <li>Lookup/Choice fields will be skipped (not yet supported)</li>
+              <li>For Choice fields, ensure the referenced option set exists in Choice Creator first</li>
               <li>Click "Create Fields" and monitor progress</li>
             </ol>
             <div class="info-box success">
@@ -809,7 +919,8 @@ Notes|Memo`;
               <li>Schema names auto-generated with your prefix</li>
               <li>Schema names cannot be changed after creation</li>
               <li>Review all fields before clicking Create</li>
-              <li>Lookup and Choice fields require manual creation</li>
+              <li>Choice fields reference global option sets created in Choice Creator</li>
+              <li>Lookup fields require manual creation (not yet supported)</li>
               <li>Smart defaults for max lengths applied automatically</li>
               <li>Always test in a development environment first</li>
             </ul>
@@ -841,11 +952,15 @@ Notes|Memo`;
                   <li>Date - Date only</li>
                   <li>DateTime - Date & time</li>
                   <li>YesNo - Boolean</li>
+                  <li>Choice - References option set</li>
                 </ul>
               </div>
             </div>
+            <div class="info-box">
+              <strong>✨ Choice Fields:</strong> Use format <code>Display Name: Choice (OptionSetSchemaName)</code> in BUILD.md or select from dropdown in Quick Add. Option set must exist first.
+            </div>
             <div class="info-box warning">
-              <strong>⚠️ Not Yet Supported:</strong> Lookup, Choice (coming soon)
+              <strong>⚠️ Not Yet Supported:</strong> Lookup (coming soon)
             </div>
           </div>
         </div>
@@ -1274,6 +1389,70 @@ Notes|Memo`;
     color: #4fc3f7 !important;
     font-family: 'Consolas', 'Courier New', monospace;
     margin-top: 0.25rem !important;
+  }
+  
+  .choice-selector {
+    grid-column: span 2;
+    position: relative;
+  }
+  
+  .option-set-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    background: #1e1e1e;
+    border: 1px solid #3c3c3c;
+    border-radius: 4px;
+    margin-top: 0.25rem;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .option-set-item {
+    padding: 0.75rem;
+    cursor: pointer;
+    border-bottom: 1px solid #2d2d30;
+    transition: background 0.2s;
+  }
+  
+  .option-set-item:hover {
+    background: #2d2d30;
+  }
+  
+  .option-set-item.selected {
+    background: #0078d4;
+  }
+  
+  .option-set-item:last-child {
+    border-bottom: none;
+  }
+  
+  .os-name {
+    font-weight: 600;
+    color: #e0e0e0;
+    margin-bottom: 0.25rem;
+  }
+  
+  .os-schema {
+    font-size: 12px;
+    color: #4fc3f7;
+    font-family: 'Consolas', 'Courier New', monospace;
+    margin-bottom: 0.25rem;
+  }
+  
+  .os-options {
+    font-size: 11px;
+    color: #888;
+  }
+  
+  .no-results {
+    padding: 1rem;
+    text-align: center;
+    color: #888;
+    font-style: italic;
   }
 
   .section-header {
