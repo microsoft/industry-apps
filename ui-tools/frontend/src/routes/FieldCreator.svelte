@@ -199,6 +199,21 @@
     return publisherPrefix + cleaned; // PascalCase schema name
   }
   
+  function toProperCase(text) {
+    if (!text) return text;
+    return text
+      .split(' ')
+      .map(word => {
+        if (word.length === 0) return word;
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      })
+      .join(' ');
+  }
+  
+  function handleQuickDisplayNameBlur() {
+    quickDisplayName = toProperCase(quickDisplayName);
+  }
+  
   function selectMainTable(table) {
     tableName = table.logicalName;
     tableNameSearch = table.logicalName;
@@ -243,7 +258,7 @@
     const required = quickRequired ? 'true' : 'false';
     const maxLen = quickMaxLength || '';
     
-    // Build field line - for choice/lookup fields, use BUILD.md format with parentheses
+    // Build field line using BUILD.md format
     let fieldLine;
     if (quickType === 'Choice') {
       // Use BUILD.md format: "Display Name: Choice (OptionSetSchemaName)"
@@ -252,9 +267,13 @@
       // Use BUILD.md format: "Display Name: Lookup (TargetTable)"
       fieldLine = `${quickDisplayName}: Lookup (${quickTargetTable})`;
     } else {
-      fieldLine = `${schemaName}|${quickDisplayName}|${quickType}|${required}`;
+      // Use BUILD.md format: "Display Name: Type"
+      fieldLine = `${quickDisplayName}: ${quickType}`;
+      if (quickRequired) {
+        fieldLine += ', Required';
+      }
       if (maxLen) {
-        fieldLine += `|${maxLen}`;
+        fieldLine += `, Max Length: ${maxLen}`;
       }
     }
     
@@ -614,6 +633,7 @@ Notes|Memo`;
                       bind:value={quickDisplayName}
                       bind:this={displayNameInput}
                       on:keydown={handleQuickEntryKeydown}
+                      on:blur={handleQuickDisplayNameBlur}
                       placeholder="e.g., Customer Full Name"
                     />
                     {#if quickDisplayName}

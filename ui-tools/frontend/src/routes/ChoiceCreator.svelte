@@ -17,6 +17,7 @@
 
   // UI state
   let activeTab = 'create'; // 'search', 'create', 'browse'
+  let showReviewModal = false;
 
   // Search tab
   let searchQuery = '';
@@ -241,6 +242,26 @@
   
   let labelInputs = [];
   
+  function toProperCase(text) {
+    if (!text) return text;
+    return text
+      .split(' ')
+      .map(word => {
+        if (word.length === 0) return word;
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      })
+      .join(' ');
+  }
+  
+  function handleDisplayNameBlur() {
+    displayName = toProperCase(displayName);
+  }
+  
+  function handleLabelBlur(index) {
+    options[index].label = toProperCase(options[index].label);
+    options = [...options];
+  }
+  
   function handleValueBlur(index) {
     // If this is the last row and it has a label, add a new row
     if (index === options.length - 1 && options[index].label.trim()) {
@@ -272,7 +293,7 @@
       });
       const data = await response.json();
       duplicateMatches = data.matches || [];
-      createStep = 3;
+      showReviewModal = true;
     } catch (error) {
       console.error('Error checking for duplicates:', error);
       duplicateMatches = [];
@@ -321,6 +342,7 @@
       if (data.success) {
         creationResult = { success: true, ...data };
         createStep = 4;
+        showReviewModal = false;
         
         // Save to pending cache on backend
         await savePendingOptionSet({
@@ -341,10 +363,14 @@
         }
       } else {
         creationResult = { success: false, error: data.error };
+        createStep = 4;
+        showReviewModal = false;
       }
     } catch (error) {
       console.error('Error creating option set:', error);
       creationResult = { success: false, error: error.message };
+      createStep = 4;
+      showReviewModal = false;
     }
     loading = false;
   }
@@ -358,6 +384,7 @@
     duplicateMatches = [];
     creationResult = null;
     liveSuggestions = [];
+    showReviewModal = false;
   }
 
   function copyToClipboard(text) {
@@ -529,7 +556,13 @@
 </script>
 
 <div class="choice-creator">
-  <Header title="Choice Creator" subtitle="Create and discover global option sets" />
+  <Header title="Choice Creator" subtitle="Create and discover global option sets">
+    {#if activeTab === 'create' && createStep <= 2}
+      <button class="btn btn-primary" on:click={checkForDuplicates} disabled={!displayName || !schemaName || !selectedDeployment || !selectedEnvironment || !selectedSolution || options.filter(o => o.label.trim()).length === 0}>
+        Review & Create →
+      </button>
+    {/if}
+  </Header>
 
   <!-- Settings Bar -->
   <div class="settings-bar">
@@ -694,16 +727,15 @@
     <!-- Create Tab -->
     {#if activeTab === 'create'}
       <div class="create-tab">
-        <div class="create-layout">
-          <!-- Left: Form -->
-          <div class="create-form">
-            {#if createStep <= 3}
-              <!-- Step 1 & 2 Combined: Basic Info + Options -->
+        <div class="create-layout" class:three-column={createStep <= 2}>
+          {#if createStep <= 3}
+            <!-- Left: Step 1 Basic Info -->
+            <div class="step-column">
               <div class="form-section">
                 <h3>Step 1: Basic Information</h3>
                 <div class="form-group">
                   <label>Display Name *</label>
-                  <input type="text" bind:value={displayName} placeholder="e.g., Request Status" />
+                  <input type="text" bind:value={displayName} on:blur={handleDisplayNameBlur} placeholder="e.g., Request Status" />
                 </div>
                 <div class="form-group">
                   <label>Schema Name *</label>
@@ -715,8 +747,10 @@
                   <textarea bind:value={description} placeholder="Describe the purpose of this choice field..." rows="3"></textarea>
                 </div>
               </div>
+            </div>
 
-              <!-- Step 2: Define Options -->
+            <!-- Middle: Step 2 Define Options -->
+            <div class="step-column step-options">
               <div class="form-section">
                 <h3>Step 2: Define Options</h3>
                 <div class="options-table">
@@ -727,7 +761,7 @@
                   </div>
                   {#each options as option, index}
                     <div class="table-row">
-                      <input type="text" bind:value={option.label} bind:this={labelInputs[index]} placeholder="Enter label" />
+                      <input type="text" bind:value={option.label} bind:this={labelInputs[index]} on:blur={() => handleLabelBlur(index)} placeholder="Enter label" />
                       <input type="text" bind:value={option.value} placeholder="Auto-generated" on:blur={() => handleValueBlur(index)} />
                       <div class="row-actions">
                         <button on:click={() => moveOption(index, 'up')} disabled={index === 0} title="Move up">
@@ -744,13 +778,10 @@
                   {/each}
                 </div>
                 <button class="btn-secondary" on:click={addOption}>+ Add Option</button>
-                <div class="button-group">
-                  <button class="btn-primary" on:click={checkForDuplicates} disabled={!displayName || !schemaName || !selectedDeployment || !selectedEnvironment || !selectedSolution || options.filter(o => o.label.trim()).length === 0}>
-                    {createStep === 3 ? '✓ Ready to Create' : 'Review & Create →'}
-                  </button>
-                </div>
               </div>
-            {:else if createStep === 4}
+            </div>
+          {:else if createStep === 4}
+            <div class="create-form">
               <!-- Step 4: Creation Result -->
               <div class="form-section">
                 {#if creationResult?.success}
@@ -779,66 +810,11 @@
                   <button class="btn-secondary" on:click={() => activeTab = 'browse'}>Browse All</button>
                 </div>
               </div>
-            {/if}
-          </div>
-          
-          <!-- Right: Live Suggestions or Step 3 Review -->
-          {#if createStep === 3}
-            <!-- Step 3: Review Panel -->
-            <div class="review-panel">
-              <div class="panel-header">
-                <h4>⚠️ Final Review</h4>
-              </div>
-              
-              <div class="review-actions">
-                <button class="btn-secondary-full" on:click={() => createStep = 2}>
-                  ← Edit Details
-                </button>
-                <button class="btn-primary-full" on:click={createOptionSet} disabled={loading || !selectedSolution}>
-                  {loading ? 'Creating...' : '✓ Create Option Set'}
-                </button>
-              </div>
-              
-              {#if duplicateMatches.length > 0}
-                <p class="panel-warning">Found {duplicateMatches.length} similar option set{duplicateMatches.length > 1 ? 's' : ''}. Consider reusing one of these:</p>
-                <div class="suggestions-list">
-                  {#each duplicateMatches as match}
-                    <div class="suggestion-card duplicate-card">
-                      <div class="suggestion-header">
-                        <strong>{match.displayName}</strong>
-                        <button class="btn-sm" on:click={() => copyToClipboard(match.schemaName)} title="Copy schema name">
-                          📋
-                        </button>
-                      </div>
-                      <p class="schema-name-small">{match.schemaName}</p>
-                      <div class="options-preview-small">
-                        {#each match.options.slice(0, 6) as option}
-                          <span class="option-chip-tiny">{option.label}</span>
-                        {/each}
-                        {#if match.options.length > 6}
-                          <span class="option-chip-tiny more">+{match.options.length - 6}</span>
-                        {/if}
-                      </div>
-                      {#if match.matchReasons && match.matchReasons.length > 0}
-                        <div class="match-hint">
-                          {match.matchReasons.join(', ')}
-                        </div>
-                      {/if}
-                      <div class="suggestion-location">
-                        📁 {match.category}/{match.module}
-                      </div>
-                    </div>
-                  {/each}
-                </div>
-              {:else}
-                <div class="success-panel">
-                  <div class="success-icon">✓</div>
-                  <p class="success-text">No similar option sets found!</p>
-                  <p class="success-detail">You're good to create a new one.</p>
-                </div>
-              {/if}
             </div>
-          {:else if createStep <= 2 && liveSuggestions.length > 0}
+          {/if}
+          
+          <!-- Right: Live Suggestions -->
+          {#if createStep <= 2 && liveSuggestions.length > 0}
             <!-- Live Suggestions Panel -->
             <div class="suggestions-panel">
               <div class="panel-header">
@@ -949,6 +925,65 @@
       </div>
     {/if}
   </div>
+
+  <!-- Review Modal -->
+  {#if showReviewModal}
+    <div class="modal-overlay" on:click={() => showReviewModal = false} on:keydown={(e) => e.key === 'Escape' && (showReviewModal = false)} role="button" tabindex="0">
+      <div class="modal-content" on:click|stopPropagation role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-header">
+          <h3 id="modal-title">⚠️ Final Review</h3>
+          <button class="modal-close" on:click={() => showReviewModal = false}>✕</button>
+        </div>
+        
+        <div class="modal-body">
+          {#if duplicateMatches.length > 0}
+            <p class="modal-warning">Found {duplicateMatches.length} similar option set{duplicateMatches.length > 1 ? 's' : ''}. Consider reusing one of these:</p>
+            <div class="modal-suggestions">
+              {#each duplicateMatches as match}
+                <div class="modal-suggestion-card">
+                  <div class="suggestion-header">
+                    <strong>{match.displayName}</strong>
+                    <button class="btn-sm" on:click={() => copyToClipboard(match.schemaName)} title="Copy schema name">
+                      📋
+                    </button>
+                  </div>
+                  <p class="schema-name-small">{match.schemaName}</p>
+                  <div class="options-preview-small">
+                    {#each match.options.slice(0, 6) as option}
+                      <span class="option-chip-tiny">{option.label}</span>
+                    {/each}
+                    {#if match.options.length > 6}
+                      <span class="option-chip-tiny more">+{match.options.length - 6}</span>
+                    {/if}
+                  </div>
+                  {#if match.matchReasons && match.matchReasons.length > 0}
+                    <div class="match-hint">
+                      {match.matchReasons.join(', ')}
+                    </div>
+                  {/if}
+                  <div class="suggestion-location">
+                    📁 {match.category}/{match.module}
+                  </div>
+                </div>
+              {/each}
+            </div>
+          {:else}
+            <div class="modal-success">
+              <div class="success-icon">✓</div>
+              <p class="success-text">No similar option sets found!</p>
+              <p class="success-detail">You're good to create a new one.</p>
+            </div>
+          {/if}
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn-primary" on:click={createOptionSet} disabled={loading || !selectedSolution}>
+            {loading ? 'Creating...' : '✓ Create Option Set'}
+          </button>
+        </div>
+      </div>
+    </div>
+  {/if}
 </div>
 
 <style>
@@ -1384,24 +1419,6 @@
     cursor: not-allowed;
   }
 
-  .warning {
-    background: #553300;
-    border: 1px solid #ff9933;
-    border-radius: 4px;
-    padding: 1rem;
-    color: #ffcc99;
-    margin-bottom: 1rem;
-  }
-
-  .success {
-    background: #003322;
-    border: 1px solid #33cc66;
-    border-radius: 4px;
-    padding: 1rem;
-    color: #99ffcc;
-    margin-bottom: 1rem;
-  }
-
   .success-message,
   .error-message {
     padding: 2rem;
@@ -1551,8 +1568,17 @@
     align-items: start;
   }
 
+  .create-layout.three-column {
+    grid-template-columns: 380px 1fr 350px;
+    gap: 1.5rem;
+  }
+
   .create-form {
     min-width: 0; /* Prevent grid blowout */
+  }
+
+  .step-column {
+    min-width: 0;
   }
 
   .suggestions-panel {
@@ -1564,105 +1590,6 @@
     overflow-y: auto;
     position: sticky;
     top: 1rem;
-  }
-
-  .review-panel {
-    background: #2a2a2a;
-    border: 2px solid #f59e0b;
-    border-radius: 8px;
-    padding: 1.5rem;
-    max-height: 80vh;
-    overflow-y: auto;
-    position: sticky;
-    top: 1rem;
-  }
-
-  .review-panel .panel-header h4 {
-    color: #f59e0b;
-  }
-
-  .panel-warning {
-    color: #fbbf24;
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-    line-height: 1.4;
-  }
-
-  .success-panel {
-    text-align: center;
-    padding: 2rem 1rem;
-  }
-
-  .success-icon {
-    font-size: 3rem;
-    color: #22c55e;
-    margin-bottom: 1rem;
-  }
-
-  .success-text {
-    font-size: 1.1rem;
-    color: #22c55e;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-  }
-
-  .success-detail {
-    color: #86efac;
-    font-size: 0.9rem;
-  }
-
-  .duplicate-card {
-    border-color: #f59e0b;
-  }
-
-  .duplicate-card:hover {
-    border-color: #fbbf24;
-  }
-
-  .review-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid #3c3c3c;
-  }
-
-  .btn-secondary-full,
-  .btn-primary-full {
-    width: 100%;
-    padding: 0.75rem;
-    border: none;
-    border-radius: 4px;
-    font-size: 0.95rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .btn-secondary-full {
-    background: #3c3c3c;
-    color: #e0e0e0;
-  }
-
-  .btn-secondary-full:hover {
-    background: #505050;
-  }
-
-  .btn-primary-full {
-    background: #60a5fa;
-    color: #000;
-    font-weight: 600;
-  }
-
-  .btn-primary-full:hover {
-    background: #3b82f6;
-  }
-
-  .btn-primary-full:disabled {
-    background: #374151;
-    color: #6b7280;
-    cursor: not-allowed;
   }
 
   .panel-header {
@@ -1721,8 +1648,9 @@
   }
 
   .suggestion-header strong {
-    color: #e0e0e0;
-    font-size: 0.95rem;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
   }
 
   .schema-name-small {
@@ -1802,15 +1730,234 @@
   }
 
   /* Responsive adjustments */
-  @media (max-width: 1200px) {
-    .create-layout {
+  @media (max-width: 1400px) {
+    .create-layout.three-column {
+      grid-template-columns: 1fr 380px;
+    }
+
+    .step-column:first-child,
+    .step-column.step-options {
+      grid-column: 1;
+    }
+
+    .step-column:first-child {
+      grid-row: 1;
+    }
+
+    .step-column.step-options {
+      grid-row: 2;
+    }
+
+    .suggestions-panel {
+      grid-column: 2;
+      grid-row: 1 / 3;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .create-layout,
+    .create-layout.three-column {
       grid-template-columns: 1fr;
+    }
+
+    .step-column,
+    .suggestions-panel {
+      grid-column: 1;
+      grid-row: auto;
     }
 
     .suggestions-panel {
       position: static;
       max-height: 400px;
     }
+  }
+
+  /* Modal Styles */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+  }
+
+  .modal-content {
+    background: #1a1a1a;
+    border: 1px solid #3c3c3c;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #3c3c3c;
+    flex-shrink: 0;
+  }
+
+  .modal-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #f59e0b;
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #9ca3af;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  .modal-close:hover {
+    background: #3c3c3c;
+    color: #e0e0e0;
+  }
+
+  .modal-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  .modal-warning {
+    margin: 0 0 1rem 0;
+    padding: 1rem;
+    background: #3c2b1f;
+    border-left: 4px solid #f59e0b;
+    border-radius: 4px;
+    color: #fbbf24;
+  }
+
+  .modal-suggestions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .modal-suggestion-card {
+    background: #2a2a2a;
+    border: 1px solid #3c3c3c;
+    border-radius: 6px;
+    padding: 1rem;
+  }
+
+  .suggestion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+
+  .suggestion-header strong {
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .modal-suggestion-card .schema-name-small {
+    font-size: 0.875rem;
+    color: #4a9eff;
+    font-family: monospace;
+    margin: 0.25rem 0 0.5rem 0;
+  }
+
+  .options-preview-small {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-suggestion-card .option-chip-tiny {
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    background: #3c3c3c;
+    border: 1px solid #505050;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    color: #e0e0e0;
+  }
+
+  .modal-suggestion-card .option-chip-tiny.more {
+    background: #505050;
+    color: #9ca3af;
+    font-weight: 500;
+  }
+
+  .modal-suggestion-card .match-hint {
+    font-size: 0.75rem;
+    color: #86efac;
+    font-style: italic;
+    margin: 0.5rem 0;
+  }
+
+  .modal-suggestion-card .suggestion-location {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin-top: 0.5rem;
+  }
+
+  .modal-success {
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+
+  .success-icon {
+    width: 64px;
+    height: 64px;
+    background: #14532d;
+    color: #22c55e;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin: 0 auto 1rem;
+  }
+
+  .success-text {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #22c55e;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .success-detail {
+    color: #9ca3af;
+    margin: 0;
+  }
+
+  .modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #3c3c3c;
+    gap: 1rem;
+    flex-shrink: 0;
   }
 </style>
 
