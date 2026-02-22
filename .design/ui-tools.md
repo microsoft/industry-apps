@@ -17,7 +17,9 @@ Bulk field creation on Dataverse tables using Python with direct Dataverse Web A
 - **Multi-format parsing**: BUILD.md format, pipe-delimited, or quick-add form for rapid field definition
 - **Template system**: Save and reuse common field patterns across tables
 - **Real-time creation**: Stream field creation progress with instant feedback
-- **Type support**: Text, Memo, Integer, Float, Currency, Date, DateTime, YesNo (Boolean)
+- **Type support**: Text, Memo, Integer, Float, Currency, Date, DateTime, YesNo (Boolean), Choice, Lookup
+- **Choice fields**: Reference existing global option sets with automatic validation and name resolution (display name or schema name)
+- **Lookup fields**: Create N:1 relationships with RemoveLink cascade delete, auto-detect self-referential hierarchies, proper schema/logical name formatting
 
 ### Choice Creator
 Global option set (choice field) management with intelligent reuse:

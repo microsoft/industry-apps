@@ -22,6 +22,7 @@
   let quickMaxLength = '';
   let quickOptionSet = '';
   let quickOptionSetSearch = '';
+  let showQuickOptionSetDropdown = false;
   let publisherPrefix = '';
   let displayNameInput;
   
@@ -34,17 +35,15 @@
   let filteredTables = [];
   let quickTargetTable = '';
   let quickTargetTableSearch = '';
+  let showQuickTargetTableDropdown = false;
   
-  // Template variables
-  let templates = [];
-  let selectedTemplate = '';
-  let newTemplateName = '';
-  let newTemplateDescription = '';
-  let showSaveTemplateForm = false;
+  // Table selector for main form
+  let tableNameSearch = '';
+  let filteredTablesForMain = [];
+  let showTableNameDropdown = false;
   
   // UI state
-  let activeTab = 'settings'; // 'settings', 'create', 'templates', 'help'
-  let showQuickAdd = false;
+  let showQuickAdd = true;
   
   // Field counter
   $: fieldCount = countFields(fieldsText);
@@ -65,25 +64,30 @@
       selectedDeployment = $deployments[0];
     }
     
-    // Load templates
-    loadTemplates();
-    
     // Load option sets
     loadOptionSets();
     
     // Load tables
     loadTables();
+    
+    // Close dropdowns when clicking outside
+    const handleClickOutside = (event) => {
+      const target = event.target;
+      const tableNameDropdown = target.closest('.choice-selector');
+      
+      if (!tableNameDropdown) {
+        showTableNameDropdown = false;
+        showQuickOptionSetDropdown = false;
+        showQuickTargetTableDropdown = false;
+      }
+    };
+    
+    document.addEventListener('click', handleClickOutside);
+    
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
   });
-  
-  async function loadTemplates() {
-    try {
-      const response = await fetch('/api/helpers/field-templates');
-      const data = await response.json();
-      templates = data.templates || [];
-    } catch (error) {
-      console.error('Error loading templates:', error);
-    }
-  }
   
   async function loadOptionSets() {
     try {
@@ -137,7 +141,7 @@
     }
   }
   
-  // Filter tables based on search
+  // Filter tables based on search (for lookup dropdown)
   $: {
     if (!quickTargetTableSearch || quickTargetTableSearch.trim() === '') {
       filteredTables = availableTables;
@@ -150,135 +154,22 @@
     }
   }
   
-  async function loadTemplate() {
-    if (!selectedTemplate) return;
-    
-    try {
-      const response = await fetch(`/api/helpers/field-templates/${encodeURIComponent(selectedTemplate)}`);
-      const template = await response.json();
-      
-      if (template.error) {
-        alert(`Error loading template: ${template.error}`);
-        return;
-      }
-      
-      // Convert template fields to pipe format
-      const lines = template.fields.map(field => {
-        const parts = [];
-        
-        // If template has its own schema names, use them; otherwise generate
-        if (field.schemaName) {
-          parts.push(field.schemaName);
-        } else {
-          const schema = (template.publisherPrefix || publisherPrefix) + 
-            field.displayName.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, '');
-          parts.push(schema);
-        }
-        
-        parts.push(field.displayName);
-        parts.push(field.type || 'Text');
-        parts.push(field.required ? 'true' : 'false');
-        if (field.maxLength) {
-          parts.push(field.maxLength.toString());
-        }
-        
-        return parts.join('|');
-      });
-      
-      fieldsText = lines.join('\n');
-      
-      // Update prefix if template has one
-      if (template.publisherPrefix) {
-        publisherPrefix = template.publisherPrefix;
-      }
-      
-    } catch (error) {
-      alert(`Error loading template: ${error.message}`);
+  // Filter tables for main table selector
+  $: {
+    if (!tableNameSearch || tableNameSearch.trim() === '') {
+      filteredTablesForMain = availableTables;
+    } else {
+      const search = tableNameSearch.toLowerCase();
+      filteredTablesForMain = availableTables.filter(t => 
+        t.logicalName.toLowerCase().includes(search) ||
+        t.displayName.toLowerCase().includes(search)
+      );
     }
   }
   
-  async function saveTemplate() {
-    if (!newTemplateName.trim()) {
-      alert('Please enter a template name');
-      return;
-    }
-    
-    if (!fieldsText.trim()) {
-      alert('No fields to save');
-      return;
-    }
-    
-    // Parse current fields
-    const lines = fieldsText.trim().split('\n');
-    const fields = [];
-    
-    for (const line of lines) {
-      if (!line.trim() || line.trim().startsWith('#')) continue;
-      
-      const parts = line.split('|').map(p => p.trim());
-      if (parts.length >= 2) {
-        // Store fields in a normalized format
-        fields.push({
-          displayName: parts[1] || parts[0],
-          type: parts[2] || 'Text',
-          required: parts[3] === 'true',
-          maxLength: parts[4] ? parseInt(parts[4]) : null
-        });
-      }
-    }
-    
-    try {
-      const response = await fetch('/api/helpers/field-templates', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: newTemplateName,
-          description: newTemplateDescription,
-          publisherPrefix: publisherPrefix,
-          fields
-        })
-      });
-      
-      const result = await response.json();
-      
-      if (result.success) {
-        alert(`Template "${newTemplateName}" saved successfully!`);
-        newTemplateName = '';
-        newTemplateDescription = '';
-        showSaveTemplateForm = false;
-        loadTemplates();
-      } else {
-        alert(`Error saving template: ${result.error}`);
-      }
-    } catch (error) {
-      alert(`Error saving template: ${error.message}`);
-    }
-  }
-  
-  async function deleteTemplate() {
-    if (!selectedTemplate) return;
-    
-    if (!confirm(`Are you sure you want to delete the template "${selectedTemplate}"?`)) {
-      return;
-    }
-    
-    try {
-      const response = await fetch(`/api/helpers/field-templates/${encodeURIComponent(selectedTemplate)}`, {
-        method: 'DELETE'
-      });
-      
-      const result = await response.json();
-      
-      if (result.success) {
-        alert(`Template deleted successfully`);
-        selectedTemplate = '';
-        loadTemplates();
-      } else {
-        alert(`Error deleting template: ${result.error}`);
-      }
-    } catch (error) {
-      alert(`Error deleting template: ${error.message}`);
-    }
+  // Sync tableName with manual search input
+  $: if (tableNameSearch) {
+    tableName = tableNameSearch;
   }
   
   // Save publisher prefix to localStorage when changed
@@ -306,6 +197,30 @@
       .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize each word
       .join(''); // Join without spaces
     return publisherPrefix + cleaned; // PascalCase schema name
+  }
+  
+  function selectMainTable(table) {
+    tableName = table.logicalName;
+    tableNameSearch = table.logicalName;
+    showTableNameDropdown = false;
+  }
+  
+  function selectQuickTargetTable(table) {
+    quickTargetTable = table.logicalName;
+    quickTargetTableSearch = table.logicalName;
+    showQuickTargetTableDropdown = false;
+    if (!quickDisplayName) {
+      quickDisplayName = table.displayName;
+    }
+  }
+  
+  function selectQuickOptionSet(os) {
+    quickOptionSet = os.schemaName;
+    quickOptionSetSearch = os.displayName;
+    showQuickOptionSetDropdown = false;
+    if (!quickDisplayName) {
+      quickDisplayName = os.displayName;
+    }
   }
   
   function addQuickField() {
@@ -594,135 +509,86 @@ Notes|Memo`;
     </button>
   </Header>
 
-  <!-- Active Settings Indicator -->
-  {#if selectedDeployment || selectedEnvironment || publisherPrefix}
-    <div class="settings-bar">
-      <div class="settings-info">
-        {#if selectedDeployment}
-          <span class="setting-item">
-            <strong>Deployment:</strong> {selectedDeployment}
-          </span>
-        {/if}
-        {#if selectedEnvironment}
-          <span class="setting-item">
-            <strong>Environment:</strong> {availableEnvironments.find(e => e.key === selectedEnvironment)?.name || selectedEnvironment}
-          </span>
-        {/if}
-        {#if publisherPrefix}
-          <span class="setting-item">
-            <strong>Prefix:</strong> <code>{publisherPrefix}</code>
-          </span>
-        {/if}
+  <!-- Settings Section -->
+  <div class="settings-section">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="deployment">Deployment</label>
+        <select id="deployment" bind:value={selectedDeployment}>
+          <option value="">-- Select Deployment --</option>
+          {#each $deployments as deployment}
+            <option value={deployment}>{deployment}</option>
+          {/each}
+        </select>
       </div>
-      <button class="btn-link" on:click={() => activeTab = 'settings'}>⚙️ Change Settings</button>
+
+      <div class="form-group">
+        <label for="environment">Environment</label>
+        <select id="environment" bind:value={selectedEnvironment} disabled={!selectedDeployment}>
+          <option value="">-- Select Environment --</option>
+          {#each availableEnvironments as env}
+            <option value={env.key}>{env.name}</option>
+          {/each}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="publisherPrefix">Publisher Prefix</label>
+        <input 
+          type="text" 
+          id="publisherPrefix" 
+          bind:value={publisherPrefix}
+          placeholder="e.g., appbase_"
+          pattern="[a-z0-9]+_"
+        />
+      </div>
     </div>
-  {/if}
+  </div>
 
   <div class="content">
-    <!-- Tab Navigation -->
-    <div class="tabs">
-      <button 
-        class="tab" 
-        class:active={activeTab === 'settings'}
-        on:click={() => activeTab = 'settings'}
-      >
-        ⚙️ Settings
-      </button>
-      <button 
-        class="tab" 
-        class:active={activeTab === 'create'}
-        on:click={() => activeTab = 'create'}
-      >
-        ✏️ Create Fields
-      </button>
-      <button 
-        class="tab" 
-        class:active={activeTab === 'templates'}
-        on:click={() => activeTab = 'templates'}
-      >
-        💾 Templates
-      </button>
-      <button 
-        class="tab" 
-        class:active={activeTab === 'help'}
-        on:click={() => activeTab = 'help'}
-      >
-        ℹ️ Help
-      </button>
-    </div>
-
-    <!-- Settings Tab -->
-    {#if activeTab === 'settings'}
-      <div class="tab-content">
-        <div class="form-container-full">
-          <div class="form-section">
-            <h3>Target Environment</h3>
-            <p class="help-text">Select your deployment and environment. These settings will persist while you create fields across multiple tables.</p>
-            
-            <div class="form-row">
-              <div class="form-group">
-                <label for="deployment">Deployment</label>
-                <select id="deployment" bind:value={selectedDeployment}>
-                  <option value="">-- Select Deployment --</option>
-                  {#each $deployments as deployment}
-                    <option value={deployment}>{deployment}</option>
-                  {/each}
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="environment">Environment</label>
-                <select id="environment" bind:value={selectedEnvironment} disabled={!selectedDeployment}>
-                  <option value="">-- Select Environment --</option>
-                  {#each availableEnvironments as env}
-                    <option value={env.key}>{env.name}</option>
-                  {/each}
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-section">
-            <h3>Publisher Prefix</h3>
-            <p class="help-text">This prefix is used to auto-generate schema names from display names. It's saved in your browser for future sessions.</p>
-            
-            <div class="form-group">
-              <label for="publisherPrefix">Publisher Prefix</label>
-              <input 
-                type="text" 
-                id="publisherPrefix" 
-                bind:value={publisherPrefix}
-                placeholder="e.g., appbase_"
-                pattern="[a-z0-9]+_"
-              />
-              <p class="help-text">Example: With prefix "appbase_", field "Customer Name" becomes "appbase_customername"</p>
-            </div>
-          </div>
-
-          <div class="info-box success">
-            <strong>💡 Next Steps:</strong> After configuring your settings, go to the <button class="btn-link-inline" on:click={() => activeTab = 'create'}>Create Fields</button> tab to start adding fields to tables.
-          </div>
-        </div>
-      </div>
-    {/if}
-
-    <!-- Create Fields Tab -->
-    {#if activeTab === 'create'}
-      <div class="tab-content">
-        <div class="form-container-full">
+    <!-- Main Content -->
+      <div class="main-container">
+        <!-- Left Column: Table + Quick Add -->
+        <div class="left-column">
           <div class="form-section">
             <h3>Table Information</h3>
             
-            <div class="form-group">
-              <label for="tableName">Table Logical Name</label>
+            <div class="form-group choice-selector">
+              <label for="tableNameSearch">Table Logical Name</label>
               <input 
                 type="text" 
-                id="tableName" 
-                bind:value={tableName}
-                placeholder="e.g., contact, appbase_hrposition"
-                pattern="[a-z0-9_]+"
+                id="tableNameSearch" 
+                bind:value={tableNameSearch}
+                on:focus={() => showTableNameDropdown = true}
+                placeholder="Search tables..."
               />
-              <p class="help-text">Enter the logical name of the target table (lowercase, underscores allowed)</p>
+              {#if showTableNameDropdown}
+                <div class="option-set-dropdown">
+                  {#if filteredTablesForMain.length === 0}
+                    <div class="no-results">No tables found</div>
+                  {:else}
+                    {#each filteredTablesForMain.slice(0, 15) as table}
+                      <div 
+                        class="option-set-item" 
+                        class:selected={tableName === table.logicalName}
+                        role="button"
+                        tabindex="0"
+                        on:click={() => selectMainTable(table)}
+                        on:keydown={(e) => { 
+                          if (e.key === 'Enter' || e.key === ' ') { 
+                            selectMainTable(table);
+                          } 
+                        }}
+                      >
+                        <div class="os-name">{table.displayName}</div>
+                        <div class="os-schema">{table.logicalName}</div>
+                        <div class="os-options">{table.primaryIdAttribute}</div>
+                      </div>
+                    {/each}
+                  {/if}
+                </div>
+              {/if}
+              <p class="help-text">Select the target table for your fields</p>
             </div>
           </div>
 
@@ -780,42 +646,35 @@ Notes|Memo`;
                         type="text" 
                         id="quickOptionSetSearch"
                         bind:value={quickOptionSetSearch}
+                        on:focus={() => showQuickOptionSetDropdown = true}
                         placeholder="Search option sets..."
                       />
-                      <div class="option-set-dropdown">
-                        {#if filteredOptionSets.length === 0}
-                          <div class="no-results">No option sets found</div>
-                        {:else}
-                          {#each filteredOptionSets.slice(0, 10) as os}
-                            <div 
-                              class="option-set-item" 
-                              class:selected={quickOptionSet === os.schemaName}
-                              role="button"
-                              tabindex="0"
-                              on:click={() => { 
-                                quickOptionSet = os.schemaName; 
-                                quickOptionSetSearch = os.displayName;
-                                if (!quickDisplayName) {
-                                  quickDisplayName = os.displayName;
-                                }
-                              }}
-                              on:keydown={(e) => { 
-                                if (e.key === 'Enter' || e.key === ' ') { 
-                                  quickOptionSet = os.schemaName; 
-                                  quickOptionSetSearch = os.displayName;
-                                  if (!quickDisplayName) {
-                                    quickDisplayName = os.displayName;
-                                  }
-                                } 
-                              }}
-                            >
-                              <div class="os-name">{os.displayName}</div>
-                              <div class="os-schema">{os.schemaName}</div>
-                              <div class="os-options">{os.options.length} options</div>
-                            </div>
-                          {/each}
-                        {/if}
-                      </div>
+                      {#if showQuickOptionSetDropdown}
+                        <div class="option-set-dropdown">
+                          {#if filteredOptionSets.length === 0}
+                            <div class="no-results">No option sets found</div>
+                          {:else}
+                            {#each filteredOptionSets.slice(0, 10) as os}
+                              <div 
+                                class="option-set-item" 
+                                class:selected={quickOptionSet === os.schemaName}
+                                role="button"
+                                tabindex="0"
+                                on:click={() => selectQuickOptionSet(os)}
+                                on:keydown={(e) => { 
+                                  if (e.key === 'Enter' || e.key === ' ') { 
+                                    selectQuickOptionSet(os);
+                                  } 
+                                }}
+                              >
+                                <div class="os-name">{os.displayName}</div>
+                                <div class="os-schema">{os.schemaName}</div>
+                                <div class="os-options">{os.options.length} options</div>
+                              </div>
+                            {/each}
+                          {/if}
+                        </div>
+                      {/if}
                     </div>
                   {/if}
                   
@@ -826,42 +685,35 @@ Notes|Memo`;
                         type="text" 
                         id="quickTargetTableSearch"
                         bind:value={quickTargetTableSearch}
+                        on:focus={() => showQuickTargetTableDropdown = true}
                         placeholder="Search tables..."
                       />
-                      <div class="option-set-dropdown">
-                        {#if filteredTables.length === 0}
-                          <div class="no-results">No tables found</div>
-                        {:else}
-                          {#each filteredTables.slice(0, 10) as table}
-                            <div 
-                              class="option-set-item" 
-                              class:selected={quickTargetTable === table.logicalName}
-                              role="button"
-                              tabindex="0"
-                              on:click={() => { 
-                                quickTargetTable = table.logicalName; 
-                                quickTargetTableSearch = table.displayName;
-                                if (!quickDisplayName) {
-                                  quickDisplayName = table.displayName;
-                                }
-                              }}
-                              on:keydown={(e) => { 
-                                if (e.key === 'Enter' || e.key === ' ') { 
-                                  quickTargetTable = table.logicalName; 
-                                  quickTargetTableSearch = table.displayName;
-                                  if (!quickDisplayName) {
-                                    quickDisplayName = table.displayName;
-                                  }
-                                } 
-                              }}
-                            >
-                              <div class="os-name">{table.displayName}</div>
-                              <div class="os-schema">{table.logicalName}</div>
-                              <div class="os-options">{table.primaryIdAttribute}</div>
-                            </div>
-                          {/each}
-                        {/if}
-                      </div>
+                      {#if showQuickTargetTableDropdown}
+                        <div class="option-set-dropdown">
+                          {#if filteredTables.length === 0}
+                            <div class="no-results">No tables found</div>
+                          {:else}
+                            {#each filteredTables.slice(0, 15) as table}
+                              <div 
+                                class="option-set-item" 
+                                class:selected={quickTargetTable === table.logicalName}
+                                role="button"
+                                tabindex="0"
+                                on:click={() => selectQuickTargetTable(table)}
+                                on:keydown={(e) => { 
+                                  if (e.key === 'Enter' || e.key === ' ') { 
+                                    selectQuickTargetTable(table);
+                                  } 
+                                }}
+                              >
+                                <div class="os-name">{table.displayName}</div>
+                                <div class="os-schema">{table.logicalName}</div>
+                                <div class="os-options">{table.primaryIdAttribute}</div>
+                              </div>
+                            {/each}
+                          {/if}
+                        </div>
+                      {/if}
                     </div>
                   {/if}
 
@@ -893,7 +745,10 @@ Notes|Memo`;
               </div>
             {/if}
           </div>
+        </div>
 
+        <!-- Middle Column: Field Definitions -->
+        <div class="middle-column">
           <div class="form-section">
             <div class="section-header">
               <h3>Field Definitions</h3>
@@ -908,7 +763,7 @@ Notes|Memo`;
                 id="fieldsText"
                 bind:value={fieldsText}
                 placeholder={exampleFields}
-                rows="20"
+                rows="15"
               ></textarea>
               <p class="help-text">
                 📋 <strong>Copy/paste from BUILD.md:</strong> Bullet points auto-removed • Format: <code>- Name: Type</code> or <code>Display Name: Type</code> • Choice fields: <code>- Name: Choice (OptionSetSchemaName)</code> • Lookup fields: <code>- Name: Lookup (TargetTable)</code> • Use <code>#</code> for comments
@@ -916,113 +771,13 @@ Notes|Memo`;
             </div>
           </div>
         </div>
-      </div>
-    {/if}
 
-    <!-- Templates Tab -->
-    {#if activeTab === 'templates'}
-      <div class="tab-content">
-        <div class="form-container-full">
-          <div class="form-section">
-            <h3>💾 Field Templates</h3>
-            
-            <div class="template-controls">
-              <div class="form-group">
-                <label for="templateSelect">Load Template</label>
-                <div class="template-actions">
-                  <select id="templateSelect" bind:value={selectedTemplate}>
-                    <option value="">-- Select Template --</option>
-                    {#each templates as template}
-                      <option value={template.name}>{template.name} ({template.fieldCount} fields)</option>
-                    {/each}
-                  </select>
-                  <button 
-                    type="button" 
-                    class="btn btn-secondary" 
-                    on:click={loadTemplate}
-                    disabled={!selectedTemplate}
-                  >
-                    Load
-                  </button>
-                  <button 
-                    type="button" 
-                    class="btn btn-danger" 
-                    on:click={deleteTemplate}
-                    disabled={!selectedTemplate}
-                    title="Delete selected template"
-                  >
-                    🗑️
-                  </button>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <button 
-                  type="button" 
-                  class="btn btn-secondary btn-block"
-                  on:click={() => showSaveTemplateForm = !showSaveTemplateForm}
-                >
-                  {showSaveTemplateForm ? '✖ Cancel' : '💾 Save Current as Template'}
-                </button>
-              </div>
-
-              {#if showSaveTemplateForm}
-                <div class="save-template-form">
-                  <div class="form-group">
-                    <label for="newTemplateName">Template Name</label>
-                    <input 
-                      type="text" 
-                      id="newTemplateName" 
-                      bind:value={newTemplateName}
-                      placeholder="e.g., Contact Fields"
-                    />
-                  </div>
-
-                  <div class="form-group">
-                    <label for="newTemplateDescription">Description (optional)</label>
-                    <input 
-                      type="text" 
-                      id="newTemplateDescription" 
-                      bind:value={newTemplateDescription}
-                      placeholder="Brief description"
-                    />
-                  </div>
-
-                  <button 
-                    type="button" 
-                    class="btn btn-primary btn-block"
-                    on:click={saveTemplate}
-                  >
-                    💾 Save Template
-                  </button>
-                </div>
-              {/if}
-            </div>
-
-            <div class="info-box">
-              <h4>About Templates</h4>
-              <p>Templates save your field definitions for reuse across different tables. They include:</p>
-              <ul>
-                <li>Field display names and types</li>
-                <li>Required flags and max lengths</li>
-                <li>Your publisher prefix setting</li>
-              </ul>
-              <p>Use templates to quickly recreate common field sets like "Address Fields", "Contact Info", or "Audit Fields".</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    {/if}
-
-    <!-- Help Tab -->
-    {#if activeTab === 'help'}
-      <div class="tab-content">
-        <div class="form-container-full">
-          <div class="form-section">
+        <!-- Right Column: Help -->
+        <div class="right-column">
+          <div class="help-section">
             <h3>ℹ️ How to Use</h3>
             <ol class="help-list">
-              <li>Go to <strong>Settings</strong> tab and select your deployment, environment, and publisher prefix</li>
-              <li>Return to <strong>Create Fields</strong> tab</li>
+              <li>Select your deployment, environment, and publisher prefix at the top of the page</li>
               <li>Enter the table logical name (this changes table-by-table)</li>
               <li><strong>Copy/paste from BUILD.md</strong> or use Quick Add form</li>
               <li>Review and edit field definitions as needed</li>
@@ -1030,11 +785,11 @@ Notes|Memo`;
               <li>Click "Create Fields" and monitor progress</li>
             </ol>
             <div class="info-box success">
-              <strong>💡 Tip:</strong> The BUILD.md format (<code>- Name: Type</code>) works great for copy/paste from your documentation! The settings bar at the top shows your active deployment and environment.
+              <strong>💡 Tip:</strong> The BUILD.md format (<code>- Name: Type</code>) works great for copy/paste from your documentation! Select your deployment and environment at the top of the page before creating fields.
             </div>
           </div>
 
-          <div class="form-section">
+          <div class="help-section">
             <h3>⚠️ Important Notes</h3>
             <ul class="help-list">
               <li>Schema names auto-generated with your prefix</li>
@@ -1047,7 +802,7 @@ Notes|Memo`;
             </ul>
           </div>
 
-          <div class="form-section">
+          <div class="help-section">
             <h3>📋 Supported Field Types</h3>
             <div class="type-grid">
               <div>
@@ -1087,7 +842,6 @@ Notes|Memo`;
           </div>
         </div>
       </div>
-    {/if}
   </div>
 </div>
 
@@ -1098,72 +852,45 @@ Notes|Memo`;
     flex-direction: column;
   }
 
-  .settings-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem 2rem;
+  .settings-section {
+    padding: 0.75rem 1.5rem;
     background: #2d2d30;
     border-bottom: 1px solid #3c3c3c;
-    font-size: 13px;
   }
 
-  .settings-info {
+  .settings-section .form-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+
+  .settings-section .form-group {
     display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
-    align-items: center;
+    flex-direction: column;
   }
 
-  .setting-item {
-    color: #cccccc;
-  }
-
-  .setting-item strong {
-    color: #4fc3f7;
-    font-weight: 600;
-    margin-right: 0.5rem;
-  }
-
-  .setting-item code {
-    background: #1e1e1e;
-    padding: 2px 6px;
-    border-radius: 3px;
-    font-family: 'Consolas', 'Courier New', monospace;
-    color: #a5d6a7;
+  .settings-section label {
     font-size: 12px;
+    font-weight: 500;
+    color: #cccccc;
+    margin-bottom: 0.25rem;
   }
 
-  .btn-link {
-    background: transparent;
-    color: #4fc3f7;
-    border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 600;
+  .settings-section select,
+  .settings-section input {
+    padding: 0.4rem;
+    background: #1e1e1e;
+    border: 1px solid #3c3c3c;
     border-radius: 4px;
-    transition: background 0.2s;
+    color: #cccccc;
+    font-size: 13px;
   }
 
-  .btn-link:hover {
-    background: rgba(0, 120, 212, 0.1);
+  .settings-section select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 
-  .btn-link-inline {
-    background: transparent;
-    color: #4fc3f7;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    font-size: inherit;
-    font-weight: 600;
-    text-decoration: underline;
-  }
-
-  .btn-link-inline:hover {
-    color: #6ec6ff;
-  }
 
   .content {
     flex: 1;
@@ -1172,61 +899,54 @@ Notes|Memo`;
     overflow: hidden;
   }
 
-  .tabs {
-    display: flex;
-    gap: 0.25rem;
-    padding: 1rem 2rem 0 2rem;
-    background: #1e1e1e;
-    border-bottom: 2px solid #3c3c3c;
-  }
-
-  .tab {
-    padding: 0.75rem 1.5rem;
-    background: transparent;
-    color: #cccccc;
-    border: none;
-    border-bottom: 3px solid transparent;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.2s;
-  }
-
-  .tab:hover {
-    background: #252526;
-    color: #ffffff;
-  }
-
-  .tab.active {
-    color: #0078d4;
-    border-bottom-color: #0078d4;
-    background: #252526;
-  }
-
-  .tab-content {
+  .main-container {
     flex: 1;
     overflow-y: auto;
-    padding: 2rem;
+    padding: 1.25rem 1.5rem;
+    display: grid;
+    grid-template-columns: 380px 1fr 400px;
+    gap: 1.5rem;
+    align-items: start;
   }
 
-  .form-container-full {
-    max-width: 1200px;
-    margin: 0 auto;
+  .left-column {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
+  }
+
+  .middle-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: sticky;
+    top: 1.25rem;
   }
 
   .form-section {
     background: #252526;
     border: 1px solid #3c3c3c;
-    border-radius: 8px;
-    padding: 1.5rem;
+    border-radius: 6px;
+    padding: 1rem;
   }
 
-  .form-section h3 {
-    margin: 0 0 1.5rem 0;
-    font-size: 1.25rem;
+  .help-section {
+    background: #1e1e1e;
+    border: 1px solid #3c3c3c;
+    border-radius: 6px;
+    padding: 1rem;
+  }
+
+  .form-section h3,
+  .help-section h3 {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.1rem;
     color: #ffffff;
     font-weight: 600;
   }
@@ -1238,7 +958,7 @@ Notes|Memo`;
   }
 
   .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.85rem;
   }
 
   .form-group:last-child {
@@ -1247,17 +967,17 @@ Notes|Memo`;
 
   .form-group label {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.35rem;
     font-weight: 600;
     color: #cccccc;
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .form-group input[type="text"],
   .form-group select,
   .form-group textarea {
     width: 100%;
-    padding: 0.625rem 0.75rem;
+    padding: 0.5rem 0.65rem;
     border: 1px solid #3c3c3c;
     border-radius: 4px;
     font-size: 14px;
@@ -1290,7 +1010,7 @@ Notes|Memo`;
   .help-text {
     font-size: 12px;
     color: #808080;
-    margin: 0.5rem 0 0 0;
+    margin: 0.35rem 0 0 0;
   }
 
   .help-text code {
@@ -1307,7 +1027,7 @@ Notes|Memo`;
   .type-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
+    gap: 0.75rem;
     color: #cccccc;
     font-size: 13px;
   }
@@ -1315,7 +1035,7 @@ Notes|Memo`;
   .type-grid strong {
     color: #4fc3f7;
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.35rem;
   }
 
   .type-list-compact {
@@ -1336,16 +1056,16 @@ Notes|Memo`;
     }
   }
 
-  /* Template Styles */
+  /* Info Box Styles */
   .info-box {
     background: #1e1e1e;
     border: 1px solid #3c3c3c;
     border-radius: 6px;
-    padding: 1rem;
-    margin-top: 1rem;
+    padding: 0.75rem;
+    margin-top: 0.75rem;
     color: #cccccc;
     font-size: 13px;
-    line-height: 1.6;
+    line-height: 1.5;
   }
 
   .info-box h4 {
@@ -1389,15 +1109,15 @@ Notes|Memo`;
   }
 
   .help-list {
-    margin: 0.5rem 0;
+    margin: 0.35rem 0;
     padding-left: 1.5rem;
     color: #cccccc;
-    font-size: 14px;
-    line-height: 1.8;
+    font-size: 13px;
+    line-height: 1.6;
   }
 
   .help-list li {
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
   }
 
   .help-list strong {
@@ -1406,9 +1126,41 @@ Notes|Memo`;
 
 
 
-  @media (max-width: 1200px) {
-    .tab-content {
+  @media (max-width: 1400px) {
+    .main-container {
+      grid-template-columns: 1fr 400px;
+    }
+    
+    .left-column,
+    .middle-column {
+      grid-column: 1;
+    }
+    
+    .middle-column {
+      grid-row: 2;
+    }
+    
+    .right-column {
+      grid-column: 2;
+      grid-row: 1 / 3;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .main-container {
+      grid-template-columns: 1fr;
       padding: 1.5rem;
+    }
+    
+    .left-column,
+    .middle-column,
+    .right-column {
+      grid-column: 1;
+    }
+    
+    .right-column {
+      position: static;
+      grid-row: auto;
     }
   }
 
@@ -1447,14 +1199,13 @@ Notes|Memo`;
   }
 
   .quick-entry-content {
-    padding-top: 1.5rem;
+    padding-top: 0.75rem;
   }
 
   .quick-entry-grid {
-    display: grid;
-    grid-template-columns: 2fr 1.5fr auto 1fr auto;
+    display: flex;
+    flex-direction: column;
     gap: 0.75rem;
-    align-items: end;
   }
 
   .quick-field {
@@ -1464,7 +1215,6 @@ Notes|Memo`;
   .quick-checkbox {
     display: flex;
     align-items: center;
-    padding-top: 1.5rem;
   }
 
   .quick-checkbox label {
@@ -1488,7 +1238,7 @@ Notes|Memo`;
 
   .btn-add {
     width: 100%;
-    padding: 0.625rem 1rem;
+    padding: 0.5rem 1rem;
     background: #28a745;
     color: white;
     border: none;
@@ -1522,7 +1272,8 @@ Notes|Memo`;
     position: absolute;
     top: 100%;
     left: 0;
-    right: 0;
+    min-width: 400px;
+    max-width: 600px;
     max-height: 300px;
     overflow-y: auto;
     background: #1e1e1e;
@@ -1581,7 +1332,7 @@ Notes|Memo`;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.75rem;
   }
 
   .section-header h3 {
@@ -1594,96 +1345,4 @@ Notes|Memo`;
     font-size: 14px;
   }
 
-  @media (max-width: 900px) {
-    .quick-entry-grid {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
-    .quick-checkbox {
-      padding-top: 0;
-    }
-
-    .quick-button {
-      padding-top: 0;
-    }
-  }
-
-  /* Template Styles */
-  .template-controls {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .template-actions {
-    display: flex;
-    gap: 0.5rem;
-  }
-
-  .template-actions select {
-    flex: 1;
-  }
-
-  .btn-secondary {
-    padding: 0.625rem 1rem;
-    background: #555555;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
-    font-size: 14px;
-    white-space: nowrap;
-  }
-
-  .btn-secondary:hover:not(:disabled) {
-    background: #666666;
-  }
-
-  .btn-secondary:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  .btn-danger {
-    padding: 0.625rem 0.75rem;
-    background: #dc3545;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.2s;
-    font-size: 14px;
-  }
-
-  .btn-danger:hover:not(:disabled) {
-    background: #c82333;
-  }
-
-  .btn-danger:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  .btn-block {
-    width: 100%;
-  }
-
-  .save-template-form {
-    background: #1e1e1e;
-    border: 1px solid #3c3c3c;
-    border-radius: 6px;
-    padding: 1rem;
-    margin-top: 0.5rem;
-  }
-
-  .save-template-form .form-group {
-    margin-bottom: 1rem;
-  }
-
-  .save-template-form .form-group:last-child {
-    margin-bottom: 0;
-  }
 </style>
