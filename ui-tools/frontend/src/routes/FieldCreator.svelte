@@ -216,7 +216,7 @@
   
   function selectMainTable(table) {
     tableName = table.logicalName;
-    tableNameSearch = table.logicalName;
+    tableNameSearch = table.displayName;
     showTableNameDropdown = false;
   }
   
@@ -522,95 +522,77 @@ Notes|Memo`;
 </script>
 
 <div class="field-creator">
-  <Header title="Field Creator" description="Mass create fields on Dataverse tables">
+  <Header title="📋 Field Creator" description="Mass create fields on Dataverse tables">
     <button class="btn btn-primary" on:click={createFields} disabled={$operationStatus === 'running'}>
       {$operationStatus === 'running' ? '⏳ Creating...' : '▶ Create Fields'}
     </button>
   </Header>
 
-  <!-- Settings Section -->
-  <div class="settings-section">
-    <div class="form-row">
-      <div class="form-group">
-        <label for="deployment">Deployment</label>
-        <select id="deployment" bind:value={selectedDeployment}>
-          <option value="">-- Select Deployment --</option>
-          {#each $deployments as deployment}
-            <option value={deployment}>{deployment}</option>
-          {/each}
-        </select>
-      </div>
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="toolbar-row">
+      <select class="toolbar-select" bind:value={selectedDeployment}>
+        <option value="">Deployment</option>
+        {#each $deployments as deployment}
+          <option value={deployment}>{deployment}</option>
+        {/each}
+      </select>
 
-      <div class="form-group">
-        <label for="environment">Environment</label>
-        <select id="environment" bind:value={selectedEnvironment} disabled={!selectedDeployment}>
-          <option value="">-- Select Environment --</option>
-          {#each availableEnvironments as env}
-            <option value={env.key}>{env.name}</option>
-          {/each}
-        </select>
-      </div>
+      <select class="toolbar-select" bind:value={selectedEnvironment} disabled={!selectedDeployment}>
+        <option value="">Environment</option>
+        {#each availableEnvironments as env}
+          <option value={env.key}>{env.name}</option>
+        {/each}
+      </select>
 
-      <div class="form-group">
-        <label for="publisherPrefix">Publisher Prefix</label>
-        <input 
-          type="text" 
-          id="publisherPrefix" 
-          bind:value={publisherPrefix}
-          placeholder="e.g., appbase_"
-          pattern="[a-z0-9]+_"
-        />
-      </div>
+      <input 
+        type="text" 
+        class="toolbar-input"
+        bind:value={publisherPrefix}
+        placeholder="Publisher Prefix (e.g., appbase_)"
+        pattern="[a-z0-9]+_"
+      />
+
+      <input 
+        type="text" 
+        class="toolbar-input toolbar-search"
+        bind:value={tableNameSearch}
+        on:focus={() => showTableNameDropdown = true}
+        placeholder="🔍 Search table..."
+      />
     </div>
+    {#if showTableNameDropdown}
+      <div class="toolbar-dropdown">
+        {#if filteredTablesForMain.length === 0}
+          <div class="no-results">No tables found</div>
+        {:else}
+          {#each filteredTablesForMain.slice(0, 8) as table}
+            <div 
+              class="dropdown-item" 
+              class:selected={tableName === table.logicalName}
+              role="button"
+              tabindex="0"
+              on:click={() => selectMainTable(table)}
+              on:keydown={(e) => { 
+                if (e.key === 'Enter' || e.key === ' ') { 
+                  selectMainTable(table);
+                } 
+              }}
+            >
+              <div class="item-name">{table.displayName}</div>
+              <div class="item-schema">{table.logicalName}</div>
+            </div>
+          {/each}
+        {/if}
+      </div>
+    {/if}
   </div>
 
   <div class="content">
     <!-- Main Content -->
       <div class="main-container">
-        <!-- Left Column: Table + Quick Add -->
+        <!-- Left Column: Quick Add -->
         <div class="left-column">
-          <div class="form-section">
-            <h3>Table Information</h3>
-            
-            <div class="form-group choice-selector">
-              <label for="tableNameSearch">Table Logical Name</label>
-              <input 
-                type="text" 
-                id="tableNameSearch" 
-                bind:value={tableNameSearch}
-                on:focus={() => showTableNameDropdown = true}
-                placeholder="Search tables..."
-              />
-              {#if showTableNameDropdown}
-                <div class="option-set-dropdown">
-                  {#if filteredTablesForMain.length === 0}
-                    <div class="no-results">No tables found</div>
-                  {:else}
-                    {#each filteredTablesForMain.slice(0, 15) as table}
-                      <div 
-                        class="option-set-item" 
-                        class:selected={tableName === table.logicalName}
-                        role="button"
-                        tabindex="0"
-                        on:click={() => selectMainTable(table)}
-                        on:keydown={(e) => { 
-                          if (e.key === 'Enter' || e.key === ' ') { 
-                            selectMainTable(table);
-                          } 
-                        }}
-                      >
-                        <div class="os-name">{table.displayName}</div>
-                        <div class="os-schema">{table.logicalName}</div>
-                        <div class="os-options">{table.primaryIdAttribute}</div>
-                      </div>
-                    {/each}
-                  {/if}
-                </div>
-              {/if}
-              <p class="help-text">Select the target table for your fields</p>
-            </div>
-          </div>
-
           <!-- Collapsible Quick Add -->
           <div class="form-section collapsible">
             <button 
@@ -785,7 +767,6 @@ Notes|Memo`;
                 id="fieldsText"
                 bind:value={fieldsText}
                 placeholder={exampleFields}
-                rows="15"
               ></textarea>
               <p class="help-text">
                 📋 <strong>Copy/paste from BUILD.md:</strong> Bullet points auto-removed • Format: <code>- Name: Type</code> or <code>Display Name: Type</code> • Choice fields: <code>- Name: Choice (OptionSetSchemaName)</code> • Lookup fields: <code>- Name: Lookup (TargetTable)</code> • Use <code>#</code> for comments
@@ -874,45 +855,119 @@ Notes|Memo`;
     flex-direction: column;
   }
 
-  .settings-section {
-    padding: 0.75rem 1.5rem;
-    background: #2d2d30;
-    border-bottom: 1px solid #3c3c3c;
+  /* Toolbar */
+  .toolbar {
+    background: #252526;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 0 2rem 1.25rem 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    border: 1px solid #3c3c3c;
+    position: relative;
   }
 
-  .settings-section .form-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
-  }
-
-  .settings-section .form-group {
+  .toolbar-row {
     display: flex;
-    flex-direction: column;
+    gap: 12px;
+    align-items: center;
   }
 
-  .settings-section label {
-    font-size: 12px;
-    font-weight: 500;
-    color: #cccccc;
-    margin-bottom: 0.25rem;
-  }
-
-  .settings-section select,
-  .settings-section input {
-    padding: 0.4rem;
+  .toolbar-select {
+    padding: 10px 16px;
     background: #1e1e1e;
     border: 1px solid #3c3c3c;
     border-radius: 4px;
-    color: #cccccc;
-    font-size: 13px;
+    color: #e0e0e0;
+    font-size: 14px;
+    font-family: inherit;
+    min-width: 180px;
+    cursor: pointer;
   }
 
-  .settings-section select:disabled {
+  .toolbar-select:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
 
+  .toolbar-select:focus {
+    outline: none;
+    border-color: #0078d4;
+    background: #252526;
+  }
+
+  .toolbar-input {
+    padding: 10px 16px;
+    background: #1e1e1e;
+    border: 1px solid #3c3c3c;
+    border-radius: 4px;
+    color: #e0e0e0;
+    font-size: 14px;
+    font-family: inherit;
+    min-width: 200px;
+  }
+
+  .toolbar-input:focus {
+    outline: none;
+    border-color: #0078d4;
+    background: #252526;
+  }
+
+  .toolbar-input.toolbar-search {
+    flex: 1;
+    min-width: 250px;
+  }
+
+  .toolbar-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 16px;
+    left: auto;
+    width: 400px;
+    margin-top: 8px;
+    background: #252526;
+    border: 1px solid #3c3c3c;
+    border-radius: 4px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 1000;
+  }
+
+  .dropdown-item {
+    padding: 12px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid #2d2d30;
+    transition: background 0.15s;
+  }
+
+  .dropdown-item:hover,
+  .dropdown-item.selected {
+    background: #2d2d30;
+  }
+
+  .dropdown-item:last-child {
+    border-bottom: none;
+  }
+
+  .item-name {
+    font-size: 14px;
+    color: #e0e0e0;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .item-schema {
+    font-size: 12px;
+    color: #858585;
+    font-family: 'Courier New', monospace;
+  }
+
+  .no-results {
+    padding: 16px;
+    text-align: center;
+    color: #858585;
+    font-size: 14px;
+  }
 
   .content {
     flex: 1;
@@ -924,7 +979,7 @@ Notes|Memo`;
   .main-container {
     flex: 1;
     overflow-y: auto;
-    padding: 1.25rem 1.5rem;
+    padding: 1.25rem 2rem;
     display: grid;
     grid-template-columns: 380px 1fr 400px;
     gap: 1.5rem;
@@ -941,6 +996,40 @@ Notes|Memo`;
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    min-height: 0;
+    height: calc(100vh - 280px);
+  }
+
+  .middle-column .form-section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .middle-column .form-section .section-header {
+    flex-shrink: 0;
+  }
+
+  .middle-column .form-section .form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .middle-column .form-section .form-group label {
+    flex-shrink: 0;
+  }
+
+  .middle-column .form-section .form-group textarea {
+    flex: 1;
+    min-height: 400px;
+    resize: none;
+  }
+
+  .middle-column .form-section .form-group .help-text {
+    flex-shrink: 0;
   }
 
   .right-column {

@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { outputLines, activeOperation, operationStatus, modules, tenants, config, loadModules, loadEnvironments, loadConfig } from '../lib/stores.js';
   import OutputStream from '../lib/OutputStream.svelte';
+  import Header from '../lib/Header.svelte';
   
   let categories = new Set();
   let selectedCategory = 'all';
@@ -704,11 +705,11 @@
   }
 </script>
 
+<Header title="🎯 Deploy" description="Manage and deploy Power Platform solutions">
+  <button class="btn btn-primary" on:click={openCreateModuleDialog}>+ New Module</button>
+</Header>
+
 <main>
-  <div class="header">
-    <h1>🎯 Module Deployment Dashboard</h1>
-    <button class="btn btn-primary" on:click={openCreateModuleDialog}>+ New Module</button>
-  </div>
   
   <div class="toolbar">
     <div class="search-box">
@@ -1300,7 +1301,7 @@
   }
   
   main {
-    padding: 20px 20px 0 20px;
+    padding: 0 2rem 2rem 2rem;
     max-width: 2400px;
     margin: 0 auto;
     display: block;
@@ -1308,19 +1309,6 @@
   
   main > *:last-child {
     margin-bottom: 0;
-  }
-  
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  h1 {
-    color: #ffffff;
-    font-weight: 600;
-    margin: 0;
   }
   
   h2 {
@@ -1334,7 +1322,7 @@
     background: #252526;
     border-radius: 8px;
     padding: 16px;
-    margin-bottom: 20px;
+    margin: 0 0 1.25rem 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
     border: 1px solid #3c3c3c;
   }
@@ -1392,9 +1380,10 @@
   
   .workspace {
     display: grid;
-    grid-template-columns: 25% 50% 25%;
+    grid-template-columns: minmax(300px, 1fr) minmax(500px, 2fr) minmax(300px, 1fr);
     gap: 20px;
     min-height: 0;
+    overflow: hidden;
   }
   
   .column {
@@ -1409,7 +1398,7 @@
   
   .modules-column {
     overflow-y: auto;
-    max-height: calc(100vh - 220px);
+    max-height: calc(100vh - 280px);
   }
   
   .targets-column {

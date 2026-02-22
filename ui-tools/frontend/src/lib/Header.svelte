@@ -18,8 +18,7 @@
 <style>
   .page-header {
     padding: 1.5rem 2rem;
-    border-bottom: 1px solid #3c3c3c;
-    background: #1e1e1e;
+    background: #1a1a1a;
     display: flex;
     justify-content: space-between;
     align-items: center;

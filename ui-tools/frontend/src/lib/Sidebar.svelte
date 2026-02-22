@@ -4,13 +4,17 @@
 
   // Navigation items
   const navItems = [
-    { path: '/', label: 'Deploy', icon: '🚀', description: 'Solution deployment' },
+    { path: '/', label: 'Deploy', icon: '🎯', description: 'Manage and deploy solutions' },
     { path: '/field-creator', label: 'Field Creator', icon: '📋', description: 'Mass create fields' },
     { path: '/choice-creator', label: 'Choice Creator', icon: '📝', description: 'Create global option sets' },
   ];
 
   function toggleSidebar() {
     sidebarCollapsed.update(val => !val);
+  }
+
+  function handleNavClick() {
+    sidebarCollapsed.set(true);
   }
 </script>
 
@@ -33,6 +37,7 @@
         class="nav-item" 
         class:active={$location === item.path}
         title={item.description}
+        on:click={handleNavClick}
       >
         <span class="nav-icon">{item.icon}</span>
         <span class="nav-label">{item.label}</span>

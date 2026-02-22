@@ -556,7 +556,7 @@
 </script>
 
 <div class="choice-creator">
-  <Header title="Choice Creator" subtitle="Create and discover global option sets">
+  <Header title="📝 Choice Creator" description="Create and discover global option sets">
     {#if activeTab === 'create' && createStep <= 2}
       <button class="btn btn-primary" on:click={checkForDuplicates} disabled={!displayName || !schemaName || !selectedDeployment || !selectedEnvironment || !selectedSolution || options.filter(o => o.label.trim()).length === 0}>
         Review & Create →
@@ -564,82 +564,78 @@
     {/if}
   </Header>
 
-  <!-- Settings Bar -->
-  <div class="settings-bar">
-    <div class="settings-group">
-      <label>Deployment</label>
-      <select bind:value={selectedDeployment}>
-        <option value="">Select Deployment</option>
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <!-- Tab chips -->
+    <div class="toolbar-tabs">
+      <button 
+        class="tab-chip" 
+        class:active={activeTab === 'create'}
+        on:click={() => activeTab = 'create'}
+      >
+        ➕ Create New
+      </button>
+      <button 
+        class="tab-chip" 
+        class:active={activeTab === 'search'}
+        on:click={() => activeTab = 'search'}
+      >
+        🔍 Search Existing
+      </button>
+      <button 
+        class="tab-chip" 
+        class:active={activeTab === 'browse'}
+        on:click={() => activeTab = 'browse'}
+      >
+        📚 Browse All
+      </button>
+      
+      {#if pendingOptionSets.length > 0}
+        <div class="pending-badge">
+          <span>⏳ {pendingOptionSets.length} pending sync</span>
+          <button class="clear-pending-btn" on:click={clearAllPending} title="Clear all">✕</button>
+        </div>
+      {/if}
+    </div>
+
+    <!-- Selectors -->
+    <div class="toolbar-row">
+      <select class="toolbar-select" bind:value={selectedDeployment}>
+        <option value="">Deployment</option>
         {#each $deployments as deployment}
           <option value={deployment}>{deployment}</option>
         {/each}
       </select>
-    </div>
 
-    <div class="settings-group">
-      <label>Environment</label>
-      <select bind:value={selectedEnvironment} disabled={!selectedDeployment}>
-        <option value="">Select Environment</option>
+      <select class="toolbar-select" bind:value={selectedEnvironment} disabled={!selectedDeployment}>
+        <option value="">Environment</option>
         {#each availableEnvironments as env}
           <option value={env}>{env}</option>
         {/each}
       </select>
-    </div>
 
-    <div class="settings-group">
-      <label>Publisher Prefix</label>
-      <input type="text" bind:value={publisherPrefix} placeholder="appbase_" />
-    </div>
+      <input 
+        type="text" 
+        class="toolbar-input"
+        bind:value={publisherPrefix} 
+        placeholder="Publisher Prefix (e.g., appbase_)" 
+      />
 
-    <div class="settings-group">
-      <label>Solution</label>
-      <select bind:value={selectedSolution}>
-        <option value="">Select Solution</option>
+      <select class="toolbar-select" bind:value={selectedSolution}>
+        <option value="">Solution</option>
         {#each sortedSolutions as solution}
           <option value={solution.uniqueName}>
             {solution.displayName.replace(/^App Base - /i, '')}
           </option>
         {/each}
       </select>
+
+      {#if selectedSolution}
+        <div class="solution-info">
+          → {solutions.find(s => s.uniqueName === selectedSolution)?.path || selectedSolution}
+        </div>
+      {/if}
     </div>
-
-    {#if selectedSolution}
-      <div class="settings-info">
-        Creating in: <strong>{solutions.find(s => s.uniqueName === selectedSolution)?.path || selectedSolution}</strong>
-      </div>
-    {/if}
-    
-    {#if pendingOptionSets.length > 0}
-      <div class="settings-info pending-info">
-        <span>⏳ {pendingOptionSets.length} pending sync</span>
-        <button class="clear-pending-btn" on:click={clearAllPending} title="Clear all pending">✕</button>
-      </div>
-    {/if}
-  </div>
-
-  <!-- Tabs -->
-  <div class="tabs">
-    <button 
-      class="tab" 
-      class:active={activeTab === 'create'}
-      on:click={() => activeTab = 'create'}
-    >
-      ➕ Create New
-    </button>
-    <button 
-      class="tab" 
-      class:active={activeTab === 'search'}
-      on:click={() => activeTab = 'search'}
-    >
-      🔍 Search Existing
-    </button>
-    <button 
-      class="tab" 
-      class:active={activeTab === 'browse'}
-      on:click={() => activeTab = 'browse'}
-    >
-      📚 Browse All
-    </button>
   </div>
 
   <!-- Tab Content -->
@@ -988,66 +984,66 @@
 
 <style>
   .choice-creator {
-    padding: 2rem;
-    max-width: 1400px;
+    max-width: 2400px;
     margin: 0 auto;
+    padding: 0 2rem 2rem 2rem;
   }
 
-  .settings-bar {
-    background: #2a2a2a;
-    border: 1px solid #3c3c3c;
+  /* Toolbar */
+  .toolbar {
+    background: #252526;
     border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 2rem;
-    display: flex;
-    gap: 1rem;
-    align-items: flex-end;
-    flex-wrap: wrap;
-  }
-
-  .settings-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    min-width: 180px;
-  }
-
-  .settings-group label {
-    font-size: 0.85rem;
-    color: #999;
-    font-weight: 500;
-  }
-
-  .settings-group select,
-  .settings-group input {
-    padding: 0.5rem;
-    background: #1a1a1a;
+    padding: 16px;
+    margin: 0 0 1.25rem 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
     border: 1px solid #3c3c3c;
-    border-radius: 4px;
-    color: #e0e0e0;
+  }
+
+  .toolbar-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #3c3c3c;
+  }
+
+  .tab-chip {
+    padding: 8px 20px;
+    border: 1px solid #3c3c3c;
+    border-radius: 20px;
+    background: #2d2d30;
+    cursor: pointer;
+    font-size: 14px;
     font-family: inherit;
+    transition: all 0.2s;
+    color: #cccccc;
   }
 
-  .settings-info {
-    color: #60a5fa;
-    font-size: 0.9rem;
-    padding: 0.5rem;
-    flex: 1;
-    text-align: right;
+  .tab-chip:hover {
+    background: #353537;
+    color: #e0e0e0;
   }
 
-  .pending-info {
-    background: #f59e0b22;
-    border: 1px solid #f59e0b;
-    border-radius: 4px;
-    padding: 0.5rem 0.75rem;
+  .tab-chip.active {
+    background: #0078d4;
+    color: #ffffff;
+    border-color: #0078d4;
+  }
+
+  .pending-badge {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    justify-content: space-between;
+    gap: 8px;
+    background: #3c2b1f;
+    border: 1px solid #f59e0b;
+    border-radius: 20px;
+    padding: 6px 12px;
     color: #fbbf24;
-    min-width: 180px;
-    flex: none;
+    font-size: 12px;
+    font-weight: 500;
+    margin-left: auto;
   }
 
   .clear-pending-btn {
@@ -1055,26 +1051,68 @@
     border: none;
     color: #fbbf24;
     cursor: pointer;
-    padding: 0.25rem;
-    font-size: 1rem;
+    padding: 0;
+    font-size: 14px;
     opacity: 0.7;
     transition: opacity 0.2s;
+    line-height: 1;
   }
 
   .clear-pending-btn:hover {
     opacity: 1;
   }
 
-  .pending-badge {
-    display: inline-block;
-    background: #f59e0b;
-    color: #000;
-    padding: 0.15rem 0.5rem;
-    border-radius: 12px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    margin-left: 0.5rem;
-    vertical-align: middle;
+  .toolbar-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .toolbar-select {
+    padding: 10px 16px;
+    background: #1e1e1e;
+    border: 1px solid #3c3c3c;
+    border-radius: 4px;
+    color: #e0e0e0;
+    font-size: 14px;
+    font-family: inherit;
+    min-width: 160px;
+    cursor: pointer;
+  }
+
+  .toolbar-select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .toolbar-select:focus {
+    outline: none;
+    border-color: #0078d4;
+    background: #252526;
+  }
+
+  .toolbar-input {
+    padding: 10px 16px;
+    background: #1e1e1e;
+    border: 1px solid #3c3c3c;
+    border-radius: 4px;
+    color: #e0e0e0;
+    font-size: 14px;
+    font-family: inherit;
+    min-width: 200px;
+  }
+
+  .toolbar-input:focus {
+    outline: none;
+    border-color: #0078d4;
+    background: #252526;
+  }
+
+  .solution-info {
+    color: #60a5fa;
+    font-size: 13px;
+    margin-left: 8px;
   }
 
   .pending-item {
@@ -1082,37 +1120,9 @@
     background: #f59e0b11;
   }
 
-  .tabs {
-    display: flex;
-    gap: 0.5rem;
-    border-bottom: 2px solid #3c3c3c;
-    margin-bottom: 2rem;
-  }
-
-  .tab {
-    padding: 0.75rem 1.5rem;
-    background: transparent;
-    border: none;
-    color: #999;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    margin-bottom: -2px;
-    transition: all 0.2s;
-  }
-
-  .tab:hover {
-    color: #e0e0e0;
-  }
-
-  .tab.active {
-    color: #60a5fa;
-    border-bottom-color: #60a5fa;
-  }
-
   .tab-content {
     min-height: 400px;
+    padding: 0;
   }
 
   .search-mode {
@@ -1277,7 +1287,11 @@
   .form-section h3 {
     margin-top: 0;
     margin-bottom: 1.5rem;
-    color: #e0e0e0;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #3c3c3c;
   }
 
   .form-group {
@@ -1316,12 +1330,14 @@
     border-radius: 4px;
     padding: 1rem;
     margin-bottom: 1rem;
+    overflow: hidden;
+    max-width: 100%;
   }
 
   .table-header {
     display: grid;
-    grid-template-columns: 1fr 1fr auto;
-    gap: 1rem;
+    grid-template-columns: 2fr 1fr 100px;
+    gap: 0.75rem;
     margin-bottom: 0.5rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid #3c3c3c;
@@ -1332,8 +1348,8 @@
 
   .table-row {
     display: grid;
-    grid-template-columns: 1fr 1fr auto;
-    gap: 1rem;
+    grid-template-columns: 2fr 1fr 100px;
+    gap: 0.75rem;
     margin-bottom: 0.5rem;
     align-items: center;
   }
@@ -1348,17 +1364,25 @@
 
   .row-actions {
     display: flex;
-    gap: 0.25rem;
+    gap: 0.2rem;
+    justify-content: center;
+    flex-shrink: 0;
   }
 
   .row-actions button {
-    padding: 0.25rem 0.5rem;
+    padding: 0;
     background: #3c3c3c;
     border: none;
     border-radius: 3px;
     color: #e0e0e0;
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .row-actions button:hover:not(:disabled) {
@@ -1569,7 +1593,7 @@
   }
 
   .create-layout.three-column {
-    grid-template-columns: 380px 1fr 350px;
+    grid-template-columns: 340px minmax(500px, 1fr) 340px;
     gap: 1.5rem;
   }
 
@@ -1579,6 +1603,11 @@
 
   .step-column {
     min-width: 0;
+    background: #252526;
+    border: 1px solid #3c3c3c;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   }
 
   .suggestions-panel {
