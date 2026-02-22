@@ -724,15 +724,17 @@ Notes|Memo`;
                     </label>
                   </div>
 
-                  <div class="form-group">
-                    <label for="quickMaxLength">Max Length</label>
-                    <input 
-                      type="number" 
-                      id="quickMaxLength" 
-                      bind:value={quickMaxLength}
-                      placeholder="Auto"
-                    />
-                  </div>
+                  {#if quickType === 'Text' || quickType === 'Memo' || quickType === 'URL' || quickType === 'RichText'}
+                    <div class="form-group">
+                      <label for="quickMaxLength">Max Length</label>
+                      <input 
+                        type="number" 
+                        id="quickMaxLength" 
+                        bind:value={quickMaxLength}
+                        placeholder="Auto"
+                      />
+                    </div>
+                  {/if}
 
                   <div class="form-group quick-button">
                     <button type="button" class="btn btn-add" on:click={addQuickField}>
@@ -974,6 +976,7 @@ Notes|Memo`;
   }
 
   .form-group input[type="text"],
+  .form-group input[type="number"],
   .form-group select,
   .form-group textarea {
     width: 100%;
@@ -984,15 +987,27 @@ Notes|Memo`;
     font-family: inherit;
     background: #1e1e1e;
     color: #e0e0e0;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, background 0.2s;
   }
 
   .form-group input[type="text"]:focus,
+  .form-group input[type="number"]:focus,
   .form-group select:focus,
   .form-group textarea:focus {
     outline: none;
     border-color: #0078d4;
     background: #252526;
+  }
+
+  .form-group input[type="number"] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
+
+  .form-group input[type="number"]::-webkit-inner-spin-button,
+  .form-group input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 
   .form-group textarea {
@@ -1215,21 +1230,70 @@ Notes|Memo`;
   .quick-checkbox {
     display: flex;
     align-items: center;
+    padding: 0.65rem 0.75rem;
+    background: #1e1e1e;
+    border: 1px solid #3c3c3c;
+    border-radius: 4px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .quick-checkbox:hover {
+    background: #252526;
+    border-color: #4c4c4c;
   }
 
   .quick-checkbox label {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.65rem;
     margin: 0;
     cursor: pointer;
     user-select: none;
+    width: 100%;
+    color: #cccccc;
+    font-weight: 500;
+    font-size: 13px;
   }
 
   .quick-checkbox input[type="checkbox"] {
     width: 18px;
     height: 18px;
     cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background: #1e1e1e;
+    border: 2px solid #4c4c4c;
+    border-radius: 3px;
+    position: relative;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .quick-checkbox input[type="checkbox"]:hover {
+    border-color: #6c6c6c;
+    background: #252526;
+  }
+
+  .quick-checkbox input[type="checkbox"]:focus {
+    outline: none;
+    border-color: #0078d4;
+    box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.2);
+  }
+
+  .quick-checkbox input[type="checkbox"]:checked {
+    background: #0078d4;
+    border-color: #0078d4;
+  }
+
+  .quick-checkbox input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
   }
 
   .quick-button {
