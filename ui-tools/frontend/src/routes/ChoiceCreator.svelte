@@ -12,6 +12,7 @@
   // Data
   let solutions = [];
   let optionSets = [];
+  let pendingOptionSets = [];
   let loading = false;
 
   // UI state
@@ -44,7 +45,8 @@
     const nameB = b.displayName.replace(/^App Base - /i, '');
     return nameA.localeCompare(nameB);
   });
-  $: filteredOptionSets = optionSets.filter(os =>
+  $: allOptionSets = [...optionSets, ...pendingOptionSets];
+  $: filteredOptionSets = allOptionSets.filter(os =>
     os.displayName.toLowerCase().includes(browseFilter.toLowerCase()) ||
     os.schemaName.toLowerCase().includes(browseFilter.toLowerCase()) ||
     os.category.toLowerCase().includes(browseFilter.toLowerCase())
@@ -65,8 +67,9 @@
 
     console.log('[ChoiceCreator] Loaded settings:', { selectedDeployment, selectedEnvironment, publisherPrefix, selectedSolution });
 
-    // Load solutions and option sets
+    // Load solutions and pending option sets on mount
     loadSolutions();
+    loadPendingOptionSets();
   });
 
   function getAvailableEnvironments(config, deploymentName) {
@@ -102,10 +105,65 @@
       console.log('[ChoiceCreator] Option sets data:', data);
       optionSets = data.optionSets || [];
       console.log('[ChoiceCreator] Loaded', optionSets.length, 'option sets');
+      
+      // Load pending option sets from backend (auto-cleans synced items)
+      await loadPendingOptionSets();
+      
     } catch (error) {
       console.error('Error loading option sets:', error);
     }
     loading = false;
+  }
+  
+  async function loadPendingOptionSets() {
+    try {
+      const response = await fetch('/api/helpers/option-sets/pending');
+      const data = await response.json();
+      pendingOptionSets = data.pending || [];
+      console.log('[ChoiceCreator] Loaded', pendingOptionSets.length, 'pending option sets from backend');
+    } catch (error) {
+      console.error('Error loading pending option sets:', error);
+      pendingOptionSets = [];
+    }
+  }
+  
+  async function savePendingOptionSet(optionSet) {
+    try {
+      const response = await fetch('/api/helpers/option-sets/pending', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(optionSet)
+      });
+      const data = await response.json();
+      
+      if (data.success) {
+        // Reload to get updated list
+        await loadPendingOptionSets();
+        console.log('[ChoiceCreator] Saved pending option set:', optionSet.schemaName);
+      } else {
+        console.error('[ChoiceCreator] Failed to save pending:', data.error);
+      }
+    } catch (error) {
+      console.error('Error saving pending option set:', error);
+    }
+  }
+  
+  async function clearAllPending() {
+    if (confirm(`Clear ${pendingOptionSets.length} pending option set(s)? This cannot be undone.`)) {
+      try {
+        const response = await fetch('/api/helpers/option-sets/pending', {
+          method: 'DELETE'
+        });
+        const data = await response.json();
+        
+        if (data.success) {
+          pendingOptionSets = [];
+          console.log('[ChoiceCreator] Cleared all pending option sets');
+        }
+      } catch (error) {
+        console.error('Error clearing pending option sets:', error);
+      }
+    }
   }
 
   async function searchOptionSets() {
@@ -227,6 +285,11 @@
       alert('Please select a target solution');
       return;
     }
+    
+    if (!selectedDeployment || !selectedEnvironment) {
+      alert('Please select deployment and environment');
+      return;
+    }
 
     loading = true;
     creationResult = null;
@@ -247,7 +310,9 @@
           displayName: displayName,
           description: description,
           options: validOptions,
-          targetSolution: selectedSolution
+          targetSolution: selectedSolution,
+          deployment: selectedDeployment,
+          environment: selectedEnvironment
         })
       });
 
@@ -257,7 +322,20 @@
         creationResult = { success: true, ...data };
         createStep = 4;
         
-        // Reload option sets
+        // Save to pending cache on backend
+        await savePendingOptionSet({
+          schemaName: data.schemaName,
+          displayName: data.displayName,
+          description: data.description,
+          category: data.category,
+          module: data.module,
+          path: data.path,
+          options: data.options,
+          deployment: data.deployment,
+          environment: data.environment
+        });
+        
+        // Reload option sets to show in browse (will now include pending)
         if (activeTab === 'browse') {
           await loadOptionSets();
         }
@@ -497,6 +575,13 @@
         Creating in: <strong>{solutions.find(s => s.uniqueName === selectedSolution)?.path || selectedSolution}</strong>
       </div>
     {/if}
+    
+    {#if pendingOptionSets.length > 0}
+      <div class="settings-info pending-info">
+        <span>⏳ {pendingOptionSets.length} pending sync</span>
+        <button class="clear-pending-btn" on:click={clearAllPending} title="Clear all pending">✕</button>
+      </div>
+    {/if}
   </div>
 
   <!-- Tabs -->
@@ -660,7 +745,7 @@
                 </div>
                 <button class="btn-secondary" on:click={addOption}>+ Add Option</button>
                 <div class="button-group">
-                  <button class="btn-primary" on:click={checkForDuplicates} disabled={!displayName || !schemaName || options.filter(o => o.label.trim()).length === 0}>
+                  <button class="btn-primary" on:click={checkForDuplicates} disabled={!displayName || !schemaName || !selectedDeployment || !selectedEnvironment || !selectedSolution || options.filter(o => o.label.trim()).length === 0}>
                     {createStep === 3 ? '✓ Ready to Create' : 'Review & Create →'}
                   </button>
                 </div>
@@ -673,8 +758,12 @@
                     <h3>✓ Option Set Created Successfully!</h3>
                     <p><strong>Display Name:</strong> {displayName}</p>
                     <p><strong>Schema Name:</strong> {schemaName}</p>
-                    <p><strong>File Path:</strong> {creationResult.filePath}</p>
+                    <p><strong>Environment:</strong> {creationResult.deployment} / {creationResult.environment}</p>
+                    <p><strong>Solution:</strong> {creationResult.category}/{creationResult.module}</p>
                     <p><strong>Options:</strong> {creationResult.optionCount}</p>
+                    <div class="pending-notice">
+                      ⏳ This option set is <strong>pending sync</strong>. Run a solution sync to import it into your local repository.
+                    </div>
                     <button class="btn-secondary" on:click={() => copyToClipboard(schemaName)}>
                       📋 Copy Schema Name
                     </button>
@@ -827,9 +916,14 @@
                 </summary>
                 <div class="tree-children">
                   {#each optionSetsGroup as optionSet}
-                    <div class="option-set-item">
+                    <div class="option-set-item" class:pending-item={optionSet.isPending}>
                       <div class="item-header">
-                        <h4>{optionSet.displayName}</h4>
+                        <h4>
+                          {optionSet.displayName}
+                          {#if optionSet.isPending}
+                            <span class="pending-badge">⏳ Pending Sync</span>
+                          {/if}
+                        </h4>
                         <button class="btn-sm" on:click={() => copyToClipboard(optionSet.schemaName)}>
                           📋 Copy
                         </button>
@@ -905,6 +999,52 @@
     padding: 0.5rem;
     flex: 1;
     text-align: right;
+  }
+
+  .pending-info {
+    background: #f59e0b22;
+    border: 1px solid #f59e0b;
+    border-radius: 4px;
+    padding: 0.5rem 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: space-between;
+    color: #fbbf24;
+    min-width: 180px;
+    flex: none;
+  }
+
+  .clear-pending-btn {
+    background: transparent;
+    border: none;
+    color: #fbbf24;
+    cursor: pointer;
+    padding: 0.25rem;
+    font-size: 1rem;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .clear-pending-btn:hover {
+    opacity: 1;
+  }
+
+  .pending-badge {
+    display: inline-block;
+    background: #f59e0b;
+    color: #000;
+    padding: 0.15rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+  }
+
+  .pending-item {
+    border-left: 3px solid #f59e0b;
+    background: #f59e0b11;
   }
 
   .tabs {
@@ -1282,6 +1422,16 @@
   .success-message p {
     color: #ccffee;
     margin: 0.5rem 0;
+  }
+
+  .pending-notice {
+    background: #f59e0b22;
+    border: 1px solid #f59e0b;
+    border-radius: 4px;
+    padding: 0.75rem;
+    margin: 1rem 0;
+    color: #fbbf24;
+    font-size: 0.9rem;
   }
 
   .error-message {

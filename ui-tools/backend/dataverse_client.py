@@ -724,6 +724,123 @@ class DataverseClient:
                 "error": f"Unsupported field type: {field_type}"
             }
     
+    def create_global_optionset(
+        self,
+        schema_name: str,
+        display_name: str,
+        description: str,
+        options: List[Dict[str, Any]],
+        solution_unique_name: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Create a global option set
+        
+        Args:
+            schema_name: Schema name for the option set (e.g., "appbase_priority")
+            display_name: Display name (e.g., "Priority")
+            description: Description of the option set
+            options: List of options with 'value' and 'label' keys
+            solution_unique_name: Optional unique name of solution to add to
+            
+        Returns:
+            Dictionary with success status and details
+        """
+        url = f"{self.environment_url}/api/data/{self.API_VERSION}/GlobalOptionSetDefinitions"
+        
+        # Build options array
+        option_metadata = []
+        for opt in options:
+            option_metadata.append({
+                "Value": opt["value"],
+                "Label": {
+                    "@odata.type": "Microsoft.Dynamics.CRM.Label",
+                    "LocalizedLabels": [
+                        {
+                            "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
+                            "Label": opt["label"],
+                            "LanguageCode": 1033  # English
+                        }
+                    ]
+                }
+            })
+        
+        # Build request body
+        optionset_metadata = {
+            "@odata.type": "Microsoft.Dynamics.CRM.OptionSetMetadata",
+            "Name": schema_name,
+            "DisplayName": {
+                "@odata.type": "Microsoft.Dynamics.CRM.Label",
+                "LocalizedLabels": [
+                    {
+                        "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
+                        "Label": display_name,
+                        "LanguageCode": 1033
+                    }
+                ]
+            },
+            "Description": {
+                "@odata.type": "Microsoft.Dynamics.CRM.Label",
+                "LocalizedLabels": [
+                    {
+                        "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
+                        "Label": description or "",
+                        "LanguageCode": 1033
+                    }
+                ]
+            },
+            "OptionSetType": "Picklist",
+            "IsGlobal": True,
+            "Options": option_metadata
+        }
+        
+        try:
+            # Get base headers
+            headers = self._get_headers()
+            
+            # Add solution context header if specified
+            if solution_unique_name:
+                headers["MSCRM.SolutionUniqueName"] = solution_unique_name
+                logger.info(f"Creating global option set in solution: {solution_unique_name}")
+            
+            with httpx.Client() as client:
+                response = client.post(
+                    url,
+                    headers=headers,
+                    json=optionset_metadata,
+                    timeout=30.0
+                )
+                
+                if response.status_code in [200, 201, 204]:
+                    logger.info(f"Successfully created global option set: {schema_name}")
+                    return {
+                        "success": True,
+                        "schema_name": schema_name,
+                        "display_name": display_name,
+                        "message": f"Global option set '{display_name}' created successfully"
+                    }
+                else:
+                    error_detail = response.text
+                    try:
+                        error_json = response.json()
+                        error_detail = error_json.get("error", {}).get("message", response.text)
+                    except:
+                        pass
+                    
+                    logger.error(f"Failed to create global option set: {response.status_code} - {error_detail}")
+                    return {
+                        "success": False,
+                        "schema_name": schema_name,
+                        "error": f"API error {response.status_code}: {error_detail}"
+                    }
+                    
+        except Exception as e:
+            logger.error(f"Error creating global option set: {e}")
+            return {
+                "success": False,
+                "schema_name": schema_name,
+                "error": str(e)
+            }
+    
     def get_table_metadata(self, table_name: str) -> Optional[Dict[str, Any]]:
         """
         Get metadata for a table

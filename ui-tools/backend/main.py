@@ -26,6 +26,35 @@ app.add_middleware(
 # Get project root (go up from backend to repo root)
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 
+# Cache directory for pending option sets
+CACHE_DIR = Path(__file__).parent / ".cache"
+PENDING_CACHE_FILE = CACHE_DIR / "pending_optionsets.json"
+
+def load_pending_optionsets():
+    """Load pending option sets from cache file"""
+    if not PENDING_CACHE_FILE.exists():
+        return []
+    try:
+        with open(PENDING_CACHE_FILE, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            return data.get("pending", [])
+    except Exception as e:
+        print(f"Error loading pending option sets: {e}", file=sys.stderr)
+        return []
+
+def save_pending_optionsets(pending_list):
+    """Save pending option sets to cache file"""
+    try:
+        CACHE_DIR.mkdir(exist_ok=True)
+        with open(PENDING_CACHE_FILE, 'w', encoding='utf-8') as f:
+            json.dump({
+                "pending": pending_list,
+                "lastUpdated": asyncio.get_event_loop().time() if asyncio.get_event_loop().is_running() else None
+            }, f, indent=2)
+        print(f"[DEBUG] Saved {len(pending_list)} pending option sets to cache")
+    except Exception as e:
+        print(f"Error saving pending option sets: {e}", file=sys.stderr)
+
 def read_solution_version(module_path: Path) -> str:
     """Read version from Solution.xml file"""
     solution_xml_path = module_path / "src" / "Other" / "Solution.xml"
@@ -875,10 +904,12 @@ class OptionSetCreateRequest(BaseModel):
     description: str = ""
     options: list[dict]  # [{label: str, value: Optional[str]}]
     targetSolution: str  # solution unique name
+    deployment: str
+    environment: str
 
 @app.post("/api/helpers/option-sets/create")
 async def create_option_set(request: OptionSetCreateRequest):
-    """Create a new global option set in the specified solution"""
+    """Create a new global option set in Dataverse"""
     try:
         # Find the target solution
         solutions_response = await list_solutions()
@@ -896,21 +927,43 @@ async def create_option_set(request: OptionSetCreateRequest):
         if not request.schemaName or not request.schemaName.replace('_', '').isalnum():
             return {"success": False, "error": "Invalid schema name. Use only letters, numbers, and underscores."}
         
-        # Build the target path
-        solution_path = PROJECT_ROOT / target_solution["path"]
-        option_sets_dir = solution_path / "src" / "OptionSets"
-        option_sets_dir.mkdir(parents=True, exist_ok=True)
+        # Load deployment configuration
+        config_path = PROJECT_ROOT / ".config" / "deployments.json"
+        if not config_path.exists():
+            return {"success": False, "error": f"Configuration not found at {config_path}"}
         
-        target_file = option_sets_dir / f"{request.schemaName}.xml"
+        with open(config_path) as f:
+            config = json.load(f)
         
-        # Check if file already exists
-        if target_file.exists():
-            return {"success": False, "error": f"Option set '{request.schemaName}' already exists in this solution"}
+        # Get the deployment configuration
+        if request.deployment not in config.get("Deployments", {}):
+            return {"success": False, "error": f"Deployment '{request.deployment}' not found in configuration"}
+        
+        deployment_config = config["Deployments"][request.deployment]
+        
+        # Get authentication configuration
+        if "Auth" not in deployment_config:
+            return {"success": False, "error": f"Auth configuration missing for deployment '{request.deployment}'"}
+        
+        auth_config = deployment_config["Auth"]
+        tenant_id = auth_config.get("TenantId")
+        client_id = auth_config.get("ClientId")
+        client_secret = auth_config.get("ClientSecret")
+        
+        if not all([tenant_id, client_id, client_secret]):
+            return {"success": False, "error": "Incomplete auth configuration. TenantId, ClientId, and ClientSecret are required."}
+        
+        # Get environment URL
+        environment_url = auth_config.get("EnvironmentUrls", {}).get(request.environment)
+        if not environment_url:
+            return {"success": False, "error": f"Environment URL not configured for '{request.environment}'"}
         
         # Get option value prefix and find next available value
         option_value_prefix = target_solution.get("optionValuePrefix", "14713")
+        solution_path = PROJECT_ROOT / target_solution["path"]
+        option_sets_dir = solution_path / "src" / "OptionSets"
         
-        # Scan existing option sets in this solution to find max value
+        # Scan existing option sets to find max value
         max_value = 0
         if option_sets_dir.exists():
             for existing_xml in option_sets_dir.glob("*.xml"):
@@ -933,62 +986,188 @@ async def create_option_set(request: OptionSetCreateRequest):
         options_with_values = []
         for opt in request.options:
             if opt.get("value"):
-                options_with_values.append(opt)
+                try:
+                    options_with_values.append({
+                        "label": opt["label"],
+                        "value": int(opt["value"])
+                    })
+                except ValueError:
+                    options_with_values.append({
+                        "label": opt["label"],
+                        "value": next_value
+                    })
+                    next_value += 1
             else:
                 options_with_values.append({
                     "label": opt["label"],
-                    "value": str(next_value)
+                    "value": next_value
                 })
                 next_value += 1
         
-        # Generate XML
-        xml_content = f'''<?xml version="1.0" encoding="utf-8"?>
-<optionset Name="{request.schemaName}" localizedName="{request.displayName}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <OptionSetType>picklist</OptionSetType>
-  <IsGlobal>1</IsGlobal>
-  <IntroducedVersion>1.0</IntroducedVersion>
-  <IsCustomizable>1</IsCustomizable>
-  <ExternalTypeName></ExternalTypeName>
-  <displaynames>
-    <displayname description="{request.displayName}" languagecode="1033" />
-  </displaynames>
-  <Descriptions>
-    <Description description="{request.description}" languagecode="1033" />
-  </Descriptions>
-  <options>'''
+        # Create Dataverse client and create the option set
+        print(f"[DEBUG] Creating global option set '{request.schemaName}' in Dataverse")
+        client = DataverseClient(
+            environment_url=environment_url,
+            tenant_id=tenant_id,
+            client_id=client_id,
+            client_secret=client_secret
+        )
         
-        for opt in options_with_values:
-            xml_content += f'''
-    <option value="{opt['value']}" ExternalValue="" IsHidden="0">
-      <labels>
-        <label description="{opt['label']}" languagecode="1033" />
-      </labels>
-      <Descriptions>
-        <Description description="" languagecode="1033" />
-      </Descriptions>
-    </option>'''
+        # Authenticate
+        client.authenticate()
         
-        xml_content += '''
-  </options>
-</optionset>
-'''
+        # Create the global option set
+        result = client.create_global_optionset(
+            schema_name=request.schemaName,
+            display_name=request.displayName,
+            description=request.description,
+            options=options_with_values,
+            solution_unique_name=request.targetSolution
+        )
         
-        # Write file
-        with open(target_file, 'w', encoding='utf-8') as f:
-            f.write(xml_content)
-        
-        return {
-            "success": True,
-            "message": f"Option set '{request.displayName}' created successfully",
-            "filePath": str(target_file.relative_to(PROJECT_ROOT)),
-            "schemaName": request.schemaName,
-            "optionCount": len(options_with_values)
-        }
+        if result["success"]:
+            # Return complete information for caching
+            return {
+                "success": True,
+                "message": f"Option set '{request.displayName}' created successfully in Dataverse",
+                "schemaName": request.schemaName,
+                "displayName": request.displayName,
+                "description": request.description,
+                "category": target_solution["category"],
+                "module": target_solution["module"],
+                "path": target_solution["path"],
+                "options": [{"label": opt["label"], "value": str(opt["value"])} for opt in options_with_values],
+                "optionCount": len(options_with_values),
+                "deployment": request.deployment,
+                "environment": request.environment
+            }
+        else:
+            return result
         
     except Exception as e:
         print(f"Error creating option set: {e}", file=sys.stderr)
         import traceback
         traceback.print_exc()
+        return {"success": False, "error": str(e)}
+
+@app.get("/api/helpers/option-sets/pending")
+async def get_pending_optionsets():
+    """Get all pending option sets from cache"""
+    try:
+        pending = load_pending_optionsets()
+        
+        # Clean up any that now exist in filesystem
+        if pending:
+            # Scan filesystem for existing option sets
+            all_scanned = []
+            exclude_folders = {"__pycache__", ".scripts", ".config", ".git", ".vscode", "bin", "obj", "ui-tools"}
+            
+            for category_dir in PROJECT_ROOT.iterdir():
+                if not category_dir.is_dir() or category_dir.name in exclude_folders:
+                    continue
+                
+                for module_dir in category_dir.iterdir():
+                    if not module_dir.is_dir():
+                        continue
+                    
+                    option_sets_dir = module_dir / "src" / "OptionSets"
+                    if option_sets_dir.exists():
+                        for xml_file in option_sets_dir.glob("*.xml"):
+                            try:
+                                tree = ET.parse(xml_file)
+                                root = tree.getroot()
+                                schema_name = root.get("Name")
+                                if schema_name:
+                                    all_scanned.append(schema_name)
+                            except Exception:
+                                pass
+            
+            # Filter out pending items that now exist
+            scanned_set = set(all_scanned)
+            original_count = len(pending)
+            pending = [p for p in pending if p.get("schemaName") not in scanned_set]
+            
+            if len(pending) != original_count:
+                save_pending_optionsets(pending)
+                print(f"[DEBUG] Cleaned up {original_count - len(pending)} synced items from pending cache")
+        
+        return {"pending": pending}
+    except Exception as e:
+        print(f"Error getting pending option sets: {e}", file=sys.stderr)
+        return {"pending": []}
+
+class PendingOptionSetRequest(BaseModel):
+    schemaName: str
+    displayName: str
+    description: str = ""
+    category: str
+    module: str
+    path: str
+    options: list[dict]
+    deployment: str
+    environment: str
+
+@app.post("/api/helpers/option-sets/pending")
+async def add_pending_optionset(request: PendingOptionSetRequest):
+    """Add a pending option set to cache"""
+    try:
+        pending = load_pending_optionsets()
+        
+        # Check if already exists
+        for item in pending:
+            if item.get("schemaName") == request.schemaName:
+                return {"success": False, "error": "Option set already in pending cache"}
+        
+        # Add new item
+        from datetime import datetime
+        pending.append({
+            "schemaName": request.schemaName,
+            "displayName": request.displayName,
+            "description": request.description,
+            "category": request.category,
+            "module": request.module,
+            "path": request.path,
+            "options": request.options,
+            "deployment": request.deployment,
+            "environment": request.environment,
+            "createdAt": datetime.utcnow().isoformat(),
+            "isPending": True
+        })
+        
+        save_pending_optionsets(pending)
+        
+        return {"success": True, "message": f"Added '{request.displayName}' to pending cache"}
+    except Exception as e:
+        print(f"Error adding pending option set: {e}", file=sys.stderr)
+        return {"success": False, "error": str(e)}
+
+@app.delete("/api/helpers/option-sets/pending/{schema_name}")
+async def delete_pending_optionset(schema_name: str):
+    """Remove a specific pending option set from cache"""
+    try:
+        pending = load_pending_optionsets()
+        original_count = len(pending)
+        
+        pending = [p for p in pending if p.get("schemaName") != schema_name]
+        
+        if len(pending) == original_count:
+            return {"success": False, "error": "Option set not found in pending cache"}
+        
+        save_pending_optionsets(pending)
+        
+        return {"success": True, "message": f"Removed '{schema_name}' from pending cache"}
+    except Exception as e:
+        print(f"Error deleting pending option set: {e}", file=sys.stderr)
+        return {"success": False, "error": str(e)}
+
+@app.delete("/api/helpers/option-sets/pending")
+async def clear_pending_optionsets():
+    """Clear all pending option sets from cache"""
+    try:
+        save_pending_optionsets([])
+        return {"success": True, "message": "Cleared all pending option sets"}
+    except Exception as e:
+        print(f"Error clearing pending option sets: {e}", file=sys.stderr)
         return {"success": False, "error": str(e)}
 
 if __name__ == "__main__":
