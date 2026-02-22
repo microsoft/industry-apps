@@ -337,6 +337,151 @@ class DataverseClient:
         
         return self._create_attribute(table_name, attribute)
     
+    def create_lookup_relationship(
+        self,
+        source_table: str,
+        field_schema_name: str,
+        field_display_name: str,
+        target_table_logical_name: str,
+        description: str = ""
+    ) -> Dict[str, Any]:
+        """
+        Create a lookup field by establishing a N:1 relationship
+        
+        Args:
+            source_table: Table where the lookup field will be created (referencing entity)
+            field_schema_name: Schema name of the lookup field (e.g., appbase_primarycontactid)
+            field_display_name: Display name of the lookup field
+            target_table_logical_name: Logical name of the target table (referenced entity)
+            description: Optional description
+            
+        Returns:
+            Result dict with success status and message
+        """
+        # Schema name comes from frontend already in PascalCase (e.g., appbase_ContentTemplate)
+        # Just use it as-is for schema, create lowercase version for logical name
+        parts = field_schema_name.split('_')
+        if len(parts) > 1:
+            prefix = parts[0]
+            field_part = '_'.join(parts[1:])  # Rejoin in case there are multiple underscores
+            schema_name_pascal = field_schema_name  # Use as-is (already PascalCase from frontend)
+            # Logical name: prefix + lowercase field part (no underscores)
+            logical_name = f"{prefix}_{field_part.replace('_', '').lower()}"
+        else:
+            schema_name_pascal = field_schema_name
+            logical_name = field_schema_name.lower()
+        
+        # Extract publisher prefix
+        prefix = parts[0] if len(parts) > 0 else 'new'
+        
+        # Clean field name for relationship name (remove prefix)
+        field_name_cleaned = field_schema_name
+        if field_schema_name.startswith(prefix + '_'):
+            field_name_cleaned = field_schema_name[len(prefix) + 1:]
+        
+        # Generate relationship schema name: {sourcetable}_{fieldname}
+        # Don't add prefix again since source table already has it
+        relationship_name = f"{source_table}_{field_name_cleaned}"
+        
+        # Detect self-referential relationship
+        is_hierarchical = (source_table.lower() == target_table_logical_name.lower())
+        
+        # Assume primary key follows pattern: {tablename}id
+        target_primary_key = f"{target_table_logical_name}id"
+        
+        # Build relationship metadata
+        relationship_metadata = {
+            "@odata.type": "Microsoft.Dynamics.CRM.OneToManyRelationshipMetadata",
+            "SchemaName": relationship_name,
+            "ReferencedEntity": target_table_logical_name,
+            "ReferencedAttribute": target_primary_key,
+            "ReferencingEntity": source_table,
+            "RelationshipBehavior": 1,  # Parental
+            "IsHierarchical": is_hierarchical,
+            "IsCustomizable": {
+                "Value": True
+            },
+            "CascadeConfiguration": {
+                "Assign": "NoCascade",
+                "Delete": "RemoveLink",
+                "Merge": "NoCascade",
+                "Reparent": "NoCascade",
+                "Share": "NoCascade",
+                "Unshare": "NoCascade"
+            },
+            "Lookup": {
+                "@odata.type": "Microsoft.Dynamics.CRM.LookupAttributeMetadata",
+                "SchemaName": schema_name_pascal,
+                "LogicalName": logical_name,
+                "DisplayName": {
+                    "@odata.type": "Microsoft.Dynamics.CRM.Label",
+                    "LocalizedLabels": [
+                        {
+                            "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
+                            "Label": field_display_name,
+                            "LanguageCode": 1033
+                        }
+                    ]
+                },
+                "RequiredLevel": {
+                    "Value": "None",
+                    "CanBeChanged": True
+                },
+                "Description": {
+                    "@odata.type": "Microsoft.Dynamics.CRM.Label",
+                    "LocalizedLabels": [
+                        {
+                            "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
+                            "Label": description,
+                            "LanguageCode": 1033
+                        }
+                    ]
+                }
+            }
+        }
+        
+        url = f"{self.environment_url}/api/data/{self.API_VERSION}/RelationshipDefinitions"
+        
+        try:
+            with httpx.Client() as client:
+                response = client.post(
+                    url,
+                    headers=self._get_headers(),
+                    json=relationship_metadata,
+                    timeout=30.0
+                )
+                
+                if response.status_code in [200, 201, 204]:
+                    logger.info(f"Successfully created lookup relationship: {relationship_name}")
+                    return {
+                        "success": True,
+                        "schema_name": schema_name_pascal,
+                        "relationship_name": relationship_name,
+                        "message": f"Lookup field '{field_display_name}' created successfully"
+                    }
+                else:
+                    error_detail = response.text
+                    try:
+                        error_json = response.json()
+                        error_detail = error_json.get("error", {}).get("message", response.text)
+                    except:
+                        pass
+                    
+                    logger.error(f"Failed to create lookup relationship: {response.status_code} - {error_detail}")
+                    return {
+                        "success": False,
+                        "schema_name": schema_name_pascal,
+                        "error": f"API error {response.status_code}: {error_detail}"
+                    }
+                    
+        except Exception as e:
+            logger.error(f"Error creating lookup relationship: {e}")
+            return {
+                "success": False,
+                "schema_name": field_schema_name,
+                "error": str(e)
+            }
+    
     def create_datetime_field(
         self,
         table_name: str,
@@ -797,6 +942,21 @@ class DataverseClient:
                 include_time=include_time,
                 description=description
             )
+        elif field_type in ["Lookup", "Reference"]:
+            target_table = field_definition.get("targetTableLogicalName")
+            if not target_table:
+                return {
+                    "success": False,
+                    "schema_name": schema_name,
+                    "error": "Lookup fields require targetTableLogicalName"
+                }
+            return self.create_lookup_relationship(
+                source_table=table_name,
+                field_schema_name=schema_name,
+                field_display_name=display_name,
+                target_table_logical_name=target_table,
+                description=description
+            )
         else:
             return {
                 "success": False,
@@ -980,3 +1140,76 @@ class DataverseClient:
         except Exception as e:
             logger.error(f"Error getting global option set metadata: {e}")
             return None
+    
+    def get_entity_definitions(self) -> List[Dict[str, Any]]:
+        """
+        Get all entity (table) definitions from Dataverse
+        
+        Returns:
+            List of tables with logical name, display name, and primary key attribute
+        """
+        url = f"{self.environment_url}/api/data/{self.API_VERSION}/EntityDefinitions"
+        params = {
+            "$select": "LogicalName,DisplayName,PrimaryIdAttribute,IsCustomEntity"
+        }
+        
+        try:
+            logger.info(f"Querying entity definitions from {url}")
+            with httpx.Client() as client:
+                response = client.get(
+                    url,
+                    headers=self._get_headers(),
+                    params=params,
+                    timeout=30.0
+                )
+                
+                logger.info(f"Entity definitions response status: {response.status_code}")
+                
+                if response.status_code == 200:
+                    data = response.json()
+                    entities = []
+                    
+                    for entity in data.get("value", []):
+                        logical_name = entity.get("LogicalName", "")
+                        display_name_obj = entity.get("DisplayName", {})
+                        
+                        # Filter to custom entities and common system tables
+                        is_custom = entity.get("IsCustomEntity", False)
+                        is_common_system = logical_name in ['account', 'contact', 'systemuser', 'team']
+                        
+                        if not (is_custom or is_common_system):
+                            continue
+                        
+                        # Extract display name from LocalizedLabels
+                        display_name = logical_name  # fallback
+                        if display_name_obj and "LocalizedLabels" in display_name_obj:
+                            labels = display_name_obj.get("LocalizedLabels", [])
+                            if labels and len(labels) > 0:
+                                display_name = labels[0].get("Label", logical_name)
+                        
+                        entities.append({
+                            "logicalName": logical_name,
+                            "displayName": display_name,
+                            "primaryIdAttribute": entity.get("PrimaryIdAttribute", f"{logical_name}id")
+                        })
+                    
+                    # Sort by display name since $orderby not supported on EntityDefinitions
+                    entities.sort(key=lambda e: e["displayName"].lower())
+                    
+                    logger.info(f"Retrieved {len(entities)} entity definitions")
+                    return entities
+                else:
+                    error_detail = response.text
+                    try:
+                        error_json = response.json()
+                        error_detail = error_json.get("error", {}).get("message", response.text)
+                    except:
+                        pass
+                    logger.error(f"Failed to get entity definitions: {response.status_code} - {error_detail}")
+                    return []
+                    
+        except Exception as e:
+            logger.error(f"Error getting entity definitions: {e}")
+            import traceback
+            traceback.print_exc()
+            return []

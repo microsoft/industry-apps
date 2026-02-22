@@ -29,6 +29,12 @@
   let availableOptionSets = [];
   let filteredOptionSets = [];
   
+  // Tables for lookup fields
+  let availableTables = [];
+  let filteredTables = [];
+  let quickTargetTable = '';
+  let quickTargetTableSearch = '';
+  
   // Template variables
   let templates = [];
   let selectedTemplate = '';
@@ -64,6 +70,9 @@
     
     // Load option sets
     loadOptionSets();
+    
+    // Load tables
+    loadTables();
   });
   
   async function loadTemplates() {
@@ -87,6 +96,33 @@
     }
   }
   
+  async function loadTables() {
+    if (!selectedDeployment || !selectedEnvironment) {
+      return;
+    }
+    
+    try {
+      const response = await fetch('/api/helpers/tables/scan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          deployment: selectedDeployment,
+          environment: selectedEnvironment
+        })
+      });
+      const data = await response.json();
+      availableTables = data.tables || [];
+      filteredTables = availableTables;
+    } catch (error) {
+      console.error('Error loading tables:', error);
+    }
+  }
+  
+  // Reload tables when deployment or environment changes
+  $: if (selectedDeployment && selectedEnvironment) {
+    loadTables();
+  }
+  
   // Filter option sets based on search
   $: {
     if (!quickOptionSetSearch || quickOptionSetSearch.trim() === '') {
@@ -97,6 +133,19 @@
         os.schemaName.toLowerCase().includes(search) ||
         os.displayName.toLowerCase().includes(search) ||
         os.options.some(opt => opt.label.toLowerCase().includes(search))
+      );
+    }
+  }
+  
+  // Filter tables based on search
+  $: {
+    if (!quickTargetTableSearch || quickTargetTableSearch.trim() === '') {
+      filteredTables = availableTables;
+    } else {
+      const search = quickTargetTableSearch.toLowerCase();
+      filteredTables = availableTables.filter(t => 
+        t.logicalName.toLowerCase().includes(search) ||
+        t.displayName.toLowerCase().includes(search)
       );
     }
   }
@@ -248,11 +297,15 @@
   
   function generateSchemaName(displayName) {
     if (!displayName || !publisherPrefix) return '';
-    // Convert display name to lowercase, remove special chars, keep only alphanumeric
-    const cleaned = displayName.toLowerCase()
-      .replace(/[^a-z0-9\s]/g, '')
-      .replace(/\s+/g, '');
-    return publisherPrefix + cleaned;
+    // Convert display name to PascalCase without spaces/underscores
+    // "Content Template" -> "appbase_ContentTemplate"
+    const cleaned = displayName
+      .replace(/[^a-z0-9\s]/gi, '') // Remove special chars, keep letters, numbers, spaces
+      .split(/\s+/) // Split on whitespace
+      .filter(word => word.length > 0) // Remove empty strings
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize each word
+      .join(''); // Join without spaces
+    return publisherPrefix + cleaned; // PascalCase schema name
   }
   
   function addQuickField() {
@@ -266,15 +319,23 @@
       return;
     }
     
+    if (quickType === 'Lookup' && !quickTargetTable) {
+      alert('Please select a target table for the lookup field');
+      return;
+    }
+    
     const schemaName = generateSchemaName(quickDisplayName);
     const required = quickRequired ? 'true' : 'false';
     const maxLen = quickMaxLength || '';
     
-    // Build field line - for choice fields, use BUILD.md format with parentheses
+    // Build field line - for choice/lookup fields, use BUILD.md format with parentheses
     let fieldLine;
     if (quickType === 'Choice') {
       // Use BUILD.md format: "Display Name: Choice (OptionSetSchemaName)"
       fieldLine = `${quickDisplayName}: Choice (${quickOptionSet})`;
+    } else if (quickType === 'Lookup') {
+      // Use BUILD.md format: "Display Name: Lookup (TargetTable)"
+      fieldLine = `${quickDisplayName}: Lookup (${quickTargetTable})`;
     } else {
       fieldLine = `${schemaName}|${quickDisplayName}|${quickType}|${required}`;
       if (maxLen) {
@@ -296,6 +357,8 @@
     quickMaxLength = '';
     quickOptionSet = '';
     quickOptionSetSearch = '';
+    quickTargetTable = '';
+    quickTargetTableSearch = '';
     
     // Focus back on display name input
     setTimeout(() => {
@@ -341,7 +404,7 @@
       const line = lines[i];
       if (!line.trim() || line.trim().startsWith('#')) continue;
       
-      let schemaName, displayName, type, required, maxLength, optionSetSchemaName;
+      let schemaName, displayName, type, required, maxLength, optionSetSchemaName, targetTableLogicalName;
       
       // Check for BUILD.md format: "Display Name: Type" or "Display Name: Type (details)"
       if (line.includes(': ') && !line.includes('|') && !line.includes('::')) {
@@ -354,13 +417,16 @@
         
         // Extract type (handle parentheses for lookups/choices)
         optionSetSchemaName = null;
+        targetTableLogicalName = null;
         if (typeInfo.includes('(')) {
           const parenIndex = typeInfo.indexOf('(');
           type = typeInfo.substring(0, parenIndex).trim();
-          // Extract content from parentheses for choice fields
+          // Extract content from parentheses for choice/lookup fields
           const parenContent = typeInfo.substring(parenIndex + 1, typeInfo.lastIndexOf(')')).trim();
           if (type === 'Choice' && parenContent) {
             optionSetSchemaName = parenContent;
+          } else if (type === 'Lookup' && parenContent) {
+            targetTableLogicalName = parenContent;
           }
         } else {
           type = typeInfo;
@@ -369,9 +435,12 @@
         // Normalize type names
         if (type === 'Yes / No' || type === 'Yes/No') {
           type = 'YesNo';
-        } else if (type === 'Lookup') {
-          warnings.push(`Line ${i + 1}: Lookup fields not yet supported - skipping "${displayName}"`);
-          continue;
+        } else if (type === 'Lookup' || type === 'Reference') {
+          type = 'Lookup';
+          if (!targetTableLogicalName) {
+            warnings.push(`Line ${i + 1}: Lookup field "${displayName}" missing target table in parentheses - skipping`);
+            continue;
+          }
         } else if (type === 'Choice' || type === 'Picklist' || type === 'OptionSet') {
           type = 'Choice';
           if (!optionSetSchemaName) {
@@ -449,6 +518,11 @@
       // Add optionSetSchemaName for choice fields
       if (type === 'Choice' && optionSetSchemaName) {
         field.optionSetSchemaName = optionSetSchemaName;
+      }
+      
+      // Add targetTableLogicalName for lookup fields
+      if (type === 'Lookup' && targetTableLogicalName) {
+        field.targetTableLogicalName = targetTableLogicalName;
       }
       
       fields.push(field);
@@ -695,6 +769,7 @@ Notes|Memo`;
                       <option value="DateTime">Date & Time</option>
                       <option value="YesNo">Yes/No</option>
                       <option value="Choice">Choice</option>
+                      <option value="Lookup">Lookup</option>
                     </select>
                   </div>
                   
@@ -737,6 +812,52 @@ Notes|Memo`;
                               <div class="os-name">{os.displayName}</div>
                               <div class="os-schema">{os.schemaName}</div>
                               <div class="os-options">{os.options.length} options</div>
+                            </div>
+                          {/each}
+                        {/if}
+                      </div>
+                    </div>
+                  {/if}
+                  
+                  {#if quickType === 'Lookup'}
+                    <div class="form-group choice-selector">
+                      <label for="quickTargetTableSearch">Target Table</label>
+                      <input 
+                        type="text" 
+                        id="quickTargetTableSearch"
+                        bind:value={quickTargetTableSearch}
+                        placeholder="Search tables..."
+                      />
+                      <div class="option-set-dropdown">
+                        {#if filteredTables.length === 0}
+                          <div class="no-results">No tables found</div>
+                        {:else}
+                          {#each filteredTables.slice(0, 10) as table}
+                            <div 
+                              class="option-set-item" 
+                              class:selected={quickTargetTable === table.logicalName}
+                              role="button"
+                              tabindex="0"
+                              on:click={() => { 
+                                quickTargetTable = table.logicalName; 
+                                quickTargetTableSearch = table.displayName;
+                                if (!quickDisplayName) {
+                                  quickDisplayName = table.displayName;
+                                }
+                              }}
+                              on:keydown={(e) => { 
+                                if (e.key === 'Enter' || e.key === ' ') { 
+                                  quickTargetTable = table.logicalName; 
+                                  quickTargetTableSearch = table.displayName;
+                                  if (!quickDisplayName) {
+                                    quickDisplayName = table.displayName;
+                                  }
+                                } 
+                              }}
+                            >
+                              <div class="os-name">{table.displayName}</div>
+                              <div class="os-schema">{table.logicalName}</div>
+                              <div class="os-options">{table.primaryIdAttribute}</div>
                             </div>
                           {/each}
                         {/if}
@@ -790,7 +911,7 @@ Notes|Memo`;
                 rows="20"
               ></textarea>
               <p class="help-text">
-                📋 <strong>Copy/paste from BUILD.md:</strong> Bullet points auto-removed • Format: <code>- Name: Type</code> or <code>Display Name: Type</code> • Choice fields: <code>- Name: Choice (OptionSetSchemaName)</code> • Use <code>#</code> for comments • Lookup fields skipped with warning
+                📋 <strong>Copy/paste from BUILD.md:</strong> Bullet points auto-removed • Format: <code>- Name: Type</code> or <code>Display Name: Type</code> • Choice fields: <code>- Name: Choice (OptionSetSchemaName)</code> • Lookup fields: <code>- Name: Lookup (TargetTable)</code> • Use <code>#</code> for comments
               </p>
             </div>
           </div>
@@ -920,7 +1041,7 @@ Notes|Memo`;
               <li>Schema names cannot be changed after creation</li>
               <li>Review all fields before clicking Create</li>
               <li>Choice fields reference global option sets created in Choice Creator</li>
-              <li>Lookup fields require manual creation (not yet supported)</li>
+              <li>Lookup fields create N:1 relationships with RemoveLink cascade delete</li>
               <li>Smart defaults for max lengths applied automatically</li>
               <li>Always test in a development environment first</li>
             </ul>
@@ -953,14 +1074,15 @@ Notes|Memo`;
                   <li>DateTime - Date & time</li>
                   <li>YesNo - Boolean</li>
                   <li>Choice - References option set</li>
+                  <li>Lookup - References table</li>
                 </ul>
               </div>
             </div>
             <div class="info-box">
               <strong>✨ Choice Fields:</strong> Use format <code>Display Name: Choice (OptionSetSchemaName)</code> in BUILD.md or select from dropdown in Quick Add. Option set must exist first.
             </div>
-            <div class="info-box warning">
-              <strong>⚠️ Not Yet Supported:</strong> Lookup (coming soon)
+            <div class="info-box">
+              <strong>🔗 Lookup Fields:</strong> Use format <code>Display Name: Lookup (TargetTable)</code> in BUILD.md or select from dropdown in Quick Add. Creates N:1 relationship with RemoveLink cascade delete. Self-referential lookups supported.
             </div>
           </div>
         </div>

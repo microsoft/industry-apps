@@ -646,6 +646,51 @@ async def create_fields(request: CreateFieldsRequest):
                 yield f"data: {{\"type\": \"output\", \"line\": \"✓ All choice field option sets found\"}}\n\n"
                 yield f"data: {{\"type\": \"output\", \"line\": \"\"}}\n\n"
             
+            # Validate lookup fields have existing target tables
+            lookup_fields = [f for f in request.fields if f.get("type") in ["Lookup", "Reference"]]
+            if lookup_fields:
+                yield f"data: {{\"type\": \"output\", \"line\": \"Validating lookup fields...\"}}\n\n"
+                
+                # Get all tables from Dataverse
+                all_tables = client.get_entity_definitions()
+                
+                # Build lookup maps: logical name -> logical name, display name -> logical name
+                table_by_logical = {t["logicalName"]: t["logicalName"] for t in all_tables}
+                table_by_display = {t["displayName"]: t["logicalName"] for t in all_tables}
+                
+                # Check each lookup field and normalize table references
+                missing_tables = []
+                for field in lookup_fields:
+                    target_table = field.get("targetTableLogicalName")
+                    if not target_table:
+                        missing_tables.append(f"{field.get('schemaName', 'unknown')} - missing targetTableLogicalName")
+                    else:
+                        # Try to find by logical name first, then by display name
+                        if target_table in table_by_logical:
+                            # Already using logical name, no change needed
+                            pass
+                        elif target_table in table_by_display:
+                            # Convert display name to logical name
+                            logical_name = table_by_display[target_table]
+                            field["targetTableLogicalName"] = logical_name
+                            yield f"data: {{\"type\": \"output\", \"line\": \"  ℹ Resolved '{target_table}' to '{logical_name}'\"}}\n\n"
+                        else:
+                            # Not found by either name
+                            missing_tables.append(f"{field.get('schemaName', 'unknown')} - target table '{target_table}' not found")
+                
+                if missing_tables:
+                    yield f"data: {{\"type\": \"output\", \"line\": \"✗ Validation failed:\"}}\n\n"
+                    for error in missing_tables:
+                        error_escaped = error.replace('"', '\\"')
+                        yield f"data: {{\"type\": \"output\", \"line\": \"  - {error_escaped}\"}}\n\n"
+                    yield f"data: {{\"type\": \"output\", \"line\": \"\"}}\n\n"
+                    yield f"data: {{\"type\": \"output\", \"line\": \"Please ensure all referenced tables exist\"}}\n\n"
+                    yield f"data: {{\"type\": \"complete\", \"exitCode\": 1}}\n\n"
+                    return
+                
+                yield f"data: {{\"type\": \"output\", \"line\": \"✓ All lookup field target tables found\"}}\n\n"
+                yield f"data: {{\"type\": \"output\", \"line\": \"\"}}\n\n"
+            
             yield f"data: {{\"type\": \"output\", \"line\": \"Creating fields...\"}}\n\n"
             yield f"data: {{\"type\": \"output\", \"line\": \"\"}}\n\n"
             
@@ -896,6 +941,64 @@ async def scan_option_sets():
     
     print(f"[DEBUG] Scan complete. Found {len(option_sets)} option sets")
     return {"optionSets": sorted(option_sets, key=lambda o: (o.get("category", ""), o.get("module", ""), o.get("displayName", "")))}
+
+class TableScanRequest(BaseModel):
+    deployment: str
+    environment: str
+
+@app.post("/api/helpers/tables/scan")
+async def scan_tables(request: TableScanRequest):
+    """Scan all tables from Dataverse environment"""
+    try:
+        # Load deployment configuration
+        config_path = PROJECT_ROOT / ".config" / "deployments.json"
+        if not config_path.exists():
+            return {"error": f"Configuration not found at {config_path}", "tables": []}
+        
+        with open(config_path) as f:
+            config = json.load(f)
+        
+        # Get the deployment configuration
+        if request.deployment not in config.get("Deployments", {}):
+            return {"error": f"Deployment '{request.deployment}' not found", "tables": []}
+        
+        deployment_config = config["Deployments"][request.deployment]
+        
+        # Get authentication configuration
+        if "Auth" not in deployment_config:
+            return {"error": "Auth configuration missing", "tables": []}
+        
+        auth_config = deployment_config["Auth"]
+        tenant_id = auth_config.get("TenantId")
+        client_id = auth_config.get("ClientId")
+        client_secret = auth_config.get("ClientSecret")
+        
+        if not all([tenant_id, client_id, client_secret]):
+            return {"error": "Incomplete auth configuration", "tables": []}
+        
+        # Get environment URL
+        environment_url = auth_config.get("EnvironmentUrls", {}).get(request.environment)
+        if not environment_url:
+            return {"error": f"Environment URL not configured for '{request.environment}'", "tables": []}
+        
+        # Create Dataverse client and get entity definitions
+        print(f"[DEBUG] Scanning tables from {environment_url}")
+        client = DataverseClient(
+            environment_url=environment_url,
+            tenant_id=tenant_id,
+            client_id=client_id,
+            client_secret=client_secret
+        )
+        
+        client.authenticate()
+        tables = client.get_entity_definitions()
+        
+        print(f"[DEBUG] Scan complete. Found {len(tables)} tables")
+        return {"tables": sorted(tables, key=lambda t: t.get("displayName", ""))}
+        
+    except Exception as e:
+        print(f"Error scanning tables: {e}", file=sys.stderr)
+        return {"error": str(e), "tables": []}
 
 class OptionSetSearchRequest(BaseModel):
     displayName: Optional[str] = None
