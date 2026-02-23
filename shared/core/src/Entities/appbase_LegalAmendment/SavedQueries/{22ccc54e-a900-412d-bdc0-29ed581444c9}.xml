@@ -10,8 +10,13 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_legalamendmentid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="173" />
+          <cell name="appbase_amendmentnumber" width="159" />
+          <cell name="appbase_amendmentdate" width="204" />
+          <cell name="appbase_effectivedate" width="121" />
+          <cell name="appbase_originalauthority" width="145" />
+          <cell name="appbase_document" width="100" />
+          <cell name="appbase_changessummary" width="300" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +26,16 @@
         <entity name="appbase_legalamendment">
           <attribute name="appbase_legalamendmentid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_amendmentdate" />
+          <attribute name="appbase_amendmentnumber" />
+          <attribute name="appbase_changessummary" />
+          <attribute name="appbase_document" />
+          <attribute name="appbase_effectivedate" />
+          <attribute name="appbase_originalauthority" />
         </entity>
       </fetch>
     </fetchxml>

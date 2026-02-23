@@ -91,7 +91,8 @@
       <RootComponent type="1" schemaName="appbase_compliancerequirement" behavior="0" />
       <RootComponent type="1" schemaName="appbase_contenttemplate" behavior="0" />
       <RootComponent type="1" schemaName="appbase_country" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_credential" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_credentialassignment" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_credentialtype" behavior="0" />
       <RootComponent type="1" schemaName="appbase_discussionitem" behavior="0" />
       <RootComponent type="1" schemaName="appbase_document" behavior="0" />
       <RootComponent type="1" schemaName="appbase_fiscalperiod" behavior="0" />
@@ -115,11 +116,11 @@
       <RootComponent type="1" schemaName="appbase_product" behavior="0" />
       <RootComponent type="1" schemaName="appbase_riskitem" behavior="0" />
       <RootComponent type="1" schemaName="appbase_stateorprovince" behavior="0" />
-      <RootComponent type="1" schemaName="appbase_vote" behavior="0" />
       <RootComponent type="1" schemaName="contact" behavior="1" />
       <RootComponent type="300" schemaName="appbase_quickactions_bc538" behavior="0" />
       <RootComponent type="61" schemaName="appbase_coresidepaneutility" behavior="0" />
       <RootComponent type="62" schemaName="appbase_Core" behavior="0" />
+      <RootComponent type="80" schemaName="appbase_Core" behavior="0" />
       <RootComponent type="9" schemaName="appbase_actionstatus" behavior="0" />
       <RootComponent type="9" schemaName="appbase_agreementstatus" behavior="0" />
       <RootComponent type="9" schemaName="appbase_agreementtype" behavior="0" />
@@ -145,6 +146,8 @@
       <RootComponent type="9" schemaName="appbase_objectiveresult" behavior="0" />
       <RootComponent type="9" schemaName="appbase_operationalstatus" behavior="0" />
       <RootComponent type="9" schemaName="appbase_overallresult" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_periodstatus" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_periodtype" behavior="0" />
       <RootComponent type="9" schemaName="appbase_personnelavailability" behavior="0" />
       <RootComponent type="9" schemaName="appbase_polarity" behavior="0" />
       <RootComponent type="9" schemaName="appbase_positiondesignation" behavior="0" />
@@ -162,8 +165,26 @@
     </RootComponents>
     <MissingDependencies>
       <MissingDependency>
+        <Required type="60" displayName="Contact Quick Create" parentDisplayName="Person" solution="msdynce_AppCommon (9.0.4.0066)" id="{661157fe-2fc9-4eaa-835f-5bfa2f7b64f7}">
+          <package appName="msdynce_AppCommon" version="9.0.25124.10001">msdynce_AppCommonAnchor (9.0.25124.10001)</package>
+        </Required>
+        <Dependent type="80" schemaName="appbase_Core" displayName="Core" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)">
+          <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
+        </Required>
+        <Dependent type="80" schemaName="appbase_Core" displayName="Core" />
+      </MissingDependency>
+      <MissingDependency>
         <Required type="66" schemaName="MscrmControls.CardFeedContainer.CardFeedContainer" displayName="MscrmControls.CardFeedContainer.CardFeedContainer" solution="BaseCustomControlsCore (9.0.2601.3011)" />
         <Dependent type="60" displayName="Person - Core" parentDisplayName="Person" id="{62f71750-3d04-f111-8406-7ced8d3c12a1}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.15)" id.uniquename="AppChannel">
+          <package appName="PowerAppsAppFramework Package" version="1.0.0.25">PowerAppsAppFramework_Anchor (1.0.0.25)</package>
+        </Required>
+        <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=appbase_Core,settingdefinitionid.uniquename=AppChannel" id.parentappmoduleid.uniquename="appbase_Core" id.settingdefinitionid.uniquename="AppChannel" />
       </MissingDependency>
     </MissingDependencies>
   </SolutionManifest>

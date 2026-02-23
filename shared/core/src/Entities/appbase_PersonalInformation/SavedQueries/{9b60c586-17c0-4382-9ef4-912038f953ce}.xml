@@ -10,8 +10,16 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_personalinformationid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="222" />
+          <cell name="appbase_person" width="100" />
+          <cell name="appbase_informationtype" width="139" />
+          <cell name="appbase_informationvalue" width="143" />
+          <cell name="appbase_securityclassification" width="168" />
+          <cell name="appbase_effectivedate" width="121" />
+          <cell name="appbase_expirationdate" width="130" />
+          <cell name="appbase_isverified" width="100" />
+          <cell name="appbase_verifiedby" width="105" />
+          <cell name="appbase_verifieddate" width="116" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +29,19 @@
         <entity name="appbase_personalinformation">
           <attribute name="appbase_personalinformationid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_effectivedate" />
+          <attribute name="appbase_expirationdate" />
+          <attribute name="appbase_informationtype" />
+          <attribute name="appbase_informationvalue" />
+          <attribute name="appbase_isverified" />
+          <attribute name="appbase_verifiedby" />
+          <attribute name="appbase_verifieddate" />
+          <attribute name="appbase_securityclassification" />
+          <attribute name="appbase_person" />
         </entity>
       </fetch>
     </fetchxml>

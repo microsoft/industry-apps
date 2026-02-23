@@ -10,8 +10,15 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_impactid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="278" />
+          <cell name="appbase_analysis" width="100" />
+          <cell name="appbase_affectedorganizationunit" width="194" />
+          <cell name="appbase_polarity" width="100" />
+          <cell name="appbase_direction" width="100" />
+          <cell name="appbase_impactdate" width="109" />
+          <cell name="appbase_severity" width="100" />
+          <cell name="appbase_financialimpact" width="135" />
+          <cell name="appbase_description" width="300" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +28,18 @@
         <entity name="appbase_impact">
           <attribute name="appbase_impactid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_affectedorganizationunit" />
+          <attribute name="appbase_analysis" />
+          <attribute name="appbase_description" />
+          <attribute name="appbase_financialimpact" />
+          <attribute name="appbase_polarity" />
+          <attribute name="appbase_direction" />
+          <attribute name="appbase_impactdate" />
+          <attribute name="appbase_severity" />
         </entity>
       </fetch>
     </fetchxml>

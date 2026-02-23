@@ -10,8 +10,18 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_documentid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="194" />
+          <cell name="appbase_documentnumber" width="148" />
+          <cell name="appbase_author" width="139" />
+          <cell name="appbase_externalauthor" width="131" />
+          <cell name="appbase_publicationdate" width="134" />
+          <cell name="appbase_publicationstatus" width="142" />
+          <cell name="appbase_securityclassification" width="168" />
+          <cell name="appbase_filename" width="100" />
+          <cell name="appbase_filesize" width="100" />
+          <cell name="appbase_fileurl" width="100" />
+          <cell name="appbase_version" width="100" />
+          <cell name="appbase_description" width="106" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +31,21 @@
         <entity name="appbase_document">
           <attribute name="appbase_documentid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_author" />
+          <attribute name="appbase_description" />
+          <attribute name="appbase_documentnumber" />
+          <attribute name="appbase_externalauthor" />
+          <attribute name="appbase_filename" />
+          <attribute name="appbase_filesize" />
+          <attribute name="appbase_fileurl" />
+          <attribute name="appbase_publicationdate" />
+          <attribute name="appbase_publicationstatus" />
+          <attribute name="appbase_securityclassification" />
+          <attribute name="appbase_version" />
         </entity>
       </fetch>
     </fetchxml>

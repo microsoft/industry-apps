@@ -52,7 +52,6 @@ A classification table defining categories of events (e.g., Conference, Training
 - Description: Memo
 - Default Duration (Hours): Float
 - Requires Approval: Yes / No
-- Is Active: Yes / No
 
 ---
 
@@ -64,10 +63,10 @@ Represents a thematic or organizational grouping within an event (e.g., "Technol
 **Planned:**
 - Name: Text
 - Event: Lookup (Event)
+- Parent Event Track: Lookup (Event Track)
 - Track Code: Text
 - Description: Memo
 - Track Lead: Lookup (Person)
-- Display Order: Integer
 - Color Code: Text
 
 ---
@@ -164,6 +163,7 @@ Represents a scheduled time block within an event (e.g., breakout session, heari
 **Planned:**
 - Name: Text
 - Event: Lookup (Event)
+- Parent Event Session: Lookup (Event Session)
 - Event Track: Lookup (Event Track)
 - Session Code: Text
 - Session Type: Choice (Session Type)
@@ -181,7 +181,6 @@ Represents a scheduled time block within an event (e.g., breakout session, heari
 - Actual Attendees: Integer
 - Requires Pre-Registration: Yes / No
 - Session Lead: Lookup (Person)
-- Display Order: Integer
 - Recording URL: Text
 - Materials URL: Text
 - Notes: Memo
@@ -217,7 +216,6 @@ Represents an exhibition, presentation, booth, poster, demonstration, or other s
 - Approved By: Lookup (Person)
 - Approval Date: Date
 - Entry Status: Choice (Entry Status)
-- Display Order: Integer
 - Booth Number: Text
 - Equipment Needs: Memo
 - Space Requirements: Memo
@@ -252,7 +250,6 @@ Represents an organization or entity providing financial or in-kind support for 
 - Benefits Provided: Memo
 - Logo URL: Text
 - Website URL: Text
-- Display Order: Integer
 - Notes: Memo
 
 ---

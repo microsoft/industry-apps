@@ -41,6 +41,7 @@ Detailed allocation within a Budget tied to a specific Financial Funding Source,
 **Planned:**
 - Name: Text
 - Budget: Lookup (Budget)
+- Parent Budget Line Item: Lookup (Budget Line Item)
 - Line Number: Text
 - Financial Funding Source: Lookup (Financial Funding Source)
 - Financial Classification: Lookup (Financial Classification)
@@ -52,7 +53,6 @@ Detailed allocation within a Budget tied to a specific Financial Funding Source,
 - Period Start Date: Date
 - Period End Date: Date
 - Line Item Status: Choice (Budget Status)
-- Is Active: Yes / No
 - Description: Memo
 - Notes: Memo
 
@@ -96,7 +96,6 @@ A categorization structure used to classify financial transactions, such as expe
 - Parent Classification: Lookup (Financial Classification)
 - Account Code: Text
 - Description: Memo
-- Is Active: Yes / No
 
 ---
 
@@ -279,7 +278,6 @@ A structured pricing or scope element within a Contract, such as a labor categor
 - Financial Classification: Lookup (Financial Classification)
 - Period of Performance Start Date: Date
 - Period of Performance End Date: Date
-- Is Active: Yes / No
 - Notes: Memo
 
 ---

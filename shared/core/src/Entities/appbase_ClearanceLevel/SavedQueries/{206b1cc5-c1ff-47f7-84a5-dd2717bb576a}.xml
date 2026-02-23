@@ -10,8 +10,10 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_clearancelevelid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="205" />
+          <cell name="appbase_clearancecode" width="130" />
+          <cell name="appbase_securitylevel" width="123" />
+          <cell name="appbase_description" width="300" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +23,13 @@
         <entity name="appbase_clearancelevel">
           <attribute name="appbase_clearancelevelid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_clearancecode" />
+          <attribute name="appbase_description" />
+          <attribute name="appbase_securitylevel" />
         </entity>
       </fetch>
     </fetchxml>

@@ -66,7 +66,6 @@ Represents a defined type of service provided under a Program. A Service describ
 - Website URL: Text
 - Is Published: Yes / No
 - Publication Status: Choice (Publication Status)
-- Display Order: Integer
 - Notes: Memo
 
 ---
@@ -82,8 +81,6 @@ Represents a classification used to group Services for reporting, organization, 
 - Parent Category: Lookup (Service Category)
 - Description: Memo
 - Icon URL: Text
-- Display Order: Integer
-- Is Active: Yes / No
 
 ---
 
@@ -157,7 +154,6 @@ Represents a reusable eligibility condition that may be applied to one or more S
 - Disqualifying Conditions: Memo
 - Verification Method: Memo
 - Priority: Choice (Priority)
-- Is Active: Yes / No
 - Notes: Memo
 
 ---
@@ -235,7 +231,6 @@ Represents a person's or organization's enrollment or engagement in a specific S
 - Amount Paid: Currency
 - Funding Source: Text
 - Priority: Choice (Priority)
-- Is Active: Yes / No
 - Participation Agreement: Lookup (Agreement)
 - Privacy Consent: Lookup (Privacy Consent)
 - Supporting Document: Lookup (Document)
@@ -328,8 +323,6 @@ Represents the predefined set of allowable result classifications that may be ap
 - Requires Notification: Yes / No
 - Allows Appeal: Yes / No
 - Appeal Window (Days): Integer
-- Display Order: Integer
-- Is Active: Yes / No
 
 ---
 

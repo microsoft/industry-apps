@@ -141,7 +141,6 @@ Defines a specific access right, permission set, license assignment, or role tha
 - Maximum Assignment Duration (Days): Integer
 - Risk Level: Choice (Severity Level)
 - Compliance Requirement: Lookup (Compliance Requirement)
-- Is Active: Yes / No
 - Notes: Memo
 
 ---
@@ -186,6 +185,7 @@ Defines an orderable IT offering. Represents a published service, product packag
 **Planned:**
 - Name: Text
 - Item Code: Text
+- Parent IT Catalog Item: Lookup (IT Catalog Item)
 - Item Category: Choice (Catalog Item Category)
 - Item Type: Choice (Catalog Item Type)
 - Publication Status: Choice (Publication Status)
@@ -200,13 +200,11 @@ Defines an orderable IT offering. Represents a published service, product packag
 - Approving Organization Unit: Lookup (Organization Unit)
 - Provider Organization Unit: Lookup (Organization Unit)
 - Service Owner: Lookup (Person)
-- Display Order: Integer
 - Icon URL: Text
 - Image URL: Text
 - Documentation URL: Text
 - Related IT System: Lookup (IT System)
 - Is Orderable: Yes / No
-- Is Active: Yes / No
 - Tags: Text
 - Notes: Memo
 
@@ -277,6 +275,7 @@ Represents a structural part of an IT System, such as an application module, ser
 **Planned:**
 - Name: Text
 - Component Code: Text
+- Parent IT System Component: Lookup (IT System Component)
 - IT System: Lookup (IT System)
 - IT System Component Type: Lookup (IT System Component Type)
 - Component Status: Choice (Operational Status)
@@ -302,7 +301,6 @@ Defines categories or classifications of system components (e.g., Application, D
 - Type Code: Text
 - Component Category: Choice (Component Category)
 - Description: Memo
-- Is Active: Yes / No
 
 ---
 
@@ -367,7 +365,6 @@ Defines classification categories for IT Technologies (e.g., Operating System, D
 - Type Code: Text
 - Description: Memo
 - Parent Type: Lookup (IT Technology Type)
-- Is Active: Yes / No
 
 ---
 

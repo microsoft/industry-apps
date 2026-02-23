@@ -60,6 +60,7 @@ Represents a facility, asset, program, process, site, or other entity subject to
 **Planned:**
 - Name: Text
 - Item Code: Text
+- Parent Operational Item: Lookup (Operational Item)
 - Item Type: Choice (Operational Item Type)
 - Operational Status: Choice (Operational Status)
 - Owning Organization Unit: Lookup (Organization Unit)
@@ -172,7 +173,6 @@ Defines a specific objective or capability that an Operational Event intends to 
 - Objective Met: Yes / No
 - Actual Performance: Text
 - Evaluation Notes: Memo
-- Display Order: Integer
 - Notes: Memo
 
 ---
@@ -276,6 +276,7 @@ Represents a deficiency, gap, issue, observation, or lesson identified during an
 **Planned:**
 - Name: Text
 - Finding Number: Text
+- Parent Operational Finding: Lookup (Operational Finding)
 - Finding Type: Choice (Finding Type)
 - Finding Status: Choice (Finding Status)
 - Priority: Choice (Priority)
@@ -319,6 +320,7 @@ Represents a proposed corrective, preventive, or improvement action developed in
 **Planned:**
 - Name: Text
 - Recommendation Number: Text
+- Parent Recommendation: Lookup (Operational Recommendation)
 - Operational Finding: Lookup (Operational Finding)
 - Operational Incident: Lookup (Operational Incident)
 - Operational Inspection: Lookup (Operational Inspection)

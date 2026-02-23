@@ -12,6 +12,7 @@ Individual, accountable item instance. Stores identifying details, current statu
 **Planned:**
 - Name: Text ok
 - Asset Number: Text ok
+- Parent Asset: Lookup (Asset)
 - Serial Number: Text ok
 - Asset Type: Lookup (Asset Type) ok
 - Asset Category: Lookup (Asset Category) ok
@@ -47,7 +48,6 @@ Operational classification of assets (e.g., Laptop, Vehicle, Generator). Used fo
 - Default Useful Life (Years): Integer
 - Requires Tracking: Yes / No
 - Requires Inspection: Yes / No
-- Is Active: Yes / No
 
 ---
 
@@ -58,9 +58,9 @@ Higher-level grouping of Asset Types (e.g., IT Equipment, Fleet, Facilities Equi
 
 **Planned:**
 - Name: Text
+- Parent Asset Category: Lookup (Asset Category)
 - Description: Memo
 - Capitalization Threshold: Currency
-- Is Active: Yes / No
 
 ---
 
@@ -201,7 +201,6 @@ Reference list defining types of service events (Preventive, Repair, Inspection,
 **Planned:**
 - Name: Text
 - Description: Memo
-- Is Active: Yes / No
 
 ---
 
@@ -266,7 +265,6 @@ Defines recurring inspection rules that apply to an Asset Type or specific Asset
 - Inspection Frequency (Days): Integer
 - Regulatory Authority: Lookup (Legal Authority)
 - Compliance Framework: Lookup (Compliance Framework)
-- Is Active: Yes / No
 - Description: Memo
 
 ---

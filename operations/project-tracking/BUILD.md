@@ -133,8 +133,6 @@ Represents standardized roles used within projects (e.g., Project Manager, Busin
 - Description: Memo
 - Responsibilities: Memo
 - Standard Allocation Percentage: Integer
-- Is Active: Yes / No
-- Display Order: Integer
 
 ---
 
@@ -184,8 +182,6 @@ Represents a planning container that groups and prioritizes future work items fo
 - Description: Memo
 - Target Iteration: Lookup (Project Iteration)
 - Priority: Choice (Priority)
-- Display Order: Integer
-- Is Active: Yes / No
 - Notes: Memo
 
 ---
@@ -234,8 +230,6 @@ Represents the configuration table defining categories of work items (e.g., Epic
 - Requires Acceptance Criteria: Yes / No
 - Allows Time Tracking: Yes / No
 - Allows Sub Items: Yes / No
-- Is Active: Yes / No
-- Display Order: Integer
 
 ---
 
@@ -301,6 +295,7 @@ Represents a significant event or checkpoint within a project timeline. Represen
 **Planned:**
 - Name: Text
 - Milestone Code: Text
+- Parent Milestone: Lookup (Project Milestone)
 - Project: Lookup (Project)
 - Milestone Status: Choice (Milestone Status)
 - Milestone Type: Choice (Milestone Type)

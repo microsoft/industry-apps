@@ -61,7 +61,6 @@ Classifies organizations by their structural or functional category (e.g., Board
 - Requires Voting: Yes / No
 - Requires Terms: Yes / No
 - Default Term Length (Months): Integer
-- Is Active: Yes / No
 
 ---
 
@@ -106,7 +105,6 @@ Represents an individual's membership in an organization, including status and p
 - Organization Term: Lookup (Organization Term)
 - Primary Role: Lookup (Organization Role)
 - Is Voting Member: Yes / No
-- Is Active: Yes / No
 - Appointed By: Lookup (Person)
 - Appointment Date: Date
 - Nominated By: Lookup (Person)
@@ -140,8 +138,6 @@ Defines categories of membership within an organization (e.g., Regular, Student,
 - Allows Multiple Roles: Yes / No
 - Requires Approval: Yes / No
 - Default Fee: Currency
-- Display Order: Integer
-- Is Active: Yes / No
 
 ---
 
@@ -183,8 +179,6 @@ Defines reusable role types within organizations (e.g., Chair, Secretary, Member
 - Is Voting Role: Yes / No
 - Requires Election: Yes / No
 - Requires Appointment: Yes / No
-- Display Order: Integer
-- Is Active: Yes / No
 
 ---
 
@@ -246,7 +240,6 @@ Defines membership fees or dues associated with an organization or membership ty
 - Grace Period (Days): Integer
 - Late Fee Amount: Currency
 - Payment Instructions: Memo
-- Is Active: Yes / No
 - Notes: Memo
 
 ---

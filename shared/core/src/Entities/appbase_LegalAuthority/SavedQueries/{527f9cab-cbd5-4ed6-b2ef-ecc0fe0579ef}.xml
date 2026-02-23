@@ -10,8 +10,19 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_legalauthorityid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="218" />
+          <cell name="appbase_citation" width="100" />
+          <cell name="appbase_documentnumber" width="148" />
+          <cell name="appbase_jurisdictionlevel" width="141" />
+          <cell name="appbase_issuingbody" width="115" />
+          <cell name="appbase_issuingauthority" width="139" />
+          <cell name="appbase_authoritystatus" width="133" />
+          <cell name="appbase_authoritytype" width="126" />
+          <cell name="appbase_effectivedate" width="121" />
+          <cell name="appbase_enactmentdate" width="130" />
+          <cell name="appbase_expirationdate" width="130" />
+          <cell name="appbase_fulltexturl" width="123" />
+          <cell name="appbase_description" width="106" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +32,22 @@
         <entity name="appbase_legalauthority">
           <attribute name="appbase_legalauthorityid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_authoritystatus" />
+          <attribute name="appbase_authoritytype" />
+          <attribute name="appbase_citation" />
+          <attribute name="appbase_documentnumber" />
+          <attribute name="appbase_effectivedate" />
+          <attribute name="appbase_enactmentdate" />
+          <attribute name="appbase_expirationdate" />
+          <attribute name="appbase_fulltexturl" />
+          <attribute name="appbase_issuingauthority" />
+          <attribute name="appbase_issuingbody" />
+          <attribute name="appbase_jurisdictionlevel" />
+          <attribute name="appbase_description" />
         </entity>
       </fetch>
     </fetchxml>

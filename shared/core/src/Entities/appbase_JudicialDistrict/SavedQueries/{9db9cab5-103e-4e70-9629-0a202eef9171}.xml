@@ -11,7 +11,13 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_judicialdistrictid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_districtcode" width="116" />
+          <cell name="appbase_jurisdictionlevel" width="141" />
+          <cell name="appbase_parentjudicialdistrict" width="169" />
+          <cell name="appbase_stateorprovince" width="137" />
+          <cell name="appbase_courtlocation" width="126" />
+          <cell name="appbase_presidingjudge" width="130" />
+          <cell name="appbase_description" width="300" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +27,17 @@
         <entity name="appbase_judicialdistrict">
           <attribute name="appbase_judicialdistrictid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_courtlocation" />
+          <attribute name="appbase_description" />
+          <attribute name="appbase_districtcode" />
+          <attribute name="appbase_jurisdictionlevel" />
+          <attribute name="appbase_parentjudicialdistrict" />
+          <attribute name="appbase_presidingjudge" />
+          <attribute name="appbase_stateorprovince" />
         </entity>
       </fetch>
     </fetchxml>

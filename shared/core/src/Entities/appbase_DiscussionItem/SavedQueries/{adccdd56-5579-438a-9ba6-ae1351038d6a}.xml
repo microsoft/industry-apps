@@ -10,8 +10,12 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_discussionitemid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="252" />
+          <cell name="appbase_raisedby" width="100" />
+          <cell name="appbase_raiseddate" width="109" />
+          <cell name="appbase_priority" width="124" />
+          <cell name="appbase_description" width="285" />
+          <cell name="appbase_discussionnotes" width="300" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +25,15 @@
         <entity name="appbase_discussionitem">
           <attribute name="appbase_discussionitemid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_raisedby" />
+          <attribute name="appbase_raiseddate" />
+          <attribute name="appbase_description" />
+          <attribute name="appbase_discussionnotes" />
+          <attribute name="appbase_priority" />
         </entity>
       </fetch>
     </fetchxml>

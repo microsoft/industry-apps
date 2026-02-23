@@ -50,6 +50,7 @@ Defines the types of actions that are tracked within a Game. Activities represen
 **Planned:**
 - Name: Text
 - Game: Lookup (Game)
+- Parent Game Activity: Lookup (Game Activity)
 - Activity Code: Text
 - Activity Type: Choice (Activity Type)
 - Description: Memo
@@ -60,9 +61,7 @@ Defines the types of actions that are tracked within a Game. Activities represen
 - Requires Verification: Yes / No
 - Auto Award: Yes / No
 - Verification Criteria: Memo
-- Display Order: Integer
 - Icon URL: Text
-- Is Active: Yes / No
 
 ---
 
@@ -74,6 +73,7 @@ Defines the achievements that can be earned within a Game. These may represent b
 **Planned:**
 - Name: Text
 - Game: Lookup (Game)
+- Parent Game Achievement: Lookup (Game Achievement)
 - Achievement Code: Text
 - Achievement Type: Choice (Achievement Type)
 - Description: Memo
@@ -85,14 +85,12 @@ Defines the achievements that can be earned within a Game. These may represent b
 - Award Criteria Type: Choice (Award Criteria Type)
 - Can Be Revoked: Yes / No
 - Is Public: Yes / No
-- Display Order: Integer
 - Tier Level: Integer
 - Badge URL: Text
 - Certificate Template: Lookup (Content Template)
 - Reward Value: Currency
 - Reward Description: Memo
 - Total Earned: Integer
-- Is Active: Yes / No
 - Notes: Memo
 
 ---

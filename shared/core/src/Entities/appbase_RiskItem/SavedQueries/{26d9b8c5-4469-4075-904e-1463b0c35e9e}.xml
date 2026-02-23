@@ -10,8 +10,17 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_riskitemid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="262" />
+          <cell name="appbase_analysis" width="100" />
+          <cell name="appbase_risknumber" width="116" />
+          <cell name="appbase_actionstatus" width="116" />
+          <cell name="appbase_identifiedby" width="115" />
+          <cell name="appbase_identifiedbyuser" width="145" />
+          <cell name="appbase_identifieddate" width="125" />
+          <cell name="appbase_likelihood" width="102" />
+          <cell name="appbase_overallrisklevel" width="147" />
+          <cell name="appbase_severity" width="100" />
+          <cell name="appbase_description" width="106" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +30,20 @@
         <entity name="appbase_riskitem">
           <attribute name="appbase_riskitemid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_actionstatus" />
+          <attribute name="appbase_analysis" />
+          <attribute name="appbase_description" />
+          <attribute name="appbase_identifiedby" />
+          <attribute name="appbase_identifiedbyuser" />
+          <attribute name="appbase_identifieddate" />
+          <attribute name="appbase_likelihood" />
+          <attribute name="appbase_overallrisklevel" />
+          <attribute name="appbase_severity" />
+          <attribute name="appbase_risknumber" />
         </entity>
       </fetch>
     </fetchxml>

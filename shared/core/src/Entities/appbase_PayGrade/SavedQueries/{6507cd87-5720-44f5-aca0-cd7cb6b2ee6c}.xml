@@ -10,8 +10,14 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_paygradeid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="189" />
+          <cell name="appbase_gradecode" width="108" />
+          <cell name="appbase_effectivedate" width="121" />
+          <cell name="appbase_expirationdate" width="130" />
+          <cell name="appbase_minsalary" width="103" />
+          <cell name="appbase_midpointsalary" width="132" />
+          <cell name="appbase_maxsalary" width="105" />
+          <cell name="appbase_description" width="300" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +27,17 @@
         <entity name="appbase_paygrade">
           <attribute name="appbase_paygradeid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_description" />
+          <attribute name="appbase_effectivedate" />
+          <attribute name="appbase_expirationdate" />
+          <attribute name="appbase_gradecode" />
+          <attribute name="appbase_maxsalary" />
+          <attribute name="appbase_midpointsalary" />
+          <attribute name="appbase_minsalary" />
         </entity>
       </fetch>
     </fetchxml>

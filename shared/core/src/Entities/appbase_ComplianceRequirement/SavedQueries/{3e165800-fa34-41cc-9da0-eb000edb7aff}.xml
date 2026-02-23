@@ -10,8 +10,14 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_compliancerequirementid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="227" />
+          <cell name="appbase_complianceframework" width="176" />
+          <cell name="appbase_complianceframeworkcategory" width="231" />
+          <cell name="appbase_parentcompliancerequirement" width="223" />
+          <cell name="appbase_requirementnumber" width="162" />
+          <cell name="appbase_priority" width="100" />
+          <cell name="appbase_controlobjective" width="300" />
+          <cell name="appbase_description" width="300" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +27,17 @@
         <entity name="appbase_compliancerequirement">
           <attribute name="appbase_compliancerequirementid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_complianceframework" />
+          <attribute name="appbase_complianceframeworkcategory" />
+          <attribute name="appbase_parentcompliancerequirement" />
+          <attribute name="appbase_requirementnumber" />
+          <attribute name="appbase_priority" />
+          <attribute name="appbase_description" />
+          <attribute name="appbase_controlobjective" />
         </entity>
       </fetch>
     </fetchxml>

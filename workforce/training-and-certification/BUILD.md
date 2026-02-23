@@ -14,6 +14,7 @@ Represents a catalog entry for a learning offering, including description, objec
 **Planned:**
 - Name: Text
 - Course Code: Text
+- Parent Training Course: Lookup (Training Course)
 - Course Status: Choice (Operational Status)
 - Course Type: Choice (Course Type)
 - Course Category: Choice (Course Category)
@@ -49,7 +50,6 @@ Represents a catalog entry for a learning offering, including description, objec
 - Effective Start Date: Date
 - Effective End Date: Date
 - Version: Text
-- Display Order: Integer
 - Notes: Memo
 
 ---
@@ -74,7 +74,6 @@ Represents prerequisite conditions required before enrolling in or completing a 
 - Is Waivable: Yes / No
 - Waiver Authority: Lookup (Person)
 - Requirement Notes: Memo
-- Display Order: Integer
 
 ---
 
@@ -95,7 +94,6 @@ Represents a learning objective or outcome associated with a Training Course.
 - Related Competency: Lookup (Competency)
 - Bloom's Taxonomy Level: Choice (Blooms Level)
 - Is Measurable: Yes / No
-- Display Order: Integer
 
 ---
 
@@ -119,7 +117,6 @@ Represents an individual authorized to deliver Training Sessions.
 - Certification Number: Text
 - Certification Expiration Date: Date
 - Hourly Rate: Currency
-- Is Active: Yes / No
 - Effective Start Date: Date
 - Effective End Date: Date
 - Notes: Memo
@@ -145,7 +142,6 @@ Represents a defined academic period (e.g., Fall 2026, Spring 2027) used to orga
 - Withdrawal Deadline Date: Date
 - Final Exam Start Date: Date
 - Final Exam End Date: Date
-- Is Active: Yes / No
 - Notes: Memo
 
 ---
@@ -320,6 +316,7 @@ Represents an ordered or curated sequence of Training Courses intended to guide 
 **Planned:**
 - Name: Text
 - Path Code: Text
+- Parent Learning Path: Lookup (Learning Path)
 - Learning Path Status: Choice (Operational Status)
 - Path Type: Choice (Learning Path Type)
 - Path Category: Text
@@ -337,7 +334,6 @@ Represents an ordered or curated sequence of Training Courses intended to guide 
 - Publication Status: Choice (Publication Status)
 - Effective Start Date: Date
 - Effective End Date: Date
-- Display Order: Integer
 - Icon URL: Text
 - Notes: Memo
 
@@ -423,7 +419,6 @@ Represents the criteria required to earn a Training Certificate, such as complet
 - Is Waivable: Yes / No
 - Waiver Authority: Lookup (Person)
 - Requirement Notes: Memo
-- Display Order: Integer
 
 ---
 
@@ -446,7 +441,6 @@ Represents a specific instance of a Training Certificate awarded to an individua
 - Issued By: Lookup (Person)
 - Issuing Organization Unit: Lookup (Organization Unit)
 - Verification Code: Text
-- Is Active: Yes / No
 - Is Expired: Yes / No
 - Days Until Expiration: Integer
 - Renewal Required Date: Date
@@ -500,6 +494,7 @@ Represents a structured curriculum such as a degree, diploma, or formal certific
 **Planned:**
 - Name: Text
 - Program Code: Text
+- Parent Academic Program: Lookup (Academic Program)
 - Academic Program Status: Choice (Operational Status)
 - Program Type: Choice (Academic Program Type)
 - Program Level: Choice (Academic Program Level)
@@ -614,7 +609,6 @@ Represents a reusable eligibility rule set that specifies what an individual mus
 - Evaluation Logic: Memo
 - Owning Organization Unit: Lookup (Organization Unit)
 - Requirement Owner: Lookup (Person)
-- Is Active: Yes / No
 - Effective Start Date: Date
 - Effective End Date: Date
 - Validation Frequency: Choice (Validation Frequency)
@@ -648,7 +642,6 @@ Represents an individual requirement within a Qualification Requirement, such as
 - Alternative Group: Text
 - Validity Period (Months): Integer
 - Requirement Notes: Memo
-- Display Order: Integer
 
 ---
 

@@ -10,8 +10,16 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_locationid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="259" />
+          <cell name="appbase_addressline1" width="126" />
+          <cell name="appbase_addressline2" width="126" />
+          <cell name="appbase_city" width="100" />
+          <cell name="appbase_stateorprovince" width="137" />
+          <cell name="appbase_postalcode" width="108" />
+          <cell name="appbase_country" width="100" />
+          <cell name="appbase_parentlocation" width="130" />
+          <cell name="appbase_capacity" width="100" />
+          <cell name="appbase_description" width="300" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +29,19 @@
         <entity name="appbase_location">
           <attribute name="appbase_locationid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_addressline1" />
+          <attribute name="appbase_addressline2" />
+          <attribute name="appbase_capacity" />
+          <attribute name="appbase_city" />
+          <attribute name="appbase_country" />
+          <attribute name="appbase_stateorprovince" />
+          <attribute name="appbase_description" />
+          <attribute name="appbase_parentlocation" />
+          <attribute name="appbase_postalcode" />
         </entity>
       </fetch>
     </fetchxml>

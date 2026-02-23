@@ -104,7 +104,6 @@ Represents a specific publication or advertisement instance of a requisition. Tr
 - Posted By: Lookup (Person)
 - View Count: Integer
 - Application Count: Integer
-- Is Active: Yes / No
 - Notes: Memo
 
 ---
@@ -128,7 +127,6 @@ Defines the required and preferred qualifications, competencies, or eligibility 
 - Minimum Years Experience: Integer
 - Description: Memo
 - Evaluation Criteria: Memo
-- Display Order: Integer
 - Notes: Memo
 
 ---
@@ -151,9 +149,9 @@ Represents the persistent recruiting profile of an individual across application
 - Mobile Phone: Text
 - Address: Text
 - City: Text
-- State: Text
+- State or Province: Lookup (State or Province)
 - Postal Code: Text
-- Country: Text
+- Country: Lookup (Country)
 - Candidate Source: Choice (Candidate Source)
 - Referral Source: Text
 - Referred By: Lookup (Person)

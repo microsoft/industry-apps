@@ -11,7 +11,14 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_privacyconsentid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_person" width="100" />
+          <cell name="appbase_user" width="100" />
+          <cell name="appbase_consentdate" width="116" />
+          <cell name="appbase_consentstatus" width="124" />
+          <cell name="appbase_expirationdate" width="130" />
+          <cell name="appbase_revokedby" width="110" />
+          <cell name="appbase_revokeddate" width="120" />
+          <cell name="appbase_scope" width="300" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +28,18 @@
         <entity name="appbase_privacyconsent">
           <attribute name="appbase_privacyconsentid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_consentdate" />
+          <attribute name="appbase_consentstatus" />
+          <attribute name="appbase_expirationdate" />
+          <attribute name="appbase_person" />
+          <attribute name="appbase_revokedby" />
+          <attribute name="appbase_revokeddate" />
+          <attribute name="appbase_scope" />
+          <attribute name="appbase_user" />
         </entity>
       </fetch>
     </fetchxml>

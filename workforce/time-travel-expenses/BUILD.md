@@ -25,7 +25,6 @@ Represents a defined reporting cycle such as a week, pay period, or month used t
 - Locked Date: Date
 - Is Locked: Yes / No
 - Locked By: Lookup (Person)
-- Is Active: Yes / No
 - Notes: Memo
 
 ---
@@ -50,10 +49,8 @@ Represents a hierarchical classification structure used to categorize Time Entri
 - Is Overtime Eligible: Yes / No
 - Requires Approval: Yes / No
 - Default Approver: Lookup (Person)
-- Is Active: Yes / No
 - Effective Start Date: Date
 - Effective End Date: Date
-- Display Order: Integer
 - Notes: Memo
 
 ---
@@ -153,8 +150,6 @@ Represents standardized reasons for travel such as training, site visits, inspec
 - Requires Justification: Yes / No
 - Requires Advance Approval: Yes / No
 - Default Approver: Lookup (Person)
-- Is Active: Yes / No
-- Display Order: Integer
 
 ---
 
@@ -178,12 +173,12 @@ Represents a planned or approved trip, including traveler details, purpose, date
 - Total Days: Integer
 - Origin Location: Lookup (Location)
 - Origin City: Text
-- Origin State: Text
-- Origin Country: Text
+- Origin State or Province: Lookup (State or Province)
+- Origin Country: Lookup (Country)
 - Destination Location: Lookup (Location)
 - Destination City: Text
-- Destination State: Text
-- Destination Country: Text
+- Destination State or Province: Lookup (State or Province)
+- Destination Country: Lookup (Country)
 - Is International: Yes / No
 - Is Overnight: Yes / No
 - Transportation Method: Choice (Transportation Method)
@@ -236,12 +231,12 @@ Represents an individual component of a trip, such as a flight, lodging stay, or
 - Start Date Time: Date Time
 - End Date Time: Date Time
 - Origin City: Text
-- Origin State: Text
-- Origin Country: Text
+- Origin State or Province: Lookup (State or Province)
+- Origin Country: Lookup (Country)
 - Origin Location: Lookup (Location)
 - Destination City: Text
-- Destination State: Text
-- Destination Country: Text
+- Destination State or Province: Lookup (State or Province)
+- Destination Country: Lookup (Country)
 - Destination Location: Lookup (Location)
 - Transportation Method: Choice (Transportation Method)
 - Carrier: Text
@@ -288,8 +283,6 @@ Represents standardized classifications for expenses such as lodging, meals, mil
 - Is Mileage Based: Yes / No
 - Mileage Rate: Currency
 - GL Account: Text
-- Is Active: Yes / No
-- Display Order: Integer
 
 ---
 
@@ -359,8 +352,8 @@ Represents an individual expense transaction recorded under an Expense Report. C
 - Merchant Location: Text
 - Location: Lookup (Location)
 - City: Text
-- State: Text
-- Country: Text
+- State or Province: Lookup (State or Province)
+- Country: Lookup (Country)
 - Related Travel Segment: Lookup (Travel Segment)
 - Quantity: Float
 - Unit Cost: Currency

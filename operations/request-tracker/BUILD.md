@@ -85,6 +85,7 @@ Defines the classification of a request and supports routing, prioritization, an
 **Planned:**
 - Name: Text
 - Type Code: Text
+- Parent Request Type: Lookup (Request Type)
 - Request Type Category: Choice (Request Type Category)
 - Description: Memo
 - Purpose: Memo
@@ -103,8 +104,6 @@ Defines the classification of a request and supports routing, prioritization, an
 - Instructions for Submitter: Memo
 - Instructions for Handler: Memo
 - Workflow Notes: Memo
-- Is Active: Yes / No
-- Display Order: Integer
 - Icon: Text
 - Color: Text
 

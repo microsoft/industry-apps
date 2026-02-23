@@ -14,6 +14,7 @@ Defines a specific benefit offering provided by the organization (e.g., Medical 
 **Planned:**
 - Name: Text
 - Plan Code: Text
+- Parent Benefit Plan: Lookup (HR Benefit Plan)
 - Benefit Category: Choice (Benefit Category)
 - HR Benefit Provider: Lookup (HR Benefit Provider)
 - Plan Year: Text
@@ -49,7 +50,6 @@ Defines selectable options within a benefit plan (e.g., PPO vs. HDHP, Basic vs. 
 - Effective Start Date: Date
 - Effective End Date: Date
 - Is Default: Yes / No
-- Display Order: Integer
 - Premium Amount: Currency
 - Coverage Summary: Memo
 - Notes: Memo
@@ -69,8 +69,6 @@ Defines coverage tiers available under benefit plans (e.g., Employee Only, Emplo
 - Description: Memo
 - Allows Dependents: Yes / No
 - Maximum Dependents: Integer
-- Display Order: Integer
-- Is Active: Yes / No
 
 ---
 
@@ -143,7 +141,6 @@ Defines reusable eligibility conditions for benefit participation, such as emplo
 - Age Minimum: Integer
 - Age Maximum: Integer
 - Rule Priority: Integer
-- Is Active: Yes / No
 - Notes: Memo
 
 ---
@@ -161,7 +158,6 @@ Defines waiting period rules before an employee becomes eligible for enrollment 
 - Calculation Method: Choice (Calculation Method)
 - Effective Date Rule: Memo
 - Description: Memo
-- Is Active: Yes / No
 
 ---
 
@@ -267,7 +263,6 @@ Stores beneficiary designations for benefit plans that require them (e.g., life 
 - Email: Text
 - Effective Start Date: Date
 - Effective End Date: Date
-- Is Active: Yes / No
 - Notes: Memo
 
 ---
@@ -353,7 +348,6 @@ Defines employer and employee contribution structures for a benefit plan, option
 - Total Premium Amount: Currency
 - Applies To Personnel Types: Text
 - Applies To Pay Grades: Text
-- Is Active: Yes / No
 - Notes: Memo
 
 ---
@@ -374,7 +368,6 @@ Defines how employer benefit costs are allocated across funds, cost centers, gra
 - Allocation Amount: Currency
 - Effective Start Date: Date
 - Effective End Date: Date
-- Is Active: Yes / No
 - Notes: Memo
 
 ---
@@ -394,7 +387,6 @@ Maps benefit enrollments to payroll deduction identifiers. Supports integration 
 - Is Post-Tax: Yes / No
 - Payroll System Code: Text
 - Description: Memo
-- Is Active: Yes / No
 
 ---
 

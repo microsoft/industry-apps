@@ -21,7 +21,6 @@ Represents departments, divisions, branches, offices, or other organizational su
 - Manager: Lookup (Contact)
 - Location: Lookup (Location)
 - Description: Memo
-- Is Active: Yes / No
 
 **Planned:**
 
@@ -35,8 +34,6 @@ Categorizes organization units by hierarchical level or functional purpose (e.g.
 - Type Code: Text
 - Hierarchical Level: Integer
 - Description: Memo
-- Sort Order: Integer
-- Is Active: Yes / No
 
 **Planned:**
 
@@ -56,7 +53,6 @@ Categorizes organization units by hierarchical level or functional purpose (e.g.
 - Budget Amount: Currency
 - Description: Memo
 - Expected Outcomes: Memo
-- Is Active: Yes / No
 
 **Added:**
 - Parent Organization Initiative: Lookup (Organization Initiative)
@@ -127,7 +123,6 @@ Represents physical locations, facilities, buildings, or sites where work occurs
 - Requires Verification: Yes / No
 - Is Sensitive: Yes / No
 - Description: Memo
-- Sort Order: Integer
 
 **Planned:**
 ---
@@ -138,7 +133,6 @@ Represents physical locations, facilities, buildings, or sites where work occurs
 - Type Code: Text
 - Employment Type: Choice (Employment Type)
 - Description: Memo
-- Sort Order: Integer
 
 **Planned:**
 ---
@@ -148,7 +142,6 @@ Represents physical locations, facilities, buildings, or sites where work occurs
 - Series Code: Text
 - Occupational Category: Text
 - Description: Memo
-- Sort Order: Integer
 
 **Planned:**
 ---
@@ -187,12 +180,28 @@ Represents physical locations, facilities, buildings, or sites where work occurs
 
 **Planned:**
 ---
-### Credential
+### Credential Type
 **Completed:**
-- Name: Text
-- Person: Lookup (Contact)
+
+- Credential Code: Text
+- Parent Credential Type: Lookup (Credential Type)
 - General Category: Choice (General Category)
 - Issuing Authority: Lookup (Account)
+- Typical Validity Period (Months): Integer
+- Requires Renewal: Yes / No
+- Renewal Frequency (Months): Integer
+- Description: Memo
+- Requirements: Memo
+- Related Competency: Lookup (Competency)
+
+**Planned:**
+- Name: Text
+---
+### Credential Assignment
+**Completed:**
+
+- Person: Lookup (Contact)
+- Credential Type: Lookup (Credential Type)
 - Credential Number: Text
 - Issue Date: Date
 - Expiration Date: Date
@@ -201,6 +210,7 @@ Represents physical locations, facilities, buildings, or sites where work occurs
 - Supporting Document: Lookup (Document)
 
 **Planned:**
+- Name: Text
 ---
 ### Competency
 **Completed:**
@@ -535,6 +545,26 @@ Represents tasks, action items, or follow-up items assigned to individuals or te
 
 **Planned:**
 ---
+## Financial Periods
+
+### Fiscal Period
+Represents time periods used for financial reporting, budgeting, and accounting cycles. Supports hierarchical structures (e.g., Fiscal Year containing Quarters containing Months) for flexible period-based reporting and controls.
+
+**Completed:**
+
+**Planned:**
+- Name: Text
+- Period Code: Text
+- Parent Fiscal Period: Lookup (Fiscal Period)
+- Fiscal Year: Text
+- Period Type: Choice (Period Type)
+- Start Date: Date
+- End Date: Date
+- Period Status: Choice (Period Status)
+- Sequence Number: Integer
+- Description: Memo
+
+---
 ## ✅ Global / Reusable Choice Fields
 
 **Completed:**
@@ -858,5 +888,23 @@ Classifies the nature and scope of impact.
 - Minimal
 - None
 - Unknown
+
+### Period Type
+Defines the type of fiscal or reporting period.
+- Month
+- Quarter
+- Half Year
+- Fiscal Year
+- Calendar Year
+- Biennial
+- Custom Period
+
+### Period Status
+Status of a financial or reporting period.
+- Future
+- Open
+- Closed
+- Locked
+- Adjusted
 
 **Planned:**

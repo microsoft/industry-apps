@@ -61,7 +61,6 @@ Categorizes executive actions (e.g., Strategic Initiative, Compliance Action, In
 - Requires Impact Assessment: Yes / No
 - Requires Risk Assessment: Yes / No
 - Default Priority: Choice (Priority)
-- Is Active: Yes / No
 
 ---
 

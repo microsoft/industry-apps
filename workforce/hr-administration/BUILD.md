@@ -107,7 +107,6 @@ Represents a defined job role or classification (title, exempt status, bargainin
 - Bargaining Unit Eligible: Yes / No
 - Default Bargaining Unit: Text
 - Description: Memo
-- Is Active: Yes / No
 
 **Planned:**
 
@@ -169,7 +168,6 @@ Defines categories of employment actions (e.g., Promotion, Reassignment, Pay Adj
 - Requires Approval: Yes / No
 - Approval Levels: Integer
 - Requires Legal Authority: Yes / No
-- Is Active: Yes / No
 
 ---
 

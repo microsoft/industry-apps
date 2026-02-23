@@ -10,8 +10,14 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_fiscalperiodid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="194" />
+          <cell name="appbase_periodcode" width="110" />
+          <cell name="appbase_fiscalyear" width="103" />
+          <cell name="appbase_startdate" width="100" />
+          <cell name="appbase_enddate" width="100" />
+          <cell name="appbase_periodtype" width="108" />
+          <cell name="appbase_periodstatus" width="115" />
+          <cell name="appbase_description" width="300" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +27,17 @@
         <entity name="appbase_fiscalperiod">
           <attribute name="appbase_fiscalperiodid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_fiscalyear" />
+          <attribute name="appbase_startdate" />
+          <attribute name="appbase_enddate" />
+          <attribute name="appbase_periodcode" />
+          <attribute name="appbase_description" />
+          <attribute name="appbase_periodtype" />
+          <attribute name="appbase_periodstatus" />
         </entity>
       </fetch>
     </fetchxml>

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{662c94d3-2205-4c7f-89f2-fa52bd15e91f}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
+        <row name="result" id="appbase_credentialassignmentid">
+          <cell name="appbase_name" width="300" />
+          <cell name="appbase_person" width="100" />
+          <cell name="appbase_credentialtype" width="130" />
+          <cell name="appbase_credentialnumber" width="148" />
+          <cell name="appbase_certificationstatus" width="149" />
+          <cell name="appbase_issuedate" width="100" />
+          <cell name="appbase_renewaldate" width="119" />
+          <cell name="appbase_expirationdate" width="130" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="appbase_credentialassignment">
+          <attribute name="appbase_credentialassignmentid" />
+          <attribute name="appbase_name" />
+          <order attribute="appbase_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="appbase_person" />
+          <attribute name="appbase_credentialtype" />
+          <attribute name="appbase_issuedate" />
+          <attribute name="appbase_renewaldate" />
+          <attribute name="appbase_certificationstatus" />
+          <attribute name="appbase_credentialnumber" />
+          <attribute name="appbase_expirationdate" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Credential Assignments" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

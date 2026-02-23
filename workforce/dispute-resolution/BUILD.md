@@ -231,6 +231,7 @@ A single dispute may include multiple issues (e.g., discrimination, retaliation,
 - Issue Number | Text
 - Issue Title | Text
 - Dispute | Lookup *(to Dispute)*
+- Parent Dispute Issue | Lookup *(to Dispute Issue)*
 - Issue Type | Choice
 - Severity Level | Choice *(reuse from Core)*
 - Alleged Date | Date

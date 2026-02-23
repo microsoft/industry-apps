@@ -14,6 +14,7 @@ Primary case record. Tracks lifecycle status, ownership, classification, key dat
 **Planned:**
 - Name: Text
 - Case Number: Text
+- Parent Investigation: Lookup (Investigation)
 - Investigative Type: Lookup (Investigative Type)
 - Investigative Category: Lookup (Investigative Category)
 - Case Status: Choice (Investigation Status)
@@ -110,7 +111,6 @@ Specific claim or accusation being evaluated within a case. A case may contain m
 - Legal Authority: Lookup (Legal Authority)
 - Estimated Monetary Impact: Currency
 - Severity Level: Choice (Severity Level)
-- Display Order: Integer
 - Notes: Memo
 
 ---
@@ -132,7 +132,6 @@ Structured question, policy element, or control area being examined. Often used 
 - Question: Memo
 - Analysis: Memo
 - Conclusion: Memo
-- Display Order: Integer
 - Notes: Memo
 
 ---
@@ -150,7 +149,6 @@ Primary investigation taxonomy (Fraud, Misconduct, Safety, Data Breach, Quality,
 - Requires Legal Review: Yes / No
 - Requires External Reporting: Yes / No
 - Standard Investigation Duration (Days): Integer
-- Is Active: Yes / No
 
 ---
 
@@ -164,7 +162,6 @@ Secondary classification used for reporting (program area, risk domain, business
 - Category Code: Text
 - Description: Memo
 - Parent Category: Lookup (Investigative Category)
-- Is Active: Yes / No
 
 ---
 
@@ -222,7 +219,6 @@ Defines allowable roles a party may have in a case.
 - Is Subject Role: Yes / No
 - Is Witness Role: Yes / No
 - Requires Notification: Yes / No
-- Is Active: Yes / No
 
 ---
 
@@ -320,7 +316,6 @@ Classification of evidence (email, CCTV, financial record, system log, physical 
 - Description: Memo
 - Requires Special Handling: Yes / No
 - Retention Requirements: Memo
-- Is Active: Yes / No
 
 ---
 
@@ -407,7 +402,6 @@ Physical or digital storage location (locker, vault, secure repository, external
 - Custodian: Lookup (Person)
 - Capacity: Text
 - Security Level: Choice (Security Classification)
-- Is Active: Yes / No
 - Notes: Memo
 
 ---
@@ -679,7 +673,6 @@ Defines referral categories (Internal, Legal, Law Enforcement, Regulator, HR, et
 - Default Organization Unit: Lookup (Organization Unit)
 - Requires Formal Notification: Yes / No
 - Standard Response Time (Days): Integer
-- Is Active: Yes / No
 
 ---
 
