@@ -277,7 +277,7 @@
         } else if (item.type === 'deploy') {
           await deployModule(item.module, item.deployment, item.environmentKey, item.isSourceEnv, item.upgrade, item.forceUnmanaged);
         } else if (item.type === 'ship') {
-          await shipModule(item.module, item.deployment, item.environment, item.environmentKey, item.forceUnmanaged);
+          await shipModule(item.module, item.deployment, item.environment, item.environmentKey, item.upgrade, item.forceUnmanaged);
         }
         
         // Mark as success
@@ -440,7 +440,7 @@
     }
   }
   
-  async function shipModule(module, deploymentName, environmentName, environmentKey, forceUnmanaged = false) {
+  async function shipModule(module, deploymentName, environmentName, environmentKey, upgrade = false, forceUnmanaged = false) {
     const isManaged = !forceUnmanaged;
     const deployType = isManaged ? 'ship (managed)' : 'ship (unmanaged)';
     activeOperation.set(`${deployType}-${module.name}`);
@@ -456,7 +456,8 @@
           environment: environmentKey,
           category: module.category,
           module: module.name,
-          managed: isManaged
+          managed: isManaged,
+          upgrade: upgrade && isManaged // Only upgrade for managed deployments
         })
       });
       
@@ -1058,6 +1059,16 @@
                   <div class="detail">To: {item.environment}</div>
                   <div class="detail">Tenant: {item.tenant}</div>
                   {#if item.status === 'queued'}
+                    {#if !item.forceUnmanaged}
+                      <label class="upgrade-checkbox">
+                        <input 
+                          type="checkbox" 
+                          checked={item.upgrade}
+                          on:change={() => toggleQueueItemUpgrade(item.id)}
+                          disabled={queueExecuting} />
+                        <span>Upgrade (delete removed components)</span>
+                      </label>
+                    {/if}
                     <label class="upgrade-checkbox">
                       <input 
                         type="checkbox" 

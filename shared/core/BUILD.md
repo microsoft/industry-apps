@@ -58,8 +58,13 @@ Categorizes organization units by hierarchical level or functional purpose (e.g.
 - Expected Outcomes: Memo
 - Is Active: Yes / No
 
+**Added:**
+- Parent Organization Initiative: Lookup (Organization Initiative)
+
 **Planned:**
+
 ---
+
 ### Location
 Represents physical locations, facilities, buildings, or sites where work occurs or services are delivered.
 
@@ -91,6 +96,9 @@ Represents physical locations, facilities, buildings, or sites where work occurs
 - Presiding Judge: Lookup (Contact)
 - Court Location: Lookup (Location)
 - Description: Memo
+
+**Added:**
+- Parent Judicial District: Lookup (Judicial District)
 
 **Planned:**
 ---
@@ -241,6 +249,9 @@ Represents tasks, action items, or follow-up items assigned to individuals or te
 - Key Terms: Memo
 - Document: Lookup (Document)
 
+**Added:**
+- Parent Agreement: Lookup (Agreeemnt)
+
 **Planned:**
 ---
 ### Formal Decision
@@ -273,6 +284,9 @@ Represents tasks, action items, or follow-up items assigned to individuals or te
 - Description: Memo
 - Discussion Notes: Memo
 - Outcome: Memo
+
+**Added:**
+- Parent Discussion Item: Lookup (Discussion Item)
 
 **Planned:**
 ---
@@ -353,6 +367,9 @@ Represents tasks, action items, or follow-up items assigned to individuals or te
 - Scope: Memo
 - Supporting Document: Lookup (Document)
 
+**Added:**
+- Parent Compliance Framework: Lookup (Compliance Framework)
+
 **Planned:**
 ---
 ### Compliance Framework Category
@@ -361,8 +378,13 @@ Represents tasks, action items, or follow-up items assigned to individuals or te
 - Category Code: Text
 - Description: Memo
 
+**Added:**
+- Parent Compliance Framework Category: Lookup (Compliance Framework Category)
+
 **Planned:**
+
 ---
+
 ### Compliance Requirement
 **Completed:**
 - Name: Text
@@ -378,10 +400,30 @@ Represents tasks, action items, or follow-up items assigned to individuals or te
 - Control Objective: Memo
 - Supporting Document: Lookup (Document)
 
+**Added:**
+- Parent Compliance Requirement: Lookup (Compliance Requirement)
+
 **Planned:**
 ---
 ## Risk & Impact
 
+### Analysis
+**Completed:**
+- Name: Text
+- Analysis Number: Text
+- General Category: Choice (General Category)
+- Analysis Date: Date
+- Conducted By: Lookup (User)
+- Owning Organization Unit: Lookup (Organization Unit)
+- Action Status: Choice (Action Status)
+- Description: Memo
+- Findings: Memo
+- Recommendations: Memo
+- Supporting Document: Lookup (Document)
+
+**Planned:**
+
+---
 ### Risk Item
 **Completed:**
 - Name: Text
@@ -399,7 +441,12 @@ Represents tasks, action items, or follow-up items assigned to individuals or te
 - Impact Description: Memo
 - Mitigation Strategy: Memo
 
+**Added:**
+- Parent Risk Item: Lookup (Risk Item)
+- Analysis: Lookup (Analysis)
+
 **Planned:**
+
 ---
 ### Impact
 **Completed:**
@@ -415,8 +462,14 @@ Represents tasks, action items, or follow-up items assigned to individuals or te
 - Financial Impact: Currency
 - Mitigation Actions: Memo
 
+**Added:**
+- Parent Impact: Lookup (Impact)
+- Analysis: Lookup (Analysis)
+
 **Planned:**
+
 ---
+
 ## Content & Documentation
 
 ### Document

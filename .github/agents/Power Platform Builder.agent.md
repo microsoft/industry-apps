@@ -47,6 +47,8 @@ Description of entity
 - `Field Name: Memo` - Multi-line text
 - `Field Name: Integer` - Whole number
 - `Field Name: Currency` - Money field
+  - **Note:** Automatically creates companion `fieldname_base` field for multi-currency support
+  - Example: "Unit Price: Currency" → creates `appbase_unitprice` AND `appbase_unitprice_base`
 - `Field Name: Float` or `Decimal` - Decimal number
 - `Field Name: Date` - Date only
 - `Field Name: Date Time` - Date and time
@@ -84,6 +86,32 @@ Optional description of the choice field's purpose
 - Value A
 - Value B
 ```
+
+### BUILD.md Section Organization
+
+Entity sections use three subsections to organize fields by implementation status:
+
+**Completed:** - Fields created during initial entity setup or from original design
+**Added:** - Fields added after entity was initially complete (e.g., new relationships, missing fields discovered later)
+**Planned:** - Fields not yet created
+
+**Example:**
+```markdown
+### Risk Item
+**Completed:**
+- Name: Text
+- Risk Number: Text
+[... original 13 fields ...]
+
+**Added:**
+- Parent Risk Item: Lookup (Risk Item)
+- Analysis: Lookup (Analysis)
+
+**Planned:**
+- Future Enhancement Field: Text
+```
+
+When adding fields to existing entities post-creation, place them in the **Added:** section to distinguish from the original design.
 
 ## Workflow Philosophy
 
@@ -192,9 +220,15 @@ Execute `python build-automation/cli_get_config.py` to get available options.
 ### Step 5: Approval Gate
 **CRITICAL:** Wait for explicit user confirmation before proceeding.
 
-Ask: "Proceed with creating [this choice set | these N fields on {Entity}]? (yes/no)"
+Ask: "Ready to proceed with creating [this choice set | these N fields on {Entity}]?"
 
-Do NOT proceed without clear "yes" confirmation.
+**Recognized Approval Phrases:**
+- "Yes" / "Yes!" / "Yeah!" / "Yep!"
+- "Let's do it" / "Do it" / "Go ahead"
+- "Proceed" / "Continue"
+- "Sweet!" / "Awesome!" / "Perfect!" (followed by affirmative context)
+
+**Do NOT proceed without clear affirmative response.**
 
 ### Step 6: Execute Creation
 
@@ -208,6 +242,39 @@ Do NOT proceed without clear "yes" confirmation.
 2. Stream progress output line-by-line
 3. Report results: "✓ Created N of N fields" or handle failures
 4. **Important**: Lookup fields take 30-90 seconds to create (relationship + field). Wait patiently for output - all CLI tools now flush output immediately for visibility.
+
+### Step 6a: Handling Lookup Field Creation Interruptions
+
+**Expected Behavior:**
+Lookup fields create relationships in Dataverse which take 30-90 seconds EACH. The CLI may be interrupted during long-running operations. This is NORMAL and EXPECTED for entities with multiple lookup fields.
+
+**Recovery Pattern (Standard Protocol):**
+1. **Check current state**: `python build-automation/cli_verify_fields.py --deployment DEP --environment ENV --table TABLE`
+2. **Identify what was created**: Parse the JSON output to see which fields succeeded
+3. **Create remaining fields**: Generate new JSON with only missing fields → `*_remaining_fields.json`
+4. **Execute remaining batch**: Run `cli_create_fields.py` with the remaining fields file
+5. **Final verification**: Run `cli_verify_fields.py` again to confirm all fields present
+
+**Example Multi-Batch Workflow:**
+```
+# Initial attempt creates 5 of 13 fields before interruption
+$ python cli_create_fields.py ... --fields riskitem_fields.json
+[Interrupted after Conducted By lookup]
+
+# Verify what exists
+$ python cli_verify_fields.py ... --table appbase_riskitem
+→ Found: 5 fields
+
+# Create remaining 8 fields
+$ python cli_create_fields.py ... --fields riskitem_remaining_fields.json
+→ Success: All 8 created
+
+# Final verification
+$ python cli_verify_fields.py ... --table appbase_riskitem
+→ Found: All 13 fields ✓
+```
+
+The verification tools (`cli_verify_fields.py`) make recovery straightforward. Always verify state before creating remaining fields to avoid duplicates.
 
 ### Step 7: Update BUILD.md Tracking
 
@@ -294,6 +361,78 @@ Report:
 - ✓ {N} fields created on {EntityName}
 - 📝 BUILD.md updated with completed items
 - 📋 CHANGELOG prompt offered (if applicable)
+
+## Handling Mid-Execution Design Changes
+
+**User-Initiated Design Changes:**
+If user wants to modify field definitions during execution (e.g., change lookup target, add extra field, rename fields):
+
+**Process:**
+1. **Pause execution** - Don't proceed with current plan
+2. **User updates BUILD.md** - Let user manually edit the file with changes
+3. **Re-parse entity** - Run `cli_parse_buildmd.py` again to get updated definitions
+4. **Regenerate plan** - Show new execution plan for approval
+5. **Proceed with updated plan** - Execute with new field definitions
+
+**Example Scenario:**
+User requests Document entity's "Author" change from Contact to User lookup, and add "External Author" as Contact lookup.
+- Agent paused execution
+- User manually edited BUILD.md
+- Agent re-parsed and created corrected fields
+- BUILD.md manually updated post-creation to reflect actual implementation
+
+**Key Principle:** Users own the design - agent implements. Always re-parse after manual BUILD.md edits before creating fields.
+
+## Progress Tracking Best Practices
+
+**Multi-Entity Sessions:**
+- Keep running count: "Progress: N entities completed, M total fields created"
+- Show remaining: "Remaining: Entity1 (X fields), Entity2 (Y fields)"
+- Celebrate milestones: "🎉 Module section complete!" when finishing major groupings
+
+**Per-Entity Tracking:**
+- Use todo lists for multi-step processes (parse, validate, create, update)
+- Mark completed steps clearly with ✓ checkmarks
+- Provide concise status updates between steps
+
+**Example Progress Updates:**
+```
+✓ Risk Item complete - All 13 fields created
+✓ Impact complete - All 10 fields created
+
+Progress: 28 entities completed, 233 total fields created
+Remaining: Privacy Consent (11 fields), Product (6 fields)
+
+Ready to continue with Privacy Consent?
+```
+
+**Session Momentum:**
+- Maintain steady forward progress one entity at a time
+- Quick status check after each entity completion
+- Clear milestone celebrations for section completions
+
+## Adding Missing Entities Mid-Session
+
+**If user realizes an entity is missing from BUILD.md:**
+
+**Process:**
+1. **User adds entity to BUILD.md** - Manually add new entity section with Planned fields
+2. **Add relationship fields if needed** - Update existing entities to reference new entity (in "Planned:" or "Added:" section)
+3. **Create parent entity first** - Process the new entity completely (parse, create, update)
+4. **Then add relationship fields** - Add lookup fields to existing entities that reference it
+
+**Example Workflow:**
+User added "Analysis" entity mid-session to serve as parent for Risk Items and Impacts:
+1. Created Analysis entity with 10 fields
+2. Added "Analysis: Lookup (Analysis)" field to existing Risk Item entity (placed in "Added:" section)
+3. Added "Analysis: Lookup (Analysis)" field to existing Impact entity (placed in "Added:" section)
+
+**Pattern:** Create parent entity → Add relationship fields to children
+
+**Placement in BUILD.md:**
+- New entity fields go in **Completed:** section after creation
+- Relationship fields added to existing entities go in **Added:** section
+- Future planned enhancements for existing entities go in **Planned:** section
 
 ## Error Handling
 

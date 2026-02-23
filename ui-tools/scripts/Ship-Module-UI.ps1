@@ -7,7 +7,8 @@ param(
     [Parameter(Mandatory=$true)][string]$Environment,
     [Parameter(Mandatory=$true)][string]$Category,
     [Parameter(Mandatory=$true)][string]$Module,
-    [Parameter(Mandatory=$false)][switch]$Managed
+    [Parameter(Mandatory=$false)][switch]$Managed,
+    [Parameter(Mandatory=$false)][switch]$Upgrade
 )
 
 $ErrorActionPreference = "Stop"
@@ -86,7 +87,11 @@ try {
     Write-Host ""
     
     if ($Managed) {
-        Deploy-Solution $modulePath -Managed -AutoConfirm -SettingsFile $settingsFile
+        if ($Upgrade) {
+            Deploy-Solution $modulePath -Managed -Upgrade -AutoConfirm -SettingsFile $settingsFile
+        } else {
+            Deploy-Solution $modulePath -Managed -AutoConfirm -SettingsFile $settingsFile
+        }
     } else {
         Deploy-Solution $modulePath -AutoConfirm -SettingsFile $settingsFile
     }

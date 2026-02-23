@@ -39,8 +39,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **Entity: Compliance Requirement** - Created with 11 fields including Compliance Framework/Framework Category/Legal Authority/Responsible Organization Unit lookups, General Category/Priority/Compliance Status choices, and requirement documentation
 
 #### Risk & Impact Management
+- **Entity: Analysis** - Created with 10 fields including Analysis Number, General Category/Action Status choices, Analysis Date, Conducted By (User) lookup, Owning Organization Unit relationship, Supporting Document lookup, and detailed findings and recommendations memos. Serves as a parent container for Risk Items and Impacts
 - **Entity: Risk Item** - Created with 13 fields including Identified By Contact/User lookups, General Category/Likelihood/Severity/Risk Level/Action Status choices, dates, and risk documentation with mitigation strategies
 - **Entity: Impact** - Created with 10 fields including Related Risk/Affected Organization Unit lookups, General Category/Severity/Direction/Polarity choices, Impact Date, Financial Impact with currency tracking, and mitigation actions
+- **Relationship: Analysis to Risk Items** - Added Analysis lookup field to Risk Item entity enabling parent-child relationship for organizing risks under analyses
+- **Relationship: Analysis to Impacts** - Added Analysis lookup field to Impact entity enabling parent-child relationship for organizing impacts under analyses
 
 #### Document & Content Management
 - **Entity: Document** - Created with 13 fields including Document Number, Version, General Category/Publication Status/Security Classification choices, Author (User) and External Author (Contact) lookups, Owning Organization Unit relationship, file metadata (name, size, URL), and descriptions
@@ -66,6 +69,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## Notes
 
 - **Action Item entity intentionally skipped** per architectural decision - functionality will be provided through alternative implementation
+- **Analysis entity pattern**: General-purpose table for storing various types of analyses, serving as a parent container for Risk Items and Impacts to enable organized tracking of analytical work
 - **Field naming conventions applied**: "General Category" standardized across all entities, "State or Province" for geographic references, "Description" for generic memo fields
 - **Currency fields**: Automatically create companion _base fields for multi-currency support
 - **Lookup relationships**: Follow ui-tools naming conventions for schema name generation

@@ -677,6 +677,19 @@ function Deploy-Solution {
 
     $cdsprojFile = Get-ChildItem -Path $SolutionPath -Filter *.cdsproj | Select-Object -First 1
     $Name = $cdsprojFile.BaseName
+    
+    # Get the unique name from Solution.xml for upgrade operations
+    $solutionXmlPath = Join-Path $SolutionPath "src\Other\Solution.xml"
+    $uniqueName = $Name
+    if (Test-Path $solutionXmlPath) {
+        [xml]$solutionXml = Get-Content $solutionXmlPath
+        $xmlUniqueName = $solutionXml.ImportExportXml.SolutionManifest.UniqueName
+        if ($xmlUniqueName) {
+            $uniqueName = $xmlUniqueName
+            Write-Host "Using solution unique name from Solution.xml: $uniqueName" -ForegroundColor Gray
+        }
+    }
+    
     $managedSuffix = ""
     if ($Managed -eq $true) {
         $managedSuffix = "_managed"
@@ -835,6 +848,7 @@ function Deploy-Solution {
         Write-Host "Importing solution with upgrade mode (will delete removed components)..." -ForegroundColor Yellow
         try {
             # Build import command with optional settings file
+            # The --stage-and-upgrade flag handles both staging and applying the upgrade in one step
             $importCmd = "pac solution import --path `"$path`" --stage-and-upgrade"
             if ($SettingsFile -and (Test-Path $SettingsFile)) {
                 Write-Host "Using settings file: $SettingsFile" -ForegroundColor Cyan
@@ -842,16 +856,6 @@ function Deploy-Solution {
             }
             
             Invoke-Expression $importCmd
-            
-            if ($LASTEXITCODE -ne 0) {
-                throw "PAC CLI solution stage and upgrade failed with exit code: $LASTEXITCODE"
-            }
-            
-            Write-Host "Solution staged for upgrade successfully." -ForegroundColor Green
-            
-            # Apply the upgrade
-            Write-Host "Applying upgrade..." -ForegroundColor Yellow
-            pac solution upgrade --solution-name $Name --async
             
             if ($LASTEXITCODE -ne 0) {
                 throw "PAC CLI solution upgrade failed with exit code: $LASTEXITCODE"

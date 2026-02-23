@@ -121,6 +121,7 @@ class ShipRequest(BaseModel):
     category: str
     module: str
     managed: bool = True
+    upgrade: bool = False
 
 class CreateModuleRequest(BaseModel):
     category: str
@@ -449,8 +450,11 @@ async def ship_module(request: ShipRequest):
     if request.managed:
         args.append("-Managed")
     
+    if request.upgrade:
+        args.append("-Upgrade")
+    
     print(f"[DEBUG] Ship args: {args}")  # Debug logging
-    print(f"[DEBUG] request.managed: {request.managed}, type: {type(request.managed)}")
+    print(f"[DEBUG] request.managed: {request.managed}, request.upgrade: {request.upgrade}")
     
     return StreamingResponse(
         stream_powershell_output(*args),
