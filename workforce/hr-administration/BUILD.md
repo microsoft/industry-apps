@@ -11,12 +11,6 @@ Represents an authorized position within the organization (distinct from the per
 
 **Completed:**
 - Name: Text
-
-**Skipped:**
-- Position Title: Text
-- Notes: Memo
-
-**Planned:**
 - Position Number: Text
 - Full Time Equivalent: Float
 - Authorized Date: Date
@@ -25,22 +19,27 @@ Represents an authorized position within the organization (distinct from the per
 - Bargaining Unit: Text
 - Budget Code: Text
 - Description: Memo
-
 - HR Job Classification: Lookup (HR Job Classification)
+- Location: Lookup (Location)
+- Organization Unit: Lookup (Organization Unit)
 - Job Series: Lookup (Job Series)
 - Pay Grade: Lookup (Pay Grade)
 - Grade Rank: Lookup (Grade-Rank)
 - Personnel Type: Lookup (Personnel Type)
-- Organization Unit: Lookup (Organization Unit)
+- Required Clearance Level: Lookup (Clearance Level)
 - Reports To Position: Lookup (HR Position)
-- Position Designation: Choice (Position Designation)
-- Employment Type: Choice (Employment Type)
-- Position Status: Choice (Position Status)
-- Location: Lookup (Location)
+- HR Position Status: Choice (HR Position Status)
 - Is Supervisory: Yes / No
 - Is Management: Yes / No
 - Requires Clearance: Yes / No
-- Required Clearance Level: Lookup (Clearance Level)
+
+**Skipped:**
+- Position Title: Text
+- Notes: Memo
+
+**Planned:**
+- Position Designation: Choice (Position Designation)
+- Employment Type: Choice (Employment Type)
 
 ---
 
@@ -48,23 +47,21 @@ Represents an authorized position within the organization (distinct from the per
 Links an employee to a position for a defined period, including reporting structure and assignment details.
 
 **Completed:**
-
-**Planned:**
-- Name: Text
 - Person: Lookup (Person)
 - HR Position: Lookup (HR Position)
-- Assignment Type: Choice (Assignment Type)
-- Assignment Status: Choice (Assignment Status)
+- HR Assignment Type: Choice (HR Assignment Type)
+- HR Assignment Status: Choice (HR Assignment Status)
 - Start Date: Date
 - End Date: Date
-- Is Primary: Yes / No
 - Full Time Equivalent: Float
 - Reports To Person: Lookup (Person)
 - Reports To Position: Lookup (HR Position)
 - Organization Unit: Lookup (Organization Unit)
 - Location: Lookup (Location)
-- Assignment Reason: Memo
-- Notes: Memo
+- Description: Memo
+- Is Primary: Yes / No
+
+**Planned:**
 
 ---
 
@@ -500,141 +497,24 @@ Templates for position descriptions, offers, and standardized documents.
 ---
 
 ## New Choice Fields
+**Completed:**
 
-### Position Status
-- Authorized
-- Filled
-- Vacant
-- Frozen
-- Abolished
-- Pending Authorization
+- HR Position Status
+- HR Assignment Type
+- HR Assignment Status
+- Exemption Status
+- HR Action Category
+- HR Milestone Type
+- Milestone Status
+- HR Request Type
+- Approval Status
+- HR Disciplinary Action Type
+- HR Leave Type
+- HR Overtime Type
+- HR Telework Type
+- Schedule Frequency
+- HR Declaration Type
+- HR Accommodation Type
 
-### Assignment Type
-- Permanent
-- Temporary
-- Acting
-- Detail
-- Rotational
-- Interim
-
-### Assignment Status
-- Active
-- Pending Start
-- Completed
-- Terminated
-- Suspended
-
-### FLSA Status
-- Exempt
-- Non-Exempt
-
-### Action Category
-- Appointment
-- Promotion
-- Reassignment
-- Transfer
-- Pay Adjustment
-- Status Change
-- Separation
-- Return to Duty
-- Position Change
-
-### Milestone Type
-- Hire Date Anniversary
-- Probation Start
-- Probation End
-- Tenure Eligibility
-- Retirement Eligibility
-- Service Anniversary
-- Contract Renewal
-- Performance Review Due
-
-### Milestone Status
-- Upcoming
-- Current
-- Completed
-- Acknowledged
-
-### Disciplinary Action Type
-- Verbal Warning
-- Written Warning
-- Written Reprimand
-- Suspension
-- Demotion
-- Termination
-- Performance Improvement Plan
-- Final Warning
-
-### HR Request Type
-- Time Off
-- Telework
-- Overtime
-- Workplace Accommodation
-- Schedule Change
-- Leave Donation
-- Personnel Record Update
-
-### Leave Type
-- Annual Leave
-- Sick Leave
-- Personal Leave
-- Bereavement Leave
-- Military Leave
-- Jury Duty
-- FMLA
-- Parental Leave
-- Administrative Leave
-- Leave Without Pay
-- Compensatory Time
-- Holiday
-
-### Entry Status
-- Pending
-- Approved
-- Denied
-- Cancelled
-- Processed
-
-### Overtime Type
-- Regular Overtime
-- Holiday Overtime
-- Emergency Overtime
-- Compensatory Time Earned
-- Compensatory Time Used
-- Premium Pay
-
-### Telework Type
-- Regular Telework
-- Ad Hoc Telework
-- Situational Telework
-- Full Time Remote
-- Hybrid
-
-### Telework Frequency
-- Daily
-- Weekly
-- Bi-Weekly
-- Monthly
-- As Needed
-- Specific Days
-
-### Accommodation Type
-- Physical Workspace Modification
-- Assistive Technology
-- Schedule Modification
-- Policy Exception
-- Equipment Provision
-- Job Restructuring
-- Leave Modification
-- Communication Support
-
-### Declaration Type
-- Conflict of Interest
-- Outside Employment
-- Financial Disclosure
-- Ethics Certification
-- Gift Receipt
-- Travel Declaration
-- Relationship Disclosure
-- Political Activity
+**Planned:**
 
