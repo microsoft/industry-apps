@@ -69,12 +69,8 @@ Links an employee to a position for a defined period, including reporting struct
 Stores formal descriptions and responsibilities associated with a position, potentially version-controlled.
 
 **Completed:**
-
-**Planned:**
-- Name: Text
 - HR Position: Lookup (HR Position)
 - Version Number: Text
-- Description Status: Choice (Publication Status)
 - Effective Date: Date
 - Purpose: Memo
 - Primary Duties: Memo
@@ -88,7 +84,10 @@ Stores formal descriptions and responsibilities associated with a position, pote
 - Approved By: Lookup (Person)
 - Approval Date: Date
 - Supporting Document: Lookup (Document)
-- Notes: Memo
+- Description: Memo
+
+**Planned:**
+- Description Status: Choice (Publication Status)
 
 ---
 
@@ -96,13 +95,10 @@ Stores formal descriptions and responsibilities associated with a position, pote
 Represents a defined job role or classification (title, exempt status, bargaining unit, etc.) used to categorize positions.
 
 **Completed:**
-
-**Planned:**
-- Name: Text
 - Classification Code: Text
 - Job Series: Lookup (Job Series)
 - Classification Level: Integer
-- FLSA Status: Choice (FLSA Status)
+- FLSA Status: Choice (Exemption Status)
 - Standard Occupational Code: Text
 - Default Pay Grade: Lookup (Pay Grade)
 - Is Supervisory: Yes / No
@@ -112,6 +108,8 @@ Represents a defined job role or classification (title, exempt status, bargainin
 - Default Bargaining Unit: Text
 - Description: Memo
 - Is Active: Yes / No
+
+**Planned:**
 
 ---
 

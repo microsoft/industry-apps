@@ -13,7 +13,7 @@ Represents departments, divisions, branches, offices, or other organizational su
 - Name: Text
 
 **Planned:**
-- Organization Unit Type: Choice (Organization Unit Type)
+- Organization Unit Type: Lookup (Organization Unit Type)
 - Parent Organization Unit: Lookup (Organization Unit)
 - Organization: Lookup (Account)
 - Abbreviation: Text
@@ -613,7 +613,47 @@ Represents goods, services, or products tracked for inventory, procurement, or s
 
 **Completed:**
 
-**Planned:**
+### Action Status
+Status of action items or tasks.
+- New (Not Started)
+- In Progress
+- Submitted for Review
+- Review In Progress
+- Returned
+- Complete
+- Cancelled
+- Deferred (On Hold)
+
+### Approval Status
+Tracks approval workflow status.
+- Pending
+- Approved
+- Rejected
+- Cancelled
+- Returned
+- Recalled
+
+### Method of Receipt
+How items or requests were received.
+- Web Portal
+- Phone
+- Email
+- In Person
+- Fax
+- Mail
+- Social Media
+
+### Priority
+Standard priority levels.
+- Low
+- Medium
+- High
+- Critical
+
+### Yes No
+Standard Yes/No choice set (already created in Core).
+- No
+- Yes
 
 ### Lifecycle Stage
 Defines stages in a typical lifecycle (e.g., Planning, Active, Complete, Archived).
@@ -643,32 +683,12 @@ Status of published content or documents.
 - Archived
 - Withdrawn
 
-### Approval Status
-Tracks approval workflow status.
-- Pending
-- Approved
-- Rejected
-- Cancelled
-- Recalled
-
 ### Visibility
 Controls who can view records (e.g., Public, Internal, Restricted).
 - Public
 - Internal
 - Restricted
 - Confidential
-
-### Yes No
-Standard Yes/No choice set (already created in Core).
-- Yes
-- No
-
-### Priority
-Standard priority levels.
-- Critical
-- High
-- Medium
-- Low
 
 ### Severity Level
 Severity classification for risks, incidents, or impacts.
@@ -691,6 +711,18 @@ Data security classification levels.
 - Confidential
 - Secret
 - Top Secret
+
+### Direction
+Direction of change or movement.
+- Increase
+- Decrease
+- No Change
+
+### Polarity
+Positive or negative valence.
+- Positive
+- Neutral
+- Negative
 
 ### Employment Type
 Types of employment relationships.
@@ -781,15 +813,6 @@ How contact was initiated.
 - Portal
 - Social Media
 
-### Method of Receipt
-How items or requests were received.
-- Electronic
-- Mail
-- In Person
-- Fax
-- Portal
-- Email
-
 ### Submission Type
 Type or source of submission.
 - Self Submitted
@@ -808,15 +831,6 @@ Status of requests or applications.
 - Withdrawn
 - Completed
 
-### Action Status
-Status of action items or tasks.
-- Not Started
-- In Progress
-- On Hold
-- Completed
-- Cancelled
-- Deferred
-
 ### Eligibility Status
 Eligibility determination status.
 - Eligible
@@ -833,18 +847,6 @@ Basic certification or attestation status.
 - Expired
 - Revoked
 
-### Direction
-Direction of change or movement.
-- Increase
-- Decrease
-- No Change
-
-### Polarity
-Positive or negative valence.
-- Positive
-- Neutral
-- Negative
-
 ### Overall Result
 Outcome assessment for activities or events.
 - Successful
@@ -858,24 +860,6 @@ Achievement of stated objectives.
 - Partially Met
 - Not Met
 - Exceeded
-
-### Unit of Issue
-Standard units for products or resources.
-- Each
-- Box
-- Case
-- Pallet
-- Pound
-- Gallon
-- Hour
-- Day
-
-### General Category
-Generic categorization field for flexible classification.
-- Type A
-- Type B
-- Type C
-- Other
 
 ### Agreement Type
 Types of agreements or contracts.
@@ -906,3 +890,47 @@ Status of commitments or obligations.
 - Partially Fulfilled
 - Unfulfilled
 - Cancelled
+
+### Unit of Issue
+Standard units for products or resources.
+- Each
+- Box
+- Case
+- Pallet
+- Pound
+- Gallon
+- Hour
+- Day
+
+### General Category
+Generic categorization field for flexible classification across multiple domains.
+- Access Control & Identity Management
+- Asset & Logistics Management
+- Compliance & Regulatory
+- Cybersecurity
+- Data Privacy & Protection
+- Environmental Compliance
+- Ethics & Governance
+- Financial Management
+- Foreign Interests
+- Health & Safety
+- Human Resources & Workforce
+- Incident & Disaster Response
+- Information Management & Records
+- National Security
+- Operational Resilience
+- Procurement & Contract Management
+- Public Relations & Communication
+- Risk Management
+- Technology & Innovation
+- Training & Development
+
+### Impact
+Classifies the nature and scope of impact.
+- Direct
+- Indirect
+- Minimal
+- None
+- Unknown
+
+**Planned:**

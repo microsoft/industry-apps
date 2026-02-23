@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.26012.156" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26012.156" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26013.00155">
+<ImportExportXml version="9.2.26013.152" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26013.152" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26013.00155">
   <SolutionManifest>
     <UniqueName>appbase_hradministration</UniqueName>
     <LocalizedNames>
@@ -14,7 +14,7 @@
         <LocalizedName description="App Base" languagecode="1033" />
       </LocalizedNames>
       <Descriptions>
-        <Description description="appbase" languagecode="1033" />
+        <Description description="App Base Modules" languagecode="1033" />
       </Descriptions>
       <EMailAddress xsi:nil="true"></EMailAddress>
       <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
@@ -102,20 +102,79 @@
       <RootComponent type="1" schemaName="appbase_hrtimeoffrequest" behavior="0" />
       <RootComponent type="1" schemaName="appbase_hrworkplaceaccommodation" behavior="0" />
       <RootComponent type="62" schemaName="appbase_HRAdministration" behavior="0" />
-      <RootComponent type="80" schemaName="appbase_HRAdministration" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_hraccommodationtype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_hractioncategory" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_hrassignmentstatus" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_hrassignmenttype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_hrdeclarationtype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_hrdisciplinaryactiontype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_hrleavetype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_hrmilestonetype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_hrovertimetype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_hrpositionstatus" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_hrrequesttype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_hrteleworktype" behavior="0" />
     </RootComponents>
     <MissingDependencies>
       <MissingDependency>
-        <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)">
-          <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
-        </Required>
-        <Dependent type="80" schemaName="appbase_HRAdministration" displayName="HR Administration" />
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_clearancelevel" parentDisplayName="Clearance Level" solution="appbase_core (1.0.0.1)" />
+        <Dependent type="10" schemaName="appbase_hrposition_RequiredClearanceLevel" displayName="appbase_hrposition_RequiredClearanceLevel" parentSchemaName="appbase_clearancelevel" parentDisplayName="Clearance Level" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.15)" id.uniquename="AppChannel">
-          <package appName="PowerAppsAppFramework Package" version="1.0.0.25">PowerAppsAppFramework_Anchor (1.0.0.25)</package>
-        </Required>
-        <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=appbase_HRAdministration,settingdefinitionid.uniquename=AppChannel" id.parentappmoduleid.uniquename="appbase_HRAdministration" id.settingdefinitionid.uniquename="AppChannel" />
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.0.0.1)" />
+        <Dependent type="10" schemaName="appbase_hrpositiondescription_SupportingDocument" displayName="appbase_hrpositiondescription_SupportingDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_graderank" parentDisplayName="Grade-Rank" solution="appbase_core (1.0.0.1)" />
+        <Dependent type="10" schemaName="appbase_hrposition_GradeRank" displayName="appbase_hrposition_GradeRank" parentSchemaName="appbase_graderank" parentDisplayName="Grade-Rank" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_jobseries" parentDisplayName="Job Series" solution="appbase_core (1.0.0.1)" />
+        <Dependent type="10" schemaName="appbase_hrposition_JobSeries" displayName="appbase_hrposition_JobSeries" parentSchemaName="appbase_jobseries" parentDisplayName="Job Series" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_location" parentDisplayName="Location" solution="appbase_core (1.0.0.1)" />
+        <Dependent type="10" schemaName="appbase_hrposition_Location" displayName="appbase_hrposition_Location" parentSchemaName="appbase_location" parentDisplayName="Location" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_location" parentDisplayName="Location" solution="appbase_core (1.0.0.1)" />
+        <Dependent type="10" schemaName="appbase_hrpositionassignment_Location" displayName="appbase_hrpositionassignment_Location" parentSchemaName="appbase_location" parentDisplayName="Location" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.0.0.1)" />
+        <Dependent type="10" schemaName="appbase_hrposition_OrganizationUnit" displayName="appbase_hrposition_OrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.0.0.1)" />
+        <Dependent type="10" schemaName="appbase_hrpositionassignment_OrganizationUnit" displayName="appbase_hrpositionassignment_OrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_paygrade" parentDisplayName="Pay Grade" solution="appbase_core (1.0.0.1)" />
+        <Dependent type="10" schemaName="appbase_hrposition_PayGrade" displayName="appbase_hrposition_PayGrade" parentSchemaName="appbase_paygrade" parentDisplayName="Pay Grade" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_personneltype" parentDisplayName="Personnel Type" solution="appbase_core (1.0.0.1)" />
+        <Dependent type="10" schemaName="appbase_hrposition_PersonnelType" displayName="appbase_hrposition_PersonnelType" parentSchemaName="appbase_personneltype" parentDisplayName="Personnel Type" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_approvalstatus" displayName="Approval Status" solution="appbase_core (1.0.0.1)" />
+        <Dependent type="2" schemaName="appbase_approvalstatus" displayName="Approval Status" parentSchemaName="appbase_hrpositiondescription" parentDisplayName="HR Position Description" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.1)" />
+        <Dependent type="2" schemaName="appbase_ismanagement" displayName="Is Management" parentSchemaName="appbase_hrposition" parentDisplayName="HR Position" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.1)" />
+        <Dependent type="2" schemaName="appbase_issupervisory" displayName="Is Supervisory" parentSchemaName="appbase_hrposition" parentDisplayName="HR Position" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.1)" />
+        <Dependent type="2" schemaName="appbase_requiresclearance" displayName="Requires Clearance" parentSchemaName="appbase_hrposition" parentDisplayName="HR Position" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.1)" />
+        <Dependent type="2" schemaName="appbase_isprimary" displayName="Is Primary" parentSchemaName="appbase_hrpositionassignment" parentDisplayName="HR Position Assignment" />
       </MissingDependency>
     </MissingDependencies>
   </SolutionManifest>
