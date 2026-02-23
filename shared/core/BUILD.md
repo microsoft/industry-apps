@@ -11,8 +11,6 @@ Represents departments, divisions, branches, offices, or other organizational su
 
 **Completed:**
 - Name: Text
-
-**Planned:**
 - Organization Unit Type: Lookup (Organization Unit Type)
 - Parent Organization Unit: Lookup (Organization Unit)
 - Organization: Lookup (Account)
@@ -25,6 +23,8 @@ Represents departments, divisions, branches, offices, or other organizational su
 - Description: Memo
 - Is Active: Yes / No
 
+**Planned:**
+
 ---
 
 ### Organization Unit Type
@@ -32,87 +32,73 @@ Categorizes organization units by hierarchical level or functional purpose (e.g.
 
 **Completed:**
 - Name: Text
-
-**Planned:**
 - Type Code: Text
 - Hierarchical Level: Integer
 - Description: Memo
 - Sort Order: Integer
 - Is Active: Yes / No
 
+**Planned:**
+
 ---
 
 ### Organization Initiative
-Represents strategic initiatives, programs, or projects that span organizational boundaries.
-
 **Completed:**
 - Name: Text
-
-**Planned:**
 - Initiative Code: Text
-- Initiative Type: Choice (General Category)
+- General Category: Choice (General Category)
 - Sponsoring Organization Unit: Lookup (Organization Unit)
 - Program Manager: Lookup (Contact)
 - Start Date: Date
 - End Date: Date
-- Status: Choice (Operational Status)
+- Operational Status: Choice (Operational Status)
 - Priority: Choice (Priority)
 - Budget Amount: Currency
 - Description: Memo
 - Expected Outcomes: Memo
 - Is Active: Yes / No
 
+**Planned:**
 ---
-
 ### Location
 Represents physical locations, facilities, buildings, or sites where work occurs or services are delivered.
 
 **Completed:**
 - Name: Text
-
-**Planned:**
-- Location Type: Choice (General Category)
+- General Category: Choice (General Category)
 - Address Line 1: Text
 - Address Line 2: Text
 - City: Text
-- State: Text, Max Length: 50
+- State or Province: Lookup (State or Province)
 - Postal Code: Text, Max Length: 20
-- Country: Text, Max Length: 50
+- Country: Lookup (Country)
 - Parent Location: Lookup (Location)
 - Managing Organization Unit: Lookup (Organization Unit)
 - Is Primary: Yes / No
 - Capacity: Integer
 - Description: Memo
-- Is Active: Yes / No
+
+**Planned:**
 
 ---
 
 ### Judicial District
-Represents court jurisdictions or judicial districts for legal and government applications.
-
 **Completed:**
 - Name: Text
-
-**Planned:**
 - District Code: Text
 - Jurisdiction Level: Choice (Jurisdiction Level)
-- State: Text, Max Length: 50
+- State or Province: Lookup (State or Province)
 - Presiding Judge: Lookup (Contact)
 - Court Location: Lookup (Location)
 - Description: Memo
-- Is Active: Yes / No
 
+**Planned:**
 ---
-
 ## People & Workforce
 
 ### Personal Information
-Stores additional demographic or personal details about individuals, linked to the Person (Contact) record.
-
 **Completed:**
 - Name: Text
-
-**Planned:**
 - Person: Lookup (Contact)
 - Information Type: Lookup (Personal Information Type)
 - Information Value: Text, Max Length: 500
@@ -122,82 +108,58 @@ Stores additional demographic or personal details about individuals, linked to t
 - Verified Date: Date
 - Verified By: Lookup (Contact)
 - Security Classification: Choice (Security Classification)
-- Description: Memo
-
----
-
-### Personal Information Type
-Defines categories of personal information (e.g., Emergency Contact, Citizenship, Language Proficiency).
-
-**Completed:**
-- Name: Text
 
 **Planned:**
+---
+### Personal Information Type
+**Completed:**
+- Name: Text
 - Type Code: Text
-- Category: Choice (General Category)
+- General Category: Choice (General Category)
 - Requires Verification: Yes / No
 - Is Sensitive: Yes / No
 - Description: Memo
 - Sort Order: Integer
-- Is Active: Yes / No
 
+**Planned:**
 ---
 
 ### Personnel Type
-Categorizes workforce members by employment category (e.g., Civilian, Uniformed, Contractor, Volunteer).
-
 **Completed:**
 - Name: Text
-
-**Planned:**
 - Type Code: Text
-- Category: Choice (Employment Type)
+- Employment Type: Choice (Employment Type)
 - Description: Memo
 - Sort Order: Integer
-- Is Active: Yes / No
-
----
-
-### Job Series
-Represents occupational groups or job families used to classify positions and roles.
-
-**Completed:**
-- Name: Text
 
 **Planned:**
+---
+### Job Series
+**Completed:**
+- Name: Text
 - Series Code: Text
 - Occupational Category: Text
 - Description: Memo
 - Sort Order: Integer
-- Is Active: Yes / No
-
----
-
-### Grade-Rank
-Represents combined grade and rank structures for uniformed services or hierarchical organizations.
-
-**Completed:**
-- Name: Text
 
 **Planned:**
+---
+### Grade-Rank
+**Completed:**
+- Name: Text
 - Grade: Text
 - Rank: Text
 - Pay Grade: Lookup (Pay Grade)
 - Abbreviation: Text
 - Hierarchical Level: Integer
 - Description: Memo
-- Sort Order: Integer
-- Is Active: Yes / No
 
+**Planned:**
 ---
 
 ### Pay Grade
-Represents salary grades or pay scales used to structure compensation.
-
 **Completed:**
 - Name: Text
-
-**Planned:**
 - Grade Code: Text
 - Min Salary: Currency
 - Max Salary: Currency
@@ -205,61 +167,42 @@ Represents salary grades or pay scales used to structure compensation.
 - Effective Date: Date
 - Expiration Date: Date
 - Description: Memo
-- Sort Order: Integer
-- Is Active: Yes / No
-
----
-
-### Clearance Level
-Defines security clearance levels required for sensitive positions or access to classified information.
-
-**Completed:**
-- Name: Text
 
 **Planned:**
+---
+### Clearance Level
+**Completed:**
+- Name: Text
 - Clearance Code: Text
 - Security Level: Integer
 - Description: Memo
-- Sort Order: Integer
-- Is Active: Yes / No
-
----
-
-### Credential
-Represents professional licenses, certifications, or credentials held by individuals.
-
-**Completed:**
-- Name: Text
 
 **Planned:**
+---
+### Credential
+**Completed:**
+- Name: Text
 - Person: Lookup (Contact)
-- Credential Type: Choice (General Category)
-- Issuing Authority: Text
+- General Category: Choice (General Category)
+- Issuing Authority: Lookup (Account)
 - Credential Number: Text
 - Issue Date: Date
 - Expiration Date: Date
 - Renewal Date: Date
-- Status: Choice (Simple Certification Status)
+- Certification Status: Choice (Simple Certification Status)
 - Supporting Document: Lookup (Document)
-- Is Active: Yes / No
-
----
-
-### Competency
-Defines skills, knowledge areas, or competencies used for workforce development and assessment.
-
-**Completed:**
-- Name: Text
 
 **Planned:**
-- Competency Code: Text
-- Competency Category: Choice (General Category)
-- Description: Memo
-- Sort Order: Integer
-- Is Active: Yes / No
-
 ---
+### Competency
+**Completed:**
+- Name: Text
+- Competency Code: Text
+- General Category: Choice (General Category)
+- Description: Memo
 
+**Planned:**
+---
 ## Action and Task Tracking
 
 ### Action Item
@@ -270,99 +213,78 @@ Represents tasks, action items, or follow-up items assigned to individuals or te
 
 **Planned:**
 - Action Number: Text
-- Assigned To: Lookup (Contact)
-- Assigned By: Lookup (Contact)
+- Assigned By: Lookup (User)
 - Assigned Date: Date
-- Due Date: Date
-- Completed Date: Date
-- Status: Choice (Action Status)
+- Action Status: Choice (Action Status)
 - Priority: Choice (Priority)
-- Related To: Text
 - Description: Memo
 - Resolution Notes: Memo
-- Is Overdue: Yes / No
 
 ---
 
 ## Governance & Decisions
 
 ### Agreement
-Represents contracts, memoranda of understanding, or formal agreements between parties.
-
 **Completed:**
 - Name: Text
-
-**Planned:**
 - Agreement Number: Text
 - Agreement Type: Choice (Agreement Type)
 - Agreement Status: Choice (Agreement Status)
 - Primary Organization: Lookup (Account)
 - Primary Contact: Lookup (Contact)
-- Counterparty Organization: Text
+- Counterparty Organization: Lookup (Account)
 - Effective Date: Date
 - Expiration Date: Date
 - Total Value: Currency
-- Owning Organization Unit: Lookup (Organization Unit)
+- Organization Unit: Lookup (Organization Unit)
 - Description: Memo
 - Key Terms: Memo
 - Document: Lookup (Document)
 
+**Planned:**
 ---
-
 ### Formal Decision
-Records official decisions made by governing bodies, committees, or authorized decision-makers.
-
 **Completed:**
 - Name: Text
-
-**Planned:**
 - Decision Number: Text
 - Decision Date: Date
 - Decision Maker: Lookup (Contact)
 - Decision Body: Text
-- Decision Type: Choice (General Category)
-- Status: Choice (Approval Status)
+- General Category: Choice (General Category)
+- Approval Status: Choice (Approval Status)
 - Effective Date: Date
 - Related Initiative: Lookup (Organization Initiative)
 - Description: Memo
 - Rationale: Memo
 - Supporting Document: Lookup (Document)
 
+**Planned:**
 ---
-
 ### Discussion Item
-Represents topics, agenda items, or issues for discussion in meetings or deliberative processes.
-
 **Completed:**
 - Name: Text
-
-**Planned:**
 - Discussion Number: Text
-- Topic Type: Choice (General Category)
+- General Category: Choice (General Category)
 - Raised By: Lookup (Contact)
 - Raised Date: Date
 - Priority: Choice (Priority)
-- Status: Choice (Action Status)
+- Action Status: Choice (Action Status)
 - Related Decision: Lookup (Formal Decision)
 - Description: Memo
 - Discussion Notes: Memo
 - Outcome: Memo
 
+**Planned:**
 ---
-
 ### After Action Report
-Documents lessons learned and outcomes from completed initiatives, projects, or events.
-
 **Completed:**
 - Name: Text
-
-**Planned:**
 - Report Number: Text
 - Report Date: Date
 - Reporting Organization Unit: Lookup (Organization Unit)
 - Report Author: Lookup (Contact)
 - Event Date: Date
-- Event Type: Choice (General Category)
+- General Category: Choice (General Category)
 - Overall Assessment: Choice (Overall Result)
 - Related Initiative: Lookup (Organization Initiative)
 - Executive Summary: Memo
@@ -371,151 +293,118 @@ Documents lessons learned and outcomes from completed initiatives, projects, or 
 - Recommendations: Memo
 - Supporting Document: Lookup (Document)
 
+**Planned:**
 ---
-
 ## Legal & Compliance
 
 ### Legal Authority
-Represents laws, regulations, statutes, executive orders, or other legal authorities governing operations.
-
 **Completed:**
 - Name: Text
-
-**Planned:**
 - Authority Type: Choice (Legal Authority Type)
 - Authority Status: Choice (Legal Authority Status)
 - Jurisdiction Level: Choice (Jurisdiction Level)
 - Citation: Text, Max Length: 200
+- Parent Legal Authority: Lookup (Legal Authority)
 - Enactment Date: Date
 - Effective Date: Date
 - Expiration Date: Date
-- Issuing Authority: Text
+- Issuing Authority: Lookup (Account)
 - Description: Memo
 - Summary: Memo
 - Document: Lookup (Document)
-- Is Active: Yes / No
-
----
-
-### Legal Amendment
-Records amendments, modifications, or revisions to existing legal authorities.
-
-**Completed:**
-- Name: Text
 
 **Planned:**
+---
+### Legal Amendment
+**Completed:**
+- Name: Text
 - Original Authority: Lookup (Legal Authority)
 - Amendment Number: Text
 - Amendment Date: Date
 - Effective Date: Date
-- Impact: Choice (Legal Authority Impact)
+- Legal Authority Impact: Choice (Legal Authority Impact)
 - Description: Memo
 - Changes Summary: Memo
 - Document: Lookup (Document)
 
+**Planned:**
 ---
-
 ### Legal Cross-Reference
-Links related legal authorities to establish relationships and dependencies.
-
 **Completed:**
 - Name: Text
-
-**Planned:**
 - Primary Authority: Lookup (Legal Authority)
 - Related Authority: Lookup (Legal Authority)
-- Relationship Type: Choice (General Category)
+- General Category: Choice (General Category)
+- Impact: Choice (Impact)
 - Description: Memo
 
+**Planned:**
 ---
-
 ### Compliance Framework
-Represents regulatory frameworks, standards, or compliance programs (e.g., FISMA, HIPAA, ISO).
-
 **Completed:**
 - Name: Text
-
-**Planned:**
 - Framework Code: Text
 - Framework Category: Lookup (Compliance Framework Category)
-- Issuing Organization: Text
+- Issuing Organization: Lookup (Account)
 - Version: Text
 - Effective Date: Date
-- Status: Choice (Publication Status)
+- Publication Status: Choice (Publication Status)
 - Description: Memo
 - Scope: Memo
 - Supporting Document: Lookup (Document)
-- Is Active: Yes / No
-
----
-
-### Compliance Framework Category
-Categorizes compliance frameworks by domain or regulatory area.
-
-**Completed:**
-- Name: Text
 
 **Planned:**
+---
+### Compliance Framework Category
+**Completed:**
+- Name: Text
 - Category Code: Text
 - Description: Memo
-- Sort Order: Integer
-- Is Active: Yes / No
-
----
-
-### Compliance Requirement
-Represents specific compliance requirements derived from frameworks or legal authorities.
-
-**Completed:**
-- Name: Text
 
 **Planned:**
+---
+### Compliance Requirement
+**Completed:**
+- Name: Text
 - Requirement Number: Text
 - Compliance Framework: Lookup (Compliance Framework)
+- Compliance Framework Category: Lookup (Compliance Framework Category)
 - Legal Authority: Lookup (Legal Authority)
-- Requirement Category: Choice (General Category)
+- General Category: Choice (General Category)
 - Priority: Choice (Priority)
-- Status: Choice (Compliance Status)
+- Compliance Status: Choice (Compliance Status)
 - Responsible Organization Unit: Lookup (Organization Unit)
 - Description: Memo
 - Control Objective: Memo
 - Supporting Document: Lookup (Document)
 
+**Planned:**
 ---
-
 ## Risk & Impact
 
 ### Risk Item
-Represents identified risks, threats, or vulnerabilities requiring monitoring or mitigation.
-
 **Completed:**
 - Name: Text
-
-**Planned:**
 - Risk Number: Text
-- Risk Category: Choice (General Category)
+- General Category: Choice (General Category)
 - Identified Date: Date
 - Identified By: Lookup (Contact)
+- Identified By User: Lookup (User)
 - Owning Organization Unit: Lookup (Organization Unit)
 - Likelihood: Choice (High Medium Low)
 - Severity: Choice (Severity Level)
 - Overall Risk Level: Choice (High Medium Low)
-- Status: Choice (Action Status)
+- Action Status: Choice (Action Status)
 - Description: Memo
 - Impact Description: Memo
 - Mitigation Strategy: Memo
-- Is Active: Yes / No
-
----
-
-### Impact
-Records actual or potential impacts resulting from events, decisions, or risk items.
-
-**Completed:**
-- Name: Text
 
 **Planned:**
-- Impact Type: Choice (General Category)
+---
+### Impact
+**Completed:**
+- Name: Text
+- General Category: Choice (General Category)
 - Impact Date: Date
 - Affected Organization Unit: Lookup (Organization Unit)
 - Severity: Choice (Severity Level)
@@ -526,61 +415,50 @@ Records actual or potential impacts resulting from events, decisions, or risk it
 - Financial Impact: Currency
 - Mitigation Actions: Memo
 
+**Planned:**
 ---
-
 ## Content & Documentation
 
 ### Document
-Represents stored documents, files, or attachments linked to records across the system.
-
 **Completed:**
 - Name: Text
-
-**Planned:**
 - Document Number: Text
-- Document Type: Choice (General Category)
+- General Category: Choice (General Category)
 - Version: Text
 - Publication Date: Date
-- Status: Choice (Publication Status)
-- Author: Lookup (Contact)
+- Publication Status: Choice (Publication Status)
+- Author: Lookup (User)
+- External Author: Lookup (Contact)
 - Owning Organization Unit: Lookup (Organization Unit)
 - Security Classification: Choice (Security Classification)
 - Description: Memo
 - File Name: Text
+- File URL: URL
 - File Size: Integer
-- Is Active: Yes / No
-
----
-
-### Content Template
-Stores reusable document templates for consistent formatting across modules.
-
-**Completed:**
-- Name: Text
 
 **Planned:**
-- Template Type: Choice (General Category)
+---
+### Content Template
+**Completed:**
+- Name: Text
+- General Category: Choice (General Category)
 - Template Content: Memo
 - Description: Memo
 - Version: Text
 - Effective Date: Date
-- Is Active: Yes / No
 
+**Planned:**
 ---
-
 ## Privacy
 
 ### Privacy Consent
-Records consent for data collection, processing, or sharing, supporting privacy compliance.
-
 **Completed:**
 - Name: Text
-
-**Planned:**
 - Person: Lookup (Contact)
-- Consent Type: Choice (General Category)
+- User: Lookup (User)
+- General Category: Choice (General Category)
 - Consent Date: Date
-- Consent Status: Choice (Simple Certification Status)
+- Consent Status: Yes / No
 - Expiration Date: Date
 - Revoked Date: Date
 - Revoked By: Lookup (Contact)
@@ -588,27 +466,22 @@ Records consent for data collection, processing, or sharing, supporting privacy 
 - Scope: Memo
 - Supporting Document: Lookup (Document)
 
+**Planned:**
 ---
-
 ## Product
 
 ### Product
-Represents goods, services, or products tracked for inventory, procurement, or service delivery.
-
 **Completed:**
 - Name: Text
-
-**Planned:**
 - Product Code: Text
-- Product Category: Choice (General Category)
+- General Category: Choice (General Category)
 - Unit of Issue: Choice (Unit of Issue)
 - Unit Price: Currency
 - Description: Memo
 - Specifications: Memo
-- Is Active: Yes / No
 
+**Planned:**
 ---
-
 ## ✅ Global / Reusable Choice Fields
 
 **Completed:**
