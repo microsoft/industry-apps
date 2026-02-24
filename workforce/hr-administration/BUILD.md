@@ -7,8 +7,6 @@ The **HR Administration module** manages the core employment structure, transact
 ## Position & Classification Management
 
 ### HR Position
-Represents an authorized position within the organization (distinct from the person occupying it).
-
 **Completed:**
 - Name: Text
 - Position Number: Text
@@ -36,13 +34,11 @@ Represents an authorized position within the organization (distinct from the per
 **Skipped:**
 - Position Title: Text
 - Notes: Memo
-
-**Planned:**
 - Position Designation: Choice (Position Designation)
 - Employment Type: Choice (Employment Type)
 
+**Planned:**
 ---
-
 ### HR Position Assignment
 Links an employee to a position for a defined period, including reporting structure and assignment details.
 
@@ -66,8 +62,6 @@ Links an employee to a position for a defined period, including reporting struct
 ---
 
 ### HR Position Description
-Stores formal descriptions and responsibilities associated with a position, potentially version-controlled.
-
 **Completed:**
 - HR Position: Lookup (HR Position)
 - Version Number: Text
@@ -85,12 +79,10 @@ Stores formal descriptions and responsibilities associated with a position, pote
 - Approval Date: Date
 - Supporting Document: Lookup (Document)
 - Description: Memo
-
-**Planned:**
 - Description Status: Choice (Publication Status)
 
+**Planned:**
 ---
-
 ### HR Job Classification
 Represents a defined job role or classification (title, exempt status, bargaining unit, etc.) used to categorize positions.
 
@@ -115,11 +107,8 @@ Represents a defined job role or classification (title, exempt status, bargainin
 ## Employment Actions & Lifecycle
 
 ### HR Employment Action
-Represents effective-dated personnel changes such as promotions, transfers, pay adjustments, or status changes.
-
 **Completed:**
 
-**Planned:**
 - Name: Text
 - Action Number: Text
 - HR Action Type: Lookup (HR Action Type)
@@ -154,29 +143,21 @@ Represents effective-dated personnel changes such as promotions, transfers, pay 
 - Approval Date: Date
 - Notes: Memo
 
+**Planned:**
 ---
-
 ### HR Action Type
-Defines categories of employment actions (e.g., Promotion, Reassignment, Pay Adjustment, Conversion). Used to standardize and classify HR Employment Actions.
-
 **Completed:**
 
-**Planned:**
 - Name: Text
 - Action Category: Choice (Action Category)
 - Description: Memo
 - Requires Approval: Yes / No
-- Approval Levels: Integer
-- Requires Legal Authority: Yes / No
-
----
-
-### HR Employment Milestone
-Tracks key lifecycle events such as probation completion, service anniversaries, tenure milestones, or eligibility dates.
-
-**Completed:**
 
 **Planned:**
+---
+### HR Employment Milestone
+**Completed:**
+
 - Name: Text
 - Person: Lookup (Person)
 - Milestone Type: Choice (Milestone Type)
@@ -191,15 +172,11 @@ Tracks key lifecycle events such as probation completion, service anniversaries,
 - Description: Memo
 - Notes: Memo
 
+**Planned:**
 ---
-
 ### HR Disciplinary Action
-Records formal disciplinary measures taken against an employee, including type, basis, effective dates, and outcome. Typically restricted access.
-
 **Completed:**
 
-**Planned:**
-- Name: Text
 - Person: Lookup (Person)
 - Disciplinary Action Type: Choice (Disciplinary Action Type)
 - Action Status: Choice (Action Status)
@@ -220,19 +197,16 @@ Records formal disciplinary measures taken against an employee, including type, 
 - Supporting Document: Lookup (Document)
 - Security Classification: Choice (Security Classification)
 - Visibility: Choice (Visibility)
-- Notes: Memo
-
----
-
-## Employee Requests
-
-### HR Request
-Generic parent table for employee-submitted or HR-initiated requests (e.g., time off, telework, accommodations).
-
-**Completed:**
 
 **Planned:**
 - Name: Text
+- Notes: Memo
+---
+## Employee Requests
+
+### HR Request
+**Completed:**
+
 - Request Number: Text
 - Request Type: Choice (HR Request Type)
 - Request Status: Choice (Request Status)
@@ -247,20 +221,19 @@ Generic parent table for employee-submitted or HR-initiated requests (e.g., time
 - Approval Date: Date
 - Denial Reason: Memo
 - Description: Memo
+
+**Planned:**
+- Name: Text
 - Notes: Memo
-
 ---
-
 ### HR Time Off Request
 Represents the header record for employee leave requests, including leave type, period, and approval status.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - HR Request: Lookup (HR Request)
 - Person: Lookup (Person)
-- Leave Type: Choice (Leave Type)
+- Leave Type: Choice (HR Leave Type)
 - Request Status: Choice (Request Status)
 - Request Date: Date
 - Start Date: Date
@@ -277,7 +250,8 @@ Represents the header record for employee leave requests, including leave type, 
 - Contact During Leave: Text
 - Emergency Contact: Text
 - Supporting Document: Lookup (Document)
-- Notes: Memo
+
+**Planned:**
 
 ---
 
@@ -285,16 +259,16 @@ Represents the header record for employee leave requests, including leave type, 
 Stores individual leave date entries tied to a time off request (specific dates and hours).
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - HR Time Off Request: Lookup (HR Time Off Request)
 - Person: Lookup (Person)
 - Entry Date: Date
 - Hours: Float
-- Entry Status: Choice (Entry Status)
-- Leave Type: Choice (Leave Type)
+- Approval Status: Choice (Approval Status)
+- Leave Type: Choice (HR Leave Type)
 - Notes: Memo
+
+**Planned:**
 
 ---
 
@@ -302,8 +276,6 @@ Stores individual leave date entries tied to a time off request (specific dates 
 Captures individual overtime or compensatory time work entries, including date, hours, type, and rate.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Person: Lookup (Person)
 - Organization Unit: Lookup (Organization Unit)
@@ -320,14 +292,14 @@ Captures individual overtime or compensatory time work entries, including date, 
 - Project Code: Text
 - Notes: Memo
 
+**Planned:**
+
 ---
 
 ### HR Telework Request
 Captures employee requests for telework or remote work arrangements, including schedule and approval details.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - HR Request: Lookup (HR Request)
 - Person: Lookup (Person)
@@ -352,14 +324,14 @@ Captures employee requests for telework or remote work arrangements, including s
 - Safety Checklist Completed: Yes / No
 - Notes: Memo
 
+**Planned:**
+
 ---
 
 ### HR Workplace Accommodation
 Tracks requests and fulfillment of workplace accommodations, including approval workflow and implementation details.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - HR Request: Lookup (HR Request)
 - Person: Lookup (Person)
@@ -388,14 +360,14 @@ Tracks requests and fulfillment of workplace accommodations, including approval 
 - Supporting Document: Lookup (Document)
 - Notes: Memo
 
+**Planned:**
+
 ---
 
 ### HR Employee Declaration
 Captures employee-submitted attestations or disclosures (e.g., conflict of interest, outside employment, ethics certifications).
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Person: Lookup (Person)
 - Declaration Type: Choice (Declaration Type)
@@ -416,14 +388,14 @@ Captures employee-submitted attestations or disclosures (e.g., conflict of inter
 - Security Classification: Choice (Security Classification)
 - Notes: Memo
 
+**Planned:**
+
 ---
 
 ### HR Leave Donation
 Records voluntary transfer or donation of leave hours from one employee to another, including approval and balance impact.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Donor: Lookup (Person)
 - Recipient: Lookup (Person)
@@ -444,6 +416,8 @@ Records voluntary transfer or donation of leave hours from one employee to anoth
 - Recipient Balance Before: Float
 - Recipient Balance After: Float
 - Notes: Memo
+
+**Planned:**
 
 ---
 

@@ -73,10 +73,14 @@
     // Close dropdowns when clicking outside
     const handleClickOutside = (event) => {
       const target = event.target;
-      const tableNameDropdown = target.closest('.choice-selector');
+      const isTableNameSearch = target.closest('.toolbar-search');
+      const isQuickOptionSet = target.closest('.choice-selector');
       
-      if (!tableNameDropdown) {
+      if (!isTableNameSearch) {
         showTableNameDropdown = false;
+      }
+      
+      if (!isQuickOptionSet) {
         showQuickOptionSetDropdown = false;
         showQuickTargetTableDropdown = false;
       }
@@ -154,8 +158,10 @@
     }
   }
   
-  // Filter tables for main table selector
-  $: {
+  // Filter tables for main table selector - ensure it updates when availableTables or tableNameSearch changes
+  $: availableTables, tableNameSearch, updateFilteredTablesForMain();
+  
+  function updateFilteredTablesForMain() {
     if (!tableNameSearch || tableNameSearch.trim() === '') {
       filteredTablesForMain = availableTables;
     } else {
@@ -189,12 +195,19 @@
   function generateSchemaName(displayName) {
     if (!displayName || !publisherPrefix) return '';
     // Convert display name to PascalCase without spaces/underscores
-    // "Content Template" -> "appbase_ContentTemplate"
+    // Preserve acronyms: "HR Request" -> "appbase_HRRequest", "HR Time Off Request" -> "appbase_HRTimeOffRequest"
     const cleaned = displayName
       .replace(/[^a-z0-9\s]/gi, '') // Remove special chars, keep letters, numbers, spaces
       .split(/\s+/) // Split on whitespace
       .filter(word => word.length > 0) // Remove empty strings
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize each word
+      .map(word => {
+        // If word is all uppercase (acronym), keep it as-is
+        if (/^[A-Z]+$/.test(word)) {
+          return word;
+        }
+        // Otherwise, capitalize first letter and lowercase the rest
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      })
       .join(''); // Join without spaces
     return publisherPrefix + cleaned; // PascalCase schema name
   }
@@ -553,39 +566,42 @@ Notes|Memo`;
         pattern="[a-z0-9]+_"
       />
 
-      <input 
-        type="text" 
-        class="toolbar-input toolbar-search"
-        bind:value={tableNameSearch}
-        on:focus={() => showTableNameDropdown = true}
-        placeholder="🔍 Search table..."
-      />
-    </div>
-    {#if showTableNameDropdown}
-      <div class="toolbar-dropdown">
-        {#if filteredTablesForMain.length === 0}
-          <div class="no-results">No tables found</div>
-        {:else}
-          {#each filteredTablesForMain.slice(0, 8) as table}
-            <div 
-              class="dropdown-item" 
-              class:selected={tableName === table.logicalName}
-              role="button"
-              tabindex="0"
-              on:click={() => selectMainTable(table)}
-              on:keydown={(e) => { 
-                if (e.key === 'Enter' || e.key === ' ') { 
-                  selectMainTable(table);
-                } 
-              }}
-            >
-              <div class="item-name">{table.displayName}</div>
-              <div class="item-schema">{table.logicalName}</div>
-            </div>
-          {/each}
+      <div class="toolbar-search-container">
+        <input 
+          type="text" 
+          class="toolbar-input toolbar-search"
+          bind:value={tableNameSearch}
+          on:focus={() => showTableNameDropdown = true}
+          on:blur={() => setTimeout(() => { showTableNameDropdown = false; }, 200)}
+          placeholder="🔍 Search table..."
+        />
+        {#if showTableNameDropdown}
+          <div class="toolbar-dropdown">
+            {#if filteredTablesForMain.length === 0}
+              <div class="no-results">No tables found</div>
+            {:else}
+              {#each filteredTablesForMain.slice(0, 8) as table}
+                <div 
+                  class="dropdown-item" 
+                  class:selected={tableName === table.logicalName}
+                  role="button"
+                  tabindex="0"
+                  on:click={() => selectMainTable(table)}
+                  on:keydown={(e) => { 
+                    if (e.key === 'Enter' || e.key === ' ') { 
+                      selectMainTable(table);
+                    } 
+                  }}
+                >
+                  <div class="item-name">{table.displayName}</div>
+                  <div class="item-schema">{table.logicalName}</div>
+                </div>
+              {/each}
+            {/if}
+          </div>
         {/if}
       </div>
-    {/if}
+    </div>
   </div>
 
   <div class="content">
@@ -917,12 +933,17 @@ Notes|Memo`;
     min-width: 250px;
   }
 
+  .toolbar-search-container {
+    position: relative;
+    flex: 1;
+    min-width: 250px;
+  }
+
   .toolbar-dropdown {
     position: absolute;
     top: 100%;
-    right: 16px;
-    left: auto;
-    width: 400px;
+    left: 0;
+    width: 100%;
     margin-top: 8px;
     background: #252526;
     border: 1px solid #3c3c3c;

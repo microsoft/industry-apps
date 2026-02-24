@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <EntityRelationships xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <EntityRelationship Name="appbase_hrjobclassification_DefaultPayGrade">
+  <EntityRelationship Name="appbase_hremploymentaction_FromGradeRank">
     <EntityRelationshipType>OneToMany</EntityRelationshipType>
     <IsCustomizable>1</IsCustomizable>
     <IntroducedVersion>1.0</IntroducedVersion>
     <IsHierarchical>0</IsHierarchical>
-    <ReferencingEntityName>appbase_HRJobClassification</ReferencingEntityName>
-    <ReferencedEntityName>appbase_PayGrade</ReferencedEntityName>
+    <ReferencingEntityName>appbase_HREmploymentAction</ReferencingEntityName>
+    <ReferencedEntityName>appbase_HRRank</ReferencedEntityName>
     <CascadeAssign>NoCascade</CascadeAssign>
     <CascadeDelete>RemoveLink</CascadeDelete>
     <CascadeArchive>RemoveLink</CascadeArchive>
@@ -15,7 +15,7 @@
     <CascadeUnshare>NoCascade</CascadeUnshare>
     <CascadeRollupView>NoCascade</CascadeRollupView>
     <IsValidForAdvancedFind>1</IsValidForAdvancedFind>
-    <ReferencingAttributeName>appbase_DefaultPayGrade</ReferencingAttributeName>
+    <ReferencingAttributeName>appbase_FromGradeRank</ReferencingAttributeName>
     <RelationshipDescription>
       <Descriptions>
         <Description description="" languagecode="1033" />
@@ -26,22 +26,22 @@
         <NavPaneDisplayOption>UseCollectionName</NavPaneDisplayOption>
         <NavPaneArea>Details</NavPaneArea>
         <NavPaneOrder>10000</NavPaneOrder>
-        <NavigationPropertyName>appbase_DefaultPayGrade</NavigationPropertyName>
+        <NavigationPropertyName>appbase_FromGradeRank</NavigationPropertyName>
         <RelationshipRoleType>1</RelationshipRoleType>
       </EntityRelationshipRole>
       <EntityRelationshipRole>
-        <NavigationPropertyName>appbase_hrjobclassification_DefaultPayGrade</NavigationPropertyName>
+        <NavigationPropertyName>appbase_hremploymentaction_FromGradeRank</NavigationPropertyName>
         <RelationshipRoleType>0</RelationshipRoleType>
       </EntityRelationshipRole>
     </EntityRelationshipRoles>
   </EntityRelationship>
-  <EntityRelationship Name="appbase_hrposition_PayGrade">
+  <EntityRelationship Name="appbase_hremploymentaction_ToGradeRank">
     <EntityRelationshipType>OneToMany</EntityRelationshipType>
     <IsCustomizable>1</IsCustomizable>
     <IntroducedVersion>1.0</IntroducedVersion>
     <IsHierarchical>0</IsHierarchical>
-    <ReferencingEntityName>appbase_HRPosition</ReferencingEntityName>
-    <ReferencedEntityName>appbase_PayGrade</ReferencedEntityName>
+    <ReferencingEntityName>appbase_HREmploymentAction</ReferencingEntityName>
+    <ReferencedEntityName>appbase_HRRank</ReferencedEntityName>
     <CascadeAssign>NoCascade</CascadeAssign>
     <CascadeDelete>RemoveLink</CascadeDelete>
     <CascadeArchive>RemoveLink</CascadeArchive>
@@ -50,7 +50,7 @@
     <CascadeUnshare>NoCascade</CascadeUnshare>
     <CascadeRollupView>NoCascade</CascadeRollupView>
     <IsValidForAdvancedFind>1</IsValidForAdvancedFind>
-    <ReferencingAttributeName>appbase_PayGrade</ReferencingAttributeName>
+    <ReferencingAttributeName>appbase_ToGradeRank</ReferencingAttributeName>
     <RelationshipDescription>
       <Descriptions>
         <Description description="" languagecode="1033" />
@@ -61,11 +61,11 @@
         <NavPaneDisplayOption>UseCollectionName</NavPaneDisplayOption>
         <NavPaneArea>Details</NavPaneArea>
         <NavPaneOrder>10000</NavPaneOrder>
-        <NavigationPropertyName>appbase_PayGrade</NavigationPropertyName>
+        <NavigationPropertyName>appbase_ToGradeRank</NavigationPropertyName>
         <RelationshipRoleType>1</RelationshipRoleType>
       </EntityRelationshipRole>
       <EntityRelationshipRole>
-        <NavigationPropertyName>appbase_hrposition_PayGrade</NavigationPropertyName>
+        <NavigationPropertyName>appbase_hremploymentaction_ToGradeRank</NavigationPropertyName>
         <RelationshipRoleType>0</RelationshipRoleType>
       </EntityRelationshipRole>
     </EntityRelationshipRoles>

@@ -54,7 +54,7 @@ def save_pending_optionsets(pending_list):
                 "pending": pending_list,
                 "lastUpdated": asyncio.get_event_loop().time() if asyncio.get_event_loop().is_running() else None
             }, f, indent=2)
-        print(f"[DEBUG] Saved {len(pending_list)} pending option sets to cache")
+        # print(f"[DEBUG] Saved {len(pending_list)} pending option sets to cache")
     except Exception as e:
         print(f"Error saving pending option sets: {e}", file=sys.stderr)
 
@@ -296,7 +296,7 @@ async def stream_powershell_output(script_path: str, *args):
         # Build PowerShell command
         cmd = [powershell_cmd, "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(script_path)] + list(args)
         
-        print(f"[DEBUG] Running command: {' '.join(cmd)}")
+        # print(f"[DEBUG] Running command: {' '.join(cmd)}")
         
         # Use synchronous subprocess (Windows-compatible)
         process = subprocess.Popen(
@@ -380,7 +380,7 @@ async def deploy_module(request: DeployRequest):
     if request.upgrade:
         args.append("-Upgrade")
     
-    print(f"[DEBUG] Deploy args: {args}")  # Debug logging
+    # print(f"[DEBUG] Deploy args: {args}")  # Debug logging
     
     return StreamingResponse(
         stream_powershell_output(*args),
@@ -453,8 +453,8 @@ async def ship_module(request: ShipRequest):
     if request.upgrade:
         args.append("-Upgrade")
     
-    print(f"[DEBUG] Ship args: {args}")  # Debug logging
-    print(f"[DEBUG] request.managed: {request.managed}, request.upgrade: {request.upgrade}")
+    # print(f"[DEBUG] Ship args: {args}")  # Debug logging
+    # print(f"[DEBUG] request.managed: {request.managed}, request.upgrade: {request.upgrade}")
     
     return StreamingResponse(
         stream_powershell_output(*args),
@@ -701,6 +701,20 @@ async def create_fields(request: CreateFieldsRequest):
             yield f"data: {{\"type\": \"output\", \"line\": \"Creating fields...\"}}\n\n"
             yield f"data: {{\"type\": \"output\", \"line\": \"\"}}\n\n"
             
+            # Resolve table name to logical name
+            all_tables = client.get_entity_definitions()
+            table_by_logical = {t["logicalName"]: t["logicalName"] for t in all_tables}
+            table_by_display = {t["displayName"]: t["logicalName"] for t in all_tables}
+            
+            table_logical_name = request.tableName
+            if request.tableName in table_by_display:
+                # Convert display name to logical name
+                table_logical_name = table_by_display[request.tableName]
+            elif request.tableName not in table_by_logical:
+                # Table not found
+                yield f"data: {{\"type\": \"error\", \"message\": \"Table '{request.tableName}' not found in Dataverse\"}}\n\n"
+                return
+            
             # Create fields
             success_count = 0
             fail_count = 0
@@ -713,8 +727,8 @@ async def create_fields(request: CreateFieldsRequest):
                 yield f"data: {{\"type\": \"output\", \"line\": \"[{i}/{len(request.fields)}] Creating: {schema_name} ({display_name})\"}}\n\n"
                 yield f"data: {{\"type\": \"output\", \"line\": \"  Type: {field_type}\"}}\n\n"
                 
-                # Create the field
-                result = client.create_field(request.tableName, field)
+                # Create the field using the resolved logical table name
+                result = client.create_field(table_logical_name, field)
                 
                 if result.get("success"):
                     yield f"data: {{\"type\": \"output\", \"line\": \"  ✓ Field created successfully\"}}\n\n"
@@ -897,7 +911,7 @@ async def scan_option_sets():
     # Scan all OptionSets folders
     exclude_folders = {"__pycache__", ".scripts", ".config", ".git", ".vscode", "bin", "obj", "ui-tools"}
     
-    print(f"[DEBUG] Starting option sets scan in {PROJECT_ROOT}")
+    # print(f"[DEBUG] Starting option sets scan in {PROJECT_ROOT}")
     
     for category_dir in PROJECT_ROOT.iterdir():
         if not category_dir.is_dir() or category_dir.name in exclude_folders:
@@ -909,7 +923,7 @@ async def scan_option_sets():
             
             option_sets_dir = module_dir / "src" / "OptionSets"
             if option_sets_dir.exists():
-                print(f"[DEBUG] Found OptionSets dir: {option_sets_dir}")
+                # print(f"[DEBUG] Found OptionSets dir: {option_sets_dir}")
                 for optionset_xml in option_sets_dir.glob("*.xml"):
                     try:
                         tree = ET.parse(optionset_xml)
@@ -941,12 +955,12 @@ async def scan_option_sets():
                             "filePath": str(optionset_xml.relative_to(PROJECT_ROOT))
                         }
                         option_sets.append(option_set_info)
-                        print(f"[DEBUG] Parsed option set: {display_name} ({schema_name}) with {len(options)} options")
+                        # print(f"[DEBUG] Parsed option set: {display_name} ({schema_name}) with {len(options)} options")
                         
                     except Exception as e:
                         print(f"Error parsing option set XML {optionset_xml}: {e}", file=sys.stderr)
     
-    print(f"[DEBUG] Scan complete. Found {len(option_sets)} option sets")
+    # print(f"[DEBUG] Scan complete. Found {len(option_sets)} option sets")
     return {"optionSets": sorted(option_sets, key=lambda o: (o.get("category", ""), o.get("module", ""), o.get("displayName", "")))}
 
 class TableScanRequest(BaseModel):
@@ -989,7 +1003,7 @@ async def scan_tables(request: TableScanRequest):
             return {"error": f"Environment URL not configured for '{request.environment}'", "tables": []}
         
         # Create Dataverse client and get entity definitions
-        print(f"[DEBUG] Scanning tables from {environment_url}")
+        # print(f"[DEBUG] Scanning tables from {environment_url}")
         client = DataverseClient(
             environment_url=environment_url,
             tenant_id=tenant_id,
@@ -1000,7 +1014,7 @@ async def scan_tables(request: TableScanRequest):
         client.authenticate()
         tables = client.get_entity_definitions()
         
-        print(f"[DEBUG] Scan complete. Found {len(tables)} tables")
+        # print(f"[DEBUG] Scan complete. Found {len(tables)} tables")
         return {"tables": sorted(tables, key=lambda t: t.get("displayName", ""))}
         
     except Exception as e:
@@ -1014,13 +1028,13 @@ class OptionSetSearchRequest(BaseModel):
 @app.post("/api/helpers/option-sets/search")
 async def search_option_sets(request: OptionSetSearchRequest):
     """Search for similar option sets based on name or option values"""
-    print(f"[DEBUG] Search request: displayName={request.displayName}, optionLabels={request.optionLabels}")
+    # print(f"[DEBUG] Search request: displayName={request.displayName}, optionLabels={request.optionLabels}")
     
     # First, get all option sets
     all_option_sets_response = await scan_option_sets()
     all_option_sets = all_option_sets_response["optionSets"]
     
-    print(f"[DEBUG] Searching through {len(all_option_sets)} option sets")
+    # print(f"[DEBUG] Searching through {len(all_option_sets)} option sets")
     
     matches = []
     
@@ -1053,7 +1067,7 @@ async def search_option_sets(request: OptionSetSearchRequest):
             existing_labels = [opt["label"].lower() for opt in option_set.get("options", [])]
             search_terms = [label.lower() for label in request.optionLabels]
             
-            print(f"[DEBUG] Matching option set '{option_set.get('displayName')}' - search terms: {search_terms}, existing labels: {existing_labels}")
+            # print(f"[DEBUG] Matching option set '{option_set.get('displayName')}' - search terms: {search_terms}, existing labels: {existing_labels}")
             
             # Check for exact matches AND partial matches (for multi-word labels)
             matched_count = 0
@@ -1066,16 +1080,16 @@ async def search_option_sets(request: OptionSetSearchRequest):
                     if search_term == existing_label:
                         matched_count += 1
                         matched_labels.append(existing_label)
-                        print(f"[DEBUG]   Exact match: '{search_term}' == '{existing_label}'")
+                        # print(f"[DEBUG]   Exact match: '{search_term}' == '{existing_label}'")
                         break
                     # Partial match (search term appears in label, e.g., "Progress" matches "In Progress")
                     elif search_term in existing_label or existing_label in search_term:
                         matched_count += 1
                         matched_labels.append(existing_label)
-                        print(f"[DEBUG]   Partial match: '{search_term}' <-> '{existing_label}'")
+                        # print(f"[DEBUG]   Partial match: '{search_term}' <-> '{existing_label}'")
                         break
             
-            print(f"[DEBUG]   Matched {matched_count}/{len(search_terms)} terms")
+            # print(f"[DEBUG]   Matched {matched_count}/{len(search_terms)} terms")
             
             overlap_percentage = (matched_count / len(search_terms) * 100) if search_terms else 0
             
@@ -1107,7 +1121,7 @@ async def search_option_sets(request: OptionSetSearchRequest):
     # Sort by match score descending
     matches.sort(key=lambda m: m["matchScore"], reverse=True)
     
-    print(f"[DEBUG] Search complete. Found {len(matches)} matches")
+    # print(f"[DEBUG] Search complete. Found {len(matches)} matches")
     
     return {"matches": matches}
 
@@ -1218,7 +1232,7 @@ async def create_option_set(request: OptionSetCreateRequest):
                 next_value += 1
         
         # Create Dataverse client and create the option set
-        print(f"[DEBUG] Creating global option set '{request.schemaName}' in Dataverse")
+        # print(f"[DEBUG] Creating global option set '{request.schemaName}' in Dataverse")
         client = DataverseClient(
             environment_url=environment_url,
             tenant_id=tenant_id,
@@ -1302,7 +1316,7 @@ async def get_pending_optionsets():
             
             if len(pending) != original_count:
                 save_pending_optionsets(pending)
-                print(f"[DEBUG] Cleaned up {original_count - len(pending)} synced items from pending cache")
+                # print(f"[DEBUG] Cleaned up {original_count - len(pending)} synced items from pending cache")
         
         return {"pending": pending}
     except Exception as e:
