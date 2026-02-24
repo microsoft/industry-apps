@@ -10,8 +10,17 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_hrteleworkrequestid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="202" />
+          <cell name="appbase_person" width="100" />
+          <cell name="appbase_teleworktype" width="124" />
+          <cell name="appbase_requestdate" width="116" />
+          <cell name="appbase_requeststatus" width="123" />
+          <cell name="appbase_primaryteleworklocation" width="195" />
+          <cell name="appbase_startdate" width="100" />
+          <cell name="appbase_enddate" width="100" />
+          <cell name="appbase_frequency" width="100" />
+          <cell name="appbase_scheduledescription" width="161" />
+          <cell name="appbase_hrrequest" width="109" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +30,20 @@
         <entity name="appbase_hrteleworkrequest">
           <attribute name="appbase_hrteleworkrequestid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_person" />
+          <attribute name="appbase_enddate" />
+          <attribute name="appbase_startdate" />
+          <attribute name="appbase_teleworktype" />
+          <attribute name="appbase_scheduledescription" />
+          <attribute name="appbase_requeststatus" />
+          <attribute name="appbase_requestdate" />
+          <attribute name="appbase_primaryteleworklocation" />
+          <attribute name="appbase_hrrequest" />
+          <attribute name="appbase_frequency" />
         </entity>
       </fetch>
     </fetchxml>

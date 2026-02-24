@@ -48,6 +48,10 @@ Operational classification of assets (e.g., Laptop, Vehicle, Generator). Used fo
 - Requires Inspection: Yes / No
 
 **Planned:**
+- Configure Baseline Forms
+- Configure Baseline Views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 ---
 
@@ -61,6 +65,10 @@ Higher-level grouping of Asset Types (e.g., IT Equipment, Fleet, Facilities Equi
 - Capitalization Threshold: Currency
 
 **Planned:**
+- Configure Baseline Forms
+- Configure Baseline Views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 ---
 
@@ -86,6 +94,10 @@ Represents the acquisition event for one or more assets (purchase, lease, donati
 - Notes: Memo
 
 **Planned:**
+- Configure Baseline Forms
+- Configure Baseline Views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 ---
 
@@ -105,6 +117,10 @@ Additional capital or operational costs associated with an asset (repairs, upgra
 - Capitalizable: Yes / No
 
 **Planned:**
+- Configure Baseline Forms
+- Configure Baseline Views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 ---
 
@@ -125,6 +141,10 @@ Tracks legal or financial ownership of the asset over time (e.g., owned, leased,
 - Is Current: Yes / No
 
 **Planned:**
+- Configure Baseline Forms
+- Configure Baseline Views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 ---
 
@@ -145,6 +165,10 @@ Tracks custody or responsibility for the asset over time (assigned to a person, 
 - Is Current: Yes / No
 
 **Planned:**
+- Configure Baseline Forms
+- Configure Baseline Views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 ---
 
@@ -167,6 +191,10 @@ Timeline-based record of significant custody or control changes (assign, return,
 - Notes: Memo
 
 **Planned:**
+- Configure Baseline Forms
+- Configure Baseline Views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 ---
 
@@ -190,6 +218,10 @@ Lightweight maintenance/service log entry for an asset. Captures service date, s
 - Notes: Memo
 
 **Planned:**
+- Configure Baseline Forms
+- Configure Baseline Views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 ---
 
@@ -201,6 +233,10 @@ Reference list defining types of service events (Preventive, Repair, Inspection,
 - Description: Memo
 
 **Planned:**
+- Configure Baseline Forms
+- Configure Baseline Views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 ---
 
@@ -225,6 +261,10 @@ Represents an audit cycle or inventory verification event (e.g., Annual Inventor
 - Notes: Memo
 
 **Planned:**
+- Configure Baseline Forms
+- Configure Baseline Views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 ---
 
@@ -250,6 +290,10 @@ Asset-level audit result within an Asset Audit. Records expected vs observed dat
 - Resolution Date: Date
 
 **Planned:**
+- Configure Baseline Forms
+- Configure Baseline Views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 ---
 
@@ -267,6 +311,10 @@ Defines recurring inspection rules that apply to an Asset Type or specific Asset
 - Description: Memo
 
 **Planned:**
+- Configure Baseline Forms
+- Configure Baseline Views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 ---
 
@@ -294,6 +342,18 @@ Captures retirement and disposal details for an asset, including retirement reas
 - Data Sanitization Verified: Yes / No
 
 **Planned:**
+- Configure Baseline Forms
+- Configure Baseline Views
+- Configure Quick Create Forms
+- Configure Related Subgrids
+
+---
+
+## 🚀 Module Configuration
+
+**Planned:**
+- Configure Model-Driven App
+- Create Sample Data
 
 ---
 

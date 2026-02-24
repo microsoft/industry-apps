@@ -31,6 +31,7 @@
     - **HR Workplace Accommodation**: 28 fields for accommodation requests including accommodation type, need description, medical documentation, interactive process tracking, approved accommodation, implementation details, cost, approval workflow, effectiveness evaluation, privacy consent, and security classification
     - **HR Employee Declaration**: 18 fields for employee attestations including declaration type, submission dates, content, review workflow, attestation tracking, legal authority, compliance framework, supporting documents, and security classification
     - **HR Leave Donation**: 20 fields for leave transfers including donor/recipient, donation date, leave types (donated/received), hours, conversion rate, approval workflow, processing status, and balance tracking (before/after for both parties)
+- Forms: Configured baseline forms for all 16 HR Administration entities including main form layouts, field sections, tab organization, and business rules for Position Management (HR Position, HR Position Assignment, HR Position Description, HR Job Classification), Employment Actions & Lifecycle (HR Employment Action, HR Action Type, HR Employment Milestone, HR Disciplinary Action), and Employee Requests (HR Request, HR Time Off Request, HR Time Off Entry, HR Overtime Entry, HR Telework Request, HR Workplace Accommodation, HR Employee Declaration, HR Leave Donation)
 
 ### Changed
 - 

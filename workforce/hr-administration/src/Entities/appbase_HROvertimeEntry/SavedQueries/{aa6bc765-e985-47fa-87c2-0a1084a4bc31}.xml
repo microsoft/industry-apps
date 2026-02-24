@@ -11,7 +11,16 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_hrovertimeentryid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_person" width="100" />
+          <cell name="appbase_overtimetype" width="125" />
+          <cell name="appbase_payperiod" width="102" />
+          <cell name="appbase_workdate" width="101" />
+          <cell name="appbase_hoursworked" width="122" />
+          <cell name="appbase_projectcode" width="113" />
+          <cell name="appbase_approvalstatus" width="131" />
+          <cell name="appbase_approvaldate" width="123" />
+          <cell name="appbase_approvedby" width="116" />
+          <cell name="appbase_organizationunit" width="142" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +30,20 @@
         <entity name="appbase_hrovertimeentry">
           <attribute name="appbase_hrovertimeentryid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_person" />
+          <attribute name="appbase_hoursworked" />
+          <attribute name="appbase_overtimetype" />
+          <attribute name="appbase_payperiod" />
+          <attribute name="appbase_projectcode" />
+          <attribute name="appbase_workdate" />
+          <attribute name="appbase_approvaldate" />
+          <attribute name="appbase_approvalstatus" />
+          <attribute name="appbase_approvedby" />
+          <attribute name="appbase_organizationunit" />
         </entity>
       </fetch>
     </fetchxml>

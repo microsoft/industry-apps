@@ -10,8 +10,17 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_hrrequestid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="193" />
+          <cell name="appbase_requestnumber" width="135" />
+          <cell name="appbase_requesttype" width="117" />
+          <cell name="appbase_person" width="100" />
+          <cell name="appbase_requeststatus" width="123" />
+          <cell name="appbase_requestdate" width="116" />
+          <cell name="appbase_requestedstartdate" width="159" />
+          <cell name="appbase_requestedenddate" width="155" />
+          <cell name="appbase_priority" width="100" />
+          <cell name="appbase_requestingorganizationunit" width="208" />
+          <cell name="appbase_description" width="218" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +30,20 @@
         <entity name="appbase_hrrequest">
           <attribute name="appbase_hrrequestid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_requesttype" />
+          <attribute name="appbase_person" />
+          <attribute name="appbase_requeststatus" />
+          <attribute name="appbase_requestnumber" />
+          <attribute name="appbase_requestdate" />
+          <attribute name="appbase_requestedstartdate" />
+          <attribute name="appbase_requestedenddate" />
+          <attribute name="appbase_requestingorganizationunit" />
+          <attribute name="appbase_description" />
+          <attribute name="appbase_priority" />
         </entity>
       </fetch>
     </fetchxml>

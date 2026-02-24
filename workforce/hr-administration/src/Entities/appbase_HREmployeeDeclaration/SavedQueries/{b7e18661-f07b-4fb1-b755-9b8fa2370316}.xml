@@ -10,8 +10,18 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_hremployeedeclarationid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="210" />
+          <cell name="appbase_person" width="100" />
+          <cell name="appbase_declarationtype" width="137" />
+          <cell name="appbase_declarationstatus" width="144" />
+          <cell name="appbase_submissiondate" width="136" />
+          <cell name="appbase_attestation" width="102" />
+          <cell name="appbase_attestationdate" width="132" />
+          <cell name="appbase_requiresreview" width="137" />
+          <cell name="appbase_reviewedby" width="116" />
+          <cell name="appbase_reviewdate" width="113" />
+          <cell name="appbase_effectivedate" width="121" />
+          <cell name="appbase_expirationdate" width="130" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +31,21 @@
         <entity name="appbase_hremployeedeclaration">
           <attribute name="appbase_hremployeedeclarationid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_person" />
+          <attribute name="appbase_declarationtype" />
+          <attribute name="appbase_declarationstatus" />
+          <attribute name="appbase_submissiondate" />
+          <attribute name="appbase_reviewedby" />
+          <attribute name="appbase_reviewdate" />
+          <attribute name="appbase_requiresreview" />
+          <attribute name="appbase_expirationdate" />
+          <attribute name="appbase_effectivedate" />
+          <attribute name="appbase_attestationdate" />
+          <attribute name="appbase_attestation" />
         </entity>
       </fetch>
     </fetchxml>

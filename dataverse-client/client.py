@@ -1,10 +1,11 @@
 """
-Dataverse Client for Field Creation and Management
-Handles authentication and API calls to Dataverse Web API
+Dataverse Client for Field Creation, Management, and Record Operations.
+Handles authentication and API calls to Dataverse Web API.
 """
 
 import json
 import logging
+import re
 from typing import Dict, List, Optional, Any
 import httpx
 from msal import ConfidentialClientApplication
@@ -1315,4 +1316,176 @@ class DataverseClient:
             logger.error(f"Error getting global option set definitions: {e}")
             import traceback
             traceback.print_exc()
+            return []
+
+    # -------------------------------------------------------------------------
+    # Record operations
+    # -------------------------------------------------------------------------
+
+    def get_entity_set_name(self, logical_name: str) -> Optional[str]:
+        """
+        Return the OData entity set name (collection name) for a logical entity name.
+
+        Args:
+            logical_name: Logical name of the table (e.g., "appbase_assetcategory")
+
+        Returns:
+            Entity set name (e.g., "appbase_assetcategories") or None if not found
+        """
+        meta = self.get_table_metadata(logical_name)
+        if meta:
+            return meta.get("EntitySetName")
+        return None
+
+    def create_record(self, entity_set_name: str, fields: Dict[str, Any]) -> Optional[str]:
+        """
+        Create a record in a Dataverse table.
+
+        Args:
+            entity_set_name: OData collection name (e.g., "appbase_assetcategories")
+            fields: Dictionary of field logical names to values. Use ``@odata.bind``
+                    syntax for lookups, e.g.::
+
+                        {"appbase_assetcategory@odata.bind": "/appbase_assetcategories(guid)"}
+
+        Returns:
+            GUID of the created record, or None on failure
+        """
+        url = f"{self.environment_url}/api/data/{self.API_VERSION}/{entity_set_name}"
+
+        try:
+            with httpx.Client() as client:
+                response = client.post(
+                    url,
+                    headers=self._get_headers(),
+                    json=fields,
+                    timeout=30.0,
+                )
+
+                if response.status_code in [200, 201, 204]:
+                    # Extract GUID from OData-EntityId header
+                    entity_id_header = response.headers.get("OData-EntityId", "")
+                    match = re.search(r"\(([0-9a-fA-F-]{36})\)", entity_id_header)
+                    if match:
+                        guid = match.group(1)
+                    else:
+                        # 201 responses may include the record in the body
+                        try:
+                            body = response.json()
+                            # Primary key is typically the first key ending in "id"
+                            guid = next(
+                                (v for k, v in body.items() if k.endswith("id") and isinstance(v, str) and len(v) == 36),
+                                None,
+                            )
+                        except Exception:
+                            guid = None
+
+                    logger.info(f"Created record in {entity_set_name}: {guid}")
+                    return guid
+                else:
+                    error_detail = {}
+                    try:
+                        error_detail = response.json()
+                    except Exception:
+                        pass
+                    error_msg = error_detail.get("error", {}).get("message", response.text)
+                    logger.error(f"Failed to create record in {entity_set_name}: {error_msg}")
+                    return None
+
+        except Exception as e:
+            logger.error(f"Error creating record in {entity_set_name}: {e}")
+            return None
+
+    def upsert_record(
+        self,
+        entity_set_name: str,
+        record_id: str,
+        fields: Dict[str, Any],
+    ) -> bool:
+        """
+        Upsert a record by GUID (PATCH with If-Match: * suppressed, i.e., unconditional upsert).
+
+        Args:
+            entity_set_name: OData collection name
+            record_id: GUID of the record to upsert
+            fields: Field values to set
+
+        Returns:
+            True on success, False on failure
+        """
+        url = f"{self.environment_url}/api/data/{self.API_VERSION}/{entity_set_name}({record_id})"
+        headers = {**self._get_headers(), "If-None-Match": "null"}
+
+        try:
+            with httpx.Client() as client:
+                response = client.patch(url, headers=headers, json=fields, timeout=30.0)
+                if response.status_code in [200, 201, 204]:
+                    logger.info(f"Upserted record {record_id} in {entity_set_name}")
+                    return True
+                else:
+                    error_detail = {}
+                    try:
+                        error_detail = response.json()
+                    except Exception:
+                        pass
+                    error_msg = error_detail.get("error", {}).get("message", response.text)
+                    logger.error(f"Failed to upsert record {record_id} in {entity_set_name}: {error_msg}")
+                    return False
+
+        except Exception as e:
+            logger.error(f"Error upserting record: {e}")
+            return False
+
+    def query_records(
+        self,
+        entity_set_name: str,
+        select: Optional[str] = None,
+        filter_query: Optional[str] = None,
+        top: int = 100,
+    ) -> List[Dict[str, Any]]:
+        """
+        Query records from a Dataverse table.
+
+        Args:
+            entity_set_name: OData collection name (e.g., "contacts")
+            select: Comma-separated field names for $select
+            filter_query: OData $filter expression
+            top: Maximum number of records to return
+
+        Returns:
+            List of record dictionaries
+        """
+        url = f"{self.environment_url}/api/data/{self.API_VERSION}/{entity_set_name}"
+        params: Dict[str, Any] = {"$top": top}
+        if select:
+            params["$select"] = select
+        if filter_query:
+            params["$filter"] = filter_query
+
+        try:
+            with httpx.Client() as client:
+                response = client.get(
+                    url,
+                    headers=self._get_headers(),
+                    params=params,
+                    timeout=30.0,
+                )
+
+                if response.status_code == 200:
+                    data = response.json()
+                    records = data.get("value", [])
+                    logger.info(f"Queried {len(records)} records from {entity_set_name}")
+                    return records
+                else:
+                    error_detail = {}
+                    try:
+                        error_detail = response.json()
+                    except Exception:
+                        pass
+                    error_msg = error_detail.get("error", {}).get("message", response.text)
+                    logger.error(f"Failed to query {entity_set_name}: {error_msg}")
+                    return []
+
+        except Exception as e:
+            logger.error(f"Error querying {entity_set_name}: {e}")
             return []

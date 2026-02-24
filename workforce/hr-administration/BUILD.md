@@ -31,13 +31,19 @@ The **HR Administration module** manages the core employment structure, transact
 - Is Management: Yes / No
 - Requires Clearance: Yes / No
 
+**Completed Last Round:**
+- Configure Baseline Form
+
 **Skipped:**
 - Position Title: Text
 - Notes: Memo
 - Position Designation: Choice (Position Designation)
 - Employment Type: Choice (Employment Type)
+- Configure Baseline View
 
 **Planned:**
+- Configure Quick Create Form
+- Configure Related Subgrids
 ---
 ### HR Position Assignment
 Links an employee to a position for a defined period, including reporting structure and assignment details.
@@ -57,7 +63,13 @@ Links an employee to a position for a defined period, including reporting struct
 - Description: Memo
 - Is Primary: Yes / No
 
+**Completed Last Round:**
+- Configure Baseline Form
+- Configure Baseline View
+
 **Planned:**
+- Configure Quick Create Form
+- Configure Related Subgrids
 
 ---
 
@@ -81,7 +93,13 @@ Links an employee to a position for a defined period, including reporting struct
 - Description: Memo
 - Description Status: Choice (Publication Status)
 
+**Completed Last Round:**
+- Configure Baseline Form
+- Configure Baseline View
+
 **Planned:**
+- Configure Quick Create Form
+- Configure Related Subgrids
 ---
 ### HR Job Classification
 Represents a defined job role or classification (title, exempt status, bargaining unit, etc.) used to categorize positions.
@@ -100,7 +118,13 @@ Represents a defined job role or classification (title, exempt status, bargainin
 - Default Bargaining Unit: Text
 - Description: Memo
 
+**Completed Last Round:**
+- Configure Baseline Form
+- Configure Baseline View
+
 **Planned:**
+- Configure Quick Create Form
+- Configure Related Subgrids
 
 ---
 
@@ -143,7 +167,13 @@ Represents a defined job role or classification (title, exempt status, bargainin
 - Approval Date: Date
 - Notes: Memo
 
+**Completed Last Round:**
+- Configure Baseline Form
+- Configure Baseline View
+
 **Planned:**
+- Configure Quick Create Form
+- Configure Related Subgrids
 ---
 ### HR Action Type
 **Completed:**
@@ -153,7 +183,13 @@ Represents a defined job role or classification (title, exempt status, bargainin
 - Description: Memo
 - Requires Approval: Yes / No
 
+**Completed Last Round:**
+- Configure Baseline Form
+- Configure Baseline View
+
 **Planned:**
+- Configure Quick Create Form
+- Configure Related Subgrids
 ---
 ### HR Employment Milestone
 **Completed:**
@@ -172,7 +208,13 @@ Represents a defined job role or classification (title, exempt status, bargainin
 - Description: Memo
 - Notes: Memo
 
+**Completed Last Round:**
+- Configure Baseline Form
+
 **Planned:**
+- Configure Baseline View
+- Configure Quick Create Form
+- Configure Related Subgrids
 ---
 ### HR Disciplinary Action
 **Completed:**
@@ -197,10 +239,16 @@ Represents a defined job role or classification (title, exempt status, bargainin
 - Supporting Document: Lookup (Document)
 - Security Classification: Choice (Security Classification)
 - Visibility: Choice (Visibility)
-
-**Planned:**
 - Name: Text
 - Notes: Memo
+
+**Completed Last Round:**
+- Configure Baseline Form
+- Configure Baseline View
+
+**Planned:**
+- Configure Quick Create Form
+- Configure Related Subgrids
 ---
 ## Employee Requests
 
@@ -221,10 +269,16 @@ Represents a defined job role or classification (title, exempt status, bargainin
 - Approval Date: Date
 - Denial Reason: Memo
 - Description: Memo
-
-**Planned:**
 - Name: Text
 - Notes: Memo
+
+**Completed Last Round:**
+- Configure Baseline Form
+- Configure Baseline View
+
+**Planned:**
+- Configure Quick Create Form
+- Configure Related Subgrids
 ---
 ### HR Time Off Request
 Represents the header record for employee leave requests, including leave type, period, and approval status.
@@ -251,7 +305,13 @@ Represents the header record for employee leave requests, including leave type, 
 - Emergency Contact: Text
 - Supporting Document: Lookup (Document)
 
+**Completed Last Round:**
+- Configure Baseline Form
+- Configure Baseline View
+
 **Planned:**
+- Configure Quick Create Form
+- Configure Related Subgrids
 
 ---
 
@@ -268,7 +328,13 @@ Stores individual leave date entries tied to a time off request (specific dates 
 - Leave Type: Choice (HR Leave Type)
 - Notes: Memo
 
+**Completed Last Round:**
+- Configure Baseline Form
+- Configure Baseline View
+
 **Planned:**
+- Configure Quick Create Form
+- Configure Related Subgrids
 
 ---
 
@@ -292,7 +358,13 @@ Captures individual overtime or compensatory time work entries, including date, 
 - Project Code: Text
 - Notes: Memo
 
+**Completed Last Round:**
+- Configure Baseline Form
+- Configure Baseline View
+
 **Planned:**
+- Configure Quick Create Form
+- Configure Related Subgrids
 
 ---
 
@@ -324,7 +396,13 @@ Captures employee requests for telework or remote work arrangements, including s
 - Agreement Signed: Yes / No
 - Safety Checklist Completed: Yes / No
 
+**Completed Last Round:**
+- Configure Baseline Form
+- Configure Baseline View
+
 **Planned:**
+- Configure Quick Create Form
+- Configure Related Subgrids
 
 ---
 
@@ -360,7 +438,13 @@ Tracks requests and fulfillment of workplace accommodations, including approval 
 - Medical Documentation Provided: Yes / No
 - Is Temporary: Yes / No
 
+**Completed Last Round:**
+- Configure Baseline Form
+- Configure Baseline View
+
 **Planned:**
+- Configure Quick Create Form
+- Configure Related Subgrids
 
 ---
 
@@ -388,7 +472,13 @@ Captures employee-submitted attestations or disclosures (e.g., conflict of inter
 - Requires Review: Yes / No
 - Attestation: Yes / No
 
+**Completed Last Round:**
+- Configure Baseline Form
+- Configure Baseline View
+
 **Planned:**
+- Configure Quick Create Form
+- Configure Related Subgrids
 
 ---
 
@@ -417,7 +507,21 @@ Records voluntary transfer or donation of leave hours from one employee to anoth
 - Recipient Balance After: Float
 - Notes: Memo
 
+**Completed Last Round:**
+- Configure Baseline Form
+- Configure Baseline View
+
 **Planned:**
+- Configure Quick Create Form
+- Configure Related Subgrids
+
+---
+
+## 🚀 Module Configuration
+
+**Planned:**
+- Configure Model-Driven App
+- Create Sample Data
 
 ---
 
@@ -489,3 +593,10 @@ Templates for position descriptions, offers, and standardized documents.
 
 **Planned:**
 
+---
+
+## 🚀 Module Configuration
+
+**Planned:**
+- Configure Model-Driven App
+- Create Sample Data

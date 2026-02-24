@@ -10,8 +10,14 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_hrtimeoffentryid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="192" />
+          <cell name="appbase_person" width="100" />
+          <cell name="appbase_leavetype" width="106" />
+          <cell name="appbase_entrydate" width="102" />
+          <cell name="appbase_hours" width="100" />
+          <cell name="appbase_approvalstatus" width="131" />
+          <cell name="appbase_notes" width="300" />
+          <cell name="appbase_hrtimeoffrequest" width="164" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +27,17 @@
         <entity name="appbase_hrtimeoffentry">
           <attribute name="appbase_hrtimeoffentryid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_person" />
+          <attribute name="appbase_leavetype" />
+          <attribute name="appbase_hrtimeoffrequest" />
+          <attribute name="appbase_approvalstatus" />
+          <attribute name="appbase_entrydate" />
+          <attribute name="appbase_hours" />
+          <attribute name="appbase_notes" />
         </entity>
       </fetch>
     </fetchxml>

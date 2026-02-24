@@ -10,8 +10,16 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_hrdisciplinaryactionid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="202" />
+          <cell name="appbase_disciplinaryactiontype" width="183" />
+          <cell name="appbase_person" width="100" />
+          <cell name="appbase_violationtype" width="124" />
+          <cell name="appbase_actionstatus" width="116" />
+          <cell name="appbase_incidentdate" width="116" />
+          <cell name="appbase_issuedate" width="100" />
+          <cell name="appbase_effectivedate" width="121" />
+          <cell name="appbase_expirationdate" width="130" />
+          <cell name="appbase_description" width="300" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +29,19 @@
         <entity name="appbase_hrdisciplinaryaction">
           <attribute name="appbase_hrdisciplinaryactionid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_disciplinaryactiontype" />
+          <attribute name="appbase_person" />
+          <attribute name="appbase_violationtype" />
+          <attribute name="appbase_incidentdate" />
+          <attribute name="appbase_effectivedate" />
+          <attribute name="appbase_actionstatus" />
+          <attribute name="appbase_expirationdate" />
+          <attribute name="appbase_issuedate" />
+          <attribute name="appbase_description" />
         </entity>
       </fetch>
     </fetchxml>

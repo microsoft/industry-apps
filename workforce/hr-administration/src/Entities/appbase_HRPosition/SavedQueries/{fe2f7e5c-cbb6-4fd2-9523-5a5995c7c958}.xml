@@ -10,8 +10,18 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_hrpositionid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="160" />
+          <cell name="appbase_positionnumber" width="136" />
+          <cell name="appbase_effectivestartdate" width="151" />
+          <cell name="appbase_effectiveenddate" width="148" />
+          <cell name="appbase_employmenttype" width="144" />
+          <cell name="appbase_fulltimeequivalent" width="160" />
+          <cell name="appbase_hrpositionstatus" width="147" />
+          <cell name="appbase_paygrade" width="100" />
+          <cell name="appbase_graderank" width="108" />
+          <cell name="appbase_requiresclearance" width="150" />
+          <cell name="appbase_personneltype" width="127" />
+          <cell name="appbase_location" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +31,21 @@
         <entity name="appbase_hrposition">
           <attribute name="appbase_hrpositionid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_positionnumber" />
+          <attribute name="appbase_effectivestartdate" />
+          <attribute name="appbase_effectiveenddate" />
+          <attribute name="appbase_employmenttype" />
+          <attribute name="appbase_fulltimeequivalent" />
+          <attribute name="appbase_hrpositionstatus" />
+          <attribute name="appbase_paygrade" />
+          <attribute name="appbase_graderank" />
+          <attribute name="appbase_requiresclearance" />
+          <attribute name="appbase_personneltype" />
+          <attribute name="appbase_location" />
         </entity>
       </fetch>
     </fetchxml>

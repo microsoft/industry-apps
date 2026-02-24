@@ -46,6 +46,10 @@ The formal, authoritative tasker or mandate issued by leadership. Defines scope,
 - Compliance Driven: Yes / No
 
 **Planned:**
+- Configure Baseline Forms
+- Configure Baseline Views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 ---
 
@@ -61,6 +65,10 @@ Categorizes executive actions (e.g., Strategic Initiative, Compliance Action, In
 - Requires Risk Assessment: Yes / No
 
 **Planned:**
+- Configure Baseline Forms
+- Configure Baseline Views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 ---
 
@@ -91,6 +99,10 @@ Provides leadership-level progress summaries for an executive action, including 
 - Notes: Memo
 
 **Planned:**
+- Configure Baseline Forms
+- Configure Baseline Views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 ---
 
@@ -116,6 +128,10 @@ Records significant decisions made during execution of the executive action that
 - Notes: Memo
 
 **Planned:**
+- Configure Baseline Forms
+- Configure Baseline Views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 ---
 
@@ -136,6 +152,10 @@ Defines relationships between executive actions where one action depends on, inf
 - Notes: Memo
 
 **Planned:**
+- Configure Baseline Forms
+- Configure Baseline Views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 ---
 
@@ -203,6 +223,17 @@ Can be referenced by Executive Decision Log entries to connect to official decis
 
 ## New Choice Fields
 
+
+
+
+
+---
+
+## 🚀 Module Configuration
+
+**Planned:**
+- Configure Model-Driven App
+- Create Sample Data
 
 
 

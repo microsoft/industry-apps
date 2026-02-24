@@ -10,8 +10,18 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_hrtimeoffrequestid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="207" />
+          <cell name="appbase_hrrequest" width="109" />
+          <cell name="appbase_person" width="100" />
+          <cell name="appbase_leavetype" width="106" />
+          <cell name="appbase_requestdate" width="116" />
+          <cell name="appbase_requeststatus" width="123" />
+          <cell name="appbase_startdate" width="100" />
+          <cell name="appbase_enddate" width="100" />
+          <cell name="appbase_returndate" width="109" />
+          <cell name="appbase_totalhoursrequested" width="169" />
+          <cell name="appbase_totalhoursapproved" width="166" />
+          <cell name="appbase_totalhourstaken" width="144" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +31,21 @@
         <entity name="appbase_hrtimeoffrequest">
           <attribute name="appbase_hrtimeoffrequestid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_hrrequest" />
+          <attribute name="appbase_person" />
+          <attribute name="appbase_leavetype" />
+          <attribute name="appbase_startdate" />
+          <attribute name="appbase_enddate" />
+          <attribute name="appbase_requestdate" />
+          <attribute name="appbase_requeststatus" />
+          <attribute name="appbase_returndate" />
+          <attribute name="appbase_totalhoursrequested" />
+          <attribute name="appbase_totalhoursapproved" />
+          <attribute name="appbase_totalhourstaken" />
         </entity>
       </fetch>
     </fetchxml>

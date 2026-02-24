@@ -10,8 +10,15 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_hrjobclassificationid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="208" />
+          <cell name="appbase_classificationcode" width="151" />
+          <cell name="appbase_classificationlevel" width="153" />
+          <cell name="appbase_jobseries" width="100" />
+          <cell name="appbase_defaultpaygrade" width="145" />
+          <cell name="appbase_ismanagement" width="127" />
+          <cell name="appbase_issupervisory" width="122" />
+          <cell name="appbase_requirescertification" width="165" />
+          <cell name="appbase_description" width="300" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +28,18 @@
         <entity name="appbase_hrjobclassification">
           <attribute name="appbase_hrjobclassificationid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_classificationcode" />
+          <attribute name="appbase_classificationlevel" />
+          <attribute name="appbase_description" />
+          <attribute name="appbase_jobseries" />
+          <attribute name="appbase_defaultpaygrade" />
+          <attribute name="appbase_ismanagement" />
+          <attribute name="appbase_issupervisory" />
+          <attribute name="appbase_requirescertification" />
         </entity>
       </fetch>
     </fetchxml>

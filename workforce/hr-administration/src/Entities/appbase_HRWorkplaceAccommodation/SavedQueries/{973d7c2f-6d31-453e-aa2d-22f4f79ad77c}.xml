@@ -10,8 +10,18 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_hrworkplaceaccommodationid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="174" />
+          <cell name="appbase_person" width="100" />
+          <cell name="appbase_accommodationtype" width="165" />
+          <cell name="appbase_requeststatus" width="123" />
+          <cell name="appbase_requestdate" width="116" />
+          <cell name="appbase_istemporary" width="115" />
+          <cell name="appbase_enddate" width="100" />
+          <cell name="appbase_reviewdate" width="113" />
+          <cell name="appbase_approvaldate" width="123" />
+          <cell name="appbase_approvalstatus" width="131" />
+          <cell name="appbase_approvedby" width="116" />
+          <cell name="appbase_hrrequest" width="109" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +31,21 @@
         <entity name="appbase_hrworkplaceaccommodation">
           <attribute name="appbase_hrworkplaceaccommodationid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_accommodationtype" />
+          <attribute name="appbase_person" />
+          <attribute name="appbase_enddate" />
+          <attribute name="appbase_requeststatus" />
+          <attribute name="appbase_requestdate" />
+          <attribute name="appbase_reviewdate" />
+          <attribute name="appbase_istemporary" />
+          <attribute name="appbase_hrrequest" />
+          <attribute name="appbase_approvaldate" />
+          <attribute name="appbase_approvalstatus" />
+          <attribute name="appbase_approvedby" />
         </entity>
       </fetch>
     </fetchxml>

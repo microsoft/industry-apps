@@ -10,8 +10,14 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_hrleavedonationid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="232" />
+          <cell name="appbase_donationdate" width="123" />
+          <cell name="appbase_donor" width="100" />
+          <cell name="appbase_hoursdonated" width="126" />
+          <cell name="appbase_leavetypedonated" width="157" />
+          <cell name="appbase_recipient" width="100" />
+          <cell name="appbase_processingstatus" width="139" />
+          <cell name="appbase_processeddate" width="126" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +27,17 @@
         <entity name="appbase_hrleavedonation">
           <attribute name="appbase_hrleavedonationid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_donationdate" />
+          <attribute name="appbase_donor" />
+          <attribute name="appbase_hoursdonated" />
+          <attribute name="appbase_leavetypedonated" />
+          <attribute name="appbase_recipient" />
+          <attribute name="appbase_processingstatus" />
+          <attribute name="appbase_processeddate" />
         </entity>
       </fetch>
     </fetchxml>

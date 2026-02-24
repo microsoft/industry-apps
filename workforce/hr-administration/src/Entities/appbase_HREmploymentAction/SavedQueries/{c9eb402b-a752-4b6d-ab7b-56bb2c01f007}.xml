@@ -10,8 +10,19 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_hremploymentactionid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="191" />
+          <cell name="appbase_actionnumber" width="128" />
+          <cell name="appbase_hractiontype" width="133" />
+          <cell name="appbase_actionstatus" width="116" />
+          <cell name="appbase_person" width="100" />
+          <cell name="appbase_requesteddate" width="129" />
+          <cell name="appbase_requestedby" width="119" />
+          <cell name="appbase_processeddate" width="126" />
+          <cell name="appbase_processedby" width="116" />
+          <cell name="appbase_effectivedate" width="121" />
+          <cell name="appbase_approvalstatus" width="131" />
+          <cell name="appbase_approvaldate" width="123" />
+          <cell name="appbase_approvedby" width="116" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +32,22 @@
         <entity name="appbase_hremploymentaction">
           <attribute name="appbase_hremploymentactionid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_actionnumber" />
+          <attribute name="appbase_actionstatus" />
+          <attribute name="appbase_person" />
+          <attribute name="appbase_requesteddate" />
+          <attribute name="appbase_requestedby" />
+          <attribute name="appbase_processeddate" />
+          <attribute name="appbase_processedby" />
+          <attribute name="appbase_hractiontype" />
+          <attribute name="appbase_effectivedate" />
+          <attribute name="appbase_approvalstatus" />
+          <attribute name="appbase_approvaldate" />
+          <attribute name="appbase_approvedby" />
         </entity>
       </fetch>
     </fetchxml>
