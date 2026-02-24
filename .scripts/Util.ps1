@@ -10,56 +10,50 @@ function Wait-ForFileSystemStability {
         [int]$StabilitySeconds = 5
     )
     
-    Write-Host "Waiting for file system stability after build..."
+    # Simplified: Just pause for 5 seconds to let file system settle
+    Start-Sleep -Seconds 5
     
-    $objDebugPath = Join-Path $Path "obj\Debug"
-    $binDebugPath = Join-Path $Path "bin\Debug"
-    
-    $startTime = Get-Date
-    $lastActivity = Get-Date
-    $stableTime = $null
-    
-    while ((Get-Date) -lt $startTime.AddSeconds($MaxWaitSeconds)) {
-        $currentActivity = $false
-        
-        # Check for recent file modifications in obj and bin directories
-        if (Test-Path $objDebugPath) {
-            $recentFiles = Get-ChildItem -Path $objDebugPath -Recurse -File -ErrorAction SilentlyContinue | 
-                          Where-Object { $_.LastWriteTime -gt (Get-Date).AddSeconds(-2) }
-            if ($recentFiles) {
-                $currentActivity = $true
-                $lastActivity = Get-Date
-                $stableTime = $null
-            }
-        }
-        
-        if (Test-Path $binDebugPath) {
-            $recentFiles = Get-ChildItem -Path $binDebugPath -Recurse -File -ErrorAction SilentlyContinue | 
-                          Where-Object { $_.LastWriteTime -gt (Get-Date).AddSeconds(-2) }
-            if ($recentFiles) {
-                $currentActivity = $true
-                $lastActivity = Get-Date
-                $stableTime = $null
-            }
-        }
-        
-        # Check if we have a stable period
-        if (-not $currentActivity) {
-            if ($null -eq $stableTime) {
-                $stableTime = Get-Date
-                Write-Host "File system activity stopped, waiting for stability..." -ForegroundColor Yellow
-            } elseif ((Get-Date) -gt $stableTime.AddSeconds($StabilitySeconds)) {
-                Write-Host "File system is stable. Proceeding..." -ForegroundColor Green
-                return
-            }
-        }
-        
-        Start-Sleep -Milliseconds 500
-        Write-Host "." -NoNewline -ForegroundColor Gray
-    }
-    
-    Write-Host ""
-    Write-Host "File system stability timeout reached. Proceeding with caution..." -ForegroundColor Yellow
+    # Original verbose implementation commented out:
+    # Write-Host "Waiting for file system stability after build..."
+    # $objDebugPath = Join-Path $Path "obj\Debug"
+    # $binDebugPath = Join-Path $Path "bin\Debug"
+    # $startTime = Get-Date
+    # $lastActivity = Get-Date
+    # $stableTime = $null
+    # while ((Get-Date) -lt $startTime.AddSeconds($MaxWaitSeconds)) {
+    #     $currentActivity = $false
+    #     if (Test-Path $objDebugPath) {
+    #         $recentFiles = Get-ChildItem -Path $objDebugPath -Recurse -File -ErrorAction SilentlyContinue | 
+    #                       Where-Object { $_.LastWriteTime -gt (Get-Date).AddSeconds(-2) }
+    #         if ($recentFiles) {
+    #             $currentActivity = $true
+    #             $lastActivity = Get-Date
+    #             $stableTime = $null
+    #         }
+    #     }
+    #     if (Test-Path $binDebugPath) {
+    #         $recentFiles = Get-ChildItem -Path $binDebugPath -Recurse -File -ErrorAction SilentlyContinue | 
+    #                       Where-Object { $_.LastWriteTime -gt (Get-Date).AddSeconds(-2) }
+    #         if ($recentFiles) {
+    #             $currentActivity = $true
+    #             $lastActivity = Get-Date
+    #             $stableTime = $null
+    #         }
+    #     }
+    #     if (-not $currentActivity) {
+    #         if ($null -eq $stableTime) {
+    #             $stableTime = Get-Date
+    #             Write-Host "File system activity stopped, waiting for stability..." -ForegroundColor Yellow
+    #         } elseif ((Get-Date) -gt $stableTime.AddSeconds($StabilitySeconds)) {
+    #             Write-Host "File system is stable. Proceeding..." -ForegroundColor Green
+    #             return
+    #         }
+    #     }
+    #     Start-Sleep -Milliseconds 500
+    #     Write-Host "." -NoNewline -ForegroundColor Gray
+    # }
+    # Write-Host ""
+    # Write-Host "File system stability timeout reached. Proceeding with caution..." -ForegroundColor Yellow
 }
 
 function Test-FileInUse {
@@ -89,33 +83,31 @@ function Get-FileUsingProcesses {
         [string]$FilePath
     )
     
-    try {
-        # Try using handle.exe if available (from Sysinternals)
-        if (Get-Command "handle" -ErrorAction SilentlyContinue) {
-            $handleOutput = & handle $FilePath 2>$null
-            if ($handleOutput) {
-                Write-Host "Processes using the file:" -ForegroundColor Cyan
-                $handleOutput | ForEach-Object { Write-Host "  $_" -ForegroundColor Gray }
-                return
-            }
-        }
-        
-        # Fallback: check common suspects
-        $suspectProcesses = @("Code", "CodeHelper", "dotnet", "MSBuild", "codeql", "defender")
-        $runningProcesses = Get-Process | Where-Object { 
-            $suspectProcesses -contains $_.ProcessName 
-        } | Select-Object ProcessName, Id, CPU
-        
-        if ($runningProcesses) {
-            Write-Host "Suspect processes that might be locking files:" -ForegroundColor Cyan
-            $runningProcesses | ForEach-Object { 
-                Write-Host "  $($_.ProcessName) (PID: $($_.Id))" -ForegroundColor Gray 
-            }
-        }
-    }
-    catch {
-        Write-Host "Could not determine which processes are using the file." -ForegroundColor Gray
-    }
+    # Simplified: Don't output verbose process information unless debugging
+    # Original implementation commented out to reduce noise:
+    # try {
+    #     if (Get-Command "handle" -ErrorAction SilentlyContinue) {
+    #         $handleOutput = & handle $FilePath 2>$null
+    #         if ($handleOutput) {
+    #             Write-Host "Processes using the file:" -ForegroundColor Cyan
+    #             $handleOutput | ForEach-Object { Write-Host "  $_" -ForegroundColor Gray }
+    #             return
+    #         }
+    #     }
+    #     $suspectProcesses = @("Code", "CodeHelper", "dotnet", "MSBuild", "codeql", "defender")
+    #     $runningProcesses = Get-Process | Where-Object { 
+    #         $suspectProcesses -contains $_.ProcessName 
+    #     } | Select-Object ProcessName, Id, CPU
+    #     if ($runningProcesses) {
+    #         Write-Host "Suspect processes that might be locking files:" -ForegroundColor Cyan
+    #         $runningProcesses | ForEach-Object { 
+    #             Write-Host "  $($_.ProcessName) (PID: $($_.Id))" -ForegroundColor Gray 
+    #         }
+    #     }
+    # }
+    # catch {
+    #     Write-Host "Could not determine which processes are using the file." -ForegroundColor Gray
+    # }
 }
 
 function Invoke-PythonFunction {
@@ -781,10 +773,11 @@ function Deploy-Solution {
         while (-not $importSuccessful -and $retryCount -lt $maxRetries) {
             # Check if the solution file is in use
             if (Test-FileInUse $solutionFile) {
-                Write-Host "Solution file is currently in use by another process (attempt $($retryCount + 1) of $maxRetries)..." -ForegroundColor Yellow
-                if ($retryCount -eq 0) {
-                    Get-FileUsingProcesses $solutionFile
-                }
+                # Silently retry with increasing delays (reduced verbosity)
+                # Write-Host "Solution file is currently in use by another process (attempt $($retryCount + 1) of $maxRetries)..." -ForegroundColor Yellow
+                # if ($retryCount -eq 0) {
+                #     Get-FileUsingProcesses $solutionFile
+                # }
                 Start-Sleep -Seconds (3 + $retryCount * 2) # 3s, 5s, 7s, 9s, 11s
                 $retryCount++
                 continue
@@ -804,7 +797,8 @@ function Deploy-Solution {
                         Remove-Item $testFile -Force -ErrorAction SilentlyContinue
                     }
                     catch {
-                        Write-Host "Parent directory appears to be locked. Waiting..." -ForegroundColor Yellow
+                        # Silently wait and retry (reduced verbosity)
+                        # Write-Host "Parent directory appears to be locked. Waiting..." -ForegroundColor Yellow
                         Start-Sleep -Seconds 5
                         $retryCount++
                         continue

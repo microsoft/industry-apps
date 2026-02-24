@@ -203,31 +203,6 @@ Can be referenced by Executive Decision Log entries to connect to official decis
 
 ## New Choice Fields
 
-### Decision Category
-- Scope Change
-- Timeline Extension
-- Budget Reallocation
-- Accountability Reassignment
-- Approach Modification
-- Priority Adjustment
-- Resource Addition
-- Dependency Change
-- Requirement Clarification
-- Risk Mitigation
-- Termination
-- Hold
 
-### Dependency Type
-- Finish to Start
-- Finish to Finish
-- Start to Start
-- Start to Finish
-- Informational
-- Resource Dependency
 
-### Dependency Status
-- Active
-- Satisfied
-- Blocked
-- At Risk
-- Cancelled
+

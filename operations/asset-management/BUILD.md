@@ -8,25 +8,23 @@
 Individual, accountable item instance. Stores identifying details, current status/condition, links to Product, Asset Type, ownership, assignment, and lifecycle records.
 
 **Completed:**
-
-**Planned:**
-- Name: Text ok
-- Asset Number: Text ok
+- Name: Text
+- Asset Number: Text
+- Serial Number: Text
+- Asset Type: Lookup (Asset Type)
+- Asset Category: Lookup (Asset Category)
+- Related Product: Lookup (Product)
+- Description: Memo
+- Asset Status: Choice (Asset Status)
+- Condition: Choice (Asset Condition)
+- Acquired Date Time: Date Time
+- In Service Date: Date
+- Expected Useful Life (Years): Integer
 - Parent Asset: Lookup (Asset)
-- Serial Number: Text ok
-- Asset Type: Lookup (Asset Type) ok
-- Asset Category: Lookup (Asset Category) ok
-- Related Product: Lookup (Product) ok
-- Description: Memo ok
-- Asset Status: Choice (Asset Status) ok
-- Condition: Choice (Asset Condition) ok
-- Acquired Date Time: Date Time ok
-- In Service Date: Date ok
-- Expected Useful Life (Years): Integer ok
+- RF Tag: Text 
 - Estimated Value: Currency
-- Depreciation Method: Choice (Depreciation Method)
+- Depreciation Method: Choice (Asset Depreciation Method)
 - Barcode: Text
-- RF Tag: Text ok
 - Is Disposable: Yes / No
 - Requires Inspection: Yes / No
 - Current Location: Lookup (Location)
@@ -34,14 +32,14 @@ Individual, accountable item instance. Stores identifying details, current statu
 - Current Owner: Lookup (Asset Owner)
 - Notes: Memo
 
+**Planned:**
+
 ---
 
 ### Asset Type
 Operational classification of assets (e.g., Laptop, Vehicle, Generator). Used for reporting, inspection requirements, and grouping.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Asset Category: Lookup (Asset Category)
 - Description: Memo
@@ -49,18 +47,20 @@ Operational classification of assets (e.g., Laptop, Vehicle, Generator). Used fo
 - Requires Tracking: Yes / No
 - Requires Inspection: Yes / No
 
+**Planned:**
+
 ---
 
 ### Asset Category
 Higher-level grouping of Asset Types (e.g., IT Equipment, Fleet, Facilities Equipment). Useful for roll-up reporting and policy alignment.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Parent Asset Category: Lookup (Asset Category)
 - Description: Memo
 - Capitalization Threshold: Currency
+
+**Planned:**
 
 ---
 
@@ -70,8 +70,6 @@ Higher-level grouping of Asset Types (e.g., IT Equipment, Fleet, Facilities Equi
 Represents the acquisition event for one or more assets (purchase, lease, donation, transfer-in). Captures supplier, acquisition type, funding, and financial context.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Acquisition Type: Choice (Acquisition Type)
 - Acquisition Date: Date
@@ -87,14 +85,14 @@ Represents the acquisition event for one or more assets (purchase, lease, donati
 - Warranty Expiration Date: Date
 - Notes: Memo
 
+**Planned:**
+
 ---
 
 ### Asset Cost Entry
 Additional capital or operational costs associated with an asset (repairs, upgrades, improvements, reconditioning, etc.) for total cost tracking.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Asset: Lookup (Asset)
 - Cost Type: Choice (Asset Cost Type)
@@ -106,6 +104,8 @@ Additional capital or operational costs associated with an asset (repairs, upgra
 - Capitalizable: Yes / No
 - Notes: Memo
 
+**Planned:**
+
 ---
 
 ## Ownership, Assignment & Custody
@@ -114,11 +114,9 @@ Additional capital or operational costs associated with an asset (repairs, upgra
 Tracks legal or financial ownership of the asset over time (e.g., owned, leased, externally owned). Supports ownership history with effective dates.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Asset: Lookup (Asset)
-- Ownership Type: Choice (Ownership Type)
+- Ownership Type: Choice (Asset Ownership Type)
 - Owner Account: Lookup (Account)
 - Owner Organization Unit: Lookup (Organization Unit)
 - Effective Start Date: Date
@@ -126,14 +124,14 @@ Tracks legal or financial ownership of the asset over time (e.g., owned, leased,
 - Is Current: Yes / No
 - Notes: Memo
 
+**Planned:**
+
 ---
 
 ### Asset Assignment
 Tracks custody or responsibility for the asset over time (assigned to a person, organization unit, or team). Includes start and end dates.
 
 **Completed:**
-
-**Planned:**
 - Name: Text ok
 - Asset: Lookup (Asset) ok
 - Assigned To Person: Lookup (Person) ok
@@ -141,10 +139,12 @@ Tracks custody or responsibility for the asset over time (assigned to a person, 
 - Assignment Date: Date ok
 - Expected Return Date: Date ok
 - Actual Return Date: Date ok
-- Assignment Status: Choice (Assignment Status)
 - Assignment Purpose: Memo ok
+- Assignment Status: Choice (Assignment Status)
 - Is Current: Yes / No
 - Notes: Memo
+
+**Planned:**
 
 ---
 
@@ -152,11 +152,9 @@ Tracks custody or responsibility for the asset over time (assigned to a person, 
 Timeline-based record of significant custody or control changes (assign, return, move, transfer, retire, dispose). Provides an auditable history of asset movement and responsibility.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Asset: Lookup (Asset)
-- Event Type: Choice (Custody Event Type)
+- Event Type: Choice (Asset Custody Event Type)
 - Event Date Time: Date Time
 - From Person: Lookup (Person)
 - To Person: Lookup (Person)
@@ -168,6 +166,8 @@ Timeline-based record of significant custody or control changes (assign, return,
 - Verification Method: Text
 - Notes: Memo
 
+**Planned:**
+
 ---
 
 ## Service & Operational History
@@ -176,8 +176,6 @@ Timeline-based record of significant custody or control changes (assign, return,
 Lightweight maintenance/service log entry for an asset. Captures service date, service type, provider, cost, and notes.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Asset: Lookup (Asset)
 - Service Type: Lookup (Asset Service Type)
@@ -186,10 +184,12 @@ Lightweight maintenance/service log entry for an asset. Captures service date, s
 - Service Provider Contact: Lookup (Person)
 - Service Cost: Currency
 - Meter Reading: Integer
-- Service Status: Choice (Service Status)
+- Service Status: Choice (Asset Status)
 - Next Service Due Date: Date
 - Description: Memo
 - Notes: Memo
+
+**Planned:**
 
 ---
 
@@ -197,10 +197,10 @@ Lightweight maintenance/service log entry for an asset. Captures service date, s
 Reference list defining types of service events (Preventive, Repair, Inspection, Upgrade, Calibration, etc.).
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Description: Memo
+
+**Planned:**
 
 ---
 
@@ -210,13 +210,11 @@ Reference list defining types of service events (Preventive, Repair, Inspection,
 Represents an audit cycle or inventory verification event (e.g., Annual Inventory Count). Defines scope, dates, and status.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
-- Audit Type: Choice (Audit Type)
+- Audit Type: Choice (Asset Audit Type)
 - Audit Start Date: Date
 - Audit End Date: Date
-- Audit Status: Choice (Audit Status)
+- Schedule Status: Choice (Schedule Status)
 - Auditor: Lookup (Person)
 - Scope Organization Unit: Lookup (Organization Unit)
 - Scope Location: Lookup (Location)
@@ -226,14 +224,14 @@ Represents an audit cycle or inventory verification event (e.g., Annual Inventor
 - Description: Memo
 - Notes: Memo
 
+**Planned:**
+
 ---
 
 ### Asset Audit Item
 Asset-level audit result within an Asset Audit. Records expected vs observed data, verification status, and findings.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Asset Audit: Lookup (Asset Audit)
 - Asset: Lookup (Asset)
@@ -246,10 +244,12 @@ Asset-level audit result within an Asset Audit. Records expected vs observed dat
 - Verification Status: Choice (Verification Status)
 - Verification Date Time: Date Time
 - Verified By: Lookup (Person)
-- Discrepancy Type: Choice (Discrepancy Type)
+- Discrepancy Type: Choice (Asset Discrepancy Type)
 - Finding: Memo
 - Resolution: Memo
 - Resolution Date: Date
+
+**Planned:**
 
 ---
 
@@ -257,15 +257,16 @@ Asset-level audit result within an Asset Audit. Records expected vs observed dat
 Defines recurring inspection rules that apply to an Asset Type or specific Asset. Includes frequency and regulatory reference.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Asset Type: Lookup (Asset Type)
 - Specific Asset: Lookup (Asset)
+- Inspection Frequency: Choice (Schedule Frequency)
 - Inspection Frequency (Days): Integer
 - Regulatory Authority: Lookup (Legal Authority)
 - Compliance Framework: Lookup (Compliance Framework)
 - Description: Memo
+
+**Planned:**
 
 ---
 
@@ -275,12 +276,10 @@ Defines recurring inspection rules that apply to an Asset Type or specific Asset
 Captures retirement and disposal details for an asset, including retirement reason, disposal method, dates, approvals, and recipient (if applicable).
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Asset: Lookup (Asset)
-- Disposition Type: Choice (Disposition Type)
-- Disposition Reason: Choice (Disposition Reason)
+- Disposition Type: Choice (Asset Disposition Type)
+- Disposition Reason: Choice (Asset Disposition Reason)
 - Disposition Date: Date
 - Approved By: Lookup (Person)
 - Approval Date: Date
@@ -294,23 +293,27 @@ Captures retirement and disposal details for an asset, including retirement reas
 - Description: Memo
 - Notes: Memo
 
+**Planned:**
+
 ---
 
-## New Choice Fields
+## Choice Fields
 
-### Asset Status ok
-- Available ok
-- In Use ok
-- In Storage ok
-- In Maintenance ok
-- In Transit ok
-- Reserved ok
-- Retired ok
-- Disposed ok
-- Lost ok
-- Stolen ok
+**Completed:**
 
-### Asset Condition ok
+### Asset Status
+- Available
+- In Use 
+- In Storage 
+- In Maintenance
+- In Transit
+- Reserved
+- Retired
+- Disposed
+- Lost
+- Stolen
+
+### Asset Condition
 - Excellent
 - Good
 - Fair
@@ -319,27 +322,20 @@ Captures retirement and disposal details for an asset, including retirement reas
 - Needs Repair
 - Under Evaluation
 
-### Depreciation Method
+### Asset Depreciation Method
 - Straight Line
 - Declining Balance
 - Units of Production
 - Sum of Years Digits
 - Not Depreciated
 
-### Acquisition Type
+### Asset Acquisition Type
 - Purchase
 - Lease
 - Donation
 - Transfer In
 - Fabricated
 - Found Property
-
-### Payment Status
-- Pending
-- Partial
-- Paid
-- Disputed
-- Refunded
 
 ### Asset Cost Type
 - Repair
@@ -350,7 +346,7 @@ Captures retirement and disposal details for an asset, including retirement reas
 - Installation
 - Decommission
 
-### Ownership Type
+### Asset Ownership Type
 - Owned
 - Leased
 - Rented
@@ -358,14 +354,7 @@ Captures retirement and disposal details for an asset, including retirement reas
 - On Loan
 - Consignment
 
-### Assignment Status
-- Active
-- Pending Return
-- Returned
-- Overdue
-- Cancelled
-
-### Custody Event Type
+### Asset Custody Event Type
 - Assigned
 - Returned
 - Transferred
@@ -375,14 +364,15 @@ Captures retirement and disposal details for an asset, including retirement reas
 - Retired
 - Disposed
 
-### Service Status
+### Schedule Status
 - Scheduled
 - In Progress
 - Completed
 - Cancelled
+- On Hold
 - Overdue
 
-### Audit Type
+### Asset Audit Type
 - Scheduled Inventory
 - Spot Check
 - Random Sample
@@ -390,21 +380,14 @@ Captures retirement and disposal details for an asset, including retirement reas
 - Regulatory Audit
 - Investigation
 
-### Audit Status
+### Audit Status - Use Schedule Statue
 - Planned
 - In Progress
 - Completed
 - On Hold
 - Cancelled
 
-### Verification Status
-- Verified
-- Not Found
-- Discrepancy Found
-- Pending Investigation
-- Resolved
-
-### Discrepancy Type
+### Asset Discrepancy Type
 - Missing
 - Wrong Location
 - Wrong Assignee
@@ -412,7 +395,7 @@ Captures retirement and disposal details for an asset, including retirement reas
 - Unrecorded Asset
 - Duplicate Entry
 
-### Disposition Type
+### Asset Disposition Type
 - Sale
 - Donation
 - Transfer Out
@@ -422,7 +405,7 @@ Captures retirement and disposal details for an asset, including retirement reas
 - Return to Vendor
 - Salvage
 
-### Disposition Reason
+### Asset Disposition Reason
 - End of Life
 - Obsolete
 - Damaged Beyond Repair
@@ -431,4 +414,7 @@ Captures retirement and disposal details for an asset, including retirement reas
 - Replaced
 - Policy Requirement
 - Lost or Stolen
+
+**Planned:**
+
 

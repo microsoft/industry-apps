@@ -612,13 +612,26 @@ async def create_fields(request: CreateFieldsRequest):
             if choice_fields:
                 yield f"data: {{\"type\": \"output\", \"line\": \"Validating choice fields...\"}}\n\n"
                 
-                # Scan available option sets
+                # Get option sets from Dataverse (primary source)
+                yield f"data: {{\"type\": \"output\", \"line\": \"  Querying Dataverse for global option sets...\"}}\n\n"
+                dataverse_option_sets = client.get_global_optionset_definitions()
+                
+                # Also scan local workspace option sets
                 option_sets_response = await scan_option_sets()
-                all_option_sets = option_sets_response.get("optionSets", [])
+                local_option_sets = option_sets_response.get("optionSets", [])
+                
+                # Merge: Dataverse option sets + local option sets (deduplicate by schema name)
+                all_option_sets = {os["schemaName"]: os for os in dataverse_option_sets}
+                for os in local_option_sets:
+                    if os["schemaName"] not in all_option_sets:
+                        all_option_sets[os["schemaName"]] = os
+                
+                all_option_sets_list = list(all_option_sets.values())
+                yield f"data: {{\"type\": \"output\", \"line\": \"  Found {len(dataverse_option_sets)} option sets in Dataverse, {len(local_option_sets)} local\"}}\n\n"
                 
                 # Build lookup maps: schema name -> schema name, display name -> schema name
-                option_set_by_schema = {os["schemaName"]: os["schemaName"] for os in all_option_sets}
-                option_set_by_display = {os["displayName"]: os["schemaName"] for os in all_option_sets}
+                option_set_by_schema = {os["schemaName"]: os["schemaName"] for os in all_option_sets_list}
+                option_set_by_display = {os["displayName"]: os["schemaName"] for os in all_option_sets_list}
                 
                 # Check each choice field and normalize option set references
                 missing_option_sets = []

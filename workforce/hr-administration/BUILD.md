@@ -467,6 +467,7 @@ Templates for position descriptions, offers, and standardized documents.
 ---
 
 ## New Choice Fields
+
 **Completed:**
 
 - HR Position Status

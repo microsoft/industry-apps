@@ -27,6 +27,7 @@ class DataverseClient:
         "Currency": "Money",
         "Date": "DateTime",
         "DateTime": "DateTime",
+        "Date Time": "DateTime",
         "Boolean": "Boolean",
         "Choice": "Picklist",
         "MultiChoice": "MultiSelectPicklist",
@@ -958,8 +959,8 @@ class DataverseClient:
                 required=required,
                 description=description
             )
-        elif field_type in ["Date", "DateTime"]:
-            include_time = field_type == "DateTime"
+        elif field_type in ["Date", "DateTime", "Date Time"]:
+            include_time = field_type in ["DateTime", "Date Time"]
             return self.create_datetime_field(
                 table_name,
                 schema_name,
@@ -1073,7 +1074,7 @@ class DataverseClient:
                     url,
                     headers=headers,
                     json=optionset_metadata,
-                    timeout=30.0
+                    timeout=120.0  # Increased timeout for option set creation (can take time when adding to solution)
                 )
                 
                 if response.status_code in [200, 201, 204]:

@@ -907,4 +907,54 @@ Status of a financial or reporting period.
 - Locked
 - Adjusted
 
+### Task Dependency Type
+- Finish to Start
+- Finish to Finish
+- Start to Start
+- Start to Finish
+- Informational
+- Resource Dependency
+
+### Task Dependency Status
+- Active
+- Satisfied
+- Blocked
+- At Risk
+- Cancelled
+
+### Assignment Status
+- Active
+- Pending Return
+- Returned
+- Overdue
+- Cancelled
+
+### Payment Status
+- Pending
+- Partial
+- Paid
+- Disputed
+- Refunded
+
+### Decision Category
+- Scope Change
+- Timeline Extension
+- Budget Reallocation
+- Accountability Reassignment
+- Approach Modification
+- Priority Adjustment
+- Resource Addition
+- Dependency Change
+- Requirement Clarification
+- Risk Mitigation
+- Termination
+- Hold
+
+### Verification Status
+- Verified
+- Not Found
+- Discrepancy Found
+- Pending Investigation
+- Resolved
+
 **Planned:**

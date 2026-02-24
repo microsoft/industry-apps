@@ -14,6 +14,7 @@
   let optionSets = [];
   let pendingOptionSets = [];
   let loading = false;
+  let creating = false; // Separate state for option set creation
 
   // UI state
   let activeTab = 'create'; // 'search', 'create', 'browse'
@@ -276,6 +277,54 @@
     }
   }
 
+  function parseMarkdownOptions(markdownText) {
+    if (!markdownText || !markdownText.trim()) {
+      alert('Please paste markdown text with list items');
+      return;
+    }
+
+    // Extract list items from markdown
+    // Supports:
+    // - Item one
+    // - Item two
+    // ### Title
+    // - Item one
+    // - Item two
+    
+    const lines = markdownText.split('\n');
+    const parsedOptions = [];
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      
+      // Skip empty lines and headers
+      if (!trimmed || trimmed.startsWith('#')) {
+        continue;
+      }
+      
+      // Match markdown list items (-, *, or +)
+      const match = trimmed.match(/^[-*+]\s+(.+)$/);
+      if (match) {
+        const label = match[1].trim();
+        if (label) {
+          parsedOptions.push({ label, value: '' });
+        }
+      }
+    }
+
+    if (parsedOptions.length === 0) {
+      alert('No list items found. Use format:\n- Item one\n- Item two\n- Item three');
+      return;
+    }
+
+    // Replace options with parsed ones
+    options = parsedOptions;
+    markdownImportText = ''; // Clear the textarea
+  }
+
+  let markdownImportText = '';
+  let showMarkdownImport = false;
+
   async function checkForDuplicates() {
     loading = true;
     try {
@@ -312,7 +361,8 @@
       return;
     }
 
-    loading = true;
+    creating = true; // Use creating state instead of loading
+    showReviewModal = false; // Close review modal immediately
     creationResult = null;
 
     try {
@@ -342,7 +392,6 @@
       if (data.success) {
         creationResult = { success: true, ...data };
         createStep = 4;
-        showReviewModal = false;
         
         // Save to pending cache on backend
         await savePendingOptionSet({
@@ -364,15 +413,13 @@
       } else {
         creationResult = { success: false, error: data.error };
         createStep = 4;
-        showReviewModal = false;
       }
     } catch (error) {
       console.error('Error creating option set:', error);
       creationResult = { success: false, error: error.message };
       createStep = 4;
-      showReviewModal = false;
     }
-    loading = false;
+    creating = false;
   }
 
   function resetCreateForm() {
@@ -748,7 +795,35 @@
             <!-- Middle: Step 2 Define Options -->
             <div class="step-column step-options">
               <div class="form-section">
-                <h3>Step 2: Define Options</h3>
+                <div class="step-header-with-actions">
+                  <h3>Step 2: Define Options</h3>
+                  <button 
+                    class="btn-text-small"
+                    on:click={() => showMarkdownImport = !showMarkdownImport}
+                  >
+                    {showMarkdownImport ? '✕ Hide Markdown Import' : '+ Paste Markdown'}
+                  </button>
+                </div>
+
+                {#if showMarkdownImport}
+                  <div class="markdown-import-section">
+                    <p class="import-hint">Paste markdown with list items (e.g., from BUILD.md)</p>
+                    <textarea 
+                      bind:value={markdownImportText}
+                      placeholder="Paste markdown here:&#10;- Scope Change&#10;- Timeline Extension&#10;- Budget Reallocation"
+                      class="markdown-textarea"
+                    ></textarea>
+                    <div class="import-buttons">
+                      <button class="btn-secondary" on:click={() => parseMarkdownOptions(markdownImportText)}>
+                        📋 Import Options
+                      </button>
+                      <button class="btn-text" on:click={() => showMarkdownImport = false}>
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                {/if}
+
                 <div class="options-table">
                   <div class="table-header">
                     <span>Label</span>
@@ -973,9 +1048,24 @@
         </div>
 
         <div class="modal-footer">
-          <button class="btn-primary" on:click={createOptionSet} disabled={loading || !selectedSolution}>
-            {loading ? 'Creating...' : '✓ Create Option Set'}
+          <button class="btn-primary" on:click={createOptionSet} disabled={creating || !selectedSolution}>
+            {creating ? 'Creating...' : '✓ Create Option Set'}
           </button>
+        </div>
+      </div>
+    </div>
+  {/if}
+
+  <!-- Progress Modal -->
+  {#if creating}
+    <div class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="progress-title">
+      <div class="modal-content progress-modal">
+        <div class="modal-header">
+          <h3 id="progress-title">Creating Option Set...</h3>
+        </div>
+        <div class="modal-body">
+          <div class="progress-spinner"></div>
+          <p class="progress-text">Please wait while your option set is being created...</p>
         </div>
       </div>
     </div>
@@ -1322,6 +1412,93 @@
     margin-top: 0.25rem;
     color: #999;
     font-size: 0.85rem;
+  }
+
+  .step-header-with-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+  }
+
+  .step-header-with-actions h3 {
+    margin: 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #3c3c3c;
+    flex: 1;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .btn-text-small {
+    background: transparent;
+    border: none;
+    color: #0078d4;
+    cursor: pointer;
+    padding: 0 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: color 0.2s;
+  }
+
+  .btn-text-small:hover {
+    color: #1084e8;
+    text-decoration: underline;
+  }
+
+  .btn-text {
+    background: transparent;
+    border: none;
+    color: #0078d4;
+    cursor: pointer;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .btn-text:hover {
+    color: #1084e8;
+  }
+
+  .markdown-import-section {
+    background: #2a2a2a;
+    border: 1px solid #3c3c3c;
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .import-hint {
+    font-size: 0.9rem;
+    color: #999;
+    margin: 0 0 0.75rem 0;
+  }
+
+  .markdown-textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 0.75rem;
+    background: #1e1e1e;
+    border: 1px solid #3c3c3c;
+    border-radius: 4px;
+    color: #e0e0e0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    resize: vertical;
+    margin-bottom: 0.75rem;
+  }
+
+  .markdown-textarea::placeholder {
+    color: #666;
+  }
+
+  .import-buttons {
+    display: flex;
+    gap: 0.5rem;
   }
 
   .options-table {
@@ -1987,6 +2164,32 @@
     border-top: 1px solid #3c3c3c;
     gap: 1rem;
     flex-shrink: 0;
+  }
+
+  /* Progress Modal */
+  .progress-modal {
+    width: 360px;
+    text-align: center;
+  }
+
+  .progress-spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid #3c3c3c;
+    border-top-color: #007acc;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 2rem auto 1.5rem;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .progress-text {
+    color: #d4d4d4;
+    font-size: 0.95rem;
+    margin: 0;
   }
 </style>
 

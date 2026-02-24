@@ -46,10 +46,11 @@ function Copy-SolutionArtifact($sourceArtifact, $newVersion, $solutionName) {
     while (-not $copySuccessful -and $retryCount -lt $maxRetries) {
         # Check if source file is in use
         if (Test-FileInUse $sourceFile) {
-            Write-Host "Source file $sourceArtifact is currently in use (attempt $($retryCount + 1) of $maxRetries)..." -ForegroundColor Yellow
-            if ($retryCount -eq 0) {
-                Get-FileUsingProcesses $sourceFile
-            }
+            # Silently retry with increasing delays (reduced verbosity)
+            # Write-Host "Source file $sourceArtifact is currently in use (attempt $($retryCount + 1) of $maxRetries)..." -ForegroundColor Yellow
+            # if ($retryCount -eq 0) {
+            #     Get-FileUsingProcesses $sourceFile
+            # }
             Start-Sleep -Seconds (3 + $retryCount * 2) # 3s, 5s, 7s, 9s, 11s
             $retryCount++
             continue

@@ -50,7 +50,7 @@
   
   $: availableEnvironments = getAvailableEnvironments($config, selectedDeployment);
   
-  // Load publisher prefix from localStorage
+  // Load saved settings from localStorage
   onMount(() => {
     const savedPrefix = localStorage.getItem('publisherPrefix');
     if (savedPrefix) {
@@ -59,9 +59,20 @@
       publisherPrefix = 'appbase_';
     }
     
-    // Set default deployment
-    if ($deployments && $deployments.length > 0) {
+    // Load saved deployment and environment
+    const savedDeployment = localStorage.getItem('fieldCreator_deployment');
+    const savedEnvironment = localStorage.getItem('fieldCreator_environment');
+    
+    if (savedDeployment && $deployments && $deployments.includes(savedDeployment)) {
+      selectedDeployment = savedDeployment;
+    } else if ($deployments && $deployments.length > 0) {
+      // Fall back to first deployment if saved value is invalid
       selectedDeployment = $deployments[0];
+    }
+    
+    // Restore environment after deployment is set
+    if (savedEnvironment) {
+      selectedEnvironment = savedEnvironment;
     }
     
     // Load option sets
@@ -178,9 +189,17 @@
     tableName = tableNameSearch;
   }
   
-  // Save publisher prefix to localStorage when changed
+  // Save settings to localStorage when changed
   $: if (publisherPrefix) {
     localStorage.setItem('publisherPrefix', publisherPrefix);
+  }
+  
+  $: if (selectedDeployment) {
+    localStorage.setItem('fieldCreator_deployment', selectedDeployment);
+  }
+  
+  $: if (selectedEnvironment) {
+    localStorage.setItem('fieldCreator_environment', selectedEnvironment);
   }
   
   function countFields(text) {
