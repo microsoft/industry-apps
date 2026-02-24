@@ -25,12 +25,12 @@ Individual, accountable item instance. Stores identifying details, current statu
 - Estimated Value: Currency
 - Depreciation Method: Choice (Asset Depreciation Method)
 - Barcode: Text
-- Is Disposable: Yes / No
-- Requires Inspection: Yes / No
 - Current Location: Lookup (Location)
 - Current Assignment: Lookup (Asset Assignment)
 - Current Owner: Lookup (Asset Owner)
 - Notes: Memo
+- Is Disposable: Yes / No
+- Requires Inspection: Yes / No
 
 **Planned:**
 
@@ -101,8 +101,8 @@ Additional capital or operational costs associated with an asset (repairs, upgra
 - Vendor: Lookup (Account)
 - Invoice Number: Text
 - Description: Memo
-- Capitalizable: Yes / No
 - Notes: Memo
+- Capitalizable: Yes / No
 
 **Planned:**
 
@@ -121,8 +121,8 @@ Tracks legal or financial ownership of the asset over time (e.g., owned, leased,
 - Owner Organization Unit: Lookup (Organization Unit)
 - Effective Start Date: Date
 - Effective End Date: Date
-- Is Current: Yes / No
 - Notes: Memo
+- Is Current: Yes / No
 
 **Planned:**
 
@@ -141,8 +141,8 @@ Tracks custody or responsibility for the asset over time (assigned to a person, 
 - Actual Return Date: Date ok
 - Assignment Purpose: Memo ok
 - Assignment Status: Choice (Assignment Status)
-- Is Current: Yes / No
 - Notes: Memo
+- Is Current: Yes / No
 
 **Planned:**
 
@@ -288,10 +288,10 @@ Captures retirement and disposal details for an asset, including retirement reas
 - Sale Price: Currency
 - Disposal Cost: Currency
 - Certificate of Destruction: Text
-- Environmental Compliance Verified: Yes / No
-- Data Sanitization Verified: Yes / No
 - Description: Memo
 - Notes: Memo
+- Environmental Compliance Verified: Yes / No
+- Data Sanitization Verified: Yes / No
 
 **Planned:**
 

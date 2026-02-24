@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.26012.156" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26012.156" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26013.00152">
+<ImportExportXml version="9.2.26013.152" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26013.152" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26013.00155">
   <SolutionManifest>
     <UniqueName>appbase_executivecoordination</UniqueName>
     <LocalizedNames>
@@ -81,54 +81,160 @@
     </Publisher>
     <RootComponents>
       <RootComponent type="1" schemaName="appbase_executiveaction" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_executiveactiondependency" behavior="0" />
       <RootComponent type="1" schemaName="appbase_executiveactiontype" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_executivedecisionlog" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_executivestatusupdate" behavior="0" />
       <RootComponent type="62" schemaName="appbase_ExecutiveCoordination" behavior="0" />
-      <RootComponent type="80" schemaName="appbase_ExecutiveCoordination" behavior="0" />
     </RootComponents>
     <MissingDependencies>
       <MissingDependency>
-        <Required type="1" schemaName="appbase_analysis" displayName="Analysis" solution="appbase_core (1.0.0.1)" />
+        <Required type="1" schemaName="appbase_analysis" displayName="Analysis" solution="appbase_core (1.0.0.2)" />
         <Dependent type="62" schemaName="appbase_ExecutiveCoordination" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="1" schemaName="appbase_analysis" displayName="Analysis" solution="appbase_core (1.0.0.1)" />
-        <Dependent type="80" schemaName="appbase_ExecutiveCoordination" displayName="Executive Coordination" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="1" schemaName="appbase_impact" displayName="Impact" solution="appbase_core (1.0.0.1)" />
+        <Required type="1" schemaName="appbase_impact" displayName="Impact" solution="appbase_core (1.0.0.2)" />
         <Dependent type="62" schemaName="appbase_ExecutiveCoordination" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="1" schemaName="appbase_impact" displayName="Impact" solution="appbase_core (1.0.0.1)" />
-        <Dependent type="80" schemaName="appbase_ExecutiveCoordination" displayName="Executive Coordination" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="1" schemaName="appbase_legalauthority" displayName="Legal Authority" solution="appbase_core (1.0.0.1)" />
+        <Required type="1" schemaName="appbase_legalauthority" displayName="Legal Authority" solution="appbase_core (1.0.0.2)" />
         <Dependent type="62" schemaName="appbase_ExecutiveCoordination" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="1" schemaName="appbase_legalauthority" displayName="Legal Authority" solution="appbase_core (1.0.0.1)" />
-        <Dependent type="80" schemaName="appbase_ExecutiveCoordination" displayName="Executive Coordination" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="1" schemaName="appbase_riskitem" displayName="Risk Item" solution="appbase_core (1.0.0.1)" />
+        <Required type="1" schemaName="appbase_riskitem" displayName="Risk Item" solution="appbase_core (1.0.0.2)" />
         <Dependent type="62" schemaName="appbase_ExecutiveCoordination" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="1" schemaName="appbase_riskitem" displayName="Risk Item" solution="appbase_core (1.0.0.1)" />
-        <Dependent type="80" schemaName="appbase_ExecutiveCoordination" displayName="Executive Coordination" />
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_agreement" parentDisplayName="Agreement" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="10" schemaName="appbase_executiveaction_RelatedAgreement" displayName="appbase_executiveaction_RelatedAgreement" parentSchemaName="appbase_agreement" parentDisplayName="Agreement" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)">
-          <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
-        </Required>
-        <Dependent type="80" schemaName="appbase_ExecutiveCoordination" displayName="Executive Coordination" />
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_formaldecision" parentDisplayName="Formal Decision" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="10" schemaName="appbase_executivedecisionlog_FormalDecision" displayName="appbase_executivedecisionlog_FormalDecision" parentSchemaName="appbase_formaldecision" parentDisplayName="Formal Decision" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.15)" id.uniquename="AppChannel">
-          <package appName="PowerAppsAppFramework Package" version="1.0.0.25">PowerAppsAppFramework_Anchor (1.0.0.25)</package>
-        </Required>
-        <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=appbase_ExecutiveCoordination,settingdefinitionid.uniquename=AppChannel" id.parentappmoduleid.uniquename="appbase_ExecutiveCoordination" id.settingdefinitionid.uniquename="AppChannel" />
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="10" schemaName="appbase_executiveaction_PrimaryLegalAuthority" displayName="appbase_executiveaction_PrimaryLegalAuthority" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationinitiative" parentDisplayName="Organization Initiative" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="10" schemaName="appbase_executiveaction_OrganizationInitiative" displayName="appbase_executiveaction_OrganizationInitiative" parentSchemaName="appbase_organizationinitiative" parentDisplayName="Organization Initiative" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="10" schemaName="appbase_executiveaction_IssuingAuthority" displayName="appbase_executiveaction_IssuingAuthority" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="10" schemaName="appbase_executiveaction_LeadOrganizationUnit" displayName="appbase_executiveaction_LeadOrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="10" schemaName="appbase_executivedecisionlog_DecisionAuthority" displayName="appbase_executivedecisionlog_DecisionAuthority" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_actionstatus" displayName="Action Status" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_actionstatus" displayName="Action Status" parentSchemaName="appbase_executiveaction" parentDisplayName="Executive Action" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_actionstatus" displayName="Action Status" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_actionstatus" displayName="Action Status" parentSchemaName="appbase_executivestatusupdate" parentDisplayName="Executive Status Update" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_decisioncategory" displayName="Decision Category" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_decisioncategory" displayName="Decision Category" parentSchemaName="appbase_executivedecisionlog" parentDisplayName="Executive Decision Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_direction" displayName="Direction" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_budgetimpact" displayName="Budget Impact" parentSchemaName="appbase_executivestatusupdate" parentDisplayName="Executive Status Update" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_direction" displayName="Direction" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_timelineimpact" displayName="Timeline Impact" parentSchemaName="appbase_executivestatusupdate" parentDisplayName="Executive Status Update" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_lifecyclestage" displayName="Lifecycle Stage" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_lifecyclestage" displayName="Lifecycle Stage" parentSchemaName="appbase_executiveaction" parentDisplayName="Executive Action" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_overallresult" displayName="Overall Result" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_overallhealth" displayName="Overall Health" parentSchemaName="appbase_executiveaction" parentDisplayName="Executive Action" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_overallresult" displayName="Overall Result" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_overallhealth" displayName="Overall Health" parentSchemaName="appbase_executivestatusupdate" parentDisplayName="Executive Status Update" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_priority" displayName="Priority" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_priority" displayName="Priority" parentSchemaName="appbase_executiveaction" parentDisplayName="Executive Action" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_priority" displayName="Priority" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_defaultpriority" displayName="Default Priority" parentSchemaName="appbase_executiveactiontype" parentDisplayName="Executive Action Type" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_securityclassification" displayName="Security Classification" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_securityclassification" displayName="Security Classification" parentSchemaName="appbase_executiveaction" parentDisplayName="Executive Action" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_taskdependencystatus" displayName="Task Dependency Status" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_dependencystatus" displayName="Dependency Status" parentSchemaName="appbase_executiveactiondependency" parentDisplayName="Executive Action Dependency" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_taskdependencytype" displayName="Task Dependency Type" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_dependencytype" displayName="Dependency Type" parentSchemaName="appbase_executiveactiondependency" parentDisplayName="Executive Action Dependency" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_visibility" displayName="Visibility" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_visibility" displayName="Visibility" parentSchemaName="appbase_executiveaction" parentDisplayName="Executive Action" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_compliancedriven" displayName="Compliance Driven" parentSchemaName="appbase_executiveaction" parentDisplayName="Executive Action" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_requiresformaldecision" displayName="Requires Formal Decision" parentSchemaName="appbase_executiveaction" parentDisplayName="Executive Action" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_criticalpath" displayName="Critical Path" parentSchemaName="appbase_executiveactiondependency" parentDisplayName="Executive Action Dependency" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_requiresimpactassessment" displayName="Requires Impact Assessment" parentSchemaName="appbase_executiveactiontype" parentDisplayName="Executive Action Type" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_requireslegalauthority" displayName="Requires Legal Authority" parentSchemaName="appbase_executiveactiontype" parentDisplayName="Executive Action Type" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_requiresriskassessment" displayName="Requires Risk Assessment" parentSchemaName="appbase_executiveactiontype" parentDisplayName="Executive Action Type" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_impactonaccountability" displayName="Impact on Accountability" parentSchemaName="appbase_executivedecisionlog" parentDisplayName="Executive Decision Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_impactonbudget" displayName="Impact on Budget" parentSchemaName="appbase_executivedecisionlog" parentDisplayName="Executive Decision Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_impactonscope" displayName="Impact on Scope" parentSchemaName="appbase_executivedecisionlog" parentDisplayName="Executive Decision Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_impactontimeline" displayName="Impact on Timeline" parentSchemaName="appbase_executivedecisionlog" parentDisplayName="Executive Decision Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_escalationrequired" displayName="Escalation Required" parentSchemaName="appbase_executivestatusupdate" parentDisplayName="Executive Status Update" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="2" schemaName="appbase_scopechangerequested" displayName="Scope Change Requested" parentSchemaName="appbase_executivestatusupdate" parentDisplayName="Executive Status Update" />
       </MissingDependency>
     </MissingDependencies>
   </SolutionManifest>

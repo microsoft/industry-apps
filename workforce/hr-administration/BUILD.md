@@ -319,10 +319,10 @@ Captures employee requests for telework or remote work arrangements, including s
 - Approval Status: Choice (Approval Status)
 - Approved By: Lookup (Person)
 - Approval Date: Date
-- Agreement Signed: Yes / No
 - Agreement Date: Date
-- Safety Checklist Completed: Yes / No
 - Notes: Memo
+- Agreement Signed: Yes / No
+- Safety Checklist Completed: Yes / No
 
 **Planned:**
 
@@ -340,9 +340,7 @@ Tracks requests and fulfillment of workplace accommodations, including approval 
 - Request Date: Date
 - Need Description: Memo
 - Requested Accommodation: Memo
-- Medical Documentation Provided: Yes / No
 - Documentation Date: Date
-- Interactive Process Started: Yes / No
 - Interactive Process Date: Date
 - Approved Accommodation: Memo
 - Implementation Date: Date
@@ -352,13 +350,15 @@ Tracks requests and fulfillment of workplace accommodations, including approval 
 - Approval Date: Date
 - Denial Reason: Memo
 - Review Date: Date
-- Is Temporary: Yes / No
 - End Date: Date
 - Effectiveness Evaluation: Memo
 - Privacy Consent: Lookup (Privacy Consent)
 - Security Classification: Choice (Security Classification)
 - Supporting Document: Lookup (Document)
 - Notes: Memo
+- Interactive Process Started: Yes / No
+- Medical Documentation Provided: Yes / No
+- Is Temporary: Yes / No
 
 **Planned:**
 
@@ -376,17 +376,17 @@ Captures employee-submitted attestations or disclosures (e.g., conflict of inter
 - Effective Date: Date
 - Expiration Date: Date
 - Declaration Content: Memo
-- Requires Review: Yes / No
 - Reviewed By: Lookup (Person)
 - Review Date: Date
 - Review Comments: Memo
-- Attestation: Yes / No
 - Attestation Date: Date
 - Legal Authority: Lookup (Legal Authority)
 - Compliance Framework: Lookup (Compliance Framework)
 - Supporting Document: Lookup (Document)
 - Security Classification: Choice (Security Classification)
 - Notes: Memo
+- Requires Review: Yes / No
+- Attestation: Yes / No
 
 **Planned:**
 

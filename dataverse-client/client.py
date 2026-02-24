@@ -610,7 +610,9 @@ class DataverseClient:
         required: bool = False,
         description: str = ""
     ) -> Dict[str, Any]:
-        """Create a rich text (HTML) field"""
+        """Create a multi-line rich text field"""
+        # Generate lowercase logical name from schema name
+        logical_name = schema_name.lower()
         
         attribute = {
             "@odata.type": "Microsoft.Dynamics.CRM.MemoAttributeMetadata",
@@ -619,6 +621,7 @@ class DataverseClient:
                 "Value": "MemoType"
             },
             "SchemaName": schema_name,
+            "LogicalName": logical_name,
             "RequiredLevel": {
                 "Value": "ApplicationRequired" if required else "None",
                 "CanBeChanged": True
@@ -644,7 +647,7 @@ class DataverseClient:
                 ]
             },
             "MaxLength": max_length,
-            "Format": "Text"
+            "Format": "RichText"
         }
         
         return self._create_attribute(table_name, attribute)
@@ -893,7 +896,7 @@ class DataverseClient:
                 required=required,
                 description=description
             )
-        elif field_type in ["RichText", "HTML"]:
+        elif field_type in ["RichText", "HTML", "Rich"]:
             return self.create_richtext_field(
                 table_name,
                 schema_name,
@@ -936,10 +939,12 @@ class DataverseClient:
                 description=description
             )
         elif field_type in ["Boolean", "TwoOptions", "YesNo", "Yes / No"]:
-            return self.create_boolean_field(
+            # Map Yes/No fields to the custom appbase_yesno choice field
+            return self.create_picklist_field(
                 table_name,
                 schema_name,
                 display_name,
+                option_set_schema_name="appbase_yesno",
                 required=required,
                 description=description
             )

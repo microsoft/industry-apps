@@ -10,13 +10,10 @@ The **Executive Coordination** module is used to formally track, govern, and ove
 The formal, authoritative tasker or mandate issued by leadership. Defines scope, intent, accountability, timeline, and aggregates progress from linked Action Items.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Action Number: Text
 - Executive Action Type: Lookup (Executive Action Type)
 - Description: Memo
-- Details: Memo
 - Issued By: Lookup (Person)
 - Issuing Authority: Lookup (Organization Unit)
 - Issue Date: Date
@@ -26,6 +23,7 @@ The formal, authoritative tasker or mandate issued by leadership. Defines scope,
 - Action Status: Choice (Action Status)
 - Priority: Choice (Priority)
 - Visibility: Choice (Visibility)
+- Details: Rich
 - Security Classification: Choice (Security Classification)
 - Lifecycle Stage: Choice (Lifecycle Stage)
 - Start Date: Date
@@ -38,14 +36,16 @@ The formal, authoritative tasker or mandate issued by leadership. Defines scope,
 - Organization Initiative: Lookup (Organization Initiative)
 - Related Agreement: Lookup (Agreement)
 - Primary Legal Authority: Lookup (Legal Authority)
-- Requires Formal Decision: Yes / No
-- Compliance Driven: Yes / No
 - Total Action Items: Integer
 - Completed Action Items: Integer
 - Percent Complete: Integer
 - Overall Health: Choice (Overall Result)
 - Tags: Text
 - Notes: Memo
+- Requires Formal Decision: Yes / No
+- Compliance Driven: Yes / No
+
+**Planned:**
 
 ---
 
@@ -53,14 +53,14 @@ The formal, authoritative tasker or mandate issued by leadership. Defines scope,
 Categorizes executive actions (e.g., Strategic Initiative, Compliance Action, Inquiry Response, Operational Directive) to support reporting and governance segmentation.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Description: Memo
+- Default Priority: Choice (Priority)
 - Requires Legal Authority: Yes / No
 - Requires Impact Assessment: Yes / No
 - Requires Risk Assessment: Yes / No
-- Default Priority: Choice (Priority)
+
+**Planned:**
 
 ---
 
@@ -70,8 +70,6 @@ Categorizes executive actions (e.g., Strategic Initiative, Compliance Action, In
 Provides leadership-level progress summaries for an executive action, including achievements, risks, decisions needed, and overall health. Distinct from operational task updates.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Executive Action: Lookup (Executive Action)
 - Status Date: Date
@@ -92,14 +90,14 @@ Provides leadership-level progress summaries for an executive action, including 
 - Escalation Required: Yes / No
 - Notes: Memo
 
+**Planned:**
+
 ---
 
 ### Executive Decision Log
 Records significant decisions made during execution of the executive action that affect scope, direction, or accountability.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Executive Action: Lookup (Executive Action)
 - Decision Date: Date
@@ -117,6 +115,8 @@ Records significant decisions made during execution of the executive action that
 - Implementation Date: Date
 - Notes: Memo
 
+**Planned:**
+
 ---
 
 ## Dependencies & Relationships
@@ -125,8 +125,6 @@ Records significant decisions made during execution of the executive action that
 Defines relationships between executive actions where one action depends on, influences, or is sequenced after another.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Predecessor Action: Lookup (Executive Action)
 - Successor Action: Lookup (Executive Action)
@@ -136,6 +134,8 @@ Defines relationships between executive actions where one action depends on, inf
 - Description: Memo
 - Impact if Not Met: Memo
 - Notes: Memo
+
+**Planned:**
 
 ---
 
