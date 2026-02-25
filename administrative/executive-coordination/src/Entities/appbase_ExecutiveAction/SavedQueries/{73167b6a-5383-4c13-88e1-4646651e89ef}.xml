@@ -10,8 +10,18 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_executiveactionid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="260" />
+          <cell name="appbase_executiveactiontype" width="169" />
+          <cell name="appbase_actionnumber" width="128" />
+          <cell name="appbase_actionstatus" width="116" />
+          <cell name="appbase_issuedate" width="100" />
+          <cell name="appbase_issuedby" width="100" />
+          <cell name="appbase_startdate" width="100" />
+          <cell name="appbase_leadorganizationunit" width="173" />
+          <cell name="appbase_accountablelead" width="143" />
+          <cell name="appbase_targetcompletiondate" width="175" />
+          <cell name="appbase_actualcompletiondate" width="177" />
+          <cell name="appbase_lifecyclestage" width="128" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +31,21 @@
         <entity name="appbase_executiveaction">
           <attribute name="appbase_executiveactionid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_executiveactiontype" />
+          <attribute name="appbase_actionnumber" />
+          <attribute name="appbase_actionstatus" />
+          <attribute name="appbase_targetcompletiondate" />
+          <attribute name="appbase_startdate" />
+          <attribute name="appbase_actualcompletiondate" />
+          <attribute name="appbase_accountablelead" />
+          <attribute name="appbase_issuedate" />
+          <attribute name="appbase_issuedby" />
+          <attribute name="appbase_leadorganizationunit" />
+          <attribute name="appbase_lifecyclestage" />
         </entity>
       </fetch>
     </fetchxml>

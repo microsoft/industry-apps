@@ -18,6 +18,8 @@
 - Choice Sets: Module leverages existing Core choice fields (no new choice sets required) including Action Status, Priority, Visibility, Security Classification, Lifecycle Stage, Overall Result, Direction, Decision Category, Task Dependency Type, Task Dependency Status, and Yes No
 
 - Core Integration: Module extensively reuses Core entities for relationships including Legal Authority (authorization basis), Agreement (formal commitments), Impact (operational/financial/legal/reputational assessment), Risk Item (execution risks), Action Item (operational decomposition), Organization Unit (departments/teams), Person (authorities/sponsors/leads), Organization Initiative (strategic alignment), and Formal Decision (official governance records)
+- Forms: Configured baseline forms for all 5 Executive Coordination entities including main form layouts, field sections, tab organization, and business rules for Core Executive Tracking (Executive Action, Executive Action Type), Oversight & Reporting (Executive Status Update, Executive Decision Log), and Dependencies & Relationships (Executive Action Dependency)
+- Views: Configured baseline views for all 5 Executive Coordination entities including active views, lookup views, associated views, and advanced find views with appropriate columns, filters, and sorting
 
 ### Changed
 - 

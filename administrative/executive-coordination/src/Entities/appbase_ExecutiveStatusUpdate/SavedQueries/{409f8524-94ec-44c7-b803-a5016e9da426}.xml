@@ -10,8 +10,17 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_executivestatusupdateid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="211" />
+          <cell name="appbase_actionstatus" width="116" />
+          <cell name="appbase_reportedby" width="112" />
+          <cell name="appbase_reportingperiodstartdate" width="196" />
+          <cell name="appbase_reportingperiodenddate" width="193" />
+          <cell name="appbase_escalationrequired" width="154" />
+          <cell name="appbase_percentcomplete" width="140" />
+          <cell name="appbase_overallhealth" width="123" />
+          <cell name="appbase_scopechangerequested" width="183" />
+          <cell name="appbase_executiveaction" width="138" />
+          <cell name="appbase_nextsteps" width="247" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +30,20 @@
         <entity name="appbase_executivestatusupdate">
           <attribute name="appbase_executivestatusupdateid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_actionstatus" />
+          <attribute name="appbase_reportedby" />
+          <attribute name="appbase_reportingperiodstartdate" />
+          <attribute name="appbase_reportingperiodenddate" />
+          <attribute name="appbase_escalationrequired" />
+          <attribute name="appbase_percentcomplete" />
+          <attribute name="appbase_overallhealth" />
+          <attribute name="appbase_scopechangerequested" />
+          <attribute name="appbase_executiveaction" />
+          <attribute name="appbase_nextsteps" />
         </entity>
       </fetch>
     </fetchxml>

@@ -45,9 +45,11 @@ The formal, authoritative tasker or mandate issued by leadership. Defines scope,
 - Requires Formal Decision: Yes / No
 - Compliance Driven: Yes / No
 
-**Planned:**
+**Completed Last Round:**
 - Configure Baseline Forms
 - Configure Baseline Views
+
+**Planned:**
 - Configure Quick Create Forms
 - Configure Related Subgrids
 
@@ -64,11 +66,13 @@ Categorizes executive actions (e.g., Strategic Initiative, Compliance Action, In
 - Requires Impact Assessment: Yes / No
 - Requires Risk Assessment: Yes / No
 
+**Completed Last Round:**
+- Configure Baseline Form
+- Configure Baseline View
+
 **Planned:**
-- Configure Baseline Forms
-- Configure Baseline Views
-- Configure Quick Create Forms
-- Configure Related Subgrids
+- Configure Quick Create Form
+- Configure Related Subgrid
 
 ---
 
@@ -98,10 +102,12 @@ Provides leadership-level progress summaries for an executive action, including 
 - Escalation Required: Yes / No
 - Notes: Memo
 
+**Completed Last Round:**
+- Configure Baseline Form
+- Configure Baseline View
+
 **Planned:**
-- Configure Baseline Forms
-- Configure Baseline Views
-- Configure Quick Create Forms
+- Configure Quick Create Form
 - Configure Related Subgrids
 
 ---
@@ -127,10 +133,12 @@ Records significant decisions made during execution of the executive action that
 - Implementation Date: Date
 - Notes: Memo
 
+**Completed Last Round:**
+- Configure Baseline Form
+- Configure Baseline View
+
 **Planned:**
-- Configure Baseline Forms
-- Configure Baseline Views
-- Configure Quick Create Forms
+- Configure Quick Create Form
 - Configure Related Subgrids
 
 ---
@@ -151,10 +159,12 @@ Defines relationships between executive actions where one action depends on, inf
 - Impact if Not Met: Memo
 - Notes: Memo
 
+**Completed Last Round:**
+- Configure Baseline Form
+- Configure Baseline View
+
 **Planned:**
-- Configure Baseline Forms
-- Configure Baseline Views
-- Configure Quick Create Forms
+- Configure Quick Create Form
 - Configure Related Subgrids
 
 ---
@@ -224,15 +234,16 @@ Can be referenced by Executive Decision Log entries to connect to official decis
 ## New Choice Fields
 
 
-
-
-
 ---
 
 ## 🚀 Module Configuration
 
-**Planned:**
+**Completed:**
+
+**Completed Last Round:**
 - Configure Model-Driven App
+
+**Planned:**
 - Create Sample Data
 
 

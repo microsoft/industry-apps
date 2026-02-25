@@ -10,8 +10,13 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_executiveactiondependencyid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="235" />
+          <cell name="appbase_predecessoraction" width="149" />
+          <cell name="appbase_dependencytype" width="142" />
+          <cell name="appbase_successoraction" width="138" />
+          <cell name="appbase_dependencystatus" width="148" />
+          <cell name="appbase_criticalpath" width="111" />
+          <cell name="appbase_description" width="275" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +26,16 @@
         <entity name="appbase_executiveactiondependency">
           <attribute name="appbase_executiveactiondependencyid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_predecessoraction" />
+          <attribute name="appbase_successoraction" />
+          <attribute name="appbase_dependencytype" />
+          <attribute name="appbase_dependencystatus" />
+          <attribute name="appbase_criticalpath" />
+          <attribute name="appbase_description" />
         </entity>
       </fetch>
     </fetchxml>

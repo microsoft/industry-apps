@@ -10,8 +10,14 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_executivedecisionlogid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="219" />
+          <cell name="appbase_decisioncategory" width="145" />
+          <cell name="appbase_decisionauthority" width="148" />
+          <cell name="appbase_decisiondate" width="120" />
+          <cell name="appbase_communicateddate" width="156" />
+          <cell name="appbase_implementationdate" width="159" />
+          <cell name="appbase_formaldecision" width="134" />
+          <cell name="appbase_executiveaction" width="138" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +27,17 @@
         <entity name="appbase_executivedecisionlog">
           <attribute name="appbase_executivedecisionlogid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_decisioncategory" />
+          <attribute name="appbase_decisionauthority" />
+          <attribute name="appbase_decisiondate" />
+          <attribute name="appbase_communicateddate" />
+          <attribute name="appbase_implementationdate" />
+          <attribute name="appbase_formaldecision" />
+          <attribute name="appbase_executiveaction" />
         </entity>
       </fetch>
     </fetchxml>
