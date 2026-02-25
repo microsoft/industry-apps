@@ -33,6 +33,9 @@ PROJECT_ROOT = Path(__file__).parent.parent.parent
 CACHE_DIR = Path(__file__).parent / ".cache"
 PENDING_CACHE_FILE = CACHE_DIR / "pending_optionsets.json"
 
+# Track active processes for cancellation
+active_processes = {}
+
 def load_pending_optionsets():
     """Load pending option sets from cache file"""
     if not PENDING_CACHE_FILE.exists():
@@ -103,17 +106,20 @@ class DeployRequest(BaseModel):
     targetEnvironment: str = None
     managed: bool = True
     upgrade: bool = False
+    operationId: Optional[str] = None
 
 class SyncRequest(BaseModel):
     deployment: str
     category: str
     module: str
+    operationId: Optional[str] = None
 
 class SyncFromRequest(BaseModel):
     deployment: str
     category: str
     module: str
     sourceEnvironment: str
+    operationId: Optional[str] = None
 
 class ShipRequest(BaseModel):
     tenant: str
@@ -122,6 +128,7 @@ class ShipRequest(BaseModel):
     module: str
     managed: bool = True
     upgrade: bool = False
+    operationId: Optional[str] = None
 
 class CreateModuleRequest(BaseModel):
     category: str
@@ -130,22 +137,28 @@ class CreateModuleRequest(BaseModel):
     sourceEnvironment: str
     targetEnvironments: list[str] = []
     deploy: bool = False
+    operationId: Optional[str] = None
 
 class ReleaseRequest(BaseModel):
     category: str
     module: str
+    operationId: Optional[str] = None
 
 class UpdateVersionRequest(BaseModel):
     deployment: str
     category: str
     module: str
     version: str
+    operationId: Optional[str] = None
 
 class CreateFieldsRequest(BaseModel):
     deployment: str
     environment: str
     tableName: str
     fields: list[dict]
+
+class CancelRequest(BaseModel):
+    operationId: str
 
 class FieldTemplateRequest(BaseModel):
     name: str
@@ -281,7 +294,7 @@ async def get_environments():
     
     return {"tenants": list(tenants.values())}
 
-async def stream_powershell_output(script_path: str, *args):
+async def stream_powershell_output(script_path: str, *args, operation_id: str = None):
     """Stream PowerShell script output in real-time using subprocess with threading"""
     import subprocess
     import threading
@@ -307,6 +320,10 @@ async def stream_powershell_output(script_path: str, *args):
             bufsize=1,
             cwd=str(PROJECT_ROOT)
         )
+        
+        # Track process for cancellation if operation_id provided
+        if operation_id:
+            active_processes[operation_id] = process
         
         # Use a queue to communicate between threads
         output_queue = Queue()
@@ -349,6 +366,10 @@ async def stream_powershell_output(script_path: str, *args):
         # Wait for process to complete
         process.wait()
         
+        # Remove from active processes
+        if operation_id and operation_id in active_processes:
+            del active_processes[operation_id]
+        
         # Send completion status
         yield f"data: {json.dumps({'type': 'complete', 'exitCode': process.returncode})}\n\n"
         
@@ -383,7 +404,7 @@ async def deploy_module(request: DeployRequest):
     # print(f"[DEBUG] Deploy args: {args}")  # Debug logging
     
     return StreamingResponse(
-        stream_powershell_output(*args),
+        stream_powershell_output(*args, operation_id=request.operationId),
         media_type="text/event-stream"
     )
 
@@ -397,7 +418,8 @@ async def sync_module(request: SyncRequest):
             str(script_path),
             "-Deployment", request.deployment,
             "-Category", request.category,
-            "-Module", request.module
+            "-Module", request.module,
+            operation_id=request.operationId
         ),
         media_type="text/event-stream"
     )
@@ -413,7 +435,8 @@ async def sync_module_from_environment(request: SyncFromRequest):
             "-Deployment", request.deployment,
             "-Category", request.category,
             "-Module", request.module,
-            "-SourceEnvironment", request.sourceEnvironment
+            "-SourceEnvironment", request.sourceEnvironment,
+            operation_id=request.operationId
         ),
         media_type="text/event-stream"
     )
@@ -429,10 +452,39 @@ async def update_version(request: UpdateVersionRequest):
             "-Deployment", request.deployment,
             "-Category", request.category,
             "-Module", request.module,
-            "-Version", request.version
+            "-Version", request.version,
+            operation_id=request.operationId
         ),
         media_type="text/event-stream"
     )
+
+@app.post("/api/cancel")
+async def cancel_operation(request: CancelRequest):
+    """Cancel a running operation"""
+    operation_id = request.operationId
+    
+    if operation_id not in active_processes:
+        return {"success": False, "message": "Operation not found or already completed"}
+    
+    try:
+        process = active_processes[operation_id]
+        
+        # Terminate the process (on Windows, this is like SIGTERM)
+        process.terminate()
+        
+        # Wait a bit for graceful termination
+        try:
+            process.wait(timeout=2)
+        except:
+            # If it doesn't terminate, kill it
+            process.kill()
+        
+        # Remove from active processes
+        del active_processes[operation_id]
+        
+        return {"success": True, "message": "Operation cancelled"}
+    except Exception as e:
+        return {"success": False, "message": f"Failed to cancel operation: {str(e)}"}
 
 @app.post("/api/ship")
 async def ship_module(request: ShipRequest):
@@ -457,7 +509,7 @@ async def ship_module(request: ShipRequest):
     # print(f"[DEBUG] request.managed: {request.managed}, request.upgrade: {request.upgrade}")
     
     return StreamingResponse(
-        stream_powershell_output(*args),
+        stream_powershell_output(*args, operation_id=request.operationId),
         media_type="text/event-stream"
     )
 
@@ -525,7 +577,7 @@ async def create_module(request: CreateModuleRequest):
         args.extend(["-Environment", request.sourceEnvironment])
     
     return StreamingResponse(
-        stream_powershell_output(*args),
+        stream_powershell_output(*args, operation_id=request.operationId),
         media_type="text/event-stream"
     )
 
@@ -538,7 +590,8 @@ async def create_release(request: ReleaseRequest):
         stream_powershell_output(
             str(script_path),
             "-Category", request.category,
-            "-Module", request.module
+            "-Module", request.module,
+            operation_id=request.operationId
         ),
         media_type="text/event-stream"
     )

@@ -17,8 +17,9 @@ export const categories = writable(new Set());
 
 // Operation output state
 export const outputLines = writable([]);
-export const operationStatus = writable(''); // '', 'running', 'success', 'error'
+export const operationStatus = writable(''); // '', 'running', 'success', 'error', 'cancelled'
 export const activeOperation = writable(null);
+export const currentOperationId = writable(null);
 
 // Sidebar state
 export const sidebarCollapsed = writable(false);
@@ -129,4 +130,40 @@ export function clearOutput() {
   outputLines.set([]);
   activeOperation.set(null);
   operationStatus.set('');
+  currentOperationId.set(null);
+}
+
+// Cancel operation
+export async function cancelOperation() {
+  let opId;
+  currentOperationId.subscribe(value => opId = value)();
+  
+  if (!opId) {
+    console.warn('No operation to cancel');
+    return;
+  }
+  
+  try {
+    operationStatus.set('cancelling');
+    outputLines.update(lines => [...lines, '\n⏸ Cancelling operation...']);
+    
+    const response = await fetch('/api/cancel', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ operationId: opId })
+    });
+    
+    const result = await response.json();
+    
+    if (result.success) {
+      operationStatus.set('cancelled');
+      outputLines.update(lines => [...lines, '✗ Operation cancelled by user']);
+    } else {
+      operationStatus.set('error');
+      outputLines.update(lines => [...lines, `✗ Failed to cancel: ${result.message}`]);
+    }
+  } catch (error) {
+    operationStatus.set('error');
+    outputLines.update(lines => [...lines, `✗ Cancel error: ${error.message}`]);
+  }
 }

@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { outputLines, activeOperation, operationStatus, modules, tenants, config, loadModules, loadEnvironments, loadConfig } from '../lib/stores.js';
+  import { outputLines, activeOperation, operationStatus, currentOperationId, modules, tenants, config, loadModules, loadEnvironments, loadConfig } from '../lib/stores.js';
   import OutputStream from '../lib/OutputStream.svelte';
   import Header from '../lib/Header.svelte';
   
@@ -42,6 +42,11 @@
   
   // Sync settings
   let autoIncrementOnSync = true;   // Auto-increment revision on sync
+  
+  // Generate unique operation ID
+  function generateOperationId() {
+    return `op_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
+  }
 
   onMount(async () => {
     await loadConfig();
@@ -331,6 +336,8 @@
   }
   
   async function syncModule(module) {
+    const operationId = generateOperationId();
+    currentOperationId.set(operationId);
     activeOperation.set(`sync-${module.name}`);
     operationStatus.set('running');
     outputLines.set([]);
@@ -358,7 +365,8 @@
             deployment: module.deployment,
             category: module.category,
             module: module.name,
-            version: newVersion
+            version: newVersion,
+            operationId: operationId
           })
         });
         
@@ -371,7 +379,8 @@
           body: JSON.stringify({
             deployment: module.deployment,
             category: module.category,
-            module: module.name
+            module: module.name,
+            operationId: operationId
           })
         });
         
@@ -384,6 +393,8 @@
   }
   
   async function syncModuleFromEnvironment(module, deploymentName, environmentName) {
+    const operationId = generateOperationId();
+    currentOperationId.set(operationId);
     activeOperation.set(`sync-from-${module.name}`);
     operationStatus.set('running');
     outputLines.set([]);
@@ -396,7 +407,8 @@
           deployment: deploymentName,
           category: module.category,
           module: module.name,
-          sourceEnvironment: environmentName
+          sourceEnvironment: environmentName,
+          operationId: operationId
         })
       });
       
@@ -411,6 +423,8 @@
     // Determine if this should be managed or unmanaged
     const isManaged = forceUnmanaged ? false : !isSourceEnv;
     const deployType = isManaged ? 'deploy (managed)' : 'push (unmanaged)';
+    const operationId = generateOperationId();
+    currentOperationId.set(operationId);
     activeOperation.set(`${deployType}-${module.name}`);
     operationStatus.set('running');
     outputLines.set([]);
@@ -425,7 +439,8 @@
           module: module.name,
           targetEnvironment: targetEnvKey,
           managed: isManaged,
-          upgrade: upgrade && isManaged // Only upgrade for managed deployments
+          upgrade: upgrade && isManaged, // Only upgrade for managed deployments
+          operationId: operationId
         })
       });
       
@@ -443,6 +458,8 @@
   async function shipModule(module, deploymentName, environmentName, environmentKey, upgrade = false, forceUnmanaged = false) {
     const isManaged = !forceUnmanaged;
     const deployType = isManaged ? 'ship (managed)' : 'ship (unmanaged)';
+    const operationId = generateOperationId();
+    currentOperationId.set(operationId);
     activeOperation.set(`${deployType}-${module.name}`);
     operationStatus.set('running');
     outputLines.set([]);
@@ -457,7 +474,8 @@
           category: module.category,
           module: module.name,
           managed: isManaged,
-          upgrade: upgrade && isManaged // Only upgrade for managed deployments
+          upgrade: upgrade && isManaged, // Only upgrade for managed deployments
+          operationId: operationId
         })
       });
       
@@ -565,6 +583,8 @@
     
     console.log('Creating module with data:', requestData);
     
+    const operationId = generateOperationId();
+    currentOperationId.set(operationId);
     activeOperation.set('create-module');
     operationStatus.set('running');
     outputLines.set([]);
@@ -574,7 +594,7 @@
       const response = await fetch('/api/modules/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestData)
+        body: JSON.stringify({ ...requestData, operationId })
       });
       
       await streamResponse(response);
@@ -586,6 +606,8 @@
   }
   
   async function createRelease(module) {
+    const operationId = generateOperationId();
+    currentOperationId.set(operationId);
     activeOperation.set(`release-${module.name}`);
     operationStatus.set('running');
     outputLines.set([]);
@@ -596,7 +618,8 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           category: module.category,
-          module: module.name
+          module: module.name,
+          operationId: operationId
         })
       });
       

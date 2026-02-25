@@ -1,9 +1,11 @@
 <script>
-  import { outputLines, operationStatus, clearOutput } from './stores.js';
+  import { outputLines, operationStatus, clearOutput, cancelOperation } from './stores.js';
   import Modal from './Modal.svelte';
 
-  $: showModal = $outputLines.length > 0 || $operationStatus === 'running';
-  $: canClose = $operationStatus !== 'running';
+  $: showModal = $outputLines.length > 0 || $operationStatus === 'running' || $operationStatus === 'cancelling';
+  $: canClose = $operationStatus !== 'running' && $operationStatus !== 'cancelling';
+  $: isRunning = $operationStatus === 'running';
+  $: isCancelling = $operationStatus === 'cancelling';
 </script>
 
 <Modal 
@@ -18,13 +20,19 @@
     {#each $outputLines as line}
       <div class="output-line">{line}</div>
     {/each}
-    {#if $operationStatus === 'running'}
+    {#if isRunning}
       <div class="output-line processing">⏳ Processing...</div>
+    {:else if isCancelling}
+      <div class="output-line processing">⏸ Cancelling...</div>
     {/if}
   </div>
 
   <svelte:fragment slot="footer">
-    {#if $operationStatus !== 'running'}
+    {#if isRunning}
+      <button class="btn btn-danger" on:click={cancelOperation}>
+        Cancel
+      </button>
+    {:else if !isCancelling}
       <button class="btn btn-primary" on:click={clearOutput}>
         Close
       </button>
@@ -86,6 +94,15 @@
 
   .btn-primary:hover {
     background-color: #1a86e0;
+  }
+
+  .btn-danger {
+    background-color: #d13438;
+    color: white;
+  }
+
+  .btn-danger:hover {
+    background-color: #e04347;
   }
 
   /* Custom scrollbar for output */
