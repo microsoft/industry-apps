@@ -10,8 +10,15 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_assetassignmentid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="234" />
+          <cell name="appbase_assignedtoorganizationunit" width="215" />
+          <cell name="appbase_assignedtoperson" width="152" />
+          <cell name="appbase_assignmentdate" width="137" />
+          <cell name="appbase_assignmentstatus" width="145" />
+          <cell name="appbase_expectedreturndate" width="164" />
+          <cell name="appbase_actualreturndate" width="149" />
+          <cell name="appbase_asset" width="100" />
+          <cell name="appbase_notes" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +28,18 @@
         <entity name="appbase_assetassignment">
           <attribute name="appbase_assetassignmentid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_assignedtoperson" />
+          <attribute name="appbase_assignedtoorganizationunit" />
+          <attribute name="appbase_assignmentdate" />
+          <attribute name="appbase_assignmentstatus" />
+          <attribute name="appbase_expectedreturndate" />
+          <attribute name="appbase_actualreturndate" />
+          <attribute name="appbase_asset" />
+          <attribute name="appbase_notes" />
         </entity>
       </fetch>
     </fetchxml>

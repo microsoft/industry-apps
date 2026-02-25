@@ -10,8 +10,10 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_assetcategoryid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="236" />
+          <cell name="appbase_capitalizationthreshold" width="179" />
+          <cell name="appbase_parentassetcategory" width="166" />
+          <cell name="appbase_description" width="300" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +23,13 @@
         <entity name="appbase_assetcategory">
           <attribute name="appbase_assetcategoryid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_capitalizationthreshold" />
+          <attribute name="appbase_parentassetcategory" />
+          <attribute name="appbase_description" />
         </entity>
       </fetch>
     </fetchxml>

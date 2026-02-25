@@ -10,8 +10,15 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_assetcustodyeventid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="192" />
+          <cell name="appbase_eventtype" width="104" />
+          <cell name="appbase_eventdatetime" width="136" />
+          <cell name="appbase_toperson" width="100" />
+          <cell name="appbase_toorganizationunit" width="160" />
+          <cell name="appbase_tolocation" width="108" />
+          <cell name="appbase_recordedby" width="114" />
+          <cell name="appbase_verificationmethod" width="154" />
+          <cell name="appbase_asset" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +28,18 @@
         <entity name="appbase_assetcustodyevent">
           <attribute name="appbase_assetcustodyeventid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_eventtype" />
+          <attribute name="appbase_eventdatetime" />
+          <attribute name="appbase_toperson" />
+          <attribute name="appbase_toorganizationunit" />
+          <attribute name="appbase_tolocation" />
+          <attribute name="appbase_recordedby" />
+          <attribute name="appbase_verificationmethod" />
+          <attribute name="appbase_asset" />
         </entity>
       </fetch>
     </fetchxml>

@@ -10,8 +10,16 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_assetdispositionid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="215" />
+          <cell name="appbase_dispositiontype" width="136" />
+          <cell name="appbase_dispositiondate" width="135" />
+          <cell name="appbase_dispositionreason" width="150" />
+          <cell name="appbase_environmentalcomplianceverified" width="243" />
+          <cell name="appbase_datasanitizationverified" width="186" />
+          <cell name="appbase_saleprice" width="100" />
+          <cell name="appbase_recipientaccount" width="145" />
+          <cell name="appbase_recipientperson" width="136" />
+          <cell name="appbase_asset" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +29,19 @@
         <entity name="appbase_assetdisposition">
           <attribute name="appbase_assetdispositionid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_dispositiontype" />
+          <attribute name="appbase_dispositiondate" />
+          <attribute name="appbase_asset" />
+          <attribute name="appbase_dispositionreason" />
+          <attribute name="appbase_environmentalcomplianceverified" />
+          <attribute name="appbase_datasanitizationverified" />
+          <attribute name="appbase_saleprice" />
+          <attribute name="appbase_recipientaccount" />
+          <attribute name="appbase_recipientperson" />
         </entity>
       </fetch>
     </fetchxml>

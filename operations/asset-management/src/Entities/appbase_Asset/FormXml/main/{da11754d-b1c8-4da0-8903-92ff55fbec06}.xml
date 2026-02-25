@@ -26,11 +26,11 @@
                         </labels>
                         <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" />
                       </cell>
-                      <cell id="{59a1699f-c4f7-4b01-a4e8-7fec67a25cf6}" locklevel="0" colspan="1" rowspan="1">
+                      <cell id="{3443344b-9cdd-40f7-b8de-10c2038b7401}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Asset Number" languagecode="1033" />
+                          <label description="Asset Type" languagecode="1033" />
                         </labels>
-                        <control id="appbase_assetnumber" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="appbase_assetnumber" disabled="false" />
+                        <control id="appbase_assettype" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_assettype" disabled="false" />
                       </cell>
                     </row>
                     <row>
@@ -39,11 +39,11 @@
                           <label description="" languagecode="1033" />
                         </labels>
                       </cell>
-                      <cell id="{c7389bf2-067b-4138-8adc-cbc7145410eb}" locklevel="0" colspan="1" rowspan="1">
+                      <cell id="{59a1699f-c4f7-4b01-a4e8-7fec67a25cf6}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Related Product" languagecode="1033" />
+                          <label description="Asset Number" languagecode="1033" />
                         </labels>
-                        <control id="appbase_relatedproduct" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_relatedproduct" disabled="false" />
+                        <control id="appbase_assetnumber" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="appbase_assetnumber" disabled="false" />
                       </cell>
                     </row>
                     <row>
@@ -53,11 +53,11 @@
                         </labels>
                         <control id="appbase_serialnumber" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="appbase_serialnumber" disabled="false" />
                       </cell>
-                      <cell id="{8cc09338-ea01-41c9-9cbc-1fcae06a1713}" locklevel="0" colspan="1" rowspan="1">
+                      <cell id="{c7389bf2-067b-4138-8adc-cbc7145410eb}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="RF Tag" languagecode="1033" />
+                          <label description="Related Product" languagecode="1033" />
                         </labels>
-                        <control id="appbase_rftag" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="appbase_rftag" disabled="false" />
+                        <control id="appbase_relatedproduct" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_relatedproduct" disabled="false" />
                       </cell>
                     </row>
                     <row>
@@ -67,7 +67,21 @@
                         </labels>
                         <control id="appbase_servicetag" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="appbase_servicetag" disabled="false" />
                       </cell>
-                      <cell locklevel="0" id="{3bcde9f3-66cf-4a29-a251-b580080b5841}">
+                      <cell id="{8cc09338-ea01-41c9-9cbc-1fcae06a1713}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="RF Tag" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_rftag" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="appbase_rftag" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8765ceff-807d-484f-95cc-2b1c8396fe0e}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Barcode" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_barcode" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="appbase_barcode" disabled="false" />
+                      </cell>
+                      <cell locklevel="0" id="{9bbfdd40-3bdc-461e-aa14-5cfced6bcba2}">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -104,6 +118,20 @@
                           <label description="Asset Status" languagecode="1033" />
                         </labels>
                         <control id="appbase_assetstatus" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_assetstatus" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{80255d2d-faf9-4464-afd3-4c6337310cbd}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Asset Condition" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_assetcondition" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_assetcondition" disabled="false" />
+                      </cell>
+                      <cell id="{4a8991b3-50dc-4c54-915b-6cb4ea66ccd1}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Is Disposable" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_isdisposable" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_isdisposable" disabled="false" />
                       </cell>
                     </row>
                   </rows>
@@ -144,15 +172,17 @@
                   </labels>
                   <rows>
                     <row>
-                      <cell locklevel="0" id="{ccac8323-c345-4daa-b44d-e1931b898678}">
+                      <cell id="{700104de-3247-4685-82f4-58f8b9619ec9}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Asset Acquisition" languagecode="1033" />
                         </labels>
+                        <control id="appbase_assetacquisition" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_assetacquisition" disabled="false" />
                       </cell>
-                      <cell locklevel="0" id="{04bf1503-5b9b-4153-afff-2a04a788b4f6}">
+                      <cell id="{5621c332-816c-4fb4-8e5c-d8beb6602b83}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Estimated Value" languagecode="1033" />
                         </labels>
+                        <control id="appbase_estimatedvalue" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="appbase_estimatedvalue" disabled="false" />
                       </cell>
                     </row>
                     <row>
@@ -162,11 +192,11 @@
                         </labels>
                         <control id="appbase_acquireddatetime" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="appbase_acquireddatetime" disabled="false" />
                       </cell>
-                      <cell id="{c68faaac-0384-46a0-87c0-5f46d92073fe}" locklevel="0" colspan="1" rowspan="1">
+                      <cell id="{e619cc0d-3961-4666-a2f2-d87cb8c8a96e}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Unit Cost" languagecode="1033" />
+                          <label description="Depreciation Method" languagecode="1033" />
                         </labels>
-                        <control id="appbase_unitcost" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="appbase_unitcost" disabled="false" />
+                        <control id="appbase_depreciationmethod" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_depreciationmethod" disabled="false" />
                       </cell>
                     </row>
                     <row>
@@ -175,6 +205,19 @@
                           <label description="Purchased Date" languagecode="1033" />
                         </labels>
                         <control id="appbase_purchaseddate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="appbase_purchaseddate" disabled="false" />
+                      </cell>
+                      <cell id="{c68faaac-0384-46a0-87c0-5f46d92073fe}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Unit Cost" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_unitcost" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="appbase_unitcost" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{d817718f-e3cc-4fc8-9936-b95de7aaeacd}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
                       </cell>
                       <cell id="{4449d87c-7cb5-454b-a399-d7794137e821}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
@@ -218,6 +261,14 @@
                         <control id="appbase_organizationunit" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_organizationunit" disabled="false" />
                       </cell>
                     </row>
+                    <row>
+                      <cell id="{6243c0e3-c588-493f-acc5-7ba1a74e5488}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Current Assignment" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_currentassignment" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_currentassignment" disabled="false" />
+                      </cell>
+                    </row>
                   </rows>
                 </section>
                 <section name="tab_3_section_3" id="2d54e509-800d-4f54-a62f-c495db729c0e" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
@@ -227,11 +278,11 @@
                   <rows>
                     <row />
                     <row>
-                      <cell id="{d9487049-f0e3-43db-bf15-88064131dffc}" locklevel="0" colspan="1" rowspan="1">
+                      <cell id="{1728a03b-6896-44bb-ae5f-c40effd54c47}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Location" languagecode="1033" />
+                          <label description="Current Location" languagecode="1033" />
                         </labels>
-                        <control id="appbase_location" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_location" disabled="false" />
+                        <control id="appbase_currentlocation" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_currentlocation" disabled="false" />
                       </cell>
                     </row>
                     <row>
@@ -304,6 +355,30 @@
                   </labels>
                   <rows>
                     <row />
+                    <row>
+                      <cell id="{5a25212d-1df9-4ced-9504-c727f462fca7}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Expected Useful Life (Years)" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_expectedusefullifeyears" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="appbase_expectedusefullifeyears" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{cb57782c-c677-4837-b8f7-f4c27385c511}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="In Service Date" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_inservicedate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="appbase_inservicedate" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{21b61462-d4b6-4527-b222-7eecd803b940}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Requires Inspection" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_requiresinspection" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_requiresinspection" disabled="false" />
+                      </cell>
+                    </row>
                     <row>
                       <cell locklevel="0" id="{7bee5278-21bd-4755-adc7-3d31a0a290a2}" rowspan="4" colspan="1" auto="false" showlabel="false">
                         <labels>

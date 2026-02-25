@@ -10,8 +10,16 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_assetacquisitionid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="200" />
+          <cell name="appbase_acquisitiondate" width="136" />
+          <cell name="appbase_acquisitiontype" width="137" />
+          <cell name="appbase_purchaseordernumber" width="177" />
+          <cell name="appbase_invoicenumber" width="132" />
+          <cell name="appbase_invoicedate" width="112" />
+          <cell name="appbase_totalcost" width="100" />
+          <cell name="appbase_supplier" width="100" />
+          <cell name="appbase_warrantyexpirationdate" width="185" />
+          <cell name="appbase_paymentstatus" width="127" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +29,19 @@
         <entity name="appbase_assetacquisition">
           <attribute name="appbase_assetacquisitionid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_acquisitiondate" />
+          <attribute name="appbase_acquisitiontype" />
+          <attribute name="appbase_invoicenumber" />
+          <attribute name="appbase_invoicedate" />
+          <attribute name="appbase_purchaseordernumber" />
+          <attribute name="appbase_totalcost" />
+          <attribute name="appbase_supplier" />
+          <attribute name="appbase_warrantyexpirationdate" />
+          <attribute name="appbase_paymentstatus" />
         </entity>
       </fetch>
     </fetchxml>

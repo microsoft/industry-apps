@@ -14,7 +14,7 @@
           <columns>
             <column width="100%">
               <sections>
-                <section showlabel="true" showbar="false" IsUserDefined="0" id="{88e09a6a-9e90-472f-9a5a-c7e9f38e26a4}" name="secRequestDetails">
+                <section showlabel="true" showbar="false" IsUserDefined="0" id="{88e09a6a-9e90-472f-9a5a-c7e9f38e26a4}" name="secRequestDetails" columns="11">
                   <labels>
                     <label description="Request Details" languagecode="1033" />
                   </labels>
@@ -26,6 +26,12 @@
                         </labels>
                         <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" />
                       </cell>
+                      <cell id="{98af8045-1c9b-41cd-88ed-3a8deb68f7ab}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_servicetype" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_servicetype" disabled="false" />
+                      </cell>
                     </row>
                     <row>
                       <cell id="{b7346ee6-0bf2-4907-966d-4b4d9ab78cb1}" locklevel="0" colspan="1" rowspan="1">
@@ -34,21 +40,11 @@
                         </labels>
                         <control id="appbase_assetservicetype" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_assetservicetype" disabled="false" />
                       </cell>
-                    </row>
-                    <row>
                       <cell id="{4b697fd7-1dbb-4c9f-b687-9519ea68de33}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="Service Request Date Time" languagecode="1033" />
                         </labels>
                         <control id="appbase_servicerequestdatetime" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="appbase_servicerequestdatetime" disabled="false" />
-                      </cell>
-                    </row>
-                    <row>
-                      <cell id="{022d4518-5087-4781-868c-2e12924422cc}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="Service Request Description" languagecode="1033" />
-                        </labels>
-                        <control id="appbase_servicerequestdescription" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="appbase_servicerequestdescription" disabled="false" />
                       </cell>
                     </row>
                     <row>
@@ -58,21 +54,60 @@
                         </labels>
                         <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
                       </cell>
+                      <cell id="{4e2c308b-612a-4120-8f50-af35c883a366}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_description" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="appbase_description" disabled="false" />
+                      </cell>
                     </row>
                   </rows>
                 </section>
-                <section name="null_section_3" id="df50357c-7dd7-4456-9362-17775c9c2a6f" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                <section name="null_section_3" id="df50357c-7dd7-4456-9362-17775c9c2a6f" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
                   <labels>
                     <label description="Service Details" languagecode="1033" />
                   </labels>
                   <rows>
-                    <row />
                     <row>
+                      <cell locklevel="0" id="{2e4c1b13-8698-4bdc-af92-8dc19591c3ea}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
                       <cell id="{a0620da9-d42e-49d1-b2bb-3f4d9ca98284}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="Service Location" languagecode="1033" />
                         </labels>
                         <control id="appbase_servicelocation" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_servicelocation" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{51bfc06f-5309-41f0-88b9-43a4f7bd88aa}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_serviceprovider" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_serviceprovider" disabled="false" />
+                      </cell>
+                      <cell id="{055cd86e-323c-45c3-acca-911b83c55f06}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Service Notes" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_servicenotes" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="appbase_servicenotes" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{4189c208-573a-47a9-b399-a604373ec99e}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_serviceprovidercontact" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_serviceprovidercontact" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{ac92dbc4-cac9-4ff8-bf54-55ebfcb7f7eb}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
                       </cell>
                     </row>
                     <row>
@@ -90,18 +125,26 @@
                         </labels>
                         <control id="appbase_serviceenddatetime" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="appbase_serviceenddatetime" disabled="false" />
                       </cell>
-                    </row>
-                    <row>
-                      <cell id="{055cd86e-323c-45c3-acca-911b83c55f06}" locklevel="0" colspan="1" rowspan="4">
+                      <cell id="{803705fd-e1f0-41a5-a617-3ed963aa8e24}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Service Notes" languagecode="1033" />
+                          <label description="" languagecode="1033" />
                         </labels>
-                        <control id="appbase_servicenotes" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="appbase_servicenotes" disabled="false" />
+                        <control id="appbase_nextserviceduedate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="appbase_nextserviceduedate" disabled="false" />
                       </cell>
                     </row>
-                    <row />
-                    <row />
-                    <row />
+                    <row>
+                      <cell id="{b72a2163-2863-46e2-9304-ce9ed6520ab9}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_servicecost" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="appbase_servicecost" disabled="false" />
+                      </cell>
+                      <cell locklevel="0" id="{4c958502-bce6-41ae-b5d7-7bcdbfb8638d}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
                   </rows>
                 </section>
                 <section name="null_section_4" id="6975db19-a000-413b-805d-c7511075613b" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
@@ -156,6 +199,12 @@
                 <label description="Asset" languagecode="1033" />
               </labels>
               <control id="header_appbase_asset" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_asset" disabled="false" />
+            </cell>
+            <cell id="{a34f2794-7384-4fc1-95d6-ce70989e43bb}" locklevel="0" colspan="1" rowspan="1">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+              <control id="header_appbase_servicestatus" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_servicestatus" disabled="false" />
             </cell>
           </row>
         </rows>

@@ -10,8 +10,14 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_assetcostentryid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="198" />
+          <cell name="appbase_costtype" width="100" />
+          <cell name="appbase_costdate" width="100" />
+          <cell name="appbase_vendor" width="100" />
+          <cell name="appbase_invoicenumber" width="132" />
+          <cell name="appbase_amount" width="100" />
+          <cell name="appbase_capitalizable" width="114" />
+          <cell name="appbase_asset" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +27,17 @@
         <entity name="appbase_assetcostentry">
           <attribute name="appbase_assetcostentryid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_amount" />
+          <attribute name="appbase_capitalizable" />
+          <attribute name="appbase_costdate" />
+          <attribute name="appbase_costtype" />
+          <attribute name="appbase_invoicenumber" />
+          <attribute name="appbase_vendor" />
+          <attribute name="appbase_asset" />
         </entity>
       </fetch>
     </fetchxml>

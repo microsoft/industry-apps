@@ -99,6 +99,7 @@
       <RootComponent type="1" schemaName="appbase_product" behavior="1" />
       <RootComponent type="1" schemaName="contact" behavior="1" />
       <RootComponent type="62" schemaName="appbase_AssetManagement" behavior="0" />
+      <RootComponent type="80" schemaName="appbase_AssetManagement" behavior="0" />
       <RootComponent type="9" schemaName="appbase_assetacquisitiontype" behavior="0" />
       <RootComponent type="9" schemaName="appbase_assetaudittype" behavior="0" />
       <RootComponent type="9" schemaName="appbase_assetcondition" behavior="0" />
@@ -121,6 +122,10 @@
         <Dependent type="62" schemaName="appbase_AssetManagement" />
       </MissingDependency>
       <MissingDependency>
+        <Required type="1" schemaName="appbase_location" displayName="Location" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="80" schemaName="appbase_AssetManagement" displayName="Asset Management" />
+      </MissingDependency>
+      <MissingDependency>
         <Required type="1" schemaName="appbase_organizationunit" displayName="Organization Unit" solution="appbase_core (1.0.0.2)" />
         <Dependent type="1" schemaName="appbase_organizationunit" displayName="Organization Unit" />
       </MissingDependency>
@@ -131,6 +136,10 @@
       <MissingDependency>
         <Required type="1" schemaName="appbase_product" displayName="Product" solution="appbase_core (1.0.0.2)" />
         <Dependent type="62" schemaName="appbase_AssetManagement" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="appbase_product" displayName="Product" solution="appbase_core (1.0.0.2)" />
+        <Dependent type="80" schemaName="appbase_AssetManagement" displayName="Asset Management" />
       </MissingDependency>
       <MissingDependency>
         <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_complianceframework" parentDisplayName="Compliance Framework" solution="appbase_core (1.0.0.2)" />
@@ -201,6 +210,12 @@
         <Dependent type="10" schemaName="appbase_asset_RelatedProduct_appbase_product" displayName="appbase_asset_RelatedProduct_appbase_product" parentSchemaName="appbase_product" parentDisplayName="Product" />
       </MissingDependency>
       <MissingDependency>
+        <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)">
+          <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
+        </Required>
+        <Dependent type="80" schemaName="appbase_AssetManagement" displayName="Asset Management" />
+      </MissingDependency>
+      <MissingDependency>
         <Required type="9" schemaName="appbase_assignmentstatus" displayName="Assignment Status" solution="appbase_core (1.0.0.2)" />
         <Dependent type="2" schemaName="appbase_assignmentstatus" displayName="Assignment Status" parentSchemaName="appbase_assetassignment" parentDisplayName="Asset Assignment" />
       </MissingDependency>
@@ -255,6 +270,12 @@
       <MissingDependency>
         <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.2)" />
         <Dependent type="2" schemaName="appbase_requirestracking" displayName="Requires Tracking" parentSchemaName="appbase_assettype" parentDisplayName="Asset Type" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.15)" id.uniquename="AppChannel">
+          <package appName="PowerAppsAppFramework Package" version="1.0.0.25">PowerAppsAppFramework_Anchor (1.0.0.25)</package>
+        </Required>
+        <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=appbase_AssetManagement,settingdefinitionid.uniquename=AppChannel" id.parentappmoduleid.uniquename="appbase_AssetManagement" id.settingdefinitionid.uniquename="AppChannel" />
       </MissingDependency>
     </MissingDependencies>
   </SolutionManifest>
