@@ -1,21 +1,33 @@
-# Core Apps Repository
+# FAST - Frontier App & AI Starter Templates
 
-Welcome to the Industry Apps repository. This repository delivers a collection of standardized, reusable starter app templates for Microsoft Dataverse, purpose-built for common business processes across industries. Each module defines entities, relationships, and field specifications that align with real-world operational needs. By adopting these apps, organizations and solution builders can accelerate Power Platform and Dynamics 365 deployments, ensure data consistency across programs, and reduce the cost of custom development. Whether you are building case management, process tracking, asset management, or other business solutions, these modules provide a ready-to-use foundation that is extensible, interoperable, and maintained under an open MIT license.
+Welcome to FAST (Frontier App & AI Starter Templates), a collection of standardized, reusable starter app templates for Microsoft Dataverse, purpose-built for common business processes across industries. Each module defines entities, relationships, and field specifications that align with real-world operational needs. By adopting these apps, organizations and solution builders can accelerate Power Platform and Dynamics 365 deployments, ensure data consistency across programs, and reduce the cost of custom development. Whether you are building case management, process tracking, asset management, or other business solutions, these modules provide a ready-to-use foundation that is extensible, interoperable, and maintained under an open MIT license.
 
 ## 📁 Repository Structure
 
-Modules are organized into category folders based on their industry focus:
+Solutions are organized into domain-based categories:
 
-- **cross-industry/** - Solutions applicable across all industries (e.g., core, knowledge-management, process-automation, request-tracker)
-- **government/** - Government-specific solutions (e.g., gov-core for public sector operations)
+### Solution Categories
 
-- Additional categories will be added as the repository grows (e.g., healthcare, finance, manufacturing)\n\nEach module contains:\n- Dataverse solution files (.cdsproj)
+- **administrative/** - Executive coordination, member organizations
+- **compliance-security/** - Investigations, personnel security
+- **external-engagement/** - Event management, external interactions, programs and services
+- **financial/** - Financial management and accounting
+- **government/** - Civic engagement, court case management, legislative operations, gov-core
+- **operations/** - Asset management, facilities, IT service management, operational excellence, project tracking, request tracker
+- **shared/** - Core shared components, data integration, process automation
+- **workforce/** - HR administration, benefits, recruiting, training, knowledge management, time tracking, gamification
 
+### Supporting Tools
+
+- **ui-tools/** - Web-based management interface for Dataverse operations (FastAPI backend, Vite frontend, Dataverse client library)
+- **data-generator/** - Utilities for generating and validating test data
+
+Each solution module typically contains:
+
+- Dataverse solution files (.cdsproj)
 - Entity definitions and relationships
-
-- PowerShell automation scripts for deployment
-
-- Configuration for multi-environment deployments\n\n## 🛠️ Contributing
+- BUILD.md documentation
+- PowerShell deployment scripts
 
 ## 🛠️ Contributing
 
