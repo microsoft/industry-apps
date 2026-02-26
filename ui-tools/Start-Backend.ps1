@@ -4,7 +4,7 @@
 Write-Host "Starting Backend Server..." -ForegroundColor Cyan
 Write-Host ""
 
-$backendPath = "$PSScriptRoot\ui-tools\backend"
+$backendPath = "$PSScriptRoot\backend"
 
 # Navigate to backend
 Set-Location $backendPath

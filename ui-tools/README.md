@@ -16,11 +16,11 @@ cd ui-tools
 start-ui.cmd
 ```
 
-### Option 3: PowerShell Script (from root)
+### Option 3: PowerShell Script
 ```powershell
+cd ui-tools
 .\Start-UITools.ps1
 ```
-Note: May require execution policy adjustment.
 
 ### Option 4: Manual Servers
 ```powershell

@@ -4,7 +4,7 @@
 Write-Host "Starting Frontend Server..." -ForegroundColor Cyan
 Write-Host ""
 
-$frontendPath = "$PSScriptRoot\ui-tools\frontend"
+$frontendPath = "$PSScriptRoot\frontend"
 
 # Navigate to frontend
 Set-Location $frontendPath

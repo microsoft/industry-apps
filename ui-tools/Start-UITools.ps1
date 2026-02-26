@@ -9,7 +9,7 @@
 Write-Host "Starting UI Tools..." -ForegroundColor Cyan
 Write-Host ""
 
-$uiPath = "$PSScriptRoot\ui-tools"
+$uiPath = "$PSScriptRoot"
 $backendPath = "$uiPath\backend"
 $frontendPath = "$uiPath\frontend"
 
