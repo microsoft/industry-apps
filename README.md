@@ -20,7 +20,6 @@ Solutions are organized into domain-based categories:
 ### Supporting Tools
 
 - **ui-tools/** - Web-based management interface for Dataverse operations (FastAPI backend, Vite frontend, Dataverse client library)
-- **data-generator/** - Utilities for generating and validating test data
 
 Each solution module typically contains:
 
