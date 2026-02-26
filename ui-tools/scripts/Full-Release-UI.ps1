@@ -314,20 +314,16 @@ try {
             
             # Stage all module files except .zip packages
             # Suppress line ending warnings (LF/CRLF) as they're informational only
-            try {
-                $gitAddOutput = git add "$ModulePath/" -- ':!*.zip' 2>&1 | Out-String
-                # Only show output if it's not just line ending warnings
-                if ($gitAddOutput -and $gitAddOutput -notmatch "LF will be replaced by CRLF") {
-                    Write-Host $gitAddOutput -ForegroundColor Gray
-                }
-                Write-Host "git add $ModulePath/ (excluding .zip files)" -ForegroundColor Gray
-            } catch {
-                # Ignore line ending warnings, only fail on real errors
-                if ($_.Exception.Message -notmatch "LF will be replaced by CRLF") {
-                    throw
-                }
-                Write-Host "git add $ModulePath/ (excluding .zip files)" -ForegroundColor Gray
+            $prevErrorAction = $ErrorActionPreference
+            $ErrorActionPreference = 'SilentlyContinue'
+            $gitAddOutput = git add "$ModulePath/" -- ':!*.zip' 2>&1 | Out-String
+            $ErrorActionPreference = $prevErrorAction
+            
+            # Only show output if it's not just line ending warnings
+            if ($gitAddOutput -and $gitAddOutput -notmatch "LF will be replaced by CRLF") {
+                Write-Host $gitAddOutput -ForegroundColor Gray
             }
+            Write-Host "git add $ModulePath/ (excluding .zip files)" -ForegroundColor Gray
             
             # Get friendly name for commit message (with spaces, not hyphens)
             $commitModuleName = $ModuleFriendlyName
@@ -356,7 +352,11 @@ try {
             
             # Commit
             $commitMessage = "Release $commitModuleName v$NewVersion"
+            $prevErrorAction = $ErrorActionPreference
+            $ErrorActionPreference = 'SilentlyContinue'
             $gitCommit = git commit -m $commitMessage 2>&1 | Out-String
+            $commitExitCode = $LASTEXITCODE
+            $ErrorActionPreference = $prevErrorAction
             
             # Filter out line ending warnings from output
             $filteredOutput = ($gitCommit -split "`n" | Where-Object { 
@@ -366,43 +366,40 @@ try {
                 Write-Host $filteredOutput
             }
             
-            if ($LASTEXITCODE -ne 0) {
+            if ($commitExitCode -ne 0) {
                 # Check if there were no changes to commit
                 if ($gitCommit -match "nothing to commit") {
                     Write-Host "[OK] No changes to commit" -ForegroundColor Yellow
                     Add-StepResult -Label "Git commit" -Status "success" -Message "No changes to commit"
                 } else {
-                    throw "Git commit failed: $gitCommit"
+                    throw "Git commit failed (exit code: $commitExitCode): $gitCommit"
                 }
             } else {
                 Write-Host "[OK] Changes committed" -ForegroundColor Green
                 
                 # Push the commit to remote
                 Write-Host "Pushing to remote..." -ForegroundColor Yellow
-                try {
-                    $gitPush = git push 2>&1 | Out-String
-                    
-                    # Filter out line ending warnings and benign remote messages
-                    $filteredPushOutput = ($gitPush -split "`n" | Where-Object { 
-                        $_ -and 
-                        $_ -notmatch "LF will be replaced by CRLF" -and
-                        $_.Trim() -ne "remote:"
-                    }) -join "`n"
-                    if ($filteredPushOutput) {
-                        Write-Host $filteredPushOutput
-                    }
-                } catch {
-                    # Ignore benign stderr messages from git
-                    $errMsg = $_.Exception.Message
-                    if ($errMsg -notmatch "LF will be replaced by CRLF" -and 
-                        $errMsg.Trim() -ne "remote:" -and
-                        $errMsg -notmatch "^\s*remote:\s*$") {
-                        throw
-                    }
+                
+                # Temporarily disable strict error mode for git (stderr doesn't mean failure)
+                $prevErrorAction = $ErrorActionPreference
+                $ErrorActionPreference = 'SilentlyContinue'
+                $gitPush = git push 2>&1 | Out-String
+                $pushExitCode = $LASTEXITCODE
+                $ErrorActionPreference = $prevErrorAction
+                
+                # Filter out line ending warnings and benign remote messages
+                $filteredPushOutput = ($gitPush -split "`n" | Where-Object { 
+                    $_ -and 
+                    $_ -notmatch "LF will be replaced by CRLF" -and
+                    $_.Trim() -ne "remote:" -and
+                    $_.Trim() -ne ""
+                }) -join "`n"
+                if ($filteredPushOutput) {
+                    Write-Host $filteredPushOutput
                 }
                 
-                if ($LASTEXITCODE -ne 0) {
-                    throw "Git push failed: $gitPush"
+                if ($pushExitCode -ne 0) {
+                    throw "Git push failed (exit code: $pushExitCode): $gitPush"
                 }
                 
                 Write-Host "[OK] Changes pushed to remote" -ForegroundColor Green
@@ -425,40 +422,39 @@ try {
             Set-Location $projectRoot
             
             $tagName = "$ModuleName/v$NewVersion"
+            $prevErrorAction = $ErrorActionPreference
+            $ErrorActionPreference = 'SilentlyContinue'
             $gitTag = git tag $tagName 2>&1 | Out-String
+            $tagExitCode = $LASTEXITCODE
+            $ErrorActionPreference = $prevErrorAction
             
-            if ($LASTEXITCODE -ne 0) {
-                throw "Failed to create tag: $gitTag"
+            if ($tagExitCode -ne 0) {
+                throw "Failed to create tag (exit code: $tagExitCode): $gitTag"
             }
             
             Write-Host "[OK] Tag created: $tagName" -ForegroundColor Green
             
             # Push the tag to remote
             Write-Host "Pushing tag to remote..." -ForegroundColor Yellow
-            try {
-                $gitPushTag = git push origin $tagName 2>&1 | Out-String
-                
-                # Filter out line ending warnings and benign remote messages
-                $filteredTagOutput = ($gitPushTag -split "`n" | Where-Object { 
-                    $_ -and 
-                    $_ -notmatch "LF will be replaced by CRLF" -and
-                    $_.Trim() -ne "remote:"
-                }) -join "`n"
-                if ($filteredTagOutput) {
-                    Write-Host $filteredTagOutput
-                }
-            } catch {
-                # Ignore benign stderr messages from git
-                $errMsg = $_.Exception.Message
-                if ($errMsg -notmatch "LF will be replaced by CRLF" -and 
-                    $errMsg.Trim() -ne "remote:" -and
-                    $errMsg -notmatch "^\s*remote:\s*$") {
-                    throw
-                }
+            $prevErrorAction = $ErrorActionPreference
+            $ErrorActionPreference = 'SilentlyContinue'
+            $gitPushTag = git push origin $tagName 2>&1 | Out-String
+            $pushTagExitCode = $LASTEXITCODE
+            $ErrorActionPreference = $prevErrorAction
+            
+            # Filter out line ending warnings and benign remote messages
+            $filteredTagOutput = ($gitPushTag -split "`n" | Where-Object { 
+                $_ -and 
+                $_ -notmatch "LF will be replaced by CRLF" -and
+                $_.Trim() -ne "remote:" -and
+                $_.Trim() -ne ""
+            }) -join "`n"
+            if ($filteredTagOutput) {
+                Write-Host $filteredTagOutput
             }
             
-            if ($LASTEXITCODE -ne 0) {
-                throw "Failed to push tag: $gitPushTag"
+            if ($pushTagExitCode -ne 0) {
+                throw "Failed to push tag (exit code: $pushTagExitCode): $gitPushTag"
             }
             
             Write-Host "[OK] Tag pushed to remote" -ForegroundColor Green
@@ -532,33 +528,26 @@ try {
             
             # Push tags first (if not already pushed)
             Write-Host "Pushing tags to GitHub..." -ForegroundColor Gray
-            try {
-                $gitPush = git push origin --tags 2>&1 | Out-String
-                
-                # Filter out line ending warnings and benign remote messages
-                $filteredPushTagsOutput = ($gitPush -split "`n" | Where-Object { 
-                    $_ -and 
-                    $_ -notmatch "LF will be replaced by CRLF" -and
-                    $_.Trim() -ne "remote:"
-                }) -join "`n"
-                if ($filteredPushTagsOutput) {
-                    Write-Host $filteredPushTagsOutput
-                }
-                
-                # Check exit code only if command completed
-                if ($LASTEXITCODE -ne 0 -and $gitPush -notmatch "Everything up-to-date") {
-                    throw "Failed to push tags: $gitPush"
-                }
-            } catch {
-                # If the error message is just about being up-to-date or benign remote messages, that's fine
-                $errMsg = $_.Exception.Message
-                if ($errMsg -match "Everything up-to-date" -or
-                    $errMsg.Trim() -eq "remote:" -or
-                    $errMsg -match "^\s*remote:\s*$") {
-                    Write-Host "Tags already up-to-date" -ForegroundColor Gray
-                } else {
-                    throw
-                }
+            $prevErrorAction = $ErrorActionPreference
+            $ErrorActionPreference = 'SilentlyContinue'
+            $gitPush = git push origin --tags 2>&1 | Out-String
+            $pushTagsExitCode = $LASTEXITCODE
+            $ErrorActionPreference = $prevErrorAction
+            
+            # Filter out line ending warnings and benign remote messages
+            $filteredPushTagsOutput = ($gitPush -split "`n" | Where-Object { 
+                $_ -and 
+                $_ -notmatch "LF will be replaced by CRLF" -and
+                $_.Trim() -ne "remote:" -and
+                $_.Trim() -ne ""
+            }) -join "`n"
+            if ($filteredPushTagsOutput) {
+                Write-Host $filteredPushTagsOutput
+            }
+            
+            # Check exit code only if command completed (up-to-date is success)
+            if ($pushTagsExitCode -ne 0 -and $gitPush -notmatch "Everything up-to-date") {
+                throw "Failed to push tags (exit code: $pushTagsExitCode): $gitPush"
             }
             
             # Create the release

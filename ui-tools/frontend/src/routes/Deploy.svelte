@@ -515,7 +515,26 @@
               console.log('[DEBUG] SSE data:', data);  // Debug logging
               
               if (data.type === 'output') {
-                outputLines.update(prevLines => [...prevLines, data.line]);
+                const line = data.line;
+                
+                // Filter out JSON result lines (these are for backend parsing, not user display)
+                let isJsonResult = false;
+                try {
+                  const trimmed = line.trim();
+                  if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
+                    const parsed = JSON.parse(trimmed);
+                    // Check if it looks like a script result object
+                    if (parsed.hasOwnProperty('success') && parsed.hasOwnProperty('steps')) {
+                      isJsonResult = true;
+                    }
+                  }
+                } catch {
+                  // Not JSON, include it
+                }
+                
+                if (!isJsonResult) {
+                  outputLines.update(prevLines => [...prevLines, line]);
+                }
               } else if (data.type === 'complete') {
                 operationStatus.set(data.exitCode === 0 ? 'success' : 'error');
                 outputLines.update(prevLines => [...prevLines, `\n${data.exitCode === 0 ? '✓' : '✗'} Completed with exit code: ${data.exitCode}`]);
