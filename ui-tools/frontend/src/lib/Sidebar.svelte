@@ -5,6 +5,7 @@
   // Navigation items
   const navItems = [
     { path: '/', label: 'Deploy', icon: '🎯', description: 'Manage and deploy solutions' },
+    { path: '/release-manager', label: 'Release Manager', icon: '🚀', description: 'Create and publish releases' },
     { path: '/field-creator', label: 'Field Creator', icon: '📋', description: 'Mass create fields' },
     { path: '/choice-creator', label: 'Choice Creator', icon: '📝', description: 'Create global option sets' },
   ];

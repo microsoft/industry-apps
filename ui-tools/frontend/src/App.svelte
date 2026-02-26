@@ -9,12 +9,14 @@
   import Deploy from './routes/Deploy.svelte';
   import FieldCreator from './routes/FieldCreator.svelte';
   import ChoiceCreator from './routes/ChoiceCreator.svelte';
+  import ReleaseManager from './routes/ReleaseManager.svelte';
   
   // Define routes
   const routes = {
     '/': Deploy,
     '/field-creator': FieldCreator,
     '/choice-creator': ChoiceCreator,
+    '/release-manager': ReleaseManager,
   };
   
   // Load initial data

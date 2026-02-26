@@ -605,36 +605,6 @@
     }
   }
   
-  async function createRelease(module) {
-    const operationId = generateOperationId();
-    currentOperationId.set(operationId);
-    activeOperation.set(`release-${module.name}`);
-    operationStatus.set('running');
-    outputLines.set([]);
-    
-    try {
-      const response = await fetch('/api/modules/release', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          category: module.category,
-          module: module.name,
-          operationId: operationId
-        })
-      });
-      
-      await streamResponse(response);
-      
-      // Reload modules after successful release (version unchanged, just rebuild)
-      if ($operationStatus === 'success') {
-        await loadModules();
-      }
-    } catch (error) {
-      outputLines.update(lines => [...lines, `\n✗ Connection error: ${error.message}`]);
-      operationStatus.set('error');
-    }
-  }
-  
   // Version Management Functions
   function startEditingVersion(module) {
     editingVersionModule = module;
@@ -797,12 +767,6 @@
                       title="Push to {module.sourceEnvironment} (unmanaged)"
                       on:click|stopPropagation={() => pushToSource(module)}>
                       ⬆️
-                    </button>
-                    <button 
-                      class="icon-btn" 
-                      title="Create Release"
-                      on:click={() => createRelease(module)}>
-                      📦
                     </button>
                   </div>
                 </div>

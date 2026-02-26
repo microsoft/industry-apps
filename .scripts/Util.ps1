@@ -578,11 +578,17 @@ function Clear-BuildDirectories {
 function Build-Solution {
     param(
         [Parameter(Mandatory = $true)]
-        [string]$SolutionPath
+        [string]$SolutionPath,
+        
+        [Parameter(Mandatory = $false)]
+        [ValidateSet('Debug', 'Release')]
+        [string]$Configuration = 'Debug'
     )
 
     $originalDir = Get-Location
     Set-Location $SolutionPath
+    
+    Write-Host "Building solution in $Configuration mode..." -ForegroundColor Cyan
     
     # Pre-build cleanup to ensure directories are not locked
     Clear-BuildDirectories $SolutionPath
@@ -601,7 +607,7 @@ function Build-Solution {
             }
             
             # Build with properties to make MSBuild more resilient to file locks
-            dotnet build --verbosity minimal --property:DisableOutOfProcTaskHost=true --property:UseSharedCompilation=false
+            dotnet build --configuration $Configuration --verbosity minimal --property:DisableOutOfProcTaskHost=true --property:UseSharedCompilation=false
             
             $buildSuccessful = $true
             Write-Host "Build completed successfully." -ForegroundColor Green
@@ -619,7 +625,7 @@ function Build-Solution {
                 # One final build attempt with different settings
                 try {
                     Write-Host "Final build attempt with different MSBuild settings..." -ForegroundColor Yellow
-                    dotnet build --verbosity quiet --property:DisableOutOfProcTaskHost=true --property:UseSharedCompilation=false --property:BuildInParallel=false
+                    dotnet build --configuration $Configuration --verbosity quiet --property:DisableOutOfProcTaskHost=true --property:UseSharedCompilation=false --property:BuildInParallel=false
                     $buildSuccessful = $true
                     Write-Host "Build completed successfully on final attempt." -ForegroundColor Green
                 }
