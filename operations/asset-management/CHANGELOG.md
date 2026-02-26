@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## [1.1.0.0] - 2026-02-26
+
 ### Added
 - Choice Sets: Created 13 global option sets for Asset Management module:
   - **Asset Lifecycle**: Asset Status (10 values), Asset Condition (7 values), Asset Depreciation Method (5 values)
