@@ -1,6 +1,21 @@
 # Core Apps Repository
 
-Welcome to the Industry Apps repository. This repository delivers a collection of standardized, reusable starter app templates for Microsoft Dataverse, purpose-built for common business processes across industries. Each module defines entities, relationships, and field specifications that align with real-world operational needs. By adopting these apps, organizations and solution builders can accelerate Power Platform and Dynamics 365 deployments, ensure data consistency across programs, and reduce the cost of custom development. Whether you are building case management, process tracking, asset management, or other business solutions, these modules provide a ready-to-use foundation that is extensible, interoperable, and maintained under an open MIT license.\n\n## 📁 Repository Structure\n\nModules are organized into category folders based on their industry focus:\n\n- **cross-industry/** - Solutions applicable across all industries (e.g., core, knowledge-management, process-automation, request-tracker)\n- **government/** - Government-specific solutions (e.g., gov-core for public sector operations)\n- Additional categories will be added as the repository grows (e.g., healthcare, finance, manufacturing)\n\nEach module contains:\n- Dataverse solution files (.cdsproj)\n- Entity definitions and relationships\n- PowerShell automation scripts for deployment\n- Configuration for multi-environment deployments\n\n## 🛠️ Contributing
+Welcome to the Industry Apps repository. This repository delivers a collection of standardized, reusable starter app templates for Microsoft Dataverse, purpose-built for common business processes across industries. Each module defines entities, relationships, and field specifications that align with real-world operational needs. By adopting these apps, organizations and solution builders can accelerate Power Platform and Dynamics 365 deployments, ensure data consistency across programs, and reduce the cost of custom development. Whether you are building case management, process tracking, asset management, or other business solutions, these modules provide a ready-to-use foundation that is extensible, interoperable, and maintained under an open MIT license.
+
+## 📁 Repository Structure
+
+Modules are organized into category folders based on their industry focus:
+
+- **cross-industry/** - Solutions applicable across all industries (e.g., core, knowledge-management, process-automation, request-tracker)
+- **government/** - Government-specific solutions (e.g., gov-core for public sector operations)
+
+- Additional categories will be added as the repository grows (e.g., healthcare, finance, manufacturing)\n\nEach module contains:\n- Dataverse solution files (.cdsproj)
+
+- Entity definitions and relationships
+
+- PowerShell automation scripts for deployment
+
+- Configuration for multi-environment deployments\n\n## 🛠️ Contributing
 
 ## 🛠️ Contributing
 

@@ -230,6 +230,11 @@
     calculateNewVersion();
   }
   
+  // Watch for version changes and reload changelog
+  $: if (selectedModule && newVersion) {
+    loadChangelog();
+  }
+  
   async function startRelease() {
     if (!selectedModule) {
       alert('Please select a module first');
@@ -509,14 +514,21 @@
           await checkPackages();
         }
       } else {
-        // For other steps, use the execute-step endpoint
+        // For all other steps, use streaming execute-step endpoint
+        const operationId = generateOperationId();
+        currentOperationId.set(operationId);
+        activeOperation.set(`${stepKey}-${selectedModule.name}`);
+        operationStatus.set('running');
+        outputLines.set([]);
+        
         const payload = {
           module_path: selectedModule.path,
           module_name: selectedModule.name,
           module_display_name: selectedModule.displayName,
           step: stepKey,
           version: newVersion,
-          release_notes: releaseNotes
+          release_notes: releaseNotes,
+          operationId: operationId
         };
         
         const response = await fetch('http://localhost:8000/api/release/execute-step', {
@@ -525,10 +537,10 @@
           body: JSON.stringify(payload)
         });
         
-        const result = await response.json();
+        const exitCode = await streamResponse(response);
         
-        if (response.ok) {
-          // Mark step as complete
+        // Mark step as complete if successful
+        if (exitCode === 0) {
           stepCompletion[stepKey] = true;
           
           // Auto-refresh packages after building
@@ -536,7 +548,6 @@
             await checkPackages();
           }
         }
-        // Errors will be logged to console, user can see via completion status
       }
     } catch (error) {
       console.error('Error executing step:', error);
@@ -843,7 +854,7 @@
                 disabled={isLoadingPackages}>
                 {isLoadingPackages ? '⏳ Loading...' : '🔍 Check for Packages'}
               </button>
-              <small class="hint-text">Scan bin/Release folder for package files</small>
+              <small class="hint-text">Scan .releases folder for package files ready to upload</small>
               
               {#if builtPackages.length > 0}
                 <div class="packages-list">

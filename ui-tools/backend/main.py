@@ -216,6 +216,7 @@ class StepExecutionRequest(BaseModel):
     release_notes: str
     sync_tenant: Optional[str] = None
     sync_environment: Optional[str] = None
+    operationId: str
 
 class BuildPackagesRequest(BaseModel):
     module_path: str
@@ -1719,20 +1720,23 @@ async def extract_changelog(module_path: str, version: str = None):
 
 @app.get("/api/release/check-packages")
 async def check_packages(module_path: str):
-    """Check for built solution packages and return their metadata"""
+    """Check for built solution packages in .releases folder and return their metadata"""
     try:
         from datetime import datetime
         import os
         
-        module_full_path = PROJECT_ROOT / module_path
-        bin_release_path = module_full_path / "bin" / "Release"
+        # Extract module name from path (e.g., "shared/core" -> "core")
+        module_name = Path(module_path).name
         
-        if not bin_release_path.exists():
-            return {"success": True, "packages": [], "message": "No Release folder found yet"}
+        # Check .releases/<module> folder instead of bin/Release
+        releases_path = PROJECT_ROOT / ".releases" / module_name
         
-        # Find .zip files in the Release folder
+        if not releases_path.exists():
+            return {"success": True, "packages": [], "message": "No .releases folder found yet"}
+        
+        # Find .zip files in the .releases/<module> folder
         packages = []
-        for file_path in bin_release_path.glob("*.zip"):
+        for file_path in releases_path.glob("*.zip"):
             stat_info = file_path.stat()
             modified_dt = datetime.fromtimestamp(stat_info.st_mtime)
             created_dt = datetime.fromtimestamp(stat_info.st_ctime)
@@ -1757,7 +1761,7 @@ async def check_packages(module_path: str):
             "success": True,
             "packages": packages,
             "count": len(packages),
-            "folder": str(bin_release_path.relative_to(PROJECT_ROOT))
+            "folder": str(releases_path.relative_to(PROJECT_ROOT))
         }
     except Exception as e:
         print(f"Error checking packages: {e}", file=sys.stderr)
@@ -1856,79 +1860,27 @@ async def execute_release(request: ReleaseExecutionRequest):
 
 @app.post("/api/release/execute-step")
 async def execute_single_step(request: StepExecutionRequest):
-    """Execute a single release step for testing/debugging"""
-    try:
-        # Build the script path
-        script_path = PROJECT_ROOT / "ui-tools" / "scripts" / "Full-Release-UI.ps1"
-        
-        if not script_path.exists():
-            return {
-                "success": False,
-                "error": f"Release script not found: {script_path}"
-            }
-        
-        # Get module name from path
-        module_name = Path(request.module_path).name
-        
-        # Build PowerShell command - only enable the selected step
-        ps_command = [
-            "powershell.exe",
-            "-NoProfile",
-            "-ExecutionPolicy", "Bypass",
-            "-File", str(script_path),
-            "-ModulePath", request.module_path,
-            "-ModuleName", request.module_name,
-            "-ReleaseType", "standard",  # Doesn't matter for single steps
-            "-NewVersion", request.version,
-            "-ReleaseNotes", request.release_notes,
-            "-EnabledSteps", request.step  # Only this step
-        ]
-        
-        # Add optional display name if provided
-        if request.module_display_name:
-            ps_command.extend(["-ModuleFriendlyName", request.module_display_name])
-        
-        print(f"Executing single step '{request.step}': {' '.join(ps_command)}", file=sys.stderr)
-        
-        # Execute the PowerShell script
-        result = subprocess.run(
-            ps_command,
-            cwd=PROJECT_ROOT,
-            capture_output=True,
-            text=True,
-            timeout=180  # 3 minute timeout for single step
-        )
-        
-        print(f"PowerShell stdout: {result.stdout}", file=sys.stderr)
-        print(f"PowerShell stderr: {result.stderr}", file=sys.stderr)
-        print(f"PowerShell return code: {result.returncode}", file=sys.stderr)
-        
-        # Return success/failure based on exit code
-        if result.returncode == 0:
-            return {
-                "success": True,
-                "output": result.stdout,
-                "step": request.step
-            }
-        else:
-            return {
-                "success": False,
-                "error": result.stderr or result.stdout or "Step execution failed",
-                "step": request.step
-            }
-    except subprocess.TimeoutExpired:
-        return {
-            "success": False,
-            "error": f"Step '{request.step}' timed out after 3 minutes"
-        }
-    except Exception as e:
-        print(f"Error executing step: {e}", file=sys.stderr)
-        import traceback
-        traceback.print_exc(file=sys.stderr)
-        return {
-            "success": False,
-            "error": str(e)
-        }
+    """Execute a single release step with streaming output"""
+    script_path = PROJECT_ROOT / "ui-tools" / "scripts" / "Full-Release-UI.ps1"
+    
+    # Build args list for stream_powershell_output
+    args = [
+        "-ModulePath", request.module_path,
+        "-ModuleName", request.module_name,
+        "-ReleaseType", "standard",  # Doesn't matter for single steps
+        "-NewVersion", request.version,
+        "-ReleaseNotes", request.release_notes,
+        "-EnabledSteps", request.step  # Only this step
+    ]
+    
+    # Add optional display name if provided
+    if request.module_display_name:
+        args.extend(["-ModuleFriendlyName", request.module_display_name])
+    
+    return StreamingResponse(
+        stream_powershell_output(str(script_path), *args, operation_id=request.operationId),
+        media_type="text/event-stream"
+    )
 
 if __name__ == "__main__":
     import uvicorn
