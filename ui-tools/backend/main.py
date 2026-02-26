@@ -12,7 +12,7 @@ import shutil
 import xml.etree.ElementTree as ET
 
 # Add shared dataverse-client library to path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent / 'dataverse-client'))
+sys.path.insert(0, str(Path(__file__).parent.parent / 'dataverse-client'))
 from client import DataverseClient
 
 app = FastAPI(title="Module Deployment API")

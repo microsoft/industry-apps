@@ -5,7 +5,6 @@ Shared Python library for interacting with Microsoft Dataverse Web API.
 ## Purpose
 
 This library provides a unified interface for Dataverse operations used by:
-- **build-automation** CLI tools for the Power Platform Agent
 - **ui-tools/backend** FastAPI server for the web UI
 
 ## Features
@@ -36,7 +35,7 @@ This library provides a unified interface for Dataverse operations used by:
 
 ### For Development
 
-From ui-tools/backend or build-automation directories:
+From ui-tools/backend directory:
 
 ```bash
 pip install -e ../dataverse-client
@@ -122,21 +121,13 @@ for solution in solutions:
 
 ## Architecture
 
-This library eliminates the need for CLI tools to make HTTP calls to the backend server. Instead, both CLI and backend import this shared library directly:
+This library provides a centralized client for Dataverse operations:
 
-**Before:**
 ```
-CLI → HTTP → Backend API → DataverseClient → Dataverse
-```
-
-**After:**
-```
-CLI → DataverseClient → Dataverse
 Backend API → DataverseClient → Dataverse
 ```
 
 Benefits:
-- Faster CLI execution (no HTTP overhead)
-- Simplified deployment (CLI doesn't need backend running)
 - Single source of truth for Dataverse operations
 - Better error handling (direct exceptions)
+- Simplified deployment and maintenance
