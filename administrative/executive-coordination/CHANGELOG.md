@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## [1.1.0.0] - 2026-02-26
+
 ### Added
 - Entity Fields: Completed field creation for all 5 Executive Coordination entities (82 fields total):
   - **Core Executive Tracking:**
