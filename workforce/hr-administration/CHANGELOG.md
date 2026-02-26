@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## [1.1.0.0] - 2026-02-26
+
 ### Added
 - Choice Sets: Created 16 global option sets for HR Administration module:
   - **Position Management**: HR Position Status, HR Assignment Type, HR Assignment Status
