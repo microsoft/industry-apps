@@ -4,7 +4,9 @@ All notable changes to the Core module will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased]
+## Unreleased
+
+## [1.1.0.0] - 2026-02-26
 
 ### Added
 
@@ -27,28 +29,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **Entity: Credential Assignment** - Created with 8 fields including Person, Credential Type, Credential Number, issue/expiration/renewal dates, Certification Status, and Supporting Document for tracking personnel credentials
 - **Entity: Competency** - Created with 4 fields (Name, Competency Code, General Category, Description) for defining skills and capabilities
 
-#### Calendar & Time Management
-- **Entity: Calendar** - Created with 7 fields including Calendar Type choice, Owner lookup, Location relationship, time zone, and validity periods
-- **Entity: Calendar Entry** - Created with 11 fields including Calendar/Location lookups, Entry Type choice, start/end dates, recurrence, and attendee tracking
-- **Entity: Holiday** - Created with 8 fields including Holiday Type/Observance Level choices, dates, Location relationship, and applicability scope
-
 #### Governance & Decisions
 - **Entity: Agreement** - Created with 14 fields including Agreement Number, Agreement Type/Status choices, Primary/Counterparty Organization and Contact lookups, effective/expiration dates, Total Value, Organization Unit, Key Terms, Document reference, and Parent Agreement lookup for hierarchy
 - **Entity: Formal Decision** - Created with 12 fields including Decision Number, Decision Date, Decision Maker/Body, General Category, Approval Status, Effective Date, Related Initiative, Rationale, and Supporting Document
 - **Entity: Discussion Item** - Created with 11 fields including Discussion Number, General Category, Raised By/Date, Priority, Action Status, Related Decision, Discussion Notes, Outcome, and Parent Discussion Item lookup for threaded discussions
 - **Entity: After Action Report** - Created with 14 fields including Report Number/Date, Reporting Organization Unit, Report Author, Event Date, General Category, Overall Assessment, Related Initiative, Executive Summary, What Went Well, Areas for Improvement, Recommendations, and Supporting Document
 
-#### Communication & Notifications
-- **Entity: Note** - Created with 7 fields including Regarding/Created By lookups, General Category, Note Date, Priority choice, and rich text content
-- **Entity: Attachment** - Created with 9 fields including Regarding lookup, File Type choice, file metadata (name, size, MIME type, URL), and Security Classification
-- **Entity: Communication** - Created with 13 fields including Sender/Recipient/Related To lookups, Communication Type/Method/Status choices, dates, subject, and message body
-- **Entity: Communication Template** - Created with 7 fields including Template Type/Communication Method choices, template content, placeholders, and metadata
-- **Entity: Notification** - Created with 11 fields including Recipient User/Related To lookups, Notification Type/Priority/Status choices, dates, and notification content
-- **Entity: Notification Template** - Created with 6 fields including Template Type/Priority choices, template content with dynamic placeholders
-
 #### Legal & Compliance Framework
 - **Entity: Legal Authority** - Created with 12 fields including Authority Type/Status/Jurisdiction Level choices, Citation, Parent Legal Authority hierarchy, Issuing Authority, dates (enactment/effective/expiration), Description, Summary, and Document reference
-- **Entity: Legal Citation** - Created with 9 fields including Legal Authority/Cited Authority lookups, Citation Type choice, section references, and citation details
 - **Entity: Legal Amendment** - Created with 10 fields including Original Authority lookup, Amendment Number/Date, Effective Date, Legal Authority Impact choice, Changes Summary, and Document reference for tracking legal authority amendments
 - **Entity: Legal Cross-Reference** - Created with 5 fields including Primary/Related Legal Authority lookups, General Category/Impact choices, and relationship descriptions
 - **Entity: Compliance Framework** - Created with 10 fields including Framework Code, Framework Category, Issuing Organization, Version, effective dates, Publication Status, Scope, Supporting Document, and Parent Compliance Framework lookup for hierarchy
