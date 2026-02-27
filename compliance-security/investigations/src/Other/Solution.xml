@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.26013.155" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26013.155" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26014.00158">
+<ImportExportXml version="9.2.26014.158" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26014.158" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26014.00158">
   <SolutionManifest>
     <UniqueName>appbase_investigations</UniqueName>
     <LocalizedNames>
       <LocalizedName description="App Base - Investigations" languagecode="1033" />
     </LocalizedNames>
     <Descriptions />
-    <Version>1.0.0.1</Version>
+    <Version>1.0.0.2</Version>
     <Managed>2</Managed>
     <Publisher>
       <UniqueName>appbase</UniqueName>
@@ -93,6 +93,7 @@
       <RootComponent type="1" schemaName="appbase_investigationintake" behavior="0" />
       <RootComponent type="1" schemaName="appbase_investigationinterview" behavior="0" />
       <RootComponent type="1" schemaName="appbase_investigationinterviewparticipant" behavior="0" />
+      <RootComponent type="1" schemaName="appbase_investigationissue" behavior="0" />
       <RootComponent type="1" schemaName="appbase_investigationlocation" behavior="0" />
       <RootComponent type="1" schemaName="appbase_investigationoutcome" behavior="0" />
       <RootComponent type="1" schemaName="appbase_investigationparty" behavior="0" />
@@ -108,20 +109,374 @@
       <RootComponent type="1" schemaName="appbase_investigativereferraltype" behavior="0" />
       <RootComponent type="1" schemaName="appbase_investigativetype" behavior="0" />
       <RootComponent type="62" schemaName="appbase_Investigations" behavior="0" />
-      <RootComponent type="80" schemaName="appbase_Investigations" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_investigationallegationstatus" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_investigationallegationtype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_investigationcorrectiveactiontype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_investigationcustodyeventtype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_investigationevidencecategory" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_investigationevidencelinktype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_investigationevidencestatus" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_investigationfindingtype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_investigationintakedisposition" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_investigationintakestatus" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_investigationinterviewparticipantrole" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_investigationinterviewtype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_investigationissuetype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_investigationlocationtype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_investigationoutcometype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_investigationoveralldisposition" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_investigationrecommendationtype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_investigationrecoverymethod" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_investigationrecoverystatus" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_investigationrecoverytype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_investigationreferralcategory" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_investigationscreeningstatus" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_investigationstatus" behavior="0" />
     </RootComponents>
     <MissingDependencies>
       <MissingDependency>
-        <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)">
-          <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
-        </Required>
-        <Dependent type="80" schemaName="appbase_Investigations" displayName="Investigations" />
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_complianceframework" parentDisplayName="Compliance Framework" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_investigation_ComplianceFramework" displayName="appbase_investigation_ComplianceFramework" parentSchemaName="appbase_complianceframework" parentDisplayName="Compliance Framework" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.15)" id.uniquename="AppChannel">
-          <package appName="PowerAppsAppFramework Package" version="1.0.0.25">PowerAppsAppFramework_Anchor (1.0.0.25)</package>
-        </Required>
-        <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=appbase_Investigations,settingdefinitionid.uniquename=AppChannel" id.parentappmoduleid.uniquename="appbase_Investigations" id.settingdefinitionid.uniquename="AppChannel" />
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_evidenceitem_SupportingDocument" displayName="appbase_evidenceitem_SupportingDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_investigationfinding_SupportingDocument" displayName="appbase_investigationfinding_SupportingDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_investigationinterview_SupportingDocument" displayName="appbase_investigationinterview_SupportingDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_investigationinterview_TranscriptDocument" displayName="appbase_investigationinterview_TranscriptDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_investigationoutcome_SupportingDocument" displayName="appbase_investigationoutcome_SupportingDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_investigationplan_SupportingDocument" displayName="appbase_investigationplan_SupportingDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_investigationrecoveryrecord_SupportingDocument" displayName="appbase_investigationrecoveryrecord_SupportingDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_investigationreferral_SupportingDocument" displayName="appbase_investigationreferral_SupportingDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_investigationreport_ReportDocument" displayName="appbase_investigationreport_ReportDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_judicialdistrict" parentDisplayName="Judicial District" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_investigation_JudicialDistrict" displayName="appbase_investigation_JudicialDistrict" parentSchemaName="appbase_judicialdistrict" parentDisplayName="Judicial District" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_investigation_LegalAuthority" displayName="appbase_investigation_LegalAuthority" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_investigationallegation_LegalAuthority" displayName="appbase_investigationallegation_LegalAuthority" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_location" parentDisplayName="Location" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_evidenceitem_SourceLocation" displayName="appbase_evidenceitem_SourceLocation" parentSchemaName="appbase_location" parentDisplayName="Location" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_location" parentDisplayName="Location" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_evidencestoragelocation_PhysicalLocation" displayName="appbase_evidencestoragelocation_PhysicalLocation" parentSchemaName="appbase_location" parentDisplayName="Location" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_location" parentDisplayName="Location" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_investigation_PrimaryLocation" displayName="appbase_investigation_PrimaryLocation" parentSchemaName="appbase_location" parentDisplayName="Location" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_location" parentDisplayName="Location" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_investigationinterview_InterviewLocation" displayName="appbase_investigationinterview_InterviewLocation" parentSchemaName="appbase_location" parentDisplayName="Location" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_location" parentDisplayName="Location" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_investigationlocation_Location" displayName="appbase_investigationlocation_Location" parentSchemaName="appbase_location" parentDisplayName="Location" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_investigation_AssignedOrganizationUnit" displayName="appbase_investigation_AssignedOrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_investigation_ReportingOrganizationUnit" displayName="appbase_investigation_ReportingOrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_investigationallegation_SubjectOrganizationUnit" displayName="appbase_investigationallegation_SubjectOrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_investigationcorrectiveaction_AssignedOrganizationUnit" displayName="appbase_investigationcorrectiveaction_AssignedOrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_investigationparty_OrganizationUnit" displayName="appbase_investigationparty_OrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_investigationrecommendation_RecommendedTo" displayName="appbase_investigationrecommendation_RecommendedTo" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_investigationreferral_ReferredToOrganizationUnit" displayName="appbase_investigationreferral_ReferredToOrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="10" schemaName="appbase_investigativereferraltype_DefaultOrganizationUnit" displayName="appbase_investigativereferraltype_DefaultOrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_accesstype" displayName="Access Type" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_accesstype" displayName="Access Type" parentSchemaName="appbase_evidenceaccesslog" parentDisplayName="Evidence Access Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_actionstatus" displayName="Action Status" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_actionstatus" displayName="Action Status" parentSchemaName="appbase_investigationcorrectiveaction" parentDisplayName="Investigation Corrective Action" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_actionstatus" displayName="Action Status" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_implementationstatus" displayName="Implementation Status" parentSchemaName="appbase_investigationrecommendation" parentDisplayName="Investigation Recommendation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_approvalstatus" displayName="Approval Status" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_approvalstatus" displayName="Approval Status" parentSchemaName="appbase_investigationplan" parentDisplayName="Investigation Plan" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_approvalstatus" displayName="Approval Status" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_approvalstatus" displayName="Approval Status" parentSchemaName="appbase_investigationreport" parentDisplayName="Investigation Report" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_caserelationshiptype" displayName="Case Relationship Type" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_relationshiptype" displayName="Relationship Type" parentSchemaName="appbase_investigationrelatedcases" parentDisplayName="Investigation Related Cases" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_findingresult" displayName="Finding Result" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_findingresult" displayName="Finding Result" parentSchemaName="appbase_investigationfinding" parentDisplayName="Investigation Finding" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_findingstatus" displayName="Finding Status" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_findingstatus" displayName="Finding Status" parentSchemaName="appbase_investigationfinding" parentDisplayName="Investigation Finding" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_highmediumlow" displayName="High Medium Low" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_potentialevidentiaryvalue" displayName="Potential Evidentiary Value" parentSchemaName="appbase_evidenceitem" parentDisplayName="Evidence Item" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_interviewstatus" displayName="Interview Status" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_interviewstatus" displayName="Interview Status" parentSchemaName="appbase_investigationinterview" parentDisplayName="Investigation Interview" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_issuestatus" displayName="Issue Status" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_issuestatus" displayName="Issue Status" parentSchemaName="appbase_investigationissue" parentDisplayName="Investigation Issue" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_participationstatus" displayName="Participation Status" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_participationstatus" displayName="Participation Status" parentSchemaName="appbase_investigationinterviewparticipant" parentDisplayName="Investigation Interview Participant" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_participationstatus" displayName="Participation Status" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_participationstatus" displayName="Participation Status" parentSchemaName="appbase_investigationparty" parentDisplayName="Investigation Party" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_partytype" displayName="Party Type" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_partytype" displayName="Party Type" parentSchemaName="appbase_investigationparty" parentDisplayName="Investigation Party" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_planstatus" displayName="Plan Status" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_planstatus" displayName="Plan Status" parentSchemaName="appbase_investigationplan" parentDisplayName="Investigation Plan" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_priority" displayName="Priority" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_priority" displayName="Priority" parentSchemaName="appbase_investigation" parentDisplayName="Investigation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_priority" displayName="Priority" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_priority" displayName="Priority" parentSchemaName="appbase_investigationcorrectiveaction" parentDisplayName="Investigation Corrective Action" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_priority" displayName="Priority" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_priority" displayName="Priority" parentSchemaName="appbase_investigationrecommendation" parentDisplayName="Investigation Recommendation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_priority" displayName="Priority" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_defaultpriority" displayName="Default Priority" parentSchemaName="appbase_investigativetype" parentDisplayName="Investigative Type" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_publicationstatus" displayName="Publication Status" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_reportstatus" displayName="Report Status" parentSchemaName="appbase_investigationreport" parentDisplayName="Investigation Report" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_recommendationstatus" displayName="Recommendation Status" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_recommendationstatus" displayName="Recommendation Status" parentSchemaName="appbase_investigationrecommendation" parentDisplayName="Investigation Recommendation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_referraldirection" displayName="Referral Direction" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_referraldirection" displayName="Referral Direction" parentSchemaName="appbase_investigationreferral" parentDisplayName="Investigation Referral" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_referralstatus" displayName="Referral Status" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_referralstatus" displayName="Referral Status" parentSchemaName="appbase_investigationreferral" parentDisplayName="Investigation Referral" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_reporttype" displayName="Report Type" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_reporttype" displayName="Report Type" parentSchemaName="appbase_investigationreport" parentDisplayName="Investigation Report" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_securityclassification" displayName="Security Classification" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_securityclassification" displayName="Security Classification" parentSchemaName="appbase_evidenceitem" parentDisplayName="Evidence Item" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_securityclassification" displayName="Security Classification" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_securitylevel" displayName="Security Level" parentSchemaName="appbase_evidencestoragelocation" parentDisplayName="Evidence Storage Location" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_securityclassification" displayName="Security Classification" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_securityclassification" displayName="Security Classification" parentSchemaName="appbase_investigation" parentDisplayName="Investigation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_securityclassification" displayName="Security Classification" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_confidentialitylevel" displayName="Confidentiality Level" parentSchemaName="appbase_investigationparty" parentDisplayName="Investigation Party" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_securityclassification" displayName="Security Classification" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_securityclassification" displayName="Security Classification" parentSchemaName="appbase_investigationreport" parentDisplayName="Investigation Report" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_severitylevel" displayName="Severity Level" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_severitylevel" displayName="Severity Level" parentSchemaName="appbase_investigation" parentDisplayName="Investigation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_severitylevel" displayName="Severity Level" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_severitylevel" displayName="Severity Level" parentSchemaName="appbase_investigationallegation" parentDisplayName="Investigation Allegation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_severitylevel" displayName="Severity Level" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_severitylevel" displayName="Severity Level" parentSchemaName="appbase_investigationfinding" parentDisplayName="Investigation Finding" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_storagetype" displayName="Storage Type" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_storagetype" displayName="Storage Type" parentSchemaName="appbase_evidencestoragelocation" parentDisplayName="Evidence Storage Location" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_visibility" displayName="Visibility" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_visibility" displayName="Visibility" parentSchemaName="appbase_investigation" parentDisplayName="Investigation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_documentdownloaded" displayName="Document Downloaded" parentSchemaName="appbase_evidenceaccesslog" parentDisplayName="Evidence Access Log" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_sealintact" displayName="Seal Intact" parentSchemaName="appbase_evidencecustodyrecord" parentDisplayName="Evidence Custody Record" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_chainofcustodyverified" displayName="Chain of Custody Verified" parentSchemaName="appbase_evidenceitem" parentDisplayName="Evidence Item" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_iscopy" displayName="Is Copy" parentSchemaName="appbase_evidenceitem" parentDisplayName="Evidence Item" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_isoriginal" displayName="Is Original" parentSchemaName="appbase_evidenceitem" parentDisplayName="Evidence Item" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_climatecontrolrequired" displayName="Climate Control Required" parentSchemaName="appbase_evidencestoragelocation" parentDisplayName="Evidence Storage Location" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_requiresspecialhandling" displayName="Requires Special Handling" parentSchemaName="appbase_evidencetype" parentDisplayName="Evidence Type" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_isconfidential" displayName="Is Confidential" parentSchemaName="appbase_investigation" parentDisplayName="Investigation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_verificationrequired" displayName="Verification Required" parentSchemaName="appbase_investigationcorrectiveaction" parentDisplayName="Investigation Corrective Action" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_requirescorrectiveaction" displayName="Requires Corrective Action" parentSchemaName="appbase_investigationfinding" parentDisplayName="Investigation Finding" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_requiresreferral" displayName="Requires Referral" parentSchemaName="appbase_investigationfinding" parentDisplayName="Investigation Finding" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_followuprequired" displayName="Follow Up Required" parentSchemaName="appbase_investigationinterview" parentDisplayName="Investigation Interview" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_recordingauthorized" displayName="Recording Authorized" parentSchemaName="appbase_investigationinterview" parentDisplayName="Investigation Interview" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_transcriptavailable" displayName="Transcript Available" parentSchemaName="appbase_investigationinterview" parentDisplayName="Investigation Interview" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_attendanceconfirmed" displayName="Attendance Confirmed" parentSchemaName="appbase_investigationinterviewparticipant" parentDisplayName="Investigation Interview Participant" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_isprimary" displayName="Is Primary" parentSchemaName="appbase_investigationlocation" parentDisplayName="Investigation Location" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_isprotected" displayName="Is Protected" parentSchemaName="appbase_investigationparty" parentDisplayName="Investigation Party" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_responserequired" displayName="Response Required" parentSchemaName="appbase_investigationreferral" parentDisplayName="Investigation Referral" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_externalreleaseauthorized" displayName="External Release Authorized" parentSchemaName="appbase_investigationreport" parentDisplayName="Investigation Report" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_ispublic" displayName="Is Public" parentSchemaName="appbase_investigationreport" parentDisplayName="Investigation Report" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_issubjectrole" displayName="Is Subject Role" parentSchemaName="appbase_investigativepartyrole" parentDisplayName="Investigative Party Role" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_iswitnessrole" displayName="Is Witness Role" parentSchemaName="appbase_investigativepartyrole" parentDisplayName="Investigative Party Role" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_requiresnotification" displayName="Requires Notification" parentSchemaName="appbase_investigativepartyrole" parentDisplayName="Investigative Party Role" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_requiresformalnotification" displayName="Requires Formal Notification" parentSchemaName="appbase_investigativereferraltype" parentDisplayName="Investigative Referral Type" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_requiresexternalreporting" displayName="Requires External Reporting" parentSchemaName="appbase_investigativetype" parentDisplayName="Investigative Type" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.0.2)" />
+        <Dependent type="2" schemaName="appbase_requireslegalreview" displayName="Requires Legal Review" parentSchemaName="appbase_investigativetype" parentDisplayName="Investigative Type" />
       </MissingDependency>
     </MissingDependencies>
   </SolutionManifest>

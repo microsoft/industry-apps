@@ -795,6 +795,11 @@ Eligibility determination status.
 - Under Review
 - Pending Verification
 
+### Exemption Status
+Exemption classification status.
+- Exempt
+- Non-Exempt
+
 ### Simple Certification Status
 Basic certification or attestation status.
 - Certified
@@ -922,6 +927,31 @@ Status of a financial or reporting period.
 - At Risk
 - Cancelled
 
+### Milestone Status
+Status of project or initiative milestones.
+- Upcoming
+- Current
+- Completed
+- Acknowledged
+
+### Schedule Frequency
+Frequency of scheduled activities.
+- Daily
+- Weekly
+- Bi-Weekly
+- Monthly
+- As Needed
+- Specific Days
+
+### Schedule Status
+Status of scheduled items or activities.
+- Scheduled
+- In Progress
+- Completed
+- Cancelled
+- On Hold
+- Overdue
+
 ### Assignment Status
 - Active
 - Pending Return
@@ -958,10 +988,127 @@ Status of a financial or reporting period.
 - Resolved
 
 **Completed Last Round:**
- 
- - Added Extended to Schedule Status
 
-**Planned:**
+### Party Type
+Party classification for individuals and organizations.
+- Individual
+- Organization
+- Department
+- External Entity
+
+### Participation Status
+Status of party engagement or participation.
+- Identified
+- Contacted
+- Cooperative
+- Uncooperative
+- Unavailable
+- Declined to Participate
+
+### Plan Status
+Status of planning documents and initiatives.
+- Draft
+- Under Review
+- Approved
+- Active
+- Revised
+- Completed
+
+### Issue Status
+Simple issue tracking lifecycle.
+- Open
+- Under Review
+- Resolved
+- Closed
+
+### Finding Status
+Status of assessment or investigation findings.
+- Draft
+- Under Review
+- Finalized
+- Appealed
+- Upheld
+- Overturned
+
+### Finding Result
+Outcome determination for findings or assessments.
+- Substantiated
+- Partially Substantiated
+- Unsubstantiated
+- Inconclusive
+- No Finding
+- Unable to Determine
+
+### Recommendation Status
+Status of recommendations from audits, reviews, or assessments.
+- Proposed
+- Under Review
+- Accepted
+- Rejected
+- Modified
+- Implemented
+- Closed
+
+### Report Type
+General categorization of reports.
+- Final Report
+- Interim Report
+- Summary Report
+- Statistical Report
+- Public Report
+- Internal Report
+- Executive Report
+
+### Referral Direction
+Direction of referral flow.
+- Outgoing
+- Incoming
+
+### Access Type
+Type of access to resources or systems.
+- View
+- Download
+- Copy
+- Analysis
+- Administrative
+
+### Storage Type
+Categorization of storage locations.
+- Physical Storage
+- Secure Vault
+- Digital Repository
+- Cloud Storage
+- External Archive
+- On-Site Storage
+- Off-Site Storage
+
+### Case Relationship Type
+Defines relationships between related cases or investigations.
+- Duplicate
+- Related
+- Predecessor
+- Successor
+- Parallel
+- Systemic Issue
+- Similar Pattern
+
+### Interview Status
+Status of scheduled or completed interviews.
+- Scheduled
+- Conducted
+- Cancelled
+- Rescheduled
+- Declined
+
+### Referral Status
+Status of referrals to or from other entities.
+- Pending
+- Submitted
+- Acknowledged
+- Under Review
+- Completed
+- Declined
+
 
 
 

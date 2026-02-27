@@ -44,7 +44,7 @@ Primary case record. Tracks lifecycle status, ownership, classification, key dat
 - Compliance Framework: Lookup (Compliance Framework)
 - Subject Summary: Memo
 - Background: Memo
-- Overall Disposition: Choice (Overall Disposition)
+- Overall Disposition: Choice (Investigation Overall Disposition)
 - Closure Rationale: Memo
 - Notes: Memo
 
@@ -54,12 +54,10 @@ Primary case record. Tracks lifecycle status, ownership, classification, key dat
 Initial allegation or referral submission before or at case creation. Captures source, channel, summary, and screening details.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Intake Number: Text
 - Intake Date Time: Date Time
-- Intake Status: Choice (Intake Status)
+- Intake Status: Choice (Investigation Intake Status)
 - Method of Receipt: Choice (Method of Receipt)
 - Received By: Lookup (Person)
 - Reporter Person: Lookup (Person)
@@ -76,15 +74,17 @@ Initial allegation or referral submission before or at case creation. Captures s
 - Subject Organization Unit: Lookup (Organization Unit)
 - Potential Investigative Type: Lookup (Investigative Type)
 - Priority: Choice (Priority)
-- Screening Status: Choice (Screening Status)
+- Screening Status: Choice (Investigation Screening Status)
 - Screened By: Lookup (Person)
 - Screening Date: Date
 - Screening Notes: Memo
-- Disposition: Choice (Intake Disposition)
+- Disposition: Choice (Investigation Intake Disposition)
 - Disposition Rationale: Memo
 - Related Investigation: Lookup (Investigation)
 - Supporting Document: Lookup (Document)
 - Notes: Memo
+
+**Planned:**
 
 ---
 
@@ -92,13 +92,11 @@ Initial allegation or referral submission before or at case creation. Captures s
 Specific claim or accusation being evaluated within a case. A case may contain multiple allegations.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Allegation Number: Text
 - Investigation: Lookup (Investigation)
-- Allegation Type: Choice (Allegation Type)
-- Allegation Status: Choice (Allegation Status)
+- Allegation Type: Choice (Investigation Allegation Type)
+- Allegation Status: Choice (Investigation Allegation Status)
 - Alleged Date: Date
 - Description: Memo
 - Subject Person: Lookup (Person)
@@ -113,18 +111,18 @@ Specific claim or accusation being evaluated within a case. A case may contain m
 - Severity Level: Choice (Severity Level)
 - Notes: Memo
 
+**Planned:**
+
 ---
 
-### Investigative Issue
+### Investigation Issue
 Structured question, policy element, or control area being examined. Often used to frame analysis and findings.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Investigation: Lookup (Investigation)
 - Investigation Allegation: Lookup (Investigation Allegation)
-- Issue Type: Choice (Issue Type)
+- Issue Type: Choice (Investigation Issue Type)
 - Issue Category: Text
 - Issue Status: Choice (Issue Status)
 - Policy Reference: Text
@@ -134,14 +132,14 @@ Structured question, policy element, or control area being examined. Often used 
 - Conclusion: Memo
 - Notes: Memo
 
+**Planned:**
+
 ---
 
 ### Investigative Type
 Primary investigation taxonomy (Fraud, Misconduct, Safety, Data Breach, Quality, etc.).
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Type Code: Text
 - Description: Memo
@@ -150,18 +148,20 @@ Primary investigation taxonomy (Fraud, Misconduct, Safety, Data Breach, Quality,
 - Requires External Reporting: Yes / No
 - Standard Investigation Duration (Days): Integer
 
+**Planned:**
+
 ---
 
 ### Investigative Category
 Secondary classification used for reporting (program area, risk domain, business unit, etc.).
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Category Code: Text
 - Description: Memo
 - Parent Category: Lookup (Investigative Category)
+
+**Planned:**
 
 ---
 
@@ -169,16 +169,14 @@ Secondary classification used for reporting (program area, risk domain, business
 Links cases together (duplicate, predecessor, parallel, systemic connection).
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Primary Investigation: Lookup (Investigation)
 - Related Investigation: Lookup (Investigation)
 - Relationship Type: Choice (Case Relationship Type)
 - Relationship Description: Memo
-- Created Date: Date
-- Created By: Lookup (Person)
 - Notes: Memo
+
+**Planned:**
 
 ---
 
@@ -188,8 +186,6 @@ Links cases together (duplicate, predecessor, parallel, systemic connection).
 Person or organization involved in the case (subject, reporter, witness, impacted party, etc.).
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Investigation: Lookup (Investigation)
 - Person: Lookup (Person)
@@ -205,14 +201,14 @@ Person or organization involved in the case (subject, reporter, witness, impacte
 - Confidentiality Level: Choice (Security Classification)
 - Notes: Memo
 
+**Planned:**
+
 ---
 
 ### Investigative Party Role
 Defines allowable roles a party may have in a case.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Role Code: Text
 - Description: Memo
@@ -220,14 +216,14 @@ Defines allowable roles a party may have in a case.
 - Is Witness Role: Yes / No
 - Requires Notification: Yes / No
 
+**Planned:**
+
 ---
 
 ### Investigation Location
 Physical or virtual location relevant to the case (facility, site, region, system environment).
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Investigation: Lookup (Investigation)
 - Location: Lookup (Location)
@@ -237,6 +233,8 @@ Physical or virtual location relevant to the case (facility, site, region, syste
 - Access Details: Memo
 - Notes: Memo
 
+**Planned:**
+
 ---
 
 ## Planning & Work
@@ -245,8 +243,6 @@ Physical or virtual location relevant to the case (facility, site, region, syste
 Documents scope, objectives, methodology, milestones, and investigative strategy.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Investigation: Lookup (Investigation)
 - Plan Status: Choice (Plan Status)
@@ -265,6 +261,8 @@ Documents scope, objectives, methodology, milestones, and investigative strategy
 - Supporting Document: Lookup (Document)
 - Notes: Memo
 
+**Planned:**
+
 ---
 
 ## Evidence Management
@@ -273,13 +271,11 @@ Documents scope, objectives, methodology, milestones, and investigative strategy
 Any collected material (document, image, device, log file, physical object).
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Evidence Number: Text
 - Investigation: Lookup (Investigation)
 - Evidence Type: Lookup (Evidence Type)
-- Evidence Status: Choice (Evidence Status)
+- Evidence Status: Choice (Investigation Evidence Status)
 - Collection Date: Date
 - Collected By: Lookup (Person)
 - Source Person: Lookup (Person)
@@ -302,20 +298,22 @@ Any collected material (document, image, device, log file, physical object).
 - Supporting Document: Lookup (Document)
 - Notes: Memo
 
+**Planned:**
+
 ---
 
 ### Evidence Type
 Classification of evidence (email, CCTV, financial record, system log, physical item, etc.).
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Type Code: Text
-- Evidence Category: Choice (Evidence Category)
+- Evidence Category: Choice (Investigation Evidence Category)
 - Description: Memo
 - Requires Special Handling: Yes / No
 - Retention Requirements: Memo
+
+**Planned:**
 
 ---
 
@@ -323,8 +321,6 @@ Classification of evidence (email, CCTV, financial record, system log, physical 
 Associates evidence to specific allegations, issues, interviews, findings, or tasks.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Evidence Item: Lookup (Evidence Item)
 - Investigation: Lookup (Investigation)
@@ -332,12 +328,11 @@ Associates evidence to specific allegations, issues, interviews, findings, or ta
 - Investigative Issue: Lookup (Investigative Issue)
 - Investigation Interview: Lookup (Investigation Interview)
 - Investigation Finding: Lookup (Investigation Finding)
-- Action Item: Lookup (Action Item)
-- Link Type: Choice (Evidence Link Type)
+- Link Type: Choice (Investigation Evidence Link Type)
 - Relevance: Memo
-- Created Date: Date
-- Created By: Lookup (Person)
 - Notes: Memo
+
+**Planned:**
 
 ---
 
@@ -345,11 +340,9 @@ Associates evidence to specific allegations, issues, interviews, findings, or ta
 Chain-of-custody entries documenting transfer, handling, and condition changes.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Evidence Item: Lookup (Evidence Item)
-- Custody Event Type: Choice (Custody Event Type)
+- Custody Event Type: Choice (Investigation Custody Event Type)
 - Event Date Time: Date Time
 - From Custodian: Lookup (Person)
 - To Custodian: Lookup (Person)
@@ -361,8 +354,10 @@ Chain-of-custody entries documenting transfer, handling, and condition changes.
 - Seal Intact: Yes / No
 - Seal Number: Text
 - Witness: Lookup (Person)
-- Recorded By: Lookup (Person)
+- Recorded By: Lookup (User)
 - Notes: Memo
+
+**Planned:**
 
 ---
 
@@ -370,8 +365,6 @@ Chain-of-custody entries documenting transfer, handling, and condition changes.
 Audit log of who viewed, downloaded, or accessed an evidence item.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Evidence Item: Lookup (Evidence Item)
 - Access Date Time: Date Time
@@ -384,14 +377,14 @@ Audit log of who viewed, downloaded, or accessed an evidence item.
 - System User: Text
 - Notes: Memo
 
+**Planned:**
+
 ---
 
 ### Evidence Storage Location
 Physical or digital storage location (locker, vault, secure repository, external archive).
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Location Code: Text
 - Storage Type: Choice (Storage Type)
@@ -404,6 +397,8 @@ Physical or digital storage location (locker, vault, secure repository, external
 - Security Level: Choice (Security Classification)
 - Notes: Memo
 
+**Planned:**
+
 ---
 
 ## Interviews
@@ -412,18 +407,16 @@ Physical or digital storage location (locker, vault, secure repository, external
 Scheduled or completed interview session related to the case.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Investigation: Lookup (Investigation)
 - Interview Number: Text
-- Interview Type: Choice (Interview Type)
+- Interview Type: Choice (Investigation Interview Type)
 - Interview Status: Choice (Interview Status)
 - Scheduled Date Time: Date Time
 - Actual Date Time: Date Time
 - Duration (Minutes): Integer
 - Interview Location: Lookup (Location)
-- Virtual Meeting URL: Text
+- Virtual Meeting URL: URL
 - Primary Interviewer: Lookup (Person)
 - Interview Subject: Lookup (Person)
 - Subject Representation: Text
@@ -438,21 +431,23 @@ Scheduled or completed interview session related to the case.
 - Supporting Document: Lookup (Document)
 - Notes: Memo
 
+**Planned:**
+
 ---
 
 ### Investigation Interview Participant
 Links participants to interviews and defines their role (interviewer, witness, observer, counsel).
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Investigation Interview: Lookup (Investigation Interview)
 - Person: Lookup (Person)
-- Participant Role: Choice (Interview Participant Role)
+- Participant Role: Choice (Investigation Interview Participant Role)
 - Participation Status: Choice (Participation Status)
 - Attendance Confirmed: Yes / No
 - Notes: Memo
+
+**Planned:**
 
 ---
 
@@ -462,14 +457,12 @@ Links participants to interviews and defines their role (interviewer, witness, o
 Formal conclusion regarding an allegation or issue (substantiated, unsubstantiated, inconclusive, etc.).
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Finding Number: Text
 - Investigation: Lookup (Investigation)
 - Investigation Allegation: Lookup (Investigation Allegation)
 - Investigative Issue: Lookup (Investigative Issue)
-- Finding Type: Choice (Finding Type)
+- Finding Type: Choice (Investigation Finding Type)
 - Finding Status: Choice (Finding Status)
 - Finding Date: Date
 - Finding Result: Choice (Finding Result)
@@ -486,18 +479,18 @@ Formal conclusion regarding an allegation or issue (substantiated, unsubstantiat
 - Supporting Document: Lookup (Document)
 - Notes: Memo
 
+**Planned:**
+
 ---
 
 ### Investigation Recommendation
 Proposed corrective, preventive, or control improvement action arising from findings.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Investigation: Lookup (Investigation)
 - Investigation Finding: Lookup (Investigation Finding)
-- Recommendation Type: Choice (Recommendation Type)
+- Recommendation Type: Choice (Investigation Recommendation Type)
 - Recommendation Status: Choice (Recommendation Status)
 - Recommendation Date: Date
 - Recommended To: Lookup (Organization Unit)
@@ -515,21 +508,21 @@ Proposed corrective, preventive, or control improvement action arising from find
 - Related Corrective Action: Lookup (Investigation Corrective Action)
 - Notes: Memo
 
+**Planned:**
+
 ---
 
 ### Investigation Corrective Action
 Action assigned to remediate findings, with owner, due date, and status tracking.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Action Number: Text
 - Investigation: Lookup (Investigation)
 - Investigation Finding: Lookup (Investigation Finding)
 - Investigation Recommendation: Lookup (Investigation Recommendation)
 - Action Status: Choice (Action Status)
-- Action Type: Choice (Corrective Action Type)
+- Action Type: Choice (Investigation Corrective Action Type)
 - Description: Memo
 - Assigned To: Lookup (Person)
 - Assigned Organization Unit: Lookup (Organization Unit)
@@ -542,8 +535,9 @@ Action assigned to remediate findings, with owner, due date, and status tracking
 - Verified By: Lookup (Person)
 - Verification Date: Date
 - Verification Notes: Memo
-- Action Item: Lookup (Action Item)
 - Notes: Memo
+
+**Planned:**
 
 ---
 
@@ -551,13 +545,11 @@ Action assigned to remediate findings, with owner, due date, and status tracking
 Overall case resolution summary and closure rationale.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Investigation: Lookup (Investigation)
-- Outcome Type: Choice (Outcome Type)
+- Outcome Type: Choice (Investigation Outcome Type)
 - Outcome Date: Date
-- Overall Disposition: Choice (Overall Disposition)
+- Overall Disposition: Choice (Investigation Overall Disposition)
 - Summary: Memo
 - Allegations Substantiated: Integer
 - Allegations Unsubstantiated: Integer
@@ -568,11 +560,13 @@ Overall case resolution summary and closure rationale.
 - Monetary Recovery: Currency
 - Lessons Learned: Memo
 - Preventive Measures: Memo
-- Prepared By: Lookup (Person)
-- Approved By: Lookup (Person)
+- Prepared By: Lookup (User)
+- Approved By: Lookup (User)
 - Approval Date: Date
 - Supporting Document: Lookup (Document)
 - Notes: Memo
+
+**Planned:**
 
 ---
 
@@ -580,25 +574,25 @@ Overall case resolution summary and closure rationale.
 Tracks recovered funds, assets, restitution, or other tangible recoveries resulting from the case.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Investigation: Lookup (Investigation)
 - Investigation Finding: Lookup (Investigation Finding)
-- Recovery Type: Choice (Recovery Type)
-- Recovery Status: Choice (Recovery Status)
+- Recovery Type: Choice (Investigation Recovery Type)
+- Recovery Status: Choice (Investigation Recovery Status)
 - Recovery Amount: Currency
 - Recovery Date: Date
-- Recovery Method: Choice (Recovery Method)
+- Recovery Method: Choice (Investigation Recovery Method)
 - Recovered From Person: Lookup (Person)
 - Recovered From Account: Lookup (Account)
 - Payment Reference: Text
 - Asset Description: Memo
 - Current Value: Currency
 - Disposition: Memo
-- Recorded By: Lookup (Person)
+- Recorded By: Lookup (User)
 - Supporting Document: Lookup (Document)
 - Notes: Memo
+
+**Planned:**
 
 ---
 
@@ -608,21 +602,18 @@ Tracks recovered funds, assets, restitution, or other tangible recoveries result
 Formal written report record (draft/final versions, approvals, publication metadata).
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Report Number: Text
 - Investigation: Lookup (Investigation)
 - Report Type: Choice (Report Type)
-- Report Status: Choice (Report Status)
-- Publication Status: Choice (Publication Status)
+- Report Status: Choice (Publication Status)
 - Version Number: Text
 - Prepared Date: Date
-- Prepared By: Lookup (Person)
+- Prepared By: Lookup (User)
 - Report Summary: Memo
 - Report Document: Lookup (Document)
 - Approval Status: Choice (Approval Status)
-- Approved By: Lookup (Person)
+- Approved By: Lookup (User)
 - Approval Date: Date
 - Distribution Date: Date
 - Distribution List: Memo
@@ -631,14 +622,14 @@ Formal written report record (draft/final versions, approvals, publication metad
 - External Release Authorized: Yes / No
 - Notes: Memo
 
+**Planned:**
+
 ---
 
 ### Investigation Referral
 Records referrals made to or received from internal or external entities.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Investigation: Lookup (Investigation)
 - Investigative Referral Type: Lookup (Investigative Referral Type)
@@ -658,64 +649,31 @@ Records referrals made to or received from internal or external entities.
 - Supporting Document: Lookup (Document)
 - Notes: Memo
 
+**Planned:**
+
 ---
 
 ### Investigative Referral Type
 Defines referral categories (Internal, Legal, Law Enforcement, Regulator, HR, etc.).
 
 **Completed:**
-
-**Planned:**
-- Name: Text
 - Type Code: Text
-- Referral Category: Choice (Referral Category)
+- Referral Category: Choice (Investigation Referral Category)
 - Description: Memo
 - Default Organization Unit: Lookup (Organization Unit)
 - Requires Formal Notification: Yes / No
 - Standard Response Time (Days): Integer
+- Name: Text
+
+**Planned:**
 
 ---
 
-## Reused Core Tables
+## Investigation Module Choice Fields
 
-The following Core tables are used directly by this module:
+The following choice fields are specific to the Investigations module:
 
-### Person *(Core)*
-Represents investigators, subjects, witnesses, reporters, custodians, and decision makers.
-
-### Account *(Core)*
-Represents organizations involved as subjects, reporters, or referral recipients.
-
-### Organization Unit *(Core)*
-Investigative units, reporting departments, subject departments.
-
-### Location *(Core)*
-Incident locations, interview locations, evidence storage, investigation sites.
-
-### Judicial District *(Core)*
-Jurisdiction for cases with legal implications.
-
-### Action Item *(Core)*
-Operational task tracking for investigation work, linked to findings and corrective actions.
-
-### Legal Authority *(Core)*
-Regulatory basis for investigations and findings.
-
-### Compliance Framework *(Core)*
-Compliance standards being investigated.
-
-### Document *(Core)*
-Evidence documents, reports, interview transcripts, supporting documentation.
-
-### After Action Report *(Core)*
-Can be linked for post-investigation reviews and lessons learned.
-
-### Formal Decision *(Core)*
-Can be linked to investigation outcomes requiring formal governance decisions.
-
----
-
-## New Choice Fields
+**Completed:**
 
 ### Investigation Status
 - Intake
@@ -730,7 +688,7 @@ Can be linked to investigation outcomes requiring formal governance decisions.
 - Suspended
 - Referred Out
 
-### Intake Status
+### Investigation Intake Status
 - Received
 - Under Review
 - Screened
@@ -740,14 +698,14 @@ Can be linked to investigation outcomes requiring formal governance decisions.
 - Referred
 - Duplicate
 
-### Screening Status
+### Investigation Screening Status
 - Pending Screening
 - Under Review
 - Approved for Investigation
 - Declined
 - Referred
 
-### Intake Disposition
+### Investigation Intake Disposition
 - Proceed with Investigation
 - Decline - Insufficient Evidence
 - Decline - Outside Scope
@@ -756,7 +714,7 @@ Can be linked to investigation outcomes requiring formal governance decisions.
 - Already Resolved
 - Administrative Closure
 
-### Allegation Type
+### Investigation Allegation Type
 - Fraud
 - Theft
 - Misuse of Resources
@@ -772,7 +730,7 @@ Can be linked to investigation outcomes requiring formal governance decisions.
 - Quality Defect
 - Environmental Violation
 
-### Allegation Status
+### Investigation Allegation Status
 - Pending Investigation
 - Under Investigation
 - Substantiated
@@ -781,7 +739,7 @@ Can be linked to investigation outcomes requiring formal governance decisions.
 - Not Investigated
 - Withdrawn
 
-### Issue Type
+### Investigation Issue Type
 - Policy Compliance
 - Control Effectiveness
 - Procedural Adherence
@@ -789,35 +747,6 @@ Can be linked to investigation outcomes requiring formal governance decisions.
 - Authorization
 - Accountability
 - Transparency
-
-### Issue Status
-- Open
-- Under Review
-- Resolved
-- Closed
-
-### Case Relationship Type
-- Duplicate
-- Related
-- Predecessor
-- Successor
-- Parallel Investigation
-- Systemic Issue
-- Similar Pattern
-
-### Party Type
-- Individual
-- Organization
-- Department
-- External Entity
-
-### Participation Status
-- Identified
-- Contacted
-- Cooperative
-- Uncooperative
-- Unavailable
-- Declined to Participate
 
 ### Investigation Location Type
 - Incident Site
@@ -827,15 +756,7 @@ Can be linked to investigation outcomes requiring formal governance decisions.
 - Facility
 - System Environment
 
-### Plan Status
-- Draft
-- Under Review
-- Approved
-- Active
-- Revised
-- Completed
-
-### Evidence Status
+### Investigation Evidence Status
 - Collected
 - In Custody
 - Under Analysis
@@ -843,14 +764,14 @@ Can be linked to investigation outcomes requiring formal governance decisions.
 - Archived
 - Destroyed
 
-### Evidence Category
+### Investigation Evidence Category
 - Documentary
 - Physical
 - Digital
 - Testimonial
 - Demonstrative
 
-### Evidence Link Type
+### Investigation Evidence Link Type
 - Supports Allegation
 - Contradicts Allegation
 - Relevant to Issue
@@ -858,7 +779,7 @@ Can be linked to investigation outcomes requiring formal governance decisions.
 - Basis for Finding
 - Referenced in Task
 
-### Custody Event Type
+### Investigation Custody Event Type
 - Initial Collection
 - Transfer
 - Analysis
@@ -869,36 +790,14 @@ Can be linked to investigation outcomes requiring formal governance decisions.
 - Archival
 - Destruction
 
-### Access Type
-- View
-- Download
-- Copy
-- Analysis
-- Administrative
-
-### Storage Type
-- Physical Locker
-- Evidence Vault
-- Secure Repository
-- Cloud Storage
-- External Archive
-- Sealed Container
-
-### Interview Type
+### Investigation Interview Type
 - Subject Interview
 - Witness Interview
 - Expert Interview
 - Follow Up Interview
 - Recorded Statement
 
-### Interview Status
-- Scheduled
-- Conducted
-- Cancelled
-- Rescheduled
-- Declined
-
-### Interview Participant Role
+### Investigation Interview Participant Role
 - Primary Interviewer
 - Co-Interviewer
 - Witness
@@ -907,30 +806,14 @@ Can be linked to investigation outcomes requiring formal governance decisions.
 - Observer
 - Interpreter
 
-### Finding Type
+### Investigation Finding Type
 - Allegation Finding
 - Policy Finding
 - Control Finding
 - Compliance Finding
 - Systemic Finding
 
-### Finding Status
-- Draft
-- Under Review
-- Finalized
-- Appealed
-- Upheld
-- Overturned
-
-### Finding Result
-- Substantiated
-- Partially Substantiated
-- Unsubstantiated
-- Inconclusive
-- No Finding
-- Unable to Determine
-
-### Recommendation Type
+### Investigation Recommendation Type
 - Disciplinary Action
 - Process Improvement
 - Policy Change
@@ -939,16 +822,7 @@ Can be linked to investigation outcomes requiring formal governance decisions.
 - System Modification
 - Management Action
 
-### Recommendation Status
-- Proposed
-- Under Review
-- Accepted
-- Rejected
-- Modified
-- Implemented
-- Closed
-
-### Corrective Action Type
+### Investigation Corrective Action Type
 - Immediate Correction
 - Process Change
 - Policy Update
@@ -957,14 +831,14 @@ Can be linked to investigation outcomes requiring formal governance decisions.
 - System Enhancement
 - Monitoring
 
-### Outcome Type
+### Investigation Outcome Type
 - Administrative Closure
 - Investigative Completion
 - Referral
 - Settled
 - Withdrawn
 
-### Overall Disposition
+### Investigation Overall Disposition
 - Substantiated
 - Partially Substantiated
 - Unsubstantiated
@@ -973,7 +847,7 @@ Can be linked to investigation outcomes requiring formal governance decisions.
 - Referred
 - Administrative Closure
 
-### Recovery Type
+### Investigation Recovery Type
 - Monetary Recovery
 - Asset Recovery
 - Restitution
@@ -981,7 +855,7 @@ Can be linked to investigation outcomes requiring formal governance decisions.
 - Civil Settlement
 - Cost Savings
 
-### Recovery Status
+### Investigation Recovery Status
 - Identified
 - Pending Collection
 - Partial Recovery
@@ -989,7 +863,7 @@ Can be linked to investigation outcomes requiring formal governance decisions.
 - Uncollectible
 - Written Off
 
-### Recovery Method
+### Investigation Recovery Method
 - Payment
 - Payroll Deduction
 - Asset Seizure
@@ -997,25 +871,7 @@ Can be linked to investigation outcomes requiring formal governance decisions.
 - Insurance Claim
 - Voluntary Return
 
-### Report Type
-- Investigation Report
-- Interim Report
-- Summary Report
-- Statistical Report
-- Public Report
-
-### Report Status
-- Draft
-- Under Review
-- Final
-- Published
-- Archived
-
-### Referral Direction
-- Outgoing
-- Incoming
-
-### Referral Category
+### Investigation Referral Category
 - Internal Department
 - Legal Counsel
 - Law Enforcement
@@ -1024,10 +880,3 @@ Can be linked to investigation outcomes requiring formal governance decisions.
 - Human Resources
 - External Auditor
 
-### Referral Status
-- Pending
-- Submitted
-- Acknowledged
-- Under Review
-- Completed
-- Declined

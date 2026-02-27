@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.26013.155" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26013.155" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26014.00163">
+<ImportExportXml version="9.2.26014.163" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26014.163" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26014.00163">
   <SolutionManifest>
     <UniqueName>appbase_core</UniqueName>
     <LocalizedNames>
       <LocalizedName description="App Base - Core" languagecode="1033" />
     </LocalizedNames>
     <Descriptions />
-    <Version>1.1.0.0</Version>
+    <Version>1.1.0.2</Version>
     <Managed>2</Managed>
     <Publisher>
       <UniqueName>appbase</UniqueName>
@@ -121,11 +121,13 @@
       <RootComponent type="61" schemaName="appbase_coresidepaneutility" behavior="0" />
       <RootComponent type="62" schemaName="appbase_Core" behavior="0" />
       <RootComponent type="80" schemaName="appbase_Core" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_accesstype" behavior="0" />
       <RootComponent type="9" schemaName="appbase_actionstatus" behavior="0" />
       <RootComponent type="9" schemaName="appbase_agreementstatus" behavior="0" />
       <RootComponent type="9" schemaName="appbase_agreementtype" behavior="0" />
       <RootComponent type="9" schemaName="appbase_approvalstatus" behavior="0" />
       <RootComponent type="9" schemaName="appbase_assignmentstatus" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_caserelationshiptype" behavior="0" />
       <RootComponent type="9" schemaName="appbase_commitmentstatus" behavior="0" />
       <RootComponent type="9" schemaName="appbase_compliancestatus" behavior="0" />
       <RootComponent type="9" schemaName="appbase_decisioncategory" behavior="0" />
@@ -134,9 +136,13 @@
       <RootComponent type="9" schemaName="appbase_employmenttype" behavior="0" />
       <RootComponent type="9" schemaName="appbase_engagementmode" behavior="0" />
       <RootComponent type="9" schemaName="appbase_exemptionstatus" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_findingresult" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_findingstatus" behavior="0" />
       <RootComponent type="9" schemaName="appbase_generalcategory" behavior="0" />
       <RootComponent type="9" schemaName="appbase_highmediumlow" behavior="0" />
       <RootComponent type="9" schemaName="appbase_impact" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_interviewstatus" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_issuestatus" behavior="0" />
       <RootComponent type="9" schemaName="appbase_jurisdictionlevel" behavior="0" />
       <RootComponent type="9" schemaName="appbase_legalauthorityimpact" behavior="0" />
       <RootComponent type="9" schemaName="appbase_legalauthoritystatus" behavior="0" />
@@ -148,20 +154,28 @@
       <RootComponent type="9" schemaName="appbase_objectiveresult" behavior="0" />
       <RootComponent type="9" schemaName="appbase_operationalstatus" behavior="0" />
       <RootComponent type="9" schemaName="appbase_overallresult" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_participationstatus" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_partytype" behavior="0" />
       <RootComponent type="9" schemaName="appbase_paymentstatus" behavior="0" />
       <RootComponent type="9" schemaName="appbase_periodstatus" behavior="0" />
       <RootComponent type="9" schemaName="appbase_periodtype" behavior="0" />
       <RootComponent type="9" schemaName="appbase_personnelavailability" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_planstatus" behavior="0" />
       <RootComponent type="9" schemaName="appbase_polarity" behavior="0" />
       <RootComponent type="9" schemaName="appbase_positiondesignation" behavior="0" />
       <RootComponent type="9" schemaName="appbase_priority" behavior="0" />
       <RootComponent type="9" schemaName="appbase_publicationstatus" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_recommendationstatus" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_referraldirection" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_referralstatus" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_reporttype" behavior="0" />
       <RootComponent type="9" schemaName="appbase_requeststatus" behavior="0" />
       <RootComponent type="9" schemaName="appbase_schedulefrequency" behavior="0" />
       <RootComponent type="9" schemaName="appbase_schedulestatus" behavior="0" />
       <RootComponent type="9" schemaName="appbase_securityclassification" behavior="0" />
       <RootComponent type="9" schemaName="appbase_severitylevel" behavior="0" />
       <RootComponent type="9" schemaName="appbase_simplecertificationstatus" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_storagetype" behavior="0" />
       <RootComponent type="9" schemaName="appbase_submissiontype" behavior="0" />
       <RootComponent type="9" schemaName="appbase_taskdependencystatus" behavior="0" />
       <RootComponent type="9" schemaName="appbase_taskdependencytype" behavior="0" />
@@ -184,7 +198,9 @@
         <Dependent type="80" schemaName="appbase_Core" displayName="Core" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="66" schemaName="MscrmControls.CardFeedContainer.CardFeedContainer" displayName="MscrmControls.CardFeedContainer.CardFeedContainer" solution="BaseCustomControlsCore (9.0.2601.3011)" />
+        <Required type="66" schemaName="MscrmControls.CardFeedContainer.CardFeedContainer" displayName="MscrmControls.CardFeedContainer.CardFeedContainer" solution="BaseCustomControlsCore (9.0.2601.4009)">
+          <package appName="Base Custom Controls" version="9.0.2601.4009">BaseCustomControlsCore (9.0.2601.4009)</package>
+        </Required>
         <Dependent type="60" displayName="Person - Core" parentDisplayName="Person" id="{62f71750-3d04-f111-8406-7ced8d3c12a1}" />
       </MissingDependency>
       <MissingDependency>
