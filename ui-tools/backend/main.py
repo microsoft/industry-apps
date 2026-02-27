@@ -1203,15 +1203,21 @@ async def search_option_sets(request: OptionSetSearchRequest):
             elif search_name in display_name or search_name in schema_name:
                 match_score += 50
                 match_reasons.append("Partial name match")
-            # Word match
-            elif any(word in display_name or word in schema_name for word in search_name.split()):
-                match_score += 25
-                match_reasons.append("Word match")
+            # Word match (exclude common noise words)
+            else:
+                noise_words = {"status", "type", "category"}
+                search_words = [w for w in search_name.split() if w not in noise_words and len(w) > 2]
+                if search_words and any(word in display_name or word in schema_name for word in search_words):
+                    match_score += 25
+                    match_reasons.append("Word match")
         
         # Option label matching
         if request.optionLabels and len(request.optionLabels) > 0:
-            existing_labels = [opt["label"].lower() for opt in option_set.get("options", [])]
-            search_terms = [label.lower() for label in request.optionLabels]
+            # Exclude common noise values that don't indicate real similarity
+            noise_values = {"active", "inactive", "completed"}
+            
+            existing_labels = [opt["label"].lower() for opt in option_set.get("options", []) if opt["label"].lower() not in noise_values]
+            search_terms = [label.lower() for label in request.optionLabels if label.lower() not in noise_values]
             
             # print(f"[DEBUG] Matching option set '{option_set.get('displayName')}' - search terms: {search_terms}, existing labels: {existing_labels}")
             

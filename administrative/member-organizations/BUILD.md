@@ -10,8 +10,6 @@ The **Member Organizations** module manages structured groups of people formed f
 Represents a structured group of people formed for a defined purpose, such as a board, council, committee, club, association, or team. Supports hierarchical relationships to model parent and subordinate organizations.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Organization Code: Text
 - Organization Type: Lookup (Organization Type)
@@ -30,6 +28,7 @@ Represents a structured group of people formed for a defined purpose, such as a 
 - Chair: Lookup (Person)
 - Vice Chair: Lookup (Person)
 - Secretary: Lookup (Person)
+- Treasurer: Lookup (Person)
 - Primary Contact: Lookup (Person)
 - Contact Email: Text
 - Contact Phone: Text
@@ -46,14 +45,22 @@ Represents a structured group of people formed for a defined purpose, such as a 
 - Governing Document: Lookup (Document)
 - Notes: Memo
 
+**Completed Last Round:**
+
+**Planned:**
+- Configure baseline form
+- Configure baseline view
+- Configure model-driven app
+- Configure quick create form
+- Add sample data
+- Configure table icon
+
 ---
 
 ### Organization Type
 Classifies organizations by their structural or functional category (e.g., Board, Council, Committee, Club, Team).
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Type Code: Text
 - Description: Memo
@@ -62,26 +69,44 @@ Classifies organizations by their structural or functional category (e.g., Board
 - Requires Terms: Yes / No
 - Default Term Length (Months): Integer
 
+**Completed Last Round:**
+
+**Planned:**
+- Configure baseline form
+- Configure baseline view
+- Configure model-driven app
+- Configure quick create form
+- Add sample data
+- Configure table icon
+
 ---
 
 ### Organization Term
 Defines a defined period of service or operational cycle for an organization (e.g., board term, fiscal year, season), used to structure membership tenure and governance activities.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Organization: Lookup (Organization)
-- Term Type: Choice (Term Type)
+- Organization Term Type: Choice (Organization Term Type)
 - Term Number: Integer
 - Start Date: Date
 - End Date: Date
-- Term Status: Choice (Term Status)
+- Term Status: Choice (Schedule Status)
 - Description: Memo
 - Chair: Lookup (Person)
 - Vice Chair: Lookup (Person)
 - Total Members: Integer
 - Notes: Memo
+
+**Completed Last Round:**
+
+**Planned:**
+- Configure baseline form
+- Configure baseline view
+- Configure model-driven app
+- Configure quick create form
+- Add sample data
+- Configure table icon
 
 ---
 
@@ -91,14 +116,12 @@ Defines a defined period of service or operational cycle for an organization (e.
 Represents an individual's membership in an organization, including status and participation details. Serves as the central record linking a person to a specific organization.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Member Number: Text
 - Organization: Lookup (Organization)
 - Person: Lookup (Person)
 - Organization Member Type: Lookup (Organization Member Type)
-- Membership Status: Choice (Membership Status)
+- Organization Member Status: Choice (Organization Member Status)
 - Join Date: Date
 - Effective Start Date: Date
 - Effective End Date: Date
@@ -115,12 +138,22 @@ Represents an individual's membership in an organization, including status and p
 - Termination Date: Date
 - Termination Reason: Memo
 - Emergency Contact Name: Text
-- Emergency Contact Phone: Text
 - Preferred Communication Method: Choice (Method of Contact)
-- Email: Text
-- Phone: Text
 - Organization Member Application: Lookup (Organization Member Application)
 - Notes: Memo
+- Emergency Contact Phone: Phone
+- Email: Email
+- Phone: Phone
+
+**Completed Last Round:**
+
+**Planned:**
+- Configure baseline form
+- Configure baseline view
+- Configure model-driven app
+- Configure quick create form
+- Add sample data
+- Configure table icon
 
 ---
 
@@ -128,8 +161,6 @@ Represents an individual's membership in an organization, including status and p
 Defines categories of membership within an organization (e.g., Regular, Student, Associate, Sponsor, Coach), used to classify members and determine eligibility or fee structures.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Type Code: Text
 - Organization: Lookup (Organization)
@@ -139,21 +170,29 @@ Defines categories of membership within an organization (e.g., Regular, Student,
 - Requires Approval: Yes / No
 - Default Fee: Currency
 
+**Completed Last Round:**
+
+**Planned:**
+- Configure baseline form
+- Configure baseline view
+- Configure model-driven app
+- Configure quick create form
+- Add sample data
+- Configure table icon
+
 ---
 
 ### Organization Member Role
 Associates a member with a specific role within the organization (e.g., Chair, Treasurer, Captain), including effective dates when applicable.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Organization Member: Lookup (Organization Member)
 - Organization: Lookup (Organization)
 - Person: Lookup (Person)
 - Organization Role: Lookup (Organization Role)
 - Organization Term: Lookup (Organization Term)
-- Role Status: Choice (Role Status)
+- Organization Role Status: Choice (Organization Role Status)
 - Start Date: Date
 - End Date: Date
 - Is Primary: Yes / No
@@ -162,17 +201,25 @@ Associates a member with a specific role within the organization (e.g., Chair, T
 - Election Date: Date
 - Notes: Memo
 
+**Completed Last Round:**
+
+**Planned:**
+- Configure baseline form
+- Configure baseline view
+- Configure model-driven app
+- Configure quick create form
+- Add sample data
+- Configure table icon
+
 ---
 
 ### Organization Role
 Defines reusable role types within organizations (e.g., Chair, Secretary, Member, Advisor), which can be assigned to organization members.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Role Code: Text
-- Role Category: Choice (Role Category)
+- Role Category: Choice (Organization Role Category)
 - Description: Memo
 - Is Leadership Role: Yes / No
 - Is Officer Role: Yes / No
@@ -180,20 +227,28 @@ Defines reusable role types within organizations (e.g., Chair, Secretary, Member
 - Requires Election: Yes / No
 - Requires Appointment: Yes / No
 
+**Completed Last Round:**
+
+**Planned:**
+- Configure baseline form
+- Configure baseline view
+- Configure model-driven app
+- Configure quick create form
+- Add sample data
+- Configure table icon
+
 ---
 
 ### Organization Member Application
 Captures requests to join an organization, including applicant details, review status, approval decisions, and onboarding information.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Application Number: Text
 - Organization: Lookup (Organization)
 - Applicant: Lookup (Person)
 - Organization Member Type: Lookup (Organization Member Type)
-- Application Status: Choice (Application Status)
+- Application Status: Choice (Organization Application Status)
 - Application Date: Date
 - Requested Membership Type: Lookup (Organization Member Type)
 - Requested Role: Lookup (Organization Role)
@@ -202,7 +257,7 @@ Captures requests to join an organization, including applicant details, review s
 - Qualifications: Memo
 - Sponsor: Lookup (Person)
 - Sponsor Endorsement: Memo
-- Screening Status: Choice (Screening Status)
+- Screening Status: Choice (Organization Screening Status)
 - Screened By: Lookup (Person)
 - Screening Date: Date
 - Screening Notes: Memo
@@ -218,21 +273,29 @@ Captures requests to join an organization, including applicant details, review s
 - Supporting Document: Lookup (Document)
 - Notes: Memo
 
+**Completed Last Round:**
+
+**Planned:**
+- Configure baseline form
+- Configure baseline view
+- Configure model-driven app
+- Configure quick create form
+- Add sample data
+- Configure table icon
+
 ---
 
 ### Organization Member Fee
 Defines membership fees or dues associated with an organization or membership type, including amounts, frequency, and applicability rules.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Organization: Lookup (Organization)
 - Organization Member Type: Lookup (Organization Member Type)
-- Fee Type: Choice (Fee Type)
+- Fee Type: Choice (Organization Fee Type)
 - Fee Amount: Currency
-- Fee Frequency: Choice (Fee Frequency)
-- Billing Cycle: Choice (Billing Cycle)
+- Fee Frequency: Choice (Organization Fee Frequency)
+- Billing Cycle: Choice (Organization Billing Cycle)
 - Effective Start Date: Date
 - Effective End Date: Date
 - Is Mandatory: Yes / No
@@ -242,6 +305,16 @@ Defines membership fees or dues associated with an organization or membership ty
 - Payment Instructions: Memo
 - Notes: Memo
 
+**Completed Last Round:**
+
+**Planned:**
+- Configure baseline form
+- Configure baseline view
+- Configure model-driven app
+- Configure quick create form
+- Add sample data
+- Configure table icon
+
 ---
 
 ## Governance & Decision Making
@@ -250,14 +323,12 @@ Defines membership fees or dues associated with an organization or membership ty
 Represents a formal proposal submitted for consideration within an organization's governance process. Motions may proceed to vote and result in resolutions.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Motion Number: Text
 - Organization: Lookup (Organization)
 - Organization Term: Lookup (Organization Term)
-- Motion Type: Choice (Motion Type)
-- Motion Status: Choice (Motion Status)
+- Motion Type: Choice (Organization Motion Type)
+- Motion Status: Choice (Organization Motion Status)
 - Introduced Date: Date
 - Introduced By: Lookup (Person)
 - Seconded By: Lookup (Person)
@@ -276,22 +347,30 @@ Represents a formal proposal submitted for consideration within an organization'
 - Supporting Document: Lookup (Document)
 - Notes: Memo
 
+**Completed Last Round:**
+
+**Planned:**
+- Configure baseline form
+- Configure baseline view
+- Configure model-driven app
+- Configure quick create form
+- Add sample data
+- Configure table icon
+
 ---
 
 ### Organization Vote
 Represents a formal voting event associated with a motion or decision, including voting method, quorum information, and outcome summary.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Vote Number: Text
 - Organization: Lookup (Organization)
 - Organization Motion: Lookup (Organization Motion)
 - Organization Term: Lookup (Organization Term)
-- Vote Type: Choice (Vote Type)
-- Vote Status: Choice (Vote Status)
-- Vote Method: Choice (Vote Method)
+- Vote Type: Choice (Organization Vote Type)
+- Vote Status: Choice (Organization Vote Status)
+- Vote Method: Choice (Organization Vote Method)
 - Vote Date: Date Time
 - Vote Description: Memo
 - Total Eligible Voters: Integer
@@ -303,7 +382,7 @@ Represents a formal voting event associated with a motion or decision, including
 - Abstain Votes: Integer
 - Present Not Voting: Integer
 - Absent Votes: Integer
-- Vote Result: Choice (Vote Result)
+- Vote Result: Choice (Organization Vote Result)
 - Percentage Yes: Float
 - Percentage No: Float
 - Percentage Abstain: Float
@@ -314,26 +393,44 @@ Represents a formal voting event associated with a motion or decision, including
 - Supporting Document: Lookup (Document)
 - Notes: Memo
 
+**Completed Last Round:**
+
+**Planned:**
+- Configure baseline form
+- Configure baseline view
+- Configure model-driven app
+- Configure quick create form
+- Add sample data
+- Configure table icon
+
 ---
 
 ### Organization Vote Response
 Captures an individual member's vote within a specific voting event (e.g., Yes, No, Abstain), providing detailed accountability and audit history.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Organization Vote: Lookup (Organization Vote)
 - Organization Member: Lookup (Organization Member)
 - Person: Lookup (Person)
-- Vote Response: Choice (Vote Response)
+- Vote Response: Choice (Organization Vote Response)
 - Vote Date Time: Date Time
-- Vote Method: Choice (Vote Method)
+- Vote Method: Choice (Organization Vote Method)
 - Is Proxy Vote: Yes / No
 - Proxy Holder: Lookup (Person)
 - Comment: Memo
 - Recorded By: Lookup (Person)
 - Notes: Memo
+
+**Completed Last Round:**
+
+**Planned:**
+- Configure baseline form
+- Configure baseline view
+- Configure model-driven app
+- Configure quick create form
+- Add sample data
+- Configure table icon
 
 ---
 
@@ -341,16 +438,14 @@ Captures an individual member's vote within a specific voting event (e.g., Yes, 
 Represents an adopted decision or formal outcome of a motion or governance action. Serves as the official record of an organization's approved actions.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Resolution Number: Text
 - Organization: Lookup (Organization)
 - Organization Term: Lookup (Organization Term)
 - Organization Motion: Lookup (Organization Motion)
 - Organization Vote: Lookup (Organization Vote)
-- Resolution Type: Choice (Resolution Type)
-- Resolution Status: Choice (Resolution Status)
+- Resolution Type: Choice (Organization Resolution Type)
+- Resolution Status: Choice (Organization Resolution Status)
 - Adoption Date: Date
 - Effective Date: Date
 - Expiration Date: Date
@@ -370,6 +465,16 @@ Represents an adopted decision or formal outcome of a motion or governance actio
 - Visibility: Choice (Visibility)
 - Resolution Document: Lookup (Document)
 - Notes: Memo
+
+**Completed Last Round:**
+
+**Planned:**
+- Configure baseline form
+- Configure baseline view
+- Configure model-driven app
+- Configure quick create form
+- Add sample data
+- Configure table icon
 
 ---
 
@@ -403,9 +508,11 @@ Governing documents, bylaws, supporting materials, resolution documents.
 
 ---
 
-## New Choice Fields
+## Choice Fields
 
-### Term Type
+**Completed:**
+
+### Organization Term Type
 - Board Term
 - Fiscal Year
 - Calendar Year
@@ -414,14 +521,7 @@ Governing documents, bylaws, supporting materials, resolution documents.
 - Program Year
 - Election Cycle
 
-### Term Status
-- Scheduled
-- Active
-- Completed
-- Extended
-- Cancelled
-
-### Membership Status
+### Organization Member Status
 - Prospective
 - Active
 - Inactive
@@ -432,13 +532,13 @@ Governing documents, bylaws, supporting materials, resolution documents.
 - Honorary
 - Emeritus
 
-### Role Status
+### Organization Role Status
 - Active
 - Inactive
 - Completed
 - Resigned
 
-### Role Category
+### Organization Role Category
 - Executive
 - Officer
 - Committee Chair
@@ -448,7 +548,7 @@ Governing documents, bylaws, supporting materials, resolution documents.
 - Ex Officio
 - Honorary
 
-### Application Status
+### Organization Application Status
 - Submitted
 - Under Review
 - Interview Scheduled
@@ -458,14 +558,7 @@ Governing documents, bylaws, supporting materials, resolution documents.
 - Withdrawn
 - On Hold
 
-### Screening Status
-- Pending Screening
-- Under Review
-- Passed Screening
-- Failed Screening
-- Requires Interview
-
-### Fee Type
+### Organization Fee Type
 - Membership Dues
 - Initiation Fee
 - Annual Fee
@@ -474,15 +567,7 @@ Governing documents, bylaws, supporting materials, resolution documents.
 - Reinstatement Fee
 - Special Assessment
 
-### Fee Frequency
-- One Time
-- Annual
-- Semi-Annual
-- Quarterly
-- Monthly
-- Per Event
-
-### Billing Cycle
+### Organization Billing Cycle
 - Upon Joining
 - Calendar Year
 - Fiscal Year
@@ -490,7 +575,15 @@ Governing documents, bylaws, supporting materials, resolution documents.
 - Anniversary Date
 - Monthly
 
-### Motion Type
+### Organization Fee Frequency
+- One Time
+- Annual
+- Semi-Annual
+- Quarterly
+- Monthly
+- Per Event
+
+### Organization Motion Type
 - Resolution
 - Policy Change
 - Budget Approval
@@ -500,7 +593,7 @@ Governing documents, bylaws, supporting materials, resolution documents.
 - Recommendation
 - Endorsement
 
-### Motion Status
+### Organization Motion Status
 - Draft
 - Introduced
 - Under Discussion
@@ -511,21 +604,21 @@ Governing documents, bylaws, supporting materials, resolution documents.
 - Failed
 - Withdrawn
 
-### Vote Type
+### Organization Vote Type
 - Motion Vote
 - Election
 - Ratification
 - Approval
 - Procedural Vote
 
-### Vote Status
+### Organization Vote Status
 - Scheduled
 - In Progress
 - Completed
 - Cancelled
 - Postponed
 
-### Vote Method
+### Organization Vote Method
 - Voice Vote
 - Roll Call
 - Show of Hands
@@ -534,21 +627,21 @@ Governing documents, bylaws, supporting materials, resolution documents.
 - Written Ballot
 - Proxy Vote
 
-### Vote Response
+### Organization Vote Response
 - Yes
 - No
 - Abstain
 - Present Not Voting
 - Absent
 
-### Vote Result
+### Organization Vote Result
 - Passed
 - Failed
 - Tied
 - No Quorum
 - Postponed
 
-### Resolution Type
+### Organization Resolution Type
 - Standard Resolution
 - Policy Resolution
 - Budget Resolution
@@ -556,10 +649,22 @@ Governing documents, bylaws, supporting materials, resolution documents.
 - Emergency Resolution
 - Procedural Resolution
 
-### Resolution Status
+### Organization Resolution Status
 - Draft
 - Adopted
 - Implemented
 - Repealed
 - Amended
 - Expired
+
+### Organization Screening Status
+- Pending Screening
+- Under Review
+- Passed Screening
+- Failed Screening
+- Requires Interview
+
+**Completed Last Round:**
+
+**Planned:**
+

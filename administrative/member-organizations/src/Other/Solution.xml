@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.26013.155" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26013.155" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26014.00158">
+<ImportExportXml version="9.2.26014.158" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26014.158" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26014.00158">
   <SolutionManifest>
     <UniqueName>appbase_memberorganizations</UniqueName>
     <LocalizedNames>
       <LocalizedName description="App Base - Member Organizations" languagecode="1033" />
     </LocalizedNames>
     <Descriptions />
-    <Version>1.0.0.1</Version>
+    <Version>1.0.0.2</Version>
     <Managed>2</Managed>
     <Publisher>
       <UniqueName>appbase</UniqueName>
@@ -94,20 +94,201 @@
       <RootComponent type="1" schemaName="appbase_organizationvote" behavior="0" />
       <RootComponent type="1" schemaName="appbase_organizationvoteresponse" behavior="0" />
       <RootComponent type="62" schemaName="appbase_MemberOrganizations" behavior="0" />
-      <RootComponent type="80" schemaName="appbase_MemberOrganizations" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_organizationapplicationstatus" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_organizationbillingcycle" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_organizationfeefrequency" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_organizationfeetype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_organizationmemberstatus" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_organizationmotionstatus" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_organizationmotiontype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_organizationresolutionstatus" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_organizationresolutiontype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_organizationrolecategory" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_organizationrolestatus" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_organizationscreeningstatus" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_organizationtermtype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_organizationvotemethod" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_organizationvoteresponse" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_organizationvoteresult" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_organizationvotestatus" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_organizationvotetype" behavior="0" />
     </RootComponents>
     <MissingDependencies>
       <MissingDependency>
-        <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)">
-          <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
-        </Required>
-        <Dependent type="80" schemaName="appbase_MemberOrganizations" displayName="Member Organizations" />
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_discussionitem" parentDisplayName="Discussion Item" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="10" schemaName="appbase_organizationmotion_DiscussionItem" displayName="appbase_organizationmotion_DiscussionItem" parentSchemaName="appbase_discussionitem" parentDisplayName="Discussion Item" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.15)" id.uniquename="AppChannel">
-          <package appName="PowerAppsAppFramework Package" version="1.0.0.25">PowerAppsAppFramework_Anchor (1.0.0.25)</package>
-        </Required>
-        <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=appbase_MemberOrganizations,settingdefinitionid.uniquename=AppChannel" id.parentappmoduleid.uniquename="appbase_MemberOrganizations" id.settingdefinitionid.uniquename="AppChannel" />
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="10" schemaName="appbase_organization_GoverningDocument" displayName="appbase_organization_GoverningDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="10" schemaName="appbase_organizationmemberapplication_SupportingDocument" displayName="appbase_organizationmemberapplication_SupportingDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="10" schemaName="appbase_organizationmotion_SupportingDocument" displayName="appbase_organizationmotion_SupportingDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="10" schemaName="appbase_organizationresolution_ResolutionDocument" displayName="appbase_organizationresolution_ResolutionDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="10" schemaName="appbase_organizationvote_SupportingDocument" displayName="appbase_organizationvote_SupportingDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_formaldecision" parentDisplayName="Formal Decision" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="10" schemaName="appbase_organizationresolution_FormalDecision" displayName="appbase_organizationresolution_FormalDecision" parentSchemaName="appbase_formaldecision" parentDisplayName="Formal Decision" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="10" schemaName="appbase_organization_LegalAuthority" displayName="appbase_organization_LegalAuthority" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="10" schemaName="appbase_organizationresolution_LegalAuthority" displayName="appbase_organizationresolution_LegalAuthority" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_location" parentDisplayName="Location" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="10" schemaName="appbase_organization_MeetingLocation" displayName="appbase_organization_MeetingLocation" parentSchemaName="appbase_location" parentDisplayName="Location" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="10" schemaName="appbase_organization_AffiliatedOrganizationUnit" displayName="appbase_organization_AffiliatedOrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_actionstatus" displayName="Action Status" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_implementationstatus" displayName="Implementation Status" parentSchemaName="appbase_organizationresolution" parentDisplayName="Organization Resolution" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_approvalstatus" displayName="Approval Status" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_approvalstatus" displayName="Approval Status" parentSchemaName="appbase_organizationmemberapplication" parentDisplayName="Organization Member Application" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_methodofcontact" displayName="Method of Contact" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_preferredcommunicationmethod" displayName="Preferred Communication Method" parentSchemaName="appbase_organizationmember" parentDisplayName="Organization Member" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_methodofreceipt" displayName="Method of Receipt" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_applicationmethod" displayName="Application Method" parentSchemaName="appbase_organizationmemberapplication" parentDisplayName="Organization Member Application" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_operationalstatus" displayName="Operational Status" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_operationalstatus" displayName="Operational Status" parentSchemaName="appbase_organization" parentDisplayName="Organization" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_operationalstatus" displayName="Operational Status" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_organizationstatus" displayName="Organization Status" parentSchemaName="appbase_organization" parentDisplayName="Organization" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_priority" displayName="Priority" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_priority" displayName="Priority" parentSchemaName="appbase_organizationmotion" parentDisplayName="Organization Motion" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_publicationstatus" displayName="Publication Status" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_publicationstatus" displayName="Publication Status" parentSchemaName="appbase_organizationresolution" parentDisplayName="Organization Resolution" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_schedulestatus" displayName="Schedule Status" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_termstatus" displayName="Term Status" parentSchemaName="appbase_organizationterm" parentDisplayName="Organization Term" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_visibility" displayName="Visibility" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_visibility" displayName="Visibility" parentSchemaName="appbase_organization" parentDisplayName="Organization" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_visibility" displayName="Visibility" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_visibility" displayName="Visibility" parentSchemaName="appbase_organizationresolution" parentDisplayName="Organization Resolution" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_allowsselfregistration" displayName="Allows Self Registration" parentSchemaName="appbase_organization" parentDisplayName="Organization" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_ispublic" displayName="Is Public" parentSchemaName="appbase_organization" parentDisplayName="Organization" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_requiresmembershipapproval" displayName="Requires Membership Approval" parentSchemaName="appbase_organization" parentDisplayName="Organization" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_isvotingmember" displayName="Is Voting Member" parentSchemaName="appbase_organizationmember" parentDisplayName="Organization Member" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_interviewrequired" displayName="Interview Required" parentSchemaName="appbase_organizationmemberapplication" parentDisplayName="Organization Member Application" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_ismandatory" displayName="Is Mandatory" parentSchemaName="appbase_organizationmemberfee" parentDisplayName="Organization Member Fee" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_isprorated" displayName="Is Prorated" parentSchemaName="appbase_organizationmemberfee" parentDisplayName="Organization Member Fee" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_isprimary" displayName="Is Primary" parentSchemaName="appbase_organizationmemberrole" parentDisplayName="Organization Member Role" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_allowsmultipleroles" displayName="Allows Multiple Roles" parentSchemaName="appbase_organizationmembertype" parentDisplayName="Organization Member Type" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_isvotingtype" displayName="Is Voting Type" parentSchemaName="appbase_organizationmembertype" parentDisplayName="Organization Member Type" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_requiresapproval" displayName="Requires Approval" parentSchemaName="appbase_organizationmembertype" parentDisplayName="Organization Member Type" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_requiressupermajority" displayName="Requires Supermajority" parentSchemaName="appbase_organizationmotion" parentDisplayName="Organization Motion" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_isleadershiprole" displayName="Is Leadership Role" parentSchemaName="appbase_organizationrole" parentDisplayName="Organization Role" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_isofficerrole" displayName="Is Officer Role" parentSchemaName="appbase_organizationrole" parentDisplayName="Organization Role" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_isvotingrole" displayName="Is Voting Role" parentSchemaName="appbase_organizationrole" parentDisplayName="Organization Role" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_requiresappointment" displayName="Requires Appointment" parentSchemaName="appbase_organizationrole" parentDisplayName="Organization Role" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_requireselection" displayName="Requires Election" parentSchemaName="appbase_organizationrole" parentDisplayName="Organization Role" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_requiresterms" displayName="Requires Terms" parentSchemaName="appbase_organizationtype" parentDisplayName="Organization Type" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_requiresvoting" displayName="Requires Voting" parentSchemaName="appbase_organizationtype" parentDisplayName="Organization Type" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_quorummet" displayName="Quorum Met" parentSchemaName="appbase_organizationvote" parentDisplayName="Organization Vote" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_votepassed" displayName="Vote Passed" parentSchemaName="appbase_organizationvote" parentDisplayName="Organization Vote" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.0.0.3)" />
+        <Dependent type="2" schemaName="appbase_isproxyvote" displayName="Is Proxy Vote" parentSchemaName="appbase_organizationvoteresponse" parentDisplayName="Organization Vote Response" />
       </MissingDependency>
     </MissingDependencies>
   </SolutionManifest>

@@ -447,13 +447,27 @@
     return searchTerms.some(term => label.includes(term) || term.includes(label));
   }
   
+  function filterNoiseOptions(optionsList) {
+    // Exclude common noise values that don't indicate real similarity
+    const noiseValues = new Set(['active', 'inactive', 'completed']);
+    return optionsList.filter(opt => !noiseValues.has(opt.label.toLowerCase()));
+  }
+  
   function isOptionMatchingForSuggestion(suggestionOptionLabel) {
+    // Exclude noise values from matching logic
+    const noiseValues = new Set(['active', 'inactive', 'completed']);
+    if (noiseValues.has(suggestionOptionLabel.toLowerCase())) {
+      return false;
+    }
+    
     // Check if any of the user's entered options match this suggestion option (word-level, not substring)
     const suggestionWords = suggestionOptionLabel.toLowerCase().split(/\s+/);
     
     return options.some(userOption => {
       if (!userOption.label.trim()) return false;
-      const userWords = userOption.label.toLowerCase().split(/\s+/);
+      const userLabel = userOption.label.toLowerCase();
+      if (noiseValues.has(userLabel)) return false;
+      const userWords = userLabel.split(/\s+/);
       
       // Check if any words match exactly
       return suggestionWords.some(sw => userWords.some(uw => sw === uw));
@@ -542,14 +556,21 @@
         const data = await response.json();
         let suggestions = data.matches || [];
         
+        // Noise values to exclude from percentage calculation
+        const noiseValues = new Set(['active', 'inactive', 'completed']);
+        
         // Calculate match counts and sort by similarity
         suggestions = suggestions.map(suggestion => {
           const matchCount = calculateMatchCount(suggestion);
+          // Calculate percentage based on filtered options (excluding noise values)
+          const filteredOptionCount = suggestion.options.filter(opt => 
+            !noiseValues.has(opt.label.toLowerCase())
+          ).length;
           return {
             ...suggestion,
             matchCount,
-            matchPercentage: suggestion.options.length > 0 ? Math.round((matchCount / suggestion.options.length) * 100) : 0,
-            totalOptions: suggestion.options.length
+            matchPercentage: filteredOptionCount > 0 ? Math.round((matchCount / filteredOptionCount) * 100) : 0,
+            totalOptions: filteredOptionCount
           };
         });
         
@@ -571,12 +592,20 @@
   }
   
   function calculateMatchCount(suggestion) {
+    // Exclude common noise values that don't indicate real similarity
+    const noiseValues = new Set(['active', 'inactive', 'completed']);
+    
     // Count how many of the user's option labels match the suggestion's options
     const userLabels = options
       .map(o => o.label.trim().toLowerCase())
-      .filter(label => label.length > 0);
+      .filter(label => label.length > 0 && !noiseValues.has(label));
     
     if (userLabels.length === 0) return 0;
+    
+    // Also filter noise values from suggestion options
+    const filteredSuggestionOptions = suggestion.options.filter(opt => 
+      !noiseValues.has(opt.label.toLowerCase())
+    );
     
     let matchCount = 0;
     
@@ -584,7 +613,7 @@
       const userWords = userLabel.split(/\s+/);
       
       // Check if this user label matches any suggestion option
-      const hasMatch = suggestion.options.some(suggestionOption => {
+      const hasMatch = filteredSuggestionOptions.some(suggestionOption => {
         const suggestionLabel = suggestionOption.label.toLowerCase();
         const suggestionWords = suggestionLabel.split(/\s+/);
         
@@ -719,6 +748,7 @@
         {#if searchResults.length > 0}
           <div class="results">
             {#each searchResults as result}
+              {@const filteredOptions = filterNoiseOptions(result.options)}
               <div class="option-set-card">
                 <div class="card-header">
                   <div>
@@ -729,11 +759,11 @@
                 </div>
                 <div class="card-body">
                   <div class="options-preview">
-                    {#each result.options.slice(0, 5) as option}
+                    {#each filteredOptions.slice(0, 5) as option}
                       <span class="option-chip" class:matching={isMatchingValue(option.label)}>{option.label}</span>
                     {/each}
-                    {#if result.options.length > 5}
-                      <span class="option-chip more">+{result.options.length - 5} more</span>
+                    {#if filteredOptions.length > 5}
+                      <span class="option-chip more">+{filteredOptions.length - 5} more</span>
                     {/if}
                   </div>
                   {#if result.matchReasons && result.matchReasons.length > 0}
@@ -895,6 +925,7 @@
               <p class="panel-hint">These existing option sets might match what you're creating. Consider reusing one!</p>
               <div class="suggestions-list">
                 {#each liveSuggestions.slice(0, 5) as suggestion}
+                  {@const filteredOptions = filterNoiseOptions(suggestion.options)}
                   <div class="suggestion-card">
                     <div class="suggestion-header">
                       <strong>{suggestion.displayName}</strong>
@@ -904,11 +935,11 @@
                     </div>
                     <p class="schema-name-small">{suggestion.schemaName}</p>
                     <div class="options-preview-small">
-                      {#each suggestion.options.slice(0, 4) as option}
+                      {#each filteredOptions.slice(0, 4) as option}
                         <span class="option-chip-tiny" class:matching={isOptionMatchingForSuggestion(option.label)}>{option.label}</span>
                       {/each}
-                      {#if suggestion.options.length > 4}
-                        <span class="option-chip-tiny more">+{suggestion.options.length - 4}</span>
+                      {#if filteredOptions.length > 4}
+                        <span class="option-chip-tiny more">+{filteredOptions.length - 4}</span>
                       {/if}
                     </div>
                     {#if suggestion.matchCount > 0}
@@ -931,6 +962,13 @@
                   <p class="more-suggestions">+{liveSuggestions.length - 5} more similar option sets</p>
                 {/if}
               </div>
+            </div>
+          {:else if createStep <= 2 && liveSuggestions.length === 0 && ((displayName && displayName.trim().length > 2) || options.filter(o => o.label.trim()).length > 0)}
+            <div class="suggestions-panel">
+              <div class="panel-header">
+                <h4>💡 Similar Option Sets</h4>
+              </div>
+              <p class="empty-state">No matching option sets found. Your choice appears to be unique!</p>
             </div>
           {/if}
         </div>
@@ -1011,6 +1049,7 @@
             <p class="modal-warning">Found {duplicateMatches.length} similar option set{duplicateMatches.length > 1 ? 's' : ''}. Consider reusing one of these:</p>
             <div class="modal-suggestions">
               {#each duplicateMatches as match}
+                {@const filteredOptions = filterNoiseOptions(match.options)}
                 <div class="modal-suggestion-card">
                   <div class="suggestion-header">
                     <strong>{match.displayName}</strong>
@@ -1020,11 +1059,11 @@
                   </div>
                   <p class="schema-name-small">{match.schemaName}</p>
                   <div class="options-preview-small">
-                    {#each match.options.slice(0, 6) as option}
+                    {#each filteredOptions.slice(0, 6) as option}
                       <span class="option-chip-tiny">{option.label}</span>
                     {/each}
-                    {#if match.options.length > 6}
-                      <span class="option-chip-tiny more">+{match.options.length - 6}</span>
+                    {#if filteredOptions.length > 6}
+                      <span class="option-chip-tiny more">+{filteredOptions.length - 6}</span>
                     {/if}
                   </div>
                   {#if match.matchReasons && match.matchReasons.length > 0}

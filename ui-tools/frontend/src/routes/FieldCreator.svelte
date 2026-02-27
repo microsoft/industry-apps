@@ -662,9 +662,11 @@ Notes|Memo`;
                     <label for="quickType">Type</label>
                     <select id="quickType" bind:value={quickType}>
                       <option value="Text">Text</option>
+                      <option value="Email">Email</option>
+                      <option value="Phone">Phone</option>
+                      <option value="URL">URL</option>
                       <option value="Memo">Memo (Multiline)</option>
                       <option value="RichText">Rich Text</option>
-                      <option value="URL">URL</option>
                       <option value="Integer">Integer</option>
                       <option value="Float">Float</option>
                       <option value="Currency">Currency</option>

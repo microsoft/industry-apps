@@ -157,6 +157,122 @@ class DataverseClient:
         
         return self._create_attribute(table_name, attribute)
     
+    def create_email_field(
+        self, 
+        table_name: str, 
+        schema_name: str, 
+        display_name: str,
+        max_length: int = 100,
+        required: bool = False,
+        description: str = ""
+    ) -> Dict[str, Any]:
+        """
+        Create an email text field
+        
+        Args:
+            schema_name: PascalCase schema name (e.g., "appbase_ContactEmail")
+        """
+        # Generate lowercase logical name from schema name
+        logical_name = schema_name.lower()
+        
+        attribute = {
+            "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+            "AttributeType": "String",
+            "AttributeTypeName": {
+                "Value": "StringType"
+            },
+            "SchemaName": schema_name,
+            "LogicalName": logical_name,
+            "RequiredLevel": {
+                "Value": "ApplicationRequired" if required else "None",
+                "CanBeChanged": True
+            },
+            "DisplayName": {
+                "@odata.type": "Microsoft.Dynamics.CRM.Label",
+                "LocalizedLabels": [
+                    {
+                        "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
+                        "Label": display_name,
+                        "LanguageCode": 1033
+                    }
+                ]
+            },
+            "Description": {
+                "@odata.type": "Microsoft.Dynamics.CRM.Label",
+                "LocalizedLabels": [
+                    {
+                        "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
+                        "Label": description,
+                        "LanguageCode": 1033
+                    }
+                ]
+            },
+            "MaxLength": max_length,
+            "FormatName": {
+                "Value": "Email"
+            }
+        }
+        
+        return self._create_attribute(table_name, attribute)
+    
+    def create_phone_field(
+        self, 
+        table_name: str, 
+        schema_name: str, 
+        display_name: str,
+        max_length: int = 50,
+        required: bool = False,
+        description: str = ""
+    ) -> Dict[str, Any]:
+        """
+        Create a phone number text field
+        
+        Args:
+            schema_name: PascalCase schema name (e.g., "appbase_ContactPhone")
+        """
+        # Generate lowercase logical name from schema name
+        logical_name = schema_name.lower()
+        
+        attribute = {
+            "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+            "AttributeType": "String",
+            "AttributeTypeName": {
+                "Value": "StringType"
+            },
+            "SchemaName": schema_name,
+            "LogicalName": logical_name,
+            "RequiredLevel": {
+                "Value": "ApplicationRequired" if required else "None",
+                "CanBeChanged": True
+            },
+            "DisplayName": {
+                "@odata.type": "Microsoft.Dynamics.CRM.Label",
+                "LocalizedLabels": [
+                    {
+                        "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
+                        "Label": display_name,
+                        "LanguageCode": 1033
+                    }
+                ]
+            },
+            "Description": {
+                "@odata.type": "Microsoft.Dynamics.CRM.Label",
+                "LocalizedLabels": [
+                    {
+                        "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
+                        "Label": description,
+                        "LanguageCode": 1033
+                    }
+                ]
+            },
+            "MaxLength": max_length,
+            "FormatName": {
+                "Value": "Phone"
+            }
+        }
+        
+        return self._create_attribute(table_name, attribute)
+    
     def create_integer_field(
         self,
         table_name: str,
@@ -885,6 +1001,24 @@ class DataverseClient:
                 schema_name,
                 display_name,
                 max_length=max_length or 100,
+                required=required,
+                description=description
+            )
+        elif field_type == "Email":
+            return self.create_email_field(
+                table_name,
+                schema_name,
+                display_name,
+                max_length=max_length or 100,
+                required=required,
+                description=description
+            )
+        elif field_type == "Phone":
+            return self.create_phone_field(
+                table_name,
+                schema_name,
+                display_name,
+                max_length=max_length or 50,
                 required=required,
                 description=description
             )
