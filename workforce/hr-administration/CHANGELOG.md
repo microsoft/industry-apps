@@ -2,6 +2,30 @@
 
 ## Unreleased
 
+## [1.1.1.0] - 2026-03-02
+
+### Added
+
+#### Forms & Views
+- **HR Position**: Configured baseline form and views for position management
+- **HR Position Assignment**: Configured baseline form and views for employee-position linkages
+- **HR Position Description**: Configured baseline form and views for version-controlled position descriptions
+- **HR Job Classification**: Configured baseline form and views for job role definitions
+- **HR Employment Action**: Configured baseline form and views for personnel actions tracking
+- **HR Action Type**: Configured baseline form and views for action category reference
+- **HR Employment Milestone**: Configured baseline form and views for career milestone tracking
+- **HR Disciplinary Action**: Configured baseline form and views for incident management
+- **HR Request**: Configured baseline form and views for generic employee requests
+- **HR Time Off Request**: Configured baseline form and views for leave request management
+- **HR Time Off Entry**: Configured baseline form and views for individual leave date tracking
+- **HR Overtime Entry**: Configured baseline form and views for overtime tracking
+- **HR Telework Request**: Configured baseline form and views for telework arrangement management
+- **HR Workplace Accommodation**: Configured baseline form and views for accommodation request workflow
+- **HR Employee Declaration**: Configured baseline form and views for employee attestation tracking
+- **HR Leave Donation**: Configured baseline form and views for leave transfer management
+
+---
+
 ## [1.1.0.0] - 2026-02-26
 
 ### Added

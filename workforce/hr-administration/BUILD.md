@@ -32,9 +32,8 @@ The **HR Administration module** manages the core employment structure, transact
 - Requires Clearance: Yes / No
 
 **Completed Last Round:**
-- Configure Baseline Form
 
-**Skipped:**
+**Skipped:
 - Position Title: Text
 - Notes: Memo
 - Position Designation: Choice (Position Designation)
@@ -64,8 +63,6 @@ Links an employee to a position for a defined period, including reporting struct
 - Is Primary: Yes / No
 
 **Completed Last Round:**
-- Configure Baseline Form
-- Configure Baseline View
 
 **Planned:**
 - Configure Quick Create Form
@@ -94,8 +91,6 @@ Links an employee to a position for a defined period, including reporting struct
 - Description Status: Choice (Publication Status)
 
 **Completed Last Round:**
-- Configure Baseline Form
-- Configure Baseline View
 
 **Planned:**
 - Configure Quick Create Form
@@ -119,10 +114,8 @@ Represents a defined job role or classification (title, exempt status, bargainin
 - Description: Memo
 
 **Completed Last Round:**
-- Configure Baseline Form
-- Configure Baseline View
 
-**Planned:**
+**Planned:
 - Configure Quick Create Form
 - Configure Related Subgrids
 
@@ -168,8 +161,6 @@ Represents a defined job role or classification (title, exempt status, bargainin
 - Notes: Memo
 
 **Completed Last Round:**
-- Configure Baseline Form
-- Configure Baseline View
 
 **Planned:**
 - Configure Quick Create Form
@@ -184,8 +175,6 @@ Represents a defined job role or classification (title, exempt status, bargainin
 - Requires Approval: Yes / No
 
 **Completed Last Round:**
-- Configure Baseline Form
-- Configure Baseline View
 
 **Planned:**
 - Configure Quick Create Form
@@ -209,8 +198,6 @@ Represents a defined job role or classification (title, exempt status, bargainin
 - Notes: Memo
 
 **Completed Last Round:**
-- Configure Baseline Form
-- Configure Baseline View
 
 **Planned:**
 - Configure Quick Create Form
@@ -243,8 +230,6 @@ Represents a defined job role or classification (title, exempt status, bargainin
 - Notes: Memo
 
 **Completed Last Round:**
-- Configure Baseline Form
-- Configure Baseline View
 
 **Planned:**
 - Configure Quick Create Form
@@ -306,9 +291,6 @@ Represents the header record for employee leave requests, including leave type, 
 - Supporting Document: Lookup (Document)
 
 **Completed Last Round:**
-- Removed Request Status (redundant with Approval Status)
-- Configure Baseline Form
-- Configure Baseline View
 
 **Planned:**
 - Configure Quick Create Form
@@ -330,8 +312,6 @@ Stores individual leave date entries tied to a time off request (specific dates 
 - Notes: Memo
 
 **Completed Last Round:**
-- Configure Baseline Form
-- Configure Baseline View
 
 **Planned:**
 - Configure Quick Create Form
@@ -360,8 +340,6 @@ Captures individual overtime or compensatory time work entries, including date, 
 - Notes: Memo
 
 **Completed Last Round:**
-- Configure Baseline Form
-- Configure Baseline View
 
 **Planned:**
 - Configure Quick Create Form
@@ -397,9 +375,6 @@ Captures employee requests for telework or remote work arrangements, including s
 - Safety Checklist Completed: Yes / No
 
 **Completed Last Round:**
-- Removed Request Status (now handled by Approval Status)
-- Configure Baseline Form
-- Configure Baseline View
 
 **Planned:**
 - Configure Quick Create Form
@@ -439,9 +414,6 @@ Tracks requests and fulfillment of workplace accommodations, including approval 
 - Is Temporary: Yes / No
 
 **Completed Last Round:**
-- Removed Request Status (now handled by Approval Status)
-- Configure Baseline Form
-- Configure Baseline View
 
 **Planned:**
 - Configure Quick Create Form
@@ -474,8 +446,6 @@ Captures employee-submitted attestations or disclosures (e.g., conflict of inter
 - Attestation: Yes / No
 
 **Completed Last Round:**
-- Configure Baseline Form
-- Configure Baseline View
 
 **Planned:**
 - Configure Quick Create Form
@@ -509,8 +479,6 @@ Records voluntary transfer or donation of leave hours from one employee to anoth
 - Notes: Memo
 
 **Completed Last Round:**
-- Configure Baseline Form
-- Configure Baseline View
 
 **Planned:**
 - Configure Quick Create Form
