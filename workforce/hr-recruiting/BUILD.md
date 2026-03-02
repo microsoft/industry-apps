@@ -14,8 +14,8 @@ Represents the initial request or justification to create or fill a position. Ty
 **Planned:**
 - Name: Text
 - Request Number: Text
-- Request Type: Choice (Workforce Request Type)
-- Request Status: Choice (Request Status)
+- Request Type: Choice (Recruiting Workforce Request Type)
+- Approval Status: Choice (Approval Status)
 - Requested Date: Date
 - Requested By: Lookup (Person)
 - Requesting Organization Unit: Lookup (Organization Unit)
@@ -47,7 +47,7 @@ Represents the authorized request to recruit for a position. Contains hiring det
 **Planned:**
 - Name: Text
 - Requisition Number: Text
-- Requisition Status: Choice (Requisition Status)
+- Requisition Status: Choice (Recruiting Requisition Status)
 - Position Title: Text
 - Number of Openings: Integer
 - Job Series: Lookup (Job Series)
@@ -91,7 +91,7 @@ Represents a specific publication or advertisement instance of a requisition. Tr
 **Planned:**
 - Name: Text
 - HR Requisition: Lookup (HR Requisition)
-- Posting Channel: Choice (Posting Channel)
+- Posting Channel: Choice (Recruiting Posting Channel)
 - Posting Status: Choice (Publication Status)
 - Posted Date: Date
 - Posting Start Date: Date
@@ -116,11 +116,11 @@ Defines the required and preferred qualifications, competencies, or eligibility 
 **Planned:**
 - Name: Text
 - HR Requisition: Lookup (HR Requisition)
-- Requirement Type: Choice (Requirement Type)
+- Requirement Type: Choice (Recruiting Requirement Type)
 - Competency: Lookup (Competency)
 - Credential: Lookup (Credential)
-- Required Proficiency Level: Choice (Proficiency Level)
-- Requirement Category: Choice (Requirement Category)
+- Required Proficiency Level: Choice (Recruiting Proficiency Level)
+- Requirement Category: Choice (Recruiting Requirement Category)
 - Is Required: Yes / No
 - Is Preferred: Yes / No
 - Weight: Float
@@ -152,15 +152,15 @@ Represents the persistent recruiting profile of an individual across application
 - State or Province: Lookup (State or Province)
 - Postal Code: Text
 - Country: Lookup (Country)
-- Candidate Source: Choice (Candidate Source)
+- Candidate Source: Choice (Recruiting Candidate Source)
 - Referral Source: Text
 - Referred By: Lookup (Person)
-- Candidate Status: Choice (Candidate Status)
+- Candidate Status: Choice (Recruiting Candidate Status)
 - Is Internal: Yes / No
 - Current Employer: Text
 - Current Job Title: Text
 - Years of Experience: Integer
-- Highest Education Level: Choice (Education Level)
+- Highest Education Level: Choice (Recruiting Education Level)
 - Veteran Status: Yes / No
 - Requires Sponsorship: Yes / No
 - Willing to Relocate: Yes / No
@@ -186,11 +186,11 @@ Represents a candidate's formal submission for a specific requisition or posting
 - HR Candidate: Lookup (HR Candidate)
 - HR Requisition: Lookup (HR Requisition)
 - HR Requisition Posting: Lookup (HR Requisition Posting)
-- Application Status: Choice (Application Status)
+- Application Status: Choice (Recruiting Application Status)
 - Application Date: Date Time
-- Application Source: Choice (Application Source)
+- Application Source: Choice (Recruiting Application Source)
 - Is Internal: Yes / No
-- Current Stage: Choice (Application Stage)
+- Current Stage: Choice (Recruiting Application Stage)
 - Stage Updated Date: Date
 - Cover Letter: Memo
 - Resume Document: Lookup (Document)
@@ -219,7 +219,7 @@ Stores detailed scoring or rating of how well an applicant meets specific skills
 - Competency: Lookup (Competency)
 - Assessed By: Lookup (Person)
 - Assessment Date: Date
-- Proficiency Level: Choice (Proficiency Level)
+- Proficiency Level: Choice (Recruiting Proficiency Level)
 - Score: Float
 - Weight: Float
 - Weighted Score: Float
@@ -237,17 +237,17 @@ Provides the consolidated summary assessment of an application. Captures overall
 **Planned:**
 - Name: Text
 - HR Application: Lookup (HR Application)
-- Evaluation Type: Choice (Evaluation Type)
+- Evaluation Type: Choice (Recruiting Evaluation Type)
 - Evaluation Date: Date
 - Evaluated By: Lookup (Person)
 - Overall Score: Float
-- Overall Rating: Choice (Overall Rating)
-- Recommendation: Choice (Recommendation)
+- Overall Rating: Choice (Recruiting Overall Rating)
+- Recommendation: Choice (Recruiting Recommendation)
 - Strengths: Memo
 - Concerns: Memo
 - Decision Rationale: Memo
 - Move to Next Stage: Yes / No
-- Recommended Stage: Choice (Application Stage)
+- Recommended Stage: Choice (Recruiting Application Stage)
 - Notes: Memo
 
 ---
@@ -263,19 +263,19 @@ Represents a scheduled interview event for an application. Tracks interview type
 - Name: Text
 - HR Application: Lookup (HR Application)
 - HR Requisition: Lookup (HR Requisition)
-- Interview Type: Choice (Interview Type)
-- Interview Status: Choice (Interview Status)
+- Interview Type: Choice (Recruiting Interview Type)
+- Interview Status: Choice (Recruiting Interview Status)
 - Scheduled Date Time: Date Time
 - Duration (Minutes): Integer
 - Interview Location: Lookup (Location)
 - Virtual Meeting URL: Text
 - Primary Interviewer: Lookup (Person)
 - Interview Panel: Text
-- Interview Stage: Choice (Application Stage)
+- Interview Stage: Choice (Recruiting Application Stage)
 - Conducted Date Time: Date Time
-- Attendance Status: Choice (Attendance Status)
-- Overall Impression: Choice (Overall Rating)
-- Recommend for Hire: Choice (Recommendation)
+- Attendance Status: Choice (Recruiting Attendance Status)
+- Overall Impression: Choice (Recruiting Overall Rating)
+- Recommend for Hire: Choice (Recruiting Recommendation)
 - Interview Notes: Memo
 - Strengths Observed: Memo
 - Concerns Raised: Memo
@@ -296,10 +296,10 @@ Captures an individual reviewer's structured assessment of a candidate, typicall
 - HR Interview: Lookup (HR Interview)
 - Evaluator: Lookup (Person)
 - Evaluation Date: Date
-- Evaluation Category: Choice (Evaluation Category)
+- Evaluation Category: Choice (Recruiting Evaluation Category)
 - Competency: Lookup (Competency)
 - Score: Float
-- Rating: Choice (Overall Rating)
+- Rating: Choice (Recruiting Overall Rating)
 - Comments: Memo
 - Supporting Evidence: Memo
 - Notes: Memo
@@ -320,7 +320,7 @@ Documents the formal hiring decision for a requisition. Identifies the selected 
 - Selected Application: Lookup (HR Application)
 - Selected Candidate: Lookup (HR Candidate)
 - Decision Date: Date
-- Decision Status: Choice (Decision Status)
+- Decision Status: Choice (Recruiting Decision Status)
 - Selection Ranking: Integer
 - Selection Rationale: Memo
 - Hiring Manager: Lookup (Person)
@@ -353,7 +353,7 @@ Documents the formal employment offer extended to a selected candidate. Captures
 - HR Application: Lookup (HR Application)
 - HR Selection Decision: Lookup (HR Selection Decision)
 - HR Candidate: Lookup (HR Candidate)
-- Offer Status: Choice (Offer Status)
+- Offer Status: Choice (Recruiting Offer Status)
 - Offer Date: Date
 - Offer Expiration Date: Date
 - Extended By: Lookup (Person)
@@ -364,7 +364,7 @@ Documents the formal employment offer extended to a selected candidate. Captures
 - Proposed Start Date: Date
 - Pay Grade: Lookup (Pay Grade)
 - Offered Salary: Currency
-- Salary Frequency: Choice (Salary Frequency)
+- Salary Frequency: Choice (Recruiting Salary Frequency)
 - Sign On Bonus: Currency
 - Relocation Allowance: Currency
 - Other Compensation: Memo
@@ -374,7 +374,7 @@ Documents the formal employment offer extended to a selected candidate. Captures
 - Offer Document: Lookup (Document)
 - Offer Sent Date: Date
 - Response Received Date: Date
-- Candidate Response: Choice (Offer Response)
+- Candidate Response: Choice (Recruiting Offer Response)
 - Negotiation Requested: Yes / No
 - Negotiation Notes: Memo
 - Final Acceptance Date: Date
@@ -393,12 +393,12 @@ Tracks conditional requirements that must be completed prior to employment start
 - Name: Text
 - HR Offer: Lookup (HR Offer)
 - HR Candidate: Lookup (HR Candidate)
-- Requirement Type: Choice (Pre-Hire Requirement Type)
-- Requirement Status: Choice (Requirement Status)
+- Requirement Type: Choice (Recruiting Pre-Hire Requirement Type)
+- Requirement Status: Choice (Recruiting Requirement Status)
 - Required By Date: Date
 - Initiated Date: Date
 - Completed Date: Date
-- Result: Choice (Requirement Result)
+- Result: Choice (Recruiting Requirement Result)
 - Result Details: Memo
 - Vendor: Lookup (Account)
 - Cost: Currency
@@ -456,7 +456,7 @@ Candidate data privacy consent and opt-in tracking.
 
 ## New Choice Fields
 
-### Workforce Request Type
+### Recruiting Workforce Request Type
 - New Position
 - Replacement
 - Temporary Backfill
@@ -464,7 +464,7 @@ Candidate data privacy consent and opt-in tracking.
 - Project Based
 - Expansion
 
-### Requisition Status
+### Recruiting Requisition Status
 - Draft
 - Pending Approval
 - Approved
@@ -474,7 +474,7 @@ Candidate data privacy consent and opt-in tracking.
 - Cancelled
 - Closed
 
-### Posting Channel
+### Recruiting Posting Channel
 - Company Website
 - Job Board
 - LinkedIn
@@ -486,7 +486,7 @@ Candidate data privacy consent and opt-in tracking.
 - Agency
 - Employee Referral
 
-### Requirement Type
+### Recruiting Requirement Type
 - Education
 - Experience
 - Competency
@@ -498,20 +498,20 @@ Candidate data privacy consent and opt-in tracking.
 - Physical Requirement
 - Clearance
 
-### Requirement Category
+### Recruiting Requirement Category
 - Minimum Qualification
 - Preferred Qualification
 - Screening Criteria
 - Evaluation Criteria
 
-### Proficiency Level
+### Recruiting Proficiency Level
 - Beginner
 - Intermediate
 - Advanced
 - Expert
 - Subject Matter Expert
 
-### Candidate Source
+### Recruiting Candidate Source
 - Direct Application
 - Employee Referral
 - Agency
@@ -523,7 +523,7 @@ Candidate data privacy consent and opt-in tracking.
 - Internal Transfer
 - Rehire
 
-### Candidate Status
+### Recruiting Candidate Status
 - Active
 - Under Consideration
 - Interviewing
@@ -534,7 +534,7 @@ Candidate data privacy consent and opt-in tracking.
 - Withdrawn
 - Inactive
 
-### Education Level
+### Recruiting Education Level
 - High School
 - Associate Degree
 - Bachelor Degree
@@ -544,7 +544,7 @@ Candidate data privacy consent and opt-in tracking.
 - Some College
 - Trade Certification
 
-### Application Status
+### Recruiting Application Status
 - Submitted
 - Under Review
 - Screening
@@ -556,7 +556,7 @@ Candidate data privacy consent and opt-in tracking.
 - Withdrawn
 - On Hold
 
-### Application Stage
+### Recruiting Application Stage
 - Application Review
 - Initial Screening
 - Phone Screen
@@ -568,7 +568,7 @@ Candidate data privacy consent and opt-in tracking.
 - Offer Stage
 - Pre-Hire
 
-### Application Source
+### Recruiting Application Source
 - Direct Application
 - Employee Referral
 - Agency Submission
@@ -576,7 +576,7 @@ Candidate data privacy consent and opt-in tracking.
 - Campus Recruiting
 - Sourced by Recruiter
 
-### Evaluation Type
+### Recruiting Evaluation Type
 - Initial Screening
 - Phone Screen Evaluation
 - Technical Assessment
@@ -584,7 +584,7 @@ Candidate data privacy consent and opt-in tracking.
 - Panel Interview
 - Final Assessment
 
-### Overall Rating
+### Recruiting Overall Rating
 - Excellent
 - Above Average
 - Average
@@ -592,7 +592,7 @@ Candidate data privacy consent and opt-in tracking.
 - Poor
 - Not Assessed
 
-### Recommendation
+### Recruiting Recommendation
 - Strong Hire
 - Hire
 - Maybe
@@ -600,7 +600,7 @@ Candidate data privacy consent and opt-in tracking.
 - Advance to Next Stage
 - Decline
 
-### Interview Type
+### Recruiting Interview Type
 - Phone Screen
 - Video Interview
 - In Person
@@ -610,7 +610,7 @@ Candidate data privacy consent and opt-in tracking.
 - Case Interview
 - Presentation
 
-### Interview Status
+### Recruiting Interview Status
 - Scheduled
 - Confirmed
 - Rescheduled
@@ -618,14 +618,14 @@ Candidate data privacy consent and opt-in tracking.
 - No Show
 - Cancelled
 
-### Attendance Status
+### Recruiting Attendance Status
 - Attended
 - No Show
 - Cancelled by Candidate
 - Cancelled by Employer
 - Rescheduled
 
-### Evaluation Category
+### Recruiting Evaluation Category
 - Technical Skills
 - Communication
 - Leadership
@@ -635,14 +635,14 @@ Candidate data privacy consent and opt-in tracking.
 - Education
 - Motivation
 
-### Decision Status
+### Recruiting Decision Status
 - Pending
 - Recommended
 - Approved
 - Declined
 - On Hold
 
-### Offer Status
+### Recruiting Offer Status
 - Draft
 - Pending Approval
 - Approved
@@ -653,20 +653,20 @@ Candidate data privacy consent and opt-in tracking.
 - Expired
 - Withdrawn
 
-### Salary Frequency
+### Recruiting Salary Frequency
 - Hourly
 - Annual
 - Bi-Weekly
 - Monthly
 
-### Offer Response
+### Recruiting Offer Response
 - Pending
 - Accepted
 - Declined
 - Negotiating
 - Expired
 
-### Pre-Hire Requirement Type
+### Recruiting Pre-Hire Requirement Type
 - Background Check
 - Drug Screening
 - Medical Examination
@@ -678,7 +678,7 @@ Candidate data privacy consent and opt-in tracking.
 - I-9 Verification
 - Fingerprinting
 
-### Requirement Status
+### Recruiting Requirement Status
 - Not Started
 - In Progress
 - Completed
@@ -687,7 +687,7 @@ Candidate data privacy consent and opt-in tracking.
 - Cancelled
 - Failed
 
-### Requirement Result
+### Recruiting Requirement Result
 - Cleared
 - Cleared with Conditions
 - Failed

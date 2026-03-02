@@ -10,7 +10,7 @@ Tracks case number, type, jurisdiction, status, assigned judge, and overall life
 **Planned:**
 - Case Number | Text
 - Case Title | Text
-- Case Type | Choice
+- Case Type | Choice (Court Case Type)
 - Court Case Status | Choice
 - Priority | Choice *(reuse from Core)*
 - Filing Date | Date
@@ -34,7 +34,7 @@ Captures the decision type, date, deciding official, and links to related hearin
 **Planned:**
 - Decision Number | Text
 - Decision Title | Text
-- Decision Type | Choice
+- Decision Type | Choice (Court Decision Type)
 - Decision Date Time | Date Time
 - Court Case | Lookup *(to Court Case)*
 - Deciding Official | Lookup *(to Person from Core)*
@@ -58,7 +58,7 @@ Provides an audit-friendly record of filings, hearings, orders, and other signif
 - Entry Number | Text
 - Entry Date Time | Date Time
 - Court Case | Lookup *(to Court Case)*
-- Entry Type | Choice
+- Entry Type | Choice (Court Docket Entry Type)
 - Filed By | Lookup *(to Person from Core)*
 - Related Filing | Lookup *(to Court Case Filing)*
 - Related Hearing | Lookup *(to Court Case Hearing)*
@@ -77,7 +77,7 @@ Includes motions and other filings submitted by parties or external entities, al
 **Planned:**
 - Filing Number | Text
 - Filing Title | Text
-- Filing Type | Choice
+- Filing Type | Choice (Court Filing Type)
 - Filing Date Time | Date Time
 - Court Case | Lookup *(to Court Case)*
 - Filed By Party | Lookup *(to Court Case Party)*
@@ -99,7 +99,7 @@ May be associated with a Court Session and records hearing type, scheduling deta
 **Planned:**
 - Hearing Number | Text
 - Hearing Title | Text
-- Hearing Type | Choice
+- Hearing Type | Choice (Court Hearing Type)
 - Scheduled Date Time | Date Time
 - Actual Start Date Time | Date Time
 - Actual End Date Time | Date Time
@@ -107,7 +107,7 @@ May be associated with a Court Session and records hearing type, scheduling deta
 - Court Session | Lookup *(to Court Session)*
 - Presiding Official | Lookup *(to Person from Core)*
 - Location | Lookup *(to Location from Core)*
-- Hearing Status | Choice
+- Hearing Status | Choice (Court Hearing Status)
 - Overall Result | Choice *(reuse from Core)*
 - Description | Memo
 - Details | Memo
@@ -124,13 +124,13 @@ Often generated from a decision, and may include effective dates, status (draft/
 **Planned:**
 - Order Number | Text
 - Order Title | Text
-- Order Type | Choice
+- Order Type | Choice (Court Order Type)
 - Issue Date | Date
 - Effective Date | Date
 - Court Case | Lookup *(to Court Case)*
 - Court Case Decision | Lookup *(to Court Case Decision)*
 - Issuing Official | Lookup *(to Person from Core)*
-- Order Status | Choice
+- Order Status | Choice (Court Order Status)
 - Document | Lookup *(to Document from Core)*
 - Description | Memo
 - Details | Memo
@@ -145,8 +145,8 @@ Used to track plaintiffs, defendants, petitioners, respondents, and other involv
 **Completed:**
 
 **Planned:**
-- Party Role | Choice
-- Party Type | Choice
+- Party Role | Choice (Court Party Role)
+- Party Type | Choice (Court Party Type)
 - Court Case | Lookup *(to Court Case)*
 - Person | Lookup *(to Person from Core)*
 - Account | Lookup *(to Account from Core)*
@@ -168,7 +168,7 @@ Identifies which party is represented by which attorney, guardian, or agent, inc
 - Court Case | Lookup *(to Court Case)*
 - Court Case Party | Lookup *(to Court Case Party)*
 - Representative | Lookup *(to Person from Core)*
-- Representation Type | Choice
+- Representation Type | Choice (Court Representation Type)
 - Start Date | Date
 - End Date | Date
 - Operational Status | Choice *(reuse from Core)*
@@ -187,7 +187,7 @@ Includes assignments, due dates, status, and links to related filings, hearings,
 - Work Item Number | Text
 - Work Item Title | Text
 - Court Case | Lookup *(to Court Case)*
-- Work Item Type | Choice
+- Work Item Type | Choice (Court Work Item Type)
 - Priority | Choice *(reuse from Core)*
 - Action Status | Choice *(reuse from Core)*
 - Assigned To | Lookup *(to Person from Core)*
@@ -237,7 +237,7 @@ Values representing the lifecycle stage of a case:
 - Dismissed
 - Settled
 
-### Case Type
+### Court Case Type
 Categories of legal matters:
 - Civil
 - Criminal
@@ -250,7 +250,7 @@ Categories of legal matters:
 - Bankruptcy
 - Appeals
 
-### Decision Type
+### Court Decision Type
 Categories of judicial determinations:
 - Preliminary Ruling
 - Interlocutory Order
@@ -262,7 +262,7 @@ Categories of judicial determinations:
 - Default Judgment
 - Consent Decree
 
-### Entry Type
+### Court Docket Entry Type
 Categories of docket entries:
 - Filing Received
 - Hearing Scheduled
@@ -275,7 +275,7 @@ Categories of docket entries:
 - Continuance Granted
 - Status Update
 
-### Filing Type
+### Court Filing Type
 Categories of document submissions:
 - Complaint
 - Answer
@@ -290,7 +290,7 @@ Categories of document submissions:
 - Reply
 - Memorandum
 
-### Hearing Type
+### Court Hearing Type
 Categories of court proceedings:
 - Initial Appearance
 - Arraignment
@@ -303,7 +303,7 @@ Categories of court proceedings:
 - Evidentiary Hearing
 - Appeals Hearing
 
-### Hearing Status
+### Court Hearing Status
 Current state of a scheduled hearing:
 - Scheduled
 - Confirmed
@@ -314,7 +314,7 @@ Current state of a scheduled hearing:
 - Continued
 - Vacated
 
-### Order Type
+### Court Order Type
 Categories of court directives:
 - Temporary Order
 - Permanent Order
@@ -327,7 +327,7 @@ Categories of court directives:
 - Show Cause Order
 - Dismissal Order
 
-### Order Status
+### Court Order Status
 Current state of an order:
 - Draft
 - Issued
@@ -338,7 +338,7 @@ Current state of an order:
 - Expired
 - Superseded
 
-### Party Role
+### Court Party Role
 Role of a party in the case:
 - Plaintiff
 - Defendant
@@ -351,7 +351,7 @@ Role of a party in the case:
 - Amicus Curiae
 - Third Party
 
-### Party Type
+### Court Party Type
 Classification of party entity:
 - Individual
 - Corporation
@@ -364,7 +364,7 @@ Classification of party entity:
 - Guardian
 - Conservator
 
-### Representation Type
+### Court Representation Type
 Nature of the representation relationship:
 - Retained Counsel
 - Court Appointed Counsel
@@ -376,7 +376,7 @@ Nature of the representation relationship:
 - Pro Bono Counsel
 - Special Counsel
 
-### Work Item Type
+### Court Work Item Type
 Categories of internal tasks:
 - Document Review
 - Filing Processing

@@ -15,7 +15,7 @@ Represents a single submitted request for work, information, approval, or action
 - Name: Text
 - Request Number: Text
 - Request Type: Lookup (Request Type)
-- Request Status: Choice (Request Status)
+- Approval Status: Choice (Approval Status)
 - Request Urgency: Choice (Request Urgency)
 - Priority: Choice (Priority)
 - Submitted By: Lookup (Person)
@@ -24,10 +24,10 @@ Represents a single submitted request for work, information, approval, or action
 - Contact Person: Lookup (Person)
 - Contact Email: Text
 - Contact Phone: Text
-- Contact Method: Choice (Method of Contact)
+- Contact Preference: Choice (Method of Contact)
 - Submission Date: Date
 - Submission Date Time: Date Time
-- Submission Method: Choice (Method of Receipt)
+- Submission Method: Choice (Method of Contact)
 - Received Date: Date
 - Received By: Lookup (Person)
 - Request Description: Memo

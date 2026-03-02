@@ -14,8 +14,8 @@ Represents an unplanned operational disruption, failure, or adverse event that i
 **Planned:**
 - Name: Text
 - Incident Number: Text
-- Incident Type: Choice (Incident Type)
-- Incident Status: Choice (Incident Status)
+- Incident Type: Choice (Operational Incident Type)
+- Incident Status: Choice (Operational Incident Status)
 - Priority: Choice (Priority)
 - Severity Level: Choice (Severity Level)
 - Incident Date Time: Date Time
@@ -62,7 +62,7 @@ Represents a facility, asset, program, process, site, or other entity subject to
 - Item Code: Text
 - Parent Operational Item: Lookup (Operational Item)
 - Item Type: Choice (Operational Item Type)
-- Operational Status: Choice (Operational Status)
+- Lifecycle Stage: Choice (Lifecycle Stage)
 - Owning Organization Unit: Lookup (Organization Unit)
 - Item Owner: Lookup (Person)
 - Primary Location: Lookup (Location)
@@ -87,8 +87,8 @@ Represents a structured evaluation or review of an Operational Item to assess co
 **Planned:**
 - Name: Text
 - Inspection Number: Text
-- Inspection Type: Choice (Inspection Type)
-- Inspection Status: Choice (Inspection Status)
+- Inspection Type: Choice (Operational Inspection Type)
+- Inspection Status: Choice (Operational Inspection Status)
 - Operational Item: Lookup (Operational Item)
 - Inspection Scope: Memo
 - Scheduled Date: Date
@@ -128,7 +128,7 @@ Represents a planned proactive operational activity such as an exercise, drill, 
 - Name: Text
 - Event Number: Text
 - Event Type: Choice (Operational Event Type)
-- Event Status: Choice (Event Status)
+- Event Status: Choice (Operational Event Status)
 - Scheduled Start Date Time: Date Time
 - Scheduled End Date Time: Date Time
 - Actual Start Date Time: Date Time
@@ -144,7 +144,7 @@ Represents a planned proactive operational activity such as an exercise, drill, 
 - Total Objectives: Integer
 - Objectives Met: Integer
 - Overall Result: Choice (Overall Result)
-- Performance Rating: Choice (Performance Rating)
+- Performance Rating: Choice (Operational Performance Rating)
 - Strengths Identified: Memo
 - Areas for Improvement: Memo
 - Lessons Learned: Memo
@@ -169,7 +169,7 @@ Defines a specific objective or capability that an Operational Event intends to 
 - Success Criteria: Memo
 - Performance Target: Text
 - Objective Priority: Choice (Priority)
-- Objective Status: Choice (Objective Status)
+- Objective Status: Choice (Operational Objective Status)
 - Objective Met: Yes / No
 - Actual Performance: Text
 - Evaluation Notes: Memo
@@ -186,7 +186,7 @@ Captures the results of an Operational Event, including whether objectives were 
 - Name: Text
 - Operational Event: Lookup (Operational Event)
 - Operational Event Objective: Lookup (Operational Event Objective)
-- Outcome Type: Choice (Outcome Type)
+- Outcome Type: Choice (Operational Outcome Type)
 - Outcome Result: Choice (Overall Result)
 - Observation: Memo
 - Performance Metric: Text
@@ -212,8 +212,8 @@ Identifies individuals, teams, or organizations involved in an Operational Event
 - Operational Event: Lookup (Operational Event)
 - Person: Lookup (Person)
 - Organization Unit: Lookup (Organization Unit)
-- Participant Role: Choice (Event Participant Role)
-- Participation Status: Choice (Participation Status)
+- Participant Role: Choice (Operational Event Participant Role)
+- Participation Status: Choice (Operational Participation Status)
 - Check In Date Time: Date Time
 - Attendance Confirmed: Yes / No
 - Performance Notes: Memo
@@ -232,8 +232,8 @@ Represents a formal evaluation of whether an organization, unit, facility, progr
 **Planned:**
 - Name: Text
 - Assessment Number: Text
-- Assessment Type: Choice (Readiness Assessment Type)
-- Assessment Status: Choice (Assessment Status)
+- Assessment Type: Choice (Operational Readiness Assessment Type)
+- Assessment Status: Choice (Operational Assessment Status)
 - Assessed Organization Unit: Lookup (Organization Unit)
 - Assessed Operational Item: Lookup (Operational Item)
 - Assessment Period Start Date: Date
@@ -244,12 +244,12 @@ Represents a formal evaluation of whether an organization, unit, facility, progr
 - Assessment Scope: Memo
 - Mission Statement: Memo
 - Readiness Criteria: Memo
-- Overall Readiness: Choice (Readiness Level)
-- Personnel Readiness: Choice (Readiness Level)
-- Equipment Readiness: Choice (Readiness Level)
-- Training Readiness: Choice (Readiness Level)
-- Resource Readiness: Choice (Readiness Level)
-- Process Readiness: Choice (Readiness Level)
+- Overall Readiness: Choice (Operational Readiness Level)
+- Personnel Readiness: Choice (Operational Readiness Level)
+- Equipment Readiness: Choice (Operational Readiness Level)
+- Training Readiness: Choice (Operational Readiness Level)
+- Resource Readiness: Choice (Operational Readiness Level)
+- Process Readiness: Choice (Operational Readiness Level)
 - Total Requirements Assessed: Integer
 - Requirements Met: Integer
 - Requirements Not Met: Integer
@@ -277,11 +277,11 @@ Represents a deficiency, gap, issue, observation, or lesson identified during an
 - Name: Text
 - Finding Number: Text
 - Parent Operational Finding: Lookup (Operational Finding)
-- Finding Type: Choice (Finding Type)
-- Finding Status: Choice (Finding Status)
+- Finding Type: Choice (Operational Finding Type)
+- Finding Status: Choice (Operational Finding Status)
 - Priority: Choice (Priority)
 - Severity Level: Choice (Severity Level)
-- Source Type: Choice (Finding Source Type)
+- Source Type: Choice (Operational Finding Source Type)
 - Operational Incident: Lookup (Operational Incident)
 - Operational Inspection: Lookup (Operational Inspection)
 - Operational Event: Lookup (Operational Event)
@@ -326,8 +326,8 @@ Represents a proposed corrective, preventive, or improvement action developed in
 - Operational Inspection: Lookup (Operational Inspection)
 - Operational Event: Lookup (Operational Event)
 - Operational Readiness Assessment: Lookup (Operational Readiness Assessment)
-- Recommendation Type: Choice (Recommendation Type)
-- Recommendation Status: Choice (Recommendation Status)
+- Recommendation Type: Choice (Operational Recommendation Type)
+- Recommendation Status: Choice (Operational Recommendation Status)
 - Priority: Choice (Priority)
 - Recommendation Date: Date
 - Recommended By: Lookup (Person)
@@ -340,8 +340,8 @@ Represents a proposed corrective, preventive, or improvement action developed in
 - Management Response: Memo
 - Response Date: Date
 - Response By: Lookup (Person)
-- Acceptance Status: Choice (Acceptance Status)
-- Implementation Status: Choice (Action Status)
+- Acceptance Status: Choice (Operational Acceptance Status)
+- Action Status: Choice (Action Status)
 - Implementation Date: Date
 - Target Completion Date: Date
 - Actual Completion Date: Date
@@ -365,7 +365,7 @@ Captures reported operational contributions, improvements, cost savings, efficie
 - Name: Text
 - Impact Number: Text
 - Impact Type: Choice (Operational Impact Type)
-- Impact Status: Choice (Impact Status)
+- Impact Status: Choice (Operational Impact Status)
 - Submission Date: Date
 - Submitted By: Lookup (Person)
 - Submitting Organization Unit: Lookup (Organization Unit)
@@ -378,16 +378,16 @@ Captures reported operational contributions, improvements, cost savings, efficie
 - Time Saved (Hours): Float
 - Efficiency Gain Percentage: Float
 - Risk Reduction: Memo
-- Improvement Area: Choice (Improvement Area)
+- Improvement Area: Choice (Operational Improvement Area)
 - Affected Process: Text
 - Affected Operational Item: Lookup (Operational Item)
 - People Impacted: Integer
 - Organization Units Impacted: Text
-- Innovation Category: Choice (Innovation Category)
+- Innovation Category: Choice (Operational Innovation Category)
 - Is Scalable: Yes / No
 - Scalability Notes: Memo
 - Best Practice: Yes / No
-- Review Status: Choice (Review Status)
+- Review Status: Choice (Operational Review Status)
 - Reviewed By: Lookup (Person)
 - Review Date: Date
 - Review Comments: Memo
@@ -437,7 +437,7 @@ Inspection reports, event plans, assessment documents.
 
 ## New Choice Fields
 
-### Incident Type
+### Operational Incident Type
 - Service Disruption
 - System Failure
 - Equipment Failure
@@ -450,7 +450,7 @@ Inspection reports, event plans, assessment documents.
 - Human Error
 - Third Party Incident
 
-### Incident Status
+### Operational Incident Status
 - New
 - Investigating
 - Responding
@@ -469,7 +469,7 @@ Inspection reports, event plans, assessment documents.
 - Infrastructure
 - Capability
 
-### Inspection Type
+### Operational Inspection Type
 - Routine Inspection
 - Compliance Audit
 - Safety Inspection
@@ -479,7 +479,7 @@ Inspection reports, event plans, assessment documents.
 - Follow Up Inspection
 - Spot Check
 
-### Inspection Status
+### Operational Inspection Status
 - Scheduled
 - In Progress
 - Completed
@@ -498,7 +498,7 @@ Inspection reports, event plans, assessment documents.
 - Operational Test
 - Simulation
 
-### Event Status
+### Operational Event Status
 - Planned
 - Scheduled
 - Preparation
@@ -507,28 +507,28 @@ Inspection reports, event plans, assessment documents.
 - Cancelled
 - Postponed
 
-### Performance Rating
+### Operational Performance Rating
 - Exceeds Standards
 - Meets Standards
 - Partially Meets Standards
 - Does Not Meet Standards
 - Needs Improvement
 
-### Objective Status
+### Operational Objective Status
 - Not Started
 - In Progress
 - Met
 - Partially Met
 - Not Met
 
-### Outcome Type
+### Operational Outcome Type
 - Performance Metric
 - Capability Demonstrated
 - Gap Identified
 - Lesson Learned
 - Best Practice
 
-### Event Participant Role
+### Operational Event Participant Role
 - Participant
 - Evaluator
 - Facilitator
@@ -537,14 +537,14 @@ Inspection reports, event plans, assessment documents.
 - Trainer
 - Support Staff
 
-### Participation Status
+### Operational Participation Status
 - Invited
 - Confirmed
 - Attended
 - No Show
 - Cancelled
 
-### Readiness Assessment Type
+### Operational Readiness Assessment Type
 - Mission Readiness
 - Operational Readiness
 - Go Live Readiness
@@ -553,7 +553,7 @@ Inspection reports, event plans, assessment documents.
 - Capability Assessment
 - Pre Operational Review
 
-### Assessment Status
+### Operational Assessment Status
 - Scheduled
 - In Progress
 - Completed
@@ -561,14 +561,14 @@ Inspection reports, event plans, assessment documents.
 - Approved
 - Requires Follow Up
 
-### Readiness Level
+### Operational Readiness Level
 - Fully Ready
 - Substantially Ready
 - Marginally Ready
 - Not Ready
 - Assessment Incomplete
 
-### Finding Type
+### Operational Finding Type
 - Deficiency
 - Observation
 - Best Practice
@@ -579,7 +579,7 @@ Inspection reports, event plans, assessment documents.
 - Process Gap
 - Resource Shortage
 
-### Finding Status
+### Operational Finding Status
 - Open
 - Under Review
 - Action Planned
@@ -589,7 +589,7 @@ Inspection reports, event plans, assessment documents.
 - Closed
 - Accepted Risk
 
-### Finding Source Type
+### Operational Finding Source Type
 - Incident
 - Inspection
 - Exercise
@@ -597,7 +597,7 @@ Inspection reports, event plans, assessment documents.
 - Self Assessment
 - External Audit
 
-### Recommendation Type
+### Operational Recommendation Type
 - Corrective Action
 - Preventive Action
 - Process Improvement
@@ -606,7 +606,7 @@ Inspection reports, event plans, assessment documents.
 - Policy Change
 - Best Practice Adoption
 
-### Recommendation Status
+### Operational Recommendation Status
 - Proposed
 - Under Review
 - Accepted
@@ -616,7 +616,7 @@ Inspection reports, event plans, assessment documents.
 - Verified
 - Closed
 
-### Acceptance Status
+### Operational Acceptance Status
 - Pending
 - Accepted
 - Accepted with Modifications
@@ -633,7 +633,7 @@ Inspection reports, event plans, assessment documents.
 - Innovation
 - Best Practice
 
-### Impact Status
+### Operational Impact Status
 - Submitted
 - Under Review
 - Verified
@@ -641,7 +641,7 @@ Inspection reports, event plans, assessment documents.
 - Rejected
 - Archived
 
-### Improvement Area
+### Operational Improvement Area
 - Process Efficiency
 - Cost Reduction
 - Quality Enhancement
@@ -651,14 +651,14 @@ Inspection reports, event plans, assessment documents.
 - Technology Innovation
 - Workforce Productivity
 
-### Innovation Category
+### Operational Innovation Category
 - Process Innovation
 - Technology Innovation
 - Service Innovation
 - Product Innovation
 - Management Innovation
 
-### Review Status
+### Operational Review Status
 - Pending Review
 - Under Review
 - Approved

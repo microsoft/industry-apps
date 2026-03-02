@@ -15,7 +15,7 @@ Represents a general service transaction submitted by a user for IT support, pro
 - Name: Text
 - Request Number: Text
 - Request Type: Choice (IT Request Type)
-- Request Status: Choice (Request Status)
+- Approval Status: Choice (Approval Status)
 - Priority: Choice (Priority)
 - Requested By: Lookup (Person)
 - Requesting Organization Unit: Lookup (Organization Unit)
@@ -53,7 +53,7 @@ A line-level record under an IT Service Request that references a specific IT Ca
 - Quantity: Integer
 - Unit Cost: Currency
 - Total Cost: Currency
-- Item Status: Choice (Request Item Status)
+- Item Status: Choice (IT Request Item Status)
 - Delivery Date: Date
 - Assigned To: Lookup (Person)
 - Fulfillment Notes: Memo
@@ -71,8 +71,8 @@ Represents a request submitted to obtain, modify, or remove access to systems, a
 **Planned:**
 - Name: Text
 - Request Number: Text
-- Access Request Type: Choice (Access Request Type)
-- Request Status: Choice (Request Status)
+- Access Request Type: Choice (IT Access Request Type)
+- Approval Status: Choice (Approval Status)
 - Priority: Choice (Priority)
 - Requested For: Lookup (Person)
 - Requested By: Lookup (Person)
@@ -89,7 +89,7 @@ Represents a request submitted to obtain, modify, or remove access to systems, a
 - Security Reviewer: Lookup (Person)
 - Security Approval Status: Choice (Approval Status)
 - Security Approval Date: Date
-- Fulfillment Status: Choice (Fulfillment Status)
+- Fulfillment Status: Choice (IT Fulfillment Status)
 - Fulfilled By: Lookup (Person)
 - Fulfillment Date: Date
 - Closed Date: Date
@@ -106,12 +106,12 @@ A line-level record under an IT Access Request specifying the individual entitle
 - Name: Text
 - IT Access Request: Lookup (IT Access Request)
 - Line Number: Integer
-- Access Action: Choice (Access Action)
+- Access Action: Choice (IT Access Action)
 - IT System: Lookup (IT System)
 - IT Entitlement: Lookup (IT Entitlement)
 - Current Access Level: Text
 - Requested Access Level: Text
-- Item Status: Choice (Request Item Status)
+- Item Status: Choice (IT Request Item Status)
 - Approved: Yes / No
 - Approval Date: Date
 - Provisioned: Yes / No
@@ -129,11 +129,11 @@ Defines a specific access right, permission set, license assignment, or role tha
 **Planned:**
 - Name: Text
 - Entitlement Code: Text
-- Entitlement Type: Choice (Entitlement Type)
+- Entitlement Type: Choice (IT Entitlement Type)
 - IT System: Lookup (IT System)
-- Entitlement Category: Choice (Entitlement Category)
+- Entitlement Category: Choice (IT Entitlement Category)
 - Description: Memo
-- Access Level: Choice (Access Level)
+- Access Level: Choice (IT Access Level)
 - Requires Approval: Yes / No
 - Approver: Lookup (Person)
 - Requires Manager Approval: Yes / No
@@ -156,8 +156,8 @@ Represents the assignment of an IT Entitlement to a person, account, or system. 
 - Person: Lookup (Person)
 - IT Entitlement: Lookup (IT Entitlement)
 - IT System: Lookup (IT System)
-- Assignment Status: Choice (Assignment Status)
-- Assignment Type: Choice (Assignment Type)
+- Assignment Status: Choice (IT Assignment Status)
+- Assignment Type: Choice (IT Assignment Type)
 - Start Date: Date
 - End Date: Date
 - Is Temporary: Yes / No
@@ -166,7 +166,7 @@ Represents the assignment of an IT Entitlement to a person, account, or system. 
 - Granted Date: Date
 - Last Review Date: Date
 - Next Review Date: Date
-- Review Status: Choice (Review Status)
+- Review Status: Choice (IT Review Status)
 - Revocation Date: Date
 - Revoked By: Lookup (Person)
 - Revocation Reason: Memo
@@ -186,8 +186,8 @@ Defines an orderable IT offering. Represents a published service, product packag
 - Name: Text
 - Item Code: Text
 - Parent IT Catalog Item: Lookup (IT Catalog Item)
-- Item Category: Choice (Catalog Item Category)
-- Item Type: Choice (Catalog Item Type)
+- Item Category: Choice (IT Catalog Item Category)
+- Item Type: Choice (IT Catalog Item Type)
 - Publication Status: Choice (Publication Status)
 - Visibility: Choice (Visibility)
 - Short Description: Text
@@ -219,7 +219,7 @@ A junction table linking an IT Catalog Item to one or more IT Technologies. Iden
 - Name: Text
 - IT Catalog Item: Lookup (IT Catalog Item)
 - IT Technology: Lookup (IT Technology)
-- Technology Relationship: Choice (Technology Relationship)
+- Technology Relationship: Choice (IT Technology Relationship)
 - Version: Text
 - Is Required: Yes / No
 - Notes: Memo
@@ -236,8 +236,7 @@ Represents a logical or operational information system. Serves as the primary re
 **Planned:**
 - Name: Text
 - System Code: Text
-- System Type: Choice (System Type)
-- Operational Status: Choice (Operational Status)
+- System Type: Choice (IT System Type)
 - Lifecycle Stage: Choice (Lifecycle Stage)
 - Security Classification: Choice (Security Classification)
 - Description: Memo
@@ -278,7 +277,7 @@ Represents a structural part of an IT System, such as an application module, ser
 - Parent IT System Component: Lookup (IT System Component)
 - IT System: Lookup (IT System)
 - IT System Component Type: Lookup (IT System Component Type)
-- Component Status: Choice (Operational Status)
+- Lifecycle Stage: Choice (Lifecycle Stage)
 - Description: Memo
 - Version: Text
 - Primary Location: Lookup (Location)
@@ -299,7 +298,7 @@ Defines categories or classifications of system components (e.g., Application, D
 **Planned:**
 - Name: Text
 - Type Code: Text
-- Component Category: Choice (Component Category)
+- Component Category: Choice (IT Component Category)
 - Description: Memo
 
 ---
@@ -314,7 +313,7 @@ A junction table linking an IT System (or optionally a specific System Component
 - IT System: Lookup (IT System)
 - IT System Component: Lookup (IT System Component)
 - IT Technology: Lookup (IT Technology)
-- Technology Role: Choice (Technology Role)
+- Technology Role: Choice (IT Technology Role)
 - Version: Text
 - Usage Context: Memo
 - Is Production: Yes / No
@@ -335,14 +334,14 @@ Represents a technology concept, platform, framework, protocol, runtime, standar
 - Name: Text
 - Technology Code: Text
 - IT Technology Type: Lookup (IT Technology Type)
-- Technology Status: Choice (Technology Status)
+- Technology Status: Choice (IT Technology Status)
 - Description: Memo
 - Vendor: Lookup (Account)
 - Current Stable Version: Text
 - Recommended Version: Text
 - End of Life Date: Date
 - End of Support Date: Date
-- License Type: Choice (License Type)
+- License Type: Choice (IT License Type)
 - License Cost: Currency
 - Is Approved: Yes / No
 - Approval Date: Date
@@ -378,13 +377,13 @@ Represents the physical or logical hosting environment for a system or component
 **Planned:**
 - Name: Text
 - Location Code: Text
-- Hosting Type: Choice (Hosting Type)
+- Hosting Type: Choice (IT Hosting Type)
 - Physical Location: Lookup (Location)
 - Cloud Region: Text
 - Cloud Provider: Lookup (Account)
 - Hosting Provider: Lookup (Account)
-- Environment Type: Choice (Environment Type)
-- Operational Status: Choice (Operational Status)
+- Environment Type: Choice (IT Environment Type)
+- Lifecycle Stage: Choice (Lifecycle Stage)
 - Security Classification: Choice (Security Classification)
 - Network Address Range: Text
 - Primary Contact: Lookup (Person)
@@ -408,8 +407,8 @@ Represents the formal authorization or approval status of an IT System to operat
 - Name: Text
 - Accreditation Number: Text
 - IT System: Lookup (IT System)
-- Accreditation Type: Choice (Accreditation Type)
-- Accreditation Status: Choice (Accreditation Status)
+- Accreditation Type: Choice (IT Accreditation Type)
+- Accreditation Status: Choice (IT Accreditation Status)
 - Compliance Framework: Lookup (Compliance Framework)
 - Authorization Date: Date
 - Expiration Date: Date
@@ -434,8 +433,8 @@ Represents a formal evaluation of a system, component, or technology against def
 **Planned:**
 - Name: Text
 - Assessment Number: Text
-- Assessment Type: Choice (Assessment Type)
-- Assessment Status: Choice (Assessment Status)
+- Assessment Type: Choice (IT Assessment Type)
+- Assessment Status: Choice (IT Assessment Status)
 - IT System: Lookup (IT System)
 - IT System Component: Lookup (IT System Component)
 - IT Technology: Lookup (IT Technology)
@@ -473,10 +472,10 @@ Plan of Action and Milestones (POAM) record used to track remediation of identif
 - IT System: Lookup (IT System)
 - IT System Component: Lookup (IT System Component)
 - IT Compliance Assessment: Lookup (IT Compliance Assessment)
-- POAM Status: Choice (Action Status)
+- Action Status: Choice (Action Status)
 - Priority: Choice (Priority)
 - Severity Level: Choice (Severity Level)
-- Finding Type: Choice (Finding Type)
+- Finding Type: Choice (IT Finding Type)
 - Control Reference: Text
 - Compliance Framework: Lookup (Compliance Framework)
 - Weakness Description: Memo
@@ -490,7 +489,7 @@ Plan of Action and Milestones (POAM) record used to track remediation of identif
 - Actual Completion Date: Date
 - Estimated Cost: Currency
 - Actual Cost: Currency
-- Mitigation Status: Choice (Mitigation Status)
+- Mitigation Status: Choice (IT Mitigation Status)
 - Completion Evidence: Memo
 - Verification Date: Date
 - Verified By: Lookup (Person)
@@ -551,7 +550,7 @@ System documentation, assessment reports, accreditation packages.
 - Change Request
 - Provisioning Request
 
-### Request Item Status
+### IT Request Item Status
 - Pending
 - In Progress
 - Fulfilled
@@ -559,7 +558,7 @@ System documentation, assessment reports, accreditation packages.
 - On Hold
 - Blocked
 
-### Access Request Type
+### IT Access Request Type
 - New Access
 - Modify Access
 - Remove Access
@@ -567,14 +566,14 @@ System documentation, assessment reports, accreditation packages.
 - Emergency Access
 - Transfer Access
 
-### Access Action
+### IT Access Action
 - Grant
 - Modify
 - Revoke
 - Extend
 - Transfer
 
-### Entitlement Type
+### IT Entitlement Type
 - System Access
 - Application Role
 - Data Access
@@ -583,7 +582,7 @@ System documentation, assessment reports, accreditation packages.
 - Group Membership
 - API Access
 
-### Entitlement Category
+### IT Entitlement Category
 - User Access
 - Administrative Access
 - Service Account
@@ -592,7 +591,7 @@ System documentation, assessment reports, accreditation packages.
 - Read Write
 - Full Control
 
-### Access Level
+### IT Access Level
 - None
 - Read
 - Write
@@ -601,7 +600,7 @@ System documentation, assessment reports, accreditation packages.
 - Administrator
 - Full Control
 
-### Assignment Status
+### IT Assignment Status
 - Active
 - Pending Activation
 - Suspended
@@ -609,28 +608,28 @@ System documentation, assessment reports, accreditation packages.
 - Revoked
 - Under Review
 
-### Assignment Type
+### IT Assignment Type
 - Permanent
 - Temporary
 - Emergency
 - Project Based
 - Role Based
 
-### Review Status
+### IT Review Status
 - Current
 - Review Required
 - Under Review
 - Approved
 - Revoked
 
-### Fulfillment Status
+### IT Fulfillment Status
 - Not Started
 - In Progress
 - Partially Fulfilled
 - Fulfilled
 - Cancelled
 
-### Catalog Item Category
+### IT Catalog Item Category
 - Hardware
 - Software
 - Access
@@ -640,21 +639,21 @@ System documentation, assessment reports, accreditation packages.
 - Cloud Resources
 - Support
 
-### Catalog Item Type
+### IT Catalog Item Type
 - Orderable Item
 - Service Offering
 - Access Entitlement
 - Provisioning Package
 - Consultation Service
 
-### Technology Relationship
+### IT Technology Relationship
 - Required Technology
 - Delivered Technology
 - Approved Technology
 - Restricted Technology
 - Alternative Technology
 
-### System Type
+### IT System Type
 - Business Application
 - Infrastructure System
 - Platform Service
@@ -664,7 +663,7 @@ System documentation, assessment reports, accreditation packages.
 - Development Tool
 - Enterprise System
 
-### Component Category
+### IT Component Category
 - Application
 - Database
 - API
@@ -674,7 +673,7 @@ System documentation, assessment reports, accreditation packages.
 - Network
 - Storage
 
-### Technology Role
+### IT Technology Role
 - Operating System
 - Database Platform
 - Application Framework
@@ -684,7 +683,7 @@ System documentation, assessment reports, accreditation packages.
 - Security Tool
 - Monitoring Tool
 
-### Technology Status
+### IT Technology Status
 - Approved
 - Evaluation
 - Deprecated
@@ -692,7 +691,7 @@ System documentation, assessment reports, accreditation packages.
 - End of Life
 - Not Approved
 
-### License Type
+### IT License Type
 - Commercial
 - Open Source
 - Proprietary
@@ -701,7 +700,7 @@ System documentation, assessment reports, accreditation packages.
 - Freeware
 - Government License
 
-### Hosting Type
+### IT Hosting Type
 - On Premises
 - Co-Location
 - Public Cloud
@@ -710,7 +709,7 @@ System documentation, assessment reports, accreditation packages.
 - Managed Hosting
 - Software as a Service
 
-### Environment Type
+### IT Environment Type
 - Production
 - Development
 - Test
@@ -720,7 +719,7 @@ System documentation, assessment reports, accreditation packages.
 - Sandbox
 - Disaster Recovery
 
-### Accreditation Type
+### IT Accreditation Type
 - Authority to Operate (ATO)
 - Interim Authority to Operate
 - Interim Authority to Test
@@ -728,7 +727,7 @@ System documentation, assessment reports, accreditation packages.
 - Certification
 - Self Assessment
 
-### Accreditation Status
+### IT Accreditation Status
 - Not Started
 - In Progress
 - Accredited
@@ -737,7 +736,7 @@ System documentation, assessment reports, accreditation packages.
 - Expired
 - Under Review
 
-### Assessment Type
+### IT Assessment Type
 - Security Assessment
 - Compliance Audit
 - Vulnerability Assessment
@@ -747,7 +746,7 @@ System documentation, assessment reports, accreditation packages.
 - Configuration Review
 - Annual Review
 
-### Assessment Status
+### IT Assessment Status
 - Planned
 - In Progress
 - Completed
@@ -755,7 +754,7 @@ System documentation, assessment reports, accreditation packages.
 - Approved
 - Remediation Required
 
-### Finding Type
+### IT Finding Type
 - Security Control Gap
 - Policy Violation
 - Configuration Issue
@@ -764,7 +763,7 @@ System documentation, assessment reports, accreditation packages.
 - Documentation Gap
 - Architecture Issue
 
-### Mitigation Status
+### IT Mitigation Status
 - Not Started
 - In Progress
 - Risk Accepted

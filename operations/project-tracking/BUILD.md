@@ -14,11 +14,11 @@ Represents an intake record used to propose or initiate a new project. Captures 
 **Planned:**
 - Name: Text
 - Request Number: Text
-- Request Status: Choice (Request Status)
-- Request Type: Choice (Project Type)
-- Request Priority: Choice (Request Priority)
+- Approval Status: Choice (Approval Status)
+- Request Type: Choice (Project Project Type)
+- Request Priority: Choice (Project Request Priority)
 - Submission Date: Date
-- Submission Method: Choice (Method of Receipt)
+- Submission Method: Choice (Method of Contact)
 - Submitted By: Lookup (Person)
 - Submitting Organization Unit: Lookup (Organization Unit)
 - Business Need: Memo
@@ -68,9 +68,9 @@ Represents the primary delivery record for a defined body of work with scope, ob
 **Planned:**
 - Name: Text
 - Project Code: Text
-- Project Status: Choice (Project Status)
-- Project Type: Choice (Project Type)
-- Project Health: Choice (Project Health)
+- Project Status: Choice (Project Project Status)
+- Project Type: Choice (Project Project Type)
+- Project Health: Choice (Project Project Health)
 - Health Summary: Memo
 - Parent Project: Lookup (Project)
 - Project Request: Lookup (Project Request)
@@ -129,7 +129,7 @@ Represents standardized roles used within projects (e.g., Project Manager, Busin
 **Planned:**
 - Name: Text
 - Role Code: Text
-- Role Category: Choice (Role Category)
+- Role Category: Choice (Project Role Category)
 - Description: Memo
 - Responsibilities: Memo
 - Standard Allocation Percentage: Integer
@@ -147,7 +147,7 @@ Represents the assignment of a person or resource to a project (and optionally t
 - Project: Lookup (Project)
 - Assigned Person: Lookup (Person)
 - Project Role: Lookup (Project Role)
-- Assignment Status: Choice (Resource Assignment Status)
+- Assignment Status: Choice (Project Resource Assignment Status)
 - Assignment Start Date: Date
 - Assignment End Date: Date
 - Allocation Percentage: Integer
@@ -176,8 +176,8 @@ Represents a planning container that groups and prioritizes future work items fo
 - Name: Text
 - Backlog Code: Text
 - Project: Lookup (Project)
-- Backlog Status: Choice (Backlog Status)
-- Backlog Type: Choice (Backlog Type)
+- Backlog Status: Choice (Project Backlog Status)
+- Backlog Type: Choice (Project Backlog Type)
 - Backlog Owner: Lookup (Person)
 - Description: Memo
 - Target Iteration: Lookup (Project Iteration)
@@ -195,7 +195,7 @@ Represents a defined timebox or execution cycle within a project (e.g., sprint, 
 - Name: Text
 - Iteration Code: Text
 - Project: Lookup (Project)
-- Iteration Status: Choice (Iteration Status)
+- Iteration Status: Choice (Project Iteration Status)
 - Iteration Number: Integer
 - Parent Iteration: Lookup (Project Iteration)
 - Iteration Start Date: Date
@@ -222,11 +222,11 @@ Represents the configuration table defining categories of work items (e.g., Epic
 **Planned:**
 - Name: Text
 - Type Code: Text
-- Type Category: Choice (Work Item Category)
+- Type Category: Choice (Project Work Item Category)
 - Description: Memo
 - Icon: Text
 - Color: Text
-- Default Priority: Choice (Work Item Priority)
+- Default Priority: Choice (Project Work Item Priority)
 - Requires Acceptance Criteria: Yes / No
 - Allows Time Tracking: Yes / No
 - Allows Sub Items: Yes / No
@@ -243,8 +243,8 @@ Represents the core execution record for a unit of work within a project. May re
 - Work Item Number: Text
 - Project: Lookup (Project)
 - Project Work Item Type: Lookup (Project Work Item Type)
-- Work Item Status: Choice (Work Item Status)
-- Work Item Priority: Choice (Work Item Priority)
+- Work Item Status: Choice (Project Work Item Status)
+- Work Item Priority: Choice (Project Work Item Priority)
 - Parent Work Item: Lookup (Project Work Item)
 - Project Backlog: Lookup (Project Backlog)
 - Project Iteration: Lookup (Project Iteration)
@@ -271,7 +271,7 @@ Represents the core execution record for a unit of work within a project. May re
 - Severity: Choice (Severity Level)
 - Found In Version: Text
 - Fixed In Version: Text
-- Resolution: Choice (Work Item Resolution)
+- Resolution: Choice (Project Work Item Resolution)
 - Resolution Notes: Memo
 - Test Status: Choice (Simple Certification Status)
 - Verified By: Lookup (Person)
@@ -297,9 +297,9 @@ Represents a significant event or checkpoint within a project timeline. Represen
 - Milestone Code: Text
 - Parent Milestone: Lookup (Project Milestone)
 - Project: Lookup (Project)
-- Milestone Status: Choice (Milestone Status)
-- Milestone Type: Choice (Milestone Type)
-- Milestone Category: Choice (Milestone Category)
+- Milestone Status: Choice (Project Milestone Status)
+- Milestone Type: Choice (Project Milestone Type)
+- Milestone Category: Choice (Project Milestone Category)
 - Owner: Lookup (Person)
 - Description: Memo
 - Success Criteria: Memo
@@ -332,9 +332,9 @@ Represents a formal proposal to modify approved project scope, schedule, cost, d
 - Name: Text
 - Change Request Number: Text
 - Project: Lookup (Project)
-- Change Request Status: Choice (Action Status)
-- Change Request Type: Choice (Change Request Type)
-- Change Impact Level: Choice (Change Impact Level)
+- Action Status: Choice (Action Status)
+- Change Request Type: Choice (Project Change Request Type)
+- Change Impact Level: Choice (Project Change Impact Level)
 - Requested By: Lookup (Person)
 - Requesting Organization Unit: Lookup (Organization Unit)
 - Request Date: Date
@@ -362,7 +362,7 @@ Represents a formal proposal to modify approved project scope, schedule, cost, d
 - Decision: Choice (Approval Status)
 - Decision Rationale: Memo
 - Approved By: Lookup (Person)
-- Implementation Status: Choice (Action Status)
+- Action Status: Choice (Action Status)
 - Implementation Date: Date
 - Implemented By: Lookup (Person)
 - Implementation Notes: Memo
@@ -407,7 +407,7 @@ Project charters, plans, deliverables, supporting documentation.
 
 ## New Choice Fields
 
-### Project Type
+### Project Project Type
 - IT Implementation
 - Infrastructure Project
 - Policy Initiative
@@ -420,7 +420,7 @@ Project charters, plans, deliverables, supporting documentation.
 - Maintenance Project
 - Compliance Project
 
-### Project Status
+### Project Project Status
 - Proposed
 - Approved
 - Planning
@@ -431,7 +431,7 @@ Project charters, plans, deliverables, supporting documentation.
 - Cancelled
 - Closed
 
-### Project Health
+### Project Project Health
 - Healthy
 - At Risk
 - Off Track
@@ -439,34 +439,34 @@ Project charters, plans, deliverables, supporting documentation.
 - On Hold
 - Unknown
 
-### Request Priority
+### Project Request Priority
 - Critical
 - High
 - Medium
 - Low
 - Future Consideration
 
-### Backlog Status
+### Project Backlog Status
 - Planning
 - Ready
 - Active
 - Archived
 - Closed
 
-### Backlog Type
+### Project Backlog Type
 - Product Backlog
 - Sprint Backlog
 - Release Backlog
 - Feature Backlog
 - Maintenance Backlog
 
-### Iteration Status
+### Project Iteration Status
 - Planned
 - Active
 - Completed
 - Cancelled
 
-### Work Item Category
+### Project Project Work Item Category
 - Epic
 - Feature
 - User Story
@@ -476,7 +476,7 @@ Project charters, plans, deliverables, supporting documentation.
 - Technical Debt
 - Documentation
 
-### Work Item Status
+### Project Work Item Status
 - New
 - Proposed
 - Approved
@@ -488,13 +488,13 @@ Project charters, plans, deliverables, supporting documentation.
 - Cancelled
 - Deferred
 
-### Work Item Priority
+### Project Work Item Priority
 - Critical
 - High
 - Medium
 - Low
 
-### Work Item Resolution
+### Project Work Item Resolution
 - Completed
 - Fixed
 - Verified
@@ -504,7 +504,7 @@ Project charters, plans, deliverables, supporting documentation.
 - By Design
 - Deferred
 
-### Milestone Status
+### Project Milestone Status
 - Planned
 - On Track
 - At Risk
@@ -512,7 +512,7 @@ Project charters, plans, deliverables, supporting documentation.
 - Missed
 - Cancelled
 
-### Milestone Type
+### Project Milestone Type
 - Project Start
 - Project End
 - Phase Gate
@@ -522,7 +522,7 @@ Project charters, plans, deliverables, supporting documentation.
 - Go Live
 - Customer Acceptance
 
-### Milestone Category
+### Project Milestone Category
 - Schedule
 - Deliverable
 - Decision Point
@@ -530,7 +530,7 @@ Project charters, plans, deliverables, supporting documentation.
 - Regulatory
 - Contractual
 
-### Resource Assignment Status
+### Project Resource Assignment Status
 - Proposed
 - Confirmed
 - Active
@@ -539,7 +539,7 @@ Project charters, plans, deliverables, supporting documentation.
 - Withdrawn
 - Cancelled
 
-### Role Category
+### Project Role Category
 - Management
 - Leadership
 - Technical
@@ -548,7 +548,7 @@ Project charters, plans, deliverables, supporting documentation.
 - Quality
 - Subject Matter Expert
 
-### Change Request Type
+### Project Change Request Type
 - Scope Change
 - Schedule Change
 - Budget Change
@@ -559,7 +559,7 @@ Project charters, plans, deliverables, supporting documentation.
 - Technical Change
 - Process Change
 
-### Change Impact Level
+### Project Change Impact Level
 - Minor
 - Moderate
 - Significant

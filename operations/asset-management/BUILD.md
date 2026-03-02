@@ -274,7 +274,6 @@ Represents an audit cycle or inventory verification event (e.g., Annual Inventor
 - Audit Type: Choice (Asset Audit Type)
 - Audit Start Date: Date
 - Audit End Date: Date
-- Schedule Status: Choice (Schedule Status)
 - Auditor: Lookup (Person)
 - Scope Organization Unit: Lookup (Organization Unit)
 - Scope Location: Lookup (Location)
@@ -285,6 +284,8 @@ Represents an audit cycle or inventory verification event (e.g., Annual Inventor
 - Notes: Memo
 
 **Completed Last Round:**
+- Action Status: Choice (Action Status)
+- Removed Schedule Status
 - Configure Baseline Forms
 - Configure Baseline Views
 

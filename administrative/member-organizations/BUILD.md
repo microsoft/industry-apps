@@ -13,13 +13,11 @@ Represents a structured group of people formed for a defined purpose, such as a 
 - Name: Text
 - Organization Code: Text
 - Organization Type: Lookup (Organization Type)
-- Organization Status: Choice (Operational Status)
 - Parent Organization: Lookup (Organization)
 - Affiliated Organization Unit: Lookup (Organization Unit)
 - Affiliated Account: Lookup (Account)
 - Established Date: Date
 - Dissolution Date: Date
-- Operational Status: Choice (Operational Status)
 - Visibility: Choice (Visibility)
 - Is Public: Yes / No
 - Purpose: Memo
@@ -46,6 +44,9 @@ Represents a structured group of people formed for a defined purpose, such as a 
 - Notes: Memo
 
 **Completed Last Round:**
+- Lifecycle Stage: Choice (Lifecycle Stage)
+- Removed Operational Status (Replaced with Lifecycle Stage)
+- Removed Organization Status (No longer needed)
 
 **Planned:**
 - Configure baseline form
@@ -91,7 +92,6 @@ Defines a defined period of service or operational cycle for an organization (e.
 - Term Number: Integer
 - Start Date: Date
 - End Date: Date
-- Term Status: Choice (Schedule Status)
 - Description: Memo
 - Chair: Lookup (Person)
 - Vice Chair: Lookup (Person)
@@ -99,6 +99,7 @@ Defines a defined period of service or operational cycle for an organization (e.
 - Notes: Memo
 
 **Completed Last Round:**
+- Term Status: Choice (Term Status)
 
 **Planned:**
 - Configure baseline form
@@ -138,7 +139,6 @@ Represents an individual's membership in an organization, including status and p
 - Termination Date: Date
 - Termination Reason: Memo
 - Emergency Contact Name: Text
-- Preferred Communication Method: Choice (Method of Contact)
 - Organization Member Application: Lookup (Organization Member Application)
 - Notes: Memo
 - Emergency Contact Phone: Phone
@@ -146,6 +146,7 @@ Represents an individual's membership in an organization, including status and p
 - Phone: Phone
 
 **Completed Last Round:**
+- Preferred Communication Method: Choice (Method of Contact)
 
 **Planned:**
 - Configure baseline form
@@ -252,7 +253,6 @@ Captures requests to join an organization, including applicant details, review s
 - Application Date: Date
 - Requested Membership Type: Lookup (Organization Member Type)
 - Requested Role: Lookup (Organization Role)
-- Application Method: Choice (Method of Receipt)
 - Motivation: Memo
 - Qualifications: Memo
 - Sponsor: Lookup (Person)
@@ -274,6 +274,7 @@ Captures requests to join an organization, including applicant details, review s
 - Notes: Memo
 
 **Completed Last Round:**
+- Application Method: Choice (Method of Contact)
 
 **Planned:**
 - Configure baseline form

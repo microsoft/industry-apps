@@ -10,10 +10,10 @@ Tracks lifecycle status, case type, regulatory framework, assigned staff, key da
 **Planned:**
 - Case Number | Text
 - Case Title | Text
-- Dispute Type | Choice
-- Dispute Status | Choice
-- Priority | Choice *(reuse from Core)*
-- Severity Level | Choice *(reuse from Core)*
+- Dispute Type | Choice (Dispute Dispute Type)
+- Dispute Status | Choice (Dispute Dispute Status)
+- Priority | Choice (Priority)
+- Severity Level | Choice (Severity Level)
 - Filed Date | Date
 - Close Date | Date
 - Organization Unit | Lookup *(to Organization Unit from Core)*
@@ -22,7 +22,7 @@ Tracks lifecycle status, case type, regulatory framework, assigned staff, key da
 - Legal Authority | Lookup *(to Legal Authority from Core)*
 - Is Confidential | Yes / No
 - Is Anonymous | Yes / No
-- Overall Result | Choice *(reuse from Core)*
+- Overall Result | Choice (Overall Result)
 - Description | Memo
 - Details | Memo
 
@@ -40,9 +40,9 @@ Tracks appeal authority, filing date, appeal basis, review process, and final ap
 - Appeal Title | Text
 - Dispute | Lookup *(to Dispute)*
 - Dispute Determination | Lookup *(to Dispute Determination)*
-- Appeal Basis | Choice
+- Appeal Basis | Choice (Dispute Appeal Basis)
 - Appeal Date | Date
-- Appeal Status | Choice
+- Appeal Status | Choice (Dispute Appeal Status)
 - Appellant | Lookup *(to Person from Core)*
 - Reviewing Authority | Lookup *(to Person from Core)*
 - Decision Date | Date
@@ -65,8 +65,8 @@ Examples include training requirements, disciplinary measures, policy updates, o
 - Action Title | Text
 - Dispute | Lookup *(to Dispute)*
 - Dispute Determination | Lookup *(to Dispute Determination)*
-- Corrective Action Type | Choice
-- Corrective Action Status | Choice
+- Corrective Action Type | Choice (Dispute Corrective Action Type)
+- Corrective Action Status | Choice (Dispute Corrective Action Status)
 - Assigned To | Lookup *(to Person from Core)*
 - Responsible Organization | Lookup *(to Organization Unit from Core)*
 - Due Date | Date
@@ -90,12 +90,12 @@ May include findings, remedies, dismissals, settlements, or final agency decisio
 - Determination Title | Text
 - Dispute | Lookup *(to Dispute)*
 - Dispute Issue | Lookup *(to Dispute Issue)*
-- Determination Type | Choice
+- Determination Type | Choice (Dispute Determination Type)
 - Determination Date | Date
 - Effective Date | Date
 - Deciding Official | Lookup *(to Person from Core)*
-- Approval Status | Choice *(reuse from Core)*
-- Overall Result | Choice *(reuse from Core)*
+- Approval Status | Choice (Approval Status)
+- Overall Result | Choice (Overall Result)
 - Document | Lookup *(to Document from Core)*
 - Description | Memo
 - Details | Memo
@@ -114,7 +114,7 @@ Examples include documents, communications, records, media files, and external r
 - Evidence Title | Text
 - Dispute | Lookup *(to Dispute)*
 - Dispute Investigation | Lookup *(to Dispute Investigation)*
-- Evidence Type | Choice
+- Evidence Type | Choice (Dispute Evidence Type)
 - Collection Date | Date
 - Collected By | Lookup *(to Person from Core)*
 - Submitted By | Lookup *(to Person from Core)*
@@ -137,7 +137,7 @@ Examples: Substantiated, Unsubstantiated, Inconclusive, Policy Violation Confirm
 - Dispute | Lookup *(to Dispute)*
 - Dispute Issue | Lookup *(to Dispute Issue)*
 - Dispute Investigation | Lookup *(to Dispute Investigation)*
-- Finding Type | Choice
+- Finding Type | Choice (Dispute Finding Type)
 - Finding Date | Date
 - Inspector | Lookup *(to Person from Core)*
 - Description | Memo
@@ -155,14 +155,14 @@ Supports anonymous reporting, early resolution efforts, and triage decisions.
 **Planned:**
 - Intake Number | Text
 - Intake Title | Text
-- Intake Status | Choice
+- Intake Status | Choice (Dispute Intake Status)
 - Submission Date Time | Date Time
-- Method of Contact | Choice *(reuse from Core)*
-- Method of Receipt | Choice *(reuse from Core)*
+- Method of Contact | Choice (Method of Contact)
+- Method of Contact | Choice (Method of Contact)
 - Submitted By | Lookup *(to Person from Core)*
 - Organization Unit | Lookup *(to Organization Unit from Core)*
 - Intake Specialist | Lookup *(to Person from Core)*
-- Priority | Choice *(reuse from Core)*
+- Priority | Choice (Priority)
 - Is Anonymous | Yes / No
 - Converted to Dispute | Lookup *(to Dispute)*
 - Conversion Date | Date
@@ -185,7 +185,7 @@ Includes interviewee, role, date, summary, and related evidence.
 - Interview Date Time | Date Time
 - Interviewee | Lookup *(to Person from Core)*
 - Interviewer | Lookup *(to Person from Core)*
-- Interview Type | Choice
+- Interview Type | Choice (Dispute Interview Type)
 - Location | Lookup *(to Location from Core)*
 - Duration Minutes | Integer
 - Was Recorded | Yes / No
@@ -198,7 +198,7 @@ Includes interviewee, role, date, summary, and related evidence.
 ## **Dispute Investigation**
 
 Represents the formal investigative process associated with a dispute.
-Tracks investigator assignment, scope, timeline, methodology, and completion status.
+Tracks investigator assignment, scope, timeline, methodology, and Action Status.
 
 **Completed:**
 
@@ -206,13 +206,13 @@ Tracks investigator assignment, scope, timeline, methodology, and completion sta
 - Investigation Number | Text
 - Investigation Title | Text
 - Dispute | Lookup *(to Dispute)*
-- Investigation Status | Choice
+- Investigation Status | Choice (Dispute Investigation Status)
 - Start Date | Date
 - Target Completion Date | Date
 - Actual Completion Date | Date
 - Lead Investigator | Lookup *(to Person from Core)*
 - Organization Unit | Lookup *(to Organization Unit from Core)*
-- Investigation Type | Choice
+- Investigation Type | Choice (Dispute Investigation Type)
 - Methodology | Memo
 - Scope | Memo
 - Summary | Memo
@@ -232,8 +232,8 @@ A single dispute may include multiple issues (e.g., discrimination, retaliation,
 - Issue Title | Text
 - Dispute | Lookup *(to Dispute)*
 - Parent Dispute Issue | Lookup *(to Dispute Issue)*
-- Issue Type | Choice
-- Severity Level | Choice *(reuse from Core)*
+- Issue Type | Choice (Dispute Issue Type)
+- Severity Level | Choice (Severity Level)
 - Alleged Date | Date
 - Alleged By | Lookup *(to Person from Core)*
 - Alleged Against | Lookup *(to Person from Core)*
@@ -255,14 +255,14 @@ Tracks mediator, session dates, agreements reached, and mediation outcomes.
 - Mediation Number | Text
 - Mediation Title | Text
 - Dispute | Lookup *(to Dispute)*
-- Mediation Status | Choice
+- Mediation Status | Choice (Dispute Mediation Status)
 - Scheduled Date Time | Date Time
 - Actual Date Time | Date Time
 - Mediator | Lookup *(to Person from Core)*
 - Location | Lookup *(to Location from Core)*
 - Is Voluntary | Yes / No
 - Agreement Reached | Yes / No
-- Mediation Outcome | Choice
+- Mediation Outcome | Choice (Dispute Mediation Outcome)
 - Agreement | Lookup *(to Agreement from Core)*
 - Document | Lookup *(to Document from Core)*
 - Description | Memo
@@ -281,7 +281,7 @@ Roles may include complainant, respondent, witness, representative, investigator
 - Dispute | Lookup *(to Dispute)*
 - Person | Lookup *(to Person from Core)*
 - Account | Lookup *(to Account from Core)*
-- Party Role | Choice
+- Party Role | Choice (Dispute Party Role)
 - Start Date | Date
 - End Date | Date
 - Organization Unit | Lookup *(to Organization Unit from Core)*
@@ -306,7 +306,7 @@ Examples include HR, Legal, Security, Compliance, or external agencies.
 - Referred By | Lookup *(to Person from Core)*
 - Referred To Organization | Lookup *(to Organization Unit from Core)*
 - Referred To Person | Lookup *(to Person from Core)*
-- Referral Status | Choice
+- Referral Status | Choice (Dispute Referral Status)
 - Referral Reason | Memo
 - Response Date | Date
 - Response Summary | Memo
@@ -315,7 +315,7 @@ Examples include HR, Legal, Security, Compliance, or external agencies.
 
 ## ✅ New Choice Fields for Dispute Resolution
 
-### Dispute Status
+### Dispute Dispute Status
 Values representing the lifecycle of a dispute case:
 - Intake
 - Under Review
@@ -328,7 +328,7 @@ Values representing the lifecycle of a dispute case:
 - Withdrawn
 - Referred
 
-### Dispute Type
+### Dispute Dispute Type
 Categories of disputes:
 - Discrimination
 - Harassment
@@ -343,7 +343,7 @@ Categories of disputes:
 - Reasonable Accommodation
 - Performance Issue
 
-### Appeal Status
+### Dispute Appeal Status
 Current state of an appeal:
 - Filed
 - Under Review
@@ -357,7 +357,7 @@ Current state of an appeal:
 - Withdrawn
 - Dismissed
 
-### Appeal Basis
+### Dispute Appeal Basis
 Grounds for appeal:
 - Procedural Error
 - New Evidence
@@ -368,7 +368,7 @@ Grounds for appeal:
 - Legal Error
 - Timeliness Issue
 
-### Corrective Action Type
+### Dispute Corrective Action Type
 Categories of required actions:
 - Training Required
 - Policy Revision
@@ -381,7 +381,7 @@ Categories of required actions:
 - System Enhancement
 - Communication Plan
 
-### Corrective Action Status
+### Dispute Corrective Action Status
 Progress on corrective actions:
 - Planned
 - In Progress
@@ -391,7 +391,7 @@ Progress on corrective actions:
 - Cancelled
 - Deferred
 
-### Determination Type
+### Dispute Determination Type
 Types of formal outcomes:
 - Finding
 - Settlement
@@ -402,7 +402,7 @@ Types of formal outcomes:
 - Default Decision
 - Partial Decision
 
-### Evidence Type
+### Dispute Evidence Type
 Categories of evidence:
 - Document
 - Email or Communication
@@ -415,7 +415,7 @@ Categories of evidence:
 - Report
 - Expert Opinion
 
-### Finding Type
+### Dispute Finding Type
 Conclusions from investigation:
 - Substantiated
 - Unsubstantiated
@@ -427,7 +427,7 @@ Conclusions from investigation:
 - Withdrawn
 - Resolved Informally
 
-### Intake Status
+### Dispute Intake Status
 State of initial inquiry:
 - New
 - Under Review
@@ -439,7 +439,7 @@ State of initial inquiry:
 - Closed - No Action
 - Closed - Duplicate
 
-### Investigation Status
+### Dispute Investigation Status
 Progress of investigation:
 - Not Started
 - Planning
@@ -452,7 +452,7 @@ Progress of investigation:
 - On Hold
 - Cancelled
 
-### Interview Type
+### Dispute Interview Type
 Categories of interviews:
 - Initial Interview
 - Follow-Up Interview
@@ -463,7 +463,7 @@ Categories of interviews:
 - Recorded Statement
 - Virtual Interview
 
-### Investigation Type
+### Dispute Investigation Type
 Nature of investigation:
 - Formal Investigation
 - Preliminary Inquiry
@@ -473,7 +473,7 @@ Nature of investigation:
 - Expedited Investigation
 - External Investigation
 
-### Issue Type
+### Dispute Issue Type
 Specific categories of concerns:
 - Discrimination - Age
 - Discrimination - Disability
@@ -491,7 +491,7 @@ Specific categories of concerns:
 - Misuse of Resources
 - Misconduct
 
-### Mediation Status
+### Dispute Mediation Status
 State of mediation process:
 - Scheduled
 - In Progress
@@ -502,7 +502,7 @@ State of mediation process:
 - Cancelled
 - Declined
 
-### Mediation Outcome
+### Dispute Mediation Outcome
 Result of mediation:
 - Full Settlement
 - Partial Settlement
@@ -511,7 +511,7 @@ Result of mediation:
 - Withdrawn
 - Process Terminated
 
-### Party Role
+### Dispute Party Role
 Role in dispute process:
 - Complainant
 - Respondent
@@ -524,7 +524,7 @@ Role in dispute process:
 - Support Person
 - Third Party
 
-### Referral Status
+### Dispute Referral Status
 State of referral:
 - Pending
 - Accepted

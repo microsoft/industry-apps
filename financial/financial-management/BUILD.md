@@ -66,7 +66,7 @@ Identifies the origin of funds used to finance expenditures, such as a grant, ap
 **Planned:**
 - Name: Text
 - Funding Source Code: Text
-- Funding Source Type: Choice (Funding Source Type)
+- Funding Source Type: Choice (Financial Funding Source Type)
 - Organization Unit: Lookup (Organization Unit)
 - Funding Source Status: Choice (Operational Status)
 - Total Authorized Amount: Currency
@@ -92,7 +92,7 @@ A categorization structure used to classify financial transactions, such as expe
 **Planned:**
 - Name: Text
 - Classification Code: Text
-- Classification Type: Choice (Classification Type)
+- Classification Type: Choice (Financial Classification Type)
 - Parent Classification: Lookup (Financial Classification)
 - Account Code: Text
 - Description: Memo
@@ -141,7 +141,7 @@ Line-level detail associated with a Purchase Request, specifying requested goods
 - Name: Text
 - Purchase Request: Lookup (Purchase Request)
 - Line Number: Integer
-- Item Type: Choice (Item Type)
+- Item Type: Choice (Procurement Item Type)
 - Product: Lookup (Product)
 - Description: Memo
 - Quantity: Float
@@ -215,7 +215,7 @@ A formal agreement with an external organization defining scope of work, pricing
 - Total Invoiced Amount: Currency
 - Total Paid Amount: Currency
 - Total Remaining Amount: Currency
-- Pricing Structure: Choice (Pricing Structure)
+- Pricing Structure: Choice (Contract Pricing Structure)
 - Vehicle Contract: Lookup (Contract)
 - Procurement Package: Lookup (Procurement Package)
 - Related Agreement: Lookup (Agreement)
@@ -240,7 +240,7 @@ A modification to an existing Contract that changes scope, funding amount, prici
 - Name: Text
 - Amendment Number: Text
 - Contract: Lookup (Contract)
-- Amendment Type: Choice (Amendment Type)
+- Amendment Type: Choice (Contract Amendment Type)
 - Amendment Date: Date
 - Effective Date: Date
 - Amended By: Lookup (Person)
@@ -291,13 +291,13 @@ A specific output, service, or product required under a Contract. Deliverables t
 - Name: Text
 - Contract: Lookup (Contract)
 - Deliverable Number: Text
-- Deliverable Type: Choice (Deliverable Type)
+- Deliverable Type: Choice (Contract Deliverable Type)
 - Description: Memo
 - Due Date: Date
 - Submitted Date: Date
 - Accepted Date: Date
 - Rejected Date: Date
-- Deliverable Status: Choice (Deliverable Status)
+- Deliverable Status: Choice (Contract Deliverable Status)
 - Acceptance Criteria: Memo
 - Reviewer: Lookup (Person)
 - Review Comments: Memo
@@ -315,11 +315,11 @@ A significant contractual event or date, such as kickoff, phase completion, rene
 **Planned:**
 - Name: Text
 - Contract: Lookup (Contract)
-- Milestone Type: Choice (Milestone Type)
+- Milestone Type: Choice (Contract Milestone Type)
 - Description: Memo
 - Target Date: Date
 - Actual Date: Date
-- Milestone Status: Choice (Milestone Status)
+- Milestone Status: Choice (Contract Milestone Status)
 - Responsible Party: Lookup (Account)
 - Responsible Person: Lookup (Person)
 - Is Critical: Yes / No
@@ -339,8 +339,8 @@ Represents funds that have been formally reserved or obligated for an approved f
 **Planned:**
 - Name: Text
 - Commitment Number: Text
-- Commitment Type: Choice (Commitment Type)
-- Commitment Status: Choice (Commitment Status)
+- Commitment Type: Choice (Financial Commitment Type)
+- Commitment Status: Choice (Financial Commitment Status)
 - Commitment Date: Date
 - Committed Amount: Currency
 - Expended Amount: Currency
@@ -411,7 +411,7 @@ Line-level detail within a Purchase Order specifying item or service description
 - Name: Text
 - Purchase Order: Lookup (Purchase Order)
 - Line Number: Integer
-- Item Type: Choice (Item Type)
+- Item Type: Choice (Procurement Item Type)
 - Product: Lookup (Product)
 - Contract Line: Lookup (Contract Line)
 - Description: Memo
@@ -473,7 +473,7 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 - Closed
 - Cancelled
 
-### Funding Source Type
+### Financial Funding Source Type
 - Appropriation
 - Grant
 - Contract Revenue
@@ -484,7 +484,7 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 - Operating Fund
 - Reserve Fund
 
-### Classification Type
+### Financial Classification Type
 - Expense Category
 - Revenue Category
 - Object Class
@@ -504,7 +504,7 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 - GSA Schedule
 - Cooperative Agreement
 
-### Item Type
+### Procurement Item Type
 - Goods
 - Services
 - Software
@@ -539,7 +539,7 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 - Task Order
 - Delivery Order
 
-### Pricing Structure
+### Contract Pricing Structure
 - Firm Fixed Price
 - Fixed Price with Economic Adjustment
 - Cost Plus Fixed Fee
@@ -548,7 +548,7 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 - Time and Materials
 - Labor Hour
 
-### Amendment Type
+### Contract Amendment Type
 - Funding Increase
 - Funding Decrease
 - Period Extension
@@ -565,7 +565,7 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 - Other Direct Cost
 - Subcontract
 
-### Deliverable Type
+### Contract Deliverable Type
 - Report
 - Software
 - Data Set
@@ -575,7 +575,7 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 - Physical Product
 - Service Completion
 
-### Deliverable Status
+### Contract Deliverable Status
 - Not Started
 - In Progress
 - Submitted
@@ -584,7 +584,7 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 - Rejected
 - Resubmitted
 
-### Milestone Type
+### Contract Milestone Type
 - Contract Award
 - Kickoff
 - Phase Start
@@ -594,7 +594,7 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 - Option Exercise
 - Contract Closeout
 
-### Milestone Status
+### Contract Milestone Status
 - Upcoming
 - Due Soon
 - Completed On Time
@@ -602,12 +602,22 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 - Missed
 - Cancelled
 
-### Commitment Type
+### Financial Commitment Type
 - Purchase Order
 - Contract Obligation
 - Grant Award
 - Reserved Funds
 - Encumbrance
+
+### Financial Commitment Status
+- Draft
+- Pending Certification
+- Certified
+- Active
+- Partially Expended
+- Fully Expended
+- Closed
+- Cancelled
 
 ### Purchase Order Type
 - Standard

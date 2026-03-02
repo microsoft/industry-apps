@@ -10,8 +10,6 @@ The **Investigations module** supports the structured intake, management, analys
 Primary case record. Tracks lifecycle status, ownership, classification, key dates, confidentiality, and overall disposition.
 
 **Completed:**
-
-**Planned:**
 - Name: Text
 - Case Number: Text
 - Parent Investigation: Lookup (Investigation)
@@ -19,7 +17,6 @@ Primary case record. Tracks lifecycle status, ownership, classification, key dat
 - Investigative Category: Lookup (Investigative Category)
 - Case Status: Choice (Investigation Status)
 - Priority: Choice (Priority)
-- Severity Level: Choice (Severity Level)
 - Security Classification: Choice (Security Classification)
 - Visibility: Choice (Visibility)
 - Is Confidential: Yes / No
@@ -48,6 +45,11 @@ Primary case record. Tracks lifecycle status, ownership, classification, key dat
 - Closure Rationale: Memo
 - Notes: Memo
 
+**Completed Last Round:**
+- Severity Level: Choice (Degree)
+
+**Planned:**
+
 ---
 
 ### Investigation Intake
@@ -58,7 +60,6 @@ Initial allegation or referral submission before or at case creation. Captures s
 - Intake Number: Text
 - Intake Date Time: Date Time
 - Intake Status: Choice (Investigation Intake Status)
-- Method of Receipt: Choice (Method of Receipt)
 - Received By: Lookup (Person)
 - Reporter Person: Lookup (Person)
 - Reporter Account: Lookup (Account)
@@ -84,6 +85,9 @@ Initial allegation or referral submission before or at case creation. Captures s
 - Supporting Document: Lookup (Document)
 - Notes: Memo
 
+**Completed Last Round:**
+- Method of Contact: Choice (Method of Contact)
+
 **Planned:**
 
 ---
@@ -108,8 +112,10 @@ Specific claim or accusation being evaluated within a case. A case may contain m
 - Regulation Violated: Text
 - Legal Authority: Lookup (Legal Authority)
 - Estimated Monetary Impact: Currency
-- Severity Level: Choice (Severity Level)
 - Notes: Memo
+
+**Completed Last Round:**
+- Severity Level: Choice (Degree)
 
 **Planned:**
 
@@ -124,13 +130,15 @@ Structured question, policy element, or control area being examined. Often used 
 - Investigation Allegation: Lookup (Investigation Allegation)
 - Issue Type: Choice (Investigation Issue Type)
 - Issue Category: Text
-- Issue Status: Choice (Issue Status)
 - Policy Reference: Text
 - Control Reference: Text
 - Question: Memo
 - Analysis: Memo
 - Conclusion: Memo
 - Notes: Memo
+
+**Completed Last Round:**
+- Issue Resolution Status: Choice (Issue Resolution Status)
 
 **Planned:**
 
@@ -194,12 +202,14 @@ Person or organization involved in the case (subject, reporter, witness, impacte
 - Party Type: Choice (Party Type)
 - Organization Unit: Lookup (Organization Unit)
 - Contact Information: Text
-- Participation Status: Choice (Participation Status)
 - First Contact Date: Date
 - Last Contact Date: Date
 - Is Protected: Yes / No
 - Confidentiality Level: Choice (Security Classification)
 - Notes: Memo
+
+**Completed Last Round:**
+- Cooperation Status: Choice (Cooperation Status)
 
 **Planned:**
 
@@ -245,7 +255,6 @@ Documents scope, objectives, methodology, milestones, and investigative strategy
 **Completed:**
 - Name: Text
 - Investigation: Lookup (Investigation)
-- Plan Status: Choice (Plan Status)
 - Plan Date: Date
 - Prepared By: Lookup (Person)
 - Scope: Memo
@@ -260,6 +269,10 @@ Documents scope, objectives, methodology, milestones, and investigative strategy
 - Approval Date: Date
 - Supporting Document: Lookup (Document)
 - Notes: Memo
+
+**Completed Last Round:**
+- Remove Plan Status (replaced with Publication Status)
+- Plan Status: Choice (Publication Status)
 
 **Planned:**
 
@@ -293,10 +306,12 @@ Any collected material (document, image, device, log file, physical object).
 - Evidence Storage Location: Lookup (Evidence Storage Location)
 - Chain of Custody Verified: Yes / No
 - Relevance: Memo
-- Potential Evidentiary Value: Choice (High Medium Low)
 - Security Classification: Choice (Security Classification)
 - Supporting Document: Lookup (Document)
 - Notes: Memo
+
+**Completed Last Round:**
+- Potential Evidentiary Value: Choice (Degree)
 
 **Planned:**
 
@@ -411,7 +426,6 @@ Scheduled or completed interview session related to the case.
 - Investigation: Lookup (Investigation)
 - Interview Number: Text
 - Interview Type: Choice (Investigation Interview Type)
-- Interview Status: Choice (Interview Status)
 - Scheduled Date Time: Date Time
 - Actual Date Time: Date Time
 - Duration (Minutes): Integer
@@ -431,6 +445,10 @@ Scheduled or completed interview session related to the case.
 - Supporting Document: Lookup (Document)
 - Notes: Memo
 
+**Completed Last Round:**
+- Attendance Status: Choice (Attendance Status)
+- Cooperation Status: Choice (Cooperation Status)
+
 **Planned:**
 
 ---
@@ -443,11 +461,15 @@ Links participants to interviews and defines their role (interviewer, witness, o
 - Investigation Interview: Lookup (Investigation Interview)
 - Person: Lookup (Person)
 - Participant Role: Choice (Investigation Interview Participant Role)
-- Participation Status: Choice (Participation Status)
 - Attendance Confirmed: Yes / No
 - Notes: Memo
 
+**Completed Last Round:**
+- Attendance Status: Choice (Attendance Status)
+- Cooperation Status: Choice (Cooperation Status)
+
 **Planned:**
+
 
 ---
 
@@ -473,11 +495,13 @@ Formal conclusion regarding an allegation or issue (substantiated, unsubstantiat
 - Policy Reference: Text
 - Determined By: Lookup (Person)
 - Monetary Impact: Currency
-- Severity Level: Choice (Severity Level)
 - Requires Corrective Action: Yes / No
 - Requires Referral: Yes / No
 - Supporting Document: Lookup (Document)
 - Notes: Memo
+
+**Completed Last Round:**
+- Severity Level: Choice (Degree)
 
 **Planned:**
 
@@ -639,7 +663,6 @@ Records referrals made to or received from internal or external entities.
 - Referred To Organization Unit: Lookup (Organization Unit)
 - Referred To Contact: Lookup (Person)
 - Referred By: Lookup (Person)
-- Referral Status: Choice (Referral Status)
 - Referral Summary: Memo
 - Justification: Memo
 - Response Required: Yes / No
@@ -648,6 +671,10 @@ Records referrals made to or received from internal or external entities.
 - Response Summary: Memo
 - Supporting Document: Lookup (Document)
 - Notes: Memo
+
+**Completed Last Round:**
+- Removed Referral Status pointing to Referral Status (replaced with Recommendation Status)
+- Referral Status: Choice (Recommendation Status)
 
 **Planned:**
 

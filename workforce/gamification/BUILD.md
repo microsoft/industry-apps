@@ -14,15 +14,15 @@ Represents a structured gamification initiative or campaign. A Game defines the 
 **Planned:**
 - Name: Text
 - Game Code: Text
-- Game Type: Choice (Game Type)
+- Game Type: Choice (Gamification Game Type)
 - Description: Memo
 - Objectives: Memo
-- Game Status: Choice (Game Status)
+- Game Status: Choice (Gamification Game Status)
 - Visibility: Choice (Visibility)
 - Start Date: Date
 - End Date: Date
 - Is Ongoing: Yes / No
-- Participation Model: Choice (Participation Model)
+- Participation Model: Choice (Gamification Participation Model)
 - Open Enrollment: Yes / No
 - Requires Approval: Yes / No
 - Owner Organization Unit: Lookup (Organization Unit)
@@ -52,9 +52,9 @@ Defines the types of actions that are tracked within a Game. Activities represen
 - Game: Lookup (Game)
 - Parent Game Activity: Lookup (Game Activity)
 - Activity Code: Text
-- Activity Type: Choice (Activity Type)
+- Activity Type: Choice (Gamification Activity Type)
 - Description: Memo
-- Activity Status: Choice (Operational Status)
+- Lifecycle Stage: Choice (Lifecycle Stage)
 - Points Value: Integer
 - Can Repeat: Yes / No
 - Maximum Occurrences: Integer
@@ -75,14 +75,14 @@ Defines the achievements that can be earned within a Game. These may represent b
 - Game: Lookup (Game)
 - Parent Game Achievement: Lookup (Game Achievement)
 - Achievement Code: Text
-- Achievement Type: Choice (Achievement Type)
+- Achievement Type: Choice (Gamification Achievement Type)
 - Description: Memo
-- Achievement Status: Choice (Operational Status)
+- Lifecycle Stage: Choice (Lifecycle Stage)
 - Points Required: Integer
 - Criteria: Memo
 - Required Activities: Memo
 - Prerequisite Achievements: Memo
-- Award Criteria Type: Choice (Award Criteria Type)
+- Award Criteria Type: Choice (Gamification Award Criteria Type)
 - Can Be Revoked: Yes / No
 - Is Public: Yes / No
 - Tier Level: Integer
@@ -108,8 +108,8 @@ Represents an individual or team enrolled in a specific Game. This table tracks 
 - Person: Lookup (Person)
 - Participant Organization Unit: Lookup (Organization Unit)
 - Team Name: Text
-- Participant Type: Choice (Participant Type)
-- Participation Status: Choice (Participation Status)
+- Participant Type: Choice (Gamification Participant Type)
+- Participation Status: Choice (Gamification Participation Status)
 - Enrollment Date: Date
 - Start Date: Date
 - Completion Date: Date
@@ -139,9 +139,9 @@ Logs instances of Participants performing defined Game Activities. This table ca
 - Game Activity: Lookup (Game Activity)
 - Person: Lookup (Person)
 - Activity Date Time: Date Time
-- Activity Status: Choice (Activity Record Status)
+- Activity Status: Choice (Gamification Activity Record Status)
 - Points Earned: Integer
-- Verification Status: Choice (Verification Status)
+- Verification Status: Choice (Gamification Verification Status)
 - Verified By: Lookup (Person)
 - Verification Date: Date
 - Verification Notes: Memo
@@ -169,7 +169,7 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 - Game: Lookup (Game)
 - Game Achievement: Lookup (Game Achievement)
 - Person: Lookup (Person)
-- Achievement Status: Choice (Achievement Record Status)
+- Achievement Status: Choice (Gamification Achievement Record Status)
 - Earned Date: Date
 - Awarded Date: Date
 - Awarded By: Lookup (Person)
@@ -177,7 +177,7 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 - Revoked By: Lookup (Person)
 - Revoke Reason: Memo
 - Points Earned: Integer
-- Recognition Status: Choice (Recognition Status)
+- Recognition Status: Choice (Gamification Recognition Status)
 - Certificate Issued: Yes / No
 - Certificate Issued Date: Date
 - Certificate Document: Lookup (Document)
@@ -196,7 +196,7 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 
 ## New Choice Fields
 
-### Game Type
+### Gamification Game Type
 - Training Challenge
 - Performance Drive
 - Compliance Campaign
@@ -208,7 +208,7 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 - Onboarding Program
 - Community Engagement
 
-### Game Status
+### Gamification Game Status
 - Planning
 - Open for Enrollment
 - Active
@@ -217,7 +217,7 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 - Archived
 - Cancelled
 
-### Participation Model
+### Gamification Participation Model
 - Individual
 - Team
 - Department
@@ -225,7 +225,7 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 - Invitation Only
 - Tiered
 
-### Activity Type
+### Gamification Activity Type
 - Training Completion
 - Task Completion
 - Event Attendance
@@ -239,7 +239,7 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 - Innovation Submission
 - Volunteer Hours
 
-### Achievement Type
+### Gamification Achievement Type
 - Badge
 - Level
 - Tier
@@ -250,7 +250,7 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 - Recognition
 - Reward
 
-### Award Criteria Type
+### Gamification Award Criteria Type
 - Points Threshold
 - Activity Count
 - Activity Streak
@@ -258,14 +258,14 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 - Performance Based
 - Combination
 
-### Participant Type
+### Gamification Participant Type
 - Individual Participant
 - Team Member
 - Team Lead
 - Game Administrator
 - Observer
 
-### Participation Status
+### Gamification Participation Status
 - Invited
 - Enrolled
 - Active
@@ -274,28 +274,28 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 - Withdrawn
 - Disqualified
 
-### Activity Record Status
+### Gamification Activity Record Status
 - Pending
 - Verified
 - Rejected
 - Expired
 - Voided
 
-### Verification Status
+### Gamification Verification Status
 - Not Required
 - Pending Verification
 - Verified
 - Rejected
 - Needs Information
 
-### Achievement Record Status
+### Gamification Achievement Record Status
 - Earned
 - Awarded
 - Pending Approval
 - Revoked
 - Expired
 
-### Recognition Status
+### Gamification Recognition Status
 - Not Recognized
 - Pending
 - Recognized

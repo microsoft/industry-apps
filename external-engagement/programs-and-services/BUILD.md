@@ -14,7 +14,7 @@ Represents a high-level initiative or policy area under which services are offer
 **Planned:**
 - Name: Text
 - Program Code: Text
-- Program Status: Choice (Operational Status)
+- Lifecycle Stage: Choice (Lifecycle Stage)
 - Program Type: Choice (Program Type)
 - Parent Program: Lookup (Program)
 - Administering Organization Unit: Lookup (Organization Unit)
@@ -47,7 +47,7 @@ Represents a defined type of service provided under a Program. A Service describ
 - Service Code: Text
 - Program: Lookup (Program)
 - Service Category: Lookup (Service Category)
-- Service Status: Choice (Operational Status)
+- Lifecycle Stage: Choice (Lifecycle Stage)
 - Service Type: Choice (Service Type)
 - Description: Memo
 - Service Scope: Memo
@@ -210,7 +210,7 @@ Represents a person's or organization's enrollment or engagement in a specific S
 - Participant Person: Lookup (Person)
 - Participant Account: Lookup (Account)
 - On Behalf Of Person: Lookup (Person)
-- Participation Status: Choice (Participation Status)
+- Cooperation Status: Choice (Cooperation Status)
 - Enrollment Date: Date
 - Enrollment Method: Choice (Method of Contact)
 - Effective Start Date: Date
@@ -248,7 +248,7 @@ Represents an operational event or action performed during delivery of a Service
 - Activity Number: Text
 - Service Participation: Lookup (Service Participation)
 - Activity Type: Choice (Activity Type)
-- Activity Status: Choice (Action Status)
+- Action Status: Choice (Action Status)
 - Activity Date: Date
 - Activity Date Time: Date Time
 - Performed By: Lookup (Person)

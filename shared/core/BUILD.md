@@ -48,11 +48,13 @@ Categorizes organization units by hierarchical level or functional purpose (e.g.
 - Program Manager: Lookup (Contact)
 - Start Date: Date
 - End Date: Date
-- Operational Status: Choice (Operational Status)
 - Priority: Choice (Priority)
 - Budget Amount: Currency
 - Description: Memo
 - Expected Outcomes: Memo
+
+**Completed Last Round:**
+- Lifecycle Stage: Choice (Lifecycle Stage)
 
 **Added:**
 - Parent Organization Initiative: Lookup (Organization Initiative)
@@ -97,7 +99,9 @@ Represents physical locations, facilities, buildings, or sites where work occurs
 - Parent Judicial District: Lookup (Judicial District)
 
 **Planned:**
+
 ---
+
 ## People & Workforce
 
 ### Personal Information
@@ -114,7 +118,9 @@ Represents physical locations, facilities, buildings, or sites where work occurs
 - Security Classification: Choice (Security Classification)
 
 **Planned:**
+
 ---
+
 ### Personal Information Type
 **Completed:**
 - Name: Text
@@ -125,6 +131,7 @@ Represents physical locations, facilities, buildings, or sites where work occurs
 - Description: Memo
 
 **Planned:**
+
 ---
 
 ### Personnel Type
@@ -135,7 +142,9 @@ Represents physical locations, facilities, buildings, or sites where work occurs
 - Description: Memo
 
 **Planned:**
+
 ---
+
 ### Job Series
 **Completed:**
 - Name: Text
@@ -144,7 +153,9 @@ Represents physical locations, facilities, buildings, or sites where work occurs
 - Description: Memo
 
 **Planned:**
+
 ---
+
 ### Grade-Rank
 **Completed:**
 - Name: Text
@@ -156,6 +167,7 @@ Represents physical locations, facilities, buildings, or sites where work occurs
 - Description: Memo
 
 **Planned:**
+
 ---
 
 ### Pay Grade
@@ -170,7 +182,9 @@ Represents physical locations, facilities, buildings, or sites where work occurs
 - Description: Memo
 
 **Planned:**
+
 ---
+
 ### Clearance Level
 **Completed:**
 - Name: Text
@@ -179,7 +193,9 @@ Represents physical locations, facilities, buildings, or sites where work occurs
 - Description: Memo
 
 **Planned:**
+
 ---
+
 ### Credential Type
 **Completed:**
 
@@ -318,6 +334,7 @@ Represents tasks, action items, or follow-up items assigned to individuals or te
 - Supporting Document: Lookup (Document)
 
 **Planned:**
+
 ---
 ## Legal & Compliance
 
@@ -338,6 +355,7 @@ Represents tasks, action items, or follow-up items assigned to individuals or te
 - Document: Lookup (Document)
 
 **Planned:**
+
 ---
 ### Legal Amendment
 **Completed:**
@@ -352,6 +370,7 @@ Represents tasks, action items, or follow-up items assigned to individuals or te
 - Document: Lookup (Document)
 
 **Planned:**
+
 ---
 ### Legal Cross-Reference
 **Completed:**
@@ -363,6 +382,7 @@ Represents tasks, action items, or follow-up items assigned to individuals or te
 - Description: Memo
 
 **Planned:**
+
 ---
 ### Compliance Framework
 **Completed:**
@@ -381,6 +401,7 @@ Represents tasks, action items, or follow-up items assigned to individuals or te
 - Parent Compliance Framework: Lookup (Compliance Framework)
 
 **Planned:**
+
 ---
 ### Compliance Framework Category
 **Completed:**
@@ -409,9 +430,9 @@ Represents tasks, action items, or follow-up items assigned to individuals or te
 - Description: Memo
 - Control Objective: Memo
 - Supporting Document: Lookup (Document)
+- Parent Compliance Requirement: Lookup (Compliance Requirement)
 
 **Added:**
-- Parent Compliance Requirement: Lookup (Compliance Requirement)
 
 **Planned:**
 ---
@@ -443,17 +464,19 @@ Represents tasks, action items, or follow-up items assigned to individuals or te
 - Identified By: Lookup (Contact)
 - Identified By User: Lookup (User)
 - Owning Organization Unit: Lookup (Organization Unit)
-- Likelihood: Choice (High Medium Low)
-- Severity: Choice (Severity Level)
-- Overall Risk Level: Choice (High Medium Low)
 - Action Status: Choice (Action Status)
 - Description: Memo
 - Impact Description: Memo
 - Mitigation Strategy: Memo
-
-**Added:**
 - Parent Risk Item: Lookup (Risk Item)
 - Analysis: Lookup (Analysis)
+
+**Added:**
+
+**Completed Last Round:**
+- Likelihood: Choice (Degree)
+- Severity: Choice (Degree)
+- Overall Risk Level: Choice (Degree)
 
 **Planned:**
 
@@ -464,17 +487,19 @@ Represents tasks, action items, or follow-up items assigned to individuals or te
 - General Category: Choice (General Category)
 - Impact Date: Date
 - Affected Organization Unit: Lookup (Organization Unit)
-- Severity: Choice (Severity Level)
 - Direction: Choice (Direction)
 - Polarity: Choice (Polarity)
 - Related Risk: Lookup (Risk Item)
 - Description: Memo
 - Financial Impact: Currency
 - Mitigation Actions: Memo
-
-**Added:**
 - Parent Impact: Lookup (Impact)
 - Analysis: Lookup (Analysis)
+
+**Added:**
+
+**Completed Last Round:**
+- Severity: Choice (Degree)
 
 **Planned:**
 
@@ -500,6 +525,7 @@ Represents tasks, action items, or follow-up items assigned to individuals or te
 - File Size: Integer
 
 **Planned:**
+
 ---
 ### Content Template
 **Completed:**
@@ -511,6 +537,7 @@ Represents tasks, action items, or follow-up items assigned to individuals or te
 - Effective Date: Date
 
 **Planned:**
+
 ---
 ## Privacy
 
@@ -530,6 +557,7 @@ Represents tasks, action items, or follow-up items assigned to individuals or te
 - Supporting Document: Lookup (Document)
 
 **Planned:**
+
 ---
 ## Product
 
@@ -544,6 +572,7 @@ Represents tasks, action items, or follow-up items assigned to individuals or te
 - Specifications: Memo
 
 **Planned:**
+
 ---
 ## Financial Periods
 
@@ -576,28 +605,20 @@ Status of action items or tasks.
 - Submitted for Review
 - Review In Progress
 - Returned
-- Complete
+- Completed
 - Cancelled
 - Deferred (On Hold)
 
 ### Approval Status
-Tracks approval workflow status.
-- Pending
+Tracks approval and request workflow status.
+- Pending Submission
+- Review In Progress
 - Approved
 - Rejected
-- Cancelled
 - Returned
 - Recalled
-
-### Method of Receipt
-How items or requests were received.
-- Web Portal
-- Phone
-- Email
-- In Person
-- Fax
-- Mail
-- Social Media
+- Withdrawn / Cancelled
+- On Hold
 
 ### Priority
 Standard priority levels.
@@ -621,23 +642,14 @@ Defines stages in a typical lifecycle (e.g., Planning, Active, Complete, Archive
 - Cancelled
 - Archived
 
-### Operational Status
-General operational status applicable across entities (e.g., Draft, Pending, Active, Inactive).
-- Draft
-- Pending
-- Active
-- Inactive
-- Suspended
-- Closed
-
 ### Publication Status
-Status of published content or documents.
+Status of documents, plans, and published content.
 - Draft
 - In Review
 - Approved
 - Published
+- Revised
 - Archived
-- Withdrawn
 
 ### Visibility
 Controls who can view records (e.g., Public, Internal, Restricted).
@@ -653,12 +665,6 @@ Severity classification for risks, incidents, or impacts.
 - Moderate
 - Low
 - Minimal
-
-### High Medium Low
-Simple three-level rating scale.
-- High
-- Medium
-- Low
 
 ### Security Classification
 Data security classification levels.
@@ -776,16 +782,6 @@ Type or source of submission.
 - Third Party
 - Automatic
 - Bulk Import
-
-### Request Status
-Status of requests or applications.
-- Submitted
-- Under Review
-- Pending Information
-- Approved
-- Rejected
-- Withdrawn
-- Completed
 
 ### Eligibility Status
 Eligibility determination status.
@@ -943,15 +939,6 @@ Frequency of scheduled activities.
 - As Needed
 - Specific Days
 
-### Schedule Status
-Status of scheduled items or activities.
-- Scheduled
-- In Progress
-- Completed
-- Cancelled
-- On Hold
-- Overdue
-
 ### Assignment Status
 - Active
 - Pending Return
@@ -996,8 +983,8 @@ Party classification for individuals and organizations.
 - Department
 - External Entity
 
-### Participation Status
-Status of party engagement or participation.
+### Cooperation Status
+Status of party engagement or cooperation.
 - Identified
 - Contacted
 - Cooperative
@@ -1005,30 +992,11 @@ Status of party engagement or participation.
 - Unavailable
 - Declined to Participate
 
-### Plan Status
-Status of planning documents and initiatives.
-- Draft
-- Under Review
-- Approved
-- Active
-- Revised
-- Completed
-
-### Issue Status
-Simple issue tracking lifecycle.
-- Open
-- Under Review
-- Resolved
-- Closed
-
 ### Finding Status
 Status of assessment or investigation findings.
 - Draft
 - Under Review
 - Finalized
-- Appealed
-- Upheld
-- Overturned
 
 ### Finding Result
 Outcome determination for findings or assessments.
@@ -1040,13 +1008,15 @@ Outcome determination for findings or assessments.
 - Unable to Determine
 
 ### Recommendation Status
-Status of recommendations from audits, reviews, or assessments.
-- Proposed
+Status of recommendations and referrals from audits, reviews, or assessments.
+- Draft
+- Submitted
 - Under Review
+- Acknowledged
 - Accepted
 - Rejected
-- Modified
 - Implemented
+- Withdrawn
 - Closed
 
 ### Report Type
@@ -1092,7 +1062,88 @@ Defines relationships between related cases or investigations.
 - Systemic Issue
 - Similar Pattern
 
-### Interview Status
+### Appeal Status
+Status of appeal processes for findings, decisions, or determinations.
+- Submitted for Appeal
+- Appeal Denied
+- Appeal Granted
+- Appeal Partially Granted
+- Remanded for Review
+- Withdrawn
+
+### Attendance Status
+Status of attendance at meetings, events, or scheduled activities.
+- Expected
+- Confirmed
+- Attended
+- Partially Attended
+- No Show
+- Excused Absence
+- Late
+- Cancelled
+
+### Term Status
+Status of time-based periods, terms, or cycles.
+- Upcoming
+- Current
+- Extended
+- Shortened
+- Completed
+- Suspended
+- Cancelled
+- Renewed
+
+### Issue Resolution Status
+Status of issue or incident resolution.
+- New
+- In Review
+- Confirmed Issue
+- Resolved
+- Mitigated
+- No Action Required
+- Closed as Unresolved
+
+### Pass Fail Status
+Outcome of quality assurance reviews or inspections.
+- Passed
+- Passed with Notes
+- Failed
+
+### Degree
+- Extreme
+- High
+- Medium
+- Low
+- Minimal
+- None
+
+### Simple Degree
+- High
+- Medium
+- Low
+
+**Planned:**
+
+**Removed:**
+
+### Issue Status - Replaced with Issue Resolution Status
+Simple issue tracking lifecycle.
+- Open
+- Under Review
+- Resolved
+- Closed
+
+### Method of Receipt - Replaced with Method of Contact
+How items or requests were received.
+- Web Portal
+- Phone
+- Email
+- In Person
+- Fax
+- Mail
+- Social Media
+
+### Interview Status - Replaced with Schedule Status
 Status of scheduled or completed interviews.
 - Scheduled
 - Conducted
@@ -1100,7 +1151,41 @@ Status of scheduled or completed interviews.
 - Rescheduled
 - Declined
 
-### Referral Status
+### High Medium Low - Replaced with Degree
+Simple three-level rating scale.
+- High
+- Medium
+- Low
+
+### Schedule Status - Replaced with Action Status, Attendance Status, or Term Status
+Status of scheduled items or activities.
+- Scheduled
+- In Progress
+- Completed
+- Cancelled
+- On Hold
+- Overdue
+
+### Request Status - Merged into Approval Status
+Status of requests or applications.
+- Submitted
+- Under Review
+- Pending Information
+- Approved
+- Rejected
+- Withdrawn
+- Completed
+
+### Plan Status - Replaced with Publication Status
+Status of planning documents and initiatives.
+- Draft
+- Under Review
+- Approved
+- Active
+- Revised
+- Completed
+
+### Referral Status (old) - Merged into Recommendation Status
 Status of referrals to or from other entities.
 - Pending
 - Submitted
@@ -1109,6 +1194,22 @@ Status of referrals to or from other entities.
 - Completed
 - Declined
 
+### Participation Status - Renamed to Cooperation Status
+Status of party engagement or participation.
+- Identified
+- Contacted
+- Cooperative
+- Uncooperative
+- Unavailable
+- Declined to Participate
 
+### Operational Status - Replace with Lifecycle Stage or Is Active field
+General operational status applicable across entities (e.g., Draft, Pending, Active, Inactive).
+- Draft
+- Pending
+- Active
+- Inactive
+- Suspended
+- Closed
 
-
+**To Remove:**

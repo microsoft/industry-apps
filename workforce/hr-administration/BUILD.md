@@ -210,9 +210,9 @@ Represents a defined job role or classification (title, exempt status, bargainin
 
 **Completed Last Round:**
 - Configure Baseline Form
+- Configure Baseline View
 
 **Planned:**
-- Configure Baseline View
 - Configure Quick Create Form
 - Configure Related Subgrids
 ---
@@ -257,14 +257,12 @@ Represents a defined job role or classification (title, exempt status, bargainin
 
 - Request Number: Text
 - Request Type: Choice (HR Request Type)
-- Request Status: Choice (Request Status)
 - Person: Lookup (Person)
 - Requesting Organization Unit: Lookup (Organization Unit)
 - Request Date: Date
 - Requested Start Date: Date
 - Requested End Date: Date
 - Priority: Choice (Priority)
-- Approval Status: Choice (Approval Status)
 - Approved By: Lookup (Person)
 - Approval Date: Date
 - Denial Reason: Memo
@@ -273,10 +271,13 @@ Represents a defined job role or classification (title, exempt status, bargainin
 - Notes: Memo
 
 **Completed Last Round:**
+- Request Status: Choice (Approval Status) - changed from Choice (Request Status)
+- Removed Approval Status (now handled by Request Status)
 - Configure Baseline Form
 - Configure Baseline View
 
 **Planned:**
+- Request Status: Choice (Approval Status)
 - Configure Quick Create Form
 - Configure Related Subgrids
 ---
@@ -288,7 +289,6 @@ Represents the header record for employee leave requests, including leave type, 
 - HR Request: Lookup (HR Request)
 - Person: Lookup (Person)
 - Leave Type: Choice (HR Leave Type)
-- Request Status: Choice (Request Status)
 - Request Date: Date
 - Start Date: Date
 - End Date: Date
@@ -306,6 +306,7 @@ Represents the header record for employee leave requests, including leave type, 
 - Supporting Document: Lookup (Document)
 
 **Completed Last Round:**
+- Removed Request Status (redundant with Approval Status)
 - Configure Baseline Form
 - Configure Baseline View
 
@@ -376,7 +377,6 @@ Captures employee requests for telework or remote work arrangements, including s
 - HR Request: Lookup (HR Request)
 - Person: Lookup (Person)
 - Telework Type: Choice (Telework Type)
-- Request Status: Choice (Request Status)
 - Request Date: Date
 - Start Date: Date
 - End Date: Date
@@ -397,6 +397,7 @@ Captures employee requests for telework or remote work arrangements, including s
 - Safety Checklist Completed: Yes / No
 
 **Completed Last Round:**
+- Removed Request Status (now handled by Approval Status)
 - Configure Baseline Form
 - Configure Baseline View
 
@@ -414,7 +415,6 @@ Tracks requests and fulfillment of workplace accommodations, including approval 
 - HR Request: Lookup (HR Request)
 - Person: Lookup (Person)
 - Accommodation Type: Choice (Accommodation Type)
-- Request Status: Choice (Request Status)
 - Request Date: Date
 - Need Description: Memo
 - Requested Accommodation: Memo
@@ -439,6 +439,7 @@ Tracks requests and fulfillment of workplace accommodations, including approval 
 - Is Temporary: Yes / No
 
 **Completed Last Round:**
+- Removed Request Status (now handled by Approval Status)
 - Configure Baseline Form
 - Configure Baseline View
 

@@ -10,8 +10,18 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_hremploymentmilestoneid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="182" />
+          <cell name="appbase_person" width="100" />
+          <cell name="appbase_milestonetype" width="128" />
+          <cell name="appbase_milestonedate" width="126" />
+          <cell name="appbase_milestonestatus" width="134" />
+          <cell name="appbase_recognitionprovided" width="163" />
+          <cell name="appbase_yearsofservice" width="132" />
+          <cell name="appbase_notificationdate" width="138" />
+          <cell name="appbase_notificationsent" width="137" />
+          <cell name="appbase_recordeddate" width="124" />
+          <cell name="appbase_recordedby" width="114" />
+          <cell name="appbase_description" width="234" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +31,21 @@
         <entity name="appbase_hremploymentmilestone">
           <attribute name="appbase_hremploymentmilestoneid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_milestonetype" />
+          <attribute name="appbase_milestonedate" />
+          <attribute name="appbase_milestonestatus" />
+          <attribute name="appbase_person" />
+          <attribute name="appbase_recognitionprovided" />
+          <attribute name="appbase_recordeddate" />
+          <attribute name="appbase_yearsofservice" />
+          <attribute name="appbase_notificationdate" />
+          <attribute name="appbase_notificationsent" />
+          <attribute name="appbase_recordedby" />
+          <attribute name="appbase_description" />
         </entity>
       </fetch>
     </fetchxml>

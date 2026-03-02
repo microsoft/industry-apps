@@ -14,13 +14,13 @@ Represents a defined reporting cycle such as a week, pay period, or month used t
 **Planned:**
 - Name: Text
 - Period Code: Text
-- Period Type: Choice (Time Period Type)
+- Period Type: Choice (Time Time Period Type)
 - Period Start Date: Date
 - Period End Date: Date
 - Fiscal Year: Integer
 - Fiscal Quarter: Integer
 - Fiscal Month: Integer
-- Period Status: Choice (Period Status)
+- Period Status: Choice (Time Period Status)
 - Due Date: Date
 - Locked Date: Date
 - Is Locked: Yes / No
@@ -38,7 +38,7 @@ Represents a hierarchical classification structure used to categorize Time Entri
 - Name: Text
 - Time Code: Text
 - Parent Time Code: Lookup (Time Code)
-- Time Code Category: Choice (Time Code Category)
+- Time Code Category: Choice (Time Time Code Category)
 - Description: Memo
 - Organization Unit: Lookup (Organization Unit)
 - Organization Initiative: Lookup (Organization Initiative)
@@ -68,7 +68,7 @@ Represents the actual time worked by a person on a specific date, including hour
 - Time Period: Lookup (Time Period)
 - Entry Date: Date
 - Time Code: Lookup (Time Code)
-- Entry Status: Choice (Entry Status)
+- Entry Status: Choice (Time Entry Status)
 - Hours: Float
 - Overtime Hours: Float
 - Is Billable: Yes / No
@@ -108,8 +108,8 @@ Represents a planned availability or obligation for a person over a defined date
 - Commitment Number: Text
 - Person: Lookup (Person)
 - Organization Unit: Lookup (Organization Unit)
-- Commitment Type: Choice (Commitment Type)
-- Commitment Status: Choice (Commitment Status)
+- Commitment Type: Choice (Time Commitment Type)
+- Commitment Status: Choice (Time Commitment Status)
 - Start Date: Date
 - End Date: Date
 - Start Date Time: Date Time
@@ -145,7 +145,7 @@ Represents standardized reasons for travel such as training, site visits, inspec
 **Planned:**
 - Name: Text
 - Purpose Code: Text
-- Purpose Category: Choice (Travel Purpose Category)
+- Purpose Category: Choice (Time Travel Purpose Category)
 - Description: Memo
 - Requires Justification: Yes / No
 - Requires Advance Approval: Yes / No
@@ -164,7 +164,7 @@ Represents a planned or approved trip, including traveler details, purpose, date
 - Traveler: Lookup (Person)
 - Traveler Organization Unit: Lookup (Organization Unit)
 - Additional Travelers: Text
-- Travel Request Status: Choice (Travel Request Status)
+- Travel Request Status: Choice (Time Travel Request Status)
 - Travel Purpose: Lookup (Travel Purpose)
 - Trip Description: Memo
 - Business Justification: Memo
@@ -181,7 +181,7 @@ Represents a planned or approved trip, including traveler details, purpose, date
 - Destination Country: Lookup (Country)
 - Is International: Yes / No
 - Is Overnight: Yes / No
-- Transportation Method: Choice (Transportation Method)
+- Transportation Method: Choice (Time Transportation Method)
 - Lodging Required: Yes / No
 - Rental Car Required: Yes / No
 - Estimated Total Cost: Currency
@@ -224,8 +224,8 @@ Represents an individual component of a trip, such as a flight, lodging stay, or
 - Name: Text
 - Segment Number: Text
 - Travel Request: Lookup (Travel Request)
-- Segment Type: Choice (Travel Segment Type)
-- Segment Status: Choice (Segment Status)
+- Segment Type: Choice (Time Travel Segment Type)
+- Segment Status: Choice (Time Segment Status)
 - Sequence Order: Integer
 - Segment Date: Date
 - Start Date Time: Date Time
@@ -238,7 +238,7 @@ Represents an individual component of a trip, such as a flight, lodging stay, or
 - Destination State or Province: Lookup (State or Province)
 - Destination Country: Lookup (Country)
 - Destination Location: Lookup (Location)
-- Transportation Method: Choice (Transportation Method)
+- Transportation Method: Choice (Time Transportation Method)
 - Carrier: Text
 - Flight Number: Text
 - Confirmation Number: Text
@@ -270,7 +270,7 @@ Represents standardized classifications for expenses such as lodging, meals, mil
 - Name: Text
 - Category Code: Text
 - Parent Category: Lookup (Expense Category)
-- Expense Category Type: Choice (Expense Category Type)
+- Expense Category Type: Choice (Time Expense Category Type)
 - Description: Memo
 - Is Reimbursable: Yes / No
 - Requires Receipt: Yes / No
@@ -296,8 +296,8 @@ Represents a grouped submission of multiple Expense Items for review, approval, 
 - Expense Report Number: Text
 - Person: Lookup (Person)
 - Organization Unit: Lookup (Organization Unit)
-- Report Status: Choice (Report Status)
-- Report Type: Choice (Expense Report Type)
+- Report Status: Choice (Time Report Status)
+- Report Type: Choice (Time Expense Report Type)
 - Time Period: Lookup (Time Period)
 - Related Travel Request: Lookup (Travel Request)
 - Report Start Date: Date
@@ -326,7 +326,7 @@ Represents a grouped submission of multiple Expense Items for review, approval, 
 - Approval Status: Choice (Approval Status)
 - Approval Notes: Memo
 - Payment Date: Date
-- Payment Method: Choice (Payment Method)
+- Payment Method: Choice (Time Payment Method)
 - Payment Reference: Text
 - Rejected Date: Date
 - Rejection Reason: Memo
@@ -345,7 +345,7 @@ Represents an individual expense transaction recorded under an Expense Report. C
 - Item Number: Text
 - Expense Report: Lookup (Expense Report)
 - Expense Category: Lookup (Expense Category)
-- Item Status: Choice (Item Status)
+- Item Status: Choice (Time Item Status)
 - Expense Date: Date
 - Description: Memo
 - Merchant Name: Text
@@ -365,7 +365,7 @@ Represents an individual expense transaction recorded under an Expense Report. C
 - Reimbursable Amount: Currency
 - Is Billable: Yes / No
 - Billable Amount: Currency
-- Payment Method: Choice (Payment Method)
+- Payment Method: Choice (Time Payment Method)
 - Is Personal Card: Yes / No
 - Receipt Attached: Yes / No
 - Receipt Required: Yes / No
@@ -433,7 +433,7 @@ Supporting documentation, receipts, trip reports, authorizations.
 - Annual
 - Custom
 
-### Period Status
+### Time Period Status
 - Future
 - Open
 - Pending Approval
@@ -453,7 +453,7 @@ Supporting documentation, receipts, trip reports, authorizations.
 - Direct Work
 - Indirect Work
 
-### Entry Status
+### Time Entry Status
 - Draft
 - Submitted
 - Under Review
@@ -461,7 +461,7 @@ Supporting documentation, receipts, trip reports, authorizations.
 - Rejected
 - Locked
 
-### Commitment Type
+### Time Commitment Type
 - Work Assignment
 - Duty Schedule
 - Leave
@@ -472,7 +472,7 @@ Supporting documentation, receipts, trip reports, authorizations.
 - Unavailable
 - Other
 
-### Commitment Status
+### Time Commitment Status
 - Planned
 - Requested
 - Approved
@@ -505,7 +505,7 @@ Supporting documentation, receipts, trip reports, authorizations.
 - Cancelled
 - Rejected
 
-### Transportation Method
+### Travel Transportation Method
 - Air
 - Rail
 - Personal Vehicle
@@ -524,7 +524,7 @@ Supporting documentation, receipts, trip reports, authorizations.
 - Rail
 - Other
 
-### Segment Status
+### Travel Segment Status
 - Planned
 - Booked
 - Confirmed
@@ -556,7 +556,7 @@ Supporting documentation, receipts, trip reports, authorizations.
 - Reimbursement
 - Blanket Expense
 
-### Report Status
+### Expense Report Status
 - Draft
 - Submitted
 - Under Review
@@ -566,14 +566,14 @@ Supporting documentation, receipts, trip reports, authorizations.
 - Rejected
 - Cancelled
 
-### Item Status
+### Export Report Item Status
 - Entered
 - Submitted
 - Approved
 - Rejected
 - Paid
 
-### Payment Method
+### Expense Payment Method
 - Personal Card
 - Corporate Card
 - Cash

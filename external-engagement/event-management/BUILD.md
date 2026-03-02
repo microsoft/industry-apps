@@ -80,7 +80,7 @@ Captures a proposed or requested event prior to formal approval or scheduling. U
 
 **Planned:**
 - Name: Text
-- Request Status: Choice (Request Status)
+- Approval Status: Choice (Approval Status)
 - Requested By: Lookup (Person)
 - Requesting Organization Unit: Lookup (Organization Unit)
 - Request Date: Date
@@ -113,8 +113,8 @@ Represents an individual or organization involved in the event. This can include
 - Event: Lookup (Event)
 - Person: Lookup (Person)
 - Account: Lookup (Account)
-- Participant Type: Choice (Participant Type)
-- Participation Status: Choice (Participation Status)
+- Participant Type: Choice (Event Participant Type)
+- Participation Status: Choice (Event Participation Status)
 - Registration Date Time: Date Time
 - Registration Method: Choice (Method of Contact)
 - Invitation Sent Date: Date
@@ -123,7 +123,7 @@ Represents an individual or organization involved in the event. This can include
 - Check Out Date Time: Date Time
 - Attended: Yes / No
 - Registration Fee Paid: Currency
-- Payment Status: Choice (Payment Status)
+- Payment Status: Choice (Event Payment Status)
 - Dietary Restrictions: Text
 - Accessibility Needs: Memo
 - Emergency Contact Name: Text
@@ -144,8 +144,8 @@ Links participants to specific sessions. Used when attendance, roles, or respons
 - Event Session: Lookup (Event Session)
 - Event Participant: Lookup (Event Participant)
 - Person: Lookup (Person)
-- Session Role: Choice (Session Role)
-- Participation Status: Choice (Participation Status)
+- Session Role: Choice (Event Session Role)
+- Participation Status: Choice (Event Participation Status)
 - Check In Date Time: Date Time
 - Attended: Yes / No
 - Presentation Order: Integer
@@ -166,7 +166,7 @@ Represents a scheduled time block within an event (e.g., breakout session, heari
 - Parent Event Session: Lookup (Event Session)
 - Event Track: Lookup (Event Track)
 - Session Code: Text
-- Session Type: Choice (Session Type)
+- Session Type: Choice (Event Session Type)
 - Description: Memo
 - Start Date Time: Date Time
 - End Date Time: Date Time
@@ -175,7 +175,7 @@ Represents a scheduled time block within an event (e.g., breakout session, heari
 - Room: Text
 - Virtual Meeting URL: Text
 - Is Virtual: Yes / No
-- Session Status: Choice (Session Status)
+- Session Status: Choice (Event Session Status)
 - Maximum Capacity: Integer
 - Expected Attendees: Integer
 - Actual Attendees: Integer
@@ -200,7 +200,7 @@ Represents an exhibition, presentation, booth, poster, demonstration, or other s
 - Event: Lookup (Event)
 - Event Track: Lookup (Event Track)
 - Assigned Session: Lookup (Event Session)
-- Entry Type: Choice (Entry Type)
+- Entry Type: Choice (Event Entry Type)
 - Submission Type: Choice (Submission Type)
 - Submission Date Time: Date Time
 - Submitted By: Lookup (Person)
@@ -215,7 +215,7 @@ Represents an exhibition, presentation, booth, poster, demonstration, or other s
 - Approval Status: Choice (Approval Status)
 - Approved By: Lookup (Person)
 - Approval Date: Date
-- Entry Status: Choice (Entry Status)
+- Entry Status: Choice (Event Entry Status)
 - Booth Number: Text
 - Equipment Needs: Memo
 - Space Requirements: Memo
@@ -236,8 +236,8 @@ Represents an organization or entity providing financial or in-kind support for 
 - Name: Text
 - Event: Lookup (Event)
 - Sponsor Account: Lookup (Account)
-- Sponsorship Level: Choice (Sponsorship Level)
-- Sponsorship Type: Choice (Sponsorship Type)
+- Sponsorship Level: Choice (Event Sponsorship Level)
+- Sponsorship Type: Choice (Event Sponsorship Type)
 - Contact Person: Lookup (Person)
 - Commitment Amount: Currency
 - In Kind Value: Currency
@@ -271,7 +271,7 @@ Represents an organization or entity providing financial or in-kind support for 
 - Virtual
 - Hybrid
 
-### Participant Type
+### Event Participant Type
 - Attendee
 - Speaker
 - Presenter
@@ -284,7 +284,7 @@ Represents an organization or entity providing financial or in-kind support for 
 - VIP
 - Media
 
-### Participation Status
+### Event Participation Status
 - Invited
 - Tentative
 - Registered
@@ -296,7 +296,7 @@ Represents an organization or entity providing financial or in-kind support for 
 - Cancelled
 - Declined
 
-### Payment Status
+### Event Payment Status
 - Not Required
 - Pending
 - Partial
@@ -305,7 +305,7 @@ Represents an organization or entity providing financial or in-kind support for 
 - Waived
 - Complimentary
 
-### Session Role
+### Event Session Role
 - Presenter
 - Co-Presenter
 - Moderator
@@ -314,7 +314,7 @@ Represents an organization or entity providing financial or in-kind support for 
 - Facilitator
 - Note Taker
 
-### Session Type
+### Event Session Type
 - Keynote
 - Breakout Session
 - Workshop
@@ -326,14 +326,14 @@ Represents an organization or entity providing financial or in-kind support for 
 - General Session
 - Training
 
-### Session Status
+### Event Session Status
 - Scheduled
 - In Progress
 - Completed
 - Cancelled
 - Rescheduled
 
-### Entry Type
+### Event Entry Type
 - Presentation
 - Poster
 - Exhibition Booth
@@ -343,7 +343,7 @@ Represents an organization or entity providing financial or in-kind support for 
 - Video Submission
 - Abstract Only
 
-### Entry Status
+### Event Entry Status
 - Submitted
 - Under Review
 - Accepted
@@ -352,7 +352,7 @@ Represents an organization or entity providing financial or in-kind support for 
 - Withdrawn
 - Confirmed
 
-### Sponsorship Level
+### Event Sponsorship Level
 - Title Sponsor
 - Platinum
 - Gold
@@ -361,7 +361,7 @@ Represents an organization or entity providing financial or in-kind support for 
 - Supporting
 - In Kind
 
-### Sponsorship Type
+### Event Sponsorship Type
 - Financial
 - In Kind
 - Media Partner
