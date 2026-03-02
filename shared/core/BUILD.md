@@ -52,12 +52,10 @@ Categorizes organization units by hierarchical level or functional purpose (e.g.
 - Budget Amount: Currency
 - Description: Memo
 - Expected Outcomes: Memo
+- Lifecycle Stage: Choice (Lifecycle Stage)
+- Parent Organization Initiative: Lookup (Organization Initiative)
 
 **Completed Last Round:**
-- Lifecycle Stage: Choice (Lifecycle Stage)
-
-**Added:**
-- Parent Organization Initiative: Lookup (Organization Initiative)
 
 **Planned:**
 
@@ -470,13 +468,11 @@ Represents tasks, action items, or follow-up items assigned to individuals or te
 - Mitigation Strategy: Memo
 - Parent Risk Item: Lookup (Risk Item)
 - Analysis: Lookup (Analysis)
-
-**Added:**
-
-**Completed Last Round:**
 - Likelihood: Choice (Degree)
 - Severity: Choice (Degree)
 - Overall Risk Level: Choice (Degree)
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -495,11 +491,9 @@ Represents tasks, action items, or follow-up items assigned to individuals or te
 - Mitigation Actions: Memo
 - Parent Impact: Lookup (Impact)
 - Analysis: Lookup (Analysis)
-
-**Added:**
+- Severity: Choice (Degree)
 
 **Completed Last Round:**
-- Severity: Choice (Degree)
 
 **Planned:**
 
@@ -974,8 +968,6 @@ Frequency of scheduled activities.
 - Pending Investigation
 - Resolved
 
-**Completed Last Round:**
-
 ### Party Type
 Party classification for individuals and organizations.
 - Individual
@@ -1122,7 +1114,7 @@ Outcome of quality assurance reviews or inspections.
 - Medium
 - Low
 
-**Planned:**
+**Completed Last Round:**
 
 **Removed:**
 
@@ -1212,4 +1204,4 @@ General operational status applicable across entities (e.g., Draft, Pending, Act
 - Suspended
 - Closed
 
-**To Remove:**
+**Planned:**

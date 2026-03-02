@@ -6,6 +6,66 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+## [1.1.1.0] - 2026-03-02
+
+### Added
+
+#### Entity Field Enhancements
+- **Organization Initiative**: Added Lifecycle Stage choice field for tracking initiative progression through planning, initiation, active, on hold, complete, cancelled, and archived stages
+- **Risk Item**: Added Likelihood choice field (Degree) for assessing probability of risk occurrence
+- **Risk Item**: Added Severity choice field (Degree) for measuring potential impact magnitude
+- **Risk Item**: Added Overall Risk Level choice field (Degree) for composite risk rating
+- **Impact**: Added Severity choice field (Degree) for quantifying impact magnitude
+
+#### New Choice Fields
+- **Party Type**: Configured choice field for classifying entities (Individual, Organization, Department, External Entity)
+- **Cooperation Status**: Configured choice field for tracking party engagement (Identified, Contacted, Cooperative, Uncooperative, Unavailable, Declined to Participate)
+- **Finding Status**: Configured choice field for assessment/investigation finding lifecycle (Draft, Under Review, Finalized)
+- **Finding Result**: Configured choice field for outcome determination (Substantiated, Partially Substantiated, Unsubstantiated, Inconclusive, No Finding, Unable to Determine)
+- **Recommendation Status**: Configured choice field for tracking recommendations from audits/reviews (Draft, Submitted, Under Review, Acknowledged, Accepted, Rejected, Implemented, Withdrawn, Closed)
+- **Report Type**: Configured choice field for report categorization (Final Report, Interim Report, Summary Report, Statistical Report, Public Report, Internal Report, Executive Report)
+- **Referral Direction**: Configured choice field for referral flow tracking (Outgoing, Incoming)
+- **Access Type**: Configured choice field for resource/system access types (View, Download, Copy, Analysis, Administrative)
+- **Storage Type**: Configured choice field for storage location categorization (Physical Storage, Secure Vault, Digital Repository, Cloud Storage, External Archive, On-Site Storage, Off-Site Storage)
+- **Case Relationship Type**: Configured choice field for defining case relationships (Duplicate, Related, Predecessor, Successor, Parallel, Systemic Issue, Similar Pattern)
+- **Appeal Status**: Configured choice field for appeal process tracking (Submitted for Appeal, Appeal Denied, Appeal Granted, Appeal Partially Granted, Remanded for Review, Withdrawn)
+- **Attendance Status**: Configured choice field for meeting/event attendance (Expected, Confirmed, Attended, Partially Attended, No Show, Excused Absence, Late, Cancelled)
+- **Term Status**: Configured choice field for time-based period tracking (Upcoming, Current, Extended, Shortened, Completed, Suspended, Cancelled, Renewed)
+- **Issue Resolution Status**: Configured choice field for issue/incident lifecycle (New, In Review, Confirmed Issue, Resolved, Mitigated, No Action Required, Closed as Unresolved)
+- **Pass Fail Status**: Configured choice field for quality assurance outcomes (Passed, Passed with Notes, Failed)
+- **Degree**: Configured choice field for granular rating scale (Extreme, High, Medium, Low, Minimal, None)
+- **Simple Degree**: Configured choice field for simplified rating (High, Medium, Low)
+
+### Changed
+
+#### Choice Field Consolidation & Refactoring
+- **Issue Status** → Replaced with **Issue Resolution Status** for more comprehensive issue lifecycle tracking
+- **Method of Receipt** → Replaced with **Method of Contact** for unified communication channel tracking
+- **Interview Status** → Replaced with **Schedule Status** for broader scheduling applicability
+- **High Medium Low** → Replaced with **Degree** and **Simple Degree** for flexible rating granularity
+- **Schedule Status** → Refactored into specialized choice fields: **Action Status**, **Attendance Status**, or **Term Status** based on context
+- **Request Status** → Merged into **Approval Status** to consolidate approval workflow tracking
+- **Plan Status** → Replaced with **Publication Status** for alignment with document lifecycle states
+- **Referral Status (old)** → Merged into **Recommendation Status** for unified recommendation/referral tracking
+- **Participation Status** → Renamed to **Cooperation Status** for clearer semantics regarding party engagement
+- **Operational Status** → Replaced with **Lifecycle Stage** choice field or **Is Active** boolean field based on entity requirements
+
+### Removed
+
+The following choice fields were deprecated as part of the consolidation effort:
+- Issue Status (replaced by Issue Resolution Status)
+- Method of Receipt (replaced by Method of Contact)
+- Interview Status (replaced by Schedule Status)
+- High Medium Low (replaced by Degree/Simple Degree)
+- Schedule Status (refactored into Action Status, Attendance Status, Term Status)
+- Request Status (merged into Approval Status)
+- Plan Status (replaced by Publication Status)
+- Referral Status (merged into Recommendation Status)
+- Participation Status (renamed to Cooperation Status)
+- Operational Status (replaced by Lifecycle Stage or Is Active field)
+
+---
+
 ## [1.1.0.0] - 2026-02-26
 
 ### Added
