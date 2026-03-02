@@ -33,8 +33,6 @@ Individual, accountable item instance. Stores identifying details, current statu
 - Requires Inspection: Yes / No
 
 **Completed Last Round:**
-- Configure Baseline Forms
-- Configure Baseline Views
 
 **Planned:**
 - Configure Quick Create Forms
@@ -54,8 +52,6 @@ Operational classification of assets (e.g., Laptop, Vehicle, Generator). Used fo
 - Requires Inspection: Yes / No
 
 **Completed Last Round:**
-- Configure Baseline Forms
-- Configure Baseline Views
 
 **Planned:**
 - Configure Quick Create Forms
@@ -73,8 +69,6 @@ Higher-level grouping of Asset Types (e.g., IT Equipment, Fleet, Facilities Equi
 - Capitalization Threshold: Currency
 
 **Completed Last Round:**
-- Configure Baseline Forms
-- Configure Baseline Views
 
 **Planned:**
 - Configure Quick Create Forms
@@ -104,8 +98,6 @@ Represents the acquisition event for one or more assets (purchase, lease, donati
 - Notes: Memo
 
 **Completed Last Round:**
-- Configure Baseline Forms
-- Configure Baseline Views
 
 **Planned:**
 - Configure Quick Create Forms
@@ -129,8 +121,6 @@ Additional capital or operational costs associated with an asset (repairs, upgra
 - Capitalizable: Yes / No
 
 **Completed Last Round:**
-- Configure Baseline Forms
-- Configure Baseline Views
 
 **Planned:**
 - Configure Quick Create Forms
@@ -155,8 +145,6 @@ Tracks legal or financial ownership of the asset over time (e.g., owned, leased,
 - Is Current: Yes / No
 
 **Completed Last Round:**
-- Configure Baseline Forms
-- Configure Baseline Views
 
 **Planned:**
 - Configure Quick Create Forms
@@ -181,8 +169,6 @@ Tracks custody or responsibility for the asset over time (assigned to a person, 
 - Is Current: Yes / No
 
 **Completed Last Round:**
-- Configure Baseline Forms
-- Configure Baseline Views
 
 **Planned:**
 - Configure Quick Create Forms
@@ -209,8 +195,6 @@ Timeline-based record of significant custody or control changes (assign, return,
 - Notes: Memo
 
 **Completed Last Round:**
-- Configure Baseline Forms
-- Configure Baseline Views
 
 **Planned:**
 - Configure Quick Create Forms
@@ -238,8 +222,6 @@ Lightweight maintenance/service log entry for an asset. Captures service date, s
 - Notes: Memo
 
 **Completed Last Round:**
-- Configure Baseline Forms
-- Configure Baseline Views
 
 **Planned:**
 - Configure Quick Create Forms
@@ -255,8 +237,6 @@ Reference list defining types of service events (Preventive, Repair, Inspection,
 - Description: Memo
 
 **Completed Last Round:**
-- Configure Baseline Forms
-- Configure Baseline Views
 
 **Planned:**
 - Configure Quick Create Forms
@@ -282,12 +262,9 @@ Represents an audit cycle or inventory verification event (e.g., Annual Inventor
 - Total Discrepancies: Integer
 - Description: Memo
 - Notes: Memo
+- Action Status: Choice (Action Status)
 
 **Completed Last Round:**
-- Action Status: Choice (Action Status)
-- Removed Schedule Status
-- Configure Baseline Forms
-- Configure Baseline Views
 
 **Planned:**
 - Configure Quick Create Forms
@@ -297,8 +274,6 @@ Represents an audit cycle or inventory verification event (e.g., Annual Inventor
 
 ### Asset Audit Item
 Asset-level audit result within an Asset Audit. Records expected vs observed data, verification status, and findings.
-
-**Completed Last Round:**
 
 **Completed:**
 - Name: Text
@@ -319,8 +294,6 @@ Asset-level audit result within an Asset Audit. Records expected vs observed dat
 - Resolution Date: Date
 
 **Completed Last Round:**
-- Configure Baseline Forms
-- Configure Baseline Views
 
 **Planned:**
 - Configure Quick Create Forms
@@ -342,8 +315,6 @@ Defines recurring inspection rules that apply to an Asset Type or specific Asset
 - Description: Memo
 
 **Completed Last Round:**
-- Configure Baseline Forms
-- Configure Baseline Views
 
 **Planned:**
 - Configure Quick Create Forms
@@ -375,8 +346,6 @@ Captures retirement and disposal details for an asset, including retirement reas
 - Data Sanitization Verified: Yes / No
 
 **Completed Last Round:**
-- Configure Baseline Forms
-- Configure Baseline Views
 
 **Planned:**
 - Configure Quick Create Forms
@@ -386,8 +355,10 @@ Captures retirement and disposal details for an asset, including retirement reas
 
 ## 🚀 Module Configuration
 
-**Completed Last Round:**
+**Completed:**
 - Configure Model-Driven App
+
+**Completed Last Round:**
 
 **Planned:**
 - Create Sample Data
@@ -461,14 +432,6 @@ Captures retirement and disposal details for an asset, including retirement reas
 - Retired
 - Disposed
 
-### Schedule Status
-- Scheduled
-- In Progress
-- Completed
-- Cancelled
-- On Hold
-- Overdue
-
 ### Asset Audit Type
 - Scheduled Inventory
 - Spot Check
@@ -476,13 +439,6 @@ Captures retirement and disposal details for an asset, including retirement reas
 - Annual Audit
 - Regulatory Audit
 - Investigation
-
-### Audit Status - Use Schedule Statue
-- Planned
-- In Progress
-- Completed
-- On Hold
-- Cancelled
 
 ### Asset Discrepancy Type
 - Missing
@@ -511,6 +467,27 @@ Captures retirement and disposal details for an asset, including retirement reas
 - Replaced
 - Policy Requirement
 - Lost or Stolen
+
+**Completed Last Round:**
+
+**Removed:**
+
+### Schedule Status - Replaced with Action Status
+Status of scheduled items or activities.
+- Scheduled
+- In Progress
+- Completed
+- Cancelled
+- On Hold
+- Overdue
+
+### Audit Status - Merged into Action Status
+Status of audit cycles.
+- Planned
+- In Progress
+- Completed
+- On Hold
+- Cancelled
 
 **Planned:**
 
