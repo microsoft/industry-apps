@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+## [1.1.1.0] - 2026-03-02
+
+### Changed
+
+#### Choice Field Refactoring
+- **Asset Audit**: Replaced Schedule Status with Action Status choice field for alignment with Core module standards and broader workflow applicability
+
+### Removed
+- **Schedule Status**: Deprecated in favor of Action Status for Asset Audit entity
+
+---
+
 ## [1.1.0.0] - 2026-02-26
 
 ### Added
