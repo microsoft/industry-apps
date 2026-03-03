@@ -478,20 +478,37 @@ The following choice fields are included in the Core module planning and will be
 - **Method of Contact** - Phone, Email, In Person, Mail, Web Form, Portal, Social Media
 - **Resolution Status** - Pending, Under Investigation, Resolved, No Action Required, Mitigated, Unresolved
 - **Quality Review Status** - Passed, Passed with Notes, Failed, Pending Correction, Re Investigation Required
-- **Appeal Decision** - Appeal Granted, Appeal Denied, Appeal Partially Granted, Remanded for Review, Withdrawn
+- **Appeal Status** - Appeal Granted, Appeal Denied, Appeal Partially Granted, Remanded for Review, Withdrawn
 
 ---
 
-## Personnel Security Module Choice Fields
+## Personnel Security Module Choice Fields - Semi-Review Completed
+
+## Analysis:
+
+Replace with Core Components (7):
+Security Review Status → Completion Status
+Security Investigation Status → Completion Status
+Security Adjudication Status → Completion Status
+Security Continuous Evaluation Status → Lifecycle Stage
+Security Eligibility Status → Lifecycle Stage (with outcome field)
+Security Concern Level → Severity Level
+Pass Fail Status → Quality Review Status (already in Core)
+
+Move to Core (2):
+Biometric Type - Universal biometric authentication methods
+Extend Schedule Frequency - Add Continuous, Real Time, Quarterly, Annual, Event Driven
+
+Keep Domain-Specific (21):
+All the security clearance-specific components (Review Types, Investigation Tiers, Adjudication Decisions, Eligibility Categories, Reportable Events, etc.)
 
 The following choice fields are specific to the Personnel Security module:
 
-### Security Review Type
 **Completed:**
 
 **Completed Last Round:**
 
-**Planned:**
+### Security Review Type
 - Initial Review
 - Periodic Reinvestigation
 - Upgrade Review
@@ -502,14 +519,7 @@ The following choice fields are specific to the Personnel Security module:
 - Transfer Review
 - Position Change Review
 
----
-
 ### Security Review Status
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
 - Initiated
 - Investigation Pending
 - Investigation In Progress
@@ -520,14 +530,7 @@ The following choice fields are specific to the Personnel Security module:
 - Cancelled
 - On Hold
 
----
-
 ### Security Review Reason
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
 - Initial Clearance
 - Periodic Reinvestigation
 - Clearance Upgrade
@@ -539,31 +542,7 @@ The following choice fields are specific to the Personnel Security module:
 - Renewal Due
 - Self Report
 
----
-
-### Security Review Outcome
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
-- Favorable
-- Favorable with Conditions
-- Unfavorable
-- Interim Favorable
-- Pending Additional Information
-- No Determination
-- Withdrawn
-- Cancelled
-
----
-
 ### Security Investigation Type
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
 - National Agency Check
 - Background Investigation
 - Enhanced Background Investigation
@@ -574,28 +553,7 @@ The following choice fields are specific to the Personnel Security module:
 - Special Background Investigation
 - Reciprocity Review
 
----
-
-### Security Investigation Tier
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
-- Tier 1
-- Tier 2
-- Tier 3
-- Tier 4
-- Tier 5
-
----
-
 ### Security Investigation Status
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
 - Requested
 - Initiated
 - In Progress
@@ -607,58 +565,21 @@ The following choice fields are specific to the Personnel Security module:
 - Pending Correction
 - Cancelled
 
----
-
 ### Security Investigation Scope
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
 - Full Scope
 - Limited Scope
 - Records Only
 - Enhanced Scope
 - Abbreviated
 
----
-
 ### Security Investigation Provider Type
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
 - Government Agency
 - Contract Provider
 - Internal
 - Federal Investigative Service
 - Third Party
 
----
-
-### Security Adjudication Status
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
-- Pending Review
-- Under Review
-- Panel Review
-- Pending Decision
-- Decision Issued
-- Appeal Pending
-- Final
-
----
-
 ### Security Adjudication Type
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
 - Initial Adjudication
 - Reinvestigation Adjudication
 - Upgrade Adjudication
@@ -666,33 +587,7 @@ The following choice fields are specific to the Personnel Security module:
 - Appeal Adjudication
 - Reciprocity Adjudication
 
----
-
-### Security Adjudication Decision
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
-- Favorable
-- Favorable with Conditions
-- Favorable with Limitations
-- Unfavorable
-- Interim Favorable
-- Interim Unfavorable
-- Suspended
-- Revoked
-- Denied
-- No Determination
-
----
-
 ### Security Eligibility Type
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
 - Security Clearance
 - Position of Trust
 - Access Authorization
@@ -700,118 +595,21 @@ The following choice fields are specific to the Personnel Security module:
 - Compartmented Access
 - Interim Clearance
 
----
-
-### Security Eligibility Status
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
-- Active
-- Expired
-- Suspended
-- Revoked
-- Denied
-- Pending Renewal
-- Inactive
-- Terminated
-
----
-
-### Security Eligibility Category
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
-- Confidential
-- Secret
-- Top Secret
-- Sensitive
-- Public Trust
-- High Risk Public Trust
-
----
-
-### Security Continuous Evaluation Status
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
-- Active
-- Inactive
-- Suspended
-- Pending Enrollment
-- Terminated
-
----
-
 ### Security Continuous Evaluation Type
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
 - Automated Monitoring
 - Periodic Review
 - Event Driven
 - Risk Based
 - Comprehensive
 
----
-
 ### Security Enrollment Reason
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
 - New Eligibility
 - Policy Requirement
 - High Risk Position
 - Voluntary Enrollment
 - Incident Triggered
 
----
-
-### Security Evaluation Frequency
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
-- Continuous
-- Daily
-- Weekly
-- Monthly
-- Quarterly
-- Annual
-- Event Driven
-
----
-
-### Security Automated Check Frequency
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
-- Real Time
-- Daily
-- Weekly
-- Monthly
-- Quarterly
-
----
-
 ### Security Reportable Event Type
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
 - Foreign Travel
 - Foreign Contact
 - Legal Incident
@@ -825,14 +623,7 @@ The following choice fields are specific to the Personnel Security module:
 - Relationship Change
 - Self Report
 
----
-
 ### Security Reportable Event Category
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
 - Foreign Influence
 - Criminal Conduct
 - Financial Concern
@@ -842,14 +633,7 @@ The following choice fields are specific to the Personnel Security module:
 - Security Violation
 - Allegiance Concern
 
----
-
 ### Security Foreign Contact Type
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
 - Family Member
 - Close Associate
 - Business Contact
@@ -857,48 +641,7 @@ The following choice fields are specific to the Personnel Security module:
 - Romantic Relationship
 - Foreign Government Official
 
----
-
-### Security Financial Issue Type
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
-- Delinquent Debt
-- Bankruptcy
-- Foreclosure
-- Tax Issue
-- Garnishment
-- Collection Action
-- Judgment
-- Gambling Problem
-
----
-
-### Security Legal Incident Type
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
-- Arrest
-- Citation
-- Criminal Charge
-- Civil Lawsuit
-- Restraining Order
-- Probation
-- Parole
-- Domestic Incident
-
----
-
 ### Security Adverse Action Type
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
 - Termination
 - Demotion
 - Suspension
@@ -907,41 +650,7 @@ The following choice fields are specific to the Personnel Security module:
 - Ethics Violation
 - Policy Violation
 
----
-
-### Security Concern Level
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
-- Low
-- Moderate
-- High
-- Critical
-
----
-
-### Security Impact Level
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
-- No Impact
-- Minor Impact
-- Moderate Impact
-- Significant Impact
-- Critical Impact
-
----
-
 ### Security Eligibility Action
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
 - No Action
 - Additional Review Ordered
 - Suspension
@@ -949,14 +658,7 @@ The following choice fields are specific to the Personnel Security module:
 - Restriction Applied
 - Enhanced Monitoring
 
----
-
 ### Security Access Credential Type
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
 - Badge
 - Smart Card
 - Proximity Card
@@ -967,14 +669,62 @@ The following choice fields are specific to the Personnel Security module:
 - Contractor Badge
 - Visitor Badge
 
----
+### Security Adjudication Decision
+- Favorable
+- Favorable with Conditions
+- Favorable with Limitations
+- Unfavorable
+- Interim Favorable
+- Interim Unfavorable
+- Suspended
+- Revoked
+- Denied
+- No Determination
+
+## Candidates --------------------------------------
+
+### Security Adjudication Status
+- Pending Review
+- Under Review
+- Panel Review
+- Pending Decision
+- Decision Issued
+- Appeal Pending
+- Final
+
+### Security Investigation Tier
+- Tier 1
+- Tier 2
+- Tier 3
+- Tier 4
+- Tier 5
+
+### Security Eligibility Status
+- Active
+- Expired
+- Suspended
+- Revoked
+- Denied
+- Pending Renewal
+- Inactive
+- Terminated
+
+### Security Eligibility Category
+- Confidential
+- Secret
+- Top Secret
+- Sensitive
+- Public Trust
+- High Risk Public Trust
+
+### Security Continuous Evaluation Status
+- Active
+- Inactive
+- Suspended
+- Pending Enrollment
+- Terminated
 
 ### Security Credential Status
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
 - Active
 - Expired
 - Suspended
@@ -985,14 +735,7 @@ The following choice fields are specific to the Personnel Security module:
 - Returned
 - Replaced
 
----
-
 ### Security Credential Category
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
 - Permanent
 - Temporary
 - Contractor
@@ -1000,14 +743,7 @@ The following choice fields are specific to the Personnel Security module:
 - Emergency
 - Limited Access
 
----
-
 ### Security Biometric Type
-**Completed:**
-
-**Completed Last Round:**
-
-**Planned:**
 - Fingerprint
 - Facial Recognition
 - Iris Scan
@@ -1015,3 +751,61 @@ The following choice fields are specific to the Personnel Security module:
 - Voice Recognition
 - Multiple Biometrics
 
+### Security Review Outcome
+- Favorable
+- Favorable with Conditions
+- Unfavorable
+- Interim Favorable
+- Pending Additional Information
+- No Determination
+- Withdrawn
+- Cancelled
+
+### Security Concern Level
+- Low
+- Moderate
+- High
+- Critical
+
+### Security Impact Level
+- No Impact
+- Minor Impact
+- Moderate Impact
+- Significant Impact
+- Critical Impact
+
+### Security Financial Issue Type
+- Delinquent Debt
+- Bankruptcy
+- Foreclosure
+- Tax Issue
+- Garnishment
+- Collection Action
+- Judgment
+- Gambling Problem
+
+### Security Legal Incident Type
+- Arrest
+- Citation
+- Criminal Charge
+- Civil Lawsuit
+- Restraining Order
+- Probation
+- Parole
+- Domestic Incident
+
+### Security Evaluation Frequency
+- Continuous
+- Daily
+- Weekly
+- Monthly
+- Quarterly
+- Annual
+- Event Driven
+
+### Security Automated Check Frequency
+- Real Time
+- Daily
+- Weekly
+- Monthly
+- Quarterly

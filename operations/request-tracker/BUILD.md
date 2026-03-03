@@ -136,7 +136,7 @@ Work items created or linked as a result of requests.
 
 ---
 
-## New Choice Fields
+## New Choice Fields - Semi-Reviewed
 
 ### Request Type Category
 - Information Request
@@ -153,6 +153,8 @@ Work items created or linked as a result of requests.
 - Research Request
 - Report Request
 - Approval Request
+
+## Candidates ---------------------------------
 
 ### Request Urgency
 - Immediate

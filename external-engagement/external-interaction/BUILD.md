@@ -37,11 +37,6 @@ Table Overview
 
 ## New Choice Fields
 
-### Budget Status
-- Draft
-- Pending Approval
-- Approved
-- Active
-- Amended
-- Closed
-- Cancelled
+### Sample Choice
+- Sample Value One
+- Sample Value Two

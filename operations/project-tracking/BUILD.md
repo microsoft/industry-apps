@@ -405,9 +405,9 @@ Project charters, plans, deliverables, supporting documentation.
 
 ---
 
-## New Choice Fields
+## New Choice Fields - Semi-Reviewed
 
-### Project Project Type
+### Project Type
 - IT Implementation
 - Infrastructure Project
 - Policy Initiative
@@ -420,7 +420,86 @@ Project charters, plans, deliverables, supporting documentation.
 - Maintenance Project
 - Compliance Project
 
-### Project Project Status
+### Project Backlog Type
+- Product Backlog
+- Sprint Backlog
+- Release Backlog
+- Feature Backlog
+- Maintenance Backlog
+
+### Project Work Item Category
+- Epic
+- Feature
+- User Story
+- Task
+- Defect
+- Spike
+- Technical Debt
+- Documentation
+
+### Project Work Item Resolution
+- Completed
+- Fixed
+- Verified
+- Duplicate
+- Won't Fix
+- Cannot Reproduce
+- By Design
+- Deferred
+
+### Project Milestone Type
+- Project Start
+- Project End
+- Phase Gate
+- Delivery
+- Review
+- Approval
+- Go Live
+- Customer Acceptance
+
+### Project Milestone Category
+- Schedule
+- Deliverable
+- Decision Point
+- Funding
+- Regulatory
+- Contractual
+
+### Project Role Category
+- Management
+- Leadership
+- Technical
+- Business
+- Support
+- Quality
+- Subject Matter Expert
+
+### Project Change Request Type
+- Scope Change
+- Schedule Change
+- Budget Change
+- Resource Change
+- Quality Change
+- Risk Response
+- Requirement Change
+- Technical Change
+- Process Change
+
+## Candidates ----------------------------
+
+### Project Work Item Status
+- New
+- Proposed
+- Approved
+- In Progress
+- In Review
+- In Testing
+- Blocked
+- Completed
+- Cancelled
+- Deferred
+
+### Project Status
 - Proposed
 - Approved
 - Planning
@@ -431,7 +510,7 @@ Project charters, plans, deliverables, supporting documentation.
 - Cancelled
 - Closed
 
-### Project Project Health
+### Project Health
 - Healthy
 - At Risk
 - Off Track
@@ -453,56 +532,17 @@ Project charters, plans, deliverables, supporting documentation.
 - Archived
 - Closed
 
-### Project Backlog Type
-- Product Backlog
-- Sprint Backlog
-- Release Backlog
-- Feature Backlog
-- Maintenance Backlog
-
 ### Project Iteration Status
 - Planned
 - Active
 - Completed
 - Cancelled
 
-### Project Project Work Item Category
-- Epic
-- Feature
-- User Story
-- Task
-- Defect
-- Spike
-- Technical Debt
-- Documentation
-
-### Project Work Item Status
-- New
-- Proposed
-- Approved
-- In Progress
-- In Review
-- In Testing
-- Blocked
-- Completed
-- Cancelled
-- Deferred
-
 ### Project Work Item Priority
 - Critical
 - High
 - Medium
 - Low
-
-### Project Work Item Resolution
-- Completed
-- Fixed
-- Verified
-- Duplicate
-- Won't Fix
-- Cannot Reproduce
-- By Design
-- Deferred
 
 ### Project Milestone Status
 - Planned
@@ -512,24 +552,6 @@ Project charters, plans, deliverables, supporting documentation.
 - Missed
 - Cancelled
 
-### Project Milestone Type
-- Project Start
-- Project End
-- Phase Gate
-- Delivery
-- Review
-- Approval
-- Go Live
-- Customer Acceptance
-
-### Project Milestone Category
-- Schedule
-- Deliverable
-- Decision Point
-- Funding
-- Regulatory
-- Contractual
-
 ### Project Resource Assignment Status
 - Proposed
 - Confirmed
@@ -538,26 +560,6 @@ Project charters, plans, deliverables, supporting documentation.
 - Completed
 - Withdrawn
 - Cancelled
-
-### Project Role Category
-- Management
-- Leadership
-- Technical
-- Business
-- Support
-- Quality
-- Subject Matter Expert
-
-### Project Change Request Type
-- Scope Change
-- Schedule Change
-- Budget Change
-- Resource Change
-- Quality Change
-- Risk Response
-- Requirement Change
-- Technical Change
-- Process Change
 
 ### Project Change Impact Level
 - Minor

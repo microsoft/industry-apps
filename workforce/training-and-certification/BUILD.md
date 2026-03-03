@@ -678,7 +678,7 @@ Course materials, syllabi, certificates, transcripts, diplomas, supporting docum
 
 ---
 
-## New Choice Fields
+## New Choice Fields - Semi-Reviewed
 
 ### Course Type
 - Instructor Led
@@ -701,22 +701,6 @@ Course materials, syllabi, certificates, transcripts, diplomas, supporting docum
 - Administrative
 - Elective
 - Core
-
-### Course Level
-- Introductory
-- Intermediate
-- Advanced
-- Expert
-- Refresher
-
-### Training Delivery Method
-- In Person
-- Virtual
-- Hybrid
-- Self Paced
-- Blended
-- Asynchronous
-- Synchronous
 
 ### Training Requirement Type
 - Course Completion
@@ -742,13 +726,6 @@ Course materials, syllabi, certificates, transcripts, diplomas, supporting docum
 - Evaluate
 - Create
 
-### Training Instructor Status
-- Active
-- Inactive
-- Pending Approval
-- Suspended
-- Retired
-
 ### Training Instructor Type
 - Full Time
 - Adjunct
@@ -768,21 +745,6 @@ Course materials, syllabi, certificates, transcripts, diplomas, supporting docum
 - Quarter 4
 - Intersession
 
-### Training Term Status
-- Planning
-- Active
-- Completed
-- Archived
-
-### Training Session Status
-- Scheduled
-- Open for Registration
-- Registration Closed
-- In Progress
-- Completed
-- Cancelled
-- Postponed
-
 ### Training Session Type
 - Regular
 - Accelerated
@@ -792,18 +754,6 @@ Course materials, syllabi, certificates, transcripts, diplomas, supporting docum
 - Online
 - Hybrid
 
-### Training Enrollment Status
-- Registered
-- Confirmed
-- Waitlisted
-- Enrolled
-- In Progress
-- Completed
-- Withdrawn
-- Dropped
-- No Show
-- Cancelled
-
 ### Training Attendance Status
 - Present
 - Absent
@@ -812,35 +762,6 @@ Course materials, syllabi, certificates, transcripts, diplomas, supporting docum
 - Partial
 - Remote
 
-### Training Attendance Method
-- In Person
-- Virtual
-- Remote
-- Self Reported
-
-### Training Pass Fail
-- Pass
-- Fail
-- Incomplete
-- Withdrawn
-
-### Payment Status
-- Not Required
-- Pending
-- Partial
-- Paid
-- Overdue
-- Waived
-- Refunded
-
-### Training Completion Method
-- In Person
-- Online
-- Hybrid
-- Challenge Exam
-- Transfer Credit
-- Prior Learning Assessment
-
 ### Training Learning Path Type
 - Career Path
 - Skill Development
@@ -848,12 +769,6 @@ Course materials, syllabi, certificates, transcripts, diplomas, supporting docum
 - Onboarding
 - Professional Development
 - Certification Prep
-
-### Training Difficulty Level
-- Beginner
-- Intermediate
-- Advanced
-- Expert
 
 ### Training Certificate Type
 - Professional Certification
@@ -870,24 +785,6 @@ Course materials, syllabi, certificates, transcripts, diplomas, supporting docum
 - Regional
 - National
 - International
-
-### Training Achievement Status
-- Active
-- Expired
-- Suspended
-- Revoked
-- Pending Renewal
-- Renewed
-
-### Training Renewal Status
-- Not Required
-- Upcoming
-- Submitted
-- Under Review
-- Approved
-- Denied
-- Completed
-- Expired
 
 ### Training Renewal Method
 - Continuing Education
@@ -951,12 +848,6 @@ Course materials, syllabi, certificates, transcripts, diplomas, supporting docum
 - With High Distinction
 - With Highest Distinction
 
-### Training Conferral Status
-- Pending
-- Conferred
-- Deferred
-- Withheld
-
 ### Training Qualification Requirement Type
 - Role Qualification
 - Access Qualification
@@ -975,6 +866,67 @@ Course materials, syllabi, certificates, transcripts, diplomas, supporting docum
 - Assessment
 - Experience
 
+### Training Pass Fail
+- Pass
+- Fail
+- Incomplete
+- Withdrawn
+
+## Candidates -------------------------------------------------
+
+### Training Attendance Method
+- In Person
+- Virtual
+- Remote
+- Self Reported
+
+### Payment Status
+- Not Required
+- Pending
+- Partial
+- Paid
+- Overdue
+- Waived
+- Refunded
+
+### Training Completion Method
+- In Person
+- Online
+- Hybrid
+- Challenge Exam
+- Transfer Credit
+- Prior Learning Assessment
+
+### Training Difficulty Level
+- Beginner
+- Intermediate
+- Advanced
+- Expert
+
+### Training Achievement Status
+- Active
+- Expired
+- Suspended
+- Revoked
+- Pending Renewal
+- Renewed
+
+### Training Renewal Status
+- Not Required
+- Upcoming
+- Submitted
+- Under Review
+- Approved
+- Denied
+- Completed
+- Expired
+
+### Training Conferral Status
+- Pending
+- Conferred
+- Deferred
+- Withheld
+
 ### Training Validation Frequency
 - One Time
 - Annual
@@ -990,3 +942,52 @@ Course materials, syllabi, certificates, transcripts, diplomas, supporting docum
 - Optional
 - Advisory
 
+### Training Enrollment Status
+- Registered
+- Confirmed
+- Waitlisted
+- Enrolled
+- In Progress
+- Completed
+- Withdrawn
+- Dropped
+- No Show
+- Cancelled
+
+### Training Term Status
+- Planning
+- Active
+- Completed
+- Archived
+
+### Training Session Status
+- Scheduled
+- Open for Registration
+- Registration Closed
+- In Progress
+- Completed
+- Cancelled
+- Postponed
+
+### Training Instructor Status
+- Active
+- Inactive
+- Pending Approval
+- Suspended
+- Retired
+
+### Course Level
+- Introductory
+- Intermediate
+- Advanced
+- Expert
+- Refresher
+
+### Training Delivery Method
+- In Person
+- Virtual
+- Hybrid
+- Self Paced
+- Blended
+- Asynchronous
+- Synchronous

@@ -422,7 +422,78 @@ Supporting documentation, receipts, trip reports, authorizations.
 
 ---
 
-## New Choice Fields
+## New Choice Fields - Semi-Reviewed
+
+### Time Code Category
+- Operational
+- Project
+- Initiative
+- Administrative
+- Leave
+- Training
+- Travel
+- Investigative
+- Direct Work
+- Indirect Work
+
+### Travel Purpose Category
+- Training
+- Conference
+- Site Visit
+- Inspection
+- Audit
+- Investigation
+- Meeting
+- Consultation
+- Operational Support
+- Emergency Response
+- Customer Visit
+- Vendor Visit
+
+### Travel Transportation Method
+- Air
+- Rail
+- Personal Vehicle
+- Rental Car
+- Government Vehicle
+- Taxi / Rideshare
+- Public Transit
+- Walking
+- Other
+
+### Travel Segment Type
+- Flight
+- Ground Transportation
+- Lodging
+- Rental Car
+- Rail
+- Other
+
+### Expense Category Type
+- Lodging
+- Meals
+- Transportation
+- Mileage
+- Airfare
+- Ground Transportation
+- Registration
+- Supplies
+- Equipment
+- Communication
+- Parking
+- Tolls
+- Per Diem
+- Other
+
+### Expense Report Type
+- Travel Expense
+- Operational Expense
+- Training Expense
+- Project Expense
+- Reimbursement
+- Blanket Expense
+
+## Candidates --------------------------------
 
 ### Time Period Type
 - Weekly
@@ -440,18 +511,6 @@ Supporting documentation, receipts, trip reports, authorizations.
 - Approved
 - Locked
 - Closed
-
-### Time Code Category
-- Operational
-- Project
-- Initiative
-- Administrative
-- Leave
-- Training
-- Travel
-- Investigative
-- Direct Work
-- Indirect Work
 
 ### Time Entry Status
 - Draft
@@ -480,20 +539,6 @@ Supporting documentation, receipts, trip reports, authorizations.
 - Completed
 - Cancelled
 
-### Travel Purpose Category
-- Training
-- Conference
-- Site Visit
-- Inspection
-- Audit
-- Investigation
-- Meeting
-- Consultation
-- Operational Support
-- Emergency Response
-- Customer Visit
-- Vendor Visit
-
 ### Travel Request Status
 - Draft
 - Submitted
@@ -505,25 +550,6 @@ Supporting documentation, receipts, trip reports, authorizations.
 - Cancelled
 - Rejected
 
-### Travel Transportation Method
-- Air
-- Rail
-- Personal Vehicle
-- Rental Car
-- Government Vehicle
-- Taxi / Rideshare
-- Public Transit
-- Walking
-- Other
-
-### Travel Segment Type
-- Flight
-- Ground Transportation
-- Lodging
-- Rental Car
-- Rail
-- Other
-
 ### Travel Segment Status
 - Planned
 - Booked
@@ -531,30 +557,6 @@ Supporting documentation, receipts, trip reports, authorizations.
 - In Progress
 - Completed
 - Cancelled
-
-### Expense Category Type
-- Lodging
-- Meals
-- Transportation
-- Mileage
-- Airfare
-- Ground Transportation
-- Registration
-- Supplies
-- Equipment
-- Communication
-- Parking
-- Tolls
-- Per Diem
-- Other
-
-### Expense Report Type
-- Travel Expense
-- Operational Expense
-- Training Expense
-- Project Expense
-- Reimbursement
-- Blanket Expense
 
 ### Expense Report Status
 - Draft

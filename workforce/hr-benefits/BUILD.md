@@ -459,7 +459,7 @@ Used in eligibility rules and tiered contribution structures.
 
 ---
 
-## New Choice Fields
+## New Choice Fields - Semi-Reviewed
 
 ### Benefits Benefit Category
 - Medical
@@ -538,23 +538,6 @@ Used in eligibility rules and tiered contribution structures.
 - Annual Enrollment
 - Qualifying Event
 
-### Benefits Period Status
-- Upcoming
-- Active
-- Closed
-- Cancelled
-
-### Benefits Enrollment Status
-- Active
-- Pending
-- Pending Approval
-- Approved
-- Declined
-- Terminated
-- Waived
-- Cancelled
-- Suspended
-
 ### Benefits Enrollment Type
 - New Enrollment
 - Re-Enrollment
@@ -569,15 +552,6 @@ Used in eligibility rules and tiered contribution structures.
 - Administrative
 - Reinstatement
 
-### Benefits Deduction Frequency
-- Per Pay Period
-- Monthly
-- Quarterly
-- Annually
-- Semi-Monthly
-- Bi-Weekly
-- Weekly
-
 ### Benefits Election Type
 - Optional Rider
 - Supplemental Coverage
@@ -591,33 +565,6 @@ Used in eligibility rules and tiered contribution structures.
 - Contingent
 - Secondary
 - Estate
-
-### Benefits Relationship Type
-- Spouse
-- Domestic Partner
-- Child
-- Parent
-- Sibling
-- Other Relative
-- Estate
-- Trust
-- Other
-
-### Benefits Life Event Type
-- Marriage
-- Domestic Partnership
-- Birth
-- Adoption
-- Legal Guardianship
-- Divorce
-- Legal Separation
-- Death of Dependent
-- Loss of Other Coverage
-- Gain of Other Coverage
-- Change in Employment
-- Change in Residence
-- Medicare Eligibility
-- Court Order
 
 ### Benefits Event Status
 - Reported
@@ -667,6 +614,8 @@ Used in eligibility rules and tiered contribution structures.
 - Health Savings Account
 - Other Reimbursement
 
+## Candidates ---------------------------------
+
 ### Benefits Claim Status
 - Submitted
 - Under Review
@@ -690,3 +639,56 @@ Used in eligibility rules and tiered contribution structures.
 - Verified
 - Rejected
 - Needs Information
+
+### Benefits Life Event Type
+- Marriage
+- Domestic Partnership
+- Birth
+- Adoption
+- Legal Guardianship
+- Divorce
+- Legal Separation
+- Death of Dependent
+- Loss of Other Coverage
+- Gain of Other Coverage
+- Change in Employment
+- Change in Residence
+- Medicare Eligibility
+- Court Order
+
+### Benefits Relationship Type
+- Spouse
+- Domestic Partner
+- Child
+- Parent
+- Sibling
+- Other Relative
+- Estate
+- Trust
+- Other
+
+### Benefits Deduction Frequency
+- Per Pay Period
+- Monthly
+- Quarterly
+- Annually
+- Semi-Monthly
+- Bi-Weekly
+- Weekly
+
+### Benefits Period Status
+- Upcoming
+- Active
+- Closed
+- Cancelled
+
+### Benefits Enrollment Status
+- Active
+- Pending
+- Pending Approval
+- Approved
+- Declined
+- Terminated
+- Waived
+- Cancelled
+- Suspended

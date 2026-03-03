@@ -17,7 +17,7 @@ The primary record representing a planned occurrence (conference, meeting, heari
 - Details: Memo
 - Event Status: Choice (Event Status)
 - Visibility: Choice (Visibility)
-- Event Format: Choice (Event Format)
+- Event Format: Choice (Participation Mode)
 - Start Date Time: Date Time
 - End Date Time: Date Time
 - Registration Open Date: Date
@@ -123,7 +123,7 @@ Represents an individual or organization involved in the event. This can include
 - Check Out Date Time: Date Time
 - Attended: Yes / No
 - Registration Fee Paid: Currency
-- Payment Status: Choice (Event Payment Status)
+- Payment Status: Choice (Payment Status)
 - Dietary Restrictions: Text
 - Accessibility Needs: Memo
 - Emergency Contact Name: Text
@@ -175,7 +175,7 @@ Represents a scheduled time block within an event (e.g., breakout session, heari
 - Room: Text
 - Virtual Meeting URL: Text
 - Is Virtual: Yes / No
-- Session Status: Choice (Event Session Status)
+- Session Status: Choice (Scheduled Event Status)
 - Maximum Capacity: Integer
 - Expected Attendees: Integer
 - Actual Attendees: Integer
@@ -215,7 +215,7 @@ Represents an exhibition, presentation, booth, poster, demonstration, or other s
 - Approval Status: Choice (Approval Status)
 - Approved By: Lookup (Person)
 - Approval Date: Date
-- Entry Status: Choice (Event Entry Status)
+- Entry Status: Choice (Consideration Status)
 - Booth Number: Text
 - Equipment Needs: Memo
 - Space Requirements: Memo
@@ -254,7 +254,7 @@ Represents an organization or entity providing financial or in-kind support for 
 
 ---
 
-## New Choice Fields
+## New Choice Fields - Reviewed
 
 ### Event Status
 - Draft
@@ -265,11 +265,6 @@ Represents an organization or entity providing financial or in-kind support for 
 - Completed
 - Cancelled
 - Postponed
-
-### Event Format
-- In Person
-- Virtual
-- Hybrid
 
 ### Event Participant Type
 - Attendee
@@ -296,15 +291,6 @@ Represents an organization or entity providing financial or in-kind support for 
 - Cancelled
 - Declined
 
-### Event Payment Status
-- Not Required
-- Pending
-- Partial
-- Paid
-- Refunded
-- Waived
-- Complimentary
-
 ### Event Session Role
 - Presenter
 - Co-Presenter
@@ -326,13 +312,6 @@ Represents an organization or entity providing financial or in-kind support for 
 - General Session
 - Training
 
-### Event Session Status
-- Scheduled
-- In Progress
-- Completed
-- Cancelled
-- Rescheduled
-
 ### Event Entry Type
 - Presentation
 - Poster
@@ -342,15 +321,6 @@ Represents an organization or entity providing financial or in-kind support for 
 - Lightning Talk
 - Video Submission
 - Abstract Only
-
-### Event Entry Status
-- Submitted
-- Under Review
-- Accepted
-- Rejected
-- Waitlisted
-- Withdrawn
-- Confirmed
 
 ### Event Sponsorship Level
 - Title Sponsor

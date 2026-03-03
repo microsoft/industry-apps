@@ -93,7 +93,7 @@ Represents a specific version or configuration of a Service, typically bounded b
 - Name: Text
 - Offering Code: Text
 - Service: Lookup (Service)
-- Offering Status: Choice (Offering Status)
+- Service Offering Status: Choice (Service Offering Status)
 - Offering Version: Text
 - Effective Start Date: Date
 - Effective End Date: Date
@@ -247,7 +247,7 @@ Represents an operational event or action performed during delivery of a Service
 - Name: Text
 - Activity Number: Text
 - Service Participation: Lookup (Service Participation)
-- Activity Type: Choice (Activity Type)
+- Service Activity Type: Choice (Service Activity Type)
 - Action Status: Choice (Action Status)
 - Activity Date: Date
 - Activity Date Time: Date Time
@@ -278,7 +278,7 @@ Represents an official, factual outcome that occurred for a specific Service Par
 - Result Number: Text
 - Service Participation: Lookup (Service Participation)
 - Service Result Type: Lookup (Service Result Type)
-- Result Status: Choice (Result Status)
+- Service Result Status: Choice (Service Result Status)
 - Result Date: Date
 - Effective Date: Date
 - Expiration Date: Date
@@ -315,7 +315,7 @@ Represents the predefined set of allowable result classifications that may be ap
 **Planned:**
 - Name: Text
 - Result Type Code: Text
-- Result Category: Choice (Result Category)
+- Service Result Category: Choice (Service Result Category)
 - Description: Memo
 - Is Approval: Yes / No
 - Is Denial: Yes / No
@@ -371,7 +371,7 @@ Used in eligibility rules.
 
 ---
 
-## New Choice Fields
+## New Choice Fields - Reviewed
 
 ### Program Type
 - Benefits Program
@@ -395,16 +395,6 @@ Used in eligibility rules.
 - Training Service
 - Consultation Service
 
-### Delivery Method
-- In Person
-- Virtual
-- Hybrid
-- Self Service
-- Phone
-- Mail
-- Mobile
-- Home Visit
-
 ### Service Level
 - Standard
 - Priority
@@ -412,7 +402,7 @@ Used in eligibility rules.
 - Emergency
 - Premium
 
-### Offering Status
+### Service Offering Status
 - Planning
 - Open for Enrollment
 - Enrollment Closed
@@ -438,30 +428,7 @@ Used in eligibility rules.
 - Priority Factor
 - Scoring Criteria
 
-### Geographic Scope
-- National
-- Regional
-- State
-- County
-- City
-- District
-- Facility
-- Multiple Locations
-
-### Participation Status
-- Prospective
-- Pending Eligibility
-- Eligible
-- Enrolled
-- Active
-- Suspended
-- Completed
-- Terminated
-- Waitlisted
-- Ineligible
-- Withdrawn
-
-### Activity Type
+### Service Activity Type
 - Enrollment
 - Assessment
 - Consultation
@@ -474,7 +441,7 @@ Used in eligibility rules.
 - Documentation
 - Referral
 
-### Result Status
+### Service Result Status
 - Pending
 - Approved
 - Denied
@@ -484,7 +451,7 @@ Used in eligibility rules.
 - Expired
 - Cancelled
 
-### Result Category
+### Service Result Category
 - Approval
 - Denial
 - Certification

@@ -941,6 +941,7 @@
                     
                     <div class="zone-content">
                       <div class="zone-title">{env.name}</div>
+                      <div class="zone-subtitle">{env.key}</div>
                       {#if isSourceEnv}
                         <div class="zone-badge source-badge">Source</div>
                       {/if}
@@ -957,6 +958,7 @@
                     on:dragstart={(e) => handleEnvDragStart(e, { name: env.name, key: env.key, tenant: tenant.name, deployment: deployment.name })}
                     on:dragend={handleEnvDragEnd}>
                     <div class="placeholder-text">{env.name}</div>
+                    <div class="placeholder-subtitle">{env.key}</div>
                     <div class="drag-hint">↖️ Drag to module to sync FROM this environment</div>
                   </div>
                 {/if}
@@ -1419,7 +1421,7 @@
   }
   
   .targets-column {
-    max-height: calc(100vh - 220px);
+    max-height: calc(100vh - 280px);
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -1430,7 +1432,7 @@
   }
   
   .queue-column {
-    max-height: calc(100vh - 220px);
+    max-height: calc(100vh - 280px);
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -1687,7 +1689,7 @@
   .targets-section {
     flex: 1;
     overflow-y: auto;
-    max-height: calc(100vh - 340px);
+    max-height: calc(100vh - 400px);
   }
   
   .local-sync-zone,
@@ -2048,9 +2050,9 @@
   
   .environment-zone .zone-content {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 2px;
     justify-content: center;
   }
   
@@ -2071,6 +2073,7 @@
     font-size: 10px;
     font-weight: 600;
     text-transform: uppercase;
+    margin-top: 4px;
   }
   
   .source-badge {
@@ -2109,6 +2112,12 @@
   .environment-placeholder .placeholder-text {
     font-size: 13px;
     color: #999999;
+  }
+  
+  .placeholder-subtitle {
+    font-size: 11px;
+    color: #666666;
+    margin-top: 2px;
   }
   
   .tenant-list {

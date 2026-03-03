@@ -921,8 +921,11 @@ Status of a financial or reporting period.
 Status of project or initiative milestones.
 - Upcoming
 - Current
-- Completed
+- Completed On Time
+- Completed Late
 - Acknowledged
+- Missed
+- Cancelled
 
 ### Schedule Frequency
 Frequency of scheduled activities.
@@ -942,10 +945,21 @@ Frequency of scheduled activities.
 
 ### Payment Status
 - Pending
+- Approved for Payment
 - Partial
+- Processed
 - Paid
 - Disputed
-- Refunded
+- Voided
+- Refunded / Returned
+
+### Payment Method
+- Check
+- Electronic Funds Transfer
+- Wire Transfer
+- Credit Card
+- Purchase Card
+- ACH
 
 ### Decision Category
 - Scope Change
@@ -1114,8 +1128,6 @@ Outcome of quality assurance reviews or inspections.
 - Medium
 - Low
 
-**Completed Last Round:**
-
 **Removed:**
 
 ### Issue Status - Replaced with Issue Resolution Status
@@ -1204,4 +1216,187 @@ General operational status applicable across entities (e.g., Draft, Pending, Act
 - Suspended
 - Closed
 
+**Completed Last Round:**
+
+- Payment Status: Added Not Required, Waived, Complimentary
+
+### Participation Mode
+- In Person
+- Virtual
+- Hybrid
+
+### Scheduled Event Status
+- Scheduled
+- In Progress
+- Completed
+- Cancelled
+- Rescheduled
+
+### Consideration Status
+- Submitted
+- Under Review
+- Accepted
+- Rejected
+- Waitlisted
+- Withdrawn
+- Confirmed
+
 **Planned:**
+
+### Delivery Method
+- In Person
+- Virtual
+- Hybrid
+- Self Service
+- Phone
+- Mail
+- Mobile
+- Home Visit
+
+### Budget Status
+- Draft
+- Pending Approval
+- Approved
+- Active
+- Amended
+- Closed
+- Cancelled
+
+### Geographic Scope
+- National
+- Regional
+- State
+- County
+- City
+- District
+- Facility
+- Multiple Locations
+
+### Deliverable Status
+- Not Started
+- In Progress
+- Submitted
+- Under Review
+- Accepted
+- Rejected
+- Resubmitted
+
+### Performance Rating
+
+- Exceeds Standards
+- Meets Standards
+- Partially Meets Standards
+- Does Not Meet Standards
+- Needs Improvement
+
+### Assessment Status
+- Scheduled
+- In Progress
+- Completed
+- Report Pending
+- Approved
+- Requires Follow Up
+
+### Readiness Status
+- Fully Ready
+- Substantially Ready
+- Marginally Ready
+- Not Ready
+- Assessment Incomplete
+
+### Finding Type
+- Deficiency
+- Observation
+- Best Practice
+- Lesson Learned
+- Non Compliance
+- Safety Issue
+- Quality Issue
+- Process Gap
+- Resource Shortage
+
+### Operational Finding Status - Change Name, Merge with above
+- Open
+- Under Review
+- Action Planned
+- In Progress
+- Resolved
+- Verified
+- Closed
+- Accepted Risk
+
+### Operational Impact Status - Change Name, Merge with Finding Status
+- Submitted
+- Under Review
+- Verified
+- Recognized
+- Rejected
+- Archived
+
+### Recommendation Type
+- Corrective Action
+- Preventive Action
+- Process Improvement
+- Resource Addition
+- Training
+- Policy Change
+- Best Practice Adoption
+- Civil Penalty
+- Criminal
+- Administrative
+
+### Operational Inspection Status - Merge with Assessment Status
+- Scheduled
+- In Progress
+- Completed
+- Report Pending
+- Follow Up Required
+- Closed
+
+
+### Operational Recommendation Status - Change Name, Merge with above
+- Proposed
+- Under Review
+- Accepted
+- Rejected
+- In Progress
+- Implemented
+- Verified
+- Closed
+
+### Acceptance Status
+- Pending
+- Accepted
+- Accepted with Modifications
+- Rejected
+- Deferred
+
+
+### Operational Incident Status - Merge with Issue Resolution Status
+- New
+- Investigating
+- Responding
+- Mitigating
+- Resolved
+- Closed
+- Reopened
+
+### Operational Impact Type - Merge with Impact Type
+- Cost Savings
+- Revenue Generation
+- Time Savings
+- Process Improvement
+- Quality Improvement
+- Risk Reduction
+- Innovation
+- Best Practice
+
+
+### Operational Event Status - Merge with Scheduled Event Status
+- Planned
+- Scheduled
+- Preparation
+- In Progress
+- Completed
+- Cancelled
+- Postponed

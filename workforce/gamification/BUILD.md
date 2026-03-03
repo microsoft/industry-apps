@@ -194,7 +194,7 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 
 ---
 
-## New Choice Fields
+## New Choice Fields - Semi-Reviewed
 
 ### Gamification Game Type
 - Training Challenge
@@ -207,15 +207,6 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 - Service Excellence
 - Onboarding Program
 - Community Engagement
-
-### Gamification Game Status
-- Planning
-- Open for Enrollment
-- Active
-- Paused
-- Completed
-- Archived
-- Cancelled
 
 ### Gamification Participation Model
 - Individual
@@ -265,6 +256,8 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 - Game Administrator
 - Observer
 
+## Candidates ------------------------------------
+
 ### Gamification Participation Status
 - Invited
 - Enrolled
@@ -301,3 +294,12 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 - Recognized
 - Public
 - Private
+
+### Gamification Game Status
+- Planning
+- Open for Enrollment
+- Active
+- Paused
+- Completed
+- Archived
+- Cancelled

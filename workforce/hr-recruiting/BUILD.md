@@ -454,7 +454,7 @@ Candidate data privacy consent and opt-in tracking.
 
 ---
 
-## New Choice Fields
+## New Choice Fields - Semi-Reviewed
 
 ### Recruiting Workforce Request Type
 - New Position
@@ -463,16 +463,6 @@ Candidate data privacy consent and opt-in tracking.
 - Seasonal
 - Project Based
 - Expansion
-
-### Recruiting Requisition Status
-- Draft
-- Pending Approval
-- Approved
-- Open
-- On Hold
-- Filled
-- Cancelled
-- Closed
 
 ### Recruiting Posting Channel
 - Company Website
@@ -504,13 +494,6 @@ Candidate data privacy consent and opt-in tracking.
 - Screening Criteria
 - Evaluation Criteria
 
-### Recruiting Proficiency Level
-- Beginner
-- Intermediate
-- Advanced
-- Expert
-- Subject Matter Expert
-
 ### Recruiting Candidate Source
 - Direct Application
 - Employee Referral
@@ -533,16 +516,6 @@ Candidate data privacy consent and opt-in tracking.
 - Not Selected
 - Withdrawn
 - Inactive
-
-### Recruiting Education Level
-- High School
-- Associate Degree
-- Bachelor Degree
-- Master Degree
-- Doctoral Degree
-- Professional Degree
-- Some College
-- Trade Certification
 
 ### Recruiting Application Status
 - Submitted
@@ -576,6 +549,63 @@ Candidate data privacy consent and opt-in tracking.
 - Campus Recruiting
 - Sourced by Recruiter
 
+### Recruiting Recommendation
+- Strong Hire
+- Hire
+- Maybe
+- Do Not Hire
+- Advance to Next Stage
+- Decline
+
+### Recruiting Evaluation Category
+- Technical Skills
+- Communication
+- Leadership
+- Problem Solving
+- Cultural Fit
+- Experience
+- Education
+- Motivation
+
+### Recruiting Pre-Hire Requirement Type
+- Background Check
+- Drug Screening
+- Medical Examination
+- Reference Check
+- Credential Verification
+- Education Verification
+- Employment Verification
+- Security Clearance
+- I-9 Verification
+- Fingerprinting
+
+### Recruiting Requirement Result
+- Cleared
+- Cleared with Conditions
+- Failed
+- Incomplete
+- Cancelled
+- Pending
+
+## Candidates ----------------------
+
+### Recruiting Proficiency Level
+- Beginner
+- Intermediate
+- Advanced
+- Expert
+- Subject Matter Expert
+
+### Recruiting Education Level - and see Training and Cert
+- High School
+- Associate Degree
+- Bachelor Degree
+- Master Degree
+- Doctoral Degree
+- Professional Degree
+- Some College
+- Trade Certification
+
 ### Recruiting Evaluation Type
 - Initial Screening
 - Phone Screen Evaluation
@@ -591,14 +621,6 @@ Candidate data privacy consent and opt-in tracking.
 - Below Average
 - Poor
 - Not Assessed
-
-### Recruiting Recommendation
-- Strong Hire
-- Hire
-- Maybe
-- Do Not Hire
-- Advance to Next Stage
-- Decline
 
 ### Recruiting Interview Type
 - Phone Screen
@@ -624,16 +646,6 @@ Candidate data privacy consent and opt-in tracking.
 - Cancelled by Candidate
 - Cancelled by Employer
 - Rescheduled
-
-### Recruiting Evaluation Category
-- Technical Skills
-- Communication
-- Leadership
-- Problem Solving
-- Cultural Fit
-- Experience
-- Education
-- Motivation
 
 ### Recruiting Decision Status
 - Pending
@@ -666,18 +678,6 @@ Candidate data privacy consent and opt-in tracking.
 - Negotiating
 - Expired
 
-### Recruiting Pre-Hire Requirement Type
-- Background Check
-- Drug Screening
-- Medical Examination
-- Reference Check
-- Credential Verification
-- Education Verification
-- Employment Verification
-- Security Clearance
-- I-9 Verification
-- Fingerprinting
-
 ### Recruiting Requirement Status
 - Not Started
 - In Progress
@@ -687,11 +687,12 @@ Candidate data privacy consent and opt-in tracking.
 - Cancelled
 - Failed
 
-### Recruiting Requirement Result
-- Cleared
-- Cleared with Conditions
-- Failed
-- Incomplete
+### Recruiting Requisition Status
+- Draft
+- Pending Approval
+- Approved
+- Open
+- On Hold
+- Filled
 - Cancelled
-- Pending
-
+- Closed

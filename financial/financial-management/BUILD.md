@@ -297,7 +297,7 @@ A specific output, service, or product required under a Contract. Deliverables t
 - Submitted Date: Date
 - Accepted Date: Date
 - Rejected Date: Date
-- Deliverable Status: Choice (Contract Deliverable Status)
+- Deliverable Status: Choice (Deliverable Status)
 - Acceptance Criteria: Memo
 - Reviewer: Lookup (Person)
 - Review Comments: Memo
@@ -319,7 +319,7 @@ A significant contractual event or date, such as kickoff, phase completion, rene
 - Description: Memo
 - Target Date: Date
 - Actual Date: Date
-- Milestone Status: Choice (Contract Milestone Status)
+- Milestone Status: Choice (Milestone Status)
 - Responsible Party: Lookup (Account)
 - Responsible Person: Lookup (Person)
 - Is Critical: Yes / No
@@ -462,16 +462,7 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 
 ---
 
-## New Choice Fields
-
-### Budget Status
-- Draft
-- Pending Approval
-- Approved
-- Active
-- Amended
-- Closed
-- Cancelled
+## New Choice Fields - Reviewed
 
 ### Financial Funding Source Type
 - Appropriation
@@ -575,15 +566,6 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 - Physical Product
 - Service Completion
 
-### Contract Deliverable Status
-- Not Started
-- In Progress
-- Submitted
-- Under Review
-- Accepted
-- Rejected
-- Resubmitted
-
 ### Contract Milestone Type
 - Contract Award
 - Kickoff
@@ -593,14 +575,6 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 - Renewal Decision
 - Option Exercise
 - Contract Closeout
-
-### Contract Milestone Status
-- Upcoming
-- Due Soon
-- Completed On Time
-- Completed Late
-- Missed
-- Cancelled
 
 ### Financial Commitment Type
 - Purchase Order
@@ -644,19 +618,4 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 - Closed
 - Cancelled
 
-### Payment Status
-- Pending
-- Approved
-- Processed
-- Paid
-- Voided
-- Returned
-
-### Payment Method
-- Check
-- Electronic Funds Transfer
-- Wire Transfer
-- Credit Card
-- Purchase Card
-- ACH
 

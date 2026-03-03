@@ -313,9 +313,9 @@ Examples include HR, Legal, Security, Compliance, or external agencies.
 
 ---
 
-## ✅ New Choice Fields for Dispute Resolution
+## ✅ New Choice Fields for Dispute Resolution - Semi-Reviewed
 
-### Dispute Dispute Status
+### Dispute Status
 Values representing the lifecycle of a dispute case:
 - Intake
 - Under Review
@@ -328,7 +328,7 @@ Values representing the lifecycle of a dispute case:
 - Withdrawn
 - Referred
 
-### Dispute Dispute Type
+### Dispute Type
 Categories of disputes:
 - Discrimination
 - Harassment
@@ -343,31 +343,6 @@ Categories of disputes:
 - Reasonable Accommodation
 - Performance Issue
 
-### Dispute Appeal Status
-Current state of an appeal:
-- Filed
-- Under Review
-- Hearing Scheduled
-- Hearing Held
-- Decision Pending
-- Upheld
-- Overturned
-- Modified
-- Remanded
-- Withdrawn
-- Dismissed
-
-### Dispute Appeal Basis
-Grounds for appeal:
-- Procedural Error
-- New Evidence
-- Misapplication of Policy
-- Excessive Remedy
-- Bias or Conflict
-- Insufficient Evidence
-- Legal Error
-- Timeliness Issue
-
 ### Dispute Corrective Action Type
 Categories of required actions:
 - Training Required
@@ -380,27 +355,6 @@ Categories of required actions:
 - Restitution
 - System Enhancement
 - Communication Plan
-
-### Dispute Corrective Action Status
-Progress on corrective actions:
-- Planned
-- In Progress
-- Pending Verification
-- Verified Complete
-- Overdue
-- Cancelled
-- Deferred
-
-### Dispute Determination Type
-Types of formal outcomes:
-- Finding
-- Settlement
-- Dismissal
-- Summary Decision
-- Final Decision
-- Consent Order
-- Default Decision
-- Partial Decision
 
 ### Dispute Evidence Type
 Categories of evidence:
@@ -524,6 +478,29 @@ Role in dispute process:
 - Support Person
 - Third Party
 
+## Candidates -------------------------------
+
+### Dispute Determination Type
+Types of formal outcomes:
+- Finding
+- Settlement
+- Dismissal
+- Summary Decision
+- Final Decision
+- Consent Order
+- Default Decision
+- Partial Decision
+
+### Dispute Corrective Action Status
+Progress on corrective actions:
+- Planned
+- In Progress
+- Pending Verification
+- Verified Complete
+- Overdue
+- Cancelled
+- Deferred
+
 ### Dispute Referral Status
 State of referral:
 - Pending
@@ -533,3 +510,28 @@ State of referral:
 - Completed
 - Returned
 - Closed
+
+### Dispute Appeal Status
+Current state of an appeal:
+- Filed
+- Under Review
+- Hearing Scheduled
+- Hearing Held
+- Decision Pending
+- Upheld
+- Overturned
+- Modified
+- Remanded
+- Withdrawn
+- Dismissed
+
+### Dispute Appeal Basis
+Grounds for appeal:
+- Procedural Error
+- New Evidence
+- Misapplication of Policy
+- Excessive Remedy
+- Bias or Conflict
+- Insufficient Evidence
+- Legal Error
+- Timeliness Issue

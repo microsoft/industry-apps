@@ -210,6 +210,7 @@ Person or organization involved in the case (subject, reporter, witness, impacte
 
 **Completed Last Round:**
 - Cooperation Status: Choice (Cooperation Status)
+- Removed Participation Status
 
 **Planned:**
 
@@ -467,6 +468,7 @@ Links participants to interviews and defines their role (interviewer, witness, o
 **Completed Last Round:**
 - Attendance Status: Choice (Attendance Status)
 - Cooperation Status: Choice (Cooperation Status)
+- Removed Participation Status
 
 **Planned:**
 
