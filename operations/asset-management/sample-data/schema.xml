@@ -1,0 +1,856 @@
+<entities >
+  <entity name="contact" displayname="Person" etc="2" primaryidfield="contactid" primarynamefield="fullname" disableplugins="false">
+    <fields>
+      <field displayname="(Deprecated) Process Stage" name="stageid" type="guid" />
+      <field displayname="(Deprecated) Traversed Path" name="traversedpath" type="string" />
+      <field displayname="Access Failed Count" name="adx_identity_accessfailedcount" type="number" customfield="true" />
+      <field displayname="Account" name="accountid" type="entityreference" lookupType="account" />
+      <field displayname="Address 1" name="address1_composite" type="string" />
+      <field displayname="Address 1: Address Type" name="address1_addresstypecode" type="optionsetvalue" />
+      <field displayname="Address 1: City" name="address1_city" type="string" />
+      <field displayname="Address 1: Country/Region" name="address1_country" type="string" />
+      <field displayname="Address 1: County" name="address1_county" type="string" />
+      <field displayname="Address 1: Fax" name="address1_fax" type="string" />
+      <field displayname="Address 1: Freight Terms" name="address1_freighttermscode" type="optionsetvalue" />
+      <field displayname="Address 1: ID" name="address1_addressid" type="guid" primaryKey="true" />
+      <field displayname="Address 1: Latitude" name="address1_latitude" type="float" />
+      <field displayname="Address 1: Longitude" name="address1_longitude" type="float" />
+      <field displayname="Address 1: Name" name="address1_name" type="string" />
+      <field displayname="Address 1: Phone" name="address1_telephone1" type="string" />
+      <field displayname="Address 1: Post Office Box" name="address1_postofficebox" type="string" />
+      <field displayname="Address 1: Primary Contact Name" name="address1_primarycontactname" type="string" />
+      <field displayname="Address 1: Shipping Method" name="address1_shippingmethodcode" type="optionsetvalue" />
+      <field displayname="Address 1: State/Province" name="address1_stateorprovince" type="string" />
+      <field displayname="Address 1: Street 1" name="address1_line1" type="string" />
+      <field displayname="Address 1: Street 2" name="address1_line2" type="string" />
+      <field displayname="Address 1: Street 3" name="address1_line3" type="string" />
+      <field displayname="Address 1: Telephone 2" name="address1_telephone2" type="string" />
+      <field displayname="Address 1: Telephone 3" name="address1_telephone3" type="string" />
+      <field displayname="Address 1: UPS Zone" name="address1_upszone" type="string" />
+      <field displayname="Address 1: UTC Offset" name="address1_utcoffset" type="number" />
+      <field displayname="Address 1: ZIP/Postal Code" name="address1_postalcode" type="string" />
+      <field displayname="Address 2" name="address2_composite" type="string" />
+      <field displayname="Address 2: Address Type" name="address2_addresstypecode" type="optionsetvalue" />
+      <field displayname="Address 2: City" name="address2_city" type="string" />
+      <field displayname="Address 2: Country/Region" name="address2_country" type="string" />
+      <field displayname="Address 2: County" name="address2_county" type="string" />
+      <field displayname="Address 2: Fax" name="address2_fax" type="string" />
+      <field displayname="Address 2: Freight Terms" name="address2_freighttermscode" type="optionsetvalue" />
+      <field displayname="Address 2: ID" name="address2_addressid" type="guid" primaryKey="true" />
+      <field displayname="Address 2: Latitude" name="address2_latitude" type="float" />
+      <field displayname="Address 2: Longitude" name="address2_longitude" type="float" />
+      <field displayname="Address 2: Name" name="address2_name" type="string" />
+      <field displayname="Address 2: Post Office Box" name="address2_postofficebox" type="string" />
+      <field displayname="Address 2: Primary Contact Name" name="address2_primarycontactname" type="string" />
+      <field displayname="Address 2: Shipping Method" name="address2_shippingmethodcode" type="optionsetvalue" />
+      <field displayname="Address 2: State/Province" name="address2_stateorprovince" type="string" />
+      <field displayname="Address 2: Street 1" name="address2_line1" type="string" />
+      <field displayname="Address 2: Street 2" name="address2_line2" type="string" />
+      <field displayname="Address 2: Street 3" name="address2_line3" type="string" />
+      <field displayname="Address 2: Telephone 1" name="address2_telephone1" type="string" />
+      <field displayname="Address 2: Telephone 2" name="address2_telephone2" type="string" />
+      <field displayname="Address 2: Telephone 3" name="address2_telephone3" type="string" />
+      <field displayname="Address 2: UPS Zone" name="address2_upszone" type="string" />
+      <field displayname="Address 2: UTC Offset" name="address2_utcoffset" type="number" />
+      <field displayname="Address 2: ZIP/Postal Code" name="address2_postalcode" type="string" />
+      <field displayname="Address 3" name="address3_composite" type="string" />
+      <field displayname="Address 3: Address Type" name="address3_addresstypecode" type="optionsetvalue" />
+      <field displayname="Address 3: City" name="address3_city" type="string" />
+      <field displayname="Address 3: County" name="address3_county" type="string" />
+      <field displayname="Address 3: Fax" name="address3_fax" type="string" />
+      <field displayname="Address 3: Freight Terms" name="address3_freighttermscode" type="optionsetvalue" />
+      <field displayname="Address 3: ID" name="address3_addressid" type="guid" primaryKey="true" />
+      <field displayname="Address 3: Latitude" name="address3_latitude" type="float" />
+      <field displayname="Address 3: Longitude" name="address3_longitude" type="float" />
+      <field displayname="Address 3: Name" name="address3_name" type="string" />
+      <field displayname="Address 3: Post Office Box" name="address3_postofficebox" type="string" />
+      <field displayname="Address 3: Primary Contact Name" name="address3_primarycontactname" type="string" />
+      <field displayname="Address 3: Shipping Method" name="address3_shippingmethodcode" type="optionsetvalue" />
+      <field displayname="Address 3: Telephone1" name="address3_telephone1" type="string" />
+      <field displayname="Address 3: Telephone2" name="address3_telephone2" type="string" />
+      <field displayname="Address 3: Telephone3" name="address3_telephone3" type="string" />
+      <field displayname="Address 3: UPS Zone" name="address3_upszone" type="string" />
+      <field displayname="Address 3: UTC Offset" name="address3_utcoffset" type="number" />
+      <field displayname="Address3: Country/Region" name="address3_country" type="string" />
+      <field displayname="Address3: State/Province" name="address3_stateorprovince" type="string" />
+      <field displayname="Address3: Street 1" name="address3_line1" type="string" />
+      <field displayname="Address3: Street 2" name="address3_line2" type="string" />
+      <field displayname="Address3: Street 3" name="address3_line3" type="string" />
+      <field displayname="Address3: ZIP/Postal Code" name="address3_postalcode" type="string" />
+      <field displayname="Aging 30" name="aging30" type="money" />
+      <field displayname="Aging 30 (Base)" name="aging30_base" type="money" />
+      <field displayname="Aging 60" name="aging60" type="money" />
+      <field displayname="Aging 60 (Base)" name="aging60_base" type="money" />
+      <field displayname="Aging 90" name="aging90" type="money" />
+      <field displayname="Aging 90 (Base)" name="aging90_base" type="money" />
+      <field displayname="Anniversary" name="anniversary" type="datetime" />
+      <field displayname="Annual Income" name="annualincome" type="money" />
+      <field displayname="Annual Income (Base)" name="annualincome_base" type="money" />
+      <field displayname="Assistant" name="assistantname" type="string" />
+      <field displayname="Assistant Phone" name="assistantphone" type="string" />
+      <field displayname="Back Office Customer" name="isbackofficecustomer" type="bool" />
+      <field displayname="Birthday" name="birthdate" type="datetime" />
+      <field displayname="Business Phone" name="telephone1" type="string" />
+      <field displayname="Business Phone 2" name="business2" type="string" />
+      <field displayname="Callback Number" name="callback" type="string" />
+      <field displayname="Children's Names" name="childrensnames" type="string" />
+      <field displayname="Company Name" name="parentcustomerid" type="entityreference" lookupType="account|contact" />
+      <field displayname="Company Phone" name="company" type="string" />
+      <field displayname="Confirm Remove Password" name="adx_confirmremovepassword" type="bool" customfield="true" />
+      <field displayname="Contact" name="contactid" type="guid" primaryKey="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (External Party)" name="createdbyexternalparty" type="entityreference" lookupType="externalparty" />
+      <field displayname="Created By IP Address" name="adx_createdbyipaddress" type="string" customfield="true" />
+      <field displayname="Created By Username" name="adx_createdbyusername" type="string" customfield="true" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Credit Hold" name="creditonhold" type="bool" />
+      <field displayname="Credit Limit" name="creditlimit" type="money" />
+      <field displayname="Credit Limit (Base)" name="creditlimit_base" type="money" />
+      <field displayname="Currency" name="transactioncurrencyid" type="entityreference" lookupType="transactioncurrency" />
+      <field displayname="Custom Page State" name="appbase_custompagestate" type="string" customfield="true" />
+      <field displayname="Customer Size" name="customersizecode" type="optionsetvalue" />
+      <field displayname="Department" name="department" type="string" />
+      <field displayname="Description" name="description" type="string" />
+      <field displayname="Disable Web Tracking" name="msdyn_disablewebtracking" type="bool" customfield="true" />
+      <field displayname="Do not allow Bulk Emails" name="donotbulkemail" type="bool" />
+      <field displayname="Do not allow Bulk Mails" name="donotbulkpostalmail" type="bool" />
+      <field displayname="Do not allow Emails" name="donotemail" type="bool" />
+      <field displayname="Do not allow Faxes" name="donotfax" type="bool" />
+      <field displayname="Do not allow Mails" name="donotpostalmail" type="bool" />
+      <field displayname="Do not allow Phone Calls" name="donotphone" type="bool" />
+      <field displayname="Education" name="educationcode" type="optionsetvalue" />
+      <field displayname="Email" name="emailaddress1" type="string" />
+      <field displayname="Email Address 2" name="emailaddress2" type="string" />
+      <field displayname="Email Address 3" name="emailaddress3" type="string" />
+      <field displayname="Email Confirmed" name="adx_identity_emailaddress1confirmed" type="bool" customfield="true" />
+      <field displayname="Employee" name="employeeid" type="string" />
+      <field displayname="Entity Image" name="entityimage" type="imagedata" />
+      <field displayname="Entity Image Id" name="entityimageid" type="guid" />
+      <field displayname="Exchange Rate" name="exchangerate" type="decimal" />
+      <field displayname="External User Identifier" name="externaluseridentifier" type="string" />
+      <field displayname="Fax" name="fax" type="string" />
+      <field displayname="First Name" name="firstname" type="string" />
+      <field displayname="Follow Email Activity" name="followemail" type="bool" />
+      <field displayname="FTP Site" name="ftpsiteurl" type="string" />
+      <field displayname="Full Name" name="fullname" type="string" />
+      <field displayname="Gender" name="gendercode" type="optionsetvalue" />
+      <field displayname="Government" name="governmentid" type="string" />
+      <field displayname="Has Children" name="haschildrencode" type="optionsetvalue" />
+      <field displayname="Home Phone" name="telephone2" type="string" />
+      <field displayname="Home Phone 2" name="home2" type="string" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Is Minor" name="msdyn_isminor" type="bool" customfield="true" />
+      <field displayname="Is Minor with Parental Consent" name="msdyn_isminorwithparentalconsent" type="bool" customfield="true" />
+      <field displayname="Job Title" name="jobtitle" type="string" />
+      <field displayname="Last Date Included in Campaign" name="lastusedincampaign" type="datetime" />
+      <field displayname="Last Name" name="lastname" type="string" />
+      <field displayname="Last On Hold Time" name="lastonholdtime" type="datetime" />
+      <field displayname="Last SLA applied" name="slainvokedid" type="entityreference" lookupType="sla" />
+      <field displayname="Last Successful Login" name="adx_identity_lastsuccessfullogin" type="datetime" customfield="true" />
+      <field displayname="Lead Source" name="leadsourcecode" type="optionsetvalue" />
+      <field displayname="Local Login Disabled" name="adx_identity_locallogindisabled" type="bool" customfield="true" />
+      <field displayname="Lockout Enabled" name="adx_identity_lockoutenabled" type="bool" customfield="true" />
+      <field displayname="Lockout End Date" name="adx_identity_lockoutenddate" type="datetime" customfield="true" />
+      <field displayname="Login Enabled" name="adx_identity_logonenabled" type="bool" customfield="true" />
+      <field displayname="Manager" name="managername" type="string" />
+      <field displayname="Manager Phone" name="managerphone" type="string" />
+      <field displayname="Managing Partner" name="msa_managingpartnerid" type="entityreference" lookupType="account" customfield="true" />
+      <field displayname="Marital Status" name="familystatuscode" type="optionsetvalue" />
+      <field displayname="Marketing Only" name="marketingonly" type="bool" />
+      <field displayname="Master ID" name="masterid" type="entityreference" lookupType="contact" />
+      <field displayname="Merged" name="merged" type="bool" />
+      <field displayname="Middle Name" name="middlename" type="string" />
+      <field displayname="Mobile Phone" name="mobilephone" type="string" />
+      <field displayname="Mobile Phone Confirmed" name="adx_identity_mobilephoneconfirmed" type="bool" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (External Party)" name="modifiedbyexternalparty" type="entityreference" lookupType="externalparty" />
+      <field displayname="Modified By IP Address" name="adx_modifiedbyipaddress" type="string" customfield="true" />
+      <field displayname="Modified By Username" name="adx_modifiedbyusername" type="string" customfield="true" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="New Password Input" name="adx_identity_newpassword" type="string" customfield="true" />
+      <field displayname="Nickname" name="nickname" type="string" />
+      <field displayname="No. of Children" name="numberofchildren" type="number" />
+      <field displayname="On Hold Time (Minutes)" name="onholdtime" type="number" />
+      <field displayname="Organization Name" name="adx_organizationname" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Pager" name="pager" type="string" />
+      <field displayname="Parent Contact" name="parentcontactid" type="entityreference" lookupType="contact" />
+      <field displayname="Participates in Workflow" name="participatesinworkflow" type="bool" />
+      <field displayname="Password Hash" name="adx_identity_passwordhash" type="string" customfield="true" />
+      <field displayname="Payment Terms" name="paymenttermscode" type="optionsetvalue" />
+      <field displayname="Portal Terms Agreement Date" name="msdyn_portaltermsagreementdate" type="datetime" customfield="true" />
+      <field displayname="Preferred Day" name="preferredappointmentdaycode" type="optionsetvalue" />
+      <field displayname="Preferred Language" name="mspp_userpreferredlcid" type="optionsetvalue" customfield="true" />
+      <field displayname="Preferred LCID (Deprecated)" name="adx_preferredlcid" type="number" customfield="true" />
+      <field displayname="Preferred Method of Contact" name="preferredcontactmethodcode" type="optionsetvalue" />
+      <field displayname="Preferred Time" name="preferredappointmenttimecode" type="optionsetvalue" />
+      <field displayname="Preferred User" name="preferredsystemuserid" type="entityreference" lookupType="systemuser" />
+      <field displayname="Process" name="processid" type="guid" />
+      <field displayname="Profile Alert" name="adx_profilealert" type="bool" customfield="true" />
+      <field displayname="Profile Alert Date" name="adx_profilealertdate" type="datetime" customfield="true" />
+      <field displayname="Profile Alert Instructions" name="adx_profilealertinstructions" type="string" customfield="true" />
+      <field displayname="Profile Is Anonymous" name="adx_profileisanonymous" type="bool" customfield="true" />
+      <field displayname="Profile Last Activity" name="adx_profilelastactivity" type="datetime" customfield="true" />
+      <field displayname="Profile Modified On" name="adx_profilemodifiedon" type="datetime" customfield="true" />
+      <field displayname="Public Profile Copy" name="adx_publicprofilecopy" type="string" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Relationship Type" name="customertypecode" type="optionsetvalue" />
+      <field displayname="Role" name="accountrolecode" type="optionsetvalue" />
+      <field displayname="Salutation" name="salutation" type="string" />
+      <field displayname="Security Stamp" name="adx_identity_securitystamp" type="string" customfield="true" />
+      <field displayname="Send Marketing Materials" name="donotsendmm" type="bool" />
+      <field displayname="Shipping Method" name="shippingmethodcode" type="optionsetvalue" />
+      <field displayname="SLA" name="slaid" type="entityreference" lookupType="sla" />
+      <field displayname="Spouse/Partner Name" name="spousesname" type="string" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Suffix" name="suffix" type="string" />
+      <field displayname="Telephone 3" name="telephone3" type="string" />
+      <field displayname="Territory" name="territorycode" type="optionsetvalue" />
+      <field displayname="Time Spent by me" name="timespentbymeonemailandmeetings" type="string" />
+      <field displayname="Time Zone" name="adx_timezone" type="number" customfield="true" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Two Factor Enabled" name="adx_identity_twofactorenabled" type="bool" customfield="true" />
+      <field displayname="User Name" name="adx_identity_username" type="string" customfield="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Website" name="websiteurl" type="string" />
+      <field displayname="Yomi First Name" name="yomifirstname" type="string" />
+      <field displayname="Yomi Full Name" name="yomifullname" type="string" />
+      <field displayname="Yomi Last Name" name="yomilastname" type="string" />
+      <field displayname="Yomi Middle Name" name="yomimiddlename" type="string" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_asset" displayname="Asset" etc="10639" primaryidfield="appbase_assetid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Acquired Date Time" name="appbase_acquireddatetime" type="datetime" customfield="true" />
+      <field displayname="Asset" name="appbase_assetid" type="guid" primaryKey="true" />
+      <field displayname="Asset Acquisition" name="appbase_assetacquisition" type="entityreference" lookupType="appbase_assetacquisition" customfield="true" />
+      <field displayname="Asset Category" name="appbase_assetcategory" type="entityreference" lookupType="appbase_assetcategory" customfield="true" />
+      <field displayname="Asset Condition" name="appbase_assetcondition" type="optionsetvalue" customfield="true" />
+      <field displayname="Asset Number" name="appbase_assetnumber" type="string" customfield="true" />
+      <field displayname="Asset Status" name="appbase_assetstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Asset Type" name="appbase_assettype" type="entityreference" lookupType="appbase_assettype" customfield="true" />
+      <field displayname="Barcode" name="appbase_barcode" type="string" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Currency" name="transactioncurrencyid" type="entityreference" lookupType="transactioncurrency" />
+      <field displayname="Current Assignment" name="appbase_currentassignment" type="entityreference" lookupType="appbase_assetassignment" customfield="true" />
+      <field displayname="Current Location" name="appbase_currentlocation" type="entityreference" lookupType="appbase_location" customfield="true" />
+      <field displayname="Current Owner" name="appbase_currentowner" type="entityreference" lookupType="appbase_assetowner" customfield="true" />
+      <field displayname="Depreciation Method" name="appbase_depreciationmethod" type="optionsetvalue" customfield="true" />
+      <field displayname="Description" name="appbase_description" type="string" customfield="true" />
+      <field displayname="Estimated Value" name="appbase_estimatedvalue" type="money" customfield="true" />
+      <field displayname="Estimated Value (Base)" name="appbase_estimatedvalue_base" type="money" customfield="true" />
+      <field displayname="Exchange Rate" name="exchangerate" type="decimal" />
+      <field displayname="Expected Useful Life (Years)" name="appbase_expectedusefullifeyears" type="number" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="In Service Date" name="appbase_inservicedate" type="datetime" customfield="true" />
+      <field displayname="Is Disposable" name="appbase_isdisposable" type="optionsetvalue" customfield="true" />
+      <field displayname="Last Inventory Date" name="appbase_lastinventorydate" type="datetime" customfield="true" />
+      <field displayname="Location" name="appbase_location" type="entityreference" lookupType="appbase_location" customfield="true" />
+      <field displayname="Location Note" name="appbase_locationnote" type="string" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Notes" name="appbase_notes" type="string" customfield="true" />
+      <field displayname="Organization Unit" name="appbase_organizationunit" type="entityreference" lookupType="appbase_organizationunit" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Parent Asset" name="appbase_parentasset" type="entityreference" lookupType="appbase_asset" customfield="true" />
+      <field displayname="Purchased Date" name="appbase_purchaseddate" type="datetime" customfield="true" />
+      <field displayname="Quantity" name="appbase_quantity" type="float" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Related Product" name="appbase_relatedproduct" type="entityreference" lookupType="appbase_product" customfield="true" />
+      <field displayname="Requires Inspection" name="appbase_requiresinspection" type="optionsetvalue" customfield="true" />
+      <field displayname="RF Tag" name="appbase_rftag" type="string" customfield="true" />
+      <field displayname="Serial Number" name="appbase_serialnumber" type="string" customfield="true" />
+      <field displayname="Service Tag" name="appbase_servicetag" type="string" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Unit Cost" name="appbase_unitcost" type="money" customfield="true" />
+      <field displayname="Unit Cost (Base)" name="appbase_unitcost_base" type="money" customfield="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_assetacquisition" displayname="Asset Acquisition" etc="10640" primaryidfield="appbase_assetacquisitionid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Acquisition Date" name="appbase_acquisitiondate" type="datetime" customfield="true" />
+      <field displayname="Acquisition Type" name="appbase_acquisitiontype" type="optionsetvalue" customfield="true" />
+      <field displayname="Asset Acquisition" name="appbase_assetacquisitionid" type="guid" primaryKey="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Currency" name="transactioncurrencyid" type="entityreference" lookupType="transactioncurrency" />
+      <field displayname="Exchange Rate" name="exchangerate" type="decimal" />
+      <field displayname="Funding Source" name="appbase_fundingsource" type="string" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Invoice Date" name="appbase_invoicedate" type="datetime" customfield="true" />
+      <field displayname="Invoice Number" name="appbase_invoicenumber" type="string" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Notes" name="appbase_notes" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Payment Status" name="appbase_paymentstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Purchase Order Number" name="appbase_purchaseordernumber" type="string" customfield="true" />
+      <field displayname="Received By" name="appbase_receivedby" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Received Date" name="appbase_receiveddate" type="datetime" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Supplier" name="appbase_supplier" type="entityreference" lookupType="account" customfield="true" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Total Cost" name="appbase_totalcost" type="money" customfield="true" />
+      <field displayname="Total Cost (Base)" name="appbase_totalcost_base" type="money" customfield="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+      <field displayname="Warranty Expiration Date" name="appbase_warrantyexpirationdate" type="datetime" customfield="true" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_assetassignment" displayname="Asset Assignment" etc="10641" primaryidfield="appbase_assetassignmentid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Actual Return Date" name="appbase_actualreturndate" type="datetime" customfield="true" />
+      <field displayname="Asset" name="appbase_asset" type="entityreference" lookupType="appbase_asset" customfield="true" />
+      <field displayname="Asset Assignment" name="appbase_assetassignmentid" type="guid" primaryKey="true" />
+      <field displayname="Assigned To Organization Unit" name="appbase_assignedtoorganizationunit" type="entityreference" lookupType="appbase_organizationunit" customfield="true" />
+      <field displayname="Assigned To Person" name="appbase_assignedtoperson" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Assignment Date" name="appbase_assignmentdate" type="datetime" customfield="true" />
+      <field displayname="Assignment Purpose" name="appbase_assignmentpurpose" type="string" customfield="true" />
+      <field displayname="Assignment Status" name="appbase_assignmentstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Expected Return Date" name="appbase_expectedreturndate" type="datetime" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Is Current" name="appbase_iscurrent" type="optionsetvalue" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Notes" name="appbase_notes" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_assetaudit" displayname="Asset Audit" etc="10642" primaryidfield="appbase_assetauditid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Action Status" name="appbase_actionstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Asset Audit" name="appbase_assetauditid" type="guid" primaryKey="true" />
+      <field displayname="Audit End Date" name="appbase_auditenddate" type="datetime" customfield="true" />
+      <field displayname="Audit Start Date" name="appbase_auditstartdate" type="datetime" customfield="true" />
+      <field displayname="Audit Type" name="appbase_audittype" type="optionsetvalue" customfield="true" />
+      <field displayname="Auditor" name="appbase_auditor" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Description" name="appbase_description" type="string" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Notes" name="appbase_notes" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Scope Location" name="appbase_scopelocation" type="entityreference" lookupType="appbase_location" customfield="true" />
+      <field displayname="Scope Organization Unit" name="appbase_scopeorganizationunit" type="entityreference" lookupType="appbase_organizationunit" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Total Assets Expected" name="appbase_totalassetsexpected" type="number" customfield="true" />
+      <field displayname="Total Assets Verified" name="appbase_totalassetsverified" type="number" customfield="true" />
+      <field displayname="Total Discrepancies" name="appbase_totaldiscrepancies" type="number" customfield="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_assetaudititem" displayname="Asset Audit Item" etc="10643" primaryidfield="appbase_assetaudititemid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Asset" name="appbase_asset" type="entityreference" lookupType="appbase_asset" customfield="true" />
+      <field displayname="Asset Audit" name="appbase_assetaudit" type="entityreference" lookupType="appbase_assetaudit" customfield="true" />
+      <field displayname="Asset Audit Item" name="appbase_assetaudititemid" type="guid" primaryKey="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Discrepancy Type" name="appbase_discrepancytype" type="optionsetvalue" customfield="true" />
+      <field displayname="Expected Assignee" name="appbase_expectedassignee" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Expected Condition" name="appbase_expectedcondition" type="optionsetvalue" customfield="true" />
+      <field displayname="Expected Location" name="appbase_expectedlocation" type="entityreference" lookupType="appbase_location" customfield="true" />
+      <field displayname="Finding" name="appbase_finding" type="string" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Observed Assignee" name="appbase_observedassignee" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Observed Condition" name="appbase_observedcondition" type="optionsetvalue" customfield="true" />
+      <field displayname="Observed Location" name="appbase_observedlocation" type="entityreference" lookupType="appbase_location" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Resolution" name="appbase_resolution" type="string" customfield="true" />
+      <field displayname="Resolution Date" name="appbase_resolutiondate" type="datetime" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Verification Date Time" name="appbase_verificationdatetime" type="datetime" customfield="true" />
+      <field displayname="Verification Status" name="appbase_verificationstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Verified By" name="appbase_verifiedby" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_assetcategory" displayname="Asset Category" etc="10644" primaryidfield="appbase_assetcategoryid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Asset Category" name="appbase_assetcategoryid" type="guid" primaryKey="true" />
+      <field displayname="Capitalization Threshold" name="appbase_capitalizationthreshold" type="money" customfield="true" />
+      <field displayname="Capitalization Threshold (Base)" name="appbase_capitalizationthreshold_base" type="money" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Currency" name="transactioncurrencyid" type="entityreference" lookupType="transactioncurrency" />
+      <field displayname="Description" name="appbase_description" type="string" customfield="true" />
+      <field displayname="Exchange Rate" name="exchangerate" type="decimal" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Parent Asset Category" name="appbase_parentassetcategory" type="entityreference" lookupType="appbase_assetcategory" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_assetcostentry" displayname="Asset Cost Entry" etc="10645" primaryidfield="appbase_assetcostentryid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Amount" name="appbase_amount" type="money" customfield="true" />
+      <field displayname="Amount (Base)" name="appbase_amount_base" type="money" customfield="true" />
+      <field displayname="Asset" name="appbase_asset" type="entityreference" lookupType="appbase_asset" customfield="true" />
+      <field displayname="Asset Cost Entry" name="appbase_assetcostentryid" type="guid" primaryKey="true" />
+      <field displayname="Capitalizable" name="appbase_capitalizable" type="optionsetvalue" customfield="true" />
+      <field displayname="Cost Date" name="appbase_costdate" type="datetime" customfield="true" />
+      <field displayname="Cost Type" name="appbase_costtype" type="optionsetvalue" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Currency" name="transactioncurrencyid" type="entityreference" lookupType="transactioncurrency" />
+      <field displayname="Description" name="appbase_description" type="string" customfield="true" />
+      <field displayname="Exchange Rate" name="exchangerate" type="decimal" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Invoice Number" name="appbase_invoicenumber" type="string" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Notes" name="appbase_notes" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Vendor" name="appbase_vendor" type="entityreference" lookupType="account" customfield="true" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_assetcustodyevent" displayname="Asset Custody Event" etc="10646" primaryidfield="appbase_assetcustodyeventid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Asset" name="appbase_asset" type="entityreference" lookupType="appbase_asset" customfield="true" />
+      <field displayname="Asset Custody Event" name="appbase_assetcustodyeventid" type="guid" primaryKey="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Event Date Time" name="appbase_eventdatetime" type="datetime" customfield="true" />
+      <field displayname="Event Type" name="appbase_eventtype" type="optionsetvalue" customfield="true" />
+      <field displayname="From Location" name="appbase_fromlocation" type="entityreference" lookupType="appbase_location" customfield="true" />
+      <field displayname="From Organization Unit" name="appbase_fromorganizationunit" type="entityreference" lookupType="appbase_organizationunit" customfield="true" />
+      <field displayname="From Person" name="appbase_fromperson" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Notes" name="appbase_notes" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Recorded By" name="appbase_recordedby" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="To Location" name="appbase_tolocation" type="entityreference" lookupType="appbase_location" customfield="true" />
+      <field displayname="To Organization Unit" name="appbase_toorganizationunit" type="entityreference" lookupType="appbase_organizationunit" customfield="true" />
+      <field displayname="To Person" name="appbase_toperson" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Verification Method" name="appbase_verificationmethod" type="string" customfield="true" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_assetdisposition" displayname="Asset Disposition" etc="10647" primaryidfield="appbase_assetdispositionid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Approval Date" name="appbase_approvaldate" type="datetime" customfield="true" />
+      <field displayname="Approved By" name="appbase_approvedby" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Asset" name="appbase_asset" type="entityreference" lookupType="appbase_asset" customfield="true" />
+      <field displayname="Asset Disposition" name="appbase_assetdispositionid" type="guid" primaryKey="true" />
+      <field displayname="Certificate of Destruction" name="appbase_certificateofdestruction" type="string" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Currency" name="transactioncurrencyid" type="entityreference" lookupType="transactioncurrency" />
+      <field displayname="Data Sanitization Verified" name="appbase_datasanitizationverified" type="optionsetvalue" customfield="true" />
+      <field displayname="Description" name="appbase_description" type="string" customfield="true" />
+      <field displayname="Disposal Cost" name="appbase_disposalcost" type="money" customfield="true" />
+      <field displayname="Disposal Cost (Base)" name="appbase_disposalcost_base" type="money" customfield="true" />
+      <field displayname="Disposition Date" name="appbase_dispositiondate" type="datetime" customfield="true" />
+      <field displayname="Disposition Reason" name="appbase_dispositionreason" type="optionsetvalue" customfield="true" />
+      <field displayname="Disposition Type" name="appbase_dispositiontype" type="optionsetvalue" customfield="true" />
+      <field displayname="Environmental Compliance Verified" name="appbase_environmentalcomplianceverified" type="optionsetvalue" customfield="true" />
+      <field displayname="Exchange Rate" name="exchangerate" type="decimal" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Notes" name="appbase_notes" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Recipient Account" name="appbase_recipientaccount" type="entityreference" lookupType="account" customfield="true" />
+      <field displayname="Recipient Person" name="appbase_recipientperson" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Sale Price" name="appbase_saleprice" type="money" customfield="true" />
+      <field displayname="Sale Price (Base)" name="appbase_saleprice_base" type="money" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_assetinspectionrequirement" displayname="Asset Inspection Requirement" etc="10648" primaryidfield="appbase_assetinspectionrequirementid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Asset Inspection Requirement" name="appbase_assetinspectionrequirementid" type="guid" primaryKey="true" />
+      <field displayname="Asset Type" name="appbase_assettype" type="entityreference" lookupType="appbase_assettype" customfield="true" />
+      <field displayname="Compliance Framework" name="appbase_complianceframework" type="entityreference" lookupType="appbase_complianceframework" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Description" name="appbase_description" type="string" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Inspection Frequency" name="appbase_inspectionfrequency" type="optionsetvalue" customfield="true" />
+      <field displayname="Inspection Frequency (Days)" name="appbase_inspectionfrequencydays" type="number" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Regulatory Authority" name="appbase_regulatoryauthority" type="entityreference" lookupType="appbase_legalauthority" customfield="true" />
+      <field displayname="Specific Asset" name="appbase_specificasset" type="entityreference" lookupType="appbase_asset" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_assetowner" displayname="Asset Owner" etc="10649" primaryidfield="appbase_assetownerid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Asset" name="appbase_asset" type="entityreference" lookupType="appbase_asset" customfield="true" />
+      <field displayname="Asset Owner" name="appbase_assetownerid" type="guid" primaryKey="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Effective End Date" name="appbase_effectiveenddate" type="datetime" customfield="true" />
+      <field displayname="Effective Start Date" name="appbase_effectivestartdate" type="datetime" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Is Current" name="appbase_iscurrent" type="optionsetvalue" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Notes" name="appbase_notes" type="string" customfield="true" />
+      <field displayname="Owned From Date Time" name="appbase_ownedfromdatetime" type="datetime" customfield="true" />
+      <field displayname="Owned To Date Time" name="appbase_ownedtodatetime" type="datetime" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owner Account" name="appbase_owneraccount" type="entityreference" lookupType="account" customfield="true" />
+      <field displayname="Owner Organization Unit" name="appbase_ownerorganizationunit" type="entityreference" lookupType="appbase_organizationunit" customfield="true" />
+      <field displayname="Ownership Type" name="appbase_ownershiptype" type="optionsetvalue" customfield="true" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Person" name="appbase_person" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_assetservicerecord" displayname="Asset Service Record" etc="10650" primaryidfield="appbase_assetservicerecordid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Actual Return Date Time" name="appbase_actualreturndatetime" type="datetime" customfield="true" />
+      <field displayname="Asset" name="appbase_asset" type="entityreference" lookupType="appbase_asset" customfield="true" />
+      <field displayname="Asset Service Record" name="appbase_assetservicerecordid" type="guid" primaryKey="true" />
+      <field displayname="Asset Service Type" name="appbase_assetservicetype" type="entityreference" lookupType="appbase_assetservicetype" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Currency" name="transactioncurrencyid" type="entityreference" lookupType="transactioncurrency" />
+      <field displayname="Description" name="appbase_description" type="string" customfield="true" />
+      <field displayname="Exchange Rate" name="exchangerate" type="decimal" />
+      <field displayname="Expected Return Date Time" name="appbase_expectedreturndatetime" type="datetime" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Meter Reading" name="appbase_meterreading" type="number" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Next Service Due Date" name="appbase_nextserviceduedate" type="datetime" customfield="true" />
+      <field displayname="Notes" name="appbase_notes" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Service Cost" name="appbase_servicecost" type="money" customfield="true" />
+      <field displayname="Service Cost (Base)" name="appbase_servicecost_base" type="money" customfield="true" />
+      <field displayname="Service Date" name="appbase_servicedate" type="datetime" customfield="true" />
+      <field displayname="Service End Date Time" name="appbase_serviceenddatetime" type="datetime" customfield="true" />
+      <field displayname="Service Location" name="appbase_servicelocation" type="entityreference" lookupType="appbase_location" customfield="true" />
+      <field displayname="Service Notes" name="appbase_servicenotes" type="string" customfield="true" />
+      <field displayname="Service Provider" name="appbase_serviceprovider" type="entityreference" lookupType="account" customfield="true" />
+      <field displayname="Service Provider Contact" name="appbase_serviceprovidercontact" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Service Request Date Time" name="appbase_servicerequestdatetime" type="datetime" customfield="true" />
+      <field displayname="Service Request Description" name="appbase_servicerequestdescription" type="string" customfield="true" />
+      <field displayname="Service Start Date Time" name="appbase_servicestartdatetime" type="datetime" customfield="true" />
+      <field displayname="Service Status" name="appbase_servicestatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Service Type" name="appbase_servicetype" type="entityreference" lookupType="appbase_assetservicetype" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_assetservicetype" displayname="Asset Service Type" etc="10651" primaryidfield="appbase_assetservicetypeid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Asset Service Type" name="appbase_assetservicetypeid" type="guid" primaryKey="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Description" name="appbase_description" type="string" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_assettype" displayname="Asset Type" etc="10652" primaryidfield="appbase_assettypeid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Asset Category" name="appbase_assetcategory" type="entityreference" lookupType="appbase_assetcategory" customfield="true" />
+      <field displayname="Asset Type" name="appbase_assettypeid" type="guid" primaryKey="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Default Useful Life (Years)" name="appbase_defaultusefullifeyears" type="number" customfield="true" />
+      <field displayname="Description" name="appbase_description" type="string" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Requires Inspection" name="appbase_requiresinspection" type="optionsetvalue" customfield="true" />
+      <field displayname="Requires Tracking" name="appbase_requirestracking" type="optionsetvalue" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_location" displayname="Location" etc="10601" primaryidfield="appbase_locationid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Address Line 1" name="appbase_addressline1" type="string" customfield="true" />
+      <field displayname="Address Line 2" name="appbase_addressline2" type="string" customfield="true" />
+      <field displayname="Capacity" name="appbase_capacity" type="number" customfield="true" />
+      <field displayname="City" name="appbase_city" type="string" customfield="true" />
+      <field displayname="Country" name="appbase_country" type="entityreference" lookupType="appbase_country" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Description" name="appbase_description" type="string" customfield="true" />
+      <field displayname="General Category" name="appbase_generalcategory" type="optionsetvalue" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Is Primary" name="appbase_isprimary" type="optionsetvalue" customfield="true" />
+      <field displayname="Location" name="appbase_locationid" type="guid" primaryKey="true" />
+      <field displayname="Managing Organization Unit" name="appbase_managingorganizationunit" type="entityreference" lookupType="appbase_organizationunit" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Parent Location" name="appbase_parentlocation" type="entityreference" lookupType="appbase_location" customfield="true" />
+      <field displayname="Postal Code" name="appbase_postalcode" type="string" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="State or Province" name="appbase_stateorprovince" type="entityreference" lookupType="appbase_stateorprovince" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_organizationunit" displayname="Organization Unit" etc="10603" primaryidfield="appbase_organizationunitid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Abbreviation" name="appbase_abbreviation" type="string" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Description" name="appbase_description" type="string" customfield="true" />
+      <field displayname="Effective End Date" name="appbase_effectiveenddate" type="datetime" customfield="true" />
+      <field displayname="Effective Start Date" name="appbase_effectivestartdate" type="datetime" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Location" name="appbase_location" type="entityreference" lookupType="appbase_location" customfield="true" />
+      <field displayname="Manager" name="appbase_manager" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Organization" name="appbase_organization" type="entityreference" lookupType="account" customfield="true" />
+      <field displayname="Organization Unit" name="appbase_organizationunitid" type="guid" primaryKey="true" />
+      <field displayname="Organization Unit Type" name="appbase_organizationunittype" type="entityreference" lookupType="appbase_organizationunittype" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Parent Organization Unit" name="appbase_parentorganizationunit" type="entityreference" lookupType="appbase_organizationunit" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Unit Code" name="appbase_unitcode" type="string" customfield="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_product" displayname="Product" etc="10610" primaryidfield="appbase_productid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Currency" name="transactioncurrencyid" type="entityreference" lookupType="transactioncurrency" />
+      <field displayname="Description" name="appbase_description" type="string" customfield="true" />
+      <field displayname="Exchange Rate" name="exchangerate" type="decimal" />
+      <field displayname="General Category" name="appbase_generalcategory" type="optionsetvalue" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Manufacturer" name="appbase_manufacturer" type="entityreference" lookupType="account" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Parent Product" name="appbase_parentproduct" type="entityreference" lookupType="appbase_product" customfield="true" />
+      <field displayname="Product" name="appbase_productid" type="guid" primaryKey="true" />
+      <field displayname="Product Code" name="appbase_productcode" type="string" customfield="true" />
+      <field displayname="Product Number" name="appbase_productnumber" type="string" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Specifications" name="appbase_specifications" type="string" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Unit of Issue" name="appbase_unitofissue" type="optionsetvalue" customfield="true" />
+      <field displayname="Unit Price" name="appbase_unitprice" type="money" customfield="true" />
+      <field displayname="Unit Price (Base)" name="appbase_unitprice_base" type="money" customfield="true" />
+      <field displayname="URL" name="appbase_url" type="string" customfield="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+</entities>
