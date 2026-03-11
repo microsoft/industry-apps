@@ -6,6 +6,32 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+## [1.1.2.0] - 2026-03-11
+
+### Added
+
+#### New Choice Fields
+- **Participation Mode**: Configured choice field for engagement method tracking (In Person, Virtual, Hybrid)
+- **Scheduled Event Status**: Configured choice field for event lifecycle tracking (Scheduled, In Progress, Completed, Cancelled, Rescheduled)
+- **Consideration Status**: Configured choice field for application/submission workflows (Submitted, Under Review, Accepted, Rejected, Waitlisted, Withdrawn, Confirmed)
+- **Item Lifecycle Status**: Configured choice field for record workflow entry status (Draft, Submitted, Complete)
+- **Item Decision Status**: Configured choice field for decision outcomes (Pending, Approved, Rejected, Deferred, Canceled)
+- **Item Completion Status**: Configured choice field for work progress tracking (Not Started, Planned, In Progress, Blocked, Completed)
+- **Item Validation Status**: Configured choice field for verification workflows (Not Required, Pending Validation, Validated, Failed Validation)
+- **Item Disposition**: Configured choice field for record end states (Completed, Accepted, Rejected, Withdrawn, Duplicate, Superseded, Amended, Canceled)
+- **Item Assignment Status**: Configured choice field for responsibility tracking (Unassigned, Assigned, Accepted, Declined)
+- **Item Readiness Status**: Configured choice field for readiness assessments (Fully Ready, Partially Ready, Marginally Ready, Not Ready)
+- **Geographic Scope**: Configured choice field for geographic coverage (National, Regional, State, County, City, District, Single Location, Multiple Locations)
+- **Item Performance Rating**: Configured choice field for performance evaluations (Exceeds Standards, Meets Standards, Partially Meets Standards, Does Not Meet Standards, Needs Improvement)
+- **Item Acceptance Status**: Configured choice field for acceptance workflows (Pending, Accepted, Accepted with Modifications, Rejected, Deferred)
+
+### Changed
+
+#### Choice Field Enhancements
+- **Payment Status**: Added three new values (Not Required, Waived, Complimentary) to support non-payment scenarios and payment exemptions
+
+---
+
 ## [1.1.1.0] - 2026-03-02
 
 ### Added

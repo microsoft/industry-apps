@@ -943,16 +943,6 @@ Frequency of scheduled activities.
 - Overdue
 - Cancelled
 
-### Payment Status
-- Pending
-- Approved for Payment
-- Partial
-- Processed
-- Paid
-- Disputed
-- Voided
-- Refunded / Returned
-
 ### Payment Method
 - Check
 - Electronic Funds Transfer
@@ -1003,6 +993,14 @@ Status of assessment or investigation findings.
 - Draft
 - Under Review
 - Finalized
+
+- Open
+- Action Planned
+- In Progress
+- Resolved
+- Verified
+- Closed
+- Accepted Risk
 
 ### Finding Result
 Outcome determination for findings or assessments.
@@ -1128,6 +1126,118 @@ Outcome of quality assurance reviews or inspections.
 - Medium
 - Low
 
+### Payment Status
+- Pending
+- Approved for Payment
+- Partial
+- Processed
+- Paid
+- Disputed
+- Voided
+- Refunded / Returned
+- Not Required
+- Waived
+- Complimentary
+
+### Participation Mode
+- In Person
+- Virtual
+- Hybrid
+
+### Scheduled Event Status
+- Scheduled
+- In Progress
+- Completed
+- Cancelled
+- Rescheduled
+
+### Consideration Status
+- Submitted
+- Under Review
+- Accepted
+- Rejected
+- Waitlisted
+- Withdrawn
+- Confirmed
+
+### Item Lifecycle Status
+Has this record entered workflow, and is it finished?
+- Draft
+- Submitted
+- Complete
+
+### Item Decision Status
+Which decision been made?
+- Pending
+- Approved
+- Rejected
+- Deferred
+- Canceled
+
+### Item Completion Status
+How far along is the work?
+- Not Started
+- Planned
+- In Progress
+- Blocked
+- Completed
+
+### Item Validation Status
+Has the result been verified?
+- Not Required
+- Pending Validation
+- Validated
+- Failed Validation
+
+### Item Disposition
+How did this record end?
+- Completed
+- Accepted
+- Rejected
+- Withdrawn
+- Duplicate
+- Superseded
+- Amended
+- Canceled
+
+### Item Assignment Status
+Has responsibility been assigned?
+- Unassigned
+- Assigned
+- Accepted
+- Declined
+
+### Item Readiness Status
+How ready is the subject being assessed?
+- Fully Ready
+- Partially Ready
+- Marginally Ready
+- Not Ready
+
+### Geographic Scope
+- National
+- Regional
+- State
+- County
+- City
+- District
+- Single Location
+- Multiple Locations
+
+### Item Performance Rating
+- Exceeds Standards
+- Meets Standards
+- Partially Meets Standards
+- Does Not Meet Standards
+- Needs Improvement
+
+### Item Acceptance Status
+- Pending
+- Accepted
+- Accepted with Modifications
+- Rejected
+- Deferred
+
 **Removed:**
 
 ### Issue Status - Replaced with Issue Resolution Status
@@ -1218,30 +1328,33 @@ General operational status applicable across entities (e.g., Draft, Pending, Act
 
 **Completed Last Round:**
 
-- Payment Status: Added Not Required, Waived, Complimentary
+**Planned:**
 
-### Participation Mode
-- In Person
-- Virtual
-- Hybrid
+### Initiative Health
+- Healthy
+- At Risk
+- Off Track
+- Critical
+- On Hold
+- Unknown
 
-### Scheduled Event Status
-- Scheduled
+**Do Not Create:**
+
+### Initiative Status
+- New
+- Proposed
+- In Review
+- Approved
+- Planning
 - In Progress
+- Blocked
 - Completed
 - Cancelled
-- Rescheduled
-
-### Consideration Status
-- Submitted
-- Under Review
-- Accepted
-- Rejected
-- Waitlisted
-- Withdrawn
-- Confirmed
-
-**Planned:**
+- Deferred
+- On Hold
+- At Risk
+- Closed
+- Archived
 
 ### Delivery Method
 - In Person
@@ -1253,150 +1366,12 @@ General operational status applicable across entities (e.g., Draft, Pending, Act
 - Mobile
 - Home Visit
 
-### Budget Status
-- Draft
-- Pending Approval
-- Approved
-- Active
-- Amended
-- Closed
-- Cancelled
+**Remove:**
 
-### Geographic Scope
-- National
-- Regional
-- State
-- County
-- City
-- District
-- Facility
-- Multiple Locations
+### Item Health Status
 
-### Deliverable Status
-- Not Started
-- In Progress
-- Submitted
-- Under Review
-- Accepted
-- Rejected
-- Resubmitted
+Is the work or effort healthy?
 
-### Performance Rating
-
-- Exceeds Standards
-- Meets Standards
-- Partially Meets Standards
-- Does Not Meet Standards
-- Needs Improvement
-
-### Assessment Status
-- Scheduled
-- In Progress
-- Completed
-- Report Pending
-- Approved
-- Requires Follow Up
-
-### Readiness Status
-- Fully Ready
-- Substantially Ready
-- Marginally Ready
-- Not Ready
-- Assessment Incomplete
-
-### Finding Type
-- Deficiency
-- Observation
-- Best Practice
-- Lesson Learned
-- Non Compliance
-- Safety Issue
-- Quality Issue
-- Process Gap
-- Resource Shortage
-
-### Operational Finding Status - Change Name, Merge with above
-- Open
-- Under Review
-- Action Planned
-- In Progress
-- Resolved
-- Verified
-- Closed
-- Accepted Risk
-
-### Operational Impact Status - Change Name, Merge with Finding Status
-- Submitted
-- Under Review
-- Verified
-- Recognized
-- Rejected
-- Archived
-
-### Recommendation Type
-- Corrective Action
-- Preventive Action
-- Process Improvement
-- Resource Addition
-- Training
-- Policy Change
-- Best Practice Adoption
-- Civil Penalty
-- Criminal
-- Administrative
-
-### Operational Inspection Status - Merge with Assessment Status
-- Scheduled
-- In Progress
-- Completed
-- Report Pending
-- Follow Up Required
-- Closed
-
-
-### Operational Recommendation Status - Change Name, Merge with above
-- Proposed
-- Under Review
-- Accepted
-- Rejected
-- In Progress
-- Implemented
-- Verified
-- Closed
-
-### Acceptance Status
-- Pending
-- Accepted
-- Accepted with Modifications
-- Rejected
-- Deferred
-
-
-### Operational Incident Status - Merge with Issue Resolution Status
-- New
-- Investigating
-- Responding
-- Mitigating
-- Resolved
-- Closed
-- Reopened
-
-### Operational Impact Type - Merge with Impact Type
-- Cost Savings
-- Revenue Generation
-- Time Savings
-- Process Improvement
-- Quality Improvement
-- Risk Reduction
-- Innovation
-- Best Practice
-
-
-### Operational Event Status - Merge with Scheduled Event Status
-- Planned
-- Scheduled
-- Preparation
-- In Progress
-- Completed
-- Cancelled
-- Postponed
+- Healthy
+- At Risk
+- Critical
