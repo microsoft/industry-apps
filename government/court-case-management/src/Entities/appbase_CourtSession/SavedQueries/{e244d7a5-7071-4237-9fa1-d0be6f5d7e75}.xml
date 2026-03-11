@@ -10,8 +10,21 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_courtsessionid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="232" />
+          <cell name="appbase_sessiontitle" width="113" />
+          <cell name="appbase_sessionnumber" width="133" />
+          <cell name="appbase_sessiontype" width="115" />
+          <cell name="appbase_sessiondate" width="113" />
+          <cell name="appbase_starttime" width="100" />
+          <cell name="appbase_endtime" width="100" />
+          <cell name="appbase_court" width="100" />
+          <cell name="appbase_location" width="100" />
+          <cell name="appbase_courtroomnumber" width="151" />
+          <cell name="appbase_presidingofficial" width="140" />
+          <cell name="appbase_courtreporter" width="125" />
+          <cell name="appbase_bailiff" width="100" />
+          <cell name="appbase_isemergencysession" width="164" />
+          <cell name="appbase_ispublicsession" width="136" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +34,24 @@
         <entity name="appbase_courtsession">
           <attribute name="appbase_courtsessionid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_sessiontitle" />
+          <attribute name="appbase_sessionnumber" />
+          <attribute name="appbase_sessiontype" />
+          <attribute name="appbase_sessiondate" />
+          <attribute name="appbase_starttime" />
+          <attribute name="appbase_endtime" />
+          <attribute name="appbase_court" />
+          <attribute name="appbase_location" />
+          <attribute name="appbase_courtroomnumber" />
+          <attribute name="appbase_presidingofficial" />
+          <attribute name="appbase_courtreporter" />
+          <attribute name="appbase_bailiff" />
+          <attribute name="appbase_isemergencysession" />
+          <attribute name="appbase_ispublicsession" />
         </entity>
       </fetch>
     </fetchxml>

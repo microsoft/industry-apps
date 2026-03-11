@@ -1,230 +1,356 @@
 # ⚖️ Court Case Management — Data Model Design
 
-## 1) Court Case
+## Court Case
 
 The primary record representing a legal matter before the court.
 Tracks case number, type, jurisdiction, status, assigned judge, and overall lifecycle of the matter.
 
 **Completed:**
+- Case Number: Text
+- Case Title: Text
+- Case Type: Choice (Court Case Type)
+- Court Case Stage: Choice (Court Case Stage)
+- Priority: Choice (Priority)
+- Filing Date: Date
+- Close Date: Date
+- Last Action Date: Date
+- Next Hearing Date: Date
+- Judicial District: Lookup (Judicial District)
+- Assigned Judge: Lookup (Person)
+- Court Location: Lookup (Location)
+- Organization Unit: Lookup (Organization Unit)
+- Related Case: Lookup (Court Case)
+- Case Relationship Type: Choice (Case Relationship Type)
+- Security Classification: Choice (Security Classification)
+- Visibility: Choice (Visibility)
+- Is Sealed: Yes / No
+- Jury Trial Requested: Yes / No
+- Settlement Amount: Currency
+- Description: Memo
+
+**Completed Last Round:**
+- Add sample data
 
 **Planned:**
-- Case Number | Text
-- Case Title | Text
-- Case Type | Choice (Court Case Type)
-- Court Case Status | Choice
-- Priority | Choice *(reuse from Core)*
-- Filing Date | Date
-- Close Date | Date
-- Judicial District | Lookup *(to Judicial District from Core)*
-- Assigned Judge | Lookup *(to Person from Core)*
-- Court Location | Lookup *(to Location from Core)*
-- Organization Unit | Lookup *(to Organization Unit from Core)*
-- Description | Memo
-- Details | Memo
+- Configure baseline form
+- Configure baseline view
 
 ---
 
-## 2) Court Case Decision
+## Court Case Decision
 
 Records a judicial ruling or determination made in a case.
 Captures the decision type, date, deciding official, and links to related hearings or filings. May represent interim or final decisions.
 
 **Completed:**
+- Decision Number: Text
+- Decision Title: Text
+- Decision Type: Choice (Court Decision Type)
+- Decision Date Time: Date Time
+- Court Case: Lookup (Court Case)
+- Deciding Official: Lookup (Person)
+- Related Hearing: Lookup (Court Case Hearing)
+- Related Filing: Lookup (Court Case Filing)
+- Is Final Decision: Yes / No
+- Overall Result: Choice (Overall Result)
+- Appeal Status: Choice (Appeal Status)
+- Appealed Date: Date
+- Publication Status: Choice (Publication Status)
+- Supporting Document: Lookup (Document)
+- Legal Authority: Lookup (Legal Authority)
+- Description: Memo
+- Legal Reasoning: Memo
+
+**Completed Last Round:**
+- Add sample data
 
 **Planned:**
-- Decision Number | Text
-- Decision Title | Text
-- Decision Type | Choice (Court Decision Type)
-- Decision Date Time | Date Time
-- Court Case | Lookup *(to Court Case)*
-- Deciding Official | Lookup *(to Person from Core)*
-- Related Hearing | Lookup *(to Court Case Hearing)*
-- Related Filing | Lookup *(to Court Case Filing)*
-- Is Final Decision | Yes / No
-- Overall Result | Choice *(reuse from Core)*
-- Description | Memo
-- Details | Memo
+- Configure baseline form
+- Configure baseline view
 
 ---
 
-## 3) Court Case Docket Entry
+## Court Case Docket Entry
 
 The official chronological log entry for activity in a case.
 Provides an audit-friendly record of filings, hearings, orders, and other significant case events.
 
 **Completed:**
+- Entry Number: Text
+- Entry Date Time: Date Time
+- Court Case: Lookup (Court Case)
+- Entry Type: Choice (Court Docket Entry Type)
+- Filed By: Lookup (Person)
+- Filed By Organization: Lookup (Account)
+- Related Filing: Lookup (Court Case Filing)
+- Related Hearing: Lookup (Court Case Hearing)
+- Related Order: Lookup (Court Case Order)
+- Related Decision: Lookup (Court Case Decision)
+- Security Classification: Choice (Security Classification)
+- Supporting Document: Lookup (Document)
+- Is Public Record: Yes / No
+- Description: Memo
+
+**Completed Last Round:**
+- Add sample data
 
 **Planned:**
-- Entry Number | Text
-- Entry Date Time | Date Time
-- Court Case | Lookup *(to Court Case)*
-- Entry Type | Choice (Court Docket Entry Type)
-- Filed By | Lookup *(to Person from Core)*
-- Related Filing | Lookup *(to Court Case Filing)*
-- Related Hearing | Lookup *(to Court Case Hearing)*
-- Related Order | Lookup *(to Court Case Order)*
-- Description | Memo
+- Configure baseline form
+- Configure baseline view
 
 ---
 
-## 4) Court Case Filing
+## Court Case Filing
 
 Represents a document or submission formally entered into the case record.
 Includes motions and other filings submitted by parties or external entities, along with filing date and status.
 
 **Completed:**
+- Filing Number: Text
+- Filing Title: Text
+- Filing Type: Choice (Court Filing Type)
+- Filing Date Time: Date Time
+- Court Case: Lookup (Court Case)
+- Filed By Party: Lookup (Court Case Party)
+- Filed By Person: Lookup (Person)
+- Approval Status: Choice (Approval Status)
+- Priority: Choice (Priority)
+- Response Due Date: Date
+- Response Received Date: Date
+- Filing Fee Amount: Currency
+- Payment Status: Choice (Payment Status)
+- Document: Lookup (Document)
+- Page Count: Integer
+- Is Electronic Filing: Yes / No
+- Organization Unit: Lookup (Organization Unit)
+- Description: Memo
+
+**Completed Last Round:**
+- Add sample data
 
 **Planned:**
-- Filing Number | Text
-- Filing Title | Text
-- Filing Type | Choice (Court Filing Type)
-- Filing Date Time | Date Time
-- Court Case | Lookup *(to Court Case)*
-- Filed By Party | Lookup *(to Court Case Party)*
-- Filed By Person | Lookup *(to Person from Core)*
-- Approval Status | Choice *(reuse from Core)*
-- Document | Lookup *(to Document from Core)*
-- Description | Memo
-- Details | Memo
+- Configure baseline form
+- Configure baseline view
 
 ---
 
-## 5) Court Case Hearing
+## Court Case Hearing
 
-Represents a scheduled case appearance or proceeding.
-May be associated with a Court Session and records hearing type, scheduling details, and results.
+Represents a scheduled case appearance or proceeding. May be associated with a Court Session and records hearing type, scheduling details, and results.
 
 **Completed:**
+- Hearing Number: Text
+- Hearing Title: Text
+- Hearing Type: Choice (Court Hearing Type)
+- Scheduled Date Time: Date Time
+- Actual Start Date Time: Date Time
+- Actual End Date Time: Date Time
+- Duration Minutes: Integer
+- Court Case: Lookup (Court Case)
+- Court Session: Lookup (Court Session)
+- Presiding Official: Lookup (Person)
+- Court Reporter: Lookup (Person)
+- Location: Lookup (Location)
+- Participation Mode: Choice (Participation Mode)
+- Hearing Stage: Choice (Court Hearing Stage)
+- Overall Result: Choice (Overall Result)
+- Attendance Status: Choice (Attendance Status)
+- Priority: Choice (Priority)
+- Is Sealed Hearing: Yes / No
+- Recording Available: Yes / No
+- Transcript Available: Yes / No
+- Description: Memo
+- Hearing Notes: Memo
+
+**Completed Last Round:**
+- Add sample data
 
 **Planned:**
-- Hearing Number | Text
-- Hearing Title | Text
-- Hearing Type | Choice (Court Hearing Type)
-- Scheduled Date Time | Date Time
-- Actual Start Date Time | Date Time
-- Actual End Date Time | Date Time
-- Court Case | Lookup *(to Court Case)*
-- Court Session | Lookup *(to Court Session)*
-- Presiding Official | Lookup *(to Person from Core)*
-- Location | Lookup *(to Location from Core)*
-- Hearing Status | Choice (Court Hearing Status)
-- Overall Result | Choice *(reuse from Core)*
-- Description | Memo
-- Details | Memo
+- Configure baseline form
+- Configure baseline view
 
 ---
 
-## 6) Court Case Order
+## Court Case Order
 
-Represents a formal directive issued by the court.
-Often generated from a decision, and may include effective dates, status (draft/issued), and compliance implications.
+Represents a formal directive issued by the court. Often generated from a decision, and may include effective dates, status (draft/issued), and compliance implications.
 
 **Completed:**
+- Order Number: Text
+- Order Title: Text
+- Order Type: Choice (Court Order Type)
+- Issue Date: Date
+- Effective Date: Date
+- Expiration Date: Date
+- Court Case: Lookup (Court Case)
+- Court Case Decision: Lookup (Court Case Decision)
+- Issuing Official: Lookup (Person)
+- Order Stage: Choice (Court Order Stage)
+- Priority: Choice (Priority)
+- Responsible Party: Lookup (Court Case Party)
+- Compliance Due Date: Date
+- Compliance Status: Choice (Compliance Status)
+- Compliance Requirement: Lookup (Compliance Requirement)
+- Document: Lookup (Document)
+- Is Temporary: Yes / No
+- Appeal Status: Choice (Appeal Status)
+- Description: Memo
+- Compliance Notes: Memo
+
+**Completed Last Round:**
+- Add sample data
 
 **Planned:**
-- Order Number | Text
-- Order Title | Text
-- Order Type | Choice (Court Order Type)
-- Issue Date | Date
-- Effective Date | Date
-- Court Case | Lookup *(to Court Case)*
-- Court Case Decision | Lookup *(to Court Case Decision)*
-- Issuing Official | Lookup *(to Person from Core)*
-- Order Status | Choice (Court Order Status)
-- Document | Lookup *(to Document from Core)*
-- Description | Memo
-- Details | Memo
+- Configure baseline form
+- Configure baseline view
 
 ---
 
-## 7) Court Case Party
+## Court Case Party
 
 Links a person or organization to a case in a defined role.
 Used to track plaintiffs, defendants, petitioners, respondents, and other involved parties.
 
 **Completed:**
+- Party Role: Choice (Court Party Role)
+- Party Type: Choice (Court Party Type)
+- Court Case: Lookup (Court Case)
+- Person: Lookup (Person)
+- Account: Lookup (Account)
+- Start Date: Date
+- End Date: Date
+- Is Primary Party: Yes / No
+- Party Status: Choice (Lifecycle Stage)
+- Representation Required: Yes / No
+- Is Pro Se: Yes / No
+- Contact Method: Choice (Method of Contact)
+- Notification Email: Text
+- Notification Phone: Text
+- Service Address Line 1: Text
+- Service Address City: Text
+- Service Address State: Lookup (State or Province)
+- Service Address Postal Code: Text
+- Description: Memo
+
+**Completed Last Round:**
+- Add sample data
 
 **Planned:**
-- Party Role | Choice (Court Party Role)
-- Party Type | Choice (Court Party Type)
-- Court Case | Lookup *(to Court Case)*
-- Person | Lookup *(to Person from Core)*
-- Account | Lookup *(to Account from Core)*
-- Start Date | Date
-- End Date | Date
-- Is Primary Party | Yes / No
-- Description | Memo
+- Configure baseline form
+- Configure baseline view
 
 ---
 
-## 8) Court Case Representation
+## Court Case Representation
 
 Tracks representation relationships within a case.
 Identifies which party is represented by which attorney, guardian, or agent, including effective dates.
 
 **Completed:**
+- Court Case: Lookup (Court Case)
+- Court Case Party: Lookup (Court Case Party)
+- Representative: Lookup (Person)
+- Representative Organization: Lookup (Account)
+- Representation Type: Choice (Court Representation Type)
+- Start Date: Date
+- End Date: Date
+- Operational Status: Choice (Lifecycle Stage)
+- Is Lead Counsel: Yes / No
+- Bar Number: Text
+- Bar State: Lookup (State or Province)
+- Admission Date: Date
+- Pro Hac Vice: Yes / No
+- Contact Email: Text
+- Contact Phone: Text
+- Description: Memo
+
+**Completed Last Round:**
+- Add sample data
 
 **Planned:**
-- Court Case | Lookup *(to Court Case)*
-- Court Case Party | Lookup *(to Court Case Party)*
-- Representative | Lookup *(to Person from Core)*
-- Representation Type | Choice (Court Representation Type)
-- Start Date | Date
-- End Date | Date
-- Operational Status | Choice *(reuse from Core)*
-- Description | Memo
+- Configure baseline form
+- Configure baseline view
 
 ---
 
-## 9) Court Case Work Item
+## Court Case Work Item
 
 Represents internal court staff tasks related to advancing a case.
 Includes assignments, due dates, status, and links to related filings, hearings, or orders.
 
 **Completed:**
+- Work Item Number: Text
+- Work Item Title: Text
+- Court Case: Lookup (Court Case)
+- Work Item Type: Choice (Court Work Item Type)
+- General Category: Choice (General Category)
+- Priority: Choice (Priority)
+- Action Status: Choice (Action Status)
+- Assigned To: Lookup (Person)
+- Assigned By: Lookup (User)
+- Assigned Date: Date
+- Due Date: Date
+- Completion Date: Date
+- Organization Unit: Lookup (Organization Unit)
+- Estimated Hours: Decimal
+- Actual Hours: Decimal
+- Related Filing: Lookup (Court Case Filing)
+- Related Hearing: Lookup (Court Case Hearing)
+- Related Order: Lookup (Court Case Order)
+- Related Decision: Lookup (Court Case Decision)
+- Supporting Document: Lookup (Document)
+- Description: Memo
+- Resolution Notes: Memo
+
+**Completed Last Round:**
+- Add sample data
 
 **Planned:**
-- Work Item Number | Text
-- Work Item Title | Text
-- Court Case | Lookup *(to Court Case)*
-- Work Item Type | Choice (Court Work Item Type)
-- Priority | Choice *(reuse from Core)*
-- Action Status | Choice *(reuse from Core)*
-- Assigned To | Lookup *(to Person from Core)*
-- Due Date | Date
-- Completion Date | Date
-- Related Filing | Lookup *(to Court Case Filing)*
-- Related Hearing | Lookup *(to Court Case Hearing)*
-- Related Order | Lookup *(to Court Case Order)*
-- Description | Memo
-- Details | Memo
+- Configure baseline form
+- Configure baseline view
 
 ---
 
-## 10) Court Session
+## Court Session
 
 Represents a scheduled sitting of the court.
 Defines the date, location, presiding official, and status of a court calendar block during which one or more case hearings may occur.
 
 **Completed:**
+- Session Number: Text
+- Session Title: Text
+- Session Type: Choice (Court Session Type)
+- Session Date: Date
+- Start Time: Date Time
+- End Time: Date Time
+- Presiding Official: Lookup (Person)
+- Court Reporter: Lookup (Person)
+- Bailiff: Lookup (Person)
+- Location: Lookup (Location)
+- Courtroom Number: Text
+- Court: Lookup (Organization Unit)
+- Operational Status: Choice (Lifecycle Stage)
+- Participation Mode: Choice (Participation Mode)
+- Capacity: Integer
+- Is Public Session: Yes / No
+- Is Emergency Session: Yes / No
+- Description: Memo
+- Session Notes: Memo
+
+**Completed Last Round:**
+- Add sample data
 
 **Planned:**
-- Session Number | Text
-- Session Title | Text
-- Session Date | Date
-- Start Time | Date Time
-- End Time | Date Time
-- Presiding Official | Lookup *(to Person from Core)*
-- Location | Lookup *(to Location from Core)*
-- Court | Lookup *(to Organization Unit from Core)*
-- Operational Status | Choice *(reuse from Core)*
-- Description | Memo
+- Configure baseline form
+- Configure baseline view
 
 ---
 
 ## ✅ New Choice Fields for Court Case Management - Reviewed
 
-### Court Case Status
+**Completed:**
+
+### Court Case Stage
 Values representing the lifecycle stage of a case:
 - Filed
 - Active
@@ -303,16 +429,17 @@ Categories of court proceedings:
 - Evidentiary Hearing
 - Appeals Hearing
 
-### Court Hearing Status
-Current state of a scheduled hearing:
+### Court Hearing Stage
 - Scheduled
-- Confirmed
-- Postponed
-- In Progress
-- Completed
-- Cancelled
+- Preparation
+- Called to Order
+- In Session
+- Recessed
 - Continued
-- Vacated
+- Under Deliberation
+- Decision Issued
+- Recorded
+- Closed
 
 ### Court Order Type
 Categories of court directives:
@@ -327,16 +454,17 @@ Categories of court directives:
 - Show Cause Order
 - Dismissal Order
 
-### Court Order Status
-Current state of an order:
-- Draft
+### Court Order Stage
+- Drafting
+- Under Review
+- Ready for Issuance
 - Issued
-- Served
-- In Effect
-- Stayed
-- Vacated
-- Expired
-- Superseded
+- Entered on Record
+- Served / Notified
+- Effective
+- Monitoring Compliance
+- Satisfied
+- Closed
 
 ### Court Party Role
 Role of a party in the case:
@@ -388,3 +516,21 @@ Categories of internal tasks:
 - Notification
 - Compliance Check
 - Case Closure
+
+### Court Session Type
+Categories of court sessions:
+- Regular Session
+- Special Session
+- Emergency Session
+- Settlement Conference
+- Status Conference
+- Calendar Call
+- Motion Docket
+- Trial Docket
+
+**Completed Last Round:**
+
+**Planned:**
+
+
+

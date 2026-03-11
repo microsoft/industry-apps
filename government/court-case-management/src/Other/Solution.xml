@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.26013.155" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26013.155" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26014.00158">
+<ImportExportXml version="9.2.26021.162" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26021.162" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26021.00162">
   <SolutionManifest>
     <UniqueName>appbase_courtcasemanagement</UniqueName>
     <LocalizedNames>
       <LocalizedName description="App Base - Court Case Management" languagecode="1033" />
     </LocalizedNames>
     <Descriptions />
-    <Version>1.0.0.1</Version>
+    <Version>1.2.0.0</Version>
     <Managed>2</Managed>
     <Publisher>
       <UniqueName>appbase</UniqueName>
@@ -92,13 +92,263 @@
       <RootComponent type="1" schemaName="appbase_courtsession" behavior="0" />
       <RootComponent type="62" schemaName="appbase_CourtCaseManagement" behavior="0" />
       <RootComponent type="80" schemaName="appbase_CourtCaseManagement" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_courtcasestage" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_courtcasetype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_courtdecisiontype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_courtdocketentrytype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_courtfilingtype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_courthearingstage" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_courthearingtype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_courtorderstage" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_courtordertype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_courtpartyrole" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_courtpartytype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_courtrepresentationtype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_courtsessiontype" behavior="0" />
+      <RootComponent type="9" schemaName="appbase_courtworkitemtype" behavior="0" />
     </RootComponents>
     <MissingDependencies>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_compliancerequirement" parentDisplayName="Compliance Requirement" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="10" schemaName="appbase_courtcaseorder_ComplianceRequirement" displayName="appbase_courtcaseorder_ComplianceRequirement" parentSchemaName="appbase_compliancerequirement" parentDisplayName="Compliance Requirement" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="10" schemaName="appbase_courtcasedecision_SupportingDocument" displayName="appbase_courtcasedecision_SupportingDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="10" schemaName="appbase_courtcasedocketentry_SupportingDocument" displayName="appbase_courtcasedocketentry_SupportingDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="10" schemaName="appbase_courtcasefiling_Document" displayName="appbase_courtcasefiling_Document" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="10" schemaName="appbase_courtcaseorder_Document" displayName="appbase_courtcaseorder_Document" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="10" schemaName="appbase_courtcaseworkitem_SupportingDocument" displayName="appbase_courtcaseworkitem_SupportingDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_judicialdistrict" parentDisplayName="Judicial District" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="10" schemaName="appbase_courtcase_JudicialDistrict" displayName="appbase_courtcase_JudicialDistrict" parentSchemaName="appbase_judicialdistrict" parentDisplayName="Judicial District" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="10" schemaName="appbase_courtcasedecision_LegalAuthority" displayName="appbase_courtcasedecision_LegalAuthority" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_location" parentDisplayName="Location" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="10" schemaName="appbase_courtcase_CourtLocation" displayName="appbase_courtcase_CourtLocation" parentSchemaName="appbase_location" parentDisplayName="Location" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_location" parentDisplayName="Location" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="10" schemaName="appbase_courtcasehearing_Location" displayName="appbase_courtcasehearing_Location" parentSchemaName="appbase_location" parentDisplayName="Location" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_location" parentDisplayName="Location" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="10" schemaName="appbase_courtsession_Location" displayName="appbase_courtsession_Location" parentSchemaName="appbase_location" parentDisplayName="Location" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="10" schemaName="appbase_courtcase_OrganizationUnit" displayName="appbase_courtcase_OrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="10" schemaName="appbase_courtcasefiling_OrganizationUnit" displayName="appbase_courtcasefiling_OrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="10" schemaName="appbase_courtcaseworkitem_OrganizationUnit" displayName="appbase_courtcaseworkitem_OrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="10" schemaName="appbase_courtsession_Court" displayName="appbase_courtsession_Court" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Abbreviation" parentSchemaName="appbase_stateorprovince" parentDisplayName="State or Province" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="10" schemaName="appbase_courtcaseparty_ServiceAddressState" displayName="appbase_courtcaseparty_ServiceAddressState" parentSchemaName="appbase_stateorprovince" parentDisplayName="State or Province" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Abbreviation" parentSchemaName="appbase_stateorprovince" parentDisplayName="State or Province" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="10" schemaName="appbase_courtcaserepresentation_BarState" displayName="appbase_courtcaserepresentation_BarState" parentSchemaName="appbase_stateorprovince" parentDisplayName="State or Province" />
+      </MissingDependency>
       <MissingDependency>
         <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)">
           <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
         </Required>
         <Dependent type="80" schemaName="appbase_CourtCaseManagement" displayName="Court Case Management" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_actionstatus" displayName="Action Status" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_actionstatus" displayName="Action Status" parentSchemaName="appbase_courtcaseworkitem" parentDisplayName="Court Case Work Item" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_appealstatus" displayName="Appeal Status" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_appealstatus" displayName="Appeal Status" parentSchemaName="appbase_courtcasedecision" parentDisplayName="Court Case Decision" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_appealstatus" displayName="Appeal Status" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_appealstatus" displayName="Appeal Status" parentSchemaName="appbase_courtcaseorder" parentDisplayName="Court Case Order" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_approvalstatus" displayName="Approval Status" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_approvalstatus" displayName="Approval Status" parentSchemaName="appbase_courtcasefiling" parentDisplayName="Court Case Filing" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_attendancestatus" displayName="Attendance Status" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_attendancestatus" displayName="Attendance Status" parentSchemaName="appbase_courtcasehearing" parentDisplayName="Court Case Hearing" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_caserelationshiptype" displayName="Case Relationship Type" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_caserelationshiptype" displayName="Case Relationship Type" parentSchemaName="appbase_courtcase" parentDisplayName="Court Case" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_compliancestatus" displayName="Compliance Status" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_compliancestatus" displayName="Compliance Status" parentSchemaName="appbase_courtcaseorder" parentDisplayName="Court Case Order" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_generalcategory" displayName="General Category" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_generalcategory" displayName="General Category" parentSchemaName="appbase_courtcaseworkitem" parentDisplayName="Court Case Work Item" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_lifecyclestage" displayName="Lifecycle Stage" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_partystatus" displayName="Party Status" parentSchemaName="appbase_courtcaseparty" parentDisplayName="Court Case Party" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_lifecyclestage" displayName="Lifecycle Stage" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_operationalstatus" displayName="Operational Status" parentSchemaName="appbase_courtcaserepresentation" parentDisplayName="Court Case Representation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_lifecyclestage" displayName="Lifecycle Stage" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_operationalstatus" displayName="Operational Status" parentSchemaName="appbase_courtsession" parentDisplayName="Court Session" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_methodofcontact" displayName="Method of Contact" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_contactmethod" displayName="Contact Method" parentSchemaName="appbase_courtcaseparty" parentDisplayName="Court Case Party" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_overallresult" displayName="Overall Result" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_overallresult" displayName="Overall Result" parentSchemaName="appbase_courtcasedecision" parentDisplayName="Court Case Decision" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_overallresult" displayName="Overall Result" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_overallresult" displayName="Overall Result" parentSchemaName="appbase_courtcasehearing" parentDisplayName="Court Case Hearing" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_participationmode" displayName="Participation Mode" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_participationmode" displayName="Participation Mode" parentSchemaName="appbase_courtcasehearing" parentDisplayName="Court Case Hearing" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_participationmode" displayName="Participation Mode" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_participationmode" displayName="Participation Mode" parentSchemaName="appbase_courtsession" parentDisplayName="Court Session" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_paymentstatus" displayName="Payment Status" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_paymentstatus" displayName="Payment Status" parentSchemaName="appbase_courtcasefiling" parentDisplayName="Court Case Filing" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_priority" displayName="Priority" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_priority" displayName="Priority" parentSchemaName="appbase_courtcase" parentDisplayName="Court Case" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_priority" displayName="Priority" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_priority" displayName="Priority" parentSchemaName="appbase_courtcasefiling" parentDisplayName="Court Case Filing" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_priority" displayName="Priority" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_priority" displayName="Priority" parentSchemaName="appbase_courtcasehearing" parentDisplayName="Court Case Hearing" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_priority" displayName="Priority" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_priority" displayName="Priority" parentSchemaName="appbase_courtcaseorder" parentDisplayName="Court Case Order" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_priority" displayName="Priority" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_priority" displayName="Priority" parentSchemaName="appbase_courtcaseworkitem" parentDisplayName="Court Case Work Item" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_publicationstatus" displayName="Publication Status" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_publicationstatus" displayName="Publication Status" parentSchemaName="appbase_courtcasedecision" parentDisplayName="Court Case Decision" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_securityclassification" displayName="Security Classification" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_securityclassification" displayName="Security Classification" parentSchemaName="appbase_courtcase" parentDisplayName="Court Case" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_securityclassification" displayName="Security Classification" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_securityclassification" displayName="Security Classification" parentSchemaName="appbase_courtcasedocketentry" parentDisplayName="Court Case Docket Entry" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_visibility" displayName="Visibility" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_visibility" displayName="Visibility" parentSchemaName="appbase_courtcase" parentDisplayName="Court Case" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_issealed" displayName="Is Sealed" parentSchemaName="appbase_courtcase" parentDisplayName="Court Case" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_jurytrialrequested" displayName="Jury Trial Requested" parentSchemaName="appbase_courtcase" parentDisplayName="Court Case" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_isfinaldecision" displayName="Is Final Decision" parentSchemaName="appbase_courtcasedecision" parentDisplayName="Court Case Decision" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_ispublicrecord" displayName="Is Public Record" parentSchemaName="appbase_courtcasedocketentry" parentDisplayName="Court Case Docket Entry" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_iselectronicfiling" displayName="Is Electronic Filing" parentSchemaName="appbase_courtcasefiling" parentDisplayName="Court Case Filing" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_issealedhearing" displayName="Is Sealed Hearing" parentSchemaName="appbase_courtcasehearing" parentDisplayName="Court Case Hearing" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_recordingavailable" displayName="Recording Available" parentSchemaName="appbase_courtcasehearing" parentDisplayName="Court Case Hearing" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_transcriptavailable" displayName="Transcript Available" parentSchemaName="appbase_courtcasehearing" parentDisplayName="Court Case Hearing" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_istemporary" displayName="Is Temporary" parentSchemaName="appbase_courtcaseorder" parentDisplayName="Court Case Order" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_isprimaryparty" displayName="Is Primary Party" parentSchemaName="appbase_courtcaseparty" parentDisplayName="Court Case Party" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_isprose" displayName="Is Pro Se" parentSchemaName="appbase_courtcaseparty" parentDisplayName="Court Case Party" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_representationrequired" displayName="Representation Required" parentSchemaName="appbase_courtcaseparty" parentDisplayName="Court Case Party" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_isleadcounsel" displayName="Is Lead Counsel" parentSchemaName="appbase_courtcaserepresentation" parentDisplayName="Court Case Representation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_prohacvice" displayName="Pro Hac Vice" parentSchemaName="appbase_courtcaserepresentation" parentDisplayName="Court Case Representation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_isemergencysession" displayName="Is Emergency Session" parentSchemaName="appbase_courtsession" parentDisplayName="Court Session" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_ispublicsession" displayName="Is Public Session" parentSchemaName="appbase_courtsession" parentDisplayName="Court Session" />
       </MissingDependency>
       <MissingDependency>
         <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.15)" id.uniquename="AppChannel">

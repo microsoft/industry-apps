@@ -10,8 +10,18 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_courtcasedecisionid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="178" />
+          <cell name="appbase_decidingofficial" width="139" />
+          <cell name="appbase_decisiontitle" width="120" />
+          <cell name="appbase_decisionnumber" width="140" />
+          <cell name="appbase_decisiondatetime" width="153" />
+          <cell name="appbase_decisiontype" width="122" />
+          <cell name="appbase_isfinaldecision" width="136" />
+          <cell name="appbase_appealstatus" width="119" />
+          <cell name="appbase_appealeddate" width="124" />
+          <cell name="appbase_overallresult" width="122" />
+          <cell name="appbase_publicationstatus" width="142" />
+          <cell name="appbase_courtcase" width="103" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +31,21 @@
         <entity name="appbase_courtcasedecision">
           <attribute name="appbase_courtcasedecisionid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_decidingofficial" />
+          <attribute name="appbase_decisiontitle" />
+          <attribute name="appbase_decisionnumber" />
+          <attribute name="appbase_decisiondatetime" />
+          <attribute name="appbase_decisiontype" />
+          <attribute name="appbase_isfinaldecision" />
+          <attribute name="appbase_appealstatus" />
+          <attribute name="appbase_appealeddate" />
+          <attribute name="appbase_overallresult" />
+          <attribute name="appbase_publicationstatus" />
+          <attribute name="appbase_courtcase" />
         </entity>
       </fetch>
     </fetchxml>

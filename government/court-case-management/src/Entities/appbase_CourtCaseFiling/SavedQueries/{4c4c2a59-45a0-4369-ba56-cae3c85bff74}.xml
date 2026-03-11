@@ -10,8 +10,20 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_courtcasefilingid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="174" />
+          <cell name="appbase_filingnumber" width="123" />
+          <cell name="appbase_filingtitle" width="103" />
+          <cell name="appbase_filingtype" width="105" />
+          <cell name="appbase_responsereceiveddate" width="180" />
+          <cell name="appbase_responseduedate" width="151" />
+          <cell name="appbase_filedbyparty" width="122" />
+          <cell name="appbase_filedbyperson" width="131" />
+          <cell name="appbase_filingdatetime" width="136" />
+          <cell name="appbase_filingfeeamount" width="147" />
+          <cell name="appbase_iselectronicfiling" width="149" />
+          <cell name="appbase_paymentstatus" width="127" />
+          <cell name="appbase_priority" width="100" />
+          <cell name="appbase_courtcase" width="103" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +33,23 @@
         <entity name="appbase_courtcasefiling">
           <attribute name="appbase_courtcasefilingid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_filingnumber" />
+          <attribute name="appbase_filingtitle" />
+          <attribute name="appbase_filingtype" />
+          <attribute name="appbase_responsereceiveddate" />
+          <attribute name="appbase_responseduedate" />
+          <attribute name="appbase_filedbyparty" />
+          <attribute name="appbase_filedbyperson" />
+          <attribute name="appbase_filingdatetime" />
+          <attribute name="appbase_filingfeeamount" />
+          <attribute name="appbase_iselectronicfiling" />
+          <attribute name="appbase_paymentstatus" />
+          <attribute name="appbase_priority" />
+          <attribute name="appbase_courtcase" />
         </entity>
       </fetch>
     </fetchxml>

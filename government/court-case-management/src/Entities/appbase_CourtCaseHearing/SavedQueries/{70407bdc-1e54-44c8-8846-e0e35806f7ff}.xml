@@ -11,7 +11,13 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_courtcasehearingid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_hearingnumber" width="135" />
+          <cell name="appbase_hearingtype" width="117" />
+          <cell name="appbase_hearingtitle" width="115" />
+          <cell name="appbase_presidingofficial" width="140" />
+          <cell name="appbase_actualstartdatetime" width="170" />
+          <cell name="appbase_actualenddatetime" width="166" />
+          <cell name="appbase_hearingstage" width="120" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +27,17 @@
         <entity name="appbase_courtcasehearing">
           <attribute name="appbase_courtcasehearingid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_hearingnumber" />
+          <attribute name="appbase_hearingtype" />
+          <attribute name="appbase_hearingtitle" />
+          <attribute name="appbase_presidingofficial" />
+          <attribute name="appbase_actualstartdatetime" />
+          <attribute name="appbase_actualenddatetime" />
+          <attribute name="appbase_hearingstage" />
         </entity>
       </fetch>
     </fetchxml>

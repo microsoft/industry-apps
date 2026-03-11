@@ -10,8 +10,22 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_courtcaseid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="212" />
+          <cell name="appbase_assignedjudge" width="129" />
+          <cell name="appbase_casenumber" width="117" />
+          <cell name="appbase_casetitle" width="100" />
+          <cell name="appbase_casetype" width="100" />
+          <cell name="appbase_filingdate" width="104" />
+          <cell name="appbase_closedate" width="102" />
+          <cell name="appbase_judicialdistrict" width="130" />
+          <cell name="appbase_lastactiondate" width="136" />
+          <cell name="appbase_nexthearingdate" width="146" />
+          <cell name="appbase_priority" width="100" />
+          <cell name="appbase_courtcasestage" width="138" />
+          <cell name="appbase_courtlocation" width="126" />
+          <cell name="appbase_issealed" width="100" />
+          <cell name="appbase_jurytrialrequested" width="157" />
+          <cell name="appbase_securityclassification" width="168" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +35,25 @@
         <entity name="appbase_courtcase">
           <attribute name="appbase_courtcaseid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_assignedjudge" />
+          <attribute name="appbase_casenumber" />
+          <attribute name="appbase_casetitle" />
+          <attribute name="appbase_casetype" />
+          <attribute name="appbase_filingdate" />
+          <attribute name="appbase_closedate" />
+          <attribute name="appbase_judicialdistrict" />
+          <attribute name="appbase_lastactiondate" />
+          <attribute name="appbase_nexthearingdate" />
+          <attribute name="appbase_priority" />
+          <attribute name="appbase_courtcasestage" />
+          <attribute name="appbase_courtlocation" />
+          <attribute name="appbase_issealed" />
+          <attribute name="appbase_jurytrialrequested" />
+          <attribute name="appbase_securityclassification" />
         </entity>
       </fetch>
     </fetchxml>
