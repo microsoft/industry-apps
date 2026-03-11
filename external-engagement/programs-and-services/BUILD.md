@@ -53,7 +53,7 @@ Represents a defined type of service provided under a Program. A Service describ
 - Service Scope: Memo
 - Service Owner: Lookup (Person)
 - Owning Organization Unit: Lookup (Organization Unit)
-- Delivery Method: Choice (Delivery Method)
+- Service Delivery Method: Choice (Service Delivery Method)
 - Service Level: Choice (Service Level)
 - Requires Eligibility Check: Yes / No
 - Requires Application: Yes / No
@@ -108,7 +108,7 @@ Represents a specific version or configuration of a Service, typically bounded b
 - Provider Organization Unit: Lookup (Organization Unit)
 - Provider Account: Lookup (Account)
 - Primary Location: Lookup (Location)
-- Delivery Method: Choice (Delivery Method)
+- Service Delivery Method: Choice (Service Delivery Method)
 - Service Level: Choice (Service Level)
 - Cost to Participant: Currency
 - Funding Source: Text
@@ -226,7 +226,7 @@ Represents a person's or organization's enrollment or engagement in a specific S
 - Assigned Case Manager: Lookup (Person)
 - Assigned Organization Unit: Lookup (Organization Unit)
 - Primary Service Location: Lookup (Location)
-- Delivery Method: Choice (Delivery Method)
+- Service Delivery Method: Choice (Service Delivery Method)
 - Total Cost: Currency
 - Amount Paid: Currency
 - Funding Source: Text
@@ -373,6 +373,10 @@ Used in eligibility rules.
 
 ## New Choice Fields - Reviewed
 
+**Completed:**
+
+**Completed Last Round:**
+
 ### Program Type
 - Benefits Program
 - Grant Program
@@ -461,4 +465,16 @@ Used in eligibility rules.
 - Termination
 - Completion
 - Referral
+
+**Planned:**
+
+### Service Delivery Method
+- In Person
+- Virtual
+- Hybrid
+- Self Service
+- Phone
+- Mail
+- Mobile
+- Home Visit
 

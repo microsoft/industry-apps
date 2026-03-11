@@ -297,7 +297,7 @@ A specific output, service, or product required under a Contract. Deliverables t
 - Submitted Date: Date
 - Accepted Date: Date
 - Rejected Date: Date
-- Deliverable Status: Choice (Deliverable Status)
+- Contract Deliverable Status: Choice (Contract Deliverable Status)
 - Acceptance Criteria: Memo
 - Reviewer: Lookup (Person)
 - Review Comments: Memo
@@ -464,6 +464,10 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 
 ## New Choice Fields - Reviewed
 
+**Completed:**
+
+**Completed Last Round:**
+
 ### Financial Funding Source Type
 - Appropriation
 - Grant
@@ -618,4 +622,23 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 - Closed
 - Cancelled
 
+**Planned:**
+
+### Budget Status
+- Draft
+- Pending Approval
+- Approved
+- Active
+- Amended
+- Closed
+- Cancelled
+
+### Contract Deliverable Status
+- Not Started
+- In Progress
+- Submitted
+- Under Review
+- Accepted
+- Rejected
+- Resubmitted
 

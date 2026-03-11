@@ -16,7 +16,7 @@ Represents an intake record used to propose or initiate a new project. Captures 
 - Request Number: Text
 - Approval Status: Choice (Approval Status)
 - Request Type: Choice (Project Project Type)
-- Request Priority: Choice (Project Request Priority)
+- Request Priority: Choice (Priority)
 - Submission Date: Date
 - Submission Method: Choice (Method of Contact)
 - Submitted By: Lookup (Person)
@@ -70,7 +70,7 @@ Represents the primary delivery record for a defined body of work with scope, ob
 - Project Code: Text
 - Project Status: Choice (Project Project Status)
 - Project Type: Choice (Project Project Type)
-- Project Health: Choice (Project Project Health)
+- Project Health: Choice (Initiative Health)
 - Health Summary: Memo
 - Parent Project: Lookup (Project)
 - Project Request: Lookup (Project Request)
@@ -226,7 +226,7 @@ Represents the configuration table defining categories of work items (e.g., Epic
 - Description: Memo
 - Icon: Text
 - Color: Text
-- Default Priority: Choice (Project Work Item Priority)
+- Default Priority: Choice (Priority)
 - Requires Acceptance Criteria: Yes / No
 - Allows Time Tracking: Yes / No
 - Allows Sub Items: Yes / No
@@ -244,7 +244,7 @@ Represents the core execution record for a unit of work within a project. May re
 - Project: Lookup (Project)
 - Project Work Item Type: Lookup (Project Work Item Type)
 - Work Item Status: Choice (Project Work Item Status)
-- Work Item Priority: Choice (Project Work Item Priority)
+- Work Item Priority: Choice (Priority)
 - Parent Work Item: Lookup (Project Work Item)
 - Project Backlog: Lookup (Project Backlog)
 - Project Iteration: Lookup (Project Iteration)
@@ -334,7 +334,7 @@ Represents a formal proposal to modify approved project scope, schedule, cost, d
 - Project: Lookup (Project)
 - Action Status: Choice (Action Status)
 - Change Request Type: Choice (Project Change Request Type)
-- Change Impact Level: Choice (Project Change Impact Level)
+- Change Impact Level: Choice (Degree)
 - Requested By: Lookup (Person)
 - Requesting Organization Unit: Lookup (Organization Unit)
 - Request Date: Date
@@ -370,42 +370,9 @@ Represents a formal proposal to modify approved project scope, schedule, cost, d
 - Supporting Document: Lookup (Document)
 - Notes: Memo
 
----
-
-## Reused Core Tables
-
-The following Core tables are used directly by this module:
-
-### Person *(Core)*
-Project managers, sponsors, business owners, technical leads, resource assignments, work item assignees.
-
-### Organization Unit *(Core)*
-Owning units, delivery units, requesting units.
-
-### Organization Initiative *(Core)*
-Strategic alignment for projects and requests.
-
-### Account *(Core)*
-Customer accounts, vendor accounts, partner organizations.
-
-### Action Item *(Core)*
-Tasks related to projects, milestones, and work items.
-
-### Risk Item *(Core)*
-Project risks linked to work items and change requests.
-
-### Agreement *(Core)*
-Master agreements, contracts, SOWs for projects.
-
-### Legal Authority *(Core)*
-Regulatory requirements for projects.
-
-### Document *(Core)*
-Project charters, plans, deliverables, supporting documentation.
-
----
-
 ## New Choice Fields - Semi-Reviewed
+
+**Planned:**
 
 ### Project Type
 - IT Implementation
@@ -436,6 +403,8 @@ Project charters, plans, deliverables, supporting documentation.
 - Spike
 - Technical Debt
 - Documentation
+
+**In Review:**
 
 ### Project Work Item Resolution
 - Completed
@@ -485,8 +454,6 @@ Project charters, plans, deliverables, supporting documentation.
 - Technical Change
 - Process Change
 
-## Candidates ----------------------------
-
 ### Project Work Item Status
 - New
 - Proposed
@@ -510,21 +477,6 @@ Project charters, plans, deliverables, supporting documentation.
 - Cancelled
 - Closed
 
-### Project Health
-- Healthy
-- At Risk
-- Off Track
-- Critical
-- On Hold
-- Unknown
-
-### Project Request Priority
-- Critical
-- High
-- Medium
-- Low
-- Future Consideration
-
 ### Project Backlog Status
 - Planning
 - Ready
@@ -537,12 +489,6 @@ Project charters, plans, deliverables, supporting documentation.
 - Active
 - Completed
 - Cancelled
-
-### Project Work Item Priority
-- Critical
-- High
-- Medium
-- Low
 
 ### Project Milestone Status
 - Planned
@@ -560,10 +506,3 @@ Project charters, plans, deliverables, supporting documentation.
 - Completed
 - Withdrawn
 - Cancelled
-
-### Project Change Impact Level
-- Minor
-- Moderate
-- Significant
-- Major
-- Critical

@@ -872,6 +872,15 @@ Course materials, syllabi, certificates, transcripts, diplomas, supporting docum
 - Incomplete
 - Withdrawn
 
+### Training Delivery Method
+- In Person
+- Virtual
+- Hybrid
+- Self Paced
+- Blended
+- Asynchronous
+- Synchronous
+
 ## Candidates -------------------------------------------------
 
 ### Training Attendance Method
@@ -983,11 +992,3 @@ Course materials, syllabi, certificates, transcripts, diplomas, supporting docum
 - Expert
 - Refresher
 
-### Training Delivery Method
-- In Person
-- Virtual
-- Hybrid
-- Self Paced
-- Blended
-- Asynchronous
-- Synchronous

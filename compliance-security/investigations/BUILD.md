@@ -677,6 +677,7 @@ Records referrals made to or received from internal or external entities.
 **Completed Last Round:**
 - Removed Referral Status pointing to Referral Status (replaced with Recommendation Status)
 - Referral Status: Choice (Recommendation Status)
+- Adjudication Type: Choice (Investigation Adjudication Type)
 
 **Planned:**
 
@@ -909,3 +910,12 @@ The following choice fields are specific to the Investigations module:
 - Human Resources
 - External Auditor
 
+**Completed Last Round:**
+
+### Investigation Adjudication Type
+- Administrative
+- Civil
+- Criminal
+- Not Applicable
+
+**Planned:**

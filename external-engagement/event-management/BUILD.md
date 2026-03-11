@@ -256,6 +256,9 @@ Represents an organization or entity providing financial or in-kind support for 
 
 ## New Choice Fields - Reviewed
 
+**Completed:**
+
+**Completed Last Round:**
 ### Event Status
 - Draft
 - Planning
@@ -312,6 +315,26 @@ Represents an organization or entity providing financial or in-kind support for 
 - General Session
 - Training
 
+### Event Sponsorship Level
+- Title Sponsor
+- Platinum
+- Gold
+- Silver
+- Bronze
+- Supporting
+- In Kind
+
+
+### Event Sponsorship Type
+- Financial
+- In Kind
+- Media Partner
+- Venue Partner
+- Technology Partner
+- Community Partner
+
+**Deferred:**
+
 ### Event Entry Type
 - Presentation
 - Poster
@@ -322,19 +345,6 @@ Represents an organization or entity providing financial or in-kind support for 
 - Video Submission
 - Abstract Only
 
-### Event Sponsorship Level
-- Title Sponsor
-- Platinum
-- Gold
-- Silver
-- Bronze
-- Supporting
-- In Kind
+**Planned:**
 
-### Event Sponsorship Type
-- Financial
-- In Kind
-- Media Partner
-- Venue Partner
-- Technology Partner
-- Community Partner
+

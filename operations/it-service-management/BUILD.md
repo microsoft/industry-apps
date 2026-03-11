@@ -434,7 +434,7 @@ Represents a formal evaluation of a system, component, or technology against def
 - Name: Text
 - Assessment Number: Text
 - Assessment Type: Choice (IT Assessment Type)
-- Assessment Status: Choice (IT Assessment Status)
+- Assessment Stage: Choice (IT Assessment Stage)
 - IT System: Lookup (IT System)
 - IT System Component: Lookup (IT System Component)
 - IT Technology: Lookup (IT Technology)
@@ -540,6 +540,20 @@ System documentation, assessment reports, accreditation packages.
 ---
 
 ## New Choice Fields - Reviewed
+
+**Planned:**
+
+**Do No Build:**
+
+### IT Assessment Status
+- Planned
+- In Progress
+- Completed
+- Under Review
+- Approved
+- Remediation Required
+
+**Review for Planning:**
 
 ### IT Request Type
 - Service Request
@@ -746,14 +760,6 @@ System documentation, assessment reports, accreditation packages.
 - Configuration Review
 - Annual Review
 
-### IT Assessment Status
-- Planned
-- In Progress
-- Completed
-- Under Review
-- Approved
-- Remediation Required
-
 ### IT Finding Type
 - Security Control Gap
 - Policy Violation
@@ -770,5 +776,15 @@ System documentation, assessment reports, accreditation packages.
 - Completed
 - Verified
 - Cancelled
+
+### IT Assessment Stage
+
+- Scheduled
+- Fieldwork
+- Evidence Review
+- Report Drafting
+- Report Review
+- Approved
+- Closed
 
 

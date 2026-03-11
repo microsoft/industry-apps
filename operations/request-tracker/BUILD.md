@@ -16,7 +16,6 @@ Represents a single submitted request for work, information, approval, or action
 - Request Number: Text
 - Request Type: Lookup (Request Type)
 - Approval Status: Choice (Approval Status)
-- Request Urgency: Choice (Request Urgency)
 - Priority: Choice (Priority)
 - Submitted By: Lookup (Person)
 - Submitting Account: Lookup (Account)
@@ -91,7 +90,6 @@ Defines the classification of a request and supports routing, prioritization, an
 - Purpose: Memo
 - Examples: Memo
 - Default Priority: Choice (Priority)
-- Default Urgency: Choice (Request Urgency)
 - Default Assigned Organization Unit: Lookup (Organization Unit)
 - Default Assigned Person: Lookup (Person)
 - Default Reviewer: Lookup (Person)
@@ -153,11 +151,3 @@ Work items created or linked as a result of requests.
 - Research Request
 - Report Request
 - Approval Request
-
-## Candidates ---------------------------------
-
-### Request Urgency
-- Immediate
-- Urgent
-- Standard
-- Low
