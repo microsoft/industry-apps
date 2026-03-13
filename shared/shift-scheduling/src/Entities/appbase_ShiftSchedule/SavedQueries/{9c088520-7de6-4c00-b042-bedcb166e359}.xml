@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{9c088520-7de6-4c00-b042-bedcb166e359}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
+        <row name="result" id="appbase_shiftscheduleid">
+          <cell name="appbase_name" width="248" />
+          <cell name="appbase_shifttype" width="100" />
+          <cell name="appbase_shiftlocation" width="121" />
+          <cell name="appbase_shiftstatus" width="105" />
+          <cell name="appbase_shifttemplate" width="123" />
+          <cell name="appbase_startdatetime" width="129" />
+          <cell name="appbase_enddatetime" width="126" />
+          <cell name="appbase_description" width="106" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="appbase_shiftschedule">
+          <attribute name="appbase_shiftscheduleid" />
+          <attribute name="appbase_name" />
+          <order attribute="appbase_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="appbase_shifttype" />
+          <attribute name="appbase_shiftlocation" />
+          <attribute name="appbase_shiftstatus" />
+          <attribute name="appbase_shifttemplate" />
+          <attribute name="appbase_startdatetime" />
+          <attribute name="appbase_enddatetime" />
+          <attribute name="appbase_description" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Shift Schedules" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

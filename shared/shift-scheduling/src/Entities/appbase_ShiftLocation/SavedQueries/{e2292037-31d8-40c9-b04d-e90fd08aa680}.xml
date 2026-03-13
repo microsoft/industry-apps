@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{e2292037-31d8-40c9-b04d-e90fd08aa680}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
+        <row name="result" id="appbase_shiftlocationid">
+          <cell name="appbase_name" width="239" />
+          <cell name="appbase_scheduletype" width="123" />
+          <cell name="appbase_schedulestatus" width="130" />
+          <cell name="appbase_physicallocation" width="141" />
+          <cell name="appbase_manager" width="100" />
+          <cell name="appbase_startdate" width="100" />
+          <cell name="appbase_enddate" width="100" />
+          <cell name="appbase_description" width="278" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="appbase_shiftlocation">
+          <attribute name="appbase_shiftlocationid" />
+          <attribute name="appbase_name" />
+          <order attribute="appbase_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="appbase_scheduletype" />
+          <attribute name="appbase_schedulestatus" />
+          <attribute name="appbase_physicallocation" />
+          <attribute name="appbase_startdate" />
+          <attribute name="appbase_enddate" />
+          <attribute name="appbase_description" />
+          <attribute name="appbase_manager" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Shift Locations" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

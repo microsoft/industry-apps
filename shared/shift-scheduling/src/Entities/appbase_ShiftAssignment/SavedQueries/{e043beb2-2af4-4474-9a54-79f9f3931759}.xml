@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{e043beb2-2af4-4474-9a54-79f9f3931759}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
+        <row name="result" id="appbase_shiftassignmentid">
+          <cell name="appbase_name" width="255" />
+          <cell name="appbase_shiftworker" width="113" />
+          <cell name="appbase_participant" width="101" />
+          <cell name="appbase_assignmentstart" width="137" />
+          <cell name="appbase_assignmentend" width="133" />
+          <cell name="appbase_assignmentstatus" width="145" />
+          <cell name="appbase_attendancestatus" width="142" />
+          <cell name="appbase_shiftlocation" width="121" />
+          <cell name="appbase_scheduledshift" width="130" />
+          <cell name="appbase_assignedrole" width="123" />
+          <cell name="appbase_staffingrequirement" width="161" />
+          <cell name="appbase_description" width="106" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="appbase_shiftassignment">
+          <attribute name="appbase_shiftassignmentid" />
+          <attribute name="appbase_name" />
+          <order attribute="appbase_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="appbase_shiftworker" />
+          <attribute name="appbase_shiftlocation" />
+          <attribute name="appbase_scheduledshift" />
+          <attribute name="appbase_staffingrequirement" />
+          <attribute name="appbase_participant" />
+          <attribute name="appbase_assignmentstart" />
+          <attribute name="appbase_assignmentend" />
+          <attribute name="appbase_assignmentstatus" />
+          <attribute name="appbase_attendancestatus" />
+          <attribute name="appbase_assignedrole" />
+          <attribute name="appbase_description" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Shift Assignments" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

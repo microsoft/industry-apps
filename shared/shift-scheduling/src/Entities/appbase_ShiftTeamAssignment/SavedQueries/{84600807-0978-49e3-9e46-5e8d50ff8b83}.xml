@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{84600807-0978-49e3-9e46-5e8d50ff8b83}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
+        <row name="result" id="appbase_shiftteamassignmentid">
+          <cell name="appbase_name" width="237" />
+          <cell name="appbase_teamreference" width="132" />
+          <cell name="appbase_assignmentstart" width="137" />
+          <cell name="appbase_assignmentend" width="133" />
+          <cell name="appbase_attendancestatus" width="142" />
+          <cell name="appbase_assignmentstatus" width="145" />
+          <cell name="appbase_staffingrequirement" width="161" />
+          <cell name="appbase_shiftlocation" width="121" />
+          <cell name="appbase_scheduledshift" width="130" />
+          <cell name="appbase_description" width="106" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="appbase_shiftteamassignment">
+          <attribute name="appbase_shiftteamassignmentid" />
+          <attribute name="appbase_name" />
+          <order attribute="appbase_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="appbase_assignmentstart" />
+          <attribute name="appbase_assignmentend" />
+          <attribute name="appbase_attendancestatus" />
+          <attribute name="appbase_assignmentstatus" />
+          <attribute name="appbase_teamreference" />
+          <attribute name="appbase_shiftlocation" />
+          <attribute name="appbase_scheduledshift" />
+          <attribute name="appbase_description" />
+          <attribute name="appbase_staffingrequirement" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Shift Team Assignments" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

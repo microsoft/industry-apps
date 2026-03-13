@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{532c69a3-a803-40c7-af67-ce77f00b3ecd}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
+        <row name="result" id="appbase_shiftparticipantid">
+          <cell name="appbase_name" width="266" />
+          <cell name="appbase_shiftworker" width="113" />
+          <cell name="appbase_shiftlocation" width="121" />
+          <cell name="appbase_participantstatus" width="139" />
+          <cell name="appbase_defaultrole" width="112" />
+          <cell name="appbase_availabilitystart" width="136" />
+          <cell name="appbase_availabilityend" width="132" />
+          <cell name="appbase_description" width="106" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="appbase_shiftparticipant">
+          <attribute name="appbase_shiftparticipantid" />
+          <attribute name="appbase_name" />
+          <order attribute="appbase_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="appbase_shiftworker" />
+          <attribute name="appbase_shiftlocation" />
+          <attribute name="appbase_participantstatus" />
+          <attribute name="appbase_defaultrole" />
+          <attribute name="appbase_availabilitystart" />
+          <attribute name="appbase_availabilityend" />
+          <attribute name="appbase_description" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Shift Participants" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

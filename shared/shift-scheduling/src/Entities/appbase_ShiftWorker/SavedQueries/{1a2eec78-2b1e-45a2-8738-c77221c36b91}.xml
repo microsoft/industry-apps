@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{1a2eec78-2b1e-45a2-8738-c77221c36b91}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
+        <row name="result" id="appbase_shiftworkerid">
+          <cell name="appbase_name" width="218" />
+          <cell name="appbase_firstname" width="103" />
+          <cell name="appbase_lastname" width="102" />
+          <cell name="appbase_phone" width="100" />
+          <cell name="appbase_email" width="100" />
+          <cell name="appbase_user" width="100" />
+          <cell name="appbase_contact" width="100" />
+          <cell name="appbase_employeeidorbadgenumber" width="219" />
+          <cell name="appbase_description" width="203" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="appbase_shiftworker">
+          <attribute name="appbase_shiftworkerid" />
+          <attribute name="appbase_name" />
+          <order attribute="appbase_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="appbase_firstname" />
+          <attribute name="appbase_lastname" />
+          <attribute name="appbase_phone" />
+          <attribute name="appbase_user" />
+          <attribute name="appbase_email" />
+          <attribute name="appbase_contact" />
+          <attribute name="appbase_employeeidorbadgenumber" />
+          <attribute name="appbase_description" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Shift Workers" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{0250bcd7-7975-4206-bf25-7a88340e68ee}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
+        <row name="result" id="appbase_shiftstaffingrequirementid">
+          <cell name="appbase_name" width="197" />
+          <cell name="appbase_requiredrole" width="122" />
+          <cell name="appbase_quantityrequired" width="144" />
+          <cell name="appbase_priority" width="100" />
+          <cell name="appbase_fulfillmentstatus" width="141" />
+          <cell name="appbase_locationorpostreference" width="193" />
+          <cell name="appbase_shiftlocation" width="121" />
+          <cell name="appbase_scheduledshift" width="130" />
+          <cell name="appbase_description" width="106" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="appbase_shiftstaffingrequirement">
+          <attribute name="appbase_shiftstaffingrequirementid" />
+          <attribute name="appbase_name" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="appbase_requiredrole" />
+          <attribute name="appbase_quantityrequired" />
+          <attribute name="appbase_priority" />
+          <attribute name="appbase_fulfillmentstatus" />
+          <attribute name="appbase_locationorpostreference" />
+          <attribute name="appbase_shiftlocation" />
+          <attribute name="appbase_scheduledshift" />
+          <attribute name="appbase_description" />
+          <order attribute="appbase_shiftlocation" descending="false" />
+          <order attribute="appbase_scheduledshift" descending="false" />
+          <order attribute="appbase_name" descending="false" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Shift Staffing Requirements" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>
