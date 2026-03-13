@@ -29,11 +29,10 @@ Tracks case number, type, jurisdiction, status, assigned judge, and overall life
 - Description: Memo
 
 **Completed Last Round:**
-- Add sample data
+- Configure Main form (Information)
+- Configure Active view
 
 **Planned:**
-- Configure baseline form
-- Configure baseline view
 
 ---
 
@@ -62,11 +61,10 @@ Captures the decision type, date, deciding official, and links to related hearin
 - Legal Reasoning: Memo
 
 **Completed Last Round:**
-- Add sample data
+- Configure Main form (Information)
+- Configure Active view
 
 **Planned:**
-- Configure baseline form
-- Configure baseline view
 
 ---
 
@@ -92,11 +90,10 @@ Provides an audit-friendly record of filings, hearings, orders, and other signif
 - Description: Memo
 
 **Completed Last Round:**
-- Add sample data
+- Configure Main form (Information)
+- Configure Active view
 
 **Planned:**
-- Configure baseline form
-- Configure baseline view
 
 ---
 
@@ -126,11 +123,10 @@ Includes motions and other filings submitted by parties or external entities, al
 - Description: Memo
 
 **Completed Last Round:**
-- Add sample data
+- Configure Main form (Information)
+- Configure Active view
 
 **Planned:**
-- Configure baseline form
-- Configure baseline view
 
 ---
 
@@ -163,11 +159,10 @@ Represents a scheduled case appearance or proceeding. May be associated with a C
 - Hearing Notes: Memo
 
 **Completed Last Round:**
-- Add sample data
+- Configure Main form (Information)
+- Configure Active view
 
 **Planned:**
-- Configure baseline form
-- Configure baseline view
 
 ---
 
@@ -198,11 +193,10 @@ Represents a formal directive issued by the court. Often generated from a decisi
 - Compliance Notes: Memo
 
 **Completed Last Round:**
-- Add sample data
+- Configure Main form (Information)
+- Configure Active view
 
 **Planned:**
-- Configure baseline form
-- Configure baseline view
 
 ---
 
@@ -233,11 +227,10 @@ Used to track plaintiffs, defendants, petitioners, respondents, and other involv
 - Description: Memo
 
 **Completed Last Round:**
-- Add sample data
+- Configure Main form (Information)
+- Configure Active view
 
 **Planned:**
-- Configure baseline form
-- Configure baseline view
 
 ---
 
@@ -265,11 +258,10 @@ Identifies which party is represented by which attorney, guardian, or agent, inc
 - Description: Memo
 
 **Completed Last Round:**
-- Add sample data
+- Configure Main form (Information)
+- Configure Active view
 
 **Planned:**
-- Configure baseline form
-- Configure baseline view
 
 ---
 
@@ -303,11 +295,10 @@ Includes assignments, due dates, status, and links to related filings, hearings,
 - Resolution Notes: Memo
 
 **Completed Last Round:**
-- Add sample data
+- Configure Main form (Information)
+- Configure Active view
 
 **Planned:**
-- Configure baseline form
-- Configure baseline view
 
 ---
 
@@ -338,11 +329,10 @@ Defines the date, location, presiding official, and status of a court calendar b
 - Session Notes: Memo
 
 **Completed Last Round:**
-- Add sample data
+- Configure Main form (Information)
+- Configure Active view
 
 **Planned:**
-- Configure baseline form
-- Configure baseline view
 
 ---
 

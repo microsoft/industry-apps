@@ -5,7 +5,7 @@
     <IntroducedVersion>1.0</IntroducedVersion>
     <FormPresentation>1</FormPresentation>
     <FormActivationState>1</FormActivationState>
-    <form headerdensity="HighWithControls">
+    <form headerdensity="HighWithControls" shownavigationbar="false">
       <tabs>
         <tab verticallayout="true" id="{60930999-cf70-491d-9ff6-7b62fb692aeb}" IsUserDefined="1">
           <labels>
@@ -209,25 +209,353 @@
                     </row>
                   </rows>
                 </section>
-                <section name="null_section_5" id="49b1f80e-b487-4396-90ac-a7acaed5ac1a" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
+                <section name="null_section_5" id="49b1f80e-b487-4396-90ac-a7acaed5ac1a" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
                   <labels>
                     <label description="Description" languagecode="1033" />
                   </labels>
                   <rows>
                     <row />
                     <row>
-                      <cell id="{5a943414-b71b-401b-a754-7403e8352ca3}" locklevel="0" colspan="1" rowspan="1">
+                      <cell id="{5a943414-b71b-401b-a754-7403e8352ca3}" locklevel="0" colspan="1" rowspan="4">
                         <labels>
                           <label description="Description" languagecode="1033" />
                         </labels>
                         <control id="appbase_description" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="appbase_description" disabled="false" />
                       </cell>
-                      <cell locklevel="0" id="{077346f9-03e3-4a15-a416-d5d87e55fb34}">
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="tab_2" id="8bda2f40-59a4-4d12-9fc0-304620091fda" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Parties" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="tab_2_section_1" id="b58512fe-605e-4e49-b0e1-77c85792e64e" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="New Section" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{7d224602-48b5-4c0c-a50e-b772aefc2039}" rowspan="4" colspan="1" auto="false">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Parties" languagecode="1033" />
                         </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_1" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_courtcaseparty_CourtCase</RelationshipName>
+                            <TargetEntityType>appbase_courtcaseparty</TargetEntityType>
+                            <ViewId>{DE397E6C-80E1-48A7-A89C-5B06E1F0ABE7}</ViewId>
+                            <ViewIds>{DE397E6C-80E1-48A7-A89C-5B06E1F0ABE7}</ViewIds>
+                          </parameters>
+                        </control>
                       </cell>
                     </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{f51af5f7-e203-4e60-9d85-a42f27560198}" rowspan="4" colspan="1" auto="false">
+                        <labels>
+                          <label description="Representation" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_2" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_courtcaserepresentation_CourtCase</RelationshipName>
+                            <TargetEntityType>appbase_courtcaserepresentation</TargetEntityType>
+                            <ViewId>{84559C9B-E97E-4961-AAF9-1606C8B760F2}</ViewId>
+                            <ViewIds>{84559C9B-E97E-4961-AAF9-1606C8B760F2}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="tab_3" id="19fdbd72-6140-4b6f-9218-e255bd6022fd" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Filings &amp; Record" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="tab_3_section_1" id="03e9fefd-2edc-4b01-b83d-40da20a9d6f4" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="New Section" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{41f913e3-91fd-424e-a52d-7726d99d969f}" rowspan="4" colspan="1" auto="false">
+                        <labels>
+                          <label description="Filings  " languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_3" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_courtcasefiling_CourtCase</RelationshipName>
+                            <TargetEntityType>appbase_courtcasefiling</TargetEntityType>
+                            <ViewId>{4C4C2A59-45A0-4369-BA56-CAE3C85BFF74}</ViewId>
+                            <ViewIds>{4C4C2A59-45A0-4369-BA56-CAE3C85BFF74}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{104e0bba-2e55-4fc0-b94d-e355fddd278d}" rowspan="4" colspan="1" auto="false">
+                        <labels>
+                          <label description="Docket" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_4" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_courtcasedocketentry_CourtCase</RelationshipName>
+                            <TargetEntityType>appbase_courtcasedocketentry</TargetEntityType>
+                            <ViewId>{35429EB5-FD92-4028-8B88-991D455CF6AF}</ViewId>
+                            <ViewIds>{35429EB5-FD92-4028-8B88-991D455CF6AF}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="tab_4" id="29072ddd-e387-4724-91de-028f74bea74d" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Hearings" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="tab_4_section_1" id="16e0577b-9d46-4d9d-a670-99f13c1b68ed" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="New Section" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{8e8d06a9-77d2-4ee4-b190-2ac129863bf3}" rowspan="4" colspan="1" auto="false">
+                        <labels>
+                          <label description="Hearings" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_5" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_courtcasehearing_CourtCase</RelationshipName>
+                            <TargetEntityType>appbase_courtcasehearing</TargetEntityType>
+                            <ViewId>{70407BDC-1E54-44C8-8846-E0E35806F7FF}</ViewId>
+                            <ViewIds>{70407BDC-1E54-44C8-8846-E0E35806F7FF}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="tab_5" id="bf698f94-f520-4cd3-a3d5-9ec645a1ae6b" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Decisions &amp; Orders" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="tab_5_section_1" id="f19483f1-e906-4740-9779-5f850da555ab" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="New Section" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{ea873f99-93cb-4edc-851a-c0b496f6bcb2}" rowspan="4" colspan="1" auto="false">
+                        <labels>
+                          <label description="Decisions" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_6" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_courtcasedecision_CourtCase</RelationshipName>
+                            <TargetEntityType>appbase_courtcasedecision</TargetEntityType>
+                            <ViewId>{7F02C79B-9632-4784-B89F-37F348CE15D1}</ViewId>
+                            <ViewIds>{7F02C79B-9632-4784-B89F-37F348CE15D1}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{ce3685ff-a137-425b-9ba1-2a2f4f20bcd9}" rowspan="4" colspan="1" auto="false">
+                        <labels>
+                          <label description="Orders" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_7" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_courtcaseorder_CourtCase</RelationshipName>
+                            <TargetEntityType>appbase_courtcaseorder</TargetEntityType>
+                            <ViewId>{4B11E6B8-634B-43F6-98E1-7215C1754810}</ViewId>
+                            <ViewIds>{4B11E6B8-634B-43F6-98E1-7215C1754810}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="tab_6" id="89bea125-6195-43d9-9d60-d5c7aaed297b" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Work" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="tab_6_section_1" id="6493cc55-28f0-4a13-9ec6-12ece07b79d5" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="New Section" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{f43324fd-3530-4862-b78c-c5e276b3db6d}" rowspan="4" colspan="1" auto="false">
+                        <labels>
+                          <label description="Work Items" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_8" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_courtcaseworkitem_CourtCase</RelationshipName>
+                            <TargetEntityType>appbase_courtcaseworkitem</TargetEntityType>
+                            <ViewId>{F42321D8-D39B-4070-9AC7-0AC1FB8C090F}</ViewId>
+                            <ViewIds>{F42321D8-D39B-4070-9AC7-0AC1FB8C090F}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="tab_7" id="ae8c1e55-2459-4064-ab29-95561801aa72" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Related " languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="tab_7_section_1" id="c564a055-581e-43b8-9564-3f30b090d7a6" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="New Section" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{06e9ef35-d431-4ea6-9f60-3de5779c6b32}" rowspan="4" colspan="1" auto="false">
+                        <labels>
+                          <label description="Related Cases" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_9" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_courtcase_RelatedCase</RelationshipName>
+                            <TargetEntityType>appbase_courtcase</TargetEntityType>
+                            <ViewId>{F968D8DA-7A07-465E-8FDA-833D99EF5911}</ViewId>
+                            <ViewIds>{F968D8DA-7A07-465E-8FDA-833D99EF5911}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
                   </rows>
                 </section>
               </sections>

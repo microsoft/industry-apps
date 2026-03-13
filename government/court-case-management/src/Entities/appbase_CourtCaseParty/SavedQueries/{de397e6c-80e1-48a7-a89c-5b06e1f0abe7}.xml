@@ -10,8 +10,19 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_courtcasepartyid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="193" />
+          <cell name="appbase_partytype" width="127" />
+          <cell name="appbase_partyrole" width="100" />
+          <cell name="appbase_person" width="130" />
+          <cell name="appbase_account" width="124" />
+          <cell name="appbase_contactmethod" width="131" />
+          <cell name="appbase_startdate" width="100" />
+          <cell name="appbase_enddate" width="100" />
+          <cell name="appbase_notificationemail" width="145" />
+          <cell name="appbase_notificationphone" width="147" />
+          <cell name="appbase_representationrequired" width="179" />
+          <cell name="appbase_isprose" width="100" />
+          <cell name="appbase_courtcase" width="103" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +32,22 @@
         <entity name="appbase_courtcaseparty">
           <attribute name="appbase_courtcasepartyid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_partytype" />
+          <attribute name="appbase_partyrole" />
+          <attribute name="appbase_person" />
+          <attribute name="appbase_account" />
+          <attribute name="appbase_contactmethod" />
+          <attribute name="appbase_startdate" />
+          <attribute name="appbase_enddate" />
+          <attribute name="appbase_notificationemail" />
+          <attribute name="appbase_notificationphone" />
+          <attribute name="appbase_representationrequired" />
+          <attribute name="appbase_isprose" />
+          <attribute name="appbase_courtcase" />
         </entity>
       </fetch>
     </fetchxml>

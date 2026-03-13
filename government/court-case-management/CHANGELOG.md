@@ -2,6 +2,22 @@
 
 ## Unreleased
 
+## [1.2.1.0] - 2026-03-13
+
+### Added
+
+#### User Interface
+- Court Case: Configured Main form (Information) and Active view for case management
+- Court Case Decision: Configured Main form (Information) and Active view for judicial rulings
+- Court Case Docket Entry: Configured Main form (Information) and Active view for docket log entries
+- Court Case Filing: Configured Main form (Information) and Active view for document submissions
+- Court Case Hearing: Configured Main form (Information) and Active view for scheduled court appearances
+- Court Case Order: Configured Main form (Information) and Active view for court directives
+- Court Case Party: Configured Main form (Information) and Active view for party management
+- Court Case Representation: Configured Main form (Information) and Active view for attorney-client relationships
+- Court Case Work Item: Configured Main form (Information) and Active view for internal staff tasks
+- Court Session: Configured Main form (Information) and Active view for court calendar blocks
+
 ## [1.2.0.0] - 2026-03-11
 
 ### Added
