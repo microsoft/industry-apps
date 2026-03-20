@@ -11,7 +11,11 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_evidencecustodyrecordid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_custodyeventtype" width="155" />
+          <cell name="appbase_fromcustodian" width="131" />
+          <cell name="appbase_tocustodian" width="115" />
+          <cell name="appbase_eventdatetime" width="136" />
+          <cell name="appbase_evidenceitem" width="122" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +25,15 @@
         <entity name="appbase_evidencecustodyrecord">
           <attribute name="appbase_evidencecustodyrecordid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_evidenceitem" />
+          <attribute name="appbase_eventdatetime" />
+          <attribute name="appbase_custodyeventtype" />
+          <attribute name="appbase_fromcustodian" />
+          <attribute name="appbase_tocustodian" />
         </entity>
       </fetch>
     </fetchxml>

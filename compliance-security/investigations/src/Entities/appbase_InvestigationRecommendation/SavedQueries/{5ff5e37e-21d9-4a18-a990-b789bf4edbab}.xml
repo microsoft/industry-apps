@@ -10,8 +10,18 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_investigationrecommendationid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="255" />
+          <cell name="appbase_recommendationtype" width="171" />
+          <cell name="appbase_recommendedaction" width="166" />
+          <cell name="appbase_recommendationdate" width="169" />
+          <cell name="appbase_recommendationstatus" width="177" />
+          <cell name="appbase_recommendedby" width="144" />
+          <cell name="appbase_recommendedto" width="143" />
+          <cell name="appbase_responsedate" width="124" />
+          <cell name="appbase_responserequiredbydate" width="199" />
+          <cell name="appbase_priority" width="100" />
+          <cell name="appbase_investigation" width="114" />
+          <cell name="appbase_investigationfinding" width="161" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +31,21 @@
         <entity name="appbase_investigationrecommendation">
           <attribute name="appbase_investigationrecommendationid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_recommendationtype" />
+          <attribute name="appbase_recommendedaction" />
+          <attribute name="appbase_recommendationdate" />
+          <attribute name="appbase_recommendationstatus" />
+          <attribute name="appbase_recommendedby" />
+          <attribute name="appbase_recommendedto" />
+          <attribute name="appbase_responsedate" />
+          <attribute name="appbase_responserequiredbydate" />
+          <attribute name="appbase_priority" />
+          <attribute name="appbase_investigation" />
+          <attribute name="appbase_investigationfinding" />
         </entity>
       </fetch>
     </fetchxml>

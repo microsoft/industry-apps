@@ -10,8 +10,19 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_evidenceitemid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="198" />
+          <cell name="appbase_evidencenumber" width="142" />
+          <cell name="appbase_evidencetype" width="124" />
+          <cell name="appbase_evidencestoragelocation" width="192" />
+          <cell name="appbase_evidencestatus" width="130" />
+          <cell name="appbase_serialnumber" width="123" />
+          <cell name="appbase_relevance" width="100" />
+          <cell name="appbase_chainofcustodyverified" width="188" />
+          <cell name="appbase_securityclassification" width="168" />
+          <cell name="appbase_collectiondate" width="129" />
+          <cell name="appbase_currentcustodian" width="144" />
+          <cell name="appbase_digitalhash" width="112" />
+          <cell name="appbase_investigation" width="114" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +32,22 @@
         <entity name="appbase_evidenceitem">
           <attribute name="appbase_evidenceitemid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_evidencetype" />
+          <attribute name="appbase_evidencestoragelocation" />
+          <attribute name="appbase_evidencestatus" />
+          <attribute name="appbase_serialnumber" />
+          <attribute name="appbase_relevance" />
+          <attribute name="appbase_chainofcustodyverified" />
+          <attribute name="appbase_collectiondate" />
+          <attribute name="appbase_currentcustodian" />
+          <attribute name="appbase_digitalhash" />
+          <attribute name="appbase_evidencenumber" />
+          <attribute name="appbase_investigation" />
+          <attribute name="appbase_securityclassification" />
         </entity>
       </fetch>
     </fetchxml>

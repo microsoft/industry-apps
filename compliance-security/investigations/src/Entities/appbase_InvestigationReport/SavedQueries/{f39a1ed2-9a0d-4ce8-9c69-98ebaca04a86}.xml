@@ -11,7 +11,16 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_investigationreportid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_reporttype" width="110" />
+          <cell name="appbase_versionnumber" width="133" />
+          <cell name="appbase_reportstatus" width="116" />
+          <cell name="appbase_reportnumber" width="128" />
+          <cell name="appbase_prepareddate" width="120" />
+          <cell name="appbase_ispublic" width="100" />
+          <cell name="appbase_externalreleaseauthorized" width="201" />
+          <cell name="appbase_distributiondate" width="138" />
+          <cell name="appbase_securityclassification" width="168" />
+          <cell name="appbase_investigation" width="114" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +30,20 @@
         <entity name="appbase_investigationreport">
           <attribute name="appbase_investigationreportid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_reporttype" />
+          <attribute name="appbase_versionnumber" />
+          <attribute name="appbase_reportstatus" />
+          <attribute name="appbase_reportnumber" />
+          <attribute name="appbase_prepareddate" />
+          <attribute name="appbase_ispublic" />
+          <attribute name="appbase_externalreleaseauthorized" />
+          <attribute name="appbase_distributiondate" />
+          <attribute name="appbase_securityclassification" />
+          <attribute name="appbase_investigation" />
         </entity>
       </fetch>
     </fetchxml>

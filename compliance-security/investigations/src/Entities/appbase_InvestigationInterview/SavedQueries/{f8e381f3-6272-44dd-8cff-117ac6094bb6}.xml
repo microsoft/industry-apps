@@ -10,8 +10,17 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_investigationinterviewid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="215" />
+          <cell name="appbase_interviewtype" width="125" />
+          <cell name="appbase_interviewsubject" width="140" />
+          <cell name="appbase_interviewnumber" width="144" />
+          <cell name="appbase_primaryinterviewer" width="154" />
+          <cell name="appbase_scheduleddatetime" width="161" />
+          <cell name="appbase_actualdatetime" width="140" />
+          <cell name="appbase_attendancestatus" width="142" />
+          <cell name="appbase_cooperationstatus" width="147" />
+          <cell name="appbase_followuprequired" width="156" />
+          <cell name="appbase_investigation" width="114" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +30,20 @@
         <entity name="appbase_investigationinterview">
           <attribute name="appbase_investigationinterviewid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_interviewtype" />
+          <attribute name="appbase_interviewsubject" />
+          <attribute name="appbase_interviewnumber" />
+          <attribute name="appbase_primaryinterviewer" />
+          <attribute name="appbase_scheduleddatetime" />
+          <attribute name="appbase_actualdatetime" />
+          <attribute name="appbase_attendancestatus" />
+          <attribute name="appbase_cooperationstatus" />
+          <attribute name="appbase_followuprequired" />
+          <attribute name="appbase_investigation" />
         </entity>
       </fetch>
     </fetchxml>

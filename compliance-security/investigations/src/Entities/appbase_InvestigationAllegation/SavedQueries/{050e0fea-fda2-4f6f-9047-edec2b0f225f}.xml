@@ -10,8 +10,17 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_investigationallegationid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="196" />
+          <cell name="appbase_allegationnumber" width="149" />
+          <cell name="appbase_allegationtype" width="131" />
+          <cell name="appbase_allegationstatus" width="137" />
+          <cell name="appbase_allegeddate" width="115" />
+          <cell name="appbase_severitylevel" width="123" />
+          <cell name="appbase_estimatedmonetaryimpact" width="197" />
+          <cell name="appbase_subjectaccount" width="133" />
+          <cell name="appbase_subjectorganizationunit" width="187" />
+          <cell name="appbase_subjectperson" width="124" />
+          <cell name="appbase_description" width="255" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +30,20 @@
         <entity name="appbase_investigationallegation">
           <attribute name="appbase_investigationallegationid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_allegationnumber" />
+          <attribute name="appbase_allegationtype" />
+          <attribute name="appbase_allegationstatus" />
+          <attribute name="appbase_allegeddate" />
+          <attribute name="appbase_severitylevel" />
+          <attribute name="appbase_estimatedmonetaryimpact" />
+          <attribute name="appbase_subjectaccount" />
+          <attribute name="appbase_subjectorganizationunit" />
+          <attribute name="appbase_subjectperson" />
+          <attribute name="appbase_description" />
         </entity>
       </fetch>
     </fetchxml>

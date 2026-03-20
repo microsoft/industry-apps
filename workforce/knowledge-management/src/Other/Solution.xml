@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.26014.158" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26014.158" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26021.00160">
+<ImportExportXml version="9.2.26022.168" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26022.168" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26023.00174">
   <SolutionManifest>
     <UniqueName>appbase_knowledgemanagement</UniqueName>
     <LocalizedNames>
       <LocalizedName description="App Base - Knowledge Management" languagecode="1033" />
     </LocalizedNames>
     <Descriptions />
-    <Version>1.8.0.3</Version>
+    <Version>1.8.0.7</Version>
     <Managed>2</Managed>
     <Publisher>
       <UniqueName>appbase</UniqueName>
@@ -84,6 +84,7 @@
       <RootComponent type="1" schemaName="appbase_kmitem" behavior="0" />
       <RootComponent type="1" schemaName="appbase_kmitemrelation" behavior="0" />
       <RootComponent type="1" schemaName="appbase_kmitemtype" behavior="0" />
+      <RootComponent type="300" schemaName="appbase_kmcatalog_323f7" behavior="0" />
       <RootComponent type="300" schemaName="appbase_kmembedded_9ff17" behavior="0" />
       <RootComponent type="431" schemaName="appbase_kmitem appbase_thumbnail" behavior="0" />
       <RootComponent type="432" schemaName="appbase_kmitem" behavior="0" />
@@ -92,7 +93,11 @@
     </RootComponents>
     <MissingDependencies>
       <MissingDependency>
-        <Required type="29" displayName="Process Automation - List SharePoint Content" solution="appbase_processautomation (1.0.0.3)" id="{e34d36bd-400c-f111-8406-000d3a3bb4e1}" />
+        <Required type="29" displayName="Process Automation - List SharePoint Content" solution="appbase_processautomation (1.0.0.4)" id="{e34d36bd-400c-f111-8406-000d3a3bb4e1}" />
+        <Dependent type="300" schemaName="appbase_kmcatalog_323f7" displayName="KM Catalog" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="29" displayName="Process Automation - List SharePoint Content" solution="appbase_processautomation (1.0.0.4)" id="{e34d36bd-400c-f111-8406-000d3a3bb4e1}" />
         <Dependent type="300" schemaName="appbase_kmembedded_9ff17" displayName="KM Embedded" />
       </MissingDependency>
       <MissingDependency>
@@ -100,6 +105,10 @@
           <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
         </Required>
         <Dependent type="80" schemaName="appbase_KnowledgeManagement" displayName="Knowledge Management" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_publicationstatus" displayName="Publication Status" solution="appbase_core (1.1.2.0)" />
+        <Dependent type="2" schemaName="appbase_publicationstatus" displayName="Publication Status" parentSchemaName="appbase_kmitem" parentDisplayName="KM Item" />
       </MissingDependency>
       <MissingDependency>
         <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.15)" id.uniquename="AppChannel">

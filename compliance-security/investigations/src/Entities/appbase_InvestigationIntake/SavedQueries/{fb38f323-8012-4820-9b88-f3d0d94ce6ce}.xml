@@ -10,8 +10,20 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_investigationintakeid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="173" />
+          <cell name="appbase_intakenumber" width="125" />
+          <cell name="appbase_priority" width="100" />
+          <cell name="appbase_intakedatetime" width="138" />
+          <cell name="appbase_incidentdate" width="116" />
+          <cell name="appbase_incidentlocation" width="140" />
+          <cell name="appbase_intakestatus" width="113" />
+          <cell name="appbase_isanonymous" width="123" />
+          <cell name="appbase_methodofcontact" width="146" />
+          <cell name="appbase_potentialinvestigativetype" width="197" />
+          <cell name="appbase_reporteddate" width="122" />
+          <cell name="appbase_screeningdate" width="126" />
+          <cell name="appbase_screeningstatus" width="134" />
+          <cell name="appbase_disposition" width="105" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +33,23 @@
         <entity name="appbase_investigationintake">
           <attribute name="appbase_investigationintakeid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_intakenumber" />
+          <attribute name="appbase_priority" />
+          <attribute name="appbase_intakedatetime" />
+          <attribute name="appbase_incidentdate" />
+          <attribute name="appbase_incidentlocation" />
+          <attribute name="appbase_intakestatus" />
+          <attribute name="appbase_isanonymous" />
+          <attribute name="appbase_methodofcontact" />
+          <attribute name="appbase_potentialinvestigativetype" />
+          <attribute name="appbase_reporteddate" />
+          <attribute name="appbase_screeningdate" />
+          <attribute name="appbase_screeningstatus" />
+          <attribute name="appbase_disposition" />
         </entity>
       </fetch>
     </fetchxml>

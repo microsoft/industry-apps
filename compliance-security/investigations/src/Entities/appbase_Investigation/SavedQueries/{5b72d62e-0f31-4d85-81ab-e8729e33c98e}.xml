@@ -10,8 +10,17 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_investigationid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="178" />
+          <cell name="appbase_severitylevel" width="123" />
+          <cell name="appbase_securityclassification" width="168" />
+          <cell name="appbase_priority" width="100" />
+          <cell name="appbase_investigativetype" width="144" />
+          <cell name="appbase_investigativecategory" width="168" />
+          <cell name="appbase_investigationstartdate" width="173" />
+          <cell name="appbase_casestatus" width="105" />
+          <cell name="appbase_casenumber" width="117" />
+          <cell name="appbase_actualcompletiondate" width="177" />
+          <cell name="appbase_overalldisposition" width="151" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +30,20 @@
         <entity name="appbase_investigation">
           <attribute name="appbase_investigationid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_severitylevel" />
+          <attribute name="appbase_securityclassification" />
+          <attribute name="appbase_priority" />
+          <attribute name="appbase_investigativetype" />
+          <attribute name="appbase_investigativecategory" />
+          <attribute name="appbase_investigationstartdate" />
+          <attribute name="appbase_casestatus" />
+          <attribute name="appbase_casenumber" />
+          <attribute name="appbase_actualcompletiondate" />
+          <attribute name="appbase_overalldisposition" />
         </entity>
       </fetch>
     </fetchxml>

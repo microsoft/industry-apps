@@ -10,8 +10,16 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_evidenceaccesslogid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="241" />
+          <cell name="appbase_accesstype" width="111" />
+          <cell name="appbase_accessdatetime" width="143" />
+          <cell name="appbase_accessedby" width="113" />
+          <cell name="appbase_systemuser" width="112" />
+          <cell name="appbase_ipaddress" width="102" />
+          <cell name="appbase_downloadcount" width="137" />
+          <cell name="appbase_evidenceitem" width="122" />
+          <cell name="appbase_documentdownloaded" width="174" />
+          <cell name="appbase_accesspurpose" width="129" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +29,19 @@
         <entity name="appbase_evidenceaccesslog">
           <attribute name="appbase_evidenceaccesslogid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_accesstype" />
+          <attribute name="appbase_accessdatetime" />
+          <attribute name="appbase_accessedby" />
+          <attribute name="appbase_systemuser" />
+          <attribute name="appbase_ipaddress" />
+          <attribute name="appbase_downloadcount" />
+          <attribute name="appbase_evidenceitem" />
+          <attribute name="appbase_documentdownloaded" />
+          <attribute name="appbase_accesspurpose" />
         </entity>
       </fetch>
     </fetchxml>

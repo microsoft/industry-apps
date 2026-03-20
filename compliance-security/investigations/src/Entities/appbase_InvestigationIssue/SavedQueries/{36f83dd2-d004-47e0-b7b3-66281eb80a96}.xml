@@ -10,8 +10,14 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_investigationissueid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="258" />
+          <cell name="appbase_issuetype" width="101" />
+          <cell name="appbase_issuecategory" width="124" />
+          <cell name="appbase_issueresolutionstatus" width="171" />
+          <cell name="appbase_question" width="100" />
+          <cell name="appbase_policyreference" width="137" />
+          <cell name="appbase_investigation" width="114" />
+          <cell name="appbase_investigationallegation" width="176" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +27,17 @@
         <entity name="appbase_investigationissue">
           <attribute name="appbase_investigationissueid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_issuetype" />
+          <attribute name="appbase_issuecategory" />
+          <attribute name="appbase_issueresolutionstatus" />
+          <attribute name="appbase_question" />
+          <attribute name="appbase_policyreference" />
+          <attribute name="appbase_investigation" />
+          <attribute name="appbase_investigationallegation" />
         </entity>
       </fetch>
     </fetchxml>

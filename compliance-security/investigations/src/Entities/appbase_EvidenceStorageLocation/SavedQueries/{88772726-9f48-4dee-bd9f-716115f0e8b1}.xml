@@ -11,7 +11,16 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_evidencestoragelocationid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_storagetype" width="115" />
+          <cell name="appbase_storagefacility" width="130" />
+          <cell name="appbase_securitylevel" width="123" />
+          <cell name="appbase_locationcode" width="123" />
+          <cell name="appbase_custodian" width="100" />
+          <cell name="appbase_climatecontrolrequired" width="186" />
+          <cell name="appbase_capacity" width="100" />
+          <cell name="appbase_accesscontrol" width="126" />
+          <cell name="appbase_physicallocation" width="141" />
+          <cell name="appbase_notes" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +30,20 @@
         <entity name="appbase_evidencestoragelocation">
           <attribute name="appbase_evidencestoragelocationid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_storagetype" />
+          <attribute name="appbase_storagefacility" />
+          <attribute name="appbase_securitylevel" />
+          <attribute name="appbase_locationcode" />
+          <attribute name="appbase_custodian" />
+          <attribute name="appbase_climatecontrolrequired" />
+          <attribute name="appbase_capacity" />
+          <attribute name="appbase_accesscontrol" />
+          <attribute name="appbase_physicallocation" />
+          <attribute name="appbase_notes" />
         </entity>
       </fetch>
     </fetchxml>

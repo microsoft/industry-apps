@@ -10,8 +10,13 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_investigativereferraltypeid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="209" />
+          <cell name="appbase_referralcategory" width="141" />
+          <cell name="appbase_defaultorganizationunit" width="187" />
+          <cell name="appbase_requiresformalnotification" width="205" />
+          <cell name="appbase_standardresponsetimedays" width="222" />
+          <cell name="appbase_typecode" width="101" />
+          <cell name="appbase_description" width="288" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +26,16 @@
         <entity name="appbase_investigativereferraltype">
           <attribute name="appbase_investigativereferraltypeid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_defaultorganizationunit" />
+          <attribute name="appbase_referralcategory" />
+          <attribute name="appbase_requiresformalnotification" />
+          <attribute name="appbase_standardresponsetimedays" />
+          <attribute name="appbase_typecode" />
+          <attribute name="appbase_description" />
         </entity>
       </fetch>
     </fetchxml>

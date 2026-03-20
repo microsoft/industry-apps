@@ -10,8 +10,18 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_investigationoutcomeid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="249" />
+          <cell name="appbase_outcometype" width="123" />
+          <cell name="appbase_outcomedate" width="122" />
+          <cell name="appbase_overalldisposition" width="151" />
+          <cell name="appbase_allegationsinconclusive" width="180" />
+          <cell name="appbase_allegationssubstantiated" width="184" />
+          <cell name="appbase_allegationsunsubstantiated" width="199" />
+          <cell name="appbase_monetaryrecovery" width="152" />
+          <cell name="appbase_totalcorrectiveactions" width="179" />
+          <cell name="appbase_totalfindings" width="122" />
+          <cell name="appbase_totalrecommendations" width="177" />
+          <cell name="appbase_investigation" width="114" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +31,21 @@
         <entity name="appbase_investigationoutcome">
           <attribute name="appbase_investigationoutcomeid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_outcometype" />
+          <attribute name="appbase_outcomedate" />
+          <attribute name="appbase_overalldisposition" />
+          <attribute name="appbase_allegationsinconclusive" />
+          <attribute name="appbase_allegationssubstantiated" />
+          <attribute name="appbase_allegationsunsubstantiated" />
+          <attribute name="appbase_monetaryrecovery" />
+          <attribute name="appbase_totalcorrectiveactions" />
+          <attribute name="appbase_totalfindings" />
+          <attribute name="appbase_totalrecommendations" />
+          <attribute name="appbase_investigation" />
         </entity>
       </fetch>
     </fetchxml>

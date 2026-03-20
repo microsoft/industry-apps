@@ -11,7 +11,15 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_investigationrecoveryrecordid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_recoverytype" width="125" />
+          <cell name="appbase_recoverystatus" width="132" />
+          <cell name="appbase_recoverymethod" width="141" />
+          <cell name="appbase_recoverydate" width="124" />
+          <cell name="appbase_recoveryamount" width="144" />
+          <cell name="appbase_paymentreference" width="150" />
+          <cell name="appbase_currentvalue" width="119" />
+          <cell name="appbase_disposition" width="105" />
+          <cell name="appbase_investigation" width="114" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +29,19 @@
         <entity name="appbase_investigationrecoveryrecord">
           <attribute name="appbase_investigationrecoveryrecordid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="appbase_recoverytype" />
+          <attribute name="appbase_recoverystatus" />
+          <attribute name="appbase_recoverymethod" />
+          <attribute name="appbase_recoverydate" />
+          <attribute name="appbase_recoveryamount" />
+          <attribute name="appbase_paymentreference" />
+          <attribute name="appbase_currentvalue" />
+          <attribute name="appbase_disposition" />
+          <attribute name="appbase_investigation" />
         </entity>
       </fetch>
     </fetchxml>
