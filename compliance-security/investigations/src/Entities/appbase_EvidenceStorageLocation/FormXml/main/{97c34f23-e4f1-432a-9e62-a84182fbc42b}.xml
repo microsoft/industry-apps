@@ -5,7 +5,7 @@
     <IntroducedVersion>1.0</IntroducedVersion>
     <FormPresentation>1</FormPresentation>
     <FormActivationState>1</FormActivationState>
-    <form>
+    <form headerdensity="HighWithControls" shownavigationbar="false">
       <tabs>
         <tab verticallayout="true" id="{4294a744-4c3e-478a-9b78-79fd3e30577a}" IsUserDefined="1">
           <labels>
@@ -14,7 +14,7 @@
           <columns>
             <column width="100%">
               <sections>
-                <section showlabel="false" showbar="false" IsUserDefined="0" id="{398256fb-c654-4762-8e19-96a601dff0ce}">
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{398256fb-c654-4762-8e19-96a601dff0ce}" columns="11">
                   <labels>
                     <label description="General" languagecode="1033" />
                   </labels>
@@ -26,6 +26,12 @@
                         </labels>
                         <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" />
                       </cell>
+                      <cell id="{cf8a6bdd-d2c4-4a4c-b3cd-f628445dc3c7}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Storage Type" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_storagetype" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_storagetype" disabled="false" />
+                      </cell>
                     </row>
                     <row>
                       <cell id="{ccc36456-7937-4d52-a99e-19e77cf82e33}">
@@ -34,7 +40,205 @@
                         </labels>
                         <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
                       </cell>
+                      <cell id="{cd518847-e4ce-4d2c-b799-1302db574b16}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Physical Location" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_physicallocation" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_physicallocation" disabled="false" />
+                      </cell>
                     </row>
+                  </rows>
+                </section>
+                <section name="null_section_3" id="0e0e9106-4d98-4c66-8925-7471655028c6" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
+                  <labels>
+                    <label description="Details" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{a11aa6b8-b376-47e9-baae-95505f2cb27b}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Access Control" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_accesscontrol" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="appbase_accesscontrol" disabled="false" />
+                      </cell>
+                      <cell id="{695524f1-1ed2-4f01-b151-feda92746c0c}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Location Code" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_locationcode" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="appbase_locationcode" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8fff216e-622d-4259-91f0-bd5e6af11311}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Capacity" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_capacity" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="appbase_capacity" disabled="false" />
+                      </cell>
+                      <cell id="{ff797bc6-322b-4853-a7d9-601c970a53f3}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Storage Facility" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_storagefacility" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="appbase_storagefacility" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{fdc41c7a-37e3-4fd3-9c10-4568942ec058}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Climate Control Required" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_climatecontrolrequired" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_climatecontrolrequired" disabled="false" />
+                      </cell>
+                      <cell id="{7e399a7d-533a-46d5-8c3f-172f38782924}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Security Level" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_securitylevel" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_securitylevel" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{643d3081-be33-4404-843f-f342c4cb1aa9}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Custodian" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_custodian" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_custodian" disabled="false" />
+                      </cell>
+                      <cell locklevel="0" id="{8c41ed32-3477-4811-83a4-4770335b20a9}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="null_section_4" id="4e4c30a1-e1fb-48c9-90d0-02d054e64b53" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="New Section" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{6377cc95-411e-4679-baab-329e0f385862}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Notes" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_notes" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="appbase_notes" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="tab_2" id="64f5eb35-8e20-4caa-beee-04c63721ddd3" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Items" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="tab_2_section_1" id="e52e52e5-68a5-4076-bf90-50ebf1eef533" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="New Section" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{23cf33a5-4dbe-4757-b309-377fe2dc985b}" rowspan="4" colspan="1" auto="false" showlabel="false">
+                        <labels>
+                          <label description="New SG control 1774452941993" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_1" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_evidenceitem_EvidenceStorageLocation</RelationshipName>
+                            <TargetEntityType>appbase_evidenceitem</TargetEntityType>
+                            <ViewId>{8925B4F8-3560-43E1-8F30-9012A80356A1}</ViewId>
+                            <ViewIds>{8925B4F8-3560-43E1-8F30-9012A80356A1}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="tab_3" id="61cd3b38-4728-462b-9c35-b367ad200629" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Transfers" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="tab_3_section_1" id="41970312-de03-4c8e-9083-76a1530e671c" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="New Section" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{71c70aa6-bfa7-4a6f-b6bb-4a99fa21ed36}" rowspan="4" colspan="1" auto="false">
+                        <labels>
+                          <label description="From Location" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_2" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_evidencecustodyrecord_FromLocation</RelationshipName>
+                            <TargetEntityType>appbase_evidencecustodyrecord</TargetEntityType>
+                            <ViewId>{0E908257-C0B4-4E23-B271-D66731797653}</ViewId>
+                            <ViewIds>{0E908257-C0B4-4E23-B271-D66731797653}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{5f054db4-aac0-46bc-9aa7-4fb3142bf1f2}" rowspan="4" colspan="1" auto="false">
+                        <labels>
+                          <label description="To Location" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_3" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_evidencecustodyrecord_ToLocation</RelationshipName>
+                            <TargetEntityType>appbase_evidencecustodyrecord</TargetEntityType>
+                            <ViewId>{0E908257-C0B4-4E23-B271-D66731797653}</ViewId>
+                            <ViewIds>{0E908257-C0B4-4E23-B271-D66731797653}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
                   </rows>
                 </section>
               </sections>
@@ -42,6 +246,51 @@
           </columns>
         </tab>
       </tabs>
+      <header id="{bd1cbfb3-ef52-4c3f-af6d-3adba23b7355}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{2435a393-dae7-4056-81d7-c5d12db214b7}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{ad78092c-b7cd-4773-83a2-cb496c19b5c9}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{de3f4c6d-a7e6-42b7-b5f7-c5a0b744f908}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{7cae7735-caa1-46d5-a210-f51d4ddc3f15}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{dae0d752-e828-45de-87fb-2421d015cf8c}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{6f562ddd-cc75-45d6-a608-f51f7c5e6fc2}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{a4b11303-f883-41e5-a29f-9e93e7830491}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>

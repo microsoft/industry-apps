@@ -44,9 +44,11 @@ Primary case record. Tracks lifecycle status, ownership, classification, key dat
 - Overall Disposition: Choice (Investigation Overall Disposition)
 - Closure Rationale: Memo
 - Notes: Memo
+- Severity Level: Choice (Degree)
+- Configure baseline Main form
+- Configure baseline Active view
 
 **Completed Last Round:**
-- Severity Level: Choice (Degree)
 
 **Planned:**
 
@@ -84,9 +86,11 @@ Initial allegation or referral submission before or at case creation. Captures s
 - Related Investigation: Lookup (Investigation)
 - Supporting Document: Lookup (Document)
 - Notes: Memo
+- Method of Contact: Choice (Method of Contact)
+- Configure baseline Main form
+- Configure baseline Active view
 
 **Completed Last Round:**
-- Method of Contact: Choice (Method of Contact)
 
 **Planned:**
 
@@ -113,9 +117,11 @@ Specific claim or accusation being evaluated within a case. A case may contain m
 - Legal Authority: Lookup (Legal Authority)
 - Estimated Monetary Impact: Currency
 - Notes: Memo
+- Severity Level: Choice (Degree)
+- Configure baseline Main form
+- Configure baseline Active view
 
 **Completed Last Round:**
-- Severity Level: Choice (Degree)
 
 **Planned:**
 
@@ -136,9 +142,11 @@ Structured question, policy element, or control area being examined. Often used 
 - Analysis: Memo
 - Conclusion: Memo
 - Notes: Memo
+- Issue Resolution Status: Choice (Issue Resolution Status)
+- Configure baseline Main form
+- Configure baseline Active view
 
 **Completed Last Round:**
-- Issue Resolution Status: Choice (Issue Resolution Status)
 
 **Planned:**
 
@@ -155,6 +163,10 @@ Primary investigation taxonomy (Fraud, Misconduct, Safety, Data Breach, Quality,
 - Requires Legal Review: Yes / No
 - Requires External Reporting: Yes / No
 - Standard Investigation Duration (Days): Integer
+- Configure baseline Main form
+- Configure baseline Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -168,6 +180,10 @@ Secondary classification used for reporting (program area, risk domain, business
 - Category Code: Text
 - Description: Memo
 - Parent Category: Lookup (Investigative Category)
+- Configure baseline Main form
+- Configure baseline Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -183,6 +199,10 @@ Links cases together (duplicate, predecessor, parallel, systemic connection).
 - Relationship Type: Choice (Case Relationship Type)
 - Relationship Description: Memo
 - Notes: Memo
+- Configure baseline Main form
+- Configure baseline Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -207,10 +227,11 @@ Person or organization involved in the case (subject, reporter, witness, impacte
 - Is Protected: Yes / No
 - Confidentiality Level: Choice (Security Classification)
 - Notes: Memo
+- Cooperation Status: Choice (Cooperation Status)
+- Configure baseline Main form
+- Configure baseline Active view
 
 **Completed Last Round:**
-- Cooperation Status: Choice (Cooperation Status)
-- Removed Participation Status
 
 **Planned:**
 
@@ -226,6 +247,10 @@ Defines allowable roles a party may have in a case.
 - Is Subject Role: Yes / No
 - Is Witness Role: Yes / No
 - Requires Notification: Yes / No
+- Configure baseline Main form
+- Configure baseline Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -243,6 +268,10 @@ Physical or virtual location relevant to the case (facility, site, region, syste
 - Relevance: Memo
 - Access Details: Memo
 - Notes: Memo
+- Configure baseline Main form
+- Configure baseline Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -270,10 +299,11 @@ Documents scope, objectives, methodology, milestones, and investigative strategy
 - Approval Date: Date
 - Supporting Document: Lookup (Document)
 - Notes: Memo
+- Plan Status: Choice (Publication Status)
+- Configure baseline Main form
+- Configure baseline Active view
 
 **Completed Last Round:**
-- Remove Plan Status (replaced with Publication Status)
-- Plan Status: Choice (Publication Status)
 
 **Planned:**
 
@@ -310,9 +340,11 @@ Any collected material (document, image, device, log file, physical object).
 - Security Classification: Choice (Security Classification)
 - Supporting Document: Lookup (Document)
 - Notes: Memo
+- Potential Evidentiary Value: Choice (Degree)
+- Configure baseline Main form
+- Configure baseline Active view
 
 **Completed Last Round:**
-- Potential Evidentiary Value: Choice (Degree)
 
 **Planned:**
 
@@ -328,6 +360,10 @@ Classification of evidence (email, CCTV, financial record, system log, physical 
 - Description: Memo
 - Requires Special Handling: Yes / No
 - Retention Requirements: Memo
+- Configure baseline Main form
+- Configure baseline Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -347,6 +383,10 @@ Associates evidence to specific allegations, issues, interviews, findings, or ta
 - Link Type: Choice (Investigation Evidence Link Type)
 - Relevance: Memo
 - Notes: Memo
+- Configure baseline Main form
+- Configure baseline Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -372,6 +412,10 @@ Chain-of-custody entries documenting transfer, handling, and condition changes.
 - Witness: Lookup (Person)
 - Recorded By: Lookup (User)
 - Notes: Memo
+- Configure baseline Main form
+- Configure baseline Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -392,6 +436,10 @@ Audit log of who viewed, downloaded, or accessed an evidence item.
 - IP Address: Text
 - System User: Text
 - Notes: Memo
+- Configure baseline Main form
+- Configure baseline Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -412,6 +460,10 @@ Physical or digital storage location (locker, vault, secure repository, external
 - Capacity: Text
 - Security Level: Choice (Security Classification)
 - Notes: Memo
+- Configure baseline Main form
+- Configure baseline Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -445,10 +497,12 @@ Scheduled or completed interview session related to the case.
 - Follow Up Notes: Memo
 - Supporting Document: Lookup (Document)
 - Notes: Memo
-
-**Completed Last Round:**
 - Attendance Status: Choice (Attendance Status)
 - Cooperation Status: Choice (Cooperation Status)
+- Configure baseline Main form
+- Configure baseline Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -464,11 +518,12 @@ Links participants to interviews and defines their role (interviewer, witness, o
 - Participant Role: Choice (Investigation Interview Participant Role)
 - Attendance Confirmed: Yes / No
 - Notes: Memo
-
-**Completed Last Round:**
 - Attendance Status: Choice (Attendance Status)
 - Cooperation Status: Choice (Cooperation Status)
-- Removed Participation Status
+- Configure baseline Main form
+- Configure baseline Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -501,9 +556,11 @@ Formal conclusion regarding an allegation or issue (substantiated, unsubstantiat
 - Requires Referral: Yes / No
 - Supporting Document: Lookup (Document)
 - Notes: Memo
+- Severity Level: Choice (Degree)
+- Configure baseline Main form
+- Configure baseline Active view
 
 **Completed Last Round:**
-- Severity Level: Choice (Degree)
 
 **Planned:**
 
@@ -533,6 +590,10 @@ Proposed corrective, preventive, or control improvement action arising from find
 - Implementation Status: Choice (Action Status)
 - Related Corrective Action: Lookup (Investigation Corrective Action)
 - Notes: Memo
+- Configure baseline Main form
+- Configure baseline Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -562,6 +623,10 @@ Action assigned to remediate findings, with owner, due date, and status tracking
 - Verification Date: Date
 - Verification Notes: Memo
 - Notes: Memo
+- Configure baseline Main form
+- Configure baseline Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -591,6 +656,10 @@ Overall case resolution summary and closure rationale.
 - Approval Date: Date
 - Supporting Document: Lookup (Document)
 - Notes: Memo
+- Configure baseline Main form
+- Configure baseline Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -617,6 +686,10 @@ Tracks recovered funds, assets, restitution, or other tangible recoveries result
 - Recorded By: Lookup (User)
 - Supporting Document: Lookup (Document)
 - Notes: Memo
+- Configure baseline Main form
+- Configure baseline Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -647,6 +720,10 @@ Formal written report record (draft/final versions, approvals, publication metad
 - Is Public: Yes / No
 - External Release Authorized: Yes / No
 - Notes: Memo
+- Configure baseline Main form
+- Configure baseline Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -673,11 +750,12 @@ Records referrals made to or received from internal or external entities.
 - Response Summary: Memo
 - Supporting Document: Lookup (Document)
 - Notes: Memo
-
-**Completed Last Round:**
-- Removed Referral Status pointing to Referral Status (replaced with Recommendation Status)
 - Referral Status: Choice (Recommendation Status)
 - Adjudication Type: Choice (Investigation Adjudication Type)
+- Configure baseline Main form
+- Configure baseline Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -694,6 +772,10 @@ Defines referral categories (Internal, Legal, Law Enforcement, Regulator, HR, et
 - Requires Formal Notification: Yes / No
 - Standard Response Time (Days): Integer
 - Name: Text
+- Configure baseline Main form
+- Configure baseline Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -917,5 +999,8 @@ The following choice fields are specific to the Investigations module:
 - Civil
 - Criminal
 - Not Applicable
+- Configure baseline Main form
+- Configure baseline Active view
 
 **Planned:**
+

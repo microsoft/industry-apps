@@ -2,9 +2,12 @@
 
 ## Unreleased
 
+## [1.1.0.0] - 2026-03-25
+
 ### Added
 
 #### Core Case Management
+- Investigation: Created table to track legal matters with case identification, classification, lifecycle status, investigative team assignments, location/jurisdiction details, budget/hours tracking, legal authority references, disposition, and closure documentation
 - Investigation Intake: Created table to capture initial allegations and referrals with reporter details, screening workflow, disposition tracking, and conversion to formal investigations
 - Investigation Allegation: Created table to document specific claims within cases including subjects, impacted parties, policy/regulation violations, monetary impact, and severity levels
 - Investigation Issue: Created table to structure examination questions, policy elements, and control areas with analysis and conclusions
@@ -68,6 +71,36 @@
 - Investigation Recovery Status: Configured choice field (Identified, Pending Collection, Partial Recovery, Fully Recovered, Uncollectible, Written Off)
 - Investigation Recovery Method: Configured choice field (Payment, Payroll Deduction, Asset Seizure, Legal Settlement, Insurance Claim, Voluntary Return)
 - Investigation Referral Category: Configured choice field (Internal Department, Legal Counsel, Law Enforcement, Regulatory Agency, Inspector General, Human Resources, External Auditor)
+- Investigation Adjudication Type: Configured choice field (Administrative, Civil, Criminal, Not Applicable)
+
+#### User Interface Configuration
+- Investigation: Configured baseline Main form and Active view
+- Investigation Intake: Configured baseline Main form and Active view
+- Investigation Allegation: Configured baseline Main form and Active view
+- Investigation Issue: Configured baseline Main form and Active view
+- Investigative Type: Configured baseline Main form and Active view
+- Investigative Category: Configured baseline Main form and Active view
+- Investigation Related Cases: Configured baseline Main form and Active view
+- Investigation Party: Configured baseline Main form and Active view
+- Investigative Party Role: Configured baseline Main form and Active view
+- Investigation Location: Configured baseline Main form and Active view
+- Investigation Plan: Configured baseline Main form and Active view
+- Evidence Item: Configured baseline Main form and Active view
+- Evidence Type: Configured baseline Main form and Active view
+- Evidence Link: Configured baseline Main form and Active view
+- Evidence Custody Record: Configured baseline Main form and Active view
+- Evidence Access Log: Configured baseline Main form and Active view
+- Evidence Storage Location: Configured baseline Main form and Active view
+- Investigation Interview: Configured baseline Main form and Active view
+- Investigation Interview Participant: Configured baseline Main form and Active view
+- Investigation Finding: Configured baseline Main form and Active view
+- Investigation Recommendation: Configured baseline Main form and Active view
+- Investigation Corrective Action: Configured baseline Main form and Active view
+- Investigation Outcome: Configured baseline Main form and Active view
+- Investigation Recovery Record: Configured baseline Main form and Active view
+- Investigation Report: Configured baseline Main form and Active view
+- Investigation Referral: Configured baseline Main form and Active view
+- Investigative Referral Type: Configured baseline Main form and Active view
 
 ### Changed
 - 
