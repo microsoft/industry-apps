@@ -6,32 +6,32 @@
     <isquickfindquery>0</isquickfindquery>
     <isprivate>0</isprivate>
     <isdefault>1</isdefault>
-    <savedqueryid>{f1a46832-7345-4e01-a8b8-e668d7065a23}</savedqueryid>
+    <savedqueryid>{180974db-a09b-4085-bf6d-ef2140bd7eb3}</savedqueryid>
     <layoutxml>
-      <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
-        <row name="result" id="appbase_kmitemtypeid">
+      <grid name="appbase_processtemplates" jump="appbase_name" select="1" icon="1" preview="1">
+        <row name="appbase_processtemplate" id="appbase_processtemplateid">
           <cell name="appbase_name" width="300" />
-          <cell name="appbase_displayorder" width="120" />
+          <cell name="createdon" width="125" />
         </row>
       </grid>
     </layoutxml>
-    <querytype>0</querytype>
+    <querytype>2</querytype>
     <fetchxml>
       <fetch version="1.0" mapping="logical">
-        <entity name="appbase_kmitemtype">
-          <attribute name="appbase_kmitemtypeid" />
+        <entity name="appbase_processtemplate">
+          <attribute name="appbase_processtemplateid" />
           <attribute name="appbase_name" />
+          <attribute name="createdon" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
-          <attribute name="appbase_displayorder" />
         </entity>
       </fetch>
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
-      <LocalizedName description="Active KM Item Types" languagecode="1033" />
+      <LocalizedName description="Process Template Associated View" languagecode="1033" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>
