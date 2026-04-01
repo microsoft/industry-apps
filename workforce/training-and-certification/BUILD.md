@@ -15,10 +15,9 @@ Represents a catalog entry for a learning offering, including description, objec
 - Name: Text
 - Course Code: Text
 - Parent Training Course: Lookup (Training Course)
-- Lifecycle Stage: Choice (Lifecycle Stage)
 - Course Type: Choice (Training Course Type)
 - Course Category: Choice (Training Course Category)
-- Course Level: Choice (Training Course Level)
+- Course Level: Choice (Content Level)
 - Description: Memo
 - Course Objectives: Memo
 - Learning Outcomes: Memo
@@ -106,7 +105,7 @@ Represents an individual authorized to deliver Training Sessions.
 - Name: Text
 - Instructor Code: Text
 - Person: Lookup (Person)
-- Instructor Status: Choice (Training Instructor Status)
+- Instructor Status: Choice (Duty Status)
 - Instructor Type: Choice (Training Instructor Type)
 - Organization Unit: Lookup (Organization Unit)
 - Subject Matter Expertise: Memo
@@ -133,7 +132,7 @@ Represents a defined academic period (e.g., Fall 2026, Spring 2027) used to orga
 - Term Code: Text
 - Term Type: Choice (Training Term Type)
 - Academic Year: Integer
-- Term Status: Choice (Training Term Status)
+- Term Status: Choice (Term Status)
 - Start Date: Date
 - End Date: Date
 - Registration Start Date: Date
@@ -156,7 +155,7 @@ Represents a scheduled offering of a Training Course within a specific Academic 
 - Session Code: Text
 - Training Course: Lookup (Training Course)
 - Academic Term: Lookup (Academic Term)
-- Session Status: Choice (Training Session Status)
+- Session Status: Choice (Scheduled Event Status)
 - Session Type: Choice (Training Session Type)
 - Section Number: Text
 - Primary Instructor: Lookup (Training Instructor)
@@ -203,7 +202,7 @@ Represents an individual's registration in a specific Training Session.
 - Enrollment Number: Text
 - Training Session: Lookup (Training Session)
 - Person: Lookup (Person)
-- Enrollment Status: Choice (Training Enrollment Status)
+- Enrollment Status: Choice (Registration Status)
 - Enrollment Date: Date
 - Enrollment Method: Choice (Method of Contact)
 - Enrolled By: Lookup (Person)
@@ -254,7 +253,7 @@ Represents an individual's attendance status for a specific Training Session (an
 - Check In Time: Date Time
 - Check Out Time: Date Time
 - Duration (Minutes): Integer
-- Attendance Method: Choice (Training Attendance Method)
+- Attendance Method: Choice (Participation Mode)
 - Location: Lookup (Location)
 - Is Excused: Yes / No
 - Excuse Reason: Memo
@@ -317,7 +316,6 @@ Represents an ordered or curated sequence of Training Courses intended to guide 
 - Name: Text
 - Path Code: Text
 - Parent Learning Path: Lookup (Learning Path)
-- Lifecycle Stage: Choice (Lifecycle Stage)
 - Path Type: Choice (Training Learning Path Type)
 - Path Category: Text
 - Description: Memo
@@ -328,7 +326,7 @@ Represents an ordered or curated sequence of Training Courses intended to guide 
 - Total Credit Hours: Float
 - Total Duration (Hours): Float
 - Estimated Completion Time (Weeks): Integer
-- Difficulty Level: Choice (Training Difficulty Level)
+- Difficulty Level: Choice (Difficulty Level)
 - Prerequisites: Memo
 - Is Published: Yes / No
 - Publication Status: Choice (Publication Status)
@@ -367,7 +365,6 @@ Represents a credential that may be awarded upon meeting defined requirements. I
 **Planned:**
 - Name: Text
 - Certificate Code: Text
-- Lifecycle Stage: Choice (Lifecycle Stage)
 - Certificate Type: Choice (Training Certificate Type)
 - Certificate Category: Text
 - Description: Memo
@@ -432,7 +429,7 @@ Represents a specific instance of a Training Certificate awarded to an individua
 - Certificate Number: Text
 - Training Certificate: Lookup (Training Certificate)
 - Person: Lookup (Person)
-- Achievement Status: Choice (Training Achievement Status)
+- Credential Status: Choice (Credential Status)
 - Issue Date: Date
 - Expiration Date: Date
 - Effective Date: Date
@@ -462,7 +459,7 @@ Represents a renewal event for a Training Certificate Achievement, including ren
 - Name: Text
 - Renewal Number: Text
 - Training Certificate Achievement: Lookup (Training Certificate Achievement)
-- Renewal Status: Choice (Training Renewal Status)
+- Renewal Status: Choice (Renewal Status)
 - Prior Expiration Date: Date
 - Renewal Date: Date
 - New Expiration Date: Date
@@ -495,7 +492,6 @@ Represents a structured curriculum such as a degree, diploma, or formal certific
 - Name: Text
 - Program Code: Text
 - Parent Academic Program: Lookup (Academic Program)
-- Lifecycle Stage: Choice (Lifecycle Stage)
 - Program Type: Choice (Training Academic Program Type)
 - Program Level: Choice (Training Academic Program Level)
 - Academic Department: Text
@@ -521,7 +517,7 @@ Represents a structured curriculum such as a degree, diploma, or formal certific
 - Enrollment Capacity: Integer
 - Current Enrollment: Integer
 - Tuition Amount: Currency
-- Website URL: Text
+- Website URL: URL
 - Program Catalog: Lookup (Document)
 - Effective Start Date: Date
 - Effective End Date: Date
@@ -579,7 +575,7 @@ Represents an individual's Action Status for an Academic Program, including comp
 - Diploma Issue Date: Date
 - Commencement Date: Date
 - Graduation Ceremony: Lookup (Event)
-- Conferral Status: Choice (Training Conferral Status)
+- Conferral Status: Choice (Conferral Status)
 - Academic Advisor: Lookup (Person)
 - Program Director: Lookup (Person)
 - Transcript Issued: Yes / No
@@ -601,7 +597,6 @@ Represents a reusable eligibility rule set that specifies what an individual mus
 **Planned:**
 - Name: Text
 - Requirement Code: Text
-- Lifecycle Stage: Choice (Lifecycle Stage)
 - Requirement Type: Choice (Training Qualification Requirement Type)
 - Requirement Category: Text
 - Description: Memo
@@ -611,9 +606,9 @@ Represents a reusable eligibility rule set that specifies what an individual mus
 - Requirement Owner: Lookup (Person)
 - Effective Start Date: Date
 - Effective End Date: Date
-- Validation Frequency: Choice (Training Validation Frequency)
+- Validation Frequency: Choice (Schedule Frequency)
 - Grace Period (Days): Integer
-- Enforcement Level: Choice (Training Enforcement Level)
+- Enforcement Level: Choice (Obligation Level)
 - Legal Authority: Lookup (Legal Authority)
 - Compliance Framework: Lookup (Compliance Framework)
 - Notes: Memo
@@ -645,42 +640,11 @@ Represents an individual requirement within a Qualification Requirement, such as
 
 ---
 
-## Reused Core Tables
-
-The following Core tables are used directly by this module:
-
-### Person *(Core)*
-Learners, instructors, course owners, program directors, advisors.
-
-### Organization Unit *(Core)*
-Departments, training divisions, program ownership.
-
-### Credential *(Core)*
-Professional credentials required or linked to certificates.
-
-### Competency *(Core)*
-Skills and competencies linked to courses, certificates, and qualifications.
-
-### Clearance Level *(Core)*
-Security clearances required in qualification requirements.
-
-### Compliance Framework *(Core)*
-Regulatory frameworks for training and certification requirements.
-
-### Legal Authority *(Core)*
-Regulatory basis for training, certification, and qualification requirements.
-
-### Event *(Core)*
-Commencement ceremonies, graduation events.
-
-### Document *(Core)*
-Course materials, syllabi, certificates, transcripts, diplomas, supporting documentation.
-
----
-
 ## New Choice Fields - Semi-Reviewed
 
-### Course Type
+**Completed Last Round:**
+
+### Training Course Type
 - Instructor Led
 - Online
 - Hybrid
@@ -691,7 +655,7 @@ Course materials, syllabi, certificates, transcripts, diplomas, supporting docum
 - Practicum
 - Capstone
 
-### Course Category
+### Training Course Category
 - Technical
 - Professional Development
 - Leadership
@@ -881,23 +845,6 @@ Course materials, syllabi, certificates, transcripts, diplomas, supporting docum
 - Asynchronous
 - Synchronous
 
-## Candidates -------------------------------------------------
-
-### Training Attendance Method
-- In Person
-- Virtual
-- Remote
-- Self Reported
-
-### Payment Status
-- Not Required
-- Pending
-- Partial
-- Paid
-- Overdue
-- Waived
-- Refunded
-
 ### Training Completion Method
 - In Person
 - Online
@@ -906,89 +853,20 @@ Course materials, syllabi, certificates, transcripts, diplomas, supporting docum
 - Transfer Credit
 - Prior Learning Assessment
 
-### Training Difficulty Level
-- Beginner
-- Intermediate
-- Advanced
-- Expert
+## Training Letter Grade
 
-### Training Achievement Status
-- Active
-- Expired
-- Suspended
-- Revoked
-- Pending Renewal
-- Renewed
+- A+
+- A
+- A-
+- B+
+- B
+- B-
+- C+
+- C
+- C-
+- D+
+- D
+- D-
+- F
 
-### Training Renewal Status
-- Not Required
-- Upcoming
-- Submitted
-- Under Review
-- Approved
-- Denied
-- Completed
-- Expired
-
-### Training Conferral Status
-- Pending
-- Conferred
-- Deferred
-- Withheld
-
-### Training Validation Frequency
-- One Time
-- Annual
-- Biennial
-- Triennial
-- Quarterly
-- On Demand
-- Event Driven
-
-### Training Enforcement Level
-- Required
-- Recommended
-- Optional
-- Advisory
-
-### Training Enrollment Status
-- Registered
-- Confirmed
-- Waitlisted
-- Enrolled
-- In Progress
-- Completed
-- Withdrawn
-- Dropped
-- No Show
-- Cancelled
-
-### Training Term Status
-- Planning
-- Active
-- Completed
-- Archived
-
-### Training Session Status
-- Scheduled
-- Open for Registration
-- Registration Closed
-- In Progress
-- Completed
-- Cancelled
-- Postponed
-
-### Training Instructor Status
-- Active
-- Inactive
-- Pending Approval
-- Suspended
-- Retired
-
-### Course Level
-- Introductory
-- Intermediate
-- Advanced
-- Expert
-- Refresher
-
+**Planned:**

@@ -4,6 +4,10 @@ The **Core module** provides foundational tables and choice fields used across m
 
 ---
 
+## Action Item
+- New table to represent work assigned to individuals or teams, for various processes and workflows
+
+
 ## Organizational Structure
 
 ### Organization Unit
@@ -586,6 +590,20 @@ Represents time periods used for financial reporting, budgeting, and accounting 
 - Period Status: Choice (Period Status)
 - Sequence Number: Integer
 - Description: Memo
+
+---
+## Action Item
+Represents action items assigned to individuals and teams
+
+**Completed:**
+- Category: Text
+- Parent Action Item: Lookup (Action Item)
+- Virtual Regarding ID: Text
+- Virtual Regarding Type: Text
+- Completed baseline form
+
+**Planned:**
+- Baseline view
 
 ---
 ## ✅ Global / Reusable Choice Fields
@@ -1326,17 +1344,82 @@ General operational status applicable across entities (e.g., Draft, Pending, Act
 - Suspended
 - Closed
 
-**Completed Last Round:**
+**Created Last Round:**
+
+### Difficulty Level
+- Beginner
+- Intermediate
+- Advanced
+- Expert
+
+### Credential Status
+- Active
+- Expired
+- Suspended
+- Revoked
+- Pending Renewal
+- Renewed
+
+### Renewal Status
+- Not Required
+- Upcoming
+- Submitted
+- Under Review
+- Approved
+- Denied
+- Completed
+- Expired
+
+### Conferral Status
+- Pending
+- Conferred
+- Deferred
+- Withheld
+
+### Obligation Level
+- Required
+- Recommended
+- Optional
+- Advisory
+
+### Registration Status
+- Registered
+- Confirmed
+- Waitlisted
+- Enrolled
+- In Progress
+- Completed
+- Withdrawn
+- Dropped
+- No Show
+- Cancelled
+
+### Duty Status
+- Active
+- Inactive
+- Pending Approval
+- Suspended
+- Retired
+
+### Content Level
+- Introductory
+- Intermediate
+- Advanced
+- Expert
+- Refresher
+
+**Changed Last Round:**
+
+### Schedule Frequency
+- Added One Time, Annually, Biennially, Triennially, Quarterly
+
+### Item Health Status
+- Added Off Track, On Hold, Unknown
+
+### Scheduled Event Status
+- Open for Registration, Registration Closed, Postponed Indefinitely
 
 **Planned:**
-
-### Initiative Health
-- Healthy
-- At Risk
-- Off Track
-- Critical
-- On Hold
-- Unknown
 
 **Do Not Create:**
 

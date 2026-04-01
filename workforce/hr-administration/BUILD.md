@@ -4,6 +4,16 @@ The **HR Administration module** manages the core employment structure, transact
 
 ---
 
+## Apps
+
+**Completed Last Round:**
+- HR Administration Model-Driven App
+    - Renamed labels in sitemap (removed "HR")
+
+**Planned:**
+- My HR (Mobile) Canvas App
+    - Ability to 
+
 ## Position & Classification Management
 
 ### HR Position

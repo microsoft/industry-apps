@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.26022.168" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26022.168" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26023.00174">
+<ImportExportXml version="9.2.26023.175" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26023.175" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26024.00173">
   <SolutionManifest>
     <UniqueName>appbase_processautomation</UniqueName>
     <LocalizedNames>
       <LocalizedName description="App Base - Process Automation" languagecode="1033" />
     </LocalizedNames>
     <Descriptions />
-    <Version>1.0.0.5</Version>
+    <Version>1.0.0.7</Version>
     <Managed>2</Managed>
     <Publisher>
       <UniqueName>appbase</UniqueName>
@@ -14,7 +14,7 @@
         <LocalizedName description="App Base" languagecode="1033" />
       </LocalizedNames>
       <Descriptions>
-        <Description description="appbase" languagecode="1033" />
+        <Description description="App Base Modules" languagecode="1033" />
       </Descriptions>
       <EMailAddress xsi:nil="true"></EMailAddress>
       <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
@@ -80,6 +80,7 @@
       </Addresses>
     </Publisher>
     <RootComponents>
+      <RootComponent type="1" schemaName="appbase_actionitem" behavior="1" />
       <RootComponent type="1" schemaName="appbase_interactiveprompt" behavior="0" />
       <RootComponent type="1" schemaName="appbase_interactiveresponse" behavior="0" />
       <RootComponent type="1" schemaName="appbase_meetingagenda" behavior="0" />
@@ -90,11 +91,89 @@
       <RootComponent type="29" id="{e34d36bd-400c-f111-8406-000d3a3bb4e1}" behavior="0" />
       <RootComponent type="300" schemaName="appbase_actionpane_2bd48" behavior="0" />
       <RootComponent type="300" schemaName="appbase_processcenter_f527e" behavior="0" />
+      <RootComponent type="431" schemaName="appbase_processtemplate appbase_thumbnail" behavior="0" />
+      <RootComponent type="432" schemaName="appbase_processtemplate" behavior="0" />
       <RootComponent type="61" schemaName="appbase_processautomationutility" behavior="0" />
       <RootComponent type="62" schemaName="appbase_ProcessAutomation" behavior="0" />
       <RootComponent type="80" schemaName="appbase_ProcessAutomation" behavior="0" />
     </RootComponents>
     <MissingDependencies>
+      <MissingDependency>
+        <Required type="1" schemaName="appbase_actionitem" displayName="Action Item" solution="appbase_core (1.1.2.2)" />
+        <Dependent type="1" schemaName="appbase_actionitem" displayName="Action Item" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="appbase_actionitem" displayName="Action Item" solution="appbase_core (1.1.2.2)" />
+        <Dependent type="2" schemaName="appbase_processstep" displayName="Process Step" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="appbase_actionitem" displayName="Action Item" solution="appbase_core (1.1.2.2)" />
+        <Dependent type="2" schemaName="appbase_processtemplate" displayName="Process Template" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="appbase_actionitem" displayName="Action Item" solution="appbase_core (1.1.2.2)" />
+        <Dependent type="26" schemaName="Process Automation" displayName="Process Automation" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" id="{67e019af-2229-f111-8341-00224809b763}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="appbase_actionitem" displayName="Action Item" solution="appbase_core (1.1.2.2)" />
+        <Dependent type="300" schemaName="appbase_actionpane_2bd48" displayName="Action Pane" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="appbase_actionitem" displayName="Action Item" solution="appbase_core (1.1.2.2)" />
+        <Dependent type="62" schemaName="appbase_ProcessAutomation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="appbase_actionitem" displayName="Action Item" solution="appbase_core (1.1.2.2)" />
+        <Dependent type="80" schemaName="appbase_ProcessAutomation" displayName="Process Automation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="activityid" displayName="Activity" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" solution="Active" />
+        <Dependent type="26" schemaName="Process Automation" displayName="Process Automation" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" id="{67e019af-2229-f111-8341-00224809b763}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="actualend" displayName="Actual End" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" solution="appbase_core (1.1.2.2)" />
+        <Dependent type="26" schemaName="Process Automation" displayName="Process Automation" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" id="{67e019af-2229-f111-8341-00224809b763}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="actualstart" displayName="Actual Start" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" solution="appbase_core (1.1.2.2)" />
+        <Dependent type="26" schemaName="Process Automation" displayName="Process Automation" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" id="{67e019af-2229-f111-8341-00224809b763}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_parentactionitem" displayName="Parent Action Item" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" solution="appbase_core (1.1.2.2)" />
+        <Dependent type="26" schemaName="Process Automation" displayName="Process Automation" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" id="{67e019af-2229-f111-8341-00224809b763}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_virtualregardingid" displayName="Virtual Regarding ID" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" solution="appbase_core (1.1.2.2)" />
+        <Dependent type="26" schemaName="Process Automation" displayName="Process Automation" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" id="{67e019af-2229-f111-8341-00224809b763}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_virtualregardingtype" displayName="Virtual Regarding Type" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" solution="appbase_core (1.1.2.2)" />
+        <Dependent type="26" schemaName="Process Automation" displayName="Process Automation" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" id="{67e019af-2229-f111-8341-00224809b763}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="createdon" displayName="Date Created" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" solution="appbase_core (1.1.2.2)" />
+        <Dependent type="26" schemaName="Process Automation" displayName="Process Automation" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" id="{67e019af-2229-f111-8341-00224809b763}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="regardingobjectid" displayName="Regarding" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" solution="Active" />
+        <Dependent type="26" schemaName="Process Automation" displayName="Process Automation" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" id="{67e019af-2229-f111-8341-00224809b763}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="scheduledend" displayName="Due Date" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" solution="appbase_core (1.1.2.2)" />
+        <Dependent type="26" schemaName="Process Automation" displayName="Process Automation" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" id="{67e019af-2229-f111-8341-00224809b763}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="scheduledstart" displayName="Start Date" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" solution="appbase_core (1.1.2.2)" />
+        <Dependent type="26" schemaName="Process Automation" displayName="Process Automation" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" id="{67e019af-2229-f111-8341-00224809b763}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="statecode" displayName="Activity Status" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" solution="appbase_core (1.1.2.2)" />
+        <Dependent type="26" schemaName="Process Automation" displayName="Process Automation" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" id="{67e019af-2229-f111-8341-00224809b763}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="subject" displayName="Subject" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" solution="appbase_core (1.1.2.2)" />
+        <Dependent type="26" schemaName="Process Automation" displayName="Process Automation" parentSchemaName="appbase_actionitem" parentDisplayName="Action Item" id="{67e019af-2229-f111-8341-00224809b763}" />
+      </MissingDependency>
       <MissingDependency>
         <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)">
           <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
