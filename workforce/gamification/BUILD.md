@@ -17,7 +17,7 @@ Represents a structured gamification initiative or campaign. A Game defines the 
 - Game Type: Choice (Gamification Game Type)
 - Description: Memo
 - Objectives: Memo
-- Game Status: Choice (Gamification Game Status)
+- Stage: Choice (Game Stage)
 - Visibility: Choice (Visibility)
 - Start Date: Date
 - End Date: Date
@@ -109,7 +109,7 @@ Represents an individual or team enrolled in a specific Game. This table tracks 
 - Participant Organization Unit: Lookup (Organization Unit)
 - Team Name: Text
 - Participant Type: Choice (Gamification Participant Type)
-- Participation Status: Choice (Gamification Participation Status)
+- Stage: Choice (Game Participant Stage)
 - Enrollment Date: Date
 - Start Date: Date
 - Completion Date: Date
@@ -139,9 +139,9 @@ Logs instances of Participants performing defined Game Activities. This table ca
 - Game Activity: Lookup (Game Activity)
 - Person: Lookup (Person)
 - Activity Date Time: Date Time
-- Activity Status: Choice (Gamification Activity Record Status)
+- Stage: Choice (Game Participant Activity Stage)
+- Validation Status: Choice (Item Validation Status)
 - Points Earned: Integer
-- Verification Status: Choice (Gamification Verification Status)
 - Verified By: Lookup (Person)
 - Verification Date: Date
 - Verification Notes: Memo
@@ -169,7 +169,8 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 - Game: Lookup (Game)
 - Game Achievement: Lookup (Game Achievement)
 - Person: Lookup (Person)
-- Achievement Status: Choice (Gamification Achievement Record Status)
+- Stage: Choice (Game Participant Achievement Stage)
+- Decision Status: Choice (Item Decision Status)
 - Earned Date: Date
 - Awarded Date: Date
 - Awarded By: Lookup (Person)
@@ -184,7 +185,6 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 - Reward Delivered: Yes / No
 - Reward Delivery Date: Date
 - Approval Required: Yes / No
-- Approval Status: Choice (Approval Status)
 - Approved By: Lookup (Person)
 - Approval Date: Date
 - Is Visible: Yes / No
@@ -194,7 +194,67 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 
 ---
 
-## New Choice Fields - Semi-Reviewed
+## Choice Fields
+
+### Game Stage
+Tracks game lifecycle from planning through completion.
+- Planning
+- Open for Enrollment
+- Active
+- Paused
+- Completed
+- Archived
+
+### Game Participant Stage
+Tracks participant journey from invitation through completion.
+- Invited
+- Enrolled
+- Active
+- Completed
+
+### Game Participant Activity Stage
+Tracks activity verification workflow.
+- Pending
+- Verified
+
+### Game Participant Achievement Stage
+Tracks achievement earning and awarding workflow.
+- Earned
+- Pending Approval
+- Awarded
+
+**Removed (Replaced with Stage and Core Status Fields):**
+
+### Gamification Game Status → Game Stage
+Game Status tracked workflow progression. Replaced with Game Stage. "Cancelled" outcome now tracked via Item Disposition.
+
+### Gamification Participation Status → Game Participant Stage + Disposition
+Participation Status mixed workflow (Invited, Enrolled, Active) with outcomes (Withdrawn, Disqualified, Completed). Separated into:
+- Game Participant Stage for workflow
+- Item Disposition for outcomes (Withdrawn, Completed)
+- "Inactive" state can be inferred from lack of recent activity or explicit flag
+
+### Gamification Activity Record Status → Game Participant Activity Stage + Validation Status
+Activity Record Status mixed workflow (Pending, Verified) with outcomes (Rejected, Expired, Voided). Separated into:
+- Game Participant Activity Stage for workflow
+- Item Validation Status for verification outcomes
+- Item Disposition for final outcomes (Rejected, Expired, Voided)
+
+### Gamification Verification Status → Item Validation Status (Core)
+Replaced with Core Item Validation Status which has same semantic meaning. Values map directly:
+- Not Required → Not Required
+- Pending Verification → Pending Validation
+- Verified → Validated
+- Rejected → Failed Validation
+- Needs Information → (handle via notes or separate communication workflow)
+
+### Gamification Achievement Record Status → Game Participant Achievement Stage + Decision Status
+Achievement Record Status mixed workflow (Earned, Pending Approval, Awarded) with outcomes (Revoked, Expired). Separated into:
+- Game Participant Achievement Stage for workflow
+- Item Decision Status for approval decisions
+- Item Disposition for final outcomes (Revoked, Expired)
+
+---
 
 ### Gamification Game Type
 - Training Challenge
@@ -256,50 +316,9 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 - Game Administrator
 - Observer
 
-## Candidates ------------------------------------
-
-### Gamification Participation Status
-- Invited
-- Enrolled
-- Active
-- Inactive
-- Completed
-- Withdrawn
-- Disqualified
-
-### Gamification Activity Record Status
-- Pending
-- Verified
-- Rejected
-- Expired
-- Voided
-
-### Gamification Verification Status
-- Not Required
-- Pending Verification
-- Verified
-- Rejected
-- Needs Information
-
-### Gamification Achievement Record Status
-- Earned
-- Awarded
-- Pending Approval
-- Revoked
-- Expired
-
 ### Gamification Recognition Status
 - Not Recognized
 - Pending
 - Recognized
 - Public
 - Private
-
-### Gamification Game Status
-- Planning
-- Open for Enrollment
-- Active
-- Paused
-- Completed
-- Archived
-- Cancelled

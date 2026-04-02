@@ -53,7 +53,7 @@ Represents a defined type of service provided under a Program. A Service describ
 - Service Scope: Memo
 - Service Owner: Lookup (Person)
 - Owning Organization Unit: Lookup (Organization Unit)
-- Service Delivery Method: Choice (Service Delivery Method)
+- Service Delivery Method: Choice (Delivery Method)
 - Service Level: Choice (Service Level)
 - Requires Eligibility Check: Yes / No
 - Requires Application: Yes / No
@@ -93,7 +93,8 @@ Represents a specific version or configuration of a Service, typically bounded b
 - Name: Text
 - Offering Code: Text
 - Service: Lookup (Service)
-- Service Offering Status: Choice (Service Offering Status)
+- Stage: Choice (Service Offering Stage)
+- Completion Status: Choice (Item Completion Status)
 - Offering Version: Text
 - Effective Start Date: Date
 - Effective End Date: Date
@@ -108,7 +109,7 @@ Represents a specific version or configuration of a Service, typically bounded b
 - Provider Organization Unit: Lookup (Organization Unit)
 - Provider Account: Lookup (Account)
 - Primary Location: Lookup (Location)
-- Service Delivery Method: Choice (Service Delivery Method)
+- Service Delivery Method: Choice (Delivery Method)
 - Service Level: Choice (Service Level)
 - Cost to Participant: Currency
 - Funding Source: Text
@@ -210,6 +211,7 @@ Represents a person's or organization's enrollment or engagement in a specific S
 - Participant Person: Lookup (Person)
 - Participant Account: Lookup (Account)
 - On Behalf Of Person: Lookup (Person)
+- Stage: Choice (Service Participation Stage)
 - Cooperation Status: Choice (Cooperation Status)
 - Enrollment Date: Date
 - Enrollment Method: Choice (Method of Contact)
@@ -226,7 +228,7 @@ Represents a person's or organization's enrollment or engagement in a specific S
 - Assigned Case Manager: Lookup (Person)
 - Assigned Organization Unit: Lookup (Organization Unit)
 - Primary Service Location: Lookup (Location)
-- Service Delivery Method: Choice (Service Delivery Method)
+- Service Delivery Method: Choice (Delivery Method)
 - Total Cost: Currency
 - Amount Paid: Currency
 - Funding Source: Text
@@ -278,7 +280,8 @@ Represents an official, factual outcome that occurred for a specific Service Par
 - Result Number: Text
 - Service Participation: Lookup (Service Participation)
 - Service Result Type: Lookup (Service Result Type)
-- Service Result Status: Choice (Service Result Status)
+- Stage: Choice (Service Result Stage)
+- Appeal Status: Choice (Appeal Status)
 - Result Date: Date
 - Effective Date: Date
 - Expiration Date: Date
@@ -406,15 +409,6 @@ Used in eligibility rules.
 - Emergency
 - Premium
 
-### Service Offering Status
-- Planning
-- Open for Enrollment
-- Enrollment Closed
-- Active
-- Completed
-- Cancelled
-- Suspended
-
 ### Eligibility Rule Type
 - Age Based
 - Income Based
@@ -445,16 +439,6 @@ Used in eligibility rules.
 - Documentation
 - Referral
 
-### Service Result Status
-- Pending
-- Approved
-- Denied
-- Adjusted
-- Appealed
-- Reversed
-- Expired
-- Cancelled
-
 ### Service Result Category
 - Approval
 - Denial
@@ -468,13 +452,71 @@ Used in eligibility rules.
 
 **Planned:**
 
-### Service Delivery Method
-- In Person
-- Virtual
-- Hybrid
-- Self Service
-- Phone
-- Mail
-- Mobile
-- Home Visit
+**New Stage Fields:**
+
+### Service Offering Stage
+Tracks service offering workflow from planning through delivery to finalization.
+- Planning
+- Ready
+- Enrollment
+- Closed Enrollment
+- Active
+- Finalized
+
+### Service Participation Stage
+Tracks individual participation from enrollment through service delivery to completion.
+- Application
+- Enrolled
+- Active
+- Completed
+- Terminated
+
+### Service Result Stage
+Tracks official service result workflow from pending determination through final outcome.
+- Pending
+- Determined
+- Issued
+- Final
+
+**Removed (Replaced with Stage and Core Status Fields):**
+
+### Service Offering Status → Replaced with Service Offering Stage + Completion Status
+Service Offering Status mixed workflow states (Planning, Open for Enrollment, Enrollment Closed, Active) with outcomes (Completed, Cancelled) and work impediments (Suspended). Separated into:
+- Service Offering Stage for workflow (Planning → Ready → Enrollment → Closed Enrollment → Active → Finalized)
+- Item Completion Status (Core) for work tracking: Blocked (replaces Suspended)
+- Item Disposition (Core) for final outcomes: Completed, Canceled
+- Keep Publication Status (Core) for content publishing status
+
+Value mapping:
+- Planning → Stage: Planning
+- Open for Enrollment → Stage: Enrollment
+- Enrollment Closed → Stage: Closed Enrollment
+- Active → Stage: Active
+- Completed → Stage: Finalized + Disposition: Completed
+- Cancelled → Disposition: Canceled
+- Suspended → Completion Status: Blocked
+
+### Service Result Status → Replaced with Service Result Stage + Appeal Status
+Service Result Status mixed workflow states (Pending) with decision outcomes (Approved, Denied), modifications (Adjusted), appeal states (Appealed, Reversed), lifecycle (Expired), and disposition (Cancelled). The specific outcome type (approval, denial, certification, issuance, etc.) is now determined by the Service Result Type lookup. Separated into:
+- Service Result Stage for workflow (Pending → Determined → Issued → Final)
+- Appeal Status (Core) for appeal tracking (Submitted for Appeal, Appeal Granted, Appeal Denied, etc.)
+- Item Disposition (Core) for final outcomes (Completed, Superseded, Canceled)
+- Service Result Category (kept) distinguishes outcome types (Approval, Denial, Certification, Issuance, Adjustment, etc.)
+
+Value mapping:
+- Pending → Stage: Pending
+- Approved → Stage: Determined + Result Category: Approval
+- Denied → Stage: Determined + Result Category: Denial
+- Adjusted → Stage: Determined + Result Category: Adjustment
+- Appealed → Stage: Under Appeal + Appeal Status: Submitted for Appeal
+- Reversed → Stage: Final + Appeal Status: Appeal Granted + Disposition: Superseded
+- Expired → Stage: Final + Disposition: Completed (with Expiration Date tracking)
+- Cancelled → Disposition: Canceled
+
+**Note:** Service Result Type (lookup table) determines the nature of the result (approval, certification, issuance, etc.), while Service Result Category provides high-level classification. The Stage tracks the workflow, not the outcome type.
+
+**Promoted to Core:**
+
+### Service Delivery Method → Promoted to Core as "Delivery Method"
+Service Delivery Method has been promoted to Core as "Delivery Method" for broader reuse across service delivery, training, support, and customer service contexts. The field is now available at Core scope with the same values (In Person, Virtual, Hybrid, Self Service, Phone, Mail, Mobile, Home Visit) and can be used across modules including Programs and Services, Training & Certification, IT Service Management, HR Benefits, Customer Service, and Events.
 

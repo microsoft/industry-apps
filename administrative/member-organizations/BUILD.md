@@ -249,7 +249,9 @@ Captures requests to join an organization, including applicant details, review s
 - Organization: Lookup (Organization)
 - Applicant: Lookup (Person)
 - Organization Member Type: Lookup (Organization Member Type)
-- Application Status: Choice (Organization Application Status)
+- Stage: Choice (Organization Member Application Stage)
+- Validation Status: Choice (Item Validation Status)
+- Decision Status: Choice (Item Decision Status)
 - Application Date: Date
 - Requested Membership Type: Lookup (Organization Member Type)
 - Requested Role: Lookup (Organization Role)
@@ -257,14 +259,12 @@ Captures requests to join an organization, including applicant details, review s
 - Qualifications: Memo
 - Sponsor: Lookup (Person)
 - Sponsor Endorsement: Memo
-- Screening Status: Choice (Organization Screening Status)
 - Screened By: Lookup (Person)
 - Screening Date: Date
 - Screening Notes: Memo
-- Approval Status: Choice (Approval Status)
-- Approved By: Lookup (Person)
-- Approval Date: Date
-- Denial Reason: Memo
+- Decided By: Lookup (Person)
+- Decision Date: Date
+- Decision Reason: Memo
 - Interview Required: Yes / No
 - Interview Date: Date
 - Interview Notes: Memo
@@ -295,7 +295,7 @@ Defines membership fees or dues associated with an organization or membership ty
 - Organization Member Type: Lookup (Organization Member Type)
 - Fee Type: Choice (Organization Fee Type)
 - Fee Amount: Currency
-- Fee Frequency: Choice (Organization Fee Frequency)
+- Fee Frequency: Choice (Schedule Frequency)
 - Billing Cycle: Choice (Organization Billing Cycle)
 - Effective Start Date: Date
 - Effective End Date: Date
@@ -329,7 +329,9 @@ Represents a formal proposal submitted for consideration within an organization'
 - Organization: Lookup (Organization)
 - Organization Term: Lookup (Organization Term)
 - Motion Type: Choice (Organization Motion Type)
-- Motion Status: Choice (Organization Motion Status)
+- Stage: Choice (Organization Motion Stage)
+- Decision Status: Choice (Item Decision Status)
+- Priority: Choice (Priority)
 - Introduced Date: Date
 - Introduced By: Lookup (Person)
 - Seconded By: Lookup (Person)
@@ -344,7 +346,6 @@ Represents a formal proposal submitted for consideration within an organization'
 - Discussion Item: Lookup (Discussion Item)
 - Related Resolution: Lookup (Organization Resolution)
 - Related Vote: Lookup (Organization Vote)
-- Priority: Choice (Priority)
 - Supporting Document: Lookup (Document)
 - Notes: Memo
 
@@ -370,7 +371,8 @@ Represents a formal voting event associated with a motion or decision, including
 - Organization Motion: Lookup (Organization Motion)
 - Organization Term: Lookup (Organization Term)
 - Vote Type: Choice (Organization Vote Type)
-- Vote Status: Choice (Organization Vote Status)
+- Stage: Choice (Organization Vote Stage)
+- Vote Result: Choice (Organization Vote Result)
 - Vote Method: Choice (Organization Vote Method)
 - Vote Date: Date Time
 - Vote Description: Memo
@@ -383,7 +385,6 @@ Represents a formal voting event associated with a motion or decision, including
 - Abstain Votes: Integer
 - Present Not Voting: Integer
 - Absent Votes: Integer
-- Vote Result: Choice (Organization Vote Result)
 - Percentage Yes: Float
 - Percentage No: Float
 - Percentage Abstain: Float
@@ -446,7 +447,9 @@ Represents an adopted decision or formal outcome of a motion or governance actio
 - Organization Motion: Lookup (Organization Motion)
 - Organization Vote: Lookup (Organization Vote)
 - Resolution Type: Choice (Organization Resolution Type)
-- Resolution Status: Choice (Organization Resolution Status)
+- Stage: Choice (Organization Resolution Stage)
+- Implementation Status: Choice (Action Status)
+- Publication Status: Choice (Publication Status)
 - Adoption Date: Date
 - Effective Date: Date
 - Expiration Date: Date
@@ -456,12 +459,10 @@ Represents an adopted decision or formal outcome of a motion or governance actio
 - Resolution Text: Memo
 - Sponsored By: Lookup (Person)
 - Voting Result Summary: Memo
-- Implementation Status: Choice (Action Status)
 - Implementation Notes: Memo
 - Fiscal Impact: Currency
 - Legal Authority: Lookup (Legal Authority)
 - Formal Decision: Lookup (Formal Decision)
-- Publication Status: Choice (Publication Status)
 - Published Date: Date
 - Visibility: Choice (Visibility)
 - Resolution Document: Lookup (Document)
@@ -549,16 +550,6 @@ Governing documents, bylaws, supporting materials, resolution documents.
 - Ex Officio
 - Honorary
 
-### Organization Application Status
-- Submitted
-- Under Review
-- Interview Scheduled
-- Recommended
-- Approved
-- Denied
-- Withdrawn
-- On Hold
-
 ### Organization Fee Type
 - Membership Dues
 - Initiation Fee
@@ -576,14 +567,6 @@ Governing documents, bylaws, supporting materials, resolution documents.
 - Anniversary Date
 - Monthly
 
-### Organization Fee Frequency
-- One Time
-- Annual
-- Semi-Annual
-- Quarterly
-- Monthly
-- Per Event
-
 ### Organization Motion Type
 - Resolution
 - Policy Change
@@ -594,30 +577,12 @@ Governing documents, bylaws, supporting materials, resolution documents.
 - Recommendation
 - Endorsement
 
-### Organization Motion Status
-- Draft
-- Introduced
-- Under Discussion
-- Tabled
-- Scheduled for Vote
-- Voted
-- Adopted
-- Failed
-- Withdrawn
-
 ### Organization Vote Type
 - Motion Vote
 - Election
 - Ratification
 - Approval
 - Procedural Vote
-
-### Organization Vote Status
-- Scheduled
-- In Progress
-- Completed
-- Cancelled
-- Postponed
 
 ### Organization Vote Method
 - Voice Vote
@@ -650,22 +615,89 @@ Governing documents, bylaws, supporting materials, resolution documents.
 - Emergency Resolution
 - Procedural Resolution
 
-### Organization Resolution Status
-- Draft
-- Adopted
-- Implemented
-- Repealed
-- Amended
-- Expired
-
-### Organization Screening Status
-- Pending Screening
-- Under Review
-- Passed Screening
-- Failed Screening
-- Requires Interview
-
 **Completed Last Round:**
 
 **Planned:**
+
+### Organization Member Application Stage
+Tracks membership application workflow from submission through onboarding.
+- Draft
+- Submitted
+- Screening
+- Interview
+- Under Review
+- Decision Made
+- Onboarding
+- Completed
+
+### Organization Motion Stage
+Tracks motion workflow from drafting through finalization.
+- Draft
+- Introduced
+- Discussion
+- Scheduled for Vote
+- Voting
+- Finalized
+
+### Organization Vote Stage
+Tracks voting event workflow from scheduling through certification.
+- Scheduled
+- Open
+- In Progress
+- Closed
+- Certified
+
+### Organization Resolution Stage
+Tracks resolution lifecycle from drafting through publication.
+- Draft
+- Under Review
+- Adopted
+- Implementation
+- Published
+
+**Removed (Replaced with Stage and Core Status Fields):**
+
+### Organization Application Status → Replaced with Organization Member Application Stage + Validation Status + Decision Status
+Application Status mixed workflow (Submitted, Under Review, Interview Scheduled) with outcomes (Approved, Denied, Withdrawn, On Hold, Recommended). Separated into:
+- Organization Member Application Stage for workflow
+- Item Validation Status (Core) for screening results
+- Item Decision Status (Core) for approval outcome (Approved, Rejected, Deferred)
+- Item Disposition (Core) for final states (Completed, Rejected, Withdrawn)
+
+### Organization Screening Status → Replaced with Item Validation Status (Core)
+Screening Status tracked background check results. Replaced with Core Item Validation Status:
+- Pending Screening → Pending Validation
+- Under Review → Pending Validation
+- Passed Screening → Validated
+- Failed Screening → Failed Validation
+- Requires Interview → (handled via Interview Required field + Stage)
+
+### Organization Motion Status → Replaced with Organization Motion Stage + Decision Status
+Motion Status mixed workflow (Draft, Introduced, Under Discussion, Scheduled for Vote, Voted) with outcomes (Adopted, Failed, Withdrawn, Tabled). Separated into:
+- Organization Motion Stage for workflow
+- Item Decision Status (Core) for vote outcome: Approved (Adopted), Rejected (Failed), Deferred (Tabled), Canceled (Withdrawn)
+- Item Disposition (Core) for final states (Completed, Rejected, Withdrawn, Superseded, Amended)
+
+### Organization Vote Status → Replaced with Organization Vote Stage
+Vote Status was mostly workflow (Scheduled, In Progress, Completed) with some outcomes (Cancelled, Postponed). Replaced with:
+- Organization Vote Stage for workflow (Scheduled → Open → In Progress → Closed → Certified)
+- Keep Organization Vote Result for outcomes (Passed, Failed, Tied, No Quorum, Postponed)
+- Item Disposition (Core) for unusual closures (Canceled, Superseded)
+
+### Organization Resolution Status → Replaced with Organization Resolution Stage + Core Status Fields
+Resolution Status mixed lifecycle (Draft), outcomes (Adopted, Repealed, Amended, Expired), and implementation state (Implemented). Separated into:
+- Organization Resolution Stage for workflow (Draft → Under Review → Adopted → Implementation → Published)
+- Keep Implementation Status (Action Status - Core) for implementation tracking
+- Keep Publication Status (Core) for publication state
+- Item Disposition (Core) for final states: Completed, Superseded (Repealed), Amended, Canceled
+- Expiration tracked via Expiration Date field
+
+### Organization Fee Frequency → Replaced with Schedule Frequency (Core)
+Organization Fee Frequency described billing frequency for membership dues (One Time, Annual, Semi-Annual, Quarterly, Monthly, Per Event). Replaced with Core Schedule Frequency which provides comprehensive frequency patterns:
+- One Time → One Time
+- Annual → Annually
+- Semi-Annual → Twice Per Year
+- Quarterly → Quarterly
+- Monthly → Monthly
+- Per Event → As Needed
 

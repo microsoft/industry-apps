@@ -387,10 +387,10 @@ Captures reported operational contributions, improvements, cost savings, efficie
 - Is Scalable: Yes / No
 - Scalability Notes: Memo
 - Best Practice: Yes / No
-- Review Status: Choice (Approval Status)
-- Reviewed By: Lookup (Person)
-- Review Date: Date
-- Review Comments: Memo
+- Decision Status: Choice (Item Decision Status)
+- Decided By: Lookup (Person)
+- Decision Date: Date
+- Decision Comments: Memo
 - Recognition Granted: Yes / No
 - Recognition Type: Text
 - Recognition Date: Date
@@ -435,7 +435,7 @@ Inspection reports, event plans, assessment documents.
 
 ---
 
-## New Choice Fields - Reviewed
+## Choice Fields
 
 ### Operational Impact Type
 - Cost Savings
@@ -543,15 +543,15 @@ Inspection reports, event plans, assessment documents.
 - Capability Assessment
 - Pre Operational Review
 
-### Operationsl Readiness Assessment Stage
+### Operational Readiness Assessment Stage
+Tracks readiness assessment workflow from scheduling through finalization.
 - Scheduled
 - Preparation
 - Assessment
 - Analysis
 - Report Drafting
 - Review
-- Approved
-- Closed
+- Finalized
 
 ### Operational Finding Source Type
 - Incident
@@ -622,3 +622,17 @@ Inspection reports, event plans, assessment documents.
 - Evaluation
 - After-Action Review
 - Closed
+
+**Refined/Corrected:**
+
+### Operational Readiness Assessment Stage
+Previously had "Approved" and "Closed" values. Refined to remove outcome-based value:
+- Removed "Approved" (outcome, not workflow step) - assessment approval tracked via Overall Readiness and decision processes
+- Removed "Closed" - end of workflow is "Finalized" (report complete)
+- Added workflow description for clarity
+
+### Operational Impact Review Status → Decision Status (Core)
+Operational Impact previously used "Review Status: Choice (Approval Status)" to track approval of submitted impacts. Replaced with "Decision Status: Choice (Item Decision Status)" for consistency with Core decision-tracking patterns. Also renamed supporting fields:
+- "Reviewed By" → "Decided By"
+- "Review Date" → "Decision Date"  
+- "Review Comments" → "Decision Comments"

@@ -169,7 +169,7 @@ Defines enrollment windows such as Open Enrollment, New Hire Enrollment, or Spec
 **Planned:**
 - Name: Text
 - Period Type: Choice (Benefits Enrollment Period Type)
-- Period Status: Choice (Benefits Period Status)
+- Stage: Choice (Term Status)
 - Start Date: Date
 - End Date: Date
 - Plan Year: Text
@@ -201,7 +201,8 @@ Represents an individual's enrollment in a specific benefit plan, including sele
 - HR Benefit Option: Lookup (HR Benefit Option)
 - HR Benefit Coverage Level: Lookup (HR Benefit Coverage Level)
 - HR Benefit Enrollment Period: Lookup (HR Benefit Enrollment Period)
-- Enrollment Status: Choice (Benefits Enrollment Status)
+- Stage: Choice (HR Benefit Enrollment Stage)
+- Decision Status: Choice (Item Decision Status)
 - Enrollment Type: Choice (Benefits Enrollment Type)
 - Enrollment Date: Date
 - Effective Start Date: Date
@@ -282,12 +283,12 @@ Records a reported qualifying life event for an individual (e.g., marriage, birt
 - Event Date: Date
 - Reported Date: Date
 - Reported By: Lookup (Person)
-- Event Status: Choice (Benefits Event Status)
+- Stage: Choice (HR Benefit Life Event Stage)
+- Validation Status: Choice (Item Validation Status)
 - Enrollment Change Deadline: Date
 - Supporting Documentation Required: Yes / No
 - Documentation Received: Yes / No
 - Documentation Date: Date
-- Verification Status: Choice (Benefits Verification Status)
 - Verified By: Lookup (Person)
 - Verification Date: Date
 - Description: Memo
@@ -306,7 +307,8 @@ Tracks specific benefit enrollment changes resulting from a life event, includin
 - HR Benefit Life Event: Lookup (HR Benefit Life Event)
 - HR Benefit Enrollment: Lookup (HR Benefit Enrollment)
 - Change Type: Choice (Benefits Enrollment Change Type)
-- Approval Status: Choice (Approval Status)
+- Stage: Choice (HR Benefit Life Event Change Stage)
+- Decision Status: Choice (Item Decision Status)
 - Requested Date: Date
 - Effective Date: Date
 - Previous Option: Lookup (HR Benefit Option)
@@ -315,7 +317,6 @@ Tracks specific benefit enrollment changes resulting from a life event, includin
 - New Coverage Level: Lookup (HR Benefit Coverage Level)
 - Previous Premium: Currency
 - New Premium: Currency
-- Approval Status: Choice (Approval Status)
 - Approved By: Lookup (Person)
 - Approval Date: Date
 - Processed Date: Date
@@ -404,14 +405,15 @@ Tracks internal benefit-related claims or reimbursement requests (e.g., tuition 
 - HR Benefit Enrollment: Lookup (HR Benefit Enrollment)
 - HR Benefit Plan: Lookup (HR Benefit Plan)
 - Claim Type: Choice (Benefits Claim Type)
-- Claim Status: Choice (Benefits Claim Status)
+- Stage: Choice (HR Benefit Claim Stage)
+- Decision Status: Choice (Item Decision Status)
 - Submission Date: Date
 - Service Date: Date
 - Claim Amount: Currency
 - Approved Amount: Currency
 - Paid Amount: Currency
 - Denial Reason: Memo
-- Payment Status: Choice (Benefits Payment Status)
+- Payment Status: Choice (Payment Status)
 - Payment Date: Date
 - Payment Method: Text
 - Submitted By: Lookup (Person)
@@ -616,29 +618,70 @@ Used in eligibility rules and tiered contribution structures.
 
 ## Candidates ---------------------------------
 
-### Benefits Claim Status
+### HR Benefit Enrollment Stage
+Tracks enrollment lifecycle from submission through activation and termination.
+- Pending
+- Submitted
+- Active
+- Terminated
+
+### HR Benefit Life Event Stage
+Tracks life event processing from reporting through completion.
+- Reported
+- Pending Documentation
+- Verified
+- Processed
+
+### HR Benefit Life Event Change Stage
+Tracks benefit change requests from submission through processing.
+- Requested
+- Under Review
+- Approved
+- Processed
+
+### HR Benefit Claim Stage
+Tracks claim processing from submission through payment and closure.
 - Submitted
 - Under Review
 - Approved
-- Partially Approved
-- Denied
-- Paid
+- Payment Processing
 - Closed
 
-### Benefits Payment Status
-- Pending
-- Approved
-- Processed
-- Paid
-- Cancelled
-- On Hold
+**Removed (Replaced with Stage and Core Status Fields):**
 
-### Benefits Verification Status
-- Not Required
-- Pending Verification
-- Verified
-- Rejected
-- Needs Information
+### Benefits Period Status → Term Status (Core)
+HR Benefit Enrollment Period now uses Core Term Status which provides appropriate lifecycle tracking for time-based periods (Upcoming, Current, Extended, Shortened, Completed, Suspended, Cancelled, Renewed).
+
+### Benefits Enrollment Status → HR Benefit Enrollment Stage + Decision Status + Disposition
+Enrollment Status mixed workflow (Pending, Submitted, Active) with outcomes (Declined, Waived, Cancelled, Suspended). Separated into:
+- HR Benefit Enrollment Stage for workflow
+- Item Decision Status for approval outcomes
+- Item Disposition for final outcomes (Waived, Cancelled, Suspended)
+- "Terminated" is final stage value
+
+### Benefits Event Status → HR Benefit Life Event Stage + Disposition
+Event Status mixed workflow (Reported, Pending Documentation, Verified, Processed) with outcomes (Expired, Cancelled). Separated into:
+- HR Benefit Life Event Stage for workflow
+- Item Disposition for outcomes (Expired, Cancelled)
+
+### Benefits Verification Status → Item Validation Status (Core)
+Replaced with Core Item Validation Status. Values map directly:
+- Not Required → Not Required
+- Pending Verification → Pending Validation
+- Verified → Validated
+- Rejected → Failed Validation
+- Needs Information → (handle via notes or separate communication)
+
+### Benefits Claim Status → HR Benefit Claim Stage + Decision Status
+Claim Status mixed workflow (Submitted, Under Review, Approved) with outcome (Paid and Closed). Separated into:
+- HR Benefit Claim Stage for workflow
+- Item Decision Status for approval (Approved, Partially Approved, Denied)
+- Final stage "Closed" when complete
+
+### Benefits Payment Status → Payment Status (Core)
+Replaced with Core Payment Status for consistency across financial modules. Core Payment Status includes: Pending, Approved for Payment, Partial, Processed, Paid, Disputed, Voided, Refunded/Returned, Not Required, Waived, Complimentary.
+
+---
 
 ### Benefits Life Event Type
 - Marriage
@@ -675,20 +718,3 @@ Used in eligibility rules and tiered contribution structures.
 - Semi-Monthly
 - Bi-Weekly
 - Weekly
-
-### Benefits Period Status
-- Upcoming
-- Active
-- Closed
-- Cancelled
-
-### Benefits Enrollment Status
-- Active
-- Pending
-- Pending Approval
-- Approved
-- Declined
-- Terminated
-- Waived
-- Cancelled
-- Suspended

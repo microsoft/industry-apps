@@ -14,13 +14,13 @@ Represents a defined reporting cycle such as a week, pay period, or month used t
 **Planned:**
 - Name: Text
 - Period Code: Text
-- Period Type: Choice (Time Time Period Type)
+- Period Type: Choice (Schedule Frequency)
 - Period Start Date: Date
 - Period End Date: Date
 - Fiscal Year: Integer
 - Fiscal Quarter: Integer
 - Fiscal Month: Integer
-- Period Status: Choice (Time Period Status)
+- Stage: Choice (Time Period Stage)
 - Due Date: Date
 - Locked Date: Date
 - Is Locked: Yes / No
@@ -38,7 +38,7 @@ Represents a hierarchical classification structure used to categorize Time Entri
 - Name: Text
 - Time Code: Text
 - Parent Time Code: Lookup (Time Code)
-- Time Code Category: Choice (Time Time Code Category)
+- Time Code Category: Choice (Time Code Category)
 - Description: Memo
 - Organization Unit: Lookup (Organization Unit)
 - Organization Initiative: Lookup (Organization Initiative)
@@ -68,7 +68,7 @@ Represents the actual time worked by a person on a specific date, including hour
 - Time Period: Lookup (Time Period)
 - Entry Date: Date
 - Time Code: Lookup (Time Code)
-- Entry Status: Choice (Time Entry Status)
+- Stage: Choice (Time Entry Stage)
 - Hours: Float
 - Overtime Hours: Float
 - Is Billable: Yes / No
@@ -109,7 +109,7 @@ Represents a planned availability or obligation for a person over a defined date
 - Person: Lookup (Person)
 - Organization Unit: Lookup (Organization Unit)
 - Commitment Type: Choice (Time Commitment Type)
-- Commitment Status: Choice (Time Commitment Status)
+- Stage: Choice (Time Commitment Stage)
 - Start Date: Date
 - End Date: Date
 - Start Date Time: Date Time
@@ -145,7 +145,7 @@ Represents standardized reasons for travel such as training, site visits, inspec
 **Planned:**
 - Name: Text
 - Purpose Code: Text
-- Purpose Category: Choice (Time Travel Purpose Category)
+- Purpose Category: Choice (Travel Purpose Category)
 - Description: Memo
 - Requires Justification: Yes / No
 - Requires Advance Approval: Yes / No
@@ -164,7 +164,7 @@ Represents a planned or approved trip, including traveler details, purpose, date
 - Traveler: Lookup (Person)
 - Traveler Organization Unit: Lookup (Organization Unit)
 - Additional Travelers: Text
-- Travel Request Status: Choice (Time Travel Request Status)
+- Stage: Choice (Travel Request Stage)
 - Travel Purpose: Lookup (Travel Purpose)
 - Trip Description: Memo
 - Business Justification: Memo
@@ -181,7 +181,7 @@ Represents a planned or approved trip, including traveler details, purpose, date
 - Destination Country: Lookup (Country)
 - Is International: Yes / No
 - Is Overnight: Yes / No
-- Transportation Method: Choice (Time Transportation Method)
+- Transportation Method: Choice (Travel Transportation Method)
 - Lodging Required: Yes / No
 - Rental Car Required: Yes / No
 - Estimated Total Cost: Currency
@@ -224,8 +224,8 @@ Represents an individual component of a trip, such as a flight, lodging stay, or
 - Name: Text
 - Segment Number: Text
 - Travel Request: Lookup (Travel Request)
-- Segment Type: Choice (Time Travel Segment Type)
-- Segment Status: Choice (Time Segment Status)
+- Segment Type: Choice (Travel Segment Type)
+- Stage: Choice (Travel Segment Stage)
 - Sequence Order: Integer
 - Segment Date: Date
 - Start Date Time: Date Time
@@ -238,7 +238,7 @@ Represents an individual component of a trip, such as a flight, lodging stay, or
 - Destination State or Province: Lookup (State or Province)
 - Destination Country: Lookup (Country)
 - Destination Location: Lookup (Location)
-- Transportation Method: Choice (Time Transportation Method)
+- Transportation Method: Choice (Travel Transportation Method)
 - Carrier: Text
 - Flight Number: Text
 - Confirmation Number: Text
@@ -270,7 +270,7 @@ Represents standardized classifications for expenses such as lodging, meals, mil
 - Name: Text
 - Category Code: Text
 - Parent Category: Lookup (Expense Category)
-- Expense Category Type: Choice (Time Expense Category Type)
+- Expense Category Type: Choice (Expense Category Type)
 - Description: Memo
 - Is Reimbursable: Yes / No
 - Requires Receipt: Yes / No
@@ -296,8 +296,8 @@ Represents a grouped submission of multiple Expense Items for review, approval, 
 - Expense Report Number: Text
 - Person: Lookup (Person)
 - Organization Unit: Lookup (Organization Unit)
-- Report Status: Choice (Time Report Status)
-- Report Type: Choice (Time Expense Report Type)
+- Stage: Choice (Expense Report Stage)
+- Report Type: Choice (Expense Report Type)
 - Time Period: Lookup (Time Period)
 - Related Travel Request: Lookup (Travel Request)
 - Report Start Date: Date
@@ -326,7 +326,7 @@ Represents a grouped submission of multiple Expense Items for review, approval, 
 - Approval Status: Choice (Approval Status)
 - Approval Notes: Memo
 - Payment Date: Date
-- Payment Method: Choice (Time Payment Method)
+- Payment Method: Choice (Payment Method)
 - Payment Reference: Text
 - Rejected Date: Date
 - Rejection Reason: Memo
@@ -345,7 +345,7 @@ Represents an individual expense transaction recorded under an Expense Report. C
 - Item Number: Text
 - Expense Report: Lookup (Expense Report)
 - Expense Category: Lookup (Expense Category)
-- Item Status: Choice (Time Item Status)
+- Stage: Choice (Expense Item Stage)
 - Expense Date: Date
 - Description: Memo
 - Merchant Name: Text
@@ -365,7 +365,7 @@ Represents an individual expense transaction recorded under an Expense Report. C
 - Reimbursable Amount: Currency
 - Is Billable: Yes / No
 - Billable Amount: Currency
-- Payment Method: Choice (Time Payment Method)
+- Payment Method: Choice (Payment Method)
 - Is Personal Card: Yes / No
 - Receipt Attached: Yes / No
 - Receipt Required: Yes / No
@@ -389,40 +389,9 @@ Represents an individual expense transaction recorded under an Expense Report. C
 
 ---
 
-## Reused Core Tables
+## Choice Fields
 
-The following Core tables are used directly by this module:
-
-### Person *(Core)*
-Travelers, time entry submitters, approvers, reviewers.
-
-### Organization Unit *(Core)*
-Cost centers, organizational ownership of time codes and expenses.
-
-### Organization Initiative *(Core)*
-Strategic initiatives linked to time entries and travel requests.
-
-### Location *(Core)*
-Work locations, travel origins, destinations, segment locations.
-
-### Project *(Core)*
-Projects linked to time entries, time codes, commitments, and travel.
-
-### Project Work Item *(Core)*
-Work items linked to time entries.
-
-### Action Item *(Core)*
-Tasks linked to time entries and commitments.
-
-### Event *(Core)*
-Events linked to travel requests (conferences, trainings).
-
-### Document *(Core)*
-Supporting documentation, receipts, trip reports, authorizations.
-
----
-
-## New Choice Fields - Semi-Reviewed
+**Completed:**
 
 ### Time Code Category
 - Operational
@@ -493,32 +462,20 @@ Supporting documentation, receipts, trip reports, authorizations.
 - Reimbursement
 - Blanket Expense
 
-## Candidates --------------------------------
-
-### Time Period Type
-- Weekly
-- Biweekly
-- Semimonthly
-- Monthly
-- Quarterly
-- Annual
-- Custom
-
-### Time Period Status
-- Future
+### Time Period Stage
+- Scheduled
 - Open
-- Pending Approval
-- Approved
-- Locked
-- Closed
+- Closed for Entry
+- Under Review
+- Finalized
 
-### Time Entry Status
+### Time Entry Stage
 - Draft
 - Submitted
 - Under Review
-- Approved
-- Rejected
-- Locked
+- Processing
+- Posted
+- Archived
 
 ### Time Commitment Type
 - Work Assignment
@@ -531,55 +488,45 @@ Supporting documentation, receipts, trip reports, authorizations.
 - Unavailable
 - Other
 
-### Time Commitment Status
+### Time Commitment Stage
 - Planned
 - Requested
-- Approved
+- Confirmed
 - Active
-- Completed
-- Cancelled
+- Closed
 
-### Travel Request Status
-- Draft
+### Travel Request Stage
+- Planning
 - Submitted
 - Under Review
-- Approved
 - Authorized
-- In Progress
-- Completed
-- Cancelled
-- Rejected
+- Booking
+- In Travel
+- Post-Trip
+- Closed
 
-### Travel Segment Status
+### Travel Segment Stage
 - Planned
-- Booked
+- Booking
+- Reserved
 - Confirmed
 - In Progress
 - Completed
-- Cancelled
 
-### Expense Report Status
+### Expense Report Stage
 - Draft
 - Submitted
 - Under Review
-- Approved
-- Payment Pending
-- Paid
-- Rejected
-- Cancelled
+- Processing
+- Payment Issued
+- Closed
 
-### Export Report Item Status
+### Expense Item Stage
 - Entered
-- Submitted
-- Approved
-- Rejected
+- Pending Receipt
+- Ready for Review
+- Under Review
+- Processing
 - Paid
 
-### Expense Payment Method
-- Personal Card
-- Corporate Card
-- Cash
-- Check
-- Direct Deposit
-- Wire Transfer
-- Reimbursement
+**Planned:**

@@ -15,7 +15,8 @@ Represents a general service transaction submitted by a user for IT support, pro
 - Name: Text
 - Request Number: Text
 - Request Type: Choice (IT Request Type)
-- Approval Status: Choice (Approval Status)
+- Stage: Choice (IT Service Request Stage)
+- Decision Status: Choice (Item Decision Status)
 - Priority: Choice (Priority)
 - Requested By: Lookup (Person)
 - Requesting Organization Unit: Lookup (Organization Unit)
@@ -27,9 +28,8 @@ Represents a general service transaction submitted by a user for IT support, pro
 - Method of Contact: Choice (Method of Contact)
 - Business Justification: Memo
 - Total Estimated Cost: Currency
-- Approval Status: Choice (Approval Status)
-- Approved By: Lookup (Person)
-- Approval Date: Date
+- Decision Date: Date
+- Decided By: Lookup (Person)
 - Fulfillment Start Date: Date
 - Fulfillment Completion Date: Date
 - Closed Date: Date
@@ -50,10 +50,11 @@ A line-level record under an IT Service Request that references a specific IT Ca
 - Line Number: Integer
 - IT Catalog Item: Lookup (IT Catalog Item)
 - Item Description: Memo
+- Stage: Choice (IT Service Request Item Stage)
+- Completion Status: Choice (Item Completion Status)
 - Quantity: Integer
 - Unit Cost: Currency
 - Total Cost: Currency
-- Item Status: Choice (IT Request Item Status)
 - Delivery Date: Date
 - Assigned To: Lookup (Person)
 - Fulfillment Notes: Memo
@@ -72,7 +73,9 @@ Represents a request submitted to obtain, modify, or remove access to systems, a
 - Name: Text
 - Request Number: Text
 - Access Request Type: Choice (IT Access Request Type)
-- Approval Status: Choice (Approval Status)
+- Stage: Choice (IT Access Request Stage)
+- Decision Status: Choice (Item Decision Status)
+- Completion Status: Choice (Item Completion Status)
 - Priority: Choice (Priority)
 - Requested For: Lookup (Person)
 - Requested By: Lookup (Person)
@@ -83,13 +86,12 @@ Represents a request submitted to obtain, modify, or remove access to systems, a
 - Is Temporary: Yes / No
 - Requires Manager Approval: Yes / No
 - Manager: Lookup (Person)
-- Manager Approval Status: Choice (Approval Status)
-- Manager Approval Date: Date
+- Manager Decision Status: Choice (Item Decision Status)
+- Manager Decision Date: Date
 - Requires Security Review: Yes / No
 - Security Reviewer: Lookup (Person)
-- Security Approval Status: Choice (Approval Status)
-- Security Approval Date: Date
-- Fulfillment Status: Choice (IT Fulfillment Status)
+- Security Decision Status: Choice (Item Decision Status)
+- Security Decision Date: Date
 - Fulfilled By: Lookup (Person)
 - Fulfillment Date: Date
 - Closed Date: Date
@@ -111,10 +113,9 @@ A line-level record under an IT Access Request specifying the individual entitle
 - IT Entitlement: Lookup (IT Entitlement)
 - Current Access Level: Text
 - Requested Access Level: Text
-- Item Status: Choice (IT Request Item Status)
-- Approved: Yes / No
-- Approval Date: Date
-- Provisioned: Yes / No
+- Stage: Choice (IT Access Request Item Stage)
+- Decision Status: Choice (Item Decision Status)
+- Decision Date: Date
 - Provisioned Date: Date
 - Related Entitlement Assignment: Lookup (IT Entitlement Assignment)
 - Notes: Memo
@@ -156,7 +157,8 @@ Represents the assignment of an IT Entitlement to a person, account, or system. 
 - Person: Lookup (Person)
 - IT Entitlement: Lookup (IT Entitlement)
 - IT System: Lookup (IT System)
-- Assignment Status: Choice (IT Assignment Status)
+- Stage: Choice (IT Entitlement Assignment Stage)
+- Validation Status: Choice (Item Validation Status)
 - Assignment Type: Choice (IT Assignment Type)
 - Start Date: Date
 - End Date: Date
@@ -166,7 +168,6 @@ Represents the assignment of an IT Entitlement to a person, account, or system. 
 - Granted Date: Date
 - Last Review Date: Date
 - Next Review Date: Date
-- Review Status: Choice (IT Review Status)
 - Revocation Date: Date
 - Revoked By: Lookup (Person)
 - Revocation Reason: Memo
@@ -408,7 +409,8 @@ Represents the formal authorization or approval status of an IT System to operat
 - Accreditation Number: Text
 - IT System: Lookup (IT System)
 - Accreditation Type: Choice (IT Accreditation Type)
-- Accreditation Status: Choice (IT Accreditation Status)
+- Stage: Choice (IT System Accreditation Stage)
+- Decision Status: Choice (Item Decision Status)
 - Compliance Framework: Lookup (Compliance Framework)
 - Authorization Date: Date
 - Expiration Date: Date
@@ -434,7 +436,7 @@ Represents a formal evaluation of a system, component, or technology against def
 - Name: Text
 - Assessment Number: Text
 - Assessment Type: Choice (IT Assessment Type)
-- Assessment Stage: Choice (IT Assessment Stage)
+- Stage: Choice (IT Compliance Assessment Stage)
 - IT System: Lookup (IT System)
 - IT System Component: Lookup (IT System Component)
 - IT Technology: Lookup (IT Technology)
@@ -472,7 +474,10 @@ Plan of Action and Milestones (POAM) record used to track remediation of identif
 - IT System: Lookup (IT System)
 - IT System Component: Lookup (IT System Component)
 - IT Compliance Assessment: Lookup (IT Compliance Assessment)
+- Stage: Choice (IT POAM Item Stage)
 - Action Status: Choice (Action Status)
+- Completion Status: Choice (Item Completion Status)
+- Validation Status: Choice (Item Validation Status)
 - Priority: Choice (Priority)
 - Severity Level: Choice (Severity Level)
 - Finding Type: Choice (IT Finding Type)
@@ -489,7 +494,6 @@ Plan of Action and Milestones (POAM) record used to track remediation of identif
 - Actual Completion Date: Date
 - Estimated Cost: Currency
 - Actual Cost: Currency
-- Mitigation Status: Choice (IT Mitigation Status)
 - Completion Evidence: Memo
 - Verification Date: Date
 - Verified By: Lookup (Person)
@@ -539,21 +543,9 @@ System documentation, assessment reports, accreditation packages.
 
 ---
 
-## New Choice Fields - Reviewed
+## Choice Fields
 
 **Planned:**
-
-**Do No Build:**
-
-### IT Assessment Status
-- Planned
-- In Progress
-- Completed
-- Under Review
-- Approved
-- Remediation Required
-
-**Review for Planning:**
 
 ### IT Request Type
 - Service Request
@@ -563,14 +555,6 @@ System documentation, assessment reports, accreditation packages.
 - Support Request
 - Change Request
 - Provisioning Request
-
-### IT Request Item Status
-- Pending
-- In Progress
-- Fulfilled
-- Cancelled
-- On Hold
-- Blocked
 
 ### IT Access Request Type
 - New Access
@@ -614,34 +598,12 @@ System documentation, assessment reports, accreditation packages.
 - Administrator
 - Full Control
 
-### IT Assignment Status
-- Active
-- Pending Activation
-- Suspended
-- Expired
-- Revoked
-- Under Review
-
 ### IT Assignment Type
 - Permanent
 - Temporary
 - Emergency
 - Project Based
 - Role Based
-
-### IT Review Status
-- Current
-- Review Required
-- Under Review
-- Approved
-- Revoked
-
-### IT Fulfillment Status
-- Not Started
-- In Progress
-- Partially Fulfilled
-- Fulfilled
-- Cancelled
 
 ### IT Catalog Item Category
 - Hardware
@@ -769,22 +731,115 @@ System documentation, assessment reports, accreditation packages.
 - Documentation Gap
 - Architecture Issue
 
-### IT Mitigation Status
-- Not Started
-- In Progress
-- Risk Accepted
-- Completed
-- Verified
-- Cancelled
-
-### IT Assessment Stage
-
+### IT Compliance Assessment Stage
+Tracks compliance assessment workflow from scheduling through finalization.
 - Scheduled
 - Fieldwork
-- Evidence Review
+- Analysis
 - Report Drafting
 - Report Review
+- Finalized
+
+### IT Service Request Stage
+Tracks service request workflow from submission through closure.
+- Draft
+- Submitted
+- Under Review
 - Approved
+- In Progress
+- Fulfilled
 - Closed
+
+### IT Service Request Item Stage
+Tracks individual request item fulfillment.
+- Pending
+- Assigned
+- In Progress
+- Delivered
+
+### IT Access Request Stage
+Tracks access request workflow through approval and provisioning.
+- Draft
+- Submitted
+- Manager Review
+- Security Review
+- Approved
+- Provisioning
+- Completed
+- Closed
+
+### IT Access Request Item Stage
+Tracks individual access item provisioning.
+- Pending
+- In Progress
+- Provisioned
+
+### IT Entitlement Assignment Stage
+Tracks entitlement assignment lifecycle from activation through revocation.
+- Pending Activation
+- Active
+- Under Review
+- Suspended
+- Revoked
+- Expired
+
+### IT System Accreditation Stage
+Tracks system accreditation workflow from assessment through authorization.
+- Not Started
+- Assessment
+- Documentation
+- Review
+- Authorized
+- Monitoring
+- Renewal
+
+### IT POAM Item Stage
+Tracks remediation workflow from identification through verification.
+- Identified
+- Planning
+- In Progress
+- Verification
+- Closed
+
+**Removed (Replaced with Stage and Core Status Fields):**
+
+### IT Assessment Status → Replaced with IT Compliance Assessment Stage
+Assessment Status mixed workflow (Planned, In Progress) with outcomes (Completed, Approved, Remediation Required). Separated into:
+- IT Compliance Assessment Stage for workflow
+- Overall Result (Core) for assessment outcome
+- Compliance Status (Core) for compliance determination
+
+### IT Request Item Status → Replaced with IT Service Request Item Stage + Completion Status
+Request Item Status mixed workflow (Pending, In Progress, Fulfilled) with work states (On Hold, Blocked, Cancelled). Separated into:
+- IT Service Request Item Stage for workflow
+- Item Completion Status (Core) for work tracking (Blocked, On Hold)
+- Item Disposition (Core) for final outcomes (Completed, Cancelled)
+
+### IT Assignment Status → Replaced with IT Entitlement Assignment Stage
+Assignment Status mixed workflow (Pending Activation, Active, Under Review) with final states (Suspended, Expired, Revoked). Now tracked as Stage values representing assignment lifecycle phases.
+
+### IT Review Status → Replaced with Item Validation Status (Core)
+Review Status tracked access review outcomes. Replaced with Core Item Validation Status:
+- Current → Validated
+- Review Required → Pending Validation
+- Under Review → Pending Validation
+- Approved → Validated
+- Revoked → Failed Validation
+
+### IT Fulfillment Status → Replaced with Item Completion Status (Core)
+Fulfillment Status tracked work progress. Replaced with Core Item Completion Status which provides standard work state tracking (Not Started, Planned, In Progress, Blocked, Completed).
+
+### IT Accreditation Status → Replaced with IT System Accreditation Stage + Decision Status
+Accreditation Status mixed workflow (Not Started, In Progress, Under Review) with authorization outcomes (Accredited, Conditionally Accredited, Denied, Expired). Separated into:
+- IT System Accreditation Stage for workflow
+- Item Decision Status (Core) for authorization outcome
+- Item Disposition (Core) for final states (Expired, Superseded)
+
+### IT Mitigation Status → Replaced with Item Completion Status + Validation Status (Core)
+Mitigation Status tracked POAM remediation progress. Separated into:
+- IT POAM Item Stage for workflow
+- Item Completion Status (Core) for work tracking (Not Started, In Progress, Blocked, Completed)
+- Item Validation Status (Core) for verification (Validated, Failed Validation)
+- Keep Action Status (Core) for overall action state tracking
 
 

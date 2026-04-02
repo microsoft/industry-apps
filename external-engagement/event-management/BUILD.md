@@ -15,7 +15,8 @@ The primary record representing a planned occurrence (conference, meeting, heari
 - Event Type: Lookup (Event Type)
 - Description: Memo
 - Details: Memo
-- Event Status: Choice (Event Status)
+- Stage: Choice (Event Stage)
+- Decision Status: Choice (Item Decision Status)
 - Visibility: Choice (Visibility)
 - Event Format: Choice (Participation Mode)
 - Start Date Time: Date Time
@@ -80,7 +81,8 @@ Captures a proposed or requested event prior to formal approval or scheduling. U
 
 **Planned:**
 - Name: Text
-- Approval Status: Choice (Approval Status)
+- Stage: Choice (Event Request Stage)
+- Decision Status: Choice (Item Decision Status)
 - Requested By: Lookup (Person)
 - Requesting Organization Unit: Lookup (Organization Unit)
 - Request Date: Date
@@ -92,7 +94,6 @@ Captures a proposed or requested event prior to formal approval or scheduling. U
 - Proposed Location: Lookup (Location)
 - Estimated Attendees: Integer
 - Estimated Budget: Currency
-- Approval Status: Choice (Approval Status)
 - Approved By: Lookup (Person)
 - Approval Date: Date
 - Approved Event: Lookup (Event)
@@ -114,7 +115,7 @@ Represents an individual or organization involved in the event. This can include
 - Person: Lookup (Person)
 - Account: Lookup (Account)
 - Participant Type: Choice (Event Participant Type)
-- Participation Status: Choice (Event Participation Status)
+- Stage: Choice (Event Participation Stage)
 - Registration Date Time: Date Time
 - Registration Method: Choice (Method of Contact)
 - Invitation Sent Date: Date
@@ -145,7 +146,7 @@ Links participants to specific sessions. Used when attendance, roles, or respons
 - Event Participant: Lookup (Event Participant)
 - Person: Lookup (Person)
 - Session Role: Choice (Event Session Role)
-- Participation Status: Choice (Event Participation Status)
+- Stage: Choice (Event Participation Stage)
 - Check In Date Time: Date Time
 - Attended: Yes / No
 - Presentation Order: Integer
@@ -168,6 +169,7 @@ Represents a scheduled time block within an event (e.g., breakout session, heari
 - Session Code: Text
 - Session Type: Choice (Event Session Type)
 - Description: Memo
+- Stage: Choice (Event Session Stage)
 - Start Date Time: Date Time
 - End Date Time: Date Time
 - Duration (Minutes): Integer
@@ -175,7 +177,6 @@ Represents a scheduled time block within an event (e.g., breakout session, heari
 - Room: Text
 - Virtual Meeting URL: Text
 - Is Virtual: Yes / No
-- Session Status: Choice (Scheduled Event Status)
 - Maximum Capacity: Integer
 - Expected Attendees: Integer
 - Actual Attendees: Integer
@@ -202,20 +203,19 @@ Represents an exhibition, presentation, booth, poster, demonstration, or other s
 - Assigned Session: Lookup (Event Session)
 - Entry Type: Choice (Event Entry Type)
 - Submission Type: Choice (Submission Type)
+- Stage: Choice (Event Entry Stage)
+- Decision Status: Choice (Item Decision Status)
 - Submission Date Time: Date Time
 - Submitted By: Lookup (Person)
 - Submitting Account: Lookup (Account)
 - Title: Text
 - Abstract: Memo
 - Description: Memo
-- Review Status: Choice (Approval Status)
 - Reviewer: Lookup (Person)
 - Review Date: Date
 - Review Comments: Memo
-- Approval Status: Choice (Approval Status)
 - Approved By: Lookup (Person)
 - Approval Date: Date
-- Entry Status: Choice (Consideration Status)
 - Booth Number: Text
 - Equipment Needs: Memo
 - Space Requirements: Memo
@@ -238,6 +238,7 @@ Represents an organization or entity providing financial or in-kind support for 
 - Sponsor Account: Lookup (Account)
 - Sponsorship Level: Choice (Event Sponsorship Level)
 - Sponsorship Type: Choice (Event Sponsorship Type)
+- Stage: Choice (Event Sponsor Stage)
 - Contact Person: Lookup (Person)
 - Commitment Amount: Currency
 - In Kind Value: Currency
@@ -254,20 +255,28 @@ Represents an organization or entity providing financial or in-kind support for 
 
 ---
 
-## New Choice Fields - Reviewed
+## Choice Fields
 
 **Completed:**
 
 **Completed Last Round:**
-### Event Status
-- Draft
-- Planning
-- Open for Registration
-- Registration Closed
-- In Progress
-- Completed
-- Cancelled
-- Postponed
+
+**Removed (Replaced with Stage Fields):**
+
+### Event Status → Event Stage
+Event Status tracked workflow progression, so it has been renamed to Event Stage and updated to reflect pure workflow steps. "Postponed" removed as it represents a disposition/outcome.
+
+### Event Participation Status → Event Participation Stage
+Event Participation Status tracked registration and attendance workflow, so it has been replaced with Event Participation Stage. Status outcomes (Tentative, Waitlisted, No Show, Cancelled, Declined) can be tracked using:
+- Item Decision Status (Declined)
+- Item Disposition (Cancelled, Withdrawn)
+- Attended field (Yes/No) for attendance outcome
+- Custom status fields if needed for Tentative/Waitlisted states
+
+### Session Status (Scheduled Event Status) → Event Session Stage
+Replaced with Event Session Stage which tracks session preparation and delivery workflow.
+
+---
 
 ### Event Participant Type
 - Attendee
@@ -281,18 +290,6 @@ Represents an organization or entity providing financial or in-kind support for 
 - Sponsor Representative
 - VIP
 - Media
-
-### Event Participation Status
-- Invited
-- Tentative
-- Registered
-- Confirmed
-- Waitlisted
-- Checked In
-- Attended
-- No Show
-- Cancelled
-- Declined
 
 ### Event Session Role
 - Presenter
@@ -346,5 +343,59 @@ Represents an organization or entity providing financial or in-kind support for 
 - Abstract Only
 
 **Planned:**
+
+### Event Stage
+Tracks the event through planning, registration, execution, and completion.
+- Draft
+- Planning
+- Open for Registration
+- Registration Closed
+- Ready to Start
+- In Progress
+- Completed
+- Cancelled
+
+### Event Request Stage
+Tracks event requests from submission through approval and scheduling.
+- Draft
+- Submitted
+- Under Review
+- Scheduling
+- Published
+- Closed
+
+### Event Participation Stage
+Tracks participant journey from invitation through attendance. Used by both Event Participant and Event Session Participant tables.
+- Invited
+- Registered
+- Confirmed
+- Checked In
+- Attended
+
+### Event Session Stage
+Tracks session preparation and delivery.
+- Draft
+- Scheduled
+- Ready
+- In Progress
+- Completed
+- Cancelled
+
+### Event Entry Stage
+Tracks submissions (presentations, posters, booths) from submission through presentation.
+- Draft
+- Submitted
+- Under Review
+- Accepted
+- Scheduled
+- Presented
+
+### Event Sponsor Stage
+Tracks sponsor relationships from prospecting through fulfillment.
+- Prospective
+- Committed
+- Agreement Signed
+- Active
+- Fulfilled
 
 

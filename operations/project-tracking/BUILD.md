@@ -14,7 +14,8 @@ Represents an intake record used to propose or initiate a new project. Captures 
 **Planned:**
 - Name: Text
 - Request Number: Text
-- Approval Status: Choice (Approval Status)
+- Stage: Choice (Project Request Stage)
+- Decision Status: Choice (Item Decision Status)
 - Request Type: Choice (Project Project Type)
 - Request Priority: Choice (Priority)
 - Submission Date: Date
@@ -48,9 +49,8 @@ Represents an intake record used to propose or initiate a new project. Captures 
 - Evaluation Score: Integer
 - Evaluation Notes: Memo
 - Decision Date: Date
-- Decision: Choice (Approval Status)
+- Decided By: Lookup (Person)
 - Decision Rationale: Memo
-- Approved By: Lookup (Person)
 - Approved Project: Lookup (Project)
 - Rejection Reason: Memo
 - Supporting Document: Lookup (Document)
@@ -68,7 +68,8 @@ Represents the primary delivery record for a defined body of work with scope, ob
 **Planned:**
 - Name: Text
 - Project Code: Text
-- Project Status: Choice (Project Project Status)
+- Stage: Choice (Project Stage)
+- Completion Status: Choice (Item Completion Status)
 - Project Type: Choice (Project Project Type)
 - Project Health: Choice (Initiative Health)
 - Health Summary: Memo
@@ -147,7 +148,8 @@ Represents the assignment of a person or resource to a project (and optionally t
 - Project: Lookup (Project)
 - Assigned Person: Lookup (Person)
 - Project Role: Lookup (Project Role)
-- Assignment Status: Choice (Project Resource Assignment Status)
+- Stage: Choice (Project Resource Assignment Stage)
+- Assignment Status: Choice (Item Assignment Status)
 - Assignment Start Date: Date
 - Assignment End Date: Date
 - Allocation Percentage: Integer
@@ -176,7 +178,7 @@ Represents a planning container that groups and prioritizes future work items fo
 - Name: Text
 - Backlog Code: Text
 - Project: Lookup (Project)
-- Backlog Status: Choice (Project Backlog Status)
+- Stage: Choice (Project Backlog Stage)
 - Backlog Type: Choice (Project Backlog Type)
 - Backlog Owner: Lookup (Person)
 - Description: Memo
@@ -195,7 +197,7 @@ Represents a defined timebox or execution cycle within a project (e.g., sprint, 
 - Name: Text
 - Iteration Code: Text
 - Project: Lookup (Project)
-- Iteration Status: Choice (Project Iteration Status)
+- Stage: Choice (Project Iteration Stage)
 - Iteration Number: Integer
 - Parent Iteration: Lookup (Project Iteration)
 - Iteration Start Date: Date
@@ -243,7 +245,8 @@ Represents the core execution record for a unit of work within a project. May re
 - Work Item Number: Text
 - Project: Lookup (Project)
 - Project Work Item Type: Lookup (Project Work Item Type)
-- Work Item Status: Choice (Project Work Item Status)
+- Stage: Choice (Project Work Item Stage)
+- Completion Status: Choice (Item Completion Status)
 - Work Item Priority: Choice (Priority)
 - Parent Work Item: Lookup (Project Work Item)
 - Project Backlog: Lookup (Project Backlog)
@@ -297,7 +300,8 @@ Represents a significant event or checkpoint within a project timeline. Represen
 - Milestone Code: Text
 - Parent Milestone: Lookup (Project Milestone)
 - Project: Lookup (Project)
-- Milestone Status: Choice (Project Milestone Status)
+- Stage: Choice (Project Milestone Stage)
+- Milestone Status: Choice (Milestone Status)
 - Milestone Type: Choice (Project Milestone Type)
 - Milestone Category: Choice (Project Milestone Category)
 - Owner: Lookup (Person)
@@ -332,7 +336,8 @@ Represents a formal proposal to modify approved project scope, schedule, cost, d
 - Name: Text
 - Change Request Number: Text
 - Project: Lookup (Project)
-- Action Status: Choice (Action Status)
+- Stage: Choice (Project Change Request Stage)
+- Decision Status: Choice (Item Decision Status)
 - Change Request Type: Choice (Project Change Request Type)
 - Change Impact Level: Choice (Degree)
 - Requested By: Lookup (Person)
@@ -362,7 +367,7 @@ Represents a formal proposal to modify approved project scope, schedule, cost, d
 - Decision: Choice (Approval Status)
 - Decision Rationale: Memo
 - Approved By: Lookup (Person)
-- Action Status: Choice (Action Status)
+- Implementation Status: Choice (Action Status)
 - Implementation Date: Date
 - Implemented By: Lookup (Person)
 - Implementation Notes: Memo
@@ -454,55 +459,169 @@ Represents a formal proposal to modify approved project scope, schedule, cost, d
 - Technical Change
 - Process Change
 
-### Project Work Item Status
-- New
-- Proposed
-- Approved
-- In Progress
-- In Review
-- In Testing
-- Blocked
-- Completed
-- Cancelled
-- Deferred
+**New Stage Fields:**
 
-### Project Status
-- Proposed
+### Project Request Stage
+Tracks project request workflow from submission through evaluation to decision.
+- Submitted
+- Under Review
+- Evaluation
+- Decision
+- Finalized
+
+### Project Stage
+Tracks project workflow from approval through planning, execution, and closure.
 - Approved
 - Planning
-- In Progress
-- On Hold
-- At Risk
-- Completed
-- Cancelled
+- Execution
+- Closing
 - Closed
 
-### Project Backlog Status
+### Project Resource Assignment Stage
+Tracks resource assignment workflow from proposal through active assignment to completion.
+- Proposed
+- Confirmed
+- Active
+- Completed
+
+### Project Backlog Stage
+Tracks backlog workflow from planning through active use to archival.
 - Planning
 - Ready
 - Active
 - Archived
+
+### Project Iteration Stage
+Tracks iteration workflow from planning through execution to completion.
+- Planned
+- Active
+- Completed
+
+### Project Work Item Stage
+Tracks work item workflow from creation through development, review, and completion.
+- New
+- Approved
+- In Progress
+- Review
+- Testing
+- Done
+
+### Project Milestone Stage
+Tracks milestone workflow and progress toward achievement.
+- Planned
+- In Progress
+- Achieved
+
+### Project Change Request Stage
+Tracks change request workflow from submission through review, decision, and implementation.
+- Submitted
+- Impact Analysis
+- Review
+- Decision
+- Implementation
 - Closed
 
-### Project Iteration Status
-- Planned
-- Active
-- Completed
-- Cancelled
+**Removed (Replaced with Stage and Core Status Fields):**
 
-### Project Milestone Status
-- Planned
-- On Track
-- At Risk
-- Achieved
-- Missed
-- Cancelled
+### Project Status → Replaced with Project Stage + Completion Status
+Project Status mixed workflow (Proposed, Approved, Planning, In Progress) with work impediments (On Hold), health indicators (At Risk), and outcomes (Completed, Cancelled, Closed). Separated into:
+- Project Stage for workflow (Approved → Planning → Execution → Closing → Closed)
+- Item Completion Status (Core) for work tracking: Blocked (replaces On Hold)
+- Project Health (Core: Initiative Health) for health tracking (On Track, At Risk, Off Track) - already in table
+- Item Disposition (Core) for final outcomes: Completed, Canceled
 
-### Project Resource Assignment Status
-- Proposed
-- Confirmed
-- Active
-- On Leave
-- Completed
-- Withdrawn
-- Cancelled
+Value mapping:
+- Proposed → (removed from Project Status, belongs in Project Request)
+- Approved → Stage: Approved
+- Planning → Stage: Planning
+- In Progress → Stage: Execution
+- On Hold → Completion Status: Blocked
+- At Risk → Project Health: At Risk (already tracked separately)
+- Completed → Stage: Closed + Disposition: Completed
+- Cancelled → Disposition: Canceled
+- Closed → Stage: Closed
+
+### Project Work Item Status → Replaced with Project Work Item Stage + Completion Status
+Project Work Item Status mixed workflow (New, Proposed, Approved, In Progress, In Review, In Testing) with work impediments (Blocked) and outcomes (Completed, Cancelled, Deferred). Separated into:
+- Project Work Item Stage for workflow (New → Approved → In Progress → Review → Testing → Done)
+- Item Completion Status (Core) for work tracking: Blocked (already has "Blocked: Yes/No" field, Completion Status provides structured tracking)
+- Item Disposition (Core) for final outcomes: Completed, Canceled, Deferred
+
+Value mapping:
+- New → Stage: New
+- Proposed → Stage: New (work items start as New, approval happens via separate decision)
+- Approved → Stage: Approved
+- In Progress → Stage: In Progress
+- In Review → Stage: Review
+- In Testing → Stage: Testing
+- Blocked → Completion Status: Blocked (supplements existing "Blocked: Yes/No" field)
+- Completed → Stage: Done + Disposition: Completed
+- Cancelled → Disposition: Canceled
+- Deferred → Disposition: Deferred
+
+### Project Backlog Status → Replaced with Project Backlog Stage
+Project Backlog Status mixed workflow (Planning, Ready, Active) with outcomes (Archived, Closed). Separated into:
+- Project Backlog Stage for workflow (Planning → Ready → Active → Archived)
+- Item Disposition (Core) for closure: Completed, Canceled (if needed)
+
+Value mapping:
+- Planning → Stage: Planning
+- Ready → Stage: Ready
+- Active → Stage: Active
+- Archived → Stage: Archived
+- Closed → Stage: Archived + Disposition: Completed (if distinct from archived)
+
+### Project Iteration Status → Replaced with Project Iteration Stage
+Project Iteration Status mixed workflow (Planned, Active) with outcomes (Completed, Cancelled). Separated into:
+- Project Iteration Stage for workflow (Planned → Active → Completed)
+- Item Disposition (Core) for cancellations: Canceled
+
+Value mapping:
+- Planned → Stage: Planned
+- Active → Stage: Active
+- Completed → Stage: Completed
+- Cancelled → Disposition: Canceled
+
+### Project Milestone Status → Replaced with Project Milestone Stage + Milestone Status (Core)
+Project Milestone Status mixed tracking status (Planned, On Track, At Risk) with outcomes (Achieved, Missed, Cancelled). Separated into:
+- Project Milestone Stage for workflow (Planned → In Progress → Achieved)
+- Milestone Status (Core) for progress tracking: Upcoming, Current, On Track, At Risk, Completed On Time, Completed Late, Missed, Cancelled
+- Item Disposition (Core) for final outcomes: Completed, Canceled
+
+Value mapping:
+- Planned → Stage: Planned + Milestone Status: Upcoming
+- On Track → Milestone Status: On Track
+- At Risk → Milestone Status: At Risk
+- Achieved → Stage: Achieved + Milestone Status: Completed On Time or Completed Late
+- Missed → Milestone Status: Missed
+- Cancelled → Disposition: Canceled + Milestone Status: Cancelled
+
+**Note:** Core's Milestone Status field provides comprehensive tracking including timing (Upcoming, Current, Completed On Time, Completed Late, Acknowledged, Missed) which is more detailed than the original Project Milestone Status. Using Stage for workflow (Planned → In Progress → Achieved) plus Core Milestone Status for progress tracking provides better state management.
+
+### Project Resource Assignment Status → Replaced with Project Resource Assignment Stage + Assignment Status + Duty Status
+Project Resource Assignment Status mixed workflow (Proposed, Confirmed, Active) with assignment states (On Leave) and outcomes (Completed, Withdrawn, Cancelled). Separated into:
+- Project Resource Assignment Stage for workflow (Proposed → Confirmed → Active → Completed)
+- Item Assignment Status (Core) for assignment acceptance tracking: Unassigned, Assigned, Accepted, Declined
+- Duty Status (Core) for active duty tracking: Active, Inactive, Suspended (replaces On Leave)
+- Item Disposition (Core) for final outcomes: Completed, Withdrawn, Canceled
+
+Value mapping:
+- Proposed → Stage: Proposed + Assignment Status: Assigned
+- Confirmed → Stage: Confirmed + Assignment Status: Accepted
+- Active → Stage: Active + Duty Status: Active
+- On Leave → Duty Status: Inactive or Suspended
+- Completed → Stage: Completed + Disposition: Completed
+- Withdrawn → Disposition: Withdrawn
+- Cancelled → Disposition: Canceled
+
+### Project Request: Approval Status field → Replaced with Project Request Stage + Decision Status
+Project Request originally had "Approval Status: Choice (Approval Status)" at the top of the field list and "Decision: Choice (Approval Status)" later in the list. This mixed the overall request workflow state with the formal decision outcome. Separated into:
+- Project Request Stage for workflow (Submitted → Under Review → Evaluation → Decision → Finalized)
+- Item Decision Status (Core) for decision tracking: Pending, Approved, Rejected, Deferred, Canceled
+- Renamed "Approved By" to "Decided By" for clarity
+
+### Project Change Request: Duplicate Action Status field removed
+Project Change Request had "Action Status: Choice (Action Status)" listed twice in the table definition (once near the top, once near the bottom). Separated into:
+- Project Change Request Stage for workflow (Submitted → Impact Analysis → Review → Decision → Implementation → Closed)
+- Item Decision Status (Core) for decision tracking
+- Implementation Status: Choice (Action Status) for implementation work tracking (kept as separate concern from stage)

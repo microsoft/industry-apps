@@ -1162,6 +1162,18 @@ Outcome of quality assurance reviews or inspections.
 - Virtual
 - Hybrid
 
+### Delivery Method
+How services, training, or offerings are delivered to participants.
+Used by: Programs and Services, Training & Certification, IT Service Management, HR Benefits, Customer Service, Events
+- In Person
+- Virtual
+- Hybrid
+- Self Service
+- Phone
+- Mail
+- Mobile
+- Home Visit
+
 ### Scheduled Event Status
 - Scheduled
 - In Progress
@@ -1408,10 +1420,51 @@ General operational status applicable across entities (e.g., Draft, Pending, Act
 - Expert
 - Refresher
 
+### Payment Method
+- Personal Card
+- Corporate Card
+- Cash
+- Check
+- Direct Deposit
+- Wire Transfer
+- Reimbursement
+
+### Proficiency Level
+Standardized skill or competency level descriptors.
+Used by: HR Recruiting, Training & Certification, Competency Management, Knowledge Management, Skill Assessment
+- Beginner
+- Intermediate
+- Advanced
+- Expert
+- Subject Matter Expert
+
+### Education Level
+Standardized educational attainment levels.
+Used by: HR Recruiting, HR Administration, Training & Certification, Personnel Security, Qualification Requirements
+- High School
+- Some College
+- Trade Certification
+- Associate Degree
+- Bachelor Degree
+- Master Degree
+- Doctoral Degree
+- Professional Degree
+
+### Overall Rating
+Generic rating scale for evaluations, assessments, and quality measurements.
+Used by: HR Recruiting, Performance Management, Training & Certification, Service Quality, Vendor Management
+- Excellent
+- Above Average
+- Average
+- Below Average
+- Poor
+- Not Assessed
+
 **Changed Last Round:**
 
 ### Schedule Frequency
-- Added One Time, Annually, Biennially, Triennially, Quarterly
+- Added One Time, Annually, Biennially, Triennially, Quarterly, Every Other Week, Twice Per Month, Every Other Month, Twice Per Year, Hourly
+- Changed Bi-Weekly to Twice Per Week
 
 ### Item Health Status
 - Added Off Track, On Hold, Unknown

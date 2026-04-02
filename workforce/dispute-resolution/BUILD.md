@@ -11,7 +11,8 @@ Tracks lifecycle status, case type, regulatory framework, assigned staff, key da
 - Case Number | Text
 - Case Title | Text
 - Dispute Type | Choice (Dispute Dispute Type)
-- Dispute Status | Choice (Dispute Dispute Status)
+- Stage | Choice (Dispute Stage)
+- Decision Status | Choice (Item Decision Status)
 - Priority | Choice (Priority)
 - Severity Level | Choice (Severity Level)
 - Filed Date | Date
@@ -41,8 +42,9 @@ Tracks appeal authority, filing date, appeal basis, review process, and final ap
 - Dispute | Lookup *(to Dispute)*
 - Dispute Determination | Lookup *(to Dispute Determination)*
 - Appeal Basis | Choice (Dispute Appeal Basis)
+- Stage | Choice (Dispute Appeal Stage)
+- Decision Status | Choice (Item Decision Status)
 - Appeal Date | Date
-- Appeal Status | Choice (Dispute Appeal Status)
 - Appellant | Lookup *(to Person from Core)*
 - Reviewing Authority | Lookup *(to Person from Core)*
 - Decision Date | Date
@@ -66,7 +68,7 @@ Examples include training requirements, disciplinary measures, policy updates, o
 - Dispute | Lookup *(to Dispute)*
 - Dispute Determination | Lookup *(to Dispute Determination)*
 - Corrective Action Type | Choice (Dispute Corrective Action Type)
-- Corrective Action Status | Choice (Dispute Corrective Action Status)
+- Completion Status | Choice (Item Completion Status)
 - Assigned To | Lookup *(to Person from Core)*
 - Responsible Organization | Lookup *(to Organization Unit from Core)*
 - Due Date | Date
@@ -91,6 +93,7 @@ May include findings, remedies, dismissals, settlements, or final agency decisio
 - Dispute | Lookup *(to Dispute)*
 - Dispute Issue | Lookup *(to Dispute Issue)*
 - Determination Type | Choice (Dispute Determination Type)
+- Stage | Choice (Dispute Determination Stage)
 - Determination Date | Date
 - Effective Date | Date
 - Deciding Official | Lookup *(to Person from Core)*
@@ -137,7 +140,7 @@ Examples: Substantiated, Unsubstantiated, Inconclusive, Policy Violation Confirm
 - Dispute | Lookup *(to Dispute)*
 - Dispute Issue | Lookup *(to Dispute Issue)*
 - Dispute Investigation | Lookup *(to Dispute Investigation)*
-- Finding Type | Choice (Dispute Finding Type)
+- Finding Type | Choice (Finding Result)
 - Finding Date | Date
 - Inspector | Lookup *(to Person from Core)*
 - Description | Memo
@@ -155,7 +158,8 @@ Supports anonymous reporting, early resolution efforts, and triage decisions.
 **Planned:**
 - Intake Number | Text
 - Intake Title | Text
-- Intake Status | Choice (Dispute Intake Status)
+- Stage | Choice (Dispute Intake Stage)
+- Disposition | Choice (Item Disposition)
 - Submission Date Time | Date Time
 - Method of Contact | Choice (Method of Contact)
 - Method of Contact | Choice (Method of Contact)
@@ -206,7 +210,8 @@ Tracks investigator assignment, scope, timeline, methodology, and Action Status.
 - Investigation Number | Text
 - Investigation Title | Text
 - Dispute | Lookup *(to Dispute)*
-- Investigation Status | Choice (Dispute Investigation Status)
+- Stage | Choice (Dispute Investigation Stage)
+- Completion Status | Choice (Item Completion Status)
 - Start Date | Date
 - Target Completion Date | Date
 - Actual Completion Date | Date
@@ -255,7 +260,8 @@ Tracks mediator, session dates, agreements reached, and mediation outcomes.
 - Mediation Number | Text
 - Mediation Title | Text
 - Dispute | Lookup *(to Dispute)*
-- Mediation Status | Choice (Dispute Mediation Status)
+- Stage | Choice (Dispute Mediation Stage)
+- Decision Status | Choice (Item Decision Status)
 - Scheduled Date Time | Date Time
 - Actual Date Time | Date Time
 - Mediator | Lookup *(to Person from Core)*
@@ -302,6 +308,7 @@ Examples include HR, Legal, Security, Compliance, or external agencies.
 - Referral Number | Text
 - Dispute Intake | Lookup *(to Dispute Intake)*
 - Dispute | Lookup *(to Dispute)*
+- Stage | Choice (Dispute Referral Stage)
 - Referral Date | Date
 - Referred By | Lookup *(to Person from Core)*
 - Referred To Organization | Lookup *(to Organization Unit from Core)*
@@ -315,18 +322,71 @@ Examples include HR, Legal, Security, Compliance, or external agencies.
 
 ## ✅ New Choice Fields for Dispute Resolution - Semi-Reviewed
 
-### Dispute Status
-Values representing the lifecycle of a dispute case:
+### Dispute Stage
+Workflow progression for dispute cases:
 - Intake
-- Under Review
+- Initial Review
 - Investigation
 - Mediation
-- Pending Determination
-- Determined
-- Under Appeal
+- Determination Pending
+- Determination Made
+- Appeal
 - Closed
-- Withdrawn
-- Referred
+
+### Dispute Appeal Stage
+Workflow for appeals process:
+- Filed
+- Under Review
+- Hearing Scheduled
+- Hearing Conducted
+- Decision Pending
+- Closed
+
+### Dispute Determination Stage
+Workflow for formal determinations:
+- Draft
+- Under Review
+- Approval Pending
+- Issued
+- Appealed
+- Final
+
+### Dispute Intake Stage
+Workflow for intake records:
+- Received
+- Under Review
+- Information Requested
+- Assessment
+- Routing Decision
+- Closed
+
+### Dispute Investigation Stage
+Workflow for investigations:
+- Planning
+- Evidence Collection
+- Interviews
+- Analysis
+- Report Drafting
+- Review
+- Completed
+
+### Dispute Mediation Stage
+Workflow for mediation process:
+- Scheduled
+- Preparation
+- In Session
+- Continued
+- Outcome Pending
+- Closed
+
+### Dispute Referral Stage
+Workflow for referrals:
+- Draft
+- Sent
+- Acknowledged
+- In Progress
+- Completed
+- Closed
 
 ### Dispute Type
 Categories of disputes:
@@ -369,44 +429,7 @@ Categories of evidence:
 - Report
 - Expert Opinion
 
-### Dispute Finding Type
-Conclusions from investigation:
-- Substantiated
-- Unsubstantiated
-- Partially Substantiated
-- Inconclusive
-- Policy Violation Confirmed
-- No Policy Violation
-- Unable to Investigate
-- Withdrawn
-- Resolved Informally
-
-### Dispute Intake Status
-State of initial inquiry:
-- New
-- Under Review
-- Information Requested
-- Assigned
-- Converted to Case
-- Referred
-- Resolved at Intake
-- Closed - No Action
-- Closed - Duplicate
-
-### Dispute Investigation Status
-Progress of investigation:
-- Not Started
-- Planning
-- In Progress
-- Evidence Collection
-- Interviews Pending
-- Analysis
-- Report Drafting
-- Completed
-- On Hold
-- Cancelled
-
-### Dispute Interview Type
+### Dispute Investigation Type
 Categories of interviews:
 - Initial Interview
 - Follow-Up Interview
@@ -427,6 +450,17 @@ Nature of investigation:
 - Expedited Investigation
 - External Investigation
 
+### Dispute Interview Type
+Categories of interviews:
+- Initial Interview
+- Follow-Up Interview
+- Witness Interview
+- Subject Interview
+- Expert Consultation
+- Informal Discussion
+- Recorded Statement
+- Virtual Interview
+
 ### Dispute Issue Type
 Specific categories of concerns:
 - Discrimination - Age
@@ -444,17 +478,6 @@ Specific categories of concerns:
 - Conflict of Interest
 - Misuse of Resources
 - Misconduct
-
-### Dispute Mediation Status
-State of mediation process:
-- Scheduled
-- In Progress
-- Continued
-- Agreement Reached
-- Impasse
-- Completed
-- Cancelled
-- Declined
 
 ### Dispute Mediation Outcome
 Result of mediation:
@@ -478,8 +501,6 @@ Role in dispute process:
 - Support Person
 - Third Party
 
-## Candidates -------------------------------
-
 ### Dispute Determination Type
 Types of formal outcomes:
 - Finding
@@ -491,40 +512,6 @@ Types of formal outcomes:
 - Default Decision
 - Partial Decision
 
-### Dispute Corrective Action Status
-Progress on corrective actions:
-- Planned
-- In Progress
-- Pending Verification
-- Verified Complete
-- Overdue
-- Cancelled
-- Deferred
-
-### Dispute Referral Status
-State of referral:
-- Pending
-- Accepted
-- Declined
-- In Progress
-- Completed
-- Returned
-- Closed
-
-### Dispute Appeal Status
-Current state of an appeal:
-- Filed
-- Under Review
-- Hearing Scheduled
-- Hearing Held
-- Decision Pending
-- Upheld
-- Overturned
-- Modified
-- Remanded
-- Withdrawn
-- Dismissed
-
 ### Dispute Appeal Basis
 Grounds for appeal:
 - Procedural Error
@@ -535,3 +522,18 @@ Grounds for appeal:
 - Insufficient Evidence
 - Legal Error
 - Timeliness Issue
+
+## Removed (Replaced with Stage or Core Item Status Fields)
+
+### Dispute Status → Dispute Stage + Item Decision Status  
+### Dispute Appeal Status → Dispute Appeal Stage + Item Decision Status  
+### Dispute Corrective Action Status → Item Completion Status (Core)  
+### Dispute Intake Status → Dispute Intake Stage + Item Disposition (Core)  
+### Dispute Investigation Status → Dispute Investigation Stage + Item Completion Status (Core)  
+### Dispute Mediation Status → Dispute Mediation Stage + Item Decision Status  
+### Dispute Referral Status → Dispute Referral Stage (Note: field still present in table, requires manual removal)
+
+## Removed (Replaced with Core Fields)
+
+### Dispute Finding Type → Finding Result (Core)  
+Replaced with Core Finding Result which covers essential investigation outcomes (Substantiated, Partially Substantiated, Unsubstantiated, Inconclusive, No Finding, Unable to Determine). Domain-specific nuances like "Policy Violation Confirmed/No Policy Violation" map to Substantiated/Unsubstantiated. Process outcomes like "Withdrawn" or "Resolved Informally" should use Item Disposition instead.

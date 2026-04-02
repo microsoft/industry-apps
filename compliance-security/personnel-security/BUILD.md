@@ -18,7 +18,8 @@ Represents the lifecycle container for evaluating a person's suitability for a s
 - Review Number: Text
 - Person: Lookup (Person)
 - Review Type: Choice (Security Review Type)
-- Review Status: Choice (Security Review Status)
+- Stage: Choice (Personnel Security Review Stage)
+- Completion Status: Choice (Item Completion Status)
 - Review Priority: Choice (Priority)
 - Review Reason: Choice (Security Review Reason)
 - Requested By: Lookup (Person)
@@ -81,7 +82,8 @@ Represents a formal investigative effort conducted to support a personnel securi
 - Person: Lookup (Person)
 - Investigation Type: Choice (Security Investigation Type)
 - Investigation Tier: Choice (Security Investigation Tier)
-- Investigation Status: Choice (Security Investigation Status)
+- Stage: Choice (Personnel Background Investigation Stage)
+- Validation Status: Choice (Item Validation Status)
 - Investigation Scope: Choice (Security Investigation Scope)
 - Requested Clearance Level: Lookup (Clearance Level)
 - Initiated Date: Date
@@ -107,7 +109,6 @@ Represents a formal investigative effort conducted to support a personnel securi
 - Received Date: Date
 - Quality Review Date: Date
 - Quality Reviewer: Lookup (Person)
-- Quality Review Status: Choice (Pass Fail Status)
 - Quality Review Notes: Memo
 - Issues Identified: Yes / No
 - Issues Summary: Memo
@@ -140,7 +141,7 @@ Represents the formal decision made as part of a personnel security review. Capt
 - Personnel Security Review: Lookup (Personnel Security Review)
 - Personnel Background Investigation: Lookup (Personnel Background Investigation)
 - Person: Lookup (Person)
-- Adjudication Status: Choice (Security Adjudication Status)
+- Stage: Choice (Personnel Adjudication Stage)
 - Adjudication Type: Choice (Security Adjudication Type)
 - Adjudication Date: Date
 - Adjudicator: Lookup (Person)
@@ -328,7 +329,8 @@ Represents an event or circumstance that may impact a person's security eligibil
 - Person: Lookup (Person)
 - Event Type: Choice (Security Reportable Event Type)
 - Event Category: Choice (Security Reportable Event Category)
-- Event Status: Choice (Resolution Status)
+- Stage: Choice (Personnel Reportable Event Stage)
+- Resolution Status: Choice (Resolution Status)
 - Event Date: Date
 - Event Date Time: Date Time
 - Reported Date: Date Time
@@ -354,7 +356,7 @@ Represents an event or circumstance that may impact a person's security eligibil
 - Court Case Number: Text
 - Adverse Action Type: Choice (Security Adverse Action Type)
 - Adverse Action Description: Memo
-- Security Concern Level: Choice (Security Concern Level)
+- Security Concern Level: Choice (Severity Level)
 - Immediate Threat: Yes / No
 - Threat Assessment: Memo
 - Reviewed By: Lookup (Person)
@@ -371,7 +373,6 @@ Represents an event or circumstance that may impact a person's security eligibil
 - Action Taken Date: Date
 - Action Taken By: Lookup (Person)
 - Resolution Date: Date
-- Resolution Status: Choice (Resolution Status)
 - Resolution Summary: Memo
 - Legal Authority: Lookup (Legal Authority)
 - Policy Reference: Text
@@ -484,26 +485,6 @@ The following choice fields are included in the Core module planning and will be
 
 ## Personnel Security Module Choice Fields - Semi-Review Completed
 
-## Analysis:
-
-Replace with Core Components (7):
-Security Review Status → Completion Status
-Security Investigation Status → Completion Status
-Security Adjudication Status → Completion Status
-Security Continuous Evaluation Status → Lifecycle Stage
-Security Eligibility Status → Lifecycle Stage (with outcome field)
-Security Concern Level → Severity Level
-Pass Fail Status → Quality Review Status (already in Core)
-
-Move to Core (2):
-Biometric Type - Universal biometric authentication methods
-Extend Schedule Frequency - Add Continuous, Real Time, Quarterly, Annual, Event Driven
-
-Keep Domain-Specific (21):
-All the security clearance-specific components (Review Types, Investigation Tiers, Adjudication Decisions, Eligibility Categories, Reportable Events, etc.)
-
-The following choice fields are specific to the Personnel Security module:
-
 **Completed:**
 
 **Completed Last Round:**
@@ -518,17 +499,6 @@ The following choice fields are specific to the Personnel Security module:
 - Renewal Review
 - Transfer Review
 - Position Change Review
-
-### Security Review Status
-- Initiated
-- Investigation Pending
-- Investigation In Progress
-- Adjudication Pending
-- Adjudication In Progress
-- Completed
-- Suspended
-- Cancelled
-- On Hold
 
 ### Security Review Reason
 - Initial Clearance
@@ -552,18 +522,6 @@ The following choice fields are specific to the Personnel Security module:
 - Counterintelligence Investigation
 - Special Background Investigation
 - Reciprocity Review
-
-### Security Investigation Status
-- Requested
-- Initiated
-- In Progress
-- Field Work
-- Records Review
-- Quality Review
-- Completed
-- Submitted
-- Pending Correction
-- Cancelled
 
 ### Security Investigation Scope
 - Full Scope
@@ -681,17 +639,6 @@ The following choice fields are specific to the Personnel Security module:
 - Denied
 - No Determination
 
-## Candidates --------------------------------------
-
-### Security Adjudication Status
-- Pending Review
-- Under Review
-- Panel Review
-- Pending Decision
-- Decision Issued
-- Appeal Pending
-- Final
-
 ### Security Investigation Tier
 - Tier 1
 - Tier 2
@@ -761,12 +708,6 @@ The following choice fields are specific to the Personnel Security module:
 - Withdrawn
 - Cancelled
 
-### Security Concern Level
-- Low
-- Moderate
-- High
-- Critical
-
 ### Security Impact Level
 - No Impact
 - Minor Impact
@@ -809,3 +750,70 @@ The following choice fields are specific to the Personnel Security module:
 - Weekly
 - Monthly
 - Quarterly
+
+**New Stage Fields:**
+
+### Personnel Security Review Stage
+Tracks security review workflow from initiation through finalization.
+- Initiated
+- Investigation
+- Adjudication
+- Finalized
+
+### Personnel Background Investigation Stage
+Tracks background investigation workflow from request through submission.
+- Requested
+- Initiated
+- Field Work
+- Records Review
+- Quality Review
+- Submitted
+
+### Personnel Adjudication Stage
+Tracks adjudication workflow from review through notification.
+- Pending Review
+- Under Review
+- Panel Review
+- Decision
+- Notification
+- Finalized
+
+### Personnel Reportable Event Stage
+Tracks reportable event workflow from report through resolution.
+- Reported
+- Initial Review
+- Assessment
+- Mitigation
+- Resolution
+
+**Removed (Replaced with Stage and Core Status Fields):**
+
+### Security Review Status → Replaced with Personnel Security Review Stage + Completion Status
+Review Status mixed workflow (Initiated, Investigation Pending/In Progress, Adjudication Pending/In Progress) with work states (Suspended, On Hold) and outcomes (Completed, Cancelled). Separated into:
+- Personnel Security Review Stage for workflow (Initiated → Investigation → Adjudication → Finalized)
+- Item Completion Status (Core) for work tracking: Blocked (replaces Suspended, On Hold)
+- Item Disposition (Core) for final outcomes: Completed, Canceled, Withdrawn
+- Keep Security Review Outcome for security-specific results (Favorable, Unfavorable, etc.)
+
+### Security Investigation Status → Replaced with Personnel Background Investigation Stage + Validation Status
+Investigation Status mixed workflow (Requested, Initiated, In Progress, Field Work, Records Review, Quality Review, Submitted) with quality outcomes (Pending Correction) and final state (Completed, Cancelled). Separated into:
+- Personnel Background Investigation Stage for workflow
+- Item Validation Status (Core) for quality review outcomes: Pending Validation, Validated, Failed Validation (replaces Pending Correction)
+- Item Disposition (Core) for final outcomes: Completed, Canceled
+
+### Security Adjudication Status → Replaced with Personnel Adjudication Stage
+Adjudication Status mixed workflow (Pending Review, Under Review, Panel Review, Pending Decision) with outcomes (Decision Issued, Appeal Pending, Final). Replaced with:
+- Personnel Adjudication Stage for workflow (includes Decision and Notification stages)
+- Keep Security Adjudication Decision for security-specific outcomes (already well-designed)
+- Item Disposition (Core) for appeals/revisions: Amended, Superseded
+
+### Personnel Reportable Event: Event Status field renamed
+The field "Event Status: Choice (Resolution Status)" was renamed to "Stage: Choice (Personnel Reportable Event Stage)" with "Resolution Status: Choice (Resolution Status)" kept as separate outcome tracking. This clarifies that the reportable event has both workflow progression (Stage) and resolution outcome (Resolution Status - Core field).
+
+**Note on Lifecycle Status Fields (Kept As-Is):**
+The following Status fields are lifecycle states, not workflow stages, and are appropriately designed:
+- **Security Eligibility Status** (Active, Expired, Suspended, Revoked, Denied, Pending Renewal, Inactive, Terminated)
+- **Security Continuous Evaluation Status** (Active, Inactive, Suspended, Pending Enrollment, Terminated)
+- **Security Credential Status** (Active, Expired, Suspended, Revoked, Lost, Stolen, Damaged, Returned, Replaced)
+
+These represent the lifecycle state of eligibility, enrollment, and credentials rather than workflow progression.

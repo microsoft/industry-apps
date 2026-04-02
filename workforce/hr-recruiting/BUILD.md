@@ -15,7 +15,8 @@ Represents the initial request or justification to create or fill a position. Ty
 - Name: Text
 - Request Number: Text
 - Request Type: Choice (Recruiting Workforce Request Type)
-- Approval Status: Choice (Approval Status)
+- Stage: Choice (Workforce Request Stage)
+- Decision Status: Choice (Item Decision Status)
 - Requested Date: Date
 - Requested By: Lookup (Person)
 - Requesting Organization Unit: Lookup (Organization Unit)
@@ -31,7 +32,6 @@ Represents the initial request or justification to create or fill a position. Ty
 - Funding Source: Text
 - Proposed Start Date: Date
 - Priority: Choice (Priority)
-- Approval Status: Choice (Approval Status)
 - Approved By: Lookup (Person)
 - Approval Date: Date
 - Related Requisition: Lookup (HR Requisition)
@@ -47,7 +47,8 @@ Represents the authorized request to recruit for a position. Contains hiring det
 **Planned:**
 - Name: Text
 - Requisition Number: Text
-- Requisition Status: Choice (Recruiting Requisition Status)
+- Stage: Choice (HR Requisition Stage)
+- Decision Status: Choice (Item Decision Status)
 - Position Title: Text
 - Number of Openings: Integer
 - Job Series: Lookup (Job Series)
@@ -70,7 +71,6 @@ Represents the authorized request to recruit for a position. Contains hiring det
 - Posting Required: Yes / No
 - Internal Only: Yes / No
 - Priority: Choice (Priority)
-- Approval Status: Choice (Approval Status)
 - Approved By: Lookup (Person)
 - Approval Date: Date
 - Total Applications Received: Integer
@@ -92,7 +92,8 @@ Represents a specific publication or advertisement instance of a requisition. Tr
 - Name: Text
 - HR Requisition: Lookup (HR Requisition)
 - Posting Channel: Choice (Recruiting Posting Channel)
-- Posting Status: Choice (Publication Status)
+- Stage: Choice (Requisition Posting Stage)
+- Publication Status: Choice (Publication Status)
 - Posted Date: Date
 - Posting Start Date: Date
 - Posting End Date: Date
@@ -119,7 +120,7 @@ Defines the required and preferred qualifications, competencies, or eligibility 
 - Requirement Type: Choice (Recruiting Requirement Type)
 - Competency: Lookup (Competency)
 - Credential: Lookup (Credential)
-- Required Proficiency Level: Choice (Recruiting Proficiency Level)
+- Required Proficiency Level: Choice (Proficiency Level)
 - Requirement Category: Choice (Recruiting Requirement Category)
 - Is Required: Yes / No
 - Is Preferred: Yes / No
@@ -155,12 +156,12 @@ Represents the persistent recruiting profile of an individual across application
 - Candidate Source: Choice (Recruiting Candidate Source)
 - Referral Source: Text
 - Referred By: Lookup (Person)
-- Candidate Status: Choice (Recruiting Candidate Status)
+- Stage: Choice (HR Candidate Stage)
 - Is Internal: Yes / No
 - Current Employer: Text
 - Current Job Title: Text
 - Years of Experience: Integer
-- Highest Education Level: Choice (Recruiting Education Level)
+- Highest Education Level: Choice (Education Level)
 - Veteran Status: Yes / No
 - Requires Sponsorship: Yes / No
 - Willing to Relocate: Yes / No
@@ -186,12 +187,12 @@ Represents a candidate's formal submission for a specific requisition or posting
 - HR Candidate: Lookup (HR Candidate)
 - HR Requisition: Lookup (HR Requisition)
 - HR Requisition Posting: Lookup (HR Requisition Posting)
-- Application Status: Choice (Recruiting Application Status)
+- Stage: Choice (HR Application Stage)
+- Stage Updated Date: Date
+- Decision Status: Choice (Item Decision Status)
 - Application Date: Date Time
 - Application Source: Choice (Recruiting Application Source)
 - Is Internal: Yes / No
-- Current Stage: Choice (Recruiting Application Stage)
-- Stage Updated Date: Date
 - Cover Letter: Memo
 - Resume Document: Lookup (Document)
 - Total Score: Float
@@ -217,9 +218,10 @@ Stores detailed scoring or rating of how well an applicant meets specific skills
 - HR Application: Lookup (HR Application)
 - HR Requisition Requirement: Lookup (HR Requisition Requirement)
 - Competency: Lookup (Competency)
+- Completion Status: Choice (Item Completion Status)
 - Assessed By: Lookup (Person)
 - Assessment Date: Date
-- Proficiency Level: Choice (Recruiting Proficiency Level)
+- Proficiency Level: Choice (Proficiency Level)
 - Score: Float
 - Weight: Float
 - Weighted Score: Float
@@ -241,13 +243,13 @@ Provides the consolidated summary assessment of an application. Captures overall
 - Evaluation Date: Date
 - Evaluated By: Lookup (Person)
 - Overall Score: Float
-- Overall Rating: Choice (Recruiting Overall Rating)
+- Overall Rating: Choice (Overall Rating)
 - Recommendation: Choice (Recruiting Recommendation)
 - Strengths: Memo
 - Concerns: Memo
 - Decision Rationale: Memo
 - Move to Next Stage: Yes / No
-- Recommended Stage: Choice (Recruiting Application Stage)
+- Recommended Stage: Choice (HR Application Stage)
 - Notes: Memo
 
 ---
@@ -264,17 +266,17 @@ Represents a scheduled interview event for an application. Tracks interview type
 - HR Application: Lookup (HR Application)
 - HR Requisition: Lookup (HR Requisition)
 - Interview Type: Choice (Recruiting Interview Type)
-- Interview Status: Choice (Recruiting Interview Status)
+- Stage: Choice (HR Interview Stage)
 - Scheduled Date Time: Date Time
 - Duration (Minutes): Integer
 - Interview Location: Lookup (Location)
 - Virtual Meeting URL: Text
 - Primary Interviewer: Lookup (Person)
 - Interview Panel: Text
-- Interview Stage: Choice (Recruiting Application Stage)
+- Application Stage: Choice (HR Application Stage)
 - Conducted Date Time: Date Time
-- Attendance Status: Choice (Recruiting Attendance Status)
-- Overall Impression: Choice (Recruiting Overall Rating)
+- Attendance Status: Choice (Attendance Status)
+- Overall Impression: Choice (Overall Rating)
 - Recommend for Hire: Choice (Recruiting Recommendation)
 - Interview Notes: Memo
 - Strengths Observed: Memo
@@ -299,7 +301,7 @@ Captures an individual reviewer's structured assessment of a candidate, typicall
 - Evaluation Category: Choice (Recruiting Evaluation Category)
 - Competency: Lookup (Competency)
 - Score: Float
-- Rating: Choice (Recruiting Overall Rating)
+- Rating: Choice (Overall Rating)
 - Comments: Memo
 - Supporting Evidence: Memo
 - Notes: Memo
@@ -319,8 +321,9 @@ Documents the formal hiring decision for a requisition. Identifies the selected 
 - HR Requisition: Lookup (HR Requisition)
 - Selected Application: Lookup (HR Application)
 - Selected Candidate: Lookup (HR Candidate)
+- Stage: Choice (HR Selection Decision Stage)
+- Decision Status: Choice (Item Decision Status)
 - Decision Date: Date
-- Decision Status: Choice (Recruiting Decision Status)
 - Selection Ranking: Integer
 - Selection Rationale: Memo
 - Hiring Manager: Lookup (Person)
@@ -353,7 +356,8 @@ Documents the formal employment offer extended to a selected candidate. Captures
 - HR Application: Lookup (HR Application)
 - HR Selection Decision: Lookup (HR Selection Decision)
 - HR Candidate: Lookup (HR Candidate)
-- Offer Status: Choice (Recruiting Offer Status)
+- Stage: Choice (HR Offer Stage)
+- Decision Status: Choice (Item Decision Status)
 - Offer Date: Date
 - Offer Expiration Date: Date
 - Extended By: Lookup (Person)
@@ -364,7 +368,7 @@ Documents the formal employment offer extended to a selected candidate. Captures
 - Proposed Start Date: Date
 - Pay Grade: Lookup (Pay Grade)
 - Offered Salary: Currency
-- Salary Frequency: Choice (Recruiting Salary Frequency)
+- Salary Frequency: Choice (Schedule Frequency)
 - Sign On Bonus: Currency
 - Relocation Allowance: Currency
 - Other Compensation: Memo
@@ -394,7 +398,7 @@ Tracks conditional requirements that must be completed prior to employment start
 - HR Offer: Lookup (HR Offer)
 - HR Candidate: Lookup (HR Candidate)
 - Requirement Type: Choice (Recruiting Pre-Hire Requirement Type)
-- Requirement Status: Choice (Recruiting Requirement Status)
+- Completion Status: Choice (Item Completion Status)
 - Required By Date: Date
 - Initiated Date: Date
 - Completed Date: Date
@@ -409,52 +413,74 @@ Tracks conditional requirements that must be completed prior to employment start
 
 ---
 
-## Reused Core Tables
+## Choice Fields
 
-The following Core tables are used directly by this module:
+**Planned:**
 
-### Person *(Core)*
-Represents candidates (internally), hiring managers, recruiters, interviewers, evaluators, and approvers.
+### Workforce Request Stage
+- Draft
+- Submitted
+- Under Review
+- Decision Made
+- Processing
+- Closed
 
-### Organization Unit *(Core)*
-Hiring departments, divisions, and organizational structure for requisitions and offers.
+### HR Requisition Stage
+- Draft
+- Approval Review
+- Published
+- Interviewing
+- Selection
+- Filled
+- Closed
 
-### Location *(Core)*
-Work locations for positions, interview locations, and office assignments.
+### Requisition Posting Stage
+- Draft
+- Scheduled
+- Published
+- Active
+- Closed
 
-### Job Series *(Core)*
-Job family classifications for requisitions and workforce requests.
+### HR Candidate Stage
+- New
+- Screening
+- Under Consideration
+- Interviewing
+- Selected
+- Closed
 
-### Pay Grade *(Core)*
-Salary grade structures for requisitions and offers.
+### HR Application Stage
+- Application Review
+- Initial Screening
+- Phone Screen
+- First Interview
+- Second Interview
+- Panel Interview
+- Final Interview
+- Reference Check
+- Offer Stage
+- Pre-Hire
 
-### Clearance Level *(Core)*
-Security clearance requirements for positions.
+### HR Interview Stage
+- Scheduled
+- Confirmed
+- In Progress
+- Completed
+- Follow-Up Needed
 
-### Competency *(Core)*
-Skills and competencies for requisition requirements and candidate assessments.
+### HR Selection Decision Stage
+- Draft
+- Manager Review
+- HR Review
+- Executive Review
+- Finalized
 
-### Credential *(Core)*
-Required certifications, licenses, and credentials for positions.
-
-### Personnel Type *(Core)*
-Employment categories for requisitions.
-
-### Document *(Core)*
-Resumes, cover letters, offer letters, background check results.
-
-### Legal Authority *(Core)*
-Regulatory basis for hiring decisions (merit systems, civil service rules, EEO regulations).
-
-### Formal Decision *(Core)*
-Links selection decisions to formal decision records when required.
-
-### Privacy Consent *(Core)*
-Candidate data privacy consent and opt-in tracking.
-
----
-
-## New Choice Fields - Semi-Reviewed
+### HR Offer Stage
+- Draft
+- Pending Approval
+- Extended
+- Negotiation
+- Finalized
 
 ### Recruiting Workforce Request Type
 - New Position
@@ -506,41 +532,6 @@ Candidate data privacy consent and opt-in tracking.
 - Internal Transfer
 - Rehire
 
-### Recruiting Candidate Status
-- Active
-- Under Consideration
-- Interviewing
-- Selected
-- Offered
-- Hired
-- Not Selected
-- Withdrawn
-- Inactive
-
-### Recruiting Application Status
-- Submitted
-- Under Review
-- Screening
-- Qualified
-- Interviewing
-- Finalist
-- Selected
-- Not Selected
-- Withdrawn
-- On Hold
-
-### Recruiting Application Stage
-- Application Review
-- Initial Screening
-- Phone Screen
-- First Interview
-- Second Interview
-- Panel Interview
-- Final Interview
-- Reference Check
-- Offer Stage
-- Pre-Hire
-
 ### Recruiting Application Source
 - Direct Application
 - Employee Referral
@@ -587,25 +578,6 @@ Candidate data privacy consent and opt-in tracking.
 - Cancelled
 - Pending
 
-## Candidates ----------------------
-
-### Recruiting Proficiency Level
-- Beginner
-- Intermediate
-- Advanced
-- Expert
-- Subject Matter Expert
-
-### Recruiting Education Level - and see Training and Cert
-- High School
-- Associate Degree
-- Bachelor Degree
-- Master Degree
-- Doctoral Degree
-- Professional Degree
-- Some College
-- Trade Certification
-
 ### Recruiting Evaluation Type
 - Initial Screening
 - Phone Screen Evaluation
@@ -613,14 +585,6 @@ Candidate data privacy consent and opt-in tracking.
 - Behavioral Interview
 - Panel Interview
 - Final Assessment
-
-### Recruiting Overall Rating
-- Excellent
-- Above Average
-- Average
-- Below Average
-- Poor
-- Not Assessed
 
 ### Recruiting Interview Type
 - Phone Screen
@@ -632,45 +596,6 @@ Candidate data privacy consent and opt-in tracking.
 - Case Interview
 - Presentation
 
-### Recruiting Interview Status
-- Scheduled
-- Confirmed
-- Rescheduled
-- Completed
-- No Show
-- Cancelled
-
-### Recruiting Attendance Status
-- Attended
-- No Show
-- Cancelled by Candidate
-- Cancelled by Employer
-- Rescheduled
-
-### Recruiting Decision Status
-- Pending
-- Recommended
-- Approved
-- Declined
-- On Hold
-
-### Recruiting Offer Status
-- Draft
-- Pending Approval
-- Approved
-- Extended
-- Under Negotiation
-- Accepted
-- Declined
-- Expired
-- Withdrawn
-
-### Recruiting Salary Frequency
-- Hourly
-- Annual
-- Bi-Weekly
-- Monthly
-
 ### Recruiting Offer Response
 - Pending
 - Accepted
@@ -678,21 +603,28 @@ Candidate data privacy consent and opt-in tracking.
 - Negotiating
 - Expired
 
-### Recruiting Requirement Status
-- Not Started
-- In Progress
-- Completed
-- Pending Review
-- On Hold
-- Cancelled
-- Failed
+**Design Change Notes:**
 
-### Recruiting Requisition Status
-- Draft
-- Pending Approval
-- Approved
-- Open
-- On Hold
-- Filled
-- Cancelled
-- Closed
+## Removed (Replaced with Stage or Core Item Status fields)
+
+### Recruiting Candidate Status → HR Candidate Stage
+### Recruiting Application Status → HR Application Stage
+### Recruiting Interview Status → HR Interview Stage
+### Recruiting Decision Status → Item Decision Status (Core)
+### Recruiting Offer Status → HR Offer Stage
+### Recruiting Requirement Status → Item Completion Status (Core)
+### Recruiting Requisition Status → HR Requisition Stage
+
+## Removed (Promoted to Core or Replaced with Core Fields)
+
+### Recruiting Proficiency Level → Proficiency Level (Core)
+Promoted to Core for reuse across Training, Competency Management, and Skill Assessment modules.
+
+### Recruiting Education Level → Education Level (Core)
+Promoted to Core for reuse across HR Administration, Training, Personnel Security, and Qualification Requirements.
+
+### Recruiting Overall Rating → Overall Rating (Core)
+Promoted to Core for reuse across Performance Management, Training feedback, Service Quality, and Vendor Management.
+
+### Recruiting Attendance Status → Attendance Status (Core)
+Replaced with existing Core field which includes additional values (Expected, Confirmed, Partially Attended, Excused Absence, Late).

@@ -17,7 +17,8 @@ Represents an approved financial plan for a defined fiscal period and organizati
 - Fiscal Year: Text
 - Budget Period Start Date: Date
 - Budget Period End Date: Date
-- Budget Status: Choice (Budget Status)
+- Stage: Choice (Budget Stage)
+- Decision Status: Choice (Item Decision Status)
 - Organization Unit: Lookup (Organization Unit)
 - Budget Owner: Lookup (Person)
 - Total Planned Amount: Currency
@@ -25,7 +26,6 @@ Represents an approved financial plan for a defined fiscal period and organizati
 - Total Committed Amount: Currency
 - Total Expended Amount: Currency
 - Total Available Amount: Currency
-- Approval Status: Choice (Approval Status)
 - Approved By: Lookup (Person)
 - Approval Date: Date
 - Description: Memo
@@ -109,7 +109,8 @@ An internal request to procure goods or services, typically initiated by program
 **Planned:**
 - Name: Text
 - Request Number: Text
-- Request Status: Choice (Request Status)
+- Stage: Choice (Purchase Request Stage)
+- Decision Status: Choice (Item Decision Status)
 - Request Date: Date
 - Requested By: Lookup (Person)
 - Requesting Organization Unit: Lookup (Organization Unit)
@@ -119,7 +120,6 @@ An internal request to procure goods or services, typically initiated by program
 - Total Estimated Cost: Currency
 - Delivery Required Date: Date
 - Delivery Location: Lookup (Location)
-- Approval Status: Choice (Approval Status)
 - Approved By: Lookup (Person)
 - Approval Date: Date
 - Financial Funding Source: Lookup (Financial Funding Source)
@@ -164,7 +164,7 @@ A container for a sourcing process, such as a Request for Quote (RFQ), Request f
 - Package Number: Text
 - Procurement Type: Choice (Procurement Type)
 - Procurement Method: Choice (Procurement Method)
-- Package Status: Choice (Procurement Status)
+- Stage: Choice (Procurement Package Stage)
 - Solicitation Issue Date: Date
 - Response Due Date: Date
 - Evaluation Completion Date: Date
@@ -197,7 +197,8 @@ A formal agreement with an external organization defining scope of work, pricing
 - Contract Number: Text
 - Contract Type: Choice (Contract Type)
 - Agreement Type: Choice (Agreement Type)
-- Agreement Status: Choice (Agreement Status)
+- Stage: Choice (Contract Stage)
+- Decision Status: Choice (Item Decision Status)
 - Contractor: Lookup (Account)
 - Contractor Contact: Lookup (Person)
 - Contracting Officer: Lookup (Person)
@@ -241,6 +242,8 @@ A modification to an existing Contract that changes scope, funding amount, prici
 - Amendment Number: Text
 - Contract: Lookup (Contract)
 - Amendment Type: Choice (Contract Amendment Type)
+- Stage: Choice (Contract Amendment Stage)
+- Decision Status: Choice (Item Decision Status)
 - Amendment Date: Date
 - Effective Date: Date
 - Amended By: Lookup (Person)
@@ -252,7 +255,6 @@ A modification to an existing Contract that changes scope, funding amount, prici
 - New End Date: Date
 - Description: Memo
 - Justification: Memo
-- Approval Status: Choice (Approval Status)
 - Approved By: Lookup (Person)
 - Approval Date: Date
 - Notes: Memo
@@ -293,11 +295,12 @@ A specific output, service, or product required under a Contract. Deliverables t
 - Deliverable Number: Text
 - Deliverable Type: Choice (Contract Deliverable Type)
 - Description: Memo
+- Stage: Choice (Contract Deliverable Stage)
+- Acceptance Status: Choice (Item Acceptance Status)
 - Due Date: Date
 - Submitted Date: Date
 - Accepted Date: Date
 - Rejected Date: Date
-- Contract Deliverable Status: Choice (Contract Deliverable Status)
 - Acceptance Criteria: Memo
 - Reviewer: Lookup (Person)
 - Review Comments: Memo
@@ -340,7 +343,8 @@ Represents funds that have been formally reserved or obligated for an approved f
 - Name: Text
 - Commitment Number: Text
 - Commitment Type: Choice (Financial Commitment Type)
-- Commitment Status: Choice (Financial Commitment Status)
+- Stage: Choice (Financial Commitment Stage)
+- Validation Status: Choice (Item Validation Status)
 - Commitment Date: Date
 - Committed Amount: Currency
 - Expended Amount: Currency
@@ -373,7 +377,8 @@ An authorized order issued to a supplier under a Contract or approved procuremen
 - Name: Text
 - Purchase Order Number: Text
 - Purchase Order Type: Choice (Purchase Order Type)
-- Purchase Order Status: Choice (Purchase Order Status)
+- Stage: Choice (Purchase Order Stage)
+- Decision Status: Choice (Item Decision Status)
 - Order Date: Date
 - Vendor: Lookup (Account)
 - Vendor Contact: Lookup (Person)
@@ -394,7 +399,6 @@ An authorized order issued to a supplier under a Contract or approved procuremen
 - Payment Terms: Text
 - Shipping Terms: Text
 - Financial Commitment: Lookup (Financial Commitment)
-- Approval Status: Choice (Approval Status)
 - Approved By: Lookup (Person)
 - Approval Date: Date
 - Special Instructions: Memo
@@ -425,7 +429,7 @@ Line-level detail within a Purchase Order specifying item or service description
 - Budget Line Item: Lookup (Budget Line Item)
 - Financial Classification: Lookup (Financial Classification)
 - Delivery Required Date: Date
-- Line Status: Choice (Purchase Order Line Status)
+- Stage: Choice (Purchase Order Line Stage)
 - Notes: Memo
 
 ---
@@ -438,6 +442,7 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 **Planned:**
 - Name: Text
 - Payment Number: Text
+- Stage: Choice (Payment Stage)
 - Payment Status: Choice (Payment Status)
 - Payment Method: Choice (Payment Method)
 - Payment Date: Date
@@ -462,7 +467,7 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 
 ---
 
-## New Choice Fields - Reviewed
+## Choiced Fields
 
 **Completed:**
 
@@ -515,15 +520,6 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 - Sole Source
 - Small Purchase
 - Emergency
-
-### Procurement Status
-- Planning
-- Solicitation Issued
-- Responses Due
-- Under Evaluation
-- Awarded
-- Cancelled
-- Closed
 
 ### Contract Type
 - Fixed Price
@@ -587,16 +583,6 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 - Reserved Funds
 - Encumbrance
 
-### Financial Commitment Status
-- Draft
-- Pending Certification
-- Certified
-- Active
-- Partially Expended
-- Fully Expended
-- Closed
-- Cancelled
-
 ### Purchase Order Type
 - Standard
 - Blanket
@@ -604,17 +590,9 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 - Emergency
 - Contract Release
 
-### Purchase Order Status
-- Draft
-- Pending Approval
-- Approved
-- Issued
-- Partially Received
-- Fully Received
-- Closed
-- Cancelled
+**Planned:**
 
-### Purchase Order Line Status
+### Purchase Order Line Stage
 - Open
 - Partially Received
 - Fully Received
@@ -622,23 +600,109 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 - Closed
 - Cancelled
 
-**Planned:**
-
-### Budget Status
+### Budget Stage
+Tracks budget through preparation, approval, execution, and closeout.
 - Draft
-- Pending Approval
+- Submitted
+- Under Review
 - Approved
 - Active
 - Amended
 - Closed
-- Cancelled
 
-### Contract Deliverable Status
+### Purchase Request Stage
+Tracks internal requisition from creation through sourcing and ordering.
+- Draft
+- Submitted
+- Under Review
+- Approved
+- Sourcing
+- Ordered
+- Closed
+
+### Procurement Package Stage
+Tracks solicitation and award process for competitive procurement.
+- Planning
+- Solicitation Issued
+- Responses Due
+- Under Evaluation
+- Awarded
+- Closed
+
+### Contract Stage
+Tracks contract from negotiation through execution and closeout.
+- Draft
+- Under Negotiation
+- Pending Approval
+- Approved
+- Active
+- Close Out
+- Closed
+
+### Contract Amendment Stage
+Tracks contract modifications from drafting through execution.
+- Draft
+- Submitted
+- Under Review
+- Approved
+- Executed
+
+### Contract Deliverable Stage
+Tracks deliverable submission and acceptance workflow.
 - Not Started
 - In Progress
 - Submitted
 - Under Review
 - Accepted
-- Rejected
-- Resubmitted
+
+### Financial Commitment Stage
+Tracks funds reservation through certification and expenditure.
+- Draft
+- Pending Certification
+- Certified
+- Active
+- Fully Expended
+- Closed
+
+### Purchase Order Stage
+Tracks purchase order from creation through fulfillment.
+- Draft
+- Pending Approval
+- Approved
+- Issued
+- Receiving
+- Closed
+
+### Payment Stage
+Tracks payment processing from initiation through disbursement.
+- Draft
+- Pending Approval
+- Approved
+- Scheduled
+- Processed
+
+**Removed (Replaced with Stage Fields):**
+
+### Budget Status → Budget Stage
+Budget Status tracked workflow progression. Replaced with Budget Stage. Decision outcomes (Approved/Rejected) now tracked via Item Decision Status.
+
+### Request Status → Purchase Request Stage  
+Request Status merged into Approval Status in Core, but for Purchase Requests we use Purchase Request Stage for workflow + Item Decision Status for approval outcomes.
+
+### Procurement Status → Procurement Package Stage
+Procurement Status already tracked workflow steps. Renamed to Procurement Package Stage for consistency.
+
+### Agreement Status → Contract Stage
+For Contracts specifically, Agreement Status values tracked workflow. Replaced with Contract Stage. Note: Core Agreement Status remains for general agreements.
+
+### Financial Commitment Status → Financial Commitment Stage + Validation Status
+Financial Commitment Status mixed workflow (Draft, Pending Certification, Active) with state (Partially/Fully Expended). Replaced with Stage for workflow and Validation Status for certification tracking. Expenditure amounts tracked in currency fields.
+
+### Purchase Order Status → Purchase Order Stage
+Purchase Order Status tracked workflow and receiving state. Replaced with Purchase Order Stage. Receiving quantities tracked in Purchase Order Line fields.
+
+### Contract Deliverable Status → Contract Deliverable Stage + Acceptance Status
+Contract Deliverable Status mixed workflow (In Progress, Submitted) with outcomes (Accepted, Rejected). Separated into Stage for workflow and Item Acceptance Status for acceptance decisions.
+
+**Deferred:**
 
