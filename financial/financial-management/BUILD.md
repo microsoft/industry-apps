@@ -12,7 +12,6 @@ Represents an approved financial plan for a defined fiscal period and organizati
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Budget Number: Text
 - Fiscal Year: Text
 - Budget Period Start Date: Date
@@ -20,7 +19,6 @@ Represents an approved financial plan for a defined fiscal period and organizati
 - Stage: Choice (Budget Stage)
 - Decision Status: Choice (Item Decision Status)
 - Organization Unit: Lookup (Organization Unit)
-- Budget Owner: Lookup (Person)
 - Total Planned Amount: Currency
 - Total Allocated Amount: Currency
 - Total Committed Amount: Currency
@@ -29,7 +27,6 @@ Represents an approved financial plan for a defined fiscal period and organizati
 - Approved By: Lookup (Person)
 - Approval Date: Date
 - Description: Memo
-- Notes: Memo
 
 ---
 
@@ -39,7 +36,7 @@ Detailed allocation within a Budget tied to a specific Financial Funding Source,
 **Completed:**
 
 **Planned:**
-- Name: Text
+- Line Item Title: Name
 - Budget: Lookup (Budget)
 - Parent Budget Line Item: Lookup (Budget Line Item)
 - Line Number: Text
@@ -52,9 +49,8 @@ Detailed allocation within a Budget tied to a specific Financial Funding Source,
 - Available Amount: Currency
 - Period Start Date: Date
 - Period End Date: Date
-- Line Item Status: Choice (Budget Status)
+- Line Item Status: Choice (Budget Stage)
 - Description: Memo
-- Notes: Memo
 
 ---
 
@@ -64,7 +60,6 @@ Identifies the origin of funds used to finance expenditures, such as a grant, ap
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Funding Source Code: Text
 - Funding Source Type: Choice (Financial Funding Source Type)
 - Organization Unit: Lookup (Organization Unit)
@@ -80,7 +75,6 @@ Identifies the origin of funds used to finance expenditures, such as a grant, ap
 - Requires Compliance Reporting: Yes / No
 - Description: Memo
 - Restrictions: Memo
-- Notes: Memo
 
 ---
 
@@ -90,7 +84,6 @@ A categorization structure used to classify financial transactions, such as expe
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Classification Code: Text
 - Classification Type: Choice (Financial Classification Type)
 - Parent Classification: Lookup (Financial Classification)
@@ -107,7 +100,7 @@ An internal request to procure goods or services, typically initiated by program
 **Completed:**
 
 **Planned:**
-- Name: Text
+- Request Title: Name
 - Request Number: Text
 - Stage: Choice (Purchase Request Stage)
 - Decision Status: Choice (Item Decision Status)
@@ -128,7 +121,6 @@ An internal request to procure goods or services, typically initiated by program
 - Procurement Method: Choice (Procurement Method)
 - Related Procurement Package: Lookup (Procurement Package)
 - Related Purchase Order: Lookup (Purchase Order)
-- Notes: Memo
 
 ---
 
@@ -138,7 +130,7 @@ Line-level detail associated with a Purchase Request, specifying requested goods
 **Completed:**
 
 **Planned:**
-- Name: Text
+- Item Description: Name
 - Purchase Request: Lookup (Purchase Request)
 - Line Number: Integer
 - Item Type: Choice (Procurement Item Type)
@@ -150,7 +142,6 @@ Line-level detail associated with a Purchase Request, specifying requested goods
 - Estimated Line Total: Currency
 - Financial Classification: Lookup (Financial Classification)
 - Delivery Required Date: Date
-- Notes: Memo
 
 ---
 
@@ -160,7 +151,7 @@ A container for a sourcing process, such as a Request for Quote (RFQ), Request f
 **Completed:**
 
 **Planned:**
-- Name: Text
+- Package Title: Name
 - Package Number: Text
 - Procurement Type: Choice (Procurement Type)
 - Procurement Method: Choice (Procurement Method)
@@ -171,8 +162,8 @@ A container for a sourcing process, such as a Request for Quote (RFQ), Request f
 - Award Date: Date
 - Total Estimated Value: Currency
 - Requesting Organization Unit: Lookup (Organization Unit)
-- Contracting Officer: Lookup (Person)
-- Technical Evaluator: Lookup (Person)
+- Contracting Officer: Lookup (User)
+- Technical Evaluator: Lookup (User)
 - Small Business Set Aside: Yes / No
 - Competition Required: Yes / No
 - Number of Responses Received: Integer
@@ -181,7 +172,6 @@ A container for a sourcing process, such as a Request for Quote (RFQ), Request f
 - Awarded Vendor: Lookup (Account)
 - Awarded Contract: Lookup (Contract)
 - Description: Memo
-- Notes: Memo
 
 ---
 
@@ -193,7 +183,7 @@ A formal agreement with an external organization defining scope of work, pricing
 **Completed:**
 
 **Planned:**
-- Name: Text
+- Contract Title: Name
 - Contract Number: Text
 - Contract Type: Choice (Contract Type)
 - Agreement Type: Choice (Agreement Type)
@@ -201,9 +191,8 @@ A formal agreement with an external organization defining scope of work, pricing
 - Decision Status: Choice (Item Decision Status)
 - Contractor: Lookup (Account)
 - Contractor Contact: Lookup (Person)
-- Contracting Officer: Lookup (Person)
+- Contracting Officer: Lookup (User)
 - Contracting Organization Unit: Lookup (Organization Unit)
-- Contract Manager: Lookup (Person)
 - Award Date: Date
 - Effective Start Date: Date
 - Effective End Date: Date
@@ -228,7 +217,6 @@ A formal agreement with an external organization defining scope of work, pricing
 - Description: Memo
 - Scope of Work: Memo
 - Terms and Conditions: Memo
-- Notes: Memo
 
 ---
 
@@ -238,7 +226,7 @@ A modification to an existing Contract that changes scope, funding amount, prici
 **Completed:**
 
 **Planned:**
-- Name: Text
+- Amendment Title: Name
 - Amendment Number: Text
 - Contract: Lookup (Contract)
 - Amendment Type: Choice (Contract Amendment Type)
@@ -246,7 +234,7 @@ A modification to an existing Contract that changes scope, funding amount, prici
 - Decision Status: Choice (Item Decision Status)
 - Amendment Date: Date
 - Effective Date: Date
-- Amended By: Lookup (Person)
+- Amended By: Lookup (User)
 - Amendment Value: Currency
 - New Total Contract Value: Currency
 - Scope Change: Yes / No
@@ -257,7 +245,6 @@ A modification to an existing Contract that changes scope, funding amount, prici
 - Justification: Memo
 - Approved By: Lookup (Person)
 - Approval Date: Date
-- Notes: Memo
 
 ---
 
@@ -267,7 +254,7 @@ A structured pricing or scope element within a Contract, such as a labor categor
 **Completed:**
 
 **Planned:**
-- Name: Text
+- Line Description: Name
 - Contract: Lookup (Contract)
 - Line Number: Text
 - Line Type: Choice (Contract Line Type)
@@ -280,7 +267,6 @@ A structured pricing or scope element within a Contract, such as a labor categor
 - Financial Classification: Lookup (Financial Classification)
 - Period of Performance Start Date: Date
 - Period of Performance End Date: Date
-- Notes: Memo
 
 ---
 
@@ -290,7 +276,7 @@ A specific output, service, or product required under a Contract. Deliverables t
 **Completed:**
 
 **Planned:**
-- Name: Text
+- Deliverable Title: Name
 - Contract: Lookup (Contract)
 - Deliverable Number: Text
 - Deliverable Type: Choice (Contract Deliverable Type)
@@ -302,11 +288,10 @@ A specific output, service, or product required under a Contract. Deliverables t
 - Accepted Date: Date
 - Rejected Date: Date
 - Acceptance Criteria: Memo
-- Reviewer: Lookup (Person)
+- Reviewer: Lookup (User)
 - Review Comments: Memo
 - Supporting Document: Lookup (Document)
 - Is Critical: Yes / No
-- Notes: Memo
 
 ---
 
@@ -316,7 +301,6 @@ A significant contractual event or date, such as kickoff, phase completion, rene
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Contract: Lookup (Contract)
 - Milestone Type: Choice (Contract Milestone Type)
 - Description: Memo
@@ -328,7 +312,6 @@ A significant contractual event or date, such as kickoff, phase completion, rene
 - Is Critical: Yes / No
 - Payment Linked: Yes / No
 - Completion Criteria: Memo
-- Notes: Memo
 
 ---
 
@@ -340,7 +323,7 @@ Represents funds that have been formally reserved or obligated for an approved f
 **Completed:**
 
 **Planned:**
-- Name: Text
+- Commitment Title: Name
 - Commitment Number: Text
 - Commitment Type: Choice (Financial Commitment Type)
 - Stage: Choice (Financial Commitment Stage)
@@ -359,12 +342,11 @@ Represents funds that have been formally reserved or obligated for an approved f
 - Fiscal Year: Text
 - Period Start Date: Date
 - Period End Date: Date
-- Committed By: Lookup (Person)
+- Committed By: Lookup (User)
 - Certification Required: Yes / No
 - Certified By: Lookup (Person)
 - Certification Date: Date
 - Description: Memo
-- Notes: Memo
 
 ---
 
@@ -374,7 +356,7 @@ An authorized order issued to a supplier under a Contract or approved procuremen
 **Completed:**
 
 **Planned:**
-- Name: Text
+- Order Title: Name
 - Purchase Order Number: Text
 - Purchase Order Type: Choice (Purchase Order Type)
 - Stage: Choice (Purchase Order Stage)
@@ -385,7 +367,6 @@ An authorized order issued to a supplier under a Contract or approved procuremen
 - Contract: Lookup (Contract)
 - Procurement Package: Lookup (Procurement Package)
 - Purchase Request: Lookup (Purchase Request)
-- Buyer: Lookup (Person)
 - Buying Organization Unit: Lookup (Organization Unit)
 - Requestor: Lookup (Person)
 - Requestor Organization Unit: Lookup (Organization Unit)
@@ -402,7 +383,6 @@ An authorized order issued to a supplier under a Contract or approved procuremen
 - Approved By: Lookup (Person)
 - Approval Date: Date
 - Special Instructions: Memo
-- Notes: Memo
 
 ---
 
@@ -412,7 +392,7 @@ Line-level detail within a Purchase Order specifying item or service description
 **Completed:**
 
 **Planned:**
-- Name: Text
+- Line Description: Name
 - Purchase Order: Lookup (Purchase Order)
 - Line Number: Integer
 - Item Type: Choice (Procurement Item Type)
@@ -430,7 +410,6 @@ Line-level detail within a Purchase Order specifying item or service description
 - Financial Classification: Lookup (Financial Classification)
 - Delivery Required Date: Date
 - Stage: Choice (Purchase Order Line Stage)
-- Notes: Memo
 
 ---
 
@@ -440,7 +419,6 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Payment Number: Text
 - Stage: Choice (Payment Stage)
 - Payment Status: Choice (Payment Status)
@@ -463,7 +441,6 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 - Fiscal Year: Text
 - Payment Period: Text
 - Description: Memo
-- Notes: Memo
 
 ---
 

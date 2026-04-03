@@ -1,6 +1,6 @@
 # ⚖️ Dispute Resolution — Data Model Design
 
-## **Dispute**
+### Dispute
 
 Represents the primary case record for a formal internal dispute or complaint.
 Tracks lifecycle status, case type, regulatory framework, assigned staff, key dates, and overall outcome.
@@ -8,28 +8,26 @@ Tracks lifecycle status, case type, regulatory framework, assigned staff, key da
 **Completed:**
 
 **Planned:**
-- Case Number | Text
-- Case Title | Text
-- Dispute Type | Choice (Dispute Dispute Type)
-- Stage | Choice (Dispute Stage)
-- Decision Status | Choice (Item Decision Status)
-- Priority | Choice (Priority)
-- Severity Level | Choice (Severity Level)
-- Filed Date | Date
-- Close Date | Date
-- Organization Unit | Lookup *(to Organization Unit from Core)*
-- Case Manager | Lookup *(to Person from Core)*
-- Compliance Framework | Lookup *(to Compliance Framework from Core)*
-- Legal Authority | Lookup *(to Legal Authority from Core)*
-- Is Confidential | Yes / No
-- Is Anonymous | Yes / No
-- Overall Result | Choice (Overall Result)
-- Description | Memo
-- Details | Memo
+- Case Title: Name
+- Case Number: Text
+- Dispute Type: Choice (Dispute Type)
+- Stage: Choice (Dispute Stage)
+- Decision Status: Choice (Item Decision Status)
+- Priority: Choice (Priority)
+- Severity Level: Choice (Severity Level)
+- Filed Date: Date
+- Close Date: Date
+- Organization Unit: Lookup (Organization Unit)
+- Compliance Framework: Lookup (Compliance Framework)
+- Legal Authority: Lookup (Legal Authority)
+- Is Confidential: Yes / No
+- Is Anonymous: Yes / No
+- Overall Result: Choice (Overall Result)
+- Description: Memo
 
 ---
 
-## **Dispute Appeal**
+### Dispute Appeal
 
 Represents a formal challenge to a determination or decision.
 Tracks appeal authority, filing date, appeal basis, review process, and final appellate outcome.
@@ -37,25 +35,24 @@ Tracks appeal authority, filing date, appeal basis, review process, and final ap
 **Completed:**
 
 **Planned:**
-- Appeal Number | Text
-- Appeal Title | Text
-- Dispute | Lookup *(to Dispute)*
-- Dispute Determination | Lookup *(to Dispute Determination)*
-- Appeal Basis | Choice (Dispute Appeal Basis)
-- Stage | Choice (Dispute Appeal Stage)
-- Decision Status | Choice (Item Decision Status)
-- Appeal Date | Date
-- Appellant | Lookup *(to Person from Core)*
-- Reviewing Authority | Lookup *(to Person from Core)*
-- Decision Date | Date
-- Decision Due Date | Date
-- Overall Result | Choice *(reuse from Core)*
-- Description | Memo
-- Details | Memo
+- Appeal Title: Name
+- Appeal Number: Text
+- Dispute: Lookup (Dispute)
+- Dispute Determination: Lookup (Dispute Determination)
+- Appeal Basis: Choice (Dispute Appeal Basis)
+- Stage: Choice (Dispute Appeal Stage)
+- Decision Status: Choice (Item Decision Status)
+- Appeal Date: Date
+- Appellant: Lookup (Person)
+- Reviewing Authority: Lookup (User)
+- Decision Date: Date
+- Decision Due Date: Date
+- Overall Result: Choice (Overall Result)
+- Description: Memo
 
 ---
 
-## **Dispute Corrective Action**
+### Dispute Corrective Action
 
 Tracks actions required as a result of a determination or settlement.
 Examples include training requirements, disciplinary measures, policy updates, or monitoring plans.
@@ -63,24 +60,22 @@ Examples include training requirements, disciplinary measures, policy updates, o
 **Completed:**
 
 **Planned:**
-- Action Number | Text
-- Action Title | Text
-- Dispute | Lookup *(to Dispute)*
-- Dispute Determination | Lookup *(to Dispute Determination)*
-- Corrective Action Type | Choice (Dispute Corrective Action Type)
-- Completion Status | Choice (Item Completion Status)
-- Assigned To | Lookup *(to Person from Core)*
-- Responsible Organization | Lookup *(to Organization Unit from Core)*
-- Due Date | Date
-- Completion Date | Date
-- Verification Date | Date
-- Verified By | Lookup *(to Person from Core)*
-- Description | Memo
-- Details | Memo
+- Action Title: Name
+- Action Number: Text
+- Dispute: Lookup (Dispute)
+- Dispute Determination: Lookup (Dispute Determination)
+- Corrective Action Type: Choice (Dispute Corrective Action Type)
+- Completion Status: Choice (Item Completion Status)
+- Responsible Organization: Lookup (Organization Unit)
+- Due Date: Date
+- Completion Date: Date
+- Verification Date: Date
+- Verified By: Lookup (User)
+- Description: Memo
 
 ---
 
-## **Dispute Determination**
+### Dispute Determination
 
 Represents the formal outcome or decision for a dispute or specific issue.
 May include findings, remedies, dismissals, settlements, or final agency decisions.
@@ -88,24 +83,23 @@ May include findings, remedies, dismissals, settlements, or final agency decisio
 **Completed:**
 
 **Planned:**
-- Determination Number | Text
-- Determination Title | Text
-- Dispute | Lookup *(to Dispute)*
-- Dispute Issue | Lookup *(to Dispute Issue)*
-- Determination Type | Choice (Dispute Determination Type)
-- Stage | Choice (Dispute Determination Stage)
-- Determination Date | Date
-- Effective Date | Date
-- Deciding Official | Lookup *(to Person from Core)*
-- Approval Status | Choice (Approval Status)
-- Overall Result | Choice (Overall Result)
-- Document | Lookup *(to Document from Core)*
-- Description | Memo
-- Details | Memo
+- Determination Title: Name
+- Determination Number: Text
+- Dispute: Lookup (Dispute)
+- Dispute Issue: Lookup (Dispute Issue)
+- Determination Type: Choice (Dispute Determination Type)
+- Stage: Choice (Dispute Determination Stage)
+- Determination Date: Date
+- Effective Date: Date
+- Deciding Official: Lookup (User)
+- Approval Status: Choice (Approval Status)
+- Overall Result: Choice (Overall Result)
+- Document: Lookup (Document)
+- Description: Memo
 
 ---
 
-## **Dispute Evidence**
+### Dispute Evidence
 
 Stores or references materials collected during investigation.
 Examples include documents, communications, records, media files, and external reports.
@@ -113,22 +107,22 @@ Examples include documents, communications, records, media files, and external r
 **Completed:**
 
 **Planned:**
-- Evidence Number | Text
-- Evidence Title | Text
-- Dispute | Lookup *(to Dispute)*
-- Dispute Investigation | Lookup *(to Dispute Investigation)*
-- Evidence Type | Choice (Dispute Evidence Type)
-- Collection Date | Date
-- Collected By | Lookup *(to Person from Core)*
-- Submitted By | Lookup *(to Person from Core)*
-- Document | Lookup *(to Document from Core)*
-- Is Confidential | Yes / No
-- Chain of Custody | Memo
-- Description | Memo
+- Evidence Title: Name
+- Evidence Number: Text
+- Dispute: Lookup (Dispute)
+- Dispute Investigation: Lookup (Dispute Investigation)
+- Evidence Type: Choice (Dispute Evidence Type)
+- Collection Date: Date
+- Collected By: Lookup (User)
+- Submitted By: Lookup (Person)
+- Document: Lookup (Document)
+- Is Confidential: Yes / No
+- Chain of Custody: Memo
+- Description: Memo
 
 ---
 
-## **Dispute Finding**
+### Dispute Finding
 
 Captures the conclusion reached for a specific dispute issue after investigation.
 Examples: Substantiated, Unsubstantiated, Inconclusive, Policy Violation Confirmed.
@@ -136,19 +130,18 @@ Examples: Substantiated, Unsubstantiated, Inconclusive, Policy Violation Confirm
 **Completed:**
 
 **Planned:**
-- Finding Number | Text
-- Dispute | Lookup *(to Dispute)*
-- Dispute Issue | Lookup *(to Dispute Issue)*
-- Dispute Investigation | Lookup *(to Dispute Investigation)*
-- Finding Type | Choice (Finding Result)
-- Finding Date | Date
-- Inspector | Lookup *(to Person from Core)*
-- Description | Memo
-- Details | Memo
+- Finding Title: Name
+- Finding Number: Text
+- Dispute: Lookup (Dispute)
+- Dispute Issue: Lookup (Dispute Issue)
+- Dispute Investigation: Lookup (Dispute Investigation)
+- Finding Type: Choice (Finding Result)
+- Finding Date: Date
+- Description: Memo
 
 ---
 
-## **Dispute Intake**
+### Dispute Intake
 
 Represents an initial inquiry, concern, or report prior to formal case creation.
 Supports anonymous reporting, early resolution efforts, and triage decisions.
@@ -156,26 +149,23 @@ Supports anonymous reporting, early resolution efforts, and triage decisions.
 **Completed:**
 
 **Planned:**
-- Intake Number | Text
-- Intake Title | Text
-- Stage | Choice (Dispute Intake Stage)
-- Disposition | Choice (Item Disposition)
-- Submission Date Time | Date Time
-- Method of Contact | Choice (Method of Contact)
-- Method of Contact | Choice (Method of Contact)
-- Submitted By | Lookup *(to Person from Core)*
-- Organization Unit | Lookup *(to Organization Unit from Core)*
-- Intake Specialist | Lookup *(to Person from Core)*
-- Priority | Choice (Priority)
-- Is Anonymous | Yes / No
-- Converted to Dispute | Lookup *(to Dispute)*
-- Conversion Date | Date
-- Description | Memo
-- Details | Memo
+- Intake Title: Name
+- Intake Number: Text
+- Stage: Choice (Dispute Intake Stage)
+- Disposition: Choice (Item Disposition)
+- Submission Date Time: Date Time
+- Method of Contact: Choice (Method of Contact)
+- Submitted By: Lookup (Person)
+- Organization Unit: Lookup (Organization Unit)
+- Priority: Choice (Priority)
+- Is Anonymous: Yes / No
+- Converted to Dispute: Lookup (Dispute)
+- Conversion Date: Date
+- Description: Memo
 
 ---
 
-## **Dispute Interview**
+### Dispute Interview
 
 Tracks interviews conducted as part of an investigation.
 Includes interviewee, role, date, summary, and related evidence.
@@ -183,23 +173,22 @@ Includes interviewee, role, date, summary, and related evidence.
 **Completed:**
 
 **Planned:**
-- Interview Number | Text
-- Dispute | Lookup *(to Dispute)*
-- Dispute Investigation | Lookup *(to Dispute Investigation)*
-- Interview Date Time | Date Time
-- Interviewee | Lookup *(to Person from Core)*
-- Interviewer | Lookup *(to Person from Core)*
-- Interview Type | Choice (Dispute Interview Type)
-- Location | Lookup *(to Location from Core)*
-- Duration Minutes | Integer
-- Was Recorded | Yes / No
-- Document | Lookup *(to Document from Core)*
-- Description | Memo
-- Notes | Memo
+- Interview Title: Name
+- Interview Number: Text
+- Dispute: Lookup (Dispute)
+- Dispute Investigation: Lookup (Dispute Investigation)
+- Interview Date Time: Date Time
+- Interviewee: Lookup (Person)
+- Interview Type: Choice (Dispute Interview Type)
+- Location: Lookup (Location)
+- Duration Minutes: Integer
+- Was Recorded: Yes / No
+- Document: Lookup (Document)
+- Description: Memo
 
 ---
 
-## **Dispute Investigation**
+### Dispute Investigation
 
 Represents the formal investigative process associated with a dispute.
 Tracks investigator assignment, scope, timeline, methodology, and Action Status.
@@ -207,25 +196,24 @@ Tracks investigator assignment, scope, timeline, methodology, and Action Status.
 **Completed:**
 
 **Planned:**
-- Investigation Number | Text
-- Investigation Title | Text
-- Dispute | Lookup *(to Dispute)*
-- Stage | Choice (Dispute Investigation Stage)
-- Completion Status | Choice (Item Completion Status)
-- Start Date | Date
-- Target Completion Date | Date
-- Actual Completion Date | Date
-- Lead Investigator | Lookup *(to Person from Core)*
-- Organization Unit | Lookup *(to Organization Unit from Core)*
-- Investigation Type | Choice (Dispute Investigation Type)
-- Methodology | Memo
-- Scope | Memo
-- Summary | Memo
-- Details | Memo
+- Investigation Title: Name
+- Investigation Number: Text
+- Dispute: Lookup (Dispute)
+- Stage: Choice (Dispute Investigation Stage)
+- Completion Status: Choice (Item Completion Status)
+- Start Date: Date
+- Target Completion Date: Date
+- Actual Completion Date: Date
+- Organization Unit: Lookup (Organization Unit)
+- Investigation Type: Choice (Dispute Investigation Type)
+- Methodology: Memo
+- Scope: Memo
+- Summary: Memo
+- Description: Memo
 
 ---
 
-## **Dispute Issue**
+### Dispute Issue
 
 Defines the specific allegation, claim, or concern within a dispute case.
 A single dispute may include multiple issues (e.g., discrimination, retaliation, harassment).
@@ -233,23 +221,22 @@ A single dispute may include multiple issues (e.g., discrimination, retaliation,
 **Completed:**
 
 **Planned:**
-- Issue Number | Text
-- Issue Title | Text
-- Dispute | Lookup *(to Dispute)*
-- Parent Dispute Issue | Lookup *(to Dispute Issue)*
-- Issue Type | Choice (Dispute Issue Type)
-- Severity Level | Choice (Severity Level)
-- Alleged Date | Date
-- Alleged By | Lookup *(to Person from Core)*
-- Alleged Against | Lookup *(to Person from Core)*
-- Organization Unit | Lookup *(to Organization Unit from Core)*
-- Legal Authority | Lookup *(to Legal Authority from Core)*
-- Description | Memo
-- Details | Memo
+- Issue Title: Name
+- Issue Number: Text
+- Dispute: Lookup (Dispute)
+- Parent Dispute Issue: Lookup (Dispute Issue)
+- Issue Type: Choice (Dispute Issue Type)
+- Severity Level: Choice (Severity Level)
+- Alleged Date: Date
+- Alleged By: Lookup (Person)
+- Alleged Against: Lookup (Person)
+- Organization Unit: Lookup (Organization Unit)
+- Legal Authority: Lookup (Legal Authority)
+- Description: Memo
 
 ---
 
-## **Dispute Mediation**
+### Dispute Mediation
 
 Represents a structured mediation or alternative dispute resolution effort.
 Tracks mediator, session dates, agreements reached, and mediation outcomes.
@@ -257,26 +244,24 @@ Tracks mediator, session dates, agreements reached, and mediation outcomes.
 **Completed:**
 
 **Planned:**
-- Mediation Number | Text
-- Mediation Title | Text
-- Dispute | Lookup *(to Dispute)*
-- Stage | Choice (Dispute Mediation Stage)
-- Decision Status | Choice (Item Decision Status)
-- Scheduled Date Time | Date Time
-- Actual Date Time | Date Time
-- Mediator | Lookup *(to Person from Core)*
-- Location | Lookup *(to Location from Core)*
-- Is Voluntary | Yes / No
-- Agreement Reached | Yes / No
-- Mediation Outcome | Choice (Dispute Mediation Outcome)
-- Agreement | Lookup *(to Agreement from Core)*
-- Document | Lookup *(to Document from Core)*
-- Description | Memo
-- Notes | Memo
+- Mediation Title: Name
+- Mediation Number: Text
+- Dispute: Lookup (Dispute)
+- Stage: Choice (Dispute Mediation Stage)
+- Decision Status: Choice (Item Decision Status)
+- Scheduled Date Time: Date Time
+- Actual Date Time: Date Time
+- Location: Lookup (Location)
+- Is Voluntary: Yes / No
+- Agreement Reached: Yes / No
+- Mediation Outcome: Choice (Dispute Mediation Outcome)
+- Agreement: Lookup (Agreement)
+- Document: Lookup (Document)
+- Description: Memo
 
 ---
 
-## **Dispute Party**
+### Dispute Party
 
 Associates individuals or entities to a dispute with defined roles.
 Roles may include complainant, respondent, witness, representative, investigator, or mediator.
@@ -284,20 +269,21 @@ Roles may include complainant, respondent, witness, representative, investigator
 **Completed:**
 
 **Planned:**
-- Dispute | Lookup *(to Dispute)*
-- Person | Lookup *(to Person from Core)*
-- Account | Lookup *(to Account from Core)*
-- Party Role | Choice (Dispute Party Role)
-- Start Date | Date
-- End Date | Date
-- Organization Unit | Lookup *(to Organization Unit from Core)*
-- Is Primary | Yes / No
-- Notified Date Time | Date Time
-- Description | Memo
+- Name: Text
+- Dispute: Lookup (Dispute)
+- Person: Lookup (Person)
+- Account: Lookup (Account)
+- Party Role: Choice (Dispute Party Role)
+- Start Date: Date
+- End Date: Date
+- Organization Unit: Lookup (Organization Unit)
+- Is Primary: Yes / No
+- Notified Date Time: Date Time
+- Description: Memo
 
 ---
 
-## **Dispute Referral**
+### Dispute Referral
 
 Tracks referral of an intake or case to another office, authority, or support function.
 Examples include HR, Legal, Security, Compliance, or external agencies.
@@ -305,18 +291,19 @@ Examples include HR, Legal, Security, Compliance, or external agencies.
 **Completed:**
 
 **Planned:**
-- Referral Number | Text
-- Dispute Intake | Lookup *(to Dispute Intake)*
-- Dispute | Lookup *(to Dispute)*
-- Stage | Choice (Dispute Referral Stage)
-- Referral Date | Date
-- Referred By | Lookup *(to Person from Core)*
-- Referred To Organization | Lookup *(to Organization Unit from Core)*
-- Referred To Person | Lookup *(to Person from Core)*
-- Referral Status | Choice (Dispute Referral Status)
-- Referral Reason | Memo
-- Response Date | Date
-- Response Summary | Memo
+- Referral Title: Name
+- Referral Number: Text
+- Dispute Intake: Lookup (Dispute Intake)
+- Dispute: Lookup (Dispute)
+- Stage: Choice (Dispute Referral Stage)
+- Referral Date: Date
+- Referred By: Lookup (User)
+- Referred To Organization: Lookup (Organization Unit)
+- Referred To Person: Lookup (Person)
+- Referral Reason: Memo
+- Description: Memo
+- Response Date: Date
+- Response Summary: Memo
 
 ---
 
@@ -526,3 +513,5 @@ Grounds for appeal:
 ### Dispute Referral Status → Dispute Referral Stage (Note: field still present in table, requires manual removal)
 ### Dispute Finding Type → Finding Result (Core)  
 Replaced with Core Finding Result which covers essential investigation outcomes (Substantiated, Partially Substantiated, Unsubstantiated, Inconclusive, No Finding, Unable to Determine). Domain-specific nuances like "Policy Violation Confirmed/No Policy Violation" map to Substantiated/Unsubstantiated. Process outcomes like "Withdrawn" or "Resolved Informally" should use Item Disposition instead.
+
+

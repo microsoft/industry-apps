@@ -75,6 +75,10 @@ def parse_field_line(line: str) -> Optional[Dict]:
     else:
         field_def['type'] = type_info
     
+    # Detect "Name" type - special operation to rename built-in Name field
+    if field_def['type'].lower() == 'name':
+        field_def['operation'] = 'rename_name_field'
+    
     return field_def
 
 

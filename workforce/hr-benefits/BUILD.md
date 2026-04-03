@@ -12,7 +12,6 @@ Defines a specific benefit offering provided by the organization (e.g., Medical 
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Plan Code: Text
 - Parent Benefit Plan: Lookup (HR Benefit Plan)
 - Benefit Category: Choice (Benefit Category)
@@ -26,13 +25,11 @@ Defines a specific benefit offering provided by the organization (e.g., Medical 
 - Allows Dependent Coverage: Yes / No
 - Allows Multiple Enrollments: Yes / No
 - Is Mandatory: Yes / No
-- Plan Administrator: Lookup (Person)
 - Administrator Organization Unit: Lookup (Organization Unit)
 - Plan Summary: Memo
 - Coverage Details: Memo
 - Legal Authority: Lookup (Legal Authority)
 - Compliance Framework: Lookup (Compliance Framework)
-- Notes: Memo
 
 ---
 
@@ -42,7 +39,6 @@ Defines selectable options within a benefit plan (e.g., PPO vs. HDHP, Basic vs. 
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Option Code: Text
 - HR Benefit Plan: Lookup (HR Benefit Plan)
 - Description: Memo
@@ -52,7 +48,6 @@ Defines selectable options within a benefit plan (e.g., PPO vs. HDHP, Basic vs. 
 - Is Default: Yes / No
 - Premium Amount: Currency
 - Coverage Summary: Memo
-- Notes: Memo
 
 ---
 
@@ -62,7 +57,6 @@ Defines coverage tiers available under benefit plans (e.g., Employee Only, Emplo
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Coverage Code: Text
 - HR Benefit Plan: Lookup (HR Benefit Plan)
 - Coverage Type: Choice (Benefit Coverage Type)
@@ -78,7 +72,6 @@ Stores information about the external or internal organization administering the
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Provider Code: Text
 - Provider Account: Lookup (Account)
 - Provider Type: Choice (Benefit Provider Type)
@@ -95,7 +88,6 @@ Stores information about the external or internal organization administering the
 - Group Number: Text
 - Tax ID: Text
 - Description: Memo
-- Notes: Memo
 
 ---
 
@@ -105,7 +97,6 @@ Stores plan-related documentation such as summary plan descriptions, policy docu
 **Completed:**
 
 **Planned:**
-- Name: Text
 - HR Benefit Plan: Lookup (HR Benefit Plan)
 - Document Type: Choice (Benefit Document Type)
 - Document: Lookup (Document)
@@ -114,7 +105,6 @@ Stores plan-related documentation such as summary plan descriptions, policy docu
 - Expiration Date: Date
 - Version Number: Text
 - Description: Memo
-- Notes: Memo
 
 ---
 
@@ -126,7 +116,6 @@ Defines reusable eligibility conditions for benefit participation, such as emplo
 **Completed:**
 
 **Planned:**
-- Name: Text
 - HR Benefit Plan: Lookup (HR Benefit Plan)
 - Rule Type: Choice (Benefit Eligibility Rule Type)
 - Description: Memo
@@ -141,7 +130,6 @@ Defines reusable eligibility conditions for benefit participation, such as emplo
 - Age Minimum: Integer
 - Age Maximum: Integer
 - Rule Priority: Integer
-- Notes: Memo
 
 ---
 
@@ -151,7 +139,6 @@ Defines waiting period rules before an employee becomes eligible for enrollment 
 **Completed:**
 
 **Planned:**
-- Name: Text
 - HR Benefit Plan: Lookup (HR Benefit Plan)
 - Waiting Period Type: Choice (Benefit Waiting Period Type)
 - Waiting Days: Integer
@@ -167,7 +154,6 @@ Defines enrollment windows such as Open Enrollment, New Hire Enrollment, or Spec
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Period Type: Choice (Benefit Enrollment Period Type)
 - Stage: Choice (Term Status)
 - Start Date: Date
@@ -178,11 +164,9 @@ Defines enrollment windows such as Open Enrollment, New Hire Enrollment, or Spec
 - Default Effective Date: Date
 - Grace Period Days: Integer
 - Requires Life Event: Yes / No
-- Administrator: Lookup (Person)
 - Communication Sent: Yes / No
 - Communication Date: Date
 - Description: Memo
-- Notes: Memo
 
 ---
 
@@ -194,7 +178,6 @@ Represents an individual's enrollment in a specific benefit plan, including sele
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Enrollment Number: Text
 - Person: Lookup (Person)
 - HR Benefit Plan: Lookup (HR Benefit Plan)
@@ -208,7 +191,7 @@ Represents an individual's enrollment in a specific benefit plan, including sele
 - Effective Start Date: Date
 - Effective End Date: Date
 - Coverage End Date: Date
-- Submitted By: Lookup (Person)
+- Submitted By: Lookup (User)
 - Submitted Date: Date
 - Enrollment Source: Choice (Benefit Enrollment Source)
 - Related Life Event: Lookup (HR Benefit Life Event)
@@ -222,7 +205,6 @@ Represents an individual's enrollment in a specific benefit plan, including sele
 - Confirmation Sent: Yes / No
 - Confirmation Date: Date
 - Supporting Document: Lookup (Document)
-- Notes: Memo
 
 ---
 
@@ -232,13 +214,11 @@ Captures detailed selections made under a benefit enrollment, such as optional r
 **Completed:**
 
 **Planned:**
-- Name: Text
 - HR Benefit Enrollment: Lookup (HR Benefit Enrollment)
 - Election Type: Choice (Benefit Election Type)
 - Election Value: Text
 - Election Amount: Currency
 - Description: Memo
-- Notes: Memo
 
 ---
 
@@ -248,7 +228,6 @@ Stores beneficiary designations for benefit plans that require them (e.g., life 
 **Completed:**
 
 **Planned:**
-- Name: Text
 - HR Benefit Enrollment: Lookup (HR Benefit Enrollment)
 - Person: Lookup (Person)
 - Beneficiary Type: Choice (Benefit Beneficiary Type)
@@ -264,7 +243,7 @@ Stores beneficiary designations for benefit plans that require them (e.g., life 
 - Email: Text
 - Effective Start Date: Date
 - Effective End Date: Date
-- Notes: Memo
+- Description: Memo
 
 ---
 
@@ -276,7 +255,6 @@ Records a reported qualifying life event for an individual (e.g., marriage, birt
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Event Number: Text
 - Person: Lookup (Person)
 - Life Event Type: Choice (Benefit Life Event Type)
@@ -289,11 +267,10 @@ Records a reported qualifying life event for an individual (e.g., marriage, birt
 - Supporting Documentation Required: Yes / No
 - Documentation Received: Yes / No
 - Documentation Date: Date
-- Verified By: Lookup (Person)
+- Verified By: Lookup (User)
 - Verification Date: Date
 - Description: Memo
 - Supporting Document: Lookup (Document)
-- Notes: Memo
 
 ---
 
@@ -303,7 +280,6 @@ Tracks specific benefit enrollment changes resulting from a life event, includin
 **Completed:**
 
 **Planned:**
-- Name: Text
 - HR Benefit Life Event: Lookup (HR Benefit Life Event)
 - HR Benefit Enrollment: Lookup (HR Benefit Enrollment)
 - Change Type: Choice (Benefit Enrollment Change Type)
@@ -317,11 +293,10 @@ Tracks specific benefit enrollment changes resulting from a life event, includin
 - New Coverage Level: Lookup (HR Benefit Coverage Level)
 - Previous Premium: Currency
 - New Premium: Currency
-- Approved By: Lookup (Person)
+- Approved By: Lookup (User)
 - Approval Date: Date
 - Processed Date: Date
 - Description: Memo
-- Notes: Memo
 
 ---
 
@@ -333,7 +308,6 @@ Defines employer and employee contribution structures for a benefit plan, option
 **Completed:**
 
 **Planned:**
-- Name: Text
 - HR Benefit Plan: Lookup (HR Benefit Plan)
 - HR Benefit Option: Lookup (HR Benefit Option)
 - HR Benefit Coverage Level: Lookup (HR Benefit Coverage Level)
@@ -349,7 +323,7 @@ Defines employer and employee contribution structures for a benefit plan, option
 - Total Premium Amount: Currency
 - Applies To Personnel Types: Text
 - Applies To Pay Grades: Text
-- Notes: Memo
+- Description: Memo
 
 ---
 
@@ -359,7 +333,6 @@ Defines how employer benefit costs are allocated across funds, cost centers, gra
 **Completed:**
 
 **Planned:**
-- Name: Text
 - HR Benefit Plan: Lookup (HR Benefit Plan)
 - Organization Unit: Lookup (Organization Unit)
 - Funding Source: Text
@@ -369,7 +342,7 @@ Defines how employer benefit costs are allocated across funds, cost centers, gra
 - Allocation Amount: Currency
 - Effective Start Date: Date
 - Effective End Date: Date
-- Notes: Memo
+- Description: Memo
 
 ---
 
@@ -379,7 +352,6 @@ Maps benefit enrollments to payroll deduction identifiers. Supports integration 
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Deduction Code: Text
 - HR Benefit Plan: Lookup (HR Benefit Plan)
 - Deduction Type: Choice (Benefit Deduction Type)
@@ -399,7 +371,6 @@ Tracks internal benefit-related claims or reimbursement requests (e.g., tuition 
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Claim Number: Text
 - Person: Lookup (Person)
 - HR Benefit Enrollment: Lookup (HR Benefit Enrollment)
@@ -416,15 +387,14 @@ Tracks internal benefit-related claims or reimbursement requests (e.g., tuition 
 - Payment Status: Choice (Payment Status)
 - Payment Date: Date
 - Payment Method: Text
-- Submitted By: Lookup (Person)
-- Reviewed By: Lookup (Person)
+- Submitted By: Lookup (User)
+- Reviewed By: Lookup (User)
 - Review Date: Date
 - Approval Status: Choice (Approval Status)
-- Approved By: Lookup (Person)
+- Approved By: Lookup (User)
 - Approval Date: Date
 - Description: Memo
 - Supporting Document: Lookup (Document)
-- Notes: Memo
 
 ---
 

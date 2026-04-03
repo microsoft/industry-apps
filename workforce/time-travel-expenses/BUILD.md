@@ -12,7 +12,6 @@ Represents a defined reporting cycle such as a week, pay period, or month used t
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Period Code: Text
 - Period Type: Choice (Schedule Frequency)
 - Period Start Date: Date
@@ -24,8 +23,7 @@ Represents a defined reporting cycle such as a week, pay period, or month used t
 - Due Date: Date
 - Locked Date: Date
 - Is Locked: Yes / No
-- Locked By: Lookup (Person)
-- Notes: Memo
+- Locked By: Lookup (User)
 
 ---
 
@@ -35,7 +33,6 @@ Represents a hierarchical classification structure used to categorize Time Entri
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Time Code: Text
 - Parent Time Code: Lookup (Time Code)
 - Time Code Category: Choice (Time Code Category)
@@ -48,10 +45,9 @@ Represents a hierarchical classification structure used to categorize Time Entri
 - Is Billable: Yes / No
 - Is Overtime Eligible: Yes / No
 - Requires Approval: Yes / No
-- Default Approver: Lookup (Person)
+- Default Approver: Lookup (User)
 - Effective Start Date: Date
 - Effective End Date: Date
-- Notes: Memo
 
 ---
 
@@ -61,9 +57,8 @@ Represents the actual time worked by a person on a specific date, including hour
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Entry Number: Text
-- Person: Lookup (Person)
+- Person: Lookup (User)
 - Organization Unit: Lookup (Organization Unit)
 - Time Period: Lookup (Time Period)
 - Entry Date: Date
@@ -83,18 +78,17 @@ Represents the actual time worked by a person on a specific date, including hour
 - Related Action Item: Lookup (Action Item)
 - Related Travel Request: Lookup (Travel Request)
 - Submitted Date: Date
-- Submitted By: Lookup (Person)
+- Submitted By: Lookup (User)
 - Reviewed Date: Date
-- Reviewed By: Lookup (Person)
+- Reviewed By: Lookup (User)
 - Review Notes: Memo
 - Approved Date: Date
-- Approved By: Lookup (Person)
+- Approved By: Lookup (User)
 - Approval Status: Choice (Approval Status)
 - Approval Notes: Memo
 - Rejected Date: Date
 - Rejection Reason: Memo
 - Is Locked: Yes / No
-- Notes: Memo
 
 ---
 
@@ -104,9 +98,8 @@ Represents a planned availability or obligation for a person over a defined date
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Commitment Number: Text
-- Person: Lookup (Person)
+- Person: Lookup (User)
 - Organization Unit: Lookup (Organization Unit)
 - Commitment Type: Choice (Time Commitment Type)
 - Stage: Choice (Time Commitment Stage)
@@ -126,12 +119,11 @@ Represents a planned availability or obligation for a person over a defined date
 - Requires Approval: Yes / No
 - Requested Date: Date
 - Approved Date: Date
-- Approved By: Lookup (Person)
+- Approved By: Lookup (User)
 - Approval Status: Choice (Approval Status)
 - Approval Notes: Memo
 - Is Recurring: Yes / No
 - Recurrence Pattern: Text
-- Notes: Memo
 
 ---
 
@@ -143,13 +135,12 @@ Represents standardized reasons for travel such as training, site visits, inspec
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Purpose Code: Text
 - Purpose Category: Choice (Travel Purpose Category)
 - Description: Memo
 - Requires Justification: Yes / No
 - Requires Advance Approval: Yes / No
-- Default Approver: Lookup (Person)
+- Default Approver: Lookup (User)
 
 ---
 
@@ -159,9 +150,8 @@ Represents a planned or approved trip, including traveler details, purpose, date
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Travel Request Number: Text
-- Traveler: Lookup (Person)
+- Traveler: Lookup (User)
 - Traveler Organization Unit: Lookup (Organization Unit)
 - Additional Travelers: Text
 - Stage: Choice (Travel Request Stage)
@@ -196,13 +186,13 @@ Represents a planned or approved trip, including traveler details, purpose, date
 - Project: Lookup (Project)
 - Related Event: Lookup (Event)
 - Requested Date: Date
-- Requested By: Lookup (Person)
+- Requested By: Lookup (User)
 - Submitted Date: Date
 - Reviewed Date: Date
-- Reviewed By: Lookup (Person)
+- Reviewed By: Lookup (User)
 - Review Notes: Memo
 - Approved Date: Date
-- Approved By: Lookup (Person)
+- Approved By: Lookup (User)
 - Approval Status: Choice (Approval Status)
 - Approval Notes: Memo
 - Authorization Number: Text
@@ -211,7 +201,6 @@ Represents a planned or approved trip, including traveler details, purpose, date
 - Completed Date: Date
 - Trip Report: Memo
 - Supporting Document: Lookup (Document)
-- Notes: Memo
 
 ---
 
@@ -221,7 +210,6 @@ Represents an individual component of a trip, such as a flight, lodging stay, or
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Segment Number: Text
 - Travel Request: Lookup (Travel Request)
 - Segment Type: Choice (Travel Segment Type)
@@ -243,7 +231,7 @@ Represents an individual component of a trip, such as a flight, lodging stay, or
 - Flight Number: Text
 - Confirmation Number: Text
 - Booking Reference: Text
-- Booked By: Lookup (Person)
+- Booked By: Lookup (User)
 - Booking Date: Date
 - Check In Date: Date
 - Check Out Date: Date
@@ -255,7 +243,6 @@ Represents an individual component of a trip, such as a flight, lodging stay, or
 - Estimated Cost: Currency
 - Actual Cost: Currency
 - Segment Notes: Memo
-- Notes: Memo
 
 ---
 
@@ -267,7 +254,6 @@ Represents standardized classifications for expenses such as lodging, meals, mil
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Category Code: Text
 - Parent Category: Lookup (Expense Category)
 - Expense Category Type: Choice (Expense Category Type)
@@ -277,7 +263,7 @@ Represents standardized classifications for expenses such as lodging, meals, mil
 - Receipt Threshold Amount: Currency
 - Requires Justification: Yes / No
 - Requires Approval: Yes / No
-- Default Approver: Lookup (Person)
+- Default Approver: Lookup (User)
 - Maximum Amount Per Day: Currency
 - Maximum Amount Per Trip: Currency
 - Is Mileage Based: Yes / No
@@ -292,9 +278,8 @@ Represents a grouped submission of multiple Expense Items for review, approval, 
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Expense Report Number: Text
-- Person: Lookup (Person)
+- Person: Lookup (User)
 - Organization Unit: Lookup (Organization Unit)
 - Stage: Choice (Expense Report Stage)
 - Report Type: Choice (Expense Report Type)
@@ -317,12 +302,12 @@ Represents a grouped submission of multiple Expense Items for review, approval, 
 - Cost Center: Text
 - Project: Lookup (Project)
 - Submitted Date: Date
-- Submitted By: Lookup (Person)
+- Submitted By: Lookup (User)
 - Reviewed Date: Date
-- Reviewed By: Lookup (Person)
+- Reviewed By: Lookup (User)
 - Review Notes: Memo
 - Approved Date: Date
-- Approved By: Lookup (Person)
+- Approved By: Lookup (User)
 - Approval Status: Choice (Approval Status)
 - Approval Notes: Memo
 - Payment Date: Date
@@ -331,7 +316,6 @@ Represents a grouped submission of multiple Expense Items for review, approval, 
 - Rejected Date: Date
 - Rejection Reason: Memo
 - Supporting Document: Lookup (Document)
-- Notes: Memo
 
 ---
 
@@ -341,7 +325,6 @@ Represents an individual expense transaction recorded under an Expense Report. C
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Item Number: Text
 - Expense Report: Lookup (Expense Report)
 - Expense Category: Lookup (Expense Category)
@@ -385,7 +368,6 @@ Represents an individual expense transaction recorded under an Expense Report. C
 - GL Account: Text
 - Cost Center: Text
 - Supporting Document: Lookup (Document)
-- Notes: Memo
 
 ---
 

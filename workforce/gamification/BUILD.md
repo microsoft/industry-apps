@@ -12,7 +12,6 @@ Represents a structured gamification initiative or campaign. A Game defines the 
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Game Code: Text
 - Game Type: Choice (Gamification Game Type)
 - Description: Memo
@@ -26,7 +25,6 @@ Represents a structured gamification initiative or campaign. A Game defines the 
 - Open Enrollment: Yes / No
 - Requires Approval: Yes / No
 - Owner Organization Unit: Lookup (Organization Unit)
-- Game Administrator: Lookup (Person)
 - Organization Initiative: Lookup (Organization Initiative)
 - Total Participants: Integer
 - Active Participants: Integer
@@ -38,7 +36,6 @@ Represents a structured gamification initiative or campaign. A Game defines the 
 - Logo URL: Text
 - Banner URL: Text
 - Rules: Memo
-- Notes: Memo
 
 ---
 
@@ -48,7 +45,6 @@ Defines the types of actions that are tracked within a Game. Activities represen
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Game: Lookup (Game)
 - Parent Game Activity: Lookup (Game Activity)
 - Activity Code: Text
@@ -71,7 +67,6 @@ Defines the achievements that can be earned within a Game. These may represent b
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Game: Lookup (Game)
 - Parent Game Achievement: Lookup (Game Achievement)
 - Achievement Code: Text
@@ -91,7 +86,6 @@ Defines the achievements that can be earned within a Game. These may represent b
 - Reward Value: Currency
 - Reward Description: Memo
 - Total Earned: Integer
-- Notes: Memo
 
 ---
 
@@ -103,7 +97,6 @@ Represents an individual or team enrolled in a specific Game. This table tracks 
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Game: Lookup (Game)
 - Person: Lookup (Person)
 - Participant Organization Unit: Lookup (Organization Unit)
@@ -123,7 +116,7 @@ Represents an individual or team enrolled in a specific Game. This table tracks 
 - Notifications Enabled: Yes / No
 - Is Team Lead: Yes / No
 - Eligibility Status: Choice (Eligibility Status)
-- Notes: Memo
+- Description: Memo
 
 ---
 
@@ -133,16 +126,14 @@ Logs instances of Participants performing defined Game Activities. This table ca
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Game Participant: Lookup (Game Participant)
 - Game: Lookup (Game)
 - Game Activity: Lookup (Game Activity)
-- Person: Lookup (Person)
 - Activity Date Time: Date Time
 - Stage: Choice (Game Participant Activity Stage)
 - Validation Status: Choice (Item Validation Status)
 - Points Earned: Integer
-- Verified By: Lookup (Person)
+- Verified By: Lookup (User)
 - Verification Date: Date
 - Verification Notes: Memo
 - Source Record Type: Text
@@ -154,7 +145,6 @@ Logs instances of Participants performing defined Game Activities. This table ca
 - Evidence URL: Text
 - Supporting Document: Lookup (Document)
 - Auto Recorded: Yes / No
-- Notes: Memo
 
 ---
 
@@ -164,18 +154,16 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Game Participant: Lookup (Game Participant)
 - Game: Lookup (Game)
 - Game Achievement: Lookup (Game Achievement)
-- Person: Lookup (Person)
 - Stage: Choice (Game Participant Achievement Stage)
 - Decision Status: Choice (Item Decision Status)
 - Earned Date: Date
 - Awarded Date: Date
-- Awarded By: Lookup (Person)
+- Awarded By: Lookup (User)
 - Revoked Date: Date
-- Revoked By: Lookup (Person)
+- Revoked By: Lookup (User)
 - Revoke Reason: Memo
 - Points Earned: Integer
 - Recognition Status: Choice (Gamification Recognition Status)
@@ -185,12 +173,11 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 - Reward Delivered: Yes / No
 - Reward Delivery Date: Date
 - Approval Required: Yes / No
-- Approved By: Lookup (Person)
+- Approved By: Lookup (User)
 - Approval Date: Date
 - Is Visible: Yes / No
 - Display on Profile: Yes / No
 - Achievement Notes: Memo
-- Notes: Memo
 
 ---
 

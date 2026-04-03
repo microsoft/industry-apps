@@ -844,9 +844,6 @@ async def create_fields(request: CreateFieldsRequest):
                 yield f"data: {{\"type\": \"output\", \"line\": \"✓ All lookup field target tables found\"}}\n\n"
                 yield f"data: {{\"type\": \"output\", \"line\": \"\"}}\n\n"
             
-            yield f"data: {{\"type\": \"output\", \"line\": \"Creating fields...\"}}\n\n"
-            yield f"data: {{\"type\": \"output\", \"line\": \"\"}}\n\n"
-            
             # Resolve table name to logical name
             all_tables = client.get_entity_definitions()
             table_by_logical = {t["logicalName"]: t["logicalName"] for t in all_tables}
@@ -861,16 +858,62 @@ async def create_fields(request: CreateFieldsRequest):
                 yield f"data: {{\"type\": \"error\", \"message\": \"Table '{request.tableName}' not found in Dataverse\"}}\n\n"
                 return
             
+            # Separate Name field renames from regular field creations
+            name_field = None
+            fields_to_create = []
+            
+            for field in request.fields:
+                if field.get('operation') == 'rename_name_field':
+                    if name_field:
+                        yield f"data: {{\"type\": \"error\", \"message\": \"Multiple Name fields specified - only one allowed per table\"}}\n\n"
+                        return
+                    name_field = field
+                else:
+                    fields_to_create.append(field)
+            
+            # Calculate total operations
+            total_operations = len(fields_to_create) + (1 if name_field else 0)
+            
+            # Process Name field rename first (if specified)
+            name_rename_success = False
+            if name_field:
+                yield f"data: {{\"type\": \"output\", \"line\": \"Renaming table Name field...\"}}\n\n"
+                yield f"data: {{\"type\": \"output\", \"line\": \"  New display name: {name_field['displayName']}\"}}\n\n"
+                
+                result = client.update_name_field_display_name(
+                    table_logical_name=table_logical_name,
+                    new_display_name=name_field['displayName']
+                )
+                
+                if result.get('success'):
+                    yield f"data: {{\"type\": \"output\", \"line\": \"  ✓ Name field renamed successfully\"}}\n\n"
+                    yield f"data: {{\"type\": \"output\", \"line\": \"\"}}\n\n"
+                    name_rename_success = True
+                else:
+                    error_msg = result.get('error', 'Unknown error').replace('\"', '\\\\\"')
+                    yield f"data: {{\"type\": \"output\", \"line\": \"  ✗ Failed: {error_msg}\"}}\n\n"
+                    yield f"data: {{\"type\": \"output\", \"line\": \"\"}}\n\n"
+            
+            # Now create regular fields
+            if fields_to_create:
+                yield f"data: {{\"type\": \"output\", \"line\": \"Creating fields...\"}}\n\n"
+                yield f"data: {{\"type\": \"output\", \"line\": \"\"}}\n\n"
+            
             # Create fields
             success_count = 0
             fail_count = 0
             
-            for i, field in enumerate(request.fields, 1):
+            if name_rename_success:
+                success_count += 1
+            elif name_field and not name_rename_success:
+                fail_count += 1
+            
+            for i, field in enumerate(fields_to_create, 1):
                 schema_name = field.get("schemaName")
                 display_name = field.get("displayName")
                 field_type = field.get("type")
                 
-                yield f"data: {{\"type\": \"output\", \"line\": \"[{i}/{len(request.fields)}] Creating: {schema_name} ({display_name})\"}}\n\n"
+                yield f"data: {{\"type\": \"output\", \"line\": \"[{i}/{len(fields_to_create)}] Creating: {schema_name} ({display_name})\"}}\n\n"
                 yield f"data: {{\"type\": \"output\", \"line\": \"  Type: {field_type}\"}}\n\n"
                 
                 # Create the field using the resolved logical table name
@@ -888,7 +931,7 @@ async def create_fields(request: CreateFieldsRequest):
             
             # Summary
             yield f"data: {{\"type\": \"output\", \"line\": \"=== Summary ===\"}}\n\n"
-            yield f"data: {{\"type\": \"output\", \"line\": \"Total fields: {len(request.fields)}\"}}\n\n"
+            yield f"data: {{\"type\": \"output\", \"line\": \"Total operations: {total_operations}\"}}\n\n"
             yield f"data: {{\"type\": \"output\", \"line\": \"✓ Successful: {success_count}\"}}\n\n"
             if fail_count > 0:
                 yield f"data: {{\"type\": \"output\", \"line\": \"✗ Failed: {fail_count}\"}}\n\n"

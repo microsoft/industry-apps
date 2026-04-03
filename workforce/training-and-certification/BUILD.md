@@ -12,7 +12,6 @@ Represents a catalog entry for a learning offering, including description, objec
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Course Code: Text
 - Parent Training Course: Lookup (Training Course)
 - Course Type: Choice (Training Course Type)
@@ -24,7 +23,7 @@ Represents a catalog entry for a learning offering, including description, objec
 - Target Audience: Memo
 - Prerequisites: Memo
 - Owning Organization Unit: Lookup (Organization Unit)
-- Course Owner: Lookup (Person)
+- Course Owner: Lookup (User)
 - Subject Area: Text
 - Credit Hours: Float
 - Continuing Education Units: Float
@@ -49,7 +48,6 @@ Represents a catalog entry for a learning offering, including description, objec
 - Effective Start Date: Date
 - Effective End Date: Date
 - Version: Text
-- Notes: Memo
 
 ---
 
@@ -59,7 +57,6 @@ Represents prerequisite conditions required before enrolling in or completing a 
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Training Course: Lookup (Training Course)
 - Requirement Type: Choice (Training Requirement Type)
 - Required Training Course: Lookup (Training Course)
@@ -71,7 +68,7 @@ Represents prerequisite conditions required before enrolling in or completing a 
 - Is Prerequisite: Yes / No
 - Is Corequisite: Yes / No
 - Is Waivable: Yes / No
-- Waiver Authority: Lookup (Person)
+- Waiver Authority: Lookup (User)
 - Requirement Notes: Memo
 
 ---
@@ -82,7 +79,6 @@ Represents a learning objective or outcome associated with a Training Course.
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Objective Code: Text
 - Training Course: Lookup (Training Course)
 - Objective Type: Choice (Training Objective Type)
@@ -102,7 +98,6 @@ Represents an individual authorized to deliver Training Sessions.
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Instructor Code: Text
 - Person: Lookup (Person)
 - Instructor Status: Choice (Duty Status)
@@ -118,7 +113,6 @@ Represents an individual authorized to deliver Training Sessions.
 - Hourly Rate: Currency
 - Effective Start Date: Date
 - Effective End Date: Date
-- Notes: Memo
 
 ---
 
@@ -128,7 +122,6 @@ Represents a defined academic period (e.g., Fall 2026, Spring 2027) used to orga
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Term Code: Text
 - Term Type: Choice (Training Term Type)
 - Academic Year: Integer
@@ -141,7 +134,6 @@ Represents a defined academic period (e.g., Fall 2026, Spring 2027) used to orga
 - Withdrawal Deadline Date: Date
 - Final Exam Start Date: Date
 - Final Exam End Date: Date
-- Notes: Memo
 
 ---
 
@@ -151,7 +143,6 @@ Represents a scheduled offering of a Training Course within a specific Academic 
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Session Code: Text
 - Training Course: Lookup (Training Course)
 - Academic Term: Lookup (Academic Term)
@@ -188,7 +179,6 @@ Represents a scheduled offering of a Training Course within a specific Academic 
 - Cancellation Reason: Memo
 - Session Materials: Lookup (Document)
 - Session Agenda: Lookup (Document)
-- Notes: Memo
 
 ---
 
@@ -198,16 +188,15 @@ Represents an individual's registration in a specific Training Session.
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Enrollment Number: Text
 - Training Session: Lookup (Training Session)
 - Person: Lookup (Person)
 - Enrollment Status: Choice (Registration Status)
 - Enrollment Date: Date
 - Enrollment Method: Choice (Method of Contact)
-- Enrolled By: Lookup (Person)
+- Enrolled By: Lookup (User)
 - Approved Date: Date
-- Approved By: Lookup (Person)
+- Approved By: Lookup (User)
 - Approval Status: Choice (Approval Status)
 - Waitlist Position: Integer
 - Waitlist Date: Date
@@ -230,12 +219,11 @@ Represents an individual's registration in a specific Training Session.
 - Materials Amount: Currency
 - Total Amount: Currency
 - Amount Paid: Currency
-- Payment Status: Choice (Training Payment Status)
+- Payment Status: Choice (Payment Status)
 - Funding Source: Text
 - Requires Accommodation: Yes / No
 - Accommodation Notes: Memo
 - Supporting Document: Lookup (Document)
-- Notes: Memo
 
 ---
 
@@ -245,7 +233,6 @@ Represents an individual's attendance status for a specific Training Session (an
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Training Enrollment: Lookup (Training Enrollment)
 - Attendance Date: Date
 - Attendance Status: Choice (Training Attendance Status)
@@ -257,9 +244,8 @@ Represents an individual's attendance status for a specific Training Session (an
 - Location: Lookup (Location)
 - Is Excused: Yes / No
 - Excuse Reason: Memo
-- Recorded By: Lookup (Person)
+- Recorded By: Lookup (User)
 - Recorded Date: Date Time
-- Notes: Memo
 
 ---
 
@@ -269,7 +255,6 @@ Represents an individual's successful or attempted completion of a Training Cour
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Completion Number: Text
 - Training Course: Lookup (Training Course)
 - Training Enrollment: Lookup (Training Enrollment)
@@ -294,14 +279,13 @@ Represents an individual's successful or attempted completion of a Training Cour
 - Certificate Number: Text
 - Certificate Expiration Date: Date
 - Verification Code: Text
-- Verified By: Lookup (Person)
+- Verified By: Lookup (User)
 - Verification Date: Date
 - Transcript Entry: Yes / No
 - External Course: Yes / No
 - External Provider: Text
 - Transfer Credits: Yes / No
 - Supporting Document: Lookup (Document)
-- Notes: Memo
 
 ---
 
@@ -313,7 +297,6 @@ Represents an ordered or curated sequence of Training Courses intended to guide 
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Path Code: Text
 - Parent Learning Path: Lookup (Learning Path)
 - Path Type: Choice (Training Learning Path Type)
@@ -322,7 +305,7 @@ Represents an ordered or curated sequence of Training Courses intended to guide 
 - Learning Objectives: Memo
 - Target Audience: Memo
 - Owning Organization Unit: Lookup (Organization Unit)
-- Path Owner: Lookup (Person)
+- Path Owner: Lookup (User)
 - Total Credit Hours: Float
 - Total Duration (Hours): Float
 - Estimated Completion Time (Weeks): Integer
@@ -333,7 +316,6 @@ Represents an ordered or curated sequence of Training Courses intended to guide 
 - Effective Start Date: Date
 - Effective End Date: Date
 - Icon URL: Text
-- Notes: Memo
 
 ---
 
@@ -343,7 +325,6 @@ Represents the association between a Learning Path and its component Training Co
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Learning Path: Lookup (Learning Path)
 - Training Course: Lookup (Training Course)
 - Is Required: Yes / No
@@ -363,7 +344,6 @@ Represents a credential that may be awarded upon meeting defined requirements. I
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Certificate Code: Text
 - Certificate Type: Choice (Training Certificate Type)
 - Certificate Category: Text
@@ -392,7 +372,6 @@ Represents a credential that may be awarded upon meeting defined requirements. I
 - Effective Start Date: Date
 - Effective End Date: Date
 - Website URL: Text
-- Notes: Memo
 
 ---
 
@@ -402,7 +381,6 @@ Represents the criteria required to earn a Training Certificate, such as complet
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Training Certificate: Lookup (Training Certificate)
 - Requirement Type: Choice (Training Requirement Type)
 - Required Training Course: Lookup (Training Course)
@@ -414,7 +392,7 @@ Represents the criteria required to earn a Training Certificate, such as complet
 - Minimum Experience (Months): Integer
 - Is Required: Yes / No
 - Is Waivable: Yes / No
-- Waiver Authority: Lookup (Person)
+- Waiver Authority: Lookup (User)
 - Requirement Notes: Memo
 
 ---
@@ -425,7 +403,6 @@ Represents a specific instance of a Training Certificate awarded to an individua
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Certificate Number: Text
 - Training Certificate: Lookup (Training Certificate)
 - Person: Lookup (Person)
@@ -435,7 +412,7 @@ Represents a specific instance of a Training Certificate awarded to an individua
 - Effective Date: Date
 - Revocation Date: Date
 - Revocation Reason: Memo
-- Issued By: Lookup (Person)
+- Issued By: Lookup (User)
 - Issuing Organization Unit: Lookup (Organization Unit)
 - Verification Code: Text
 - Is Expired: Yes / No
@@ -446,7 +423,6 @@ Represents a specific instance of a Training Certificate awarded to an individua
 - Certificate Document: Lookup (Document)
 - Digital Badge URL: Text
 - Verification URL: Text
-- Notes: Memo
 
 ---
 
@@ -456,7 +432,6 @@ Represents a renewal event for a Training Certificate Achievement, including ren
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Renewal Number: Text
 - Training Certificate Achievement: Lookup (Training Certificate Achievement)
 - Renewal Status: Choice (Renewal Status)
@@ -471,13 +446,12 @@ Represents a renewal event for a Training Certificate Achievement, including ren
 - Renewal Fee: Currency
 - Fee Paid: Yes / No
 - Payment Date: Date
-- Processed By: Lookup (Person)
+- Processed By: Lookup (User)
 - Processed Date: Date
-- Approved By: Lookup (Person)
+- Approved By: Lookup (User)
 - Approval Date: Date
 - Approval Status: Choice (Approval Status)
 - Supporting Document: Lookup (Document)
-- Notes: Memo
 
 ---
 
@@ -489,7 +463,6 @@ Represents a structured curriculum such as a degree, diploma, or formal certific
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Program Code: Text
 - Parent Academic Program: Lookup (Academic Program)
 - Program Type: Choice (Training Academic Program Type)
@@ -500,7 +473,7 @@ Represents a structured curriculum such as a degree, diploma, or formal certific
 - Learning Outcomes: Memo
 - Admission Requirements: Memo
 - Owning Organization Unit: Lookup (Organization Unit)
-- Program Director: Lookup (Person)
+- Program Director: Lookup (User)
 - Accreditation Body: Text
 - Accreditation Status: Text
 - Accreditation Date: Date
@@ -521,7 +494,6 @@ Represents a structured curriculum such as a degree, diploma, or formal certific
 - Program Catalog: Lookup (Document)
 - Effective Start Date: Date
 - Effective End Date: Date
-- Notes: Memo
 
 ---
 
@@ -531,7 +503,6 @@ Represents the specific course, path, credit, or rule requirements that must be 
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Academic Program: Lookup (Academic Program)
 - Requirement Type: Choice (Training Program Requirement Type)
 - Requirement Category: Text
@@ -554,7 +525,6 @@ Represents an individual's Action Status for an Academic Program, including comp
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Completion Number: Text
 - Academic Program: Lookup (Academic Program)
 - Person: Lookup (Person)
@@ -576,14 +546,13 @@ Represents an individual's Action Status for an Academic Program, including comp
 - Commencement Date: Date
 - Graduation Ceremony: Lookup (Event)
 - Conferral Status: Choice (Conferral Status)
-- Academic Advisor: Lookup (Person)
-- Program Director: Lookup (Person)
+- Academic Advisor: Lookup (User)
+- Program Director: Lookup (User)
 - Transcript Issued: Yes / No
 - Transcript Issue Date: Date
 - Verification Code: Text
 - Diploma Document: Lookup (Document)
 - Official Transcript: Lookup (Document)
-- Notes: Memo
 
 ---
 
@@ -595,7 +564,6 @@ Represents a reusable eligibility rule set that specifies what an individual mus
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Requirement Code: Text
 - Requirement Type: Choice (Training Qualification Requirement Type)
 - Requirement Category: Text
@@ -603,7 +571,7 @@ Represents a reusable eligibility rule set that specifies what an individual mus
 - Purpose: Memo
 - Evaluation Logic: Memo
 - Owning Organization Unit: Lookup (Organization Unit)
-- Requirement Owner: Lookup (Person)
+- Requirement Owner: Lookup (User)
 - Effective Start Date: Date
 - Effective End Date: Date
 - Validation Frequency: Choice (Schedule Frequency)
@@ -611,7 +579,6 @@ Represents a reusable eligibility rule set that specifies what an individual mus
 - Enforcement Level: Choice (Obligation Level)
 - Legal Authority: Lookup (Legal Authority)
 - Compliance Framework: Lookup (Compliance Framework)
-- Notes: Memo
 
 ---
 
@@ -621,7 +588,6 @@ Represents an individual requirement within a Qualification Requirement, such as
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Qualification Requirement: Lookup (Qualification Requirement)
 - Item Type: Choice (Training Qualification Item Type)
 - Required Training Course: Lookup (Training Course)

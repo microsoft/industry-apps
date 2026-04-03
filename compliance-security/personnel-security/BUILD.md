@@ -14,7 +14,6 @@ Represents the lifecycle container for evaluating a person's suitability for a s
 **Completed Last Round:**
 
 **Planned:**
-- Name: Text
 - Review Number: Text
 - Person: Lookup (Person)
 - Review Type: Choice (Security Review Type)
@@ -22,7 +21,7 @@ Represents the lifecycle container for evaluating a person's suitability for a s
 - Completion Status: Choice (Item Completion Status)
 - Review Priority: Choice (Priority)
 - Review Reason: Choice (Security Review Reason)
-- Requested By: Lookup (Person)
+- Requested By: Lookup (User)
 - Request Date: Date
 - Requested Clearance Level: Lookup (Clearance Level)
 - Current Clearance Level: Lookup (Clearance Level)
@@ -35,9 +34,8 @@ Represents the lifecycle container for evaluating a person's suitability for a s
 - Investigative Authority: Text
 - Investigative Standards: Text
 - Adjudicating Authority: Text
-- Adjudicator: Lookup (Person)
-- Primary Reviewer: Lookup (Person)
-- Security Manager: Lookup (Person)
+- Adjudicator: Lookup (User)
+- Security Manager: Lookup (User)
 - Review Scope: Memo
 - Special Circumstances: Memo
 - Risk Indicators Summary: Memo
@@ -53,14 +51,15 @@ Represents the lifecycle container for evaluating a person's suitability for a s
 - Review Completion Notes: Memo
 - Appeal Filed: Yes / No
 - Appeal Date: Date
-- Appeal Decision: Choice (Appeal Decision)
+- Appeal Status: Choice (Appeal Status)
 - Appeal Decision Date: Date
 - Legal Authority: Lookup (Legal Authority)
 - Compliance Framework: Lookup (Compliance Framework)
 - Case File Location: Text
 - Case File Number: Text
 - Supporting Document: Lookup (Document)
-- Notes: Memo
+
+**Planned Next:**
 - Configure Baseline Forms
 - Configure Baseline Views
 - Configure Quick Create Forms
@@ -76,7 +75,6 @@ Represents a formal investigative effort conducted to support a personnel securi
 **Completed Last Round:**
 
 **Planned:**
-- Name: Text
 - Investigation Number: Text
 - Personnel Security Review: Lookup (Personnel Security Review)
 - Person: Lookup (Person)
@@ -87,11 +85,11 @@ Represents a formal investigative effort conducted to support a personnel securi
 - Investigation Scope: Choice (Security Investigation Scope)
 - Requested Clearance Level: Lookup (Clearance Level)
 - Initiated Date: Date
-- Initiated By: Lookup (Person)
+- Initiated By: Lookup (User)
 - Initiating Organization Unit: Lookup (Organization Unit)
 - Investigation Provider: Lookup (Account)
 - Investigation Provider Type: Choice (Security Investigation Provider Type)
-- Investigator Assigned: Lookup (Person)
+- Investigator Assigned: Lookup (User)
 - Assignment Date: Date
 - Coverage Start Date: Date
 - Coverage End Date: Date
@@ -108,7 +106,7 @@ Represents a formal investigative effort conducted to support a personnel securi
 - Submitted Date: Date
 - Received Date: Date
 - Quality Review Date: Date
-- Quality Reviewer: Lookup (Person)
+- Quality Reviewer: Lookup (User)
 - Quality Review Notes: Memo
 - Issues Identified: Yes / No
 - Issues Summary: Memo
@@ -118,9 +116,10 @@ Represents a formal investigative effort conducted to support a personnel securi
 - Investigation Cost: Currency
 - Investigation Report: Lookup (Document)
 - Investigation Case File: Text
-- Verified By: Lookup (Person)
+- Verified By: Lookup (User)
 - Verification Date: Date
-- Notes: Memo
+
+**Planned Next:**
 - Configure Baseline Forms
 - Configure Baseline Views
 - Configure Quick Create Forms
@@ -136,7 +135,6 @@ Represents the formal decision made as part of a personnel security review. Capt
 **Completed Last Round:**
 
 **Planned:**
-- Name: Text
 - Adjudication Number: Text
 - Personnel Security Review: Lookup (Personnel Security Review)
 - Personnel Background Investigation: Lookup (Personnel Background Investigation)
@@ -144,7 +142,7 @@ Represents the formal decision made as part of a personnel security review. Capt
 - Stage: Choice (Personnel Adjudication Stage)
 - Adjudication Type: Choice (Security Adjudication Type)
 - Adjudication Date: Date
-- Adjudicator: Lookup (Person)
+- Adjudicator: Lookup (User)
 - Adjudicating Authority: Text
 - Adjudicating Organization Unit: Lookup (Organization Unit)
 - Review Panel Members: Text
@@ -181,7 +179,8 @@ Represents the formal decision made as part of a personnel security review. Capt
 - Notification Date: Date
 - Acknowledgment Received: Yes / No
 - Acknowledgment Date: Date
-- Notes: Memo
+
+**Planned Next:**
 - Configure Baseline Forms
 - Configure Baseline Views
 - Configure Quick Create Forms
@@ -199,7 +198,6 @@ Represents the approved level of trust, clearance, or access authorization grant
 **Completed Last Round:**
 
 **Planned:**
-- Name: Text
 - Eligibility Number: Text
 - Person: Lookup (Person)
 - Personnel Security Review: Lookup (Personnel Security Review)
@@ -213,7 +211,7 @@ Represents the approved level of trust, clearance, or access authorization grant
 - Days Until Expiration: Integer
 - Reinvestigation Due Date: Date
 - Periodic Review Due Date: Date
-- Granted By: Lookup (Person)
+- Granted By: Lookup (User)
 - Granting Authority: Text
 - Granting Organization Unit: Lookup (Organization Unit)
 - Access Level: Text
@@ -243,7 +241,7 @@ Represents the approved level of trust, clearance, or access authorization grant
 - Employment Position: Lookup (Position)
 - Primary Work Location: Lookup (Location)
 - Sponsoring Organization Unit: Lookup (Organization Unit)
-- Security Manager: Lookup (Person)
+- Security Manager: Lookup (User)
 - Legal Authority: Lookup (Legal Authority)
 - Policy Reference: Text
 - Certification Number: Text
@@ -251,7 +249,8 @@ Represents the approved level of trust, clearance, or access authorization grant
 - Certificate Document: Lookup (Document)
 - Indoctrination Document: Lookup (Document)
 - Supporting Document: Lookup (Document)
-- Notes: Memo
+
+**Planned Next:**
 - Configure Baseline Forms
 - Configure Baseline Views
 - Configure Quick Create Forms
@@ -267,7 +266,6 @@ Represents enrollment in ongoing monitoring or recurring vetting processes follo
 **Completed Last Round:**
 
 **Planned:**
-- Name: Text
 - Enrollment Number: Text
 - Person: Lookup (Person)
 - Personnel Security Eligibility: Lookup (Personnel Security Eligibility)
@@ -275,7 +273,7 @@ Represents enrollment in ongoing monitoring or recurring vetting processes follo
 - Continuous Evaluation Type: Choice (Security Continuous Evaluation Type)
 - Enrollment Date: Date
 - Enrollment Reason: Choice (Security Enrollment Reason)
-- Enrolled By: Lookup (Person)
+- Enrolled By: Lookup (User)
 - Effective Start Date: Date
 - Effective End Date: Date
 - Program Name: Text
@@ -308,7 +306,8 @@ Represents enrollment in ongoing monitoring or recurring vetting processes follo
 - Legal Authority: Lookup (Legal Authority)
 - Policy Reference: Text
 - Program Documentation: Lookup (Document)
-- Notes: Memo
+
+**Planned Next:**
 - Configure Baseline Forms
 - Configure Baseline Views
 - Configure Quick Create Forms
@@ -324,17 +323,16 @@ Represents an event or circumstance that may impact a person's security eligibil
 **Completed Last Round:**
 
 **Planned:**
-- Name: Text
 - Event Number: Text
 - Person: Lookup (Person)
 - Event Type: Choice (Security Reportable Event Type)
 - Event Category: Choice (Security Reportable Event Category)
 - Stage: Choice (Personnel Reportable Event Stage)
-- Resolution Status: Choice (Resolution Status)
+- Resolution Status: Choice (Issue Resolution Status)
 - Event Date: Date
 - Event Date Time: Date Time
 - Reported Date: Date Time
-- Reported By: Lookup (Person)
+- Reported By: Lookup (User)
 - Report Method: Choice (Method of Contact)
 - Event Description: Memo
 - Event Location: Lookup (Location)
@@ -359,7 +357,7 @@ Represents an event or circumstance that may impact a person's security eligibil
 - Security Concern Level: Choice (Severity Level)
 - Immediate Threat: Yes / No
 - Threat Assessment: Memo
-- Reviewed By: Lookup (Person)
+- Reviewed By: Lookup (User)
 - Review Date: Date
 - Review Notes: Memo
 - Mitigation Actions: Memo
@@ -371,14 +369,15 @@ Represents an event or circumstance that may impact a person's security eligibil
 - Impact on Eligibility: Choice (Severity Level)
 - Eligibility Action Taken: Choice (Security Eligibility Action)
 - Action Taken Date: Date
-- Action Taken By: Lookup (Person)
+- Action Taken By: Lookup (User)
 - Resolution Date: Date
 - Resolution Summary: Memo
 - Legal Authority: Lookup (Legal Authority)
 - Policy Reference: Text
 - Supporting Document: Lookup (Document)
 - Incident Report: Lookup (Document)
-- Notes: Memo
+
+**Planned Next:**
 - Configure Baseline Forms
 - Configure Baseline Views
 - Configure Quick Create Forms
@@ -396,7 +395,6 @@ Represents a physical or logical access artifact issued to a person based on app
 **Completed Last Round:**
 
 **Planned:**
-- Name: Text
 - Credential Number: Text
 - Credential Type: Choice (Security Access Credential Type)
 - Person: Lookup (Person)
@@ -408,7 +406,7 @@ Represents a physical or logical access artifact issued to a person based on app
 - Days Until Expiration: Integer
 - Effective Start Date: Date
 - Effective End Date: Date
-- Issued By: Lookup (Person)
+- Issued By: Lookup (User)
 - Issuing Organization Unit: Lookup (Organization Unit)
 - Issuing Authority: Text
 - Badge Number: Text
@@ -448,10 +446,10 @@ Represents a physical or logical access artifact issued to a person based on app
 - Suspension End Date: Date
 - Revocation Date: Date
 - Revocation Reason: Memo
-- Revoked By: Lookup (Person)
+- Revoked By: Lookup (User)
 - Return Required: Yes / No
 - Return Date: Date
-- Returned By: Lookup (Person)
+- Returned By: Lookup (User)
 - Return Method: Text
 - Lost or Stolen: Yes / No
 - Lost Stolen Date: Date
@@ -463,7 +461,8 @@ Represents a physical or logical access artifact issued to a person based on app
 - Issuance Document: Lookup (Document)
 - Photo Document: Lookup (Document)
 - Supporting Document: Lookup (Document)
-- Notes: Memo
+
+**Planned Next:**
 - Configure Baseline Forms
 - Configure Baseline Views
 - Configure Quick Create Forms
@@ -789,7 +788,7 @@ Adjudication Status mixed workflow (Pending Review, Under Review, Panel Review, 
 - Item Disposition (Core) for appeals/revisions: Amended, Superseded
 
 ### Personnel Reportable Event: Event Status field renamed
-The field "Event Status: Choice (Resolution Status)" was renamed to "Stage: Choice (Personnel Reportable Event Stage)" with "Resolution Status: Choice (Resolution Status)" kept as separate outcome tracking. This clarifies that the reportable event has both workflow progression (Stage) and resolution outcome (Resolution Status - Core field).
+The field "Event Status: Choice (Resolution Status)" was renamed to "Stage: Choice (Personnel Reportable Event Stage)" with "Resolution Status: Choice (Issue Resolution Status)" kept as separate outcome tracking. This clarifies that the reportable event has both workflow progression (Stage) and resolution outcome (Issue Resolution Status - Core field).
 
 **Note on Lifecycle Status Fields (Kept As-Is):**
 The following Status fields are lifecycle states, not workflow stages, and are appropriately designed:

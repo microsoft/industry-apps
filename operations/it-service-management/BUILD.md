@@ -12,30 +12,27 @@ Represents a general service transaction submitted by a user for IT support, pro
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Request Number: Text
 - Request Type: Choice (IT Request Type)
 - Stage: Choice (IT Service Request Stage)
 - Decision Status: Choice (Item Decision Status)
 - Priority: Choice (Priority)
-- Requested By: Lookup (Person)
+- Requested By: Lookup (User)
 - Requesting Organization Unit: Lookup (Organization Unit)
 - Request Date: Date Time
 - Required Date: Date
-- Assigned To: Lookup (Person)
 - Assigned Team: Lookup (Organization Unit)
 - Assignment Date: Date
 - Method of Contact: Choice (Method of Contact)
 - Business Justification: Memo
 - Total Estimated Cost: Currency
 - Decision Date: Date
-- Decided By: Lookup (Person)
+- Decided By: Lookup (User)
 - Fulfillment Start Date: Date
 - Fulfillment Completion Date: Date
 - Closed Date: Date
 - Satisfaction Rating: Integer
 - Feedback: Memo
-- Notes: Memo
 
 ---
 
@@ -45,7 +42,6 @@ A line-level record under an IT Service Request that references a specific IT Ca
 **Completed:**
 
 **Planned:**
-- Name: Text
 - IT Service Request: Lookup (IT Service Request)
 - Line Number: Integer
 - IT Catalog Item: Lookup (IT Catalog Item)
@@ -56,9 +52,7 @@ A line-level record under an IT Service Request that references a specific IT Ca
 - Unit Cost: Currency
 - Total Cost: Currency
 - Delivery Date: Date
-- Assigned To: Lookup (Person)
 - Fulfillment Notes: Memo
-- Notes: Memo
 
 ---
 
@@ -70,7 +64,6 @@ Represents a request submitted to obtain, modify, or remove access to systems, a
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Request Number: Text
 - Access Request Type: Choice (IT Access Request Type)
 - Stage: Choice (IT Access Request Stage)
@@ -78,24 +71,23 @@ Represents a request submitted to obtain, modify, or remove access to systems, a
 - Completion Status: Choice (Item Completion Status)
 - Priority: Choice (Priority)
 - Requested For: Lookup (Person)
-- Requested By: Lookup (Person)
+- Requested By: Lookup (User)
 - Request Date: Date Time
 - Business Justification: Memo
 - Access Start Date: Date
 - Access End Date: Date
 - Is Temporary: Yes / No
 - Requires Manager Approval: Yes / No
-- Manager: Lookup (Person)
+- Manager: Lookup (User)
 - Manager Decision Status: Choice (Item Decision Status)
 - Manager Decision Date: Date
 - Requires Security Review: Yes / No
-- Security Reviewer: Lookup (Person)
+- Security Reviewer: Lookup (User)
 - Security Decision Status: Choice (Item Decision Status)
 - Security Decision Date: Date
-- Fulfilled By: Lookup (Person)
+- Fulfilled By: Lookup (User)
 - Fulfillment Date: Date
 - Closed Date: Date
-- Notes: Memo
 
 ---
 
@@ -105,7 +97,6 @@ A line-level record under an IT Access Request specifying the individual entitle
 **Completed:**
 
 **Planned:**
-- Name: Text
 - IT Access Request: Lookup (IT Access Request)
 - Line Number: Integer
 - Access Action: Choice (IT Access Action)
@@ -118,7 +109,7 @@ A line-level record under an IT Access Request specifying the individual entitle
 - Decision Date: Date
 - Provisioned Date: Date
 - Related Entitlement Assignment: Lookup (IT Entitlement Assignment)
-- Notes: Memo
+- Description: Memo
 
 ---
 
@@ -128,7 +119,6 @@ Defines a specific access right, permission set, license assignment, or role tha
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Entitlement Code: Text
 - Entitlement Type: Choice (IT Entitlement Type)
 - IT System: Lookup (IT System)
@@ -136,13 +126,12 @@ Defines a specific access right, permission set, license assignment, or role tha
 - Description: Memo
 - Access Level: Choice (IT Access Level)
 - Requires Approval: Yes / No
-- Approver: Lookup (Person)
+- Approver: Lookup (User)
 - Requires Manager Approval: Yes / No
 - Requires Security Review: Yes / No
 - Maximum Assignment Duration (Days): Integer
 - Risk Level: Choice (Severity Level)
 - Compliance Requirement: Lookup (Compliance Requirement)
-- Notes: Memo
 
 ---
 
@@ -152,7 +141,6 @@ Represents the assignment of an IT Entitlement to a person, account, or system. 
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Assignment Number: Text
 - Person: Lookup (Person)
 - IT Entitlement: Lookup (IT Entitlement)
@@ -164,15 +152,14 @@ Represents the assignment of an IT Entitlement to a person, account, or system. 
 - End Date: Date
 - Is Temporary: Yes / No
 - IT Access Request: Lookup (IT Access Request)
-- Granted By: Lookup (Person)
+- Granted By: Lookup (User)
 - Granted Date: Date
 - Last Review Date: Date
 - Next Review Date: Date
 - Revocation Date: Date
-- Revoked By: Lookup (Person)
+- Revoked By: Lookup (User)
 - Revocation Reason: Memo
 - Account Username: Text
-- Notes: Memo
 
 ---
 
@@ -184,7 +171,6 @@ Defines an orderable IT offering. Represents a published service, product packag
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Item Code: Text
 - Parent IT Catalog Item: Lookup (IT Catalog Item)
 - Item Category: Choice (IT Catalog Item Category)
@@ -197,17 +183,16 @@ Defines an orderable IT offering. Represents a published service, product packag
 - Estimated Delivery Time (Days): Integer
 - Unit Cost: Currency
 - Requires Approval: Yes / No
-- Default Approver: Lookup (Person)
+- Default Approver: Lookup (User)
 - Approving Organization Unit: Lookup (Organization Unit)
 - Provider Organization Unit: Lookup (Organization Unit)
-- Service Owner: Lookup (Person)
+- Service Owner: Lookup (User)
 - Icon URL: Text
 - Image URL: Text
 - Documentation URL: Text
 - Related IT System: Lookup (IT System)
 - Is Orderable: Yes / No
 - Tags: Text
-- Notes: Memo
 
 ---
 
@@ -217,13 +202,12 @@ A junction table linking an IT Catalog Item to one or more IT Technologies. Iden
 **Completed:**
 
 **Planned:**
-- Name: Text
 - IT Catalog Item: Lookup (IT Catalog Item)
 - IT Technology: Lookup (IT Technology)
 - Technology Relationship: Choice (IT Technology Relationship)
 - Version: Text
 - Is Required: Yes / No
-- Notes: Memo
+- Description: Memo
 
 ---
 
@@ -235,16 +219,15 @@ Represents a logical or operational information system. Serves as the primary re
 **Completed:**
 
 **Planned:**
-- Name: Text
 - System Code: Text
 - System Type: Choice (IT System Type)
 - Lifecycle Stage: Choice (Lifecycle Stage)
 - Security Classification: Choice (Security Classification)
 - Description: Memo
 - Purpose: Memo
-- System Owner: Lookup (Person)
-- Business Owner: Lookup (Person)
-- Technical Owner: Lookup (Person)
+- System Owner: Lookup (User)
+- Business Owner: Lookup (User)
+- Technical Owner: Lookup (User)
 - Owning Organization Unit: Lookup (Organization Unit)
 - Primary Location: Lookup (Location)
 - IT Hosting Location: Lookup (IT Hosting Location)
@@ -257,13 +240,12 @@ Represents a logical or operational information system. Serves as the primary re
 - User Count: Integer
 - Annual Operating Cost: Currency
 - Vendor: Lookup (Account)
-- Support Contact: Lookup (Person)
+- Support Contact: Lookup (User)
 - Documentation URL: Text
 - System URL: Text
 - Related Agreement: Lookup (Agreement)
 - Compliance Framework: Lookup (Compliance Framework)
 - Legal Authority: Lookup (Legal Authority)
-- Notes: Memo
 
 ---
 
@@ -273,7 +255,6 @@ Represents a structural part of an IT System, such as an application module, ser
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Component Code: Text
 - Parent IT System Component: Lookup (IT System Component)
 - IT System: Lookup (IT System)
@@ -283,11 +264,10 @@ Represents a structural part of an IT System, such as an application module, ser
 - Version: Text
 - Primary Location: Lookup (Location)
 - IT Hosting Location: Lookup (IT Hosting Location)
-- Component Owner: Lookup (Person)
+- Component Owner: Lookup (User)
 - Vendor: Lookup (Account)
 - Is Critical: Yes / No
 - Dependencies: Memo
-- Notes: Memo
 
 ---
 
@@ -297,7 +277,6 @@ Defines categories or classifications of system components (e.g., Application, D
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Type Code: Text
 - Component Category: Choice (IT Component Category)
 - Description: Memo
@@ -310,7 +289,6 @@ A junction table linking an IT System (or optionally a specific System Component
 **Completed:**
 
 **Planned:**
-- Name: Text
 - IT System: Lookup (IT System)
 - IT System Component: Lookup (IT System Component)
 - IT Technology: Lookup (IT Technology)
@@ -320,7 +298,6 @@ A junction table linking an IT System (or optionally a specific System Component
 - Is Production: Yes / No
 - Installation Date: Date
 - End of Support Date: Date
-- Notes: Memo
 
 ---
 
@@ -332,7 +309,6 @@ Represents a technology concept, platform, framework, protocol, runtime, standar
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Technology Code: Text
 - IT Technology Type: Lookup (IT Technology Type)
 - Technology Status: Choice (IT Technology Status)
@@ -346,12 +322,11 @@ Represents a technology concept, platform, framework, protocol, runtime, standar
 - License Cost: Currency
 - Is Approved: Yes / No
 - Approval Date: Date
-- Approved By: Lookup (Person)
+- Approved By: Lookup (User)
 - Is Restricted: Yes / No
 - Restriction Reason: Memo
 - Documentation URL: Text
 - Vendor URL: Text
-- Notes: Memo
 
 ---
 
@@ -361,7 +336,6 @@ Defines classification categories for IT Technologies (e.g., Operating System, D
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Type Code: Text
 - Description: Memo
 - Parent Type: Lookup (IT Technology Type)
@@ -376,7 +350,6 @@ Represents the physical or logical hosting environment for a system or component
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Location Code: Text
 - Hosting Type: Choice (IT Hosting Type)
 - Physical Location: Lookup (Location)
@@ -387,13 +360,12 @@ Represents the physical or logical hosting environment for a system or component
 - Lifecycle Stage: Choice (Lifecycle Stage)
 - Security Classification: Choice (Security Classification)
 - Network Address Range: Text
-- Primary Contact: Lookup (Person)
-- Technical Contact: Lookup (Person)
+- Primary Contact: Lookup (User)
+- Technical Contact: Lookup (User)
 - Service Agreement: Lookup (Agreement)
 - Capacity: Text
 - Utilization: Text
 - Description: Memo
-- Notes: Memo
 
 ---
 
@@ -405,7 +377,6 @@ Represents the formal authorization or approval status of an IT System to operat
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Accreditation Number: Text
 - IT System: Lookup (IT System)
 - Accreditation Type: Choice (IT Accreditation Type)
@@ -414,7 +385,7 @@ Represents the formal authorization or approval status of an IT System to operat
 - Compliance Framework: Lookup (Compliance Framework)
 - Authorization Date: Date
 - Expiration Date: Date
-- Authorizing Official: Lookup (Person)
+- Authorizing Official: Lookup (User)
 - Authorizing Organization Unit: Lookup (Organization Unit)
 - Security Level: Choice (Security Classification)
 - Accreditation Scope: Memo
@@ -423,7 +394,6 @@ Represents the formal authorization or approval status of an IT System to operat
 - Last Assessment Date: Date
 - Next Assessment Date: Date
 - Supporting Document: Lookup (Document)
-- Notes: Memo
 
 ---
 
@@ -433,7 +403,6 @@ Represents a formal evaluation of a system, component, or technology against def
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Assessment Number: Text
 - Assessment Type: Choice (IT Assessment Type)
 - Stage: Choice (IT Compliance Assessment Stage)
@@ -443,7 +412,7 @@ Represents a formal evaluation of a system, component, or technology against def
 - Compliance Framework: Lookup (Compliance Framework)
 - Assessment Start Date: Date
 - Assessment Completion Date: Date
-- Assessor: Lookup (Person)
+- Assessor: Lookup (User)
 - Assessment Team: Text
 - Assessment Scope: Memo
 - Assessment Method: Memo
@@ -459,7 +428,6 @@ Represents a formal evaluation of a system, component, or technology against def
 - Recommendations: Memo
 - Next Assessment Date: Date
 - Supporting Document: Lookup (Document)
-- Notes: Memo
 
 ---
 
@@ -469,7 +437,6 @@ Plan of Action and Milestones (POAM) record used to track remediation of identif
 **Completed:**
 
 **Planned:**
-- Name: Text
 - POAM Number: Text
 - IT System: Lookup (IT System)
 - IT System Component: Lookup (IT System Component)
@@ -487,7 +454,6 @@ Plan of Action and Milestones (POAM) record used to track remediation of identif
 - Risk Statement: Memo
 - Proposed Solution: Memo
 - Milestones: Memo
-- Assigned To: Lookup (Person)
 - Responsible Organization Unit: Lookup (Organization Unit)
 - Identified Date: Date
 - Target Completion Date: Date
@@ -496,11 +462,10 @@ Plan of Action and Milestones (POAM) record used to track remediation of identif
 - Actual Cost: Currency
 - Completion Evidence: Memo
 - Verification Date: Date
-- Verified By: Lookup (Person)
+- Verified By: Lookup (User)
 - Related Risk Item: Lookup (Risk Item)
 - Related Action Item: Lookup (Action Item)
 - Supporting Document: Lookup (Document)
-- Notes: Memo
 
 ---
 

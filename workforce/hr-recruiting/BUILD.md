@@ -12,13 +12,12 @@ Represents the initial request or justification to create or fill a position. Ty
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Request Number: Text
 - Request Type: Choice (HR Workforce Request Type)
 - Stage: Choice (HR Workforce Request Stage)
 - Decision Status: Choice (Item Decision Status)
 - Requested Date: Date
-- Requested By: Lookup (Person)
+- Requested By: Lookup (User)
 - Requesting Organization Unit: Lookup (Organization Unit)
 - Position Count: Integer
 - Position Title: Text
@@ -32,10 +31,10 @@ Represents the initial request or justification to create or fill a position. Ty
 - Funding Source: Text
 - Proposed Start Date: Date
 - Priority: Choice (Priority)
-- Approved By: Lookup (Person)
+- Approved By: Lookup (User)
 - Approval Date: Date
 - Related Requisition: Lookup (HR Requisition)
-- Notes: Memo
+- Description: Memo
 
 ---
 
@@ -45,7 +44,6 @@ Represents the authorized request to recruit for a position. Contains hiring det
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Requisition Number: Text
 - Stage: Choice (HR Requisition Stage)
 - Decision Status: Choice (Item Decision Status)
@@ -58,8 +56,8 @@ Represents the authorized request to recruit for a position. Contains hiring det
 - Employment Type: Choice (Employment Type)
 - Position Designation: Choice (Position Designation)
 - Hiring Organization Unit: Lookup (Organization Unit)
-- Hiring Manager: Lookup (Person)
-- Recruiter: Lookup (Person)
+- Hiring Manager: Lookup (User)
+- Recruiter: Lookup (User)
 - Work Location: Lookup (Location)
 - Is Remote Eligible: Yes / No
 - Target Start Date: Date
@@ -71,7 +69,7 @@ Represents the authorized request to recruit for a position. Contains hiring det
 - Posting Required: Yes / No
 - Internal Only: Yes / No
 - Priority: Choice (Priority)
-- Approved By: Lookup (Person)
+- Approved By: Lookup (User)
 - Approval Date: Date
 - Total Applications Received: Integer
 - Total Qualified Applications: Integer
@@ -79,7 +77,7 @@ Represents the authorized request to recruit for a position. Contains hiring det
 - Key Responsibilities: Memo
 - Funding Source: Text
 - Legal Authority: Lookup (Legal Authority)
-- Notes: Memo
+- Description: Memo
 
 ---
 
@@ -89,7 +87,6 @@ Represents a specific publication or advertisement instance of a requisition. Tr
 **Completed:**
 
 **Planned:**
-- Name: Text
 - HR Requisition: Lookup (HR Requisition)
 - Posting Channel: Choice (HR Requisition Posting Channel)
 - Stage: Choice (HR Requisition Posting Stage)
@@ -102,10 +99,9 @@ Represents a specific publication or advertisement instance of a requisition. Tr
 - Job Summary: Memo
 - Job Description: Memo
 - Application Instructions: Memo
-- Posted By: Lookup (Person)
+- Posted By: Lookup (User)
 - View Count: Integer
 - Application Count: Integer
-- Notes: Memo
 
 ---
 
@@ -115,20 +111,18 @@ Defines the required and preferred qualifications, competencies, or eligibility 
 **Completed:**
 
 **Planned:**
-- Name: Text
 - HR Requisition: Lookup (HR Requisition)
 - Requirement Type: Choice (HR Requisition Requirement Type)
 - Competency: Lookup (Competency)
 - Credential: Lookup (Credential)
 - Required Proficiency Level: Choice (Proficiency Level)
-- Requirement Category: Choice (HR Requisition Requirementt Category)
+- Requirement Category: Choice (HR Requisition Requirement Category)
 - Is Required: Yes / No
 - Is Preferred: Yes / No
 - Weight: Float
 - Minimum Years Experience: Integer
 - Description: Memo
 - Evaluation Criteria: Memo
-- Notes: Memo
 
 ---
 
@@ -140,7 +134,6 @@ Represents the persistent recruiting profile of an individual across application
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Candidate Number: Text
 - Person: Lookup (Person)
 - First Name: Text
@@ -172,7 +165,7 @@ Represents the persistent recruiting profile of an individual across application
 - Total Applications: Integer
 - Privacy Consent: Lookup (Privacy Consent)
 - Opt In Communications: Yes / No
-- Notes: Memo
+- Description: Memo
 
 ---
 
@@ -182,7 +175,6 @@ Represents a candidate's formal submission for a specific requisition or posting
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Application Number: Text
 - HR Candidate: Lookup (HR Candidate)
 - HR Requisition: Lookup (HR Requisition)
@@ -200,11 +192,9 @@ Represents a candidate's formal submission for a specific requisition or posting
 - Veteran Preference Claimed: Yes / No
 - Eligibility Status: Choice (Eligibility Status)
 - Disqualification Reason: Memo
-- Assigned Recruiter: Lookup (Person)
-- Assigned Date: Date
 - Last Activity Date: Date
 - Total Interviews: Integer
-- Notes: Memo
+- Description: Memo
 
 ---
 
@@ -214,12 +204,11 @@ Stores detailed scoring or rating of how well an applicant meets specific skills
 **Completed:**
 
 **Planned:**
-- Name: Text
 - HR Application: Lookup (HR Application)
 - HR Requisition Requirement: Lookup (HR Requisition Requirement)
 - Competency: Lookup (Competency)
 - Completion Status: Choice (Item Completion Status)
-- Assessed By: Lookup (Person)
+- Assessed By: Lookup (User)
 - Assessment Date: Date
 - Proficiency Level: Choice (Proficiency Level)
 - Score: Float
@@ -227,7 +216,6 @@ Stores detailed scoring or rating of how well an applicant meets specific skills
 - Weighted Score: Float
 - Evidence: Memo
 - Comments: Memo
-- Notes: Memo
 
 ---
 
@@ -237,11 +225,10 @@ Provides the consolidated summary assessment of an application. Captures overall
 **Completed:**
 
 **Planned:**
-- Name: Text
 - HR Application: Lookup (HR Application)
 - Evaluation Type: Choice (HR Application Evaluation Type)
 - Evaluation Date: Date
-- Evaluated By: Lookup (Person)
+- Evaluated By: Lookup (User)
 - Overall Score: Float
 - Overall Rating: Choice (Overall Rating)
 - Recommendation: Choice (HR Hiring Recommendation)
@@ -250,7 +237,6 @@ Provides the consolidated summary assessment of an application. Captures overall
 - Decision Rationale: Memo
 - Move to Next Stage: Yes / No
 - Recommended Stage: Choice (HR Application Stage)
-- Notes: Memo
 
 ---
 
@@ -262,7 +248,6 @@ Represents a scheduled interview event for an application. Tracks interview type
 **Completed:**
 
 **Planned:**
-- Name: Text
 - HR Application: Lookup (HR Application)
 - HR Requisition: Lookup (HR Requisition)
 - Interview Type: Choice (HR Interview Type)
@@ -271,7 +256,7 @@ Represents a scheduled interview event for an application. Tracks interview type
 - Duration (Minutes): Integer
 - Interview Location: Lookup (Location)
 - Virtual Meeting URL: Text
-- Primary Interviewer: Lookup (Person)
+- Primary Interviewer: Lookup (User)
 - Interview Panel: Text
 - Application Stage: Choice (HR Application Stage)
 - Conducted Date Time: Date Time
@@ -283,7 +268,6 @@ Represents a scheduled interview event for an application. Tracks interview type
 - Concerns Raised: Memo
 - Follow Up Required: Yes / No
 - Follow Up Notes: Memo
-- Notes: Memo
 
 ---
 
@@ -293,10 +277,9 @@ Captures an individual reviewer's structured assessment of a candidate, typicall
 **Completed:**
 
 **Planned:**
-- Name: Text
 - HR Application: Lookup (HR Application)
 - HR Interview: Lookup (HR Interview)
-- Evaluator: Lookup (Person)
+- Evaluator: Lookup (User)
 - Evaluation Date: Date
 - Evaluation Category: Choice (HR Candidate Evaluation Category)
 - Competency: Lookup (Competency)
@@ -304,7 +287,6 @@ Captures an individual reviewer's structured assessment of a candidate, typicall
 - Rating: Choice (Overall Rating)
 - Comments: Memo
 - Supporting Evidence: Memo
-- Notes: Memo
 
 ---
 
@@ -316,7 +298,6 @@ Documents the formal hiring decision for a requisition. Identifies the selected 
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Decision Number: Text
 - HR Requisition: Lookup (HR Requisition)
 - Selected Application: Lookup (HR Application)
@@ -326,22 +307,22 @@ Documents the formal hiring decision for a requisition. Identifies the selected 
 - Decision Date: Date
 - Selection Ranking: Integer
 - Selection Rationale: Memo
-- Hiring Manager: Lookup (Person)
+- Hiring Manager: Lookup (User)
 - Hiring Manager Approval: Choice (Approval Status)
 - Hiring Manager Approval Date: Date
 - HR Approval: Choice (Approval Status)
-- HR Approver: Lookup (Person)
+- HR Approver: Lookup (User)
 - HR Approval Date: Date
 - Executive Approval Required: Yes / No
 - Executive Approval: Choice (Approval Status)
-- Executive Approver: Lookup (Person)
+- Executive Approver: Lookup (User)
 - Executive Approval Date: Date
 - Legal Authority: Lookup (Legal Authority)
 - Formal Decision: Lookup (Formal Decision)
 - Offer Extended: Yes / No
 - Offer Date: Date
 - Related Offer: Lookup (HR Offer)
-- Notes: Memo
+- Description: Memo
 
 ---
 
@@ -351,7 +332,6 @@ Documents the formal employment offer extended to a selected candidate. Captures
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Offer Number: Text
 - HR Application: Lookup (HR Application)
 - HR Selection Decision: Lookup (HR Selection Decision)
@@ -360,7 +340,7 @@ Documents the formal employment offer extended to a selected candidate. Captures
 - Decision Status: Choice (Item Decision Status)
 - Offer Date: Date
 - Offer Expiration Date: Date
-- Extended By: Lookup (Person)
+- Extended By: Lookup (User)
 - Position Title: Text
 - Employment Type: Choice (Employment Type)
 - Organization Unit: Lookup (Organization Unit)
@@ -384,7 +364,6 @@ Documents the formal employment offer extended to a selected candidate. Captures
 - Final Acceptance Date: Date
 - Decline Reason: Memo
 - Actual Start Date: Date
-- Notes: Memo
 
 ---
 
@@ -394,7 +373,6 @@ Tracks conditional requirements that must be completed prior to employment start
 **Completed:**
 
 **Planned:**
-- Name: Text
 - HR Offer: Lookup (HR Offer)
 - HR Candidate: Lookup (HR Candidate)
 - Requirement Type: Choice (HR Pre-Hire Requirement Type)
@@ -406,10 +384,10 @@ Tracks conditional requirements that must be completed prior to employment start
 - Result Details: Memo
 - Vendor: Lookup (Account)
 - Cost: Currency
-- Assigned To: Lookup (Person)
+- Assigned To: Lookup (User)
 - Supporting Document: Lookup (Document)
 - Is Blocking: Yes / No
-- Notes: Memo
+- Description: Memo
 
 ---
 
@@ -514,7 +492,7 @@ Tracks conditional requirements that must be completed prior to employment start
 - Physical Requirement
 - Clearance
 
-### HR Requisition Requirementt Category
+### HR Requisition Requirement Category
 - Minimum Qualification
 - Preferred Qualification
 - Screening Criteria

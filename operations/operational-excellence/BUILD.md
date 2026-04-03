@@ -12,7 +12,6 @@ Represents an unplanned operational disruption, failure, or adverse event that i
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Incident Number: Text
 - Incident Type: Choice (Operational Incident Type)
 - Incident Stage: Choice (Operational Incident Stage)
@@ -21,11 +20,11 @@ Represents an unplanned operational disruption, failure, or adverse event that i
 - Incident Date Time: Date Time
 - Discovery Date Time: Date Time
 - Reported Date Time: Date Time
-- Reported By: Lookup (Person)
+- Reported By: Lookup (User)
 - Impacted Organization Unit: Lookup (Organization Unit)
 - Impacted Location: Lookup (Location)
 - Impacted Operational Item: Lookup (Operational Item)
-- Incident Commander: Lookup (Person)
+- Incident Commander: Lookup (User)
 - Assigned Team: Lookup (Organization Unit)
 - Description: Memo
 - Impact Description: Memo
@@ -46,7 +45,6 @@ Represents an unplanned operational disruption, failure, or adverse event that i
 - Related Risk Item: Lookup (Risk Item)
 - Related After Action Report: Lookup (After Action Report)
 - Supporting Document: Lookup (Document)
-- Notes: Memo
 
 ---
 
@@ -58,13 +56,12 @@ Represents a facility, asset, program, process, site, or other entity subject to
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Item Code: Text
 - Parent Operational Item: Lookup (Operational Item)
 - Item Type: Choice (Operational Item Type)
 - Lifecycle Stage: Choice (Lifecycle Stage)
 - Owning Organization Unit: Lookup (Organization Unit)
-- Item Owner: Lookup (Person)
+- Item Owner: Lookup (User)
 - Primary Location: Lookup (Location)
 - Description: Memo
 - Operational Purpose: Memo
@@ -75,7 +72,6 @@ Represents a facility, asset, program, process, site, or other entity subject to
 - Legal Authority: Lookup (Legal Authority)
 - Is Critical: Yes / No
 - Security Classification: Choice (Security Classification)
-- Notes: Memo
 
 ---
 
@@ -85,7 +81,6 @@ Represents a structured evaluation or review of an Operational Item to assess co
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Inspection Number: Text
 - Inspection Type: Choice (Operational Inspection Type)
 - Inspection Stage: Choice (Operational Inspection Stage)
@@ -93,7 +88,7 @@ Represents a structured evaluation or review of an Operational Item to assess co
 - Inspection Scope: Memo
 - Scheduled Date: Date
 - Actual Inspection Date: Date
-- Lead Inspector: Lookup (Person)
+- Lead Inspector: Lookup (User)
 - Inspection Team: Text
 - Inspecting Organization Unit: Lookup (Organization Unit)
 - Inspection Location: Lookup (Location)
@@ -113,7 +108,6 @@ Represents a structured evaluation or review of an Operational Item to assess co
 - Executive Summary: Memo
 - Recommendations: Memo
 - Supporting Document: Lookup (Document)
-- Notes: Memo
 
 ---
 
@@ -125,7 +119,6 @@ Represents a planned proactive operational activity such as an exercise, drill, 
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Event Number: Text
 - Event Type: Choice (Operational Event Type)
 - Event Stage: Choice (Operational Event Stage)
@@ -135,8 +128,8 @@ Represents a planned proactive operational activity such as an exercise, drill, 
 - Actual End Date Time: Date Time
 - Event Location: Lookup (Location)
 - Host Organization Unit: Lookup (Organization Unit)
-- Event Controller: Lookup (Person)
-- Event Coordinator: Lookup (Person)
+- Event Controller: Lookup (User)
+- Event Coordinator: Lookup (User)
 - Purpose: Memo
 - Scope: Memo
 - Scenario Description: Memo
@@ -152,7 +145,6 @@ Represents a planned proactive operational activity such as an exercise, drill, 
 - Budget: Currency
 - Actual Cost: Currency
 - Supporting Document: Lookup (Document)
-- Notes: Memo
 
 ---
 
@@ -162,7 +154,6 @@ Defines a specific objective or capability that an Operational Event intends to 
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Operational Event: Lookup (Operational Event)
 - Objective Number: Integer
 - Objective Description: Memo
@@ -173,7 +164,6 @@ Defines a specific objective or capability that an Operational Event intends to 
 - Objective Met: Yes / No
 - Actual Performance: Text
 - Evaluation Notes: Memo
-- Notes: Memo
 
 ---
 
@@ -183,7 +173,6 @@ Captures the results of an Operational Event, including whether objectives were 
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Operational Event: Lookup (Operational Event)
 - Operational Event Objective: Lookup (Operational Event Objective)
 - Outcome Type: Choice (Operational Outcome Type)
@@ -196,9 +185,8 @@ Captures the results of an Operational Event, including whether objectives were 
 - Analysis: Memo
 - Recommendations: Memo
 - Supporting Evidence: Memo
-- Evaluator: Lookup (Person)
+- Evaluator: Lookup (User)
 - Evaluation Date: Date
-- Notes: Memo
 
 ---
 
@@ -208,7 +196,6 @@ Identifies individuals, teams, or organizations involved in an Operational Event
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Operational Event: Lookup (Operational Event)
 - Person: Lookup (Person)
 - Organization Unit: Lookup (Organization Unit)
@@ -218,7 +205,6 @@ Identifies individuals, teams, or organizations involved in an Operational Event
 - Attendance Confirmed: Yes / No
 - Performance Notes: Memo
 - Feedback: Memo
-- Notes: Memo
 
 ---
 
@@ -230,7 +216,6 @@ Represents a formal evaluation of whether an organization, unit, facility, progr
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Assessment Number: Text
 - Assessment Type: Choice (Operational Readiness Assessment Type)
 - Readiness Assessment Stage: Choice (Operational Readiness Assessment Stage)
@@ -239,7 +224,7 @@ Represents a formal evaluation of whether an organization, unit, facility, progr
 - Assessment Period Start Date: Date
 - Assessment Period End Date: Date
 - Assessment Date: Date
-- Lead Assessor: Lookup (Person)
+- Lead Assessor: Lookup (User)
 - Assessment Team: Text
 - Assessment Scope: Memo
 - Mission Statement: Memo
@@ -262,7 +247,6 @@ Represents a formal evaluation of whether an organization, unit, facility, progr
 - Recommendations: Memo
 - Next Assessment Date: Date
 - Supporting Document: Lookup (Document)
-- Notes: Memo
 
 ---
 
@@ -274,7 +258,6 @@ Represents a deficiency, gap, issue, observation, or lesson identified during an
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Finding Number: Text
 - Parent Operational Finding: Lookup (Operational Finding)
 - Finding Type: Choice (Operational Finding Type)
@@ -288,7 +271,7 @@ Represents a deficiency, gap, issue, observation, or lesson identified during an
 - Operational Readiness Assessment: Lookup (Operational Readiness Assessment)
 - Operational Item: Lookup (Operational Item)
 - Identified Date: Date
-- Identified By: Lookup (Person)
+- Identified By: Lookup (User)
 - Organization Unit: Lookup (Organization Unit)
 - Location: Lookup (Location)
 - Finding Description: Memo
@@ -299,16 +282,14 @@ Represents a deficiency, gap, issue, observation, or lesson identified during an
 - Compliance Framework: Lookup (Compliance Framework)
 - Legal Authority: Lookup (Legal Authority)
 - Requires Corrective Action: Yes / No
-- Assigned To: Lookup (Person)
 - Responsible Organization Unit: Lookup (Organization Unit)
 - Target Closure Date: Date
 - Actual Closure Date: Date
 - Closure Notes: Memo
-- Verified By: Lookup (Person)
+- Verified By: Lookup (User)
 - Verification Date: Date
 - Related Risk Item: Lookup (Risk Item)
 - Supporting Document: Lookup (Document)
-- Notes: Memo
 
 ---
 
@@ -318,7 +299,6 @@ Represents a proposed corrective, preventive, or improvement action developed in
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Recommendation Number: Text
 - Parent Recommendation: Lookup (Operational Recommendation)
 - Operational Finding: Lookup (Operational Finding)
@@ -330,16 +310,15 @@ Represents a proposed corrective, preventive, or improvement action developed in
 - Recommendation Stage: Choice (Operational Recommendation Stage)
 - Priority: Choice (Priority)
 - Recommendation Date: Date
-- Recommended By: Lookup (Person)
+- Recommended By: Lookup (User)
 - Recommendation Description: Memo
 - Rationale: Memo
 - Expected Benefit: Memo
 - Estimated Cost: Currency
 - Recommended To: Lookup (Organization Unit)
-- Recommended Owner: Lookup (Person)
 - Management Response: Memo
 - Response Date: Date
-- Response By: Lookup (Person)
+- Response By: Lookup (User)
 - Acceptance Status: Choice (Item Acceptance Status)
 - Action Status: Choice (Action Status)
 - Implementation Date: Date
@@ -347,10 +326,9 @@ Represents a proposed corrective, preventive, or improvement action developed in
 - Actual Completion Date: Date
 - Related Action Item: Lookup (Action Item)
 - Verification Required: Yes / No
-- Verified By: Lookup (Person)
+- Verified By: Lookup (User)
 - Verification Date: Date
 - Verification Notes: Memo
-- Notes: Memo
 
 ---
 
@@ -362,12 +340,11 @@ Captures reported operational contributions, improvements, cost savings, efficie
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Impact Number: Text
 - Impact Type: Choice (Operational Impact Type)
 - Impact Stage: Choice (Operational Impact Stage)
 - Submission Date: Date
-- Submitted By: Lookup (Person)
+- Submitted By: Lookup (User)
 - Submitting Organization Unit: Lookup (Organization Unit)
 - Impact Date: Date
 - Impact Title: Text
@@ -388,14 +365,13 @@ Captures reported operational contributions, improvements, cost savings, efficie
 - Scalability Notes: Memo
 - Best Practice: Yes / No
 - Decision Status: Choice (Item Decision Status)
-- Decided By: Lookup (Person)
+- Decided By: Lookup (User)
 - Decision Date: Date
 - Decision Comments: Memo
 - Recognition Granted: Yes / No
 - Recognition Type: Text
 - Recognition Date: Date
 - Supporting Document: Lookup (Document)
-- Notes: Memo
 
 ---
 

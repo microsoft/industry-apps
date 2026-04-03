@@ -12,15 +12,14 @@ Represents an intake record used to propose or initiate a new project. Captures 
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Request Number: Text
 - Stage: Choice (Project Request Stage)
 - Decision Status: Choice (Item Decision Status)
-- Request Type: Choice (Project Project Type)
+- Request Type: Choice (Project Type)
 - Request Priority: Choice (Priority)
 - Submission Date: Date
 - Submission Method: Choice (Method of Contact)
-- Submitted By: Lookup (Person)
+- Submitted By: Lookup (User)
 - Submitting Organization Unit: Lookup (Organization Unit)
 - Business Need: Memo
 - Problem Statement: Memo
@@ -35,9 +34,9 @@ Represents an intake record used to propose or initiate a new project. Captures 
 - Estimated Resources: Integer
 - Requested Budget: Currency
 - Funding Source: Text
-- Executive Sponsor: Lookup (Person)
-- Business Owner: Lookup (Person)
-- Technical Contact: Lookup (Person)
+- Executive Sponsor: Lookup (User)
+- Business Owner: Lookup (User)
+- Technical Contact: Lookup (User)
 - Impact If Not Done: Memo
 - Alternative Approaches: Memo
 - Dependencies: Memo
@@ -45,16 +44,15 @@ Represents an intake record used to propose or initiate a new project. Captures 
 - Assumptions: Memo
 - Risk Summary: Memo
 - Evaluation Date: Date
-- Evaluated By: Lookup (Person)
+- Evaluated By: Lookup (User)
 - Evaluation Score: Integer
 - Evaluation Notes: Memo
 - Decision Date: Date
-- Decided By: Lookup (Person)
+- Decided By: Lookup (User)
 - Decision Rationale: Memo
 - Approved Project: Lookup (Project)
 - Rejection Reason: Memo
 - Supporting Document: Lookup (Document)
-- Notes: Memo
 
 ---
 
@@ -66,22 +64,21 @@ Represents the primary delivery record for a defined body of work with scope, ob
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Project Code: Text
 - Stage: Choice (Project Stage)
 - Completion Status: Choice (Item Completion Status)
-- Project Type: Choice (Project Project Type)
-- Project Health: Choice (Initiative Health)
+- Project Type: Choice (Project Type)
+- Project Health: Choice (Item Health Status)
 - Health Summary: Memo
 - Parent Project: Lookup (Project)
 - Project Request: Lookup (Project Request)
 - Organization Initiative: Lookup (Organization Initiative)
 - Owning Organization Unit: Lookup (Organization Unit)
 - Delivery Organization Unit: Lookup (Organization Unit)
-- Project Manager: Lookup (Person)
-- Executive Sponsor: Lookup (Person)
-- Business Owner: Lookup (Person)
-- Technical Lead: Lookup (Person)
+- Project Manager: Lookup (User)
+- Executive Sponsor: Lookup (User)
+- Business Owner: Lookup (User)
+- Technical Lead: Lookup (User)
 - Customer Account: Lookup (Account)
 - Vendor Account: Lookup (Account)
 - Planned Start Date: Date
@@ -118,7 +115,6 @@ Represents the primary delivery record for a defined body of work with scope, ob
 - Project Site URL: Text
 - Lessons Learned: Memo
 - Closeout Summary: Memo
-- Notes: Memo
 
 ---
 
@@ -128,7 +124,6 @@ Represents standardized roles used within projects (e.g., Project Manager, Busin
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Role Code: Text
 - Role Category: Choice (Project Role Category)
 - Description: Memo
@@ -143,10 +138,9 @@ Represents the assignment of a person or resource to a project (and optionally t
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Assignment Number: Text
 - Project: Lookup (Project)
-- Assigned Person: Lookup (Person)
+- Assigned Person: Lookup (User)
 - Project Role: Lookup (Project Role)
 - Stage: Choice (Project Resource Assignment Stage)
 - Assignment Status: Choice (Item Assignment Status)
@@ -156,14 +150,13 @@ Represents the assignment of a person or resource to a project (and optionally t
 - Planned Hours: Float
 - Actual Hours: Float
 - Remaining Hours: Float
-- Assigned By: Lookup (Person)
+- Assigned By: Lookup (User)
 - Assignment Date: Date
 - Is Primary: Yes / No
 - Is Billable: Yes / No
 - Billing Rate: Currency
 - Cost Rate: Currency
 - Assignment Notes: Memo
-- Notes: Memo
 
 ---
 
@@ -175,16 +168,14 @@ Represents a planning container that groups and prioritizes future work items fo
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Backlog Code: Text
 - Project: Lookup (Project)
 - Stage: Choice (Project Backlog Stage)
 - Backlog Type: Choice (Project Backlog Type)
-- Backlog Owner: Lookup (Person)
+- Backlog Owner: Lookup (User)
 - Description: Memo
 - Target Iteration: Lookup (Project Iteration)
 - Priority: Choice (Priority)
-- Notes: Memo
 
 ---
 
@@ -194,7 +185,6 @@ Represents a defined timebox or execution cycle within a project (e.g., sprint, 
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Iteration Code: Text
 - Project: Lookup (Project)
 - Stage: Choice (Project Iteration Stage)
@@ -206,13 +196,12 @@ Represents a defined timebox or execution cycle within a project (e.g., sprint, 
 - Committed Work Items: Integer
 - Completed Work Items: Integer
 - Iteration Goal: Memo
-- Iteration Owner: Lookup (Person)
+- Iteration Owner: Lookup (User)
 - Velocity: Float
 - Burndown Rate: Float
 - Review Date: Date
 - Review Notes: Memo
 - Retrospective Notes: Memo
-- Notes: Memo
 
 ---
 
@@ -222,7 +211,6 @@ Represents the configuration table defining categories of work items (e.g., Epic
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Type Code: Text
 - Type Category: Choice (Project Work Item Category)
 - Description: Memo
@@ -241,7 +229,6 @@ Represents the core execution record for a unit of work within a project. May re
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Work Item Number: Text
 - Project: Lookup (Project)
 - Project Work Item Type: Lookup (Project Work Item Type)
@@ -251,10 +238,8 @@ Represents the core execution record for a unit of work within a project. May re
 - Parent Work Item: Lookup (Project Work Item)
 - Project Backlog: Lookup (Project Backlog)
 - Project Iteration: Lookup (Project Iteration)
-- Assigned To: Lookup (Person)
-- Created By: Lookup (Person)
+- Created By: Lookup (User)
 - Created Date: Date Time
-- Owner: Lookup (Person)
 - Description: Memo
 - Acceptance Criteria: Memo
 - Business Value: Integer
@@ -277,14 +262,13 @@ Represents the core execution record for a unit of work within a project. May re
 - Resolution: Choice (Project Work Item Resolution)
 - Resolution Notes: Memo
 - Test Status: Choice (Simple Certification Status)
-- Verified By: Lookup (Person)
+- Verified By: Lookup (User)
 - Verification Date: Date
 - Tags: Text
 - Discussion: Memo
 - Related Risk: Lookup (Risk Item)
 - Related Action Item: Lookup (Action Item)
 - Supporting Document: Lookup (Document)
-- Notes: Memo
 
 ---
 
@@ -296,7 +280,6 @@ Represents a significant event or checkpoint within a project timeline. Represen
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Milestone Code: Text
 - Parent Milestone: Lookup (Project Milestone)
 - Project: Lookup (Project)
@@ -304,7 +287,6 @@ Represents a significant event or checkpoint within a project timeline. Represen
 - Milestone Status: Choice (Milestone Status)
 - Milestone Type: Choice (Project Milestone Type)
 - Milestone Category: Choice (Project Milestone Category)
-- Owner: Lookup (Person)
 - Description: Memo
 - Success Criteria: Memo
 - Planned Date: Date
@@ -315,7 +297,7 @@ Represents a significant event or checkpoint within a project timeline. Represen
 - Is Deliverable: Yes / No
 - Deliverable Description: Memo
 - Requires Approval: Yes / No
-- Approver: Lookup (Person)
+- Approver: Lookup (User)
 - Approval Date: Date
 - Approval Status: Choice (Approval Status)
 - Variance (Days): Integer
@@ -323,7 +305,6 @@ Represents a significant event or checkpoint within a project timeline. Represen
 - Dependencies: Memo
 - Related Work Item: Lookup (Project Work Item)
 - Related Document: Lookup (Document)
-- Notes: Memo
 
 ---
 
@@ -333,14 +314,13 @@ Represents a formal proposal to modify approved project scope, schedule, cost, d
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Change Request Number: Text
 - Project: Lookup (Project)
 - Stage: Choice (Project Change Request Stage)
 - Decision Status: Choice (Item Decision Status)
 - Change Request Type: Choice (Project Change Request Type)
 - Change Impact Level: Choice (Degree)
-- Requested By: Lookup (Person)
+- Requested By: Lookup (User)
 - Requesting Organization Unit: Lookup (Organization Unit)
 - Request Date: Date
 - Required By Date: Date
@@ -356,24 +336,23 @@ Represents a formal proposal to modify approved project scope, schedule, cost, d
 - Resource Impact: Memo
 - Quality Impact: Memo
 - Impact Analysis Date: Date
-- Analyzed By: Lookup (Person)
+- Analyzed By: Lookup (User)
 - Impact Analysis: Memo
 - Recommended Action: Memo
 - Alternative Options: Memo
 - Review Date: Date
-- Reviewed By: Lookup (Person)
+- Reviewed By: Lookup (User)
 - Review Notes: Memo
 - Decision Date: Date
 - Decision: Choice (Approval Status)
 - Decision Rationale: Memo
-- Approved By: Lookup (Person)
+- Approved By: Lookup (User)
 - Implementation Status: Choice (Action Status)
 - Implementation Date: Date
-- Implemented By: Lookup (Person)
+- Implemented By: Lookup (User)
 - Implementation Notes: Memo
 - Priority: Choice (Priority)
 - Supporting Document: Lookup (Document)
-- Notes: Memo
 
 ## Choice Fields
 

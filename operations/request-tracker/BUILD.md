@@ -12,12 +12,12 @@ Represents a single submitted request for work, information, approval, or action
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Request Number: Text
 - Request Type: Lookup (Request Type)
 - Approval Status: Choice (Approval Status)
 - Priority: Choice (Priority)
-- Submitted By: Lookup (Person)
+- Submitted By: Lookup (User)
+- Submitted By (External): Lookup (Person)
 - Submitting Account: Lookup (Account)
 - Submitting Organization Unit: Lookup (Organization Unit)
 - Contact Person: Lookup (Person)
@@ -28,22 +28,20 @@ Represents a single submitted request for work, information, approval, or action
 - Submission Date Time: Date Time
 - Submission Method: Choice (Method of Contact)
 - Received Date: Date
-- Received By: Lookup (Person)
+- Received By: Lookup (User)
 - Request Description: Memo
-- Request Details: Memo
 - Attachments Description: Memo
 - Due Date: Date
 - Target Response Date: Date
 - Target Completion Date: Date
-- Assigned To: Lookup (Person)
 - Assigned Organization Unit: Lookup (Organization Unit)
 - Assignment Date: Date
-- Assigned By: Lookup (Person)
-- Reviewer: Lookup (Person)
+- Assigned By: Lookup (User)
+- Reviewer: Lookup (User)
 - Review Date: Date
 - Review Notes: Memo
 - Requires Approval: Yes / No
-- Approver: Lookup (Person)
+- Approver: Lookup (User)
 - Approval Status: Choice (Approval Status)
 - Approval Date: Date
 - Approval Notes: Memo
@@ -53,12 +51,12 @@ Represents a single submitted request for work, information, approval, or action
 - Resolution: Memo
 - Outcome: Choice (Overall Result)
 - Completion Date: Date Time
-- Completed By: Lookup (Person)
+- Completed By: Lookup (User)
 - Effort Hours: Float
 - Response Time (Hours): Float
 - Time to Complete (Hours): Float
 - Closure Date: Date
-- Closed By: Lookup (Person)
+- Closed By: Lookup (User)
 - Closure Notes: Memo
 - Satisfaction Rating: Integer
 - Feedback: Memo
@@ -72,7 +70,6 @@ Represents a single submitted request for work, information, approval, or action
 - Security Classification: Choice (Security Classification)
 - Visibility: Choice (Visibility)
 - Tags: Text
-- Notes: Memo
 
 ---
 
@@ -82,7 +79,6 @@ Defines the classification of a request and supports routing, prioritization, an
 **Completed:**
 
 **Planned:**
-- Name: Text
 - Type Code: Text
 - Parent Request Type: Lookup (Request Type)
 - Request Type Category: Choice (Request Type Category)
@@ -91,10 +87,10 @@ Defines the classification of a request and supports routing, prioritization, an
 - Examples: Memo
 - Default Priority: Choice (Priority)
 - Default Assigned Organization Unit: Lookup (Organization Unit)
-- Default Assigned Person: Lookup (Person)
-- Default Reviewer: Lookup (Person)
+- Default Assigned Person: Lookup (User)
+- Default Reviewer: Lookup (User)
 - Requires Approval: Yes / No
-- Default Approver: Lookup (Person)
+- Default Approver: Lookup (User)
 - Target Response Time (Hours): Float
 - Target Completion Time (Hours): Float
 - Allows External Submission: Yes / No

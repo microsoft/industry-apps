@@ -10,11 +10,10 @@ The primary record representing a planned occurrence (conference, meeting, heari
 **Completed:**
 
 **Planned:**
-- Name: Text
+- Event Title: Name
 - Event Code: Text
 - Event Type: Lookup (Event Type)
 - Description: Memo
-- Details: Memo
 - Stage: Choice (Event Stage)
 - Decision Status: Choice (Item Decision Status)
 - Visibility: Choice (Visibility)
@@ -30,7 +29,6 @@ The primary record representing a planned occurrence (conference, meeting, heari
 - Is Hybrid: Yes / No
 - Host Organization Unit: Lookup (Organization Unit)
 - Host Account: Lookup (Account)
-- Event Owner: Lookup (Person)
 - Maximum Capacity: Integer
 - Expected Attendees: Integer
 - Actual Attendees: Integer
@@ -39,7 +37,6 @@ The primary record representing a planned occurrence (conference, meeting, heari
 - Is Public: Yes / No
 - Website URL: Text
 - Tags: Text
-- Notes: Memo
 
 ---
 
@@ -49,7 +46,7 @@ A classification table defining categories of events (e.g., Conference, Training
 **Completed:**
 
 **Planned:**
-- Name: Text
+- Type Name: Name
 - Description: Memo
 - Default Duration (Hours): Float
 - Requires Approval: Yes / No
@@ -62,7 +59,7 @@ Represents a thematic or organizational grouping within an event (e.g., "Technol
 **Completed:**
 
 **Planned:**
-- Name: Text
+- Track Name: Name
 - Event: Lookup (Event)
 - Parent Event Track: Lookup (Event Track)
 - Track Code: Text
@@ -80,7 +77,7 @@ Captures a proposed or requested event prior to formal approval or scheduling. U
 **Completed:**
 
 **Planned:**
-- Name: Text
+- Request Title: Name
 - Stage: Choice (Event Request Stage)
 - Decision Status: Choice (Item Decision Status)
 - Requested By: Lookup (Person)
@@ -110,7 +107,7 @@ Represents an individual or organization involved in the event. This can include
 **Completed:**
 
 **Planned:**
-- Name: Text
+- Participant Name: Name
 - Event: Lookup (Event)
 - Person: Lookup (Person)
 - Account: Lookup (Account)
@@ -131,7 +128,6 @@ Represents an individual or organization involved in the event. This can include
 - Emergency Contact Phone: Text
 - Badge Printed: Yes / No
 - Certificate Issued: Yes / No
-- Notes: Memo
 
 ---
 
@@ -141,7 +137,7 @@ Links participants to specific sessions. Used when attendance, roles, or respons
 **Completed:**
 
 **Planned:**
-- Name: Text
+- Session Participant Name: Name
 - Event Session: Lookup (Event Session)
 - Event Participant: Lookup (Event Participant)
 - Person: Lookup (Person)
@@ -150,7 +146,6 @@ Links participants to specific sessions. Used when attendance, roles, or respons
 - Check In Date Time: Date Time
 - Attended: Yes / No
 - Presentation Order: Integer
-- Notes: Memo
 
 ---
 
@@ -162,7 +157,7 @@ Represents a scheduled time block within an event (e.g., breakout session, heari
 **Completed:**
 
 **Planned:**
-- Name: Text
+- Session Title: Name
 - Event: Lookup (Event)
 - Parent Event Session: Lookup (Event Session)
 - Event Track: Lookup (Event Track)
@@ -184,7 +179,6 @@ Represents a scheduled time block within an event (e.g., breakout session, heari
 - Session Lead: Lookup (Person)
 - Recording URL: Text
 - Materials URL: Text
-- Notes: Memo
 
 ---
 
@@ -196,7 +190,7 @@ Represents an exhibition, presentation, booth, poster, demonstration, or other s
 **Completed:**
 
 **Planned:**
-- Name: Text
+- Entry Title: Name
 - Entry Code: Text
 - Event: Lookup (Event)
 - Event Track: Lookup (Event Track)
@@ -211,7 +205,7 @@ Represents an exhibition, presentation, booth, poster, demonstration, or other s
 - Title: Text
 - Abstract: Memo
 - Description: Memo
-- Reviewer: Lookup (Person)
+- Reviewer: Lookup (User)
 - Review Date: Date
 - Review Comments: Memo
 - Approved By: Lookup (Person)
@@ -221,7 +215,6 @@ Represents an exhibition, presentation, booth, poster, demonstration, or other s
 - Space Requirements: Memo
 - Supporting Document: Lookup (Document)
 - Presentation URL: Text
-- Notes: Memo
 
 ---
 
@@ -233,7 +226,7 @@ Represents an organization or entity providing financial or in-kind support for 
 **Completed:**
 
 **Planned:**
-- Name: Text
+- Sponsor Name: Name
 - Event: Lookup (Event)
 - Sponsor Account: Lookup (Account)
 - Sponsorship Level: Choice (Event Sponsorship Level)
@@ -251,7 +244,6 @@ Represents an organization or entity providing financial or in-kind support for 
 - Benefits Provided: Memo
 - Logo URL: Text
 - Website URL: Text
-- Notes: Memo
 
 ---
 
