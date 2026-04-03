@@ -191,7 +191,7 @@ Represents an individual's enrollment in a specific benefit plan, including sele
 - Effective Start Date: Date
 - Effective End Date: Date
 - Coverage End Date: Date
-- Submitted By: Lookup (User)
+- Submitted By: Lookup (Person)
 - Submitted Date: Date
 - Enrollment Source: Choice (Benefit Enrollment Source)
 - Related Life Event: Lookup (HR Benefit Life Event)
@@ -267,7 +267,7 @@ Records a reported qualifying life event for an individual (e.g., marriage, birt
 - Supporting Documentation Required: Yes / No
 - Documentation Received: Yes / No
 - Documentation Date: Date
-- Verified By: Lookup (User)
+- Verified By: Lookup (Person)
 - Verification Date: Date
 - Description: Memo
 - Supporting Document: Lookup (Document)
@@ -293,7 +293,7 @@ Tracks specific benefit enrollment changes resulting from a life event, includin
 - New Coverage Level: Lookup (HR Benefit Coverage Level)
 - Previous Premium: Currency
 - New Premium: Currency
-- Approved By: Lookup (User)
+- Approved By: Lookup (Person)
 - Approval Date: Date
 - Processed Date: Date
 - Description: Memo
@@ -387,11 +387,11 @@ Tracks internal benefit-related claims or reimbursement requests (e.g., tuition 
 - Payment Status: Choice (Payment Status)
 - Payment Date: Date
 - Payment Method: Text
-- Submitted By: Lookup (User)
-- Reviewed By: Lookup (User)
+- Submitted By: Lookup (Person)
+- Reviewed By: Lookup (Person)
 - Review Date: Date
 - Approval Status: Choice (Approval Status)
-- Approved By: Lookup (User)
+- Approved By: Lookup (Person)
 - Approval Date: Date
 - Description: Memo
 - Supporting Document: Lookup (Document)

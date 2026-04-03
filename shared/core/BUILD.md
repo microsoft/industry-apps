@@ -249,7 +249,7 @@ Represents tasks, action items, or follow-up items assigned to individuals or te
 
 **Planned:**
 - Action Number: Text
-- Assigned By: Lookup (User)
+- Assigned By: Lookup (Person)
 - Assigned Date: Date
 - Action Status: Choice (Action Status)
 - Priority: Choice (Priority)

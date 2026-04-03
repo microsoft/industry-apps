@@ -17,7 +17,7 @@ Represents a high-level initiative or policy area under which services are offer
 - Program Type: Choice (Program Type)
 - Parent Program: Lookup (Program)
 - Administering Organization Unit: Lookup (Organization Unit)
-- Program Manager: Lookup (User)
+- Program Manager: Lookup (Person)
 - Organization Initiative: Lookup (Organization Initiative)
 - Effective Start Date: Date
 - Effective End Date: Date
@@ -48,7 +48,7 @@ Represents a defined type of service provided under a Program. A Service describ
 - Service Type: Choice (Service Type)
 - Description: Memo
 - Service Scope: Memo
-- Service Owner: Lookup (User)
+- Service Owner: Lookup (Person)
 - Owning Organization Unit: Lookup (Organization Unit)
 - Service Delivery Method: Choice (Delivery Method)
 - Service Level: Choice (Service Level)
@@ -99,7 +99,7 @@ Represents a specific version or configuration of a Service, typically bounded b
 - Current Participants: Integer
 - Waitlist Capacity: Integer
 - Waitlist Count: Integer
-- Offering Owner: Lookup (User)
+- Offering Owner: Lookup (Person)
 - Provider Organization Unit: Lookup (Organization Unit)
 - Provider Account: Lookup (Account)
 - Primary Location: Lookup (Location)
@@ -109,7 +109,7 @@ Represents a specific version or configuration of a Service, typically bounded b
 - Funding Source: Text
 - Budget Allocation: Currency
 - Requires Pre Approval: Yes / No
-- Approver: Lookup (User)
+- Approver: Lookup (Person)
 - Description: Memo
 - Enrollment Instructions: Memo
 - Terms and Conditions: Memo
@@ -163,7 +163,7 @@ Represents the association between a Service Offering and a Service Eligibility 
 - Rule Priority: Integer
 - Effective Start Date: Date
 - Effective End Date: Date
-- Waiver Authority: Lookup (User)
+- Waiver Authority: Lookup (Person)
 
 ---
 
@@ -209,7 +209,7 @@ Represents a person's or organization's enrollment or engagement in a specific S
 - Termination Reason: Memo
 - Eligibility Status: Choice (Eligibility Status)
 - Eligibility Determination Date: Date
-- Determined By: Lookup (User)
+- Determined By: Lookup (Person)
 - Eligibility Notes: Memo
 - Assigned Organization Unit: Lookup (Organization Unit)
 - Primary Service Location: Lookup (Location)
@@ -236,7 +236,7 @@ Represents an operational event or action performed during delivery of a Service
 - Action Status: Choice (Action Status)
 - Activity Date: Date
 - Activity Date Time: Date Time
-- Performed By: Lookup (User)
+- Performed By: Lookup (Person)
 - Performing Organization Unit: Lookup (Organization Unit)
 - Activity Location: Lookup (Location)
 - Activity Description: Memo
@@ -274,9 +274,9 @@ Represents an official, factual outcome that occurred for a specific Service Par
 - Approved Amount: Currency
 - Benefit Period Start Date: Date
 - Benefit Period End Date: Date
-- Determined By: Lookup (User)
+- Determined By: Lookup (Person)
 - Determination Date: Date
-- Approved By: Lookup (User)
+- Approved By: Lookup (Person)
 - Approval Date: Date
 - Notification Sent: Yes / No
 - Notification Date: Date

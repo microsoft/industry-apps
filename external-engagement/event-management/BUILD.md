@@ -205,7 +205,7 @@ Represents an exhibition, presentation, booth, poster, demonstration, or other s
 - Title: Text
 - Abstract: Memo
 - Description: Memo
-- Reviewer: Lookup (User)
+- Reviewer: Lookup (Person)
 - Review Date: Date
 - Review Comments: Memo
 - Approved By: Lookup (Person)

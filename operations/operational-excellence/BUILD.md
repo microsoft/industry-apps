@@ -20,11 +20,11 @@ Represents an unplanned operational disruption, failure, or adverse event that i
 - Incident Date Time: Date Time
 - Discovery Date Time: Date Time
 - Reported Date Time: Date Time
-- Reported By: Lookup (User)
+- Reported By: Lookup (Person)
 - Impacted Organization Unit: Lookup (Organization Unit)
 - Impacted Location: Lookup (Location)
 - Impacted Operational Item: Lookup (Operational Item)
-- Incident Commander: Lookup (User)
+- Incident Commander: Lookup (Person)
 - Assigned Team: Lookup (Organization Unit)
 - Description: Memo
 - Impact Description: Memo
@@ -61,7 +61,7 @@ Represents a facility, asset, program, process, site, or other entity subject to
 - Item Type: Choice (Operational Item Type)
 - Lifecycle Stage: Choice (Lifecycle Stage)
 - Owning Organization Unit: Lookup (Organization Unit)
-- Item Owner: Lookup (User)
+- Item Owner: Lookup (Person)
 - Primary Location: Lookup (Location)
 - Description: Memo
 - Operational Purpose: Memo
@@ -88,7 +88,7 @@ Represents a structured evaluation or review of an Operational Item to assess co
 - Inspection Scope: Memo
 - Scheduled Date: Date
 - Actual Inspection Date: Date
-- Lead Inspector: Lookup (User)
+- Lead Inspector: Lookup (Person)
 - Inspection Team: Text
 - Inspecting Organization Unit: Lookup (Organization Unit)
 - Inspection Location: Lookup (Location)
@@ -128,8 +128,8 @@ Represents a planned proactive operational activity such as an exercise, drill, 
 - Actual End Date Time: Date Time
 - Event Location: Lookup (Location)
 - Host Organization Unit: Lookup (Organization Unit)
-- Event Controller: Lookup (User)
-- Event Coordinator: Lookup (User)
+- Event Controller: Lookup (Person)
+- Event Coordinator: Lookup (Person)
 - Purpose: Memo
 - Scope: Memo
 - Scenario Description: Memo
@@ -185,7 +185,7 @@ Captures the results of an Operational Event, including whether objectives were 
 - Analysis: Memo
 - Recommendations: Memo
 - Supporting Evidence: Memo
-- Evaluator: Lookup (User)
+- Evaluator: Lookup (Person)
 - Evaluation Date: Date
 
 ---
@@ -224,7 +224,7 @@ Represents a formal evaluation of whether an organization, unit, facility, progr
 - Assessment Period Start Date: Date
 - Assessment Period End Date: Date
 - Assessment Date: Date
-- Lead Assessor: Lookup (User)
+- Lead Assessor: Lookup (Person)
 - Assessment Team: Text
 - Assessment Scope: Memo
 - Mission Statement: Memo
@@ -271,7 +271,7 @@ Represents a deficiency, gap, issue, observation, or lesson identified during an
 - Operational Readiness Assessment: Lookup (Operational Readiness Assessment)
 - Operational Item: Lookup (Operational Item)
 - Identified Date: Date
-- Identified By: Lookup (User)
+- Identified By: Lookup (Person)
 - Organization Unit: Lookup (Organization Unit)
 - Location: Lookup (Location)
 - Finding Description: Memo
@@ -286,7 +286,7 @@ Represents a deficiency, gap, issue, observation, or lesson identified during an
 - Target Closure Date: Date
 - Actual Closure Date: Date
 - Closure Notes: Memo
-- Verified By: Lookup (User)
+- Verified By: Lookup (Person)
 - Verification Date: Date
 - Related Risk Item: Lookup (Risk Item)
 - Supporting Document: Lookup (Document)
@@ -310,7 +310,7 @@ Represents a proposed corrective, preventive, or improvement action developed in
 - Recommendation Stage: Choice (Operational Recommendation Stage)
 - Priority: Choice (Priority)
 - Recommendation Date: Date
-- Recommended By: Lookup (User)
+- Recommended By: Lookup (Person)
 - Recommendation Description: Memo
 - Rationale: Memo
 - Expected Benefit: Memo
@@ -318,7 +318,7 @@ Represents a proposed corrective, preventive, or improvement action developed in
 - Recommended To: Lookup (Organization Unit)
 - Management Response: Memo
 - Response Date: Date
-- Response By: Lookup (User)
+- Response By: Lookup (Person)
 - Acceptance Status: Choice (Item Acceptance Status)
 - Action Status: Choice (Action Status)
 - Implementation Date: Date
@@ -326,7 +326,7 @@ Represents a proposed corrective, preventive, or improvement action developed in
 - Actual Completion Date: Date
 - Related Action Item: Lookup (Action Item)
 - Verification Required: Yes / No
-- Verified By: Lookup (User)
+- Verified By: Lookup (Person)
 - Verification Date: Date
 - Verification Notes: Memo
 
@@ -344,7 +344,7 @@ Captures reported operational contributions, improvements, cost savings, efficie
 - Impact Type: Choice (Operational Impact Type)
 - Impact Stage: Choice (Operational Impact Stage)
 - Submission Date: Date
-- Submitted By: Lookup (User)
+- Submitted By: Lookup (Person)
 - Submitting Organization Unit: Lookup (Organization Unit)
 - Impact Date: Date
 - Impact Title: Text
@@ -365,7 +365,7 @@ Captures reported operational contributions, improvements, cost savings, efficie
 - Scalability Notes: Memo
 - Best Practice: Yes / No
 - Decision Status: Choice (Item Decision Status)
-- Decided By: Lookup (User)
+- Decided By: Lookup (Person)
 - Decision Date: Date
 - Decision Comments: Memo
 - Recognition Granted: Yes / No

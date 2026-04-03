@@ -16,7 +16,7 @@ Represents a single submitted request for work, information, approval, or action
 - Request Type: Lookup (Request Type)
 - Approval Status: Choice (Approval Status)
 - Priority: Choice (Priority)
-- Submitted By: Lookup (User)
+- Submitted By: Lookup (Person)
 - Submitted By (External): Lookup (Person)
 - Submitting Account: Lookup (Account)
 - Submitting Organization Unit: Lookup (Organization Unit)
@@ -28,7 +28,7 @@ Represents a single submitted request for work, information, approval, or action
 - Submission Date Time: Date Time
 - Submission Method: Choice (Method of Contact)
 - Received Date: Date
-- Received By: Lookup (User)
+- Received By: Lookup (Person)
 - Request Description: Memo
 - Attachments Description: Memo
 - Due Date: Date
@@ -36,12 +36,12 @@ Represents a single submitted request for work, information, approval, or action
 - Target Completion Date: Date
 - Assigned Organization Unit: Lookup (Organization Unit)
 - Assignment Date: Date
-- Assigned By: Lookup (User)
-- Reviewer: Lookup (User)
+- Assigned By: Lookup (Person)
+- Reviewer: Lookup (Person)
 - Review Date: Date
 - Review Notes: Memo
 - Requires Approval: Yes / No
-- Approver: Lookup (User)
+- Approver: Lookup (Person)
 - Approval Status: Choice (Approval Status)
 - Approval Date: Date
 - Approval Notes: Memo
@@ -51,12 +51,12 @@ Represents a single submitted request for work, information, approval, or action
 - Resolution: Memo
 - Outcome: Choice (Overall Result)
 - Completion Date: Date Time
-- Completed By: Lookup (User)
+- Completed By: Lookup (Person)
 - Effort Hours: Float
 - Response Time (Hours): Float
 - Time to Complete (Hours): Float
 - Closure Date: Date
-- Closed By: Lookup (User)
+- Closed By: Lookup (Person)
 - Closure Notes: Memo
 - Satisfaction Rating: Integer
 - Feedback: Memo
@@ -87,10 +87,10 @@ Defines the classification of a request and supports routing, prioritization, an
 - Examples: Memo
 - Default Priority: Choice (Priority)
 - Default Assigned Organization Unit: Lookup (Organization Unit)
-- Default Assigned Person: Lookup (User)
-- Default Reviewer: Lookup (User)
+- Default Assigned Person: Lookup (Person)
+- Default Reviewer: Lookup (Person)
 - Requires Approval: Yes / No
-- Default Approver: Lookup (User)
+- Default Approver: Lookup (Person)
 - Target Response Time (Hours): Float
 - Target Completion Time (Hours): Float
 - Allows External Submission: Yes / No

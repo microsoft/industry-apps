@@ -17,7 +17,7 @@ Represents the initial request or justification to create or fill a position. Ty
 - Stage: Choice (HR Workforce Request Stage)
 - Decision Status: Choice (Item Decision Status)
 - Requested Date: Date
-- Requested By: Lookup (User)
+- Requested By: Lookup (Person)
 - Requesting Organization Unit: Lookup (Organization Unit)
 - Position Count: Integer
 - Position Title: Text
@@ -31,7 +31,7 @@ Represents the initial request or justification to create or fill a position. Ty
 - Funding Source: Text
 - Proposed Start Date: Date
 - Priority: Choice (Priority)
-- Approved By: Lookup (User)
+- Approved By: Lookup (Person)
 - Approval Date: Date
 - Related Requisition: Lookup (HR Requisition)
 - Description: Memo
@@ -56,8 +56,8 @@ Represents the authorized request to recruit for a position. Contains hiring det
 - Employment Type: Choice (Employment Type)
 - Position Designation: Choice (Position Designation)
 - Hiring Organization Unit: Lookup (Organization Unit)
-- Hiring Manager: Lookup (User)
-- Recruiter: Lookup (User)
+- Hiring Manager: Lookup (Person)
+- Recruiter: Lookup (Person)
 - Work Location: Lookup (Location)
 - Is Remote Eligible: Yes / No
 - Target Start Date: Date
@@ -69,7 +69,7 @@ Represents the authorized request to recruit for a position. Contains hiring det
 - Posting Required: Yes / No
 - Internal Only: Yes / No
 - Priority: Choice (Priority)
-- Approved By: Lookup (User)
+- Approved By: Lookup (Person)
 - Approval Date: Date
 - Total Applications Received: Integer
 - Total Qualified Applications: Integer
@@ -99,7 +99,7 @@ Represents a specific publication or advertisement instance of a requisition. Tr
 - Job Summary: Memo
 - Job Description: Memo
 - Application Instructions: Memo
-- Posted By: Lookup (User)
+- Posted By: Lookup (Person)
 - View Count: Integer
 - Application Count: Integer
 
@@ -208,7 +208,7 @@ Stores detailed scoring or rating of how well an applicant meets specific skills
 - HR Requisition Requirement: Lookup (HR Requisition Requirement)
 - Competency: Lookup (Competency)
 - Completion Status: Choice (Item Completion Status)
-- Assessed By: Lookup (User)
+- Assessed By: Lookup (Person)
 - Assessment Date: Date
 - Proficiency Level: Choice (Proficiency Level)
 - Score: Float
@@ -228,7 +228,7 @@ Provides the consolidated summary assessment of an application. Captures overall
 - HR Application: Lookup (HR Application)
 - Evaluation Type: Choice (HR Application Evaluation Type)
 - Evaluation Date: Date
-- Evaluated By: Lookup (User)
+- Evaluated By: Lookup (Person)
 - Overall Score: Float
 - Overall Rating: Choice (Overall Rating)
 - Recommendation: Choice (HR Hiring Recommendation)
@@ -256,7 +256,7 @@ Represents a scheduled interview event for an application. Tracks interview type
 - Duration (Minutes): Integer
 - Interview Location: Lookup (Location)
 - Virtual Meeting URL: Text
-- Primary Interviewer: Lookup (User)
+- Primary Interviewer: Lookup (Person)
 - Interview Panel: Text
 - Application Stage: Choice (HR Application Stage)
 - Conducted Date Time: Date Time
@@ -279,7 +279,7 @@ Captures an individual reviewer's structured assessment of a candidate, typicall
 **Planned:**
 - HR Application: Lookup (HR Application)
 - HR Interview: Lookup (HR Interview)
-- Evaluator: Lookup (User)
+- Evaluator: Lookup (Person)
 - Evaluation Date: Date
 - Evaluation Category: Choice (HR Candidate Evaluation Category)
 - Competency: Lookup (Competency)
@@ -307,15 +307,15 @@ Documents the formal hiring decision for a requisition. Identifies the selected 
 - Decision Date: Date
 - Selection Ranking: Integer
 - Selection Rationale: Memo
-- Hiring Manager: Lookup (User)
+- Hiring Manager: Lookup (Person)
 - Hiring Manager Approval: Choice (Approval Status)
 - Hiring Manager Approval Date: Date
 - HR Approval: Choice (Approval Status)
-- HR Approver: Lookup (User)
+- HR Approver: Lookup (Person)
 - HR Approval Date: Date
 - Executive Approval Required: Yes / No
 - Executive Approval: Choice (Approval Status)
-- Executive Approver: Lookup (User)
+- Executive Approver: Lookup (Person)
 - Executive Approval Date: Date
 - Legal Authority: Lookup (Legal Authority)
 - Formal Decision: Lookup (Formal Decision)
@@ -340,7 +340,7 @@ Documents the formal employment offer extended to a selected candidate. Captures
 - Decision Status: Choice (Item Decision Status)
 - Offer Date: Date
 - Offer Expiration Date: Date
-- Extended By: Lookup (User)
+- Extended By: Lookup (Person)
 - Position Title: Text
 - Employment Type: Choice (Employment Type)
 - Organization Unit: Lookup (Organization Unit)
@@ -384,7 +384,7 @@ Tracks conditional requirements that must be completed prior to employment start
 - Result Details: Memo
 - Vendor: Lookup (Account)
 - Cost: Currency
-- Assigned To: Lookup (User)
+- Assigned To: Lookup (Person)
 - Supporting Document: Lookup (Document)
 - Is Blocking: Yes / No
 - Description: Memo

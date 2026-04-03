@@ -21,7 +21,7 @@ Represents the lifecycle container for evaluating a person's suitability for a s
 - Completion Status: Choice (Item Completion Status)
 - Review Priority: Choice (Priority)
 - Review Reason: Choice (Security Review Reason)
-- Requested By: Lookup (User)
+- Requested By: Lookup (Person)
 - Request Date: Date
 - Requested Clearance Level: Lookup (Clearance Level)
 - Current Clearance Level: Lookup (Clearance Level)
@@ -34,8 +34,8 @@ Represents the lifecycle container for evaluating a person's suitability for a s
 - Investigative Authority: Text
 - Investigative Standards: Text
 - Adjudicating Authority: Text
-- Adjudicator: Lookup (User)
-- Security Manager: Lookup (User)
+- Adjudicator: Lookup (Person)
+- Security Manager: Lookup (Person)
 - Review Scope: Memo
 - Special Circumstances: Memo
 - Risk Indicators Summary: Memo
@@ -85,11 +85,11 @@ Represents a formal investigative effort conducted to support a personnel securi
 - Investigation Scope: Choice (Security Investigation Scope)
 - Requested Clearance Level: Lookup (Clearance Level)
 - Initiated Date: Date
-- Initiated By: Lookup (User)
+- Initiated By: Lookup (Person)
 - Initiating Organization Unit: Lookup (Organization Unit)
 - Investigation Provider: Lookup (Account)
 - Investigation Provider Type: Choice (Security Investigation Provider Type)
-- Investigator Assigned: Lookup (User)
+- Investigator Assigned: Lookup (Person)
 - Assignment Date: Date
 - Coverage Start Date: Date
 - Coverage End Date: Date
@@ -106,7 +106,7 @@ Represents a formal investigative effort conducted to support a personnel securi
 - Submitted Date: Date
 - Received Date: Date
 - Quality Review Date: Date
-- Quality Reviewer: Lookup (User)
+- Quality Reviewer: Lookup (Person)
 - Quality Review Notes: Memo
 - Issues Identified: Yes / No
 - Issues Summary: Memo
@@ -116,7 +116,7 @@ Represents a formal investigative effort conducted to support a personnel securi
 - Investigation Cost: Currency
 - Investigation Report: Lookup (Document)
 - Investigation Case File: Text
-- Verified By: Lookup (User)
+- Verified By: Lookup (Person)
 - Verification Date: Date
 
 **Planned Next:**
@@ -142,7 +142,7 @@ Represents the formal decision made as part of a personnel security review. Capt
 - Stage: Choice (Personnel Adjudication Stage)
 - Adjudication Type: Choice (Security Adjudication Type)
 - Adjudication Date: Date
-- Adjudicator: Lookup (User)
+- Adjudicator: Lookup (Person)
 - Adjudicating Authority: Text
 - Adjudicating Organization Unit: Lookup (Organization Unit)
 - Review Panel Members: Text
@@ -211,7 +211,7 @@ Represents the approved level of trust, clearance, or access authorization grant
 - Days Until Expiration: Integer
 - Reinvestigation Due Date: Date
 - Periodic Review Due Date: Date
-- Granted By: Lookup (User)
+- Granted By: Lookup (Person)
 - Granting Authority: Text
 - Granting Organization Unit: Lookup (Organization Unit)
 - Access Level: Text
@@ -241,7 +241,7 @@ Represents the approved level of trust, clearance, or access authorization grant
 - Employment Position: Lookup (Position)
 - Primary Work Location: Lookup (Location)
 - Sponsoring Organization Unit: Lookup (Organization Unit)
-- Security Manager: Lookup (User)
+- Security Manager: Lookup (Person)
 - Legal Authority: Lookup (Legal Authority)
 - Policy Reference: Text
 - Certification Number: Text
@@ -273,7 +273,7 @@ Represents enrollment in ongoing monitoring or recurring vetting processes follo
 - Continuous Evaluation Type: Choice (Security Continuous Evaluation Type)
 - Enrollment Date: Date
 - Enrollment Reason: Choice (Security Enrollment Reason)
-- Enrolled By: Lookup (User)
+- Enrolled By: Lookup (Person)
 - Effective Start Date: Date
 - Effective End Date: Date
 - Program Name: Text
@@ -332,7 +332,7 @@ Represents an event or circumstance that may impact a person's security eligibil
 - Event Date: Date
 - Event Date Time: Date Time
 - Reported Date: Date Time
-- Reported By: Lookup (User)
+- Reported By: Lookup (Person)
 - Report Method: Choice (Method of Contact)
 - Event Description: Memo
 - Event Location: Lookup (Location)
@@ -357,7 +357,7 @@ Represents an event or circumstance that may impact a person's security eligibil
 - Security Concern Level: Choice (Severity Level)
 - Immediate Threat: Yes / No
 - Threat Assessment: Memo
-- Reviewed By: Lookup (User)
+- Reviewed By: Lookup (Person)
 - Review Date: Date
 - Review Notes: Memo
 - Mitigation Actions: Memo
@@ -369,7 +369,7 @@ Represents an event or circumstance that may impact a person's security eligibil
 - Impact on Eligibility: Choice (Severity Level)
 - Eligibility Action Taken: Choice (Security Eligibility Action)
 - Action Taken Date: Date
-- Action Taken By: Lookup (User)
+- Action Taken By: Lookup (Person)
 - Resolution Date: Date
 - Resolution Summary: Memo
 - Legal Authority: Lookup (Legal Authority)
@@ -406,7 +406,7 @@ Represents a physical or logical access artifact issued to a person based on app
 - Days Until Expiration: Integer
 - Effective Start Date: Date
 - Effective End Date: Date
-- Issued By: Lookup (User)
+- Issued By: Lookup (Person)
 - Issuing Organization Unit: Lookup (Organization Unit)
 - Issuing Authority: Text
 - Badge Number: Text
@@ -446,10 +446,10 @@ Represents a physical or logical access artifact issued to a person based on app
 - Suspension End Date: Date
 - Revocation Date: Date
 - Revocation Reason: Memo
-- Revoked By: Lookup (User)
+- Revoked By: Lookup (Person)
 - Return Required: Yes / No
 - Return Date: Date
-- Returned By: Lookup (User)
+- Returned By: Lookup (Person)
 - Return Method: Text
 - Lost or Stolen: Yes / No
 - Lost Stolen Date: Date

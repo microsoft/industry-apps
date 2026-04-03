@@ -162,8 +162,8 @@ A container for a sourcing process, such as a Request for Quote (RFQ), Request f
 - Award Date: Date
 - Total Estimated Value: Currency
 - Requesting Organization Unit: Lookup (Organization Unit)
-- Contracting Officer: Lookup (User)
-- Technical Evaluator: Lookup (User)
+- Contracting Officer: Lookup (Person)
+- Technical Evaluator: Lookup (Person)
 - Small Business Set Aside: Yes / No
 - Competition Required: Yes / No
 - Number of Responses Received: Integer
@@ -191,7 +191,7 @@ A formal agreement with an external organization defining scope of work, pricing
 - Decision Status: Choice (Item Decision Status)
 - Contractor: Lookup (Account)
 - Contractor Contact: Lookup (Person)
-- Contracting Officer: Lookup (User)
+- Contracting Officer: Lookup (Person)
 - Contracting Organization Unit: Lookup (Organization Unit)
 - Award Date: Date
 - Effective Start Date: Date
@@ -234,7 +234,7 @@ A modification to an existing Contract that changes scope, funding amount, prici
 - Decision Status: Choice (Item Decision Status)
 - Amendment Date: Date
 - Effective Date: Date
-- Amended By: Lookup (User)
+- Amended By: Lookup (Person)
 - Amendment Value: Currency
 - New Total Contract Value: Currency
 - Scope Change: Yes / No
@@ -288,7 +288,7 @@ A specific output, service, or product required under a Contract. Deliverables t
 - Accepted Date: Date
 - Rejected Date: Date
 - Acceptance Criteria: Memo
-- Reviewer: Lookup (User)
+- Reviewer: Lookup (Person)
 - Review Comments: Memo
 - Supporting Document: Lookup (Document)
 - Is Critical: Yes / No
@@ -342,7 +342,7 @@ Represents funds that have been formally reserved or obligated for an approved f
 - Fiscal Year: Text
 - Period Start Date: Date
 - Period End Date: Date
-- Committed By: Lookup (User)
+- Committed By: Lookup (Person)
 - Certification Required: Yes / No
 - Certified By: Lookup (Person)
 - Certification Date: Date

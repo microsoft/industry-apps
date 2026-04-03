@@ -44,7 +44,7 @@ Tracks appeal authority, filing date, appeal basis, review process, and final ap
 - Decision Status: Choice (Item Decision Status)
 - Appeal Date: Date
 - Appellant: Lookup (Person)
-- Reviewing Authority: Lookup (User)
+- Reviewing Authority: Lookup (Person)
 - Decision Date: Date
 - Decision Due Date: Date
 - Overall Result: Choice (Overall Result)
@@ -70,7 +70,7 @@ Examples include training requirements, disciplinary measures, policy updates, o
 - Due Date: Date
 - Completion Date: Date
 - Verification Date: Date
-- Verified By: Lookup (User)
+- Verified By: Lookup (Person)
 - Description: Memo
 
 ---
@@ -91,7 +91,7 @@ May include findings, remedies, dismissals, settlements, or final agency decisio
 - Stage: Choice (Dispute Determination Stage)
 - Determination Date: Date
 - Effective Date: Date
-- Deciding Official: Lookup (User)
+- Deciding Official: Lookup (Person)
 - Approval Status: Choice (Approval Status)
 - Overall Result: Choice (Overall Result)
 - Document: Lookup (Document)
@@ -113,7 +113,7 @@ Examples include documents, communications, records, media files, and external r
 - Dispute Investigation: Lookup (Dispute Investigation)
 - Evidence Type: Choice (Dispute Evidence Type)
 - Collection Date: Date
-- Collected By: Lookup (User)
+- Collected By: Lookup (Person)
 - Submitted By: Lookup (Person)
 - Document: Lookup (Document)
 - Is Confidential: Yes / No
@@ -297,7 +297,7 @@ Examples include HR, Legal, Security, Compliance, or external agencies.
 - Dispute: Lookup (Dispute)
 - Stage: Choice (Dispute Referral Stage)
 - Referral Date: Date
-- Referred By: Lookup (User)
+- Referred By: Lookup (Person)
 - Referred To Organization: Lookup (Organization Unit)
 - Referred To Person: Lookup (Person)
 - Referral Reason: Memo

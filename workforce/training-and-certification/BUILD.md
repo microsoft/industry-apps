@@ -23,7 +23,7 @@ Represents a catalog entry for a learning offering, including description, objec
 - Target Audience: Memo
 - Prerequisites: Memo
 - Owning Organization Unit: Lookup (Organization Unit)
-- Course Owner: Lookup (User)
+- Course Owner: Lookup (Person)
 - Subject Area: Text
 - Credit Hours: Float
 - Continuing Education Units: Float
@@ -68,7 +68,7 @@ Represents prerequisite conditions required before enrolling in or completing a 
 - Is Prerequisite: Yes / No
 - Is Corequisite: Yes / No
 - Is Waivable: Yes / No
-- Waiver Authority: Lookup (User)
+- Waiver Authority: Lookup (Person)
 - Requirement Notes: Memo
 
 ---
@@ -194,9 +194,9 @@ Represents an individual's registration in a specific Training Session.
 - Enrollment Status: Choice (Registration Status)
 - Enrollment Date: Date
 - Enrollment Method: Choice (Method of Contact)
-- Enrolled By: Lookup (User)
+- Enrolled By: Lookup (Person)
 - Approved Date: Date
-- Approved By: Lookup (User)
+- Approved By: Lookup (Person)
 - Approval Status: Choice (Approval Status)
 - Waitlist Position: Integer
 - Waitlist Date: Date
@@ -244,7 +244,7 @@ Represents an individual's attendance status for a specific Training Session (an
 - Location: Lookup (Location)
 - Is Excused: Yes / No
 - Excuse Reason: Memo
-- Recorded By: Lookup (User)
+- Recorded By: Lookup (Person)
 - Recorded Date: Date Time
 
 ---
@@ -279,7 +279,7 @@ Represents an individual's successful or attempted completion of a Training Cour
 - Certificate Number: Text
 - Certificate Expiration Date: Date
 - Verification Code: Text
-- Verified By: Lookup (User)
+- Verified By: Lookup (Person)
 - Verification Date: Date
 - Transcript Entry: Yes / No
 - External Course: Yes / No
@@ -305,7 +305,7 @@ Represents an ordered or curated sequence of Training Courses intended to guide 
 - Learning Objectives: Memo
 - Target Audience: Memo
 - Owning Organization Unit: Lookup (Organization Unit)
-- Path Owner: Lookup (User)
+- Path Owner: Lookup (Person)
 - Total Credit Hours: Float
 - Total Duration (Hours): Float
 - Estimated Completion Time (Weeks): Integer
@@ -392,7 +392,7 @@ Represents the criteria required to earn a Training Certificate, such as complet
 - Minimum Experience (Months): Integer
 - Is Required: Yes / No
 - Is Waivable: Yes / No
-- Waiver Authority: Lookup (User)
+- Waiver Authority: Lookup (Person)
 - Requirement Notes: Memo
 
 ---
@@ -412,7 +412,7 @@ Represents a specific instance of a Training Certificate awarded to an individua
 - Effective Date: Date
 - Revocation Date: Date
 - Revocation Reason: Memo
-- Issued By: Lookup (User)
+- Issued By: Lookup (Person)
 - Issuing Organization Unit: Lookup (Organization Unit)
 - Verification Code: Text
 - Is Expired: Yes / No
@@ -446,9 +446,9 @@ Represents a renewal event for a Training Certificate Achievement, including ren
 - Renewal Fee: Currency
 - Fee Paid: Yes / No
 - Payment Date: Date
-- Processed By: Lookup (User)
+- Processed By: Lookup (Person)
 - Processed Date: Date
-- Approved By: Lookup (User)
+- Approved By: Lookup (Person)
 - Approval Date: Date
 - Approval Status: Choice (Approval Status)
 - Supporting Document: Lookup (Document)
@@ -473,7 +473,7 @@ Represents a structured curriculum such as a degree, diploma, or formal certific
 - Learning Outcomes: Memo
 - Admission Requirements: Memo
 - Owning Organization Unit: Lookup (Organization Unit)
-- Program Director: Lookup (User)
+- Program Director: Lookup (Person)
 - Accreditation Body: Text
 - Accreditation Status: Text
 - Accreditation Date: Date
@@ -546,8 +546,8 @@ Represents an individual's Action Status for an Academic Program, including comp
 - Commencement Date: Date
 - Graduation Ceremony: Lookup (Event)
 - Conferral Status: Choice (Conferral Status)
-- Academic Advisor: Lookup (User)
-- Program Director: Lookup (User)
+- Academic Advisor: Lookup (Person)
+- Program Director: Lookup (Person)
 - Transcript Issued: Yes / No
 - Transcript Issue Date: Date
 - Verification Code: Text
@@ -571,7 +571,7 @@ Represents a reusable eligibility rule set that specifies what an individual mus
 - Purpose: Memo
 - Evaluation Logic: Memo
 - Owning Organization Unit: Lookup (Organization Unit)
-- Requirement Owner: Lookup (User)
+- Requirement Owner: Lookup (Person)
 - Effective Start Date: Date
 - Effective End Date: Date
 - Validation Frequency: Choice (Schedule Frequency)

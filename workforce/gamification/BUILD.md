@@ -133,7 +133,7 @@ Logs instances of Participants performing defined Game Activities. This table ca
 - Stage: Choice (Game Participant Activity Stage)
 - Validation Status: Choice (Item Validation Status)
 - Points Earned: Integer
-- Verified By: Lookup (User)
+- Verified By: Lookup (Person)
 - Verification Date: Date
 - Verification Notes: Memo
 - Source Record Type: Text
@@ -161,9 +161,9 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 - Decision Status: Choice (Item Decision Status)
 - Earned Date: Date
 - Awarded Date: Date
-- Awarded By: Lookup (User)
+- Awarded By: Lookup (Person)
 - Revoked Date: Date
-- Revoked By: Lookup (User)
+- Revoked By: Lookup (Person)
 - Revoke Reason: Memo
 - Points Earned: Integer
 - Recognition Status: Choice (Gamification Recognition Status)
@@ -173,7 +173,7 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 - Reward Delivered: Yes / No
 - Reward Delivery Date: Date
 - Approval Required: Yes / No
-- Approved By: Lookup (User)
+- Approved By: Lookup (Person)
 - Approval Date: Date
 - Is Visible: Yes / No
 - Display on Profile: Yes / No

@@ -17,7 +17,7 @@ Represents a general service transaction submitted by a user for IT support, pro
 - Stage: Choice (IT Service Request Stage)
 - Decision Status: Choice (Item Decision Status)
 - Priority: Choice (Priority)
-- Requested By: Lookup (User)
+- Requested By: Lookup (Person)
 - Requesting Organization Unit: Lookup (Organization Unit)
 - Request Date: Date Time
 - Required Date: Date
@@ -27,7 +27,7 @@ Represents a general service transaction submitted by a user for IT support, pro
 - Business Justification: Memo
 - Total Estimated Cost: Currency
 - Decision Date: Date
-- Decided By: Lookup (User)
+- Decided By: Lookup (Person)
 - Fulfillment Start Date: Date
 - Fulfillment Completion Date: Date
 - Closed Date: Date
@@ -71,21 +71,21 @@ Represents a request submitted to obtain, modify, or remove access to systems, a
 - Completion Status: Choice (Item Completion Status)
 - Priority: Choice (Priority)
 - Requested For: Lookup (Person)
-- Requested By: Lookup (User)
+- Requested By: Lookup (Person)
 - Request Date: Date Time
 - Business Justification: Memo
 - Access Start Date: Date
 - Access End Date: Date
 - Is Temporary: Yes / No
 - Requires Manager Approval: Yes / No
-- Manager: Lookup (User)
+- Manager: Lookup (Person)
 - Manager Decision Status: Choice (Item Decision Status)
 - Manager Decision Date: Date
 - Requires Security Review: Yes / No
-- Security Reviewer: Lookup (User)
+- Security Reviewer: Lookup (Person)
 - Security Decision Status: Choice (Item Decision Status)
 - Security Decision Date: Date
-- Fulfilled By: Lookup (User)
+- Fulfilled By: Lookup (Person)
 - Fulfillment Date: Date
 - Closed Date: Date
 
@@ -126,7 +126,7 @@ Defines a specific access right, permission set, license assignment, or role tha
 - Description: Memo
 - Access Level: Choice (IT Access Level)
 - Requires Approval: Yes / No
-- Approver: Lookup (User)
+- Approver: Lookup (Person)
 - Requires Manager Approval: Yes / No
 - Requires Security Review: Yes / No
 - Maximum Assignment Duration (Days): Integer
@@ -152,12 +152,12 @@ Represents the assignment of an IT Entitlement to a person, account, or system. 
 - End Date: Date
 - Is Temporary: Yes / No
 - IT Access Request: Lookup (IT Access Request)
-- Granted By: Lookup (User)
+- Granted By: Lookup (Person)
 - Granted Date: Date
 - Last Review Date: Date
 - Next Review Date: Date
 - Revocation Date: Date
-- Revoked By: Lookup (User)
+- Revoked By: Lookup (Person)
 - Revocation Reason: Memo
 - Account Username: Text
 
@@ -183,10 +183,10 @@ Defines an orderable IT offering. Represents a published service, product packag
 - Estimated Delivery Time (Days): Integer
 - Unit Cost: Currency
 - Requires Approval: Yes / No
-- Default Approver: Lookup (User)
+- Default Approver: Lookup (Person)
 - Approving Organization Unit: Lookup (Organization Unit)
 - Provider Organization Unit: Lookup (Organization Unit)
-- Service Owner: Lookup (User)
+- Service Owner: Lookup (Person)
 - Icon URL: Text
 - Image URL: Text
 - Documentation URL: Text
@@ -225,9 +225,9 @@ Represents a logical or operational information system. Serves as the primary re
 - Security Classification: Choice (Security Classification)
 - Description: Memo
 - Purpose: Memo
-- System Owner: Lookup (User)
-- Business Owner: Lookup (User)
-- Technical Owner: Lookup (User)
+- System Owner: Lookup (Person)
+- Business Owner: Lookup (Person)
+- Technical Owner: Lookup (Person)
 - Owning Organization Unit: Lookup (Organization Unit)
 - Primary Location: Lookup (Location)
 - IT Hosting Location: Lookup (IT Hosting Location)
@@ -240,7 +240,7 @@ Represents a logical or operational information system. Serves as the primary re
 - User Count: Integer
 - Annual Operating Cost: Currency
 - Vendor: Lookup (Account)
-- Support Contact: Lookup (User)
+- Support Contact: Lookup (Person)
 - Documentation URL: Text
 - System URL: Text
 - Related Agreement: Lookup (Agreement)
@@ -264,7 +264,7 @@ Represents a structural part of an IT System, such as an application module, ser
 - Version: Text
 - Primary Location: Lookup (Location)
 - IT Hosting Location: Lookup (IT Hosting Location)
-- Component Owner: Lookup (User)
+- Component Owner: Lookup (Person)
 - Vendor: Lookup (Account)
 - Is Critical: Yes / No
 - Dependencies: Memo
@@ -322,7 +322,7 @@ Represents a technology concept, platform, framework, protocol, runtime, standar
 - License Cost: Currency
 - Is Approved: Yes / No
 - Approval Date: Date
-- Approved By: Lookup (User)
+- Approved By: Lookup (Person)
 - Is Restricted: Yes / No
 - Restriction Reason: Memo
 - Documentation URL: Text
@@ -360,8 +360,8 @@ Represents the physical or logical hosting environment for a system or component
 - Lifecycle Stage: Choice (Lifecycle Stage)
 - Security Classification: Choice (Security Classification)
 - Network Address Range: Text
-- Primary Contact: Lookup (User)
-- Technical Contact: Lookup (User)
+- Primary Contact: Lookup (Person)
+- Technical Contact: Lookup (Person)
 - Service Agreement: Lookup (Agreement)
 - Capacity: Text
 - Utilization: Text
@@ -385,7 +385,7 @@ Represents the formal authorization or approval status of an IT System to operat
 - Compliance Framework: Lookup (Compliance Framework)
 - Authorization Date: Date
 - Expiration Date: Date
-- Authorizing Official: Lookup (User)
+- Authorizing Official: Lookup (Person)
 - Authorizing Organization Unit: Lookup (Organization Unit)
 - Security Level: Choice (Security Classification)
 - Accreditation Scope: Memo
@@ -412,7 +412,7 @@ Represents a formal evaluation of a system, component, or technology against def
 - Compliance Framework: Lookup (Compliance Framework)
 - Assessment Start Date: Date
 - Assessment Completion Date: Date
-- Assessor: Lookup (User)
+- Assessor: Lookup (Person)
 - Assessment Team: Text
 - Assessment Scope: Memo
 - Assessment Method: Memo
@@ -462,7 +462,7 @@ Plan of Action and Milestones (POAM) record used to track remediation of identif
 - Actual Cost: Currency
 - Completion Evidence: Memo
 - Verification Date: Date
-- Verified By: Lookup (User)
+- Verified By: Lookup (Person)
 - Related Risk Item: Lookup (Risk Item)
 - Related Action Item: Lookup (Action Item)
 - Supporting Document: Lookup (Document)
