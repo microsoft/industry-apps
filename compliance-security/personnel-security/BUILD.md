@@ -368,7 +368,7 @@ Represents an event or circumstance that may impact a person's security eligibil
 - Triggered Security Review: Yes / No
 - Related Security Review: Lookup (Personnel Security Review)
 - Related Continuous Evaluation: Lookup (Personnel Continuous Evaluation)
-- Impact on Eligibility: Choice (Security Impact Level)
+- Impact on Eligibility: Choice (Severity Level)
 - Eligibility Action Taken: Choice (Security Eligibility Action)
 - Action Taken Date: Date
 - Action Taken By: Lookup (Person)
@@ -471,19 +471,7 @@ Represents a physical or logical access artifact issued to a person based on app
 
 ---
 
-## Core Choice Fields (Planned for Core Module)
-
-The following choice fields are included in the Core module planning and will be available for reuse:
-
-- **Priority** - Low, Medium, High, Critical
-- **Method of Contact** - Phone, Email, In Person, Mail, Web Form, Portal, Social Media
-- **Resolution Status** - Pending, Under Investigation, Resolved, No Action Required, Mitigated, Unresolved
-- **Quality Review Status** - Passed, Passed with Notes, Failed, Pending Correction, Re Investigation Required
-- **Appeal Status** - Appeal Granted, Appeal Denied, Appeal Partially Granted, Remanded for Review, Withdrawn
-
----
-
-## Personnel Security Module Choice Fields - Semi-Review Completed
+## Choice Fields
 
 **Completed:**
 
@@ -708,13 +696,6 @@ The following choice fields are included in the Core module planning and will be
 - Withdrawn
 - Cancelled
 
-### Security Impact Level
-- No Impact
-- Minor Impact
-- Moderate Impact
-- Significant Impact
-- Critical Impact
-
 ### Security Financial Issue Type
 - Delinquent Debt
 - Bankruptcy
@@ -751,8 +732,6 @@ The following choice fields are included in the Core module planning and will be
 - Monthly
 - Quarterly
 
-**New Stage Fields:**
-
 ### Personnel Security Review Stage
 Tracks security review workflow from initiation through finalization.
 - Initiated
@@ -786,7 +765,9 @@ Tracks reportable event workflow from report through resolution.
 - Mitigation
 - Resolution
 
-**Removed (Replaced with Stage and Core Status Fields):**
+**Planned:**
+
+**Refactored:**
 
 ### Security Review Status → Replaced with Personnel Security Review Stage + Completion Status
 Review Status mixed workflow (Initiated, Investigation Pending/In Progress, Adjudication Pending/In Progress) with work states (Suspended, On Hold) and outcomes (Completed, Cancelled). Separated into:

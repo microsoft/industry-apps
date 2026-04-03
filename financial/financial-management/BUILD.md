@@ -467,7 +467,7 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 
 ---
 
-## Choiced Fields
+## Choice Fields
 
 **Completed:**
 
@@ -590,8 +590,6 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 - Emergency
 - Contract Release
 
-**Planned:**
-
 ### Purchase Order Line Stage
 - Open
 - Partially Received
@@ -680,6 +678,8 @@ Tracks payment processing from initiation through disbursement.
 - Approved
 - Scheduled
 - Processed
+
+**Planned:**
 
 **Removed (Replaced with Stage Fields):**
 

@@ -14,8 +14,8 @@ Represents the initial request or justification to create or fill a position. Ty
 **Planned:**
 - Name: Text
 - Request Number: Text
-- Request Type: Choice (Recruiting Workforce Request Type)
-- Stage: Choice (Workforce Request Stage)
+- Request Type: Choice (HR Workforce Request Type)
+- Stage: Choice (HR Workforce Request Stage)
 - Decision Status: Choice (Item Decision Status)
 - Requested Date: Date
 - Requested By: Lookup (Person)
@@ -91,8 +91,8 @@ Represents a specific publication or advertisement instance of a requisition. Tr
 **Planned:**
 - Name: Text
 - HR Requisition: Lookup (HR Requisition)
-- Posting Channel: Choice (Recruiting Posting Channel)
-- Stage: Choice (Requisition Posting Stage)
+- Posting Channel: Choice (HR Requisition Posting Channel)
+- Stage: Choice (HR Requisition Posting Stage)
 - Publication Status: Choice (Publication Status)
 - Posted Date: Date
 - Posting Start Date: Date
@@ -117,11 +117,11 @@ Defines the required and preferred qualifications, competencies, or eligibility 
 **Planned:**
 - Name: Text
 - HR Requisition: Lookup (HR Requisition)
-- Requirement Type: Choice (Recruiting Requirement Type)
+- Requirement Type: Choice (HR Requisition Requirement Type)
 - Competency: Lookup (Competency)
 - Credential: Lookup (Credential)
 - Required Proficiency Level: Choice (Proficiency Level)
-- Requirement Category: Choice (Recruiting Requirement Category)
+- Requirement Category: Choice (HR Requisition Requirementt Category)
 - Is Required: Yes / No
 - Is Preferred: Yes / No
 - Weight: Float
@@ -153,7 +153,7 @@ Represents the persistent recruiting profile of an individual across application
 - State or Province: Lookup (State or Province)
 - Postal Code: Text
 - Country: Lookup (Country)
-- Candidate Source: Choice (Recruiting Candidate Source)
+- Candidate Source: Choice (HR Candidate Source)
 - Referral Source: Text
 - Referred By: Lookup (Person)
 - Stage: Choice (HR Candidate Stage)
@@ -191,7 +191,7 @@ Represents a candidate's formal submission for a specific requisition or posting
 - Stage Updated Date: Date
 - Decision Status: Choice (Item Decision Status)
 - Application Date: Date Time
-- Application Source: Choice (Recruiting Application Source)
+- Application Source: Choice (HR Application Source)
 - Is Internal: Yes / No
 - Cover Letter: Memo
 - Resume Document: Lookup (Document)
@@ -239,12 +239,12 @@ Provides the consolidated summary assessment of an application. Captures overall
 **Planned:**
 - Name: Text
 - HR Application: Lookup (HR Application)
-- Evaluation Type: Choice (Recruiting Evaluation Type)
+- Evaluation Type: Choice (HR Application Evaluation Type)
 - Evaluation Date: Date
 - Evaluated By: Lookup (Person)
 - Overall Score: Float
 - Overall Rating: Choice (Overall Rating)
-- Recommendation: Choice (Recruiting Recommendation)
+- Recommendation: Choice (HR Hiring Recommendation)
 - Strengths: Memo
 - Concerns: Memo
 - Decision Rationale: Memo
@@ -265,7 +265,7 @@ Represents a scheduled interview event for an application. Tracks interview type
 - Name: Text
 - HR Application: Lookup (HR Application)
 - HR Requisition: Lookup (HR Requisition)
-- Interview Type: Choice (Recruiting Interview Type)
+- Interview Type: Choice (HR Interview Type)
 - Stage: Choice (HR Interview Stage)
 - Scheduled Date Time: Date Time
 - Duration (Minutes): Integer
@@ -277,7 +277,7 @@ Represents a scheduled interview event for an application. Tracks interview type
 - Conducted Date Time: Date Time
 - Attendance Status: Choice (Attendance Status)
 - Overall Impression: Choice (Overall Rating)
-- Recommend for Hire: Choice (Recruiting Recommendation)
+- Recommend for Hire: Choice (HR Hiring Recommendation)
 - Interview Notes: Memo
 - Strengths Observed: Memo
 - Concerns Raised: Memo
@@ -298,7 +298,7 @@ Captures an individual reviewer's structured assessment of a candidate, typicall
 - HR Interview: Lookup (HR Interview)
 - Evaluator: Lookup (Person)
 - Evaluation Date: Date
-- Evaluation Category: Choice (Recruiting Evaluation Category)
+- Evaluation Category: Choice (HR Candidate Evaluation Category)
 - Competency: Lookup (Competency)
 - Score: Float
 - Rating: Choice (Overall Rating)
@@ -378,7 +378,7 @@ Documents the formal employment offer extended to a selected candidate. Captures
 - Offer Document: Lookup (Document)
 - Offer Sent Date: Date
 - Response Received Date: Date
-- Candidate Response: Choice (Recruiting Offer Response)
+- Candidate Response: Choice (HR Offer Response)
 - Negotiation Requested: Yes / No
 - Negotiation Notes: Memo
 - Final Acceptance Date: Date
@@ -397,12 +397,12 @@ Tracks conditional requirements that must be completed prior to employment start
 - Name: Text
 - HR Offer: Lookup (HR Offer)
 - HR Candidate: Lookup (HR Candidate)
-- Requirement Type: Choice (Recruiting Pre-Hire Requirement Type)
+- Requirement Type: Choice (HR Pre-Hire Requirement Type)
 - Completion Status: Choice (Item Completion Status)
 - Required By Date: Date
 - Initiated Date: Date
 - Completed Date: Date
-- Result: Choice (Recruiting Requirement Result)
+- Result: Choice (HR Pre-Hire Requirement Result)
 - Result Details: Memo
 - Vendor: Lookup (Account)
 - Cost: Currency
@@ -415,9 +415,9 @@ Tracks conditional requirements that must be completed prior to employment start
 
 ## Choice Fields
 
-**Planned:**
+**Completed Last Round:**
 
-### Workforce Request Stage
+### HR Workforce Request Stage
 - Draft
 - Submitted
 - Under Review
@@ -434,7 +434,7 @@ Tracks conditional requirements that must be completed prior to employment start
 - Filled
 - Closed
 
-### Requisition Posting Stage
+### HR Requisition Posting Stage
 - Draft
 - Scheduled
 - Published
@@ -482,7 +482,7 @@ Tracks conditional requirements that must be completed prior to employment start
 - Negotiation
 - Finalized
 
-### Recruiting Workforce Request Type
+### HR Workforce Request Type
 - New Position
 - Replacement
 - Temporary Backfill
@@ -490,7 +490,7 @@ Tracks conditional requirements that must be completed prior to employment start
 - Project Based
 - Expansion
 
-### Recruiting Posting Channel
+### HR Requisition Posting Channel
 - Company Website
 - Job Board
 - LinkedIn
@@ -502,7 +502,7 @@ Tracks conditional requirements that must be completed prior to employment start
 - Agency
 - Employee Referral
 
-### Recruiting Requirement Type
+### HR Requisition Requirement Type
 - Education
 - Experience
 - Competency
@@ -514,13 +514,13 @@ Tracks conditional requirements that must be completed prior to employment start
 - Physical Requirement
 - Clearance
 
-### Recruiting Requirement Category
+### HR Requisition Requirementt Category
 - Minimum Qualification
 - Preferred Qualification
 - Screening Criteria
 - Evaluation Criteria
 
-### Recruiting Candidate Source
+### HR Candidate Source
 - Direct Application
 - Employee Referral
 - Agency
@@ -532,7 +532,7 @@ Tracks conditional requirements that must be completed prior to employment start
 - Internal Transfer
 - Rehire
 
-### Recruiting Application Source
+### HR Application Source
 - Direct Application
 - Employee Referral
 - Agency Submission
@@ -540,7 +540,7 @@ Tracks conditional requirements that must be completed prior to employment start
 - Campus Recruiting
 - Sourced by Recruiter
 
-### Recruiting Recommendation
+### HR Hiring Recommendation
 - Strong Hire
 - Hire
 - Maybe
@@ -548,7 +548,7 @@ Tracks conditional requirements that must be completed prior to employment start
 - Advance to Next Stage
 - Decline
 
-### Recruiting Evaluation Category
+### HR Candidate Evaluation Category
 - Technical Skills
 - Communication
 - Leadership
@@ -558,7 +558,7 @@ Tracks conditional requirements that must be completed prior to employment start
 - Education
 - Motivation
 
-### Recruiting Pre-Hire Requirement Type
+### HR Pre-Hire Requirement Type
 - Background Check
 - Drug Screening
 - Medical Examination
@@ -570,7 +570,7 @@ Tracks conditional requirements that must be completed prior to employment start
 - I-9 Verification
 - Fingerprinting
 
-### Recruiting Requirement Result
+### HR Pre-Hire Requirement Result
 - Cleared
 - Cleared with Conditions
 - Failed
@@ -578,7 +578,7 @@ Tracks conditional requirements that must be completed prior to employment start
 - Cancelled
 - Pending
 
-### Recruiting Evaluation Type
+### HR Application Evaluation Type
 - Initial Screening
 - Phone Screen Evaluation
 - Technical Assessment
@@ -586,7 +586,7 @@ Tracks conditional requirements that must be completed prior to employment start
 - Panel Interview
 - Final Assessment
 
-### Recruiting Interview Type
+### HR Interview Type
 - Phone Screen
 - Video Interview
 - In Person
@@ -596,12 +596,14 @@ Tracks conditional requirements that must be completed prior to employment start
 - Case Interview
 - Presentation
 
-### Recruiting Offer Response
+### HR Offer Response
 - Pending
 - Accepted
 - Declined
 - Negotiating
 - Expired
+
+**Planned:**
 
 **Design Change Notes:**
 

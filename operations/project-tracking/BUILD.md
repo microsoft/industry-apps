@@ -375,9 +375,7 @@ Represents a formal proposal to modify approved project scope, schedule, cost, d
 - Supporting Document: Lookup (Document)
 - Notes: Memo
 
-## New Choice Fields - Semi-Reviewed
-
-**Planned:**
+## Choice Fields
 
 ### Project Type
 - IT Implementation
@@ -408,8 +406,6 @@ Represents a formal proposal to modify approved project scope, schedule, cost, d
 - Spike
 - Technical Debt
 - Documentation
-
-**In Review:**
 
 ### Project Work Item Resolution
 - Completed
@@ -458,8 +454,6 @@ Represents a formal proposal to modify approved project scope, schedule, cost, d
 - Requirement Change
 - Technical Change
 - Process Change
-
-**New Stage Fields:**
 
 ### Project Request Stage
 Tracks project request workflow from submission through evaluation to decision.
@@ -521,7 +515,9 @@ Tracks change request workflow from submission through review, decision, and imp
 - Implementation
 - Closed
 
-**Removed (Replaced with Stage and Core Status Fields):**
+**Planned:**
+
+**Refactored:**
 
 ### Project Status → Replaced with Project Stage + Completion Status
 Project Status mixed workflow (Proposed, Approved, Planning, In Progress) with work impediments (On Hold), health indicators (At Risk), and outcomes (Completed, Cancelled, Closed). Separated into:

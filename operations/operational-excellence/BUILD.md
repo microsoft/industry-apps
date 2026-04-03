@@ -437,6 +437,8 @@ Inspection reports, event plans, assessment documents.
 
 ## Choice Fields
 
+**Completed Last Round:**
+
 ### Operational Impact Type
 - Cost Savings
 - Revenue Generation

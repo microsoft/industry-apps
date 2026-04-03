@@ -15,7 +15,7 @@ Defines a specific benefit offering provided by the organization (e.g., Medical 
 - Name: Text
 - Plan Code: Text
 - Parent Benefit Plan: Lookup (HR Benefit Plan)
-- Benefit Category: Choice (Benefits Benefit Category)
+- Benefit Category: Choice (Benefit Category)
 - HR Benefit Provider: Lookup (HR Benefit Provider)
 - Plan Year: Text
 - Lifecycle Stage: Choice (Lifecycle Stage)
@@ -65,7 +65,7 @@ Defines coverage tiers available under benefit plans (e.g., Employee Only, Emplo
 - Name: Text
 - Coverage Code: Text
 - HR Benefit Plan: Lookup (HR Benefit Plan)
-- Coverage Type: Choice (Benefits Coverage Type)
+- Coverage Type: Choice (Benefit Coverage Type)
 - Description: Memo
 - Allows Dependents: Yes / No
 - Maximum Dependents: Integer
@@ -81,7 +81,7 @@ Stores information about the external or internal organization administering the
 - Name: Text
 - Provider Code: Text
 - Provider Account: Lookup (Account)
-- Provider Type: Choice (Benefits Provider Type)
+- Provider Type: Choice (Benefit Provider Type)
 - Lifecycle Stage: Choice (Lifecycle Stage)
 - Primary Contact: Lookup (Person)
 - Contact Phone: Text
@@ -107,7 +107,7 @@ Stores plan-related documentation such as summary plan descriptions, policy docu
 **Planned:**
 - Name: Text
 - HR Benefit Plan: Lookup (HR Benefit Plan)
-- Document Type: Choice (Benefits Benefit Document Type)
+- Document Type: Choice (Benefit Document Type)
 - Document: Lookup (Document)
 - Document Status: Choice (Publication Status)
 - Effective Date: Date
@@ -128,7 +128,7 @@ Defines reusable eligibility conditions for benefit participation, such as emplo
 **Planned:**
 - Name: Text
 - HR Benefit Plan: Lookup (HR Benefit Plan)
-- Rule Type: Choice (Benefits Eligibility Rule Type)
+- Rule Type: Choice (Benefit Eligibility Rule Type)
 - Description: Memo
 - Eligible Employment Types: Text
 - Eligible Personnel Types: Text
@@ -153,9 +153,9 @@ Defines waiting period rules before an employee becomes eligible for enrollment 
 **Planned:**
 - Name: Text
 - HR Benefit Plan: Lookup (HR Benefit Plan)
-- Waiting Period Type: Choice (Benefits Waiting Period Type)
+- Waiting Period Type: Choice (Benefit Waiting Period Type)
 - Waiting Days: Integer
-- Calculation Method: Choice (Benefits Calculation Method)
+- Calculation Method: Choice (Benefit Calculation Method)
 - Effective Date Rule: Memo
 - Description: Memo
 
@@ -168,7 +168,7 @@ Defines enrollment windows such as Open Enrollment, New Hire Enrollment, or Spec
 
 **Planned:**
 - Name: Text
-- Period Type: Choice (Benefits Enrollment Period Type)
+- Period Type: Choice (Benefit Enrollment Period Type)
 - Stage: Choice (Term Status)
 - Start Date: Date
 - End Date: Date
@@ -201,21 +201,21 @@ Represents an individual's enrollment in a specific benefit plan, including sele
 - HR Benefit Option: Lookup (HR Benefit Option)
 - HR Benefit Coverage Level: Lookup (HR Benefit Coverage Level)
 - HR Benefit Enrollment Period: Lookup (HR Benefit Enrollment Period)
-- Stage: Choice (HR Benefit Enrollment Stage)
+- Stage: Choice (Benefit Enrollment Stage)
 - Decision Status: Choice (Item Decision Status)
-- Enrollment Type: Choice (Benefits Enrollment Type)
+- Enrollment Type: Choice (Benefit Enrollment Type)
 - Enrollment Date: Date
 - Effective Start Date: Date
 - Effective End Date: Date
 - Coverage End Date: Date
 - Submitted By: Lookup (Person)
 - Submitted Date: Date
-- Enrollment Source: Choice (Benefits Enrollment Source)
+- Enrollment Source: Choice (Benefit Enrollment Source)
 - Related Life Event: Lookup (HR Benefit Life Event)
 - Employee Premium: Currency
 - Employer Premium: Currency
 - Total Premium: Currency
-- Deduction Frequency: Choice (Benefits Deduction Frequency)
+- Deduction Frequency: Choice (Benefit Deduction Frequency)
 - HR Benefit Deduction Code: Lookup (HR Benefit Deduction Code)
 - Requires Beneficiary: Yes / No
 - Beneficiary Designated: Yes / No
@@ -234,7 +234,7 @@ Captures detailed selections made under a benefit enrollment, such as optional r
 **Planned:**
 - Name: Text
 - HR Benefit Enrollment: Lookup (HR Benefit Enrollment)
-- Election Type: Choice (Benefits Election Type)
+- Election Type: Choice (Benefit Election Type)
 - Election Value: Text
 - Election Amount: Currency
 - Description: Memo
@@ -251,10 +251,10 @@ Stores beneficiary designations for benefit plans that require them (e.g., life 
 - Name: Text
 - HR Benefit Enrollment: Lookup (HR Benefit Enrollment)
 - Person: Lookup (Person)
-- Beneficiary Type: Choice (Benefits Beneficiary Type)
+- Beneficiary Type: Choice (Benefit Beneficiary Type)
 - Beneficiary Person: Lookup (Person)
 - Beneficiary Name: Text
-- Relationship: Choice (Benefits Relationship Type)
+- Relationship: Choice (Benefit Relationship Type)
 - Allocation Percentage: Float
 - Designation Priority: Integer
 - Date of Birth: Date
@@ -279,11 +279,11 @@ Records a reported qualifying life event for an individual (e.g., marriage, birt
 - Name: Text
 - Event Number: Text
 - Person: Lookup (Person)
-- Life Event Type: Choice (Benefits Life Event Type)
+- Life Event Type: Choice (Benefit Life Event Type)
 - Event Date: Date
 - Reported Date: Date
 - Reported By: Lookup (Person)
-- Stage: Choice (HR Benefit Life Event Stage)
+- Stage: Choice (Benefit Life Event Stage)
 - Validation Status: Choice (Item Validation Status)
 - Enrollment Change Deadline: Date
 - Supporting Documentation Required: Yes / No
@@ -306,8 +306,8 @@ Tracks specific benefit enrollment changes resulting from a life event, includin
 - Name: Text
 - HR Benefit Life Event: Lookup (HR Benefit Life Event)
 - HR Benefit Enrollment: Lookup (HR Benefit Enrollment)
-- Change Type: Choice (Benefits Enrollment Change Type)
-- Stage: Choice (HR Benefit Life Event Change Stage)
+- Change Type: Choice (Benefit Enrollment Change Type)
+- Stage: Choice (Benefit Life Event Change Stage)
 - Decision Status: Choice (Item Decision Status)
 - Requested Date: Date
 - Effective Date: Date
@@ -337,13 +337,13 @@ Defines employer and employee contribution structures for a benefit plan, option
 - HR Benefit Plan: Lookup (HR Benefit Plan)
 - HR Benefit Option: Lookup (HR Benefit Option)
 - HR Benefit Coverage Level: Lookup (HR Benefit Coverage Level)
-- Rate Type: Choice (Benefits Rate Type)
+- Rate Type: Choice (Benefit Rate Type)
 - Effective Start Date: Date
 - Effective End Date: Date
-- Employee Contribution Type: Choice (Benefits Contribution Type)
+- Employee Contribution Type: Choice (Benefit Contribution Type)
 - Employee Contribution Amount: Currency
 - Employee Contribution Percentage: Float
-- Employer Contribution Type: Choice (Benefits Contribution Type)
+- Employer Contribution Type: Choice (Benefit Contribution Type)
 - Employer Contribution Amount: Currency
 - Employer Contribution Percentage: Float
 - Total Premium Amount: Currency
@@ -382,8 +382,8 @@ Maps benefit enrollments to payroll deduction identifiers. Supports integration 
 - Name: Text
 - Deduction Code: Text
 - HR Benefit Plan: Lookup (HR Benefit Plan)
-- Deduction Type: Choice (Benefits Deduction Type)
-- Deduction Category: Choice (Benefits Benefit Category)
+- Deduction Type: Choice (Benefit Deduction Type)
+- Deduction Category: Choice (Benefit Category)
 - Is Pre-Tax: Yes / No
 - Is Post-Tax: Yes / No
 - Payroll System Code: Text
@@ -404,8 +404,8 @@ Tracks internal benefit-related claims or reimbursement requests (e.g., tuition 
 - Person: Lookup (Person)
 - HR Benefit Enrollment: Lookup (HR Benefit Enrollment)
 - HR Benefit Plan: Lookup (HR Benefit Plan)
-- Claim Type: Choice (Benefits Claim Type)
-- Stage: Choice (HR Benefit Claim Stage)
+- Claim Type: Choice (Benefit Claim Type)
+- Stage: Choice (Benefit Claim Stage)
 - Decision Status: Choice (Item Decision Status)
 - Submission Date: Date
 - Service Date: Date
@@ -461,9 +461,11 @@ Used in eligibility rules and tiered contribution structures.
 
 ---
 
-## New Choice Fields - Semi-Reviewed
+## Choice Fields
 
-### Benefits Benefit Category
+**Completed:**
+
+### Benefit Category
 - Medical
 - Dental
 - Vision
@@ -479,7 +481,7 @@ Used in eligibility rules and tiered contribution structures.
 - Legal Services
 - Pet Insurance
 
-### Benefits Coverage Type
+### Benefit Coverage Type
 - Employee Only
 - Employee Plus Spouse
 - Employee Plus Dependents
@@ -487,7 +489,7 @@ Used in eligibility rules and tiered contribution structures.
 - Retiree
 - Continuation Coverage
 
-### Benefits Provider Type
+### Benefit Provider Type
 - Insurance Carrier
 - Third Party Administrator
 - Retirement Board
@@ -496,7 +498,7 @@ Used in eligibility rules and tiered contribution structures.
 - Self-Insured
 - Government Agency
 
-### Benefits Benefit Document Type
+### Benefit Document Type
 - Summary Plan Description
 - Policy Document
 - Enrollment Form
@@ -506,7 +508,7 @@ Used in eligibility rules and tiered contribution structures.
 - Plan Amendment
 - Summary of Benefits and Coverage
 
-### Benefits Eligibility Rule Type
+### Benefit Eligibility Rule Type
 - Employment Type
 - Personnel Type
 - Service Duration
@@ -518,7 +520,7 @@ Used in eligibility rules and tiered contribution structures.
 - Bargaining Unit
 - Combination
 
-### Benefits Waiting Period Type
+### Benefit Waiting Period Type
 - Days from Hire
 - First of Month Following
 - First Day of Month After Days
@@ -526,13 +528,13 @@ Used in eligibility rules and tiered contribution structures.
 - Plan Year Start
 - Custom
 
-### Benefits Calculation Method
+### Benefit Calculation Method
 - Calendar Days
 - Business Days
 - From Start Date
 - From Eligibility Date
 
-### Benefits Enrollment Period Type
+### Benefit Enrollment Period Type
 - Open Enrollment
 - New Hire Enrollment
 - Special Enrollment
@@ -540,21 +542,21 @@ Used in eligibility rules and tiered contribution structures.
 - Annual Enrollment
 - Qualifying Event
 
-### Benefits Enrollment Type
+### Benefit Enrollment Type
 - New Enrollment
 - Re-Enrollment
 - Change
 - Termination
 - Waiver
 
-### Benefits Enrollment Source
+### Benefit Enrollment Source
 - Open Enrollment
 - New Hire
 - Life Event
 - Administrative
 - Reinstatement
 
-### Benefits Election Type
+### Benefit Election Type
 - Optional Rider
 - Supplemental Coverage
 - Buy-Up Option
@@ -562,21 +564,13 @@ Used in eligibility rules and tiered contribution structures.
 - Contribution Amount
 - Coverage Amount
 
-### Benefits Beneficiary Type
+### Benefit Beneficiary Type
 - Primary
 - Contingent
 - Secondary
 - Estate
 
-### Benefits Event Status
-- Reported
-- Pending Documentation
-- Verified
-- Processed
-- Expired
-- Cancelled
-
-### Benefits Enrollment Change Type
+### Benefit Enrollment Change Type
 - Add Coverage
 - Drop Coverage
 - Change Option
@@ -586,26 +580,26 @@ Used in eligibility rules and tiered contribution structures.
 - Change Contribution
 - Terminate
 
-### Benefits Rate Type
+### Benefit Rate Type
 - Standard
 - Tiered by Age
 - Tiered by Salary
 - Tiered by Service
 - Composite
 
-### Benefits Contribution Type
+### Benefit Contribution Type
 - Fixed Amount
 - Percentage of Premium
 - Percentage of Salary
 - Tiered
 
-### Benefits Deduction Type
+### Benefit Deduction Type
 - Pre-Tax
 - Post-Tax
 - Employer Paid
 - Shared
 
-### Benefits Claim Type
+### Benefit Claim Type
 - Medical Claim
 - Dental Claim
 - Vision Claim
@@ -616,30 +610,28 @@ Used in eligibility rules and tiered contribution structures.
 - Health Savings Account
 - Other Reimbursement
 
-## Candidates ---------------------------------
-
-### HR Benefit Enrollment Stage
+### Benefit Enrollment Stage
 Tracks enrollment lifecycle from submission through activation and termination.
 - Pending
 - Submitted
 - Active
 - Terminated
 
-### HR Benefit Life Event Stage
+### Benefit Life Event Stage
 Tracks life event processing from reporting through completion.
 - Reported
 - Pending Documentation
 - Verified
 - Processed
 
-### HR Benefit Life Event Change Stage
+### Benefit Life Event Change Stage
 Tracks benefit change requests from submission through processing.
 - Requested
 - Under Review
 - Approved
 - Processed
 
-### HR Benefit Claim Stage
+### Benefit Claim Stage
 Tracks claim processing from submission through payment and closure.
 - Submitted
 - Under Review
@@ -647,43 +639,7 @@ Tracks claim processing from submission through payment and closure.
 - Payment Processing
 - Closed
 
-**Removed (Replaced with Stage and Core Status Fields):**
-
-### Benefits Period Status → Term Status (Core)
-HR Benefit Enrollment Period now uses Core Term Status which provides appropriate lifecycle tracking for time-based periods (Upcoming, Current, Extended, Shortened, Completed, Suspended, Cancelled, Renewed).
-
-### Benefits Enrollment Status → HR Benefit Enrollment Stage + Decision Status + Disposition
-Enrollment Status mixed workflow (Pending, Submitted, Active) with outcomes (Declined, Waived, Cancelled, Suspended). Separated into:
-- HR Benefit Enrollment Stage for workflow
-- Item Decision Status for approval outcomes
-- Item Disposition for final outcomes (Waived, Cancelled, Suspended)
-- "Terminated" is final stage value
-
-### Benefits Event Status → HR Benefit Life Event Stage + Disposition
-Event Status mixed workflow (Reported, Pending Documentation, Verified, Processed) with outcomes (Expired, Cancelled). Separated into:
-- HR Benefit Life Event Stage for workflow
-- Item Disposition for outcomes (Expired, Cancelled)
-
-### Benefits Verification Status → Item Validation Status (Core)
-Replaced with Core Item Validation Status. Values map directly:
-- Not Required → Not Required
-- Pending Verification → Pending Validation
-- Verified → Validated
-- Rejected → Failed Validation
-- Needs Information → (handle via notes or separate communication)
-
-### Benefits Claim Status → HR Benefit Claim Stage + Decision Status
-Claim Status mixed workflow (Submitted, Under Review, Approved) with outcome (Paid and Closed). Separated into:
-- HR Benefit Claim Stage for workflow
-- Item Decision Status for approval (Approved, Partially Approved, Denied)
-- Final stage "Closed" when complete
-
-### Benefits Payment Status → Payment Status (Core)
-Replaced with Core Payment Status for consistency across financial modules. Core Payment Status includes: Pending, Approved for Payment, Partial, Processed, Paid, Disputed, Voided, Refunded/Returned, Not Required, Waived, Complimentary.
-
----
-
-### Benefits Life Event Type
+### Benefit Life Event Type
 - Marriage
 - Domestic Partnership
 - Birth
@@ -699,7 +655,7 @@ Replaced with Core Payment Status for consistency across financial modules. Core
 - Medicare Eligibility
 - Court Order
 
-### Benefits Relationship Type
+### Benefit Relationship Type
 - Spouse
 - Domestic Partner
 - Child
@@ -710,7 +666,7 @@ Replaced with Core Payment Status for consistency across financial modules. Core
 - Trust
 - Other
 
-### Benefits Deduction Frequency
+### Benefit Deduction Frequency
 - Per Pay Period
 - Monthly
 - Quarterly
@@ -718,3 +674,41 @@ Replaced with Core Payment Status for consistency across financial modules. Core
 - Semi-Monthly
 - Bi-Weekly
 - Weekly
+
+**Planned:**
+
+**Removed (Replaced with Stage and Core Status Fields):**
+
+### Benefits Period Status → Term Status (Core)
+HR Benefit Enrollment Period now uses Core Term Status which provides appropriate lifecycle tracking for time-based periods (Upcoming, Current, Extended, Shortened, Completed, Suspended, Cancelled, Renewed).
+
+### Benefits Enrollment Status → Benefit Enrollment Stage + Decision Status + Disposition
+Enrollment Status mixed workflow (Pending, Submitted, Active) with outcomes (Declined, Waived, Cancelled, Suspended). Separated into:
+- Benefit Enrollment Stage for workflow
+- Item Decision Status for approval outcomes
+- Item Disposition for final outcomes (Waived, Cancelled, Suspended)
+- "Terminated" is final stage value
+
+### Benefits Event Status → Benefit Life Event Stage + Disposition
+Event Status mixed workflow (Reported, Pending Documentation, Verified, Processed) with outcomes (Expired, Cancelled). Separated into:
+- Benefit Life Event Stage for workflow
+- Item Disposition for outcomes (Expired, Cancelled)
+
+### Benefits Verification Status → Item Validation Status (Core)
+Replaced with Core Item Validation Status. Values map directly:
+- Not Required → Not Required
+- Pending Verification → Pending Validation
+- Verified → Validated
+- Rejected → Failed Validation
+- Needs Information → (handle via notes or separate communication)
+
+### Benefits Claim Status → Benefit Claim Stage + Decision Status
+Claim Status mixed workflow (Submitted, Under Review, Approved) with outcome (Paid and Closed). Separated into:
+- Benefit Claim Stage for workflow
+- Item Decision Status for approval (Approved, Partially Approved, Denied)
+- Final stage "Closed" when complete
+
+### Benefits Payment Status → Payment Status (Core)
+Replaced with Core Payment Status for consistency across financial modules. Core Payment Status includes: Pending, Approved for Payment, Partial, Processed, Paid, Disputed, Voided, Refunded/Returned, Not Required, Waived, Complimentary.
+
+---

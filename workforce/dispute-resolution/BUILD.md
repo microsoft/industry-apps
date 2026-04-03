@@ -320,7 +320,9 @@ Examples include HR, Legal, Security, Compliance, or external agencies.
 
 ---
 
-## ✅ New Choice Fields for Dispute Resolution - Semi-Reviewed
+## ✅ Choice Fields
+
+**Completed Last Round:**
 
 ### Dispute Stage
 Workflow progression for dispute cases:
@@ -430,17 +432,6 @@ Categories of evidence:
 - Expert Opinion
 
 ### Dispute Investigation Type
-Categories of interviews:
-- Initial Interview
-- Follow-Up Interview
-- Witness Interview
-- Subject Interview
-- Expert Consultation
-- Informal Discussion
-- Recorded Statement
-- Virtual Interview
-
-### Dispute Investigation Type
 Nature of investigation:
 - Formal Investigation
 - Preliminary Inquiry
@@ -523,8 +514,9 @@ Grounds for appeal:
 - Legal Error
 - Timeliness Issue
 
-## Removed (Replaced with Stage or Core Item Status Fields)
+**Refactoring:**
 
+## Removed (Replaced with Stage or Core Item Status Fields)
 ### Dispute Status → Dispute Stage + Item Decision Status  
 ### Dispute Appeal Status → Dispute Appeal Stage + Item Decision Status  
 ### Dispute Corrective Action Status → Item Completion Status (Core)  
@@ -532,8 +524,5 @@ Grounds for appeal:
 ### Dispute Investigation Status → Dispute Investigation Stage + Item Completion Status (Core)  
 ### Dispute Mediation Status → Dispute Mediation Stage + Item Decision Status  
 ### Dispute Referral Status → Dispute Referral Stage (Note: field still present in table, requires manual removal)
-
-## Removed (Replaced with Core Fields)
-
 ### Dispute Finding Type → Finding Result (Core)  
 Replaced with Core Finding Result which covers essential investigation outcomes (Substantiated, Partially Substantiated, Unsubstantiated, Inconclusive, No Finding, Unable to Determine). Domain-specific nuances like "Policy Violation Confirmed/No Policy Violation" map to Substantiated/Unsubstantiated. Process outcomes like "Withdrawn" or "Resolved Informally" should use Item Disposition instead.

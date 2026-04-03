@@ -617,8 +617,6 @@ Governing documents, bylaws, supporting materials, resolution documents.
 
 **Completed Last Round:**
 
-**Planned:**
-
 ### Organization Member Application Stage
 Tracks membership application workflow from submission through onboarding.
 - Draft
@@ -654,6 +652,8 @@ Tracks resolution lifecycle from drafting through publication.
 - Adopted
 - Implementation
 - Published
+
+**Planned:**
 
 **Removed (Replaced with Stage and Core Status Fields):**
 

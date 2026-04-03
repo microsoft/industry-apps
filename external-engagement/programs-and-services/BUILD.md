@@ -374,7 +374,7 @@ Used in eligibility rules.
 
 ---
 
-## New Choice Fields - Reviewed
+## Choice Fields
 
 **Completed:**
 
@@ -450,10 +450,6 @@ Used in eligibility rules.
 - Completion
 - Referral
 
-**Planned:**
-
-**New Stage Fields:**
-
 ### Service Offering Stage
 Tracks service offering workflow from planning through delivery to finalization.
 - Planning
@@ -478,7 +474,9 @@ Tracks official service result workflow from pending determination through final
 - Issued
 - Final
 
-**Removed (Replaced with Stage and Core Status Fields):**
+**Planned:**
+
+**Refactored:**
 
 ### Service Offering Status → Replaced with Service Offering Stage + Completion Status
 Service Offering Status mixed workflow states (Planning, Open for Enrollment, Enrollment Closed, Active) with outcomes (Completed, Cancelled) and work impediments (Suspended). Separated into:

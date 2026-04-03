@@ -261,22 +261,6 @@ Represents an organization or entity providing financial or in-kind support for 
 
 **Completed Last Round:**
 
-**Removed (Replaced with Stage Fields):**
-
-### Event Status → Event Stage
-Event Status tracked workflow progression, so it has been renamed to Event Stage and updated to reflect pure workflow steps. "Postponed" removed as it represents a disposition/outcome.
-
-### Event Participation Status → Event Participation Stage
-Event Participation Status tracked registration and attendance workflow, so it has been replaced with Event Participation Stage. Status outcomes (Tentative, Waitlisted, No Show, Cancelled, Declined) can be tracked using:
-- Item Decision Status (Declined)
-- Item Disposition (Cancelled, Withdrawn)
-- Attended field (Yes/No) for attendance outcome
-- Custom status fields if needed for Tentative/Waitlisted states
-
-### Session Status (Scheduled Event Status) → Event Session Stage
-Replaced with Event Session Stage which tracks session preparation and delivery workflow.
-
----
 
 ### Event Participant Type
 - Attendee
@@ -320,7 +304,6 @@ Replaced with Event Session Stage which tracks session preparation and delivery 
 - Bronze
 - Supporting
 - In Kind
-
 
 ### Event Sponsorship Type
 - Financial
@@ -397,5 +380,23 @@ Tracks sponsor relationships from prospecting through fulfillment.
 - Agreement Signed
 - Active
 - Fulfilled
+
+**Removed (Replaced with Stage Fields):**
+
+### Event Status → Event Stage
+Event Status tracked workflow progression, so it has been renamed to Event Stage and updated to reflect pure workflow steps. "Postponed" removed as it represents a disposition/outcome.
+
+### Event Participation Status → Event Participation Stage
+Event Participation Status tracked registration and attendance workflow, so it has been replaced with Event Participation Stage. Status outcomes (Tentative, Waitlisted, No Show, Cancelled, Declined) can be tracked using:
+- Item Decision Status (Declined)
+- Item Disposition (Cancelled, Withdrawn)
+- Attended field (Yes/No) for attendance outcome
+- Custom status fields if needed for Tentative/Waitlisted states
+
+### Session Status (Scheduled Event Status) → Event Session Stage
+Replaced with Event Session Stage which tracks session preparation and delivery workflow.
+
+---
+
 
 

@@ -107,34 +107,9 @@ Defines the classification of a request and supports routing, prioritization, an
 
 ---
 
-## Reused Core Tables
+## Choice Fields
 
-The following Core tables are used directly by this module:
-
-### Person *(Core)*
-Requestors, contacts, assigned handlers, reviewers, approvers.
-
-### Account *(Core)*
-Submitting organizations, external entities making requests.
-
-### Organization Unit *(Core)*
-Submitting units, assigned units, routing targets.
-
-### Action Item *(Core)*
-Related tasks spawned from requests.
-
-### Discussion Item *(Core)*
-Collaboration threads linked to requests.
-
-### Document *(Core)*
-Supporting documentation, attachments, response materials.
-
-### Project Work Item *(Core)*
-Work items created or linked as a result of requests.
-
----
-
-## New Choice Fields - Semi-Reviewed
+**Planned:**
 
 ### Request Type Category
 - Information Request
