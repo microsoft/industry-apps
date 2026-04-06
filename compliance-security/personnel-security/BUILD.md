@@ -12,8 +12,6 @@ Represents the lifecycle container for evaluating a person's suitability for a s
 **Completed:**
 
 **Completed Last Round:**
-
-**Planned:**
 - Review Number: Text
 - Person: Lookup (Person)
 - Review Type: Choice (Security Review Type)
@@ -25,15 +23,12 @@ Represents the lifecycle container for evaluating a person's suitability for a s
 - Request Date: Date
 - Requested Clearance Level: Lookup (Clearance Level)
 - Current Clearance Level: Lookup (Clearance Level)
-- Position Requiring Eligibility: Lookup (Position)
 - Organization Unit: Lookup (Organization Unit)
 - Review Initiation Date: Date
 - Target Completion Date: Date
 - Actual Completion Date: Date
 - Investigation Required: Yes / No
-- Investigative Authority: Text
 - Investigative Standards: Text
-- Adjudicating Authority: Text
 - Adjudicator: Lookup (Person)
 - Security Manager: Lookup (Person)
 - Review Scope: Memo
@@ -59,6 +54,8 @@ Represents the lifecycle container for evaluating a person's suitability for a s
 - Case File Number: Text
 - Supporting Document: Lookup (Document)
 
+**Planned:**
+
 **Planned Next:**
 - Configure Baseline Forms
 - Configure Baseline Views
@@ -73,8 +70,6 @@ Represents a formal investigative effort conducted to support a personnel securi
 **Completed:**
 
 **Completed Last Round:**
-
-**Planned:**
 - Investigation Number: Text
 - Personnel Security Review: Lookup (Personnel Security Review)
 - Person: Lookup (Person)
@@ -119,6 +114,8 @@ Represents a formal investigative effort conducted to support a personnel securi
 - Verified By: Lookup (Person)
 - Verification Date: Date
 
+**Planned:**
+
 **Planned Next:**
 - Configure Baseline Forms
 - Configure Baseline Views
@@ -133,8 +130,6 @@ Represents the formal decision made as part of a personnel security review. Capt
 **Completed:**
 
 **Completed Last Round:**
-
-**Planned:**
 - Adjudication Number: Text
 - Personnel Security Review: Lookup (Personnel Security Review)
 - Personnel Background Investigation: Lookup (Personnel Background Investigation)
@@ -180,6 +175,8 @@ Represents the formal decision made as part of a personnel security review. Capt
 - Acknowledgment Received: Yes / No
 - Acknowledgment Date: Date
 
+**Planned:**
+
 **Planned Next:**
 - Configure Baseline Forms
 - Configure Baseline Views
@@ -196,8 +193,6 @@ Represents the approved level of trust, clearance, or access authorization grant
 **Completed:**
 
 **Completed Last Round:**
-
-**Planned:**
 - Eligibility Number: Text
 - Person: Lookup (Person)
 - Personnel Security Review: Lookup (Personnel Security Review)
@@ -212,7 +207,6 @@ Represents the approved level of trust, clearance, or access authorization grant
 - Reinvestigation Due Date: Date
 - Periodic Review Due Date: Date
 - Granted By: Lookup (Person)
-- Granting Authority: Text
 - Granting Organization Unit: Lookup (Organization Unit)
 - Access Level: Text
 - Compartmented Access: Yes / No
@@ -238,7 +232,6 @@ Represents the approved level of trust, clearance, or access authorization grant
 - Status Change Reason: Memo
 - Continuous Evaluation Enrollment: Yes / No
 - Continuous Evaluation Start Date: Date
-- Employment Position: Lookup (Position)
 - Primary Work Location: Lookup (Location)
 - Sponsoring Organization Unit: Lookup (Organization Unit)
 - Security Manager: Lookup (Person)
@@ -249,6 +242,8 @@ Represents the approved level of trust, clearance, or access authorization grant
 - Certificate Document: Lookup (Document)
 - Indoctrination Document: Lookup (Document)
 - Supporting Document: Lookup (Document)
+
+**Planned:**
 
 **Planned Next:**
 - Configure Baseline Forms
@@ -264,8 +259,6 @@ Represents enrollment in ongoing monitoring or recurring vetting processes follo
 **Completed:**
 
 **Completed Last Round:**
-
-**Planned:**
 - Enrollment Number: Text
 - Person: Lookup (Person)
 - Personnel Security Eligibility: Lookup (Personnel Security Eligibility)
@@ -277,7 +270,6 @@ Represents enrollment in ongoing monitoring or recurring vetting processes follo
 - Effective Start Date: Date
 - Effective End Date: Date
 - Program Name: Text
-- Program Administrator: Text
 - Evaluation Frequency: Choice (Security Evaluation Frequency)
 - Last Evaluation Date: Date
 - Next Evaluation Date: Date
@@ -297,7 +289,6 @@ Represents enrollment in ongoing monitoring or recurring vetting processes follo
 - Issue Summary: Memo
 - Review Triggered: Yes / No
 - Triggered Review: Lookup (Personnel Security Review)
-- Monitoring Authority: Text
 - Privacy Notice Provided: Yes / No
 - Privacy Notice Date: Date
 - Consent Obtained: Yes / No
@@ -306,6 +297,8 @@ Represents enrollment in ongoing monitoring or recurring vetting processes follo
 - Legal Authority: Lookup (Legal Authority)
 - Policy Reference: Text
 - Program Documentation: Lookup (Document)
+
+**Planned:**
 
 **Planned Next:**
 - Configure Baseline Forms
@@ -321,28 +314,23 @@ Represents an event or circumstance that may impact a person's security eligibil
 **Completed:**
 
 **Completed Last Round:**
-
-**Planned:**
 - Event Number: Text
 - Person: Lookup (Person)
 - Event Type: Choice (Security Reportable Event Type)
 - Event Category: Choice (Security Reportable Event Category)
 - Stage: Choice (Personnel Reportable Event Stage)
 - Resolution Status: Choice (Issue Resolution Status)
-- Event Date: Date
 - Event Date Time: Date Time
-- Reported Date: Date Time
+- Reported Date Time: Date Time
 - Reported By: Lookup (Person)
 - Report Method: Choice (Method of Contact)
 - Event Description: Memo
 - Event Location: Lookup (Location)
-- Event Country: Text
 - Foreign Travel Destination: Text
 - Foreign Travel Start Date: Date
 - Foreign Travel End Date: Date
 - Foreign Travel Purpose: Text
 - Foreign Contact Name: Text
-- Foreign Contact Country: Text
 - Foreign Contact Type: Choice (Security Foreign Contact Type)
 - Foreign Contact Description: Memo
 - Financial Issue Type: Choice (Security Financial Issue Type)
@@ -376,6 +364,10 @@ Represents an event or circumstance that may impact a person's security eligibil
 - Policy Reference: Text
 - Supporting Document: Lookup (Document)
 - Incident Report: Lookup (Document)
+- Event Country: Lookup (Country)
+- Foreign Contact Country: Lookup (Country)
+
+**Planned:**
 
 **Planned Next:**
 - Configure Baseline Forms
@@ -393,8 +385,6 @@ Represents a physical or logical access artifact issued to a person based on app
 **Completed:**
 
 **Completed Last Round:**
-
-**Planned:**
 - Credential Number: Text
 - Credential Type: Choice (Security Access Credential Type)
 - Person: Lookup (Person)
@@ -403,12 +393,10 @@ Represents a physical or logical access artifact issued to a person based on app
 - Credential Category: Choice (Security Credential Category)
 - Issue Date: Date
 - Expiration Date: Date
-- Days Until Expiration: Integer
 - Effective Start Date: Date
 - Effective End Date: Date
 - Issued By: Lookup (Person)
 - Issuing Organization Unit: Lookup (Organization Unit)
-- Issuing Authority: Text
 - Badge Number: Text
 - Card Number: Text
 - Serial Number: Text
@@ -420,7 +408,6 @@ Represents a physical or logical access artifact issued to a person based on app
 - PIN Last Changed Date: Date
 - Photo Attached: Yes / No
 - Photo Capture Date: Date
-- Access Level: Text
 - Access Zones Authorized: Text
 - Building Access: Yes / No
 - Facility Access: Yes / No
@@ -461,6 +448,8 @@ Represents a physical or logical access artifact issued to a person based on app
 - Issuance Document: Lookup (Document)
 - Photo Document: Lookup (Document)
 - Supporting Document: Lookup (Document)
+
+**Planned:**
 
 **Planned Next:**
 - Configure Baseline Forms

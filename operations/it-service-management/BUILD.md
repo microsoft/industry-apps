@@ -11,7 +11,7 @@ Represents a general service transaction submitted by a user for IT support, pro
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Request Number: Text
 - Request Type: Choice (IT Request Type)
 - Stage: Choice (IT Service Request Stage)
@@ -21,7 +21,6 @@ Represents a general service transaction submitted by a user for IT support, pro
 - Requesting Organization Unit: Lookup (Organization Unit)
 - Request Date: Date Time
 - Required Date: Date
-- Assigned Team: Lookup (Organization Unit)
 - Assignment Date: Date
 - Method of Contact: Choice (Method of Contact)
 - Business Justification: Memo
@@ -34,6 +33,8 @@ Represents a general service transaction submitted by a user for IT support, pro
 - Satisfaction Rating: Integer
 - Feedback: Memo
 
+**Planned:**
+
 ---
 
 ### IT Service Request Item
@@ -41,7 +42,7 @@ A line-level record under an IT Service Request that references a specific IT Ca
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - IT Service Request: Lookup (IT Service Request)
 - Line Number: Integer
 - IT Catalog Item: Lookup (IT Catalog Item)
@@ -54,6 +55,8 @@ A line-level record under an IT Service Request that references a specific IT Ca
 - Delivery Date: Date
 - Fulfillment Notes: Memo
 
+**Planned:**
+
 ---
 
 ## Access Management
@@ -63,7 +66,7 @@ Represents a request submitted to obtain, modify, or remove access to systems, a
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Request Number: Text
 - Access Request Type: Choice (IT Access Request Type)
 - Stage: Choice (IT Access Request Stage)
@@ -89,6 +92,8 @@ Represents a request submitted to obtain, modify, or remove access to systems, a
 - Fulfillment Date: Date
 - Closed Date: Date
 
+**Planned:**
+
 ---
 
 ### IT Access Request Item
@@ -96,7 +101,7 @@ A line-level record under an IT Access Request specifying the individual entitle
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - IT Access Request: Lookup (IT Access Request)
 - Line Number: Integer
 - Access Action: Choice (IT Access Action)
@@ -111,6 +116,8 @@ A line-level record under an IT Access Request specifying the individual entitle
 - Related Entitlement Assignment: Lookup (IT Entitlement Assignment)
 - Description: Memo
 
+**Planned:**
+
 ---
 
 ### IT Entitlement
@@ -118,7 +125,7 @@ Defines a specific access right, permission set, license assignment, or role tha
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Entitlement Code: Text
 - Entitlement Type: Choice (IT Entitlement Type)
 - IT System: Lookup (IT System)
@@ -133,6 +140,8 @@ Defines a specific access right, permission set, license assignment, or role tha
 - Risk Level: Choice (Severity Level)
 - Compliance Requirement: Lookup (Compliance Requirement)
 
+**Planned:**
+
 ---
 
 ### IT Entitlement Assignment
@@ -140,7 +149,7 @@ Represents the assignment of an IT Entitlement to a person, account, or system. 
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Assignment Number: Text
 - Person: Lookup (Person)
 - IT Entitlement: Lookup (IT Entitlement)
@@ -161,6 +170,8 @@ Represents the assignment of an IT Entitlement to a person, account, or system. 
 - Revocation Reason: Memo
 - Account Username: Text
 
+**Planned:**
+
 ---
 
 ## IT Service Catalog
@@ -170,7 +181,7 @@ Defines an orderable IT offering. Represents a published service, product packag
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Item Code: Text
 - Parent IT Catalog Item: Lookup (IT Catalog Item)
 - Item Category: Choice (IT Catalog Item Category)
@@ -187,12 +198,14 @@ Defines an orderable IT offering. Represents a published service, product packag
 - Approving Organization Unit: Lookup (Organization Unit)
 - Provider Organization Unit: Lookup (Organization Unit)
 - Service Owner: Lookup (Person)
-- Icon URL: Text
-- Image URL: Text
-- Documentation URL: Text
+- Icon URL: URL
+- Image URL: URL
+- Documentation URL: URL
 - Related IT System: Lookup (IT System)
 - Is Orderable: Yes / No
 - Tags: Text
+
+**Planned:**
 
 ---
 
@@ -201,13 +214,15 @@ A junction table linking an IT Catalog Item to one or more IT Technologies. Iden
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - IT Catalog Item: Lookup (IT Catalog Item)
 - IT Technology: Lookup (IT Technology)
 - Technology Relationship: Choice (IT Technology Relationship)
 - Version: Text
 - Is Required: Yes / No
 - Description: Memo
+
+**Planned:**
 
 ---
 
@@ -218,10 +233,9 @@ Represents a logical or operational information system. Serves as the primary re
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - System Code: Text
 - System Type: Choice (IT System Type)
-- Lifecycle Stage: Choice (Lifecycle Stage)
 - Security Classification: Choice (Security Classification)
 - Description: Memo
 - Purpose: Memo
@@ -241,11 +255,13 @@ Represents a logical or operational information system. Serves as the primary re
 - Annual Operating Cost: Currency
 - Vendor: Lookup (Account)
 - Support Contact: Lookup (Person)
-- Documentation URL: Text
-- System URL: Text
+- Documentation URL: URL
+- System URL: URL
 - Related Agreement: Lookup (Agreement)
 - Compliance Framework: Lookup (Compliance Framework)
 - Legal Authority: Lookup (Legal Authority)
+
+**Planned:**
 
 ---
 
@@ -254,12 +270,11 @@ Represents a structural part of an IT System, such as an application module, ser
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Component Code: Text
 - Parent IT System Component: Lookup (IT System Component)
 - IT System: Lookup (IT System)
 - IT System Component Type: Lookup (IT System Component Type)
-- Lifecycle Stage: Choice (Lifecycle Stage)
 - Description: Memo
 - Version: Text
 - Primary Location: Lookup (Location)
@@ -269,6 +284,8 @@ Represents a structural part of an IT System, such as an application module, ser
 - Is Critical: Yes / No
 - Dependencies: Memo
 
+**Planned:**
+
 ---
 
 ### IT System Component Type
@@ -276,10 +293,12 @@ Defines categories or classifications of system components (e.g., Application, D
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Type Code: Text
 - Component Category: Choice (IT Component Category)
 - Description: Memo
+
+**Planned:**
 
 ---
 
@@ -288,7 +307,7 @@ A junction table linking an IT System (or optionally a specific System Component
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - IT System: Lookup (IT System)
 - IT System Component: Lookup (IT System Component)
 - IT Technology: Lookup (IT Technology)
@@ -299,6 +318,8 @@ A junction table linking an IT System (or optionally a specific System Component
 - Installation Date: Date
 - End of Support Date: Date
 
+**Planned:**
+
 ---
 
 ## Technology Management
@@ -308,7 +329,7 @@ Represents a technology concept, platform, framework, protocol, runtime, standar
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Technology Code: Text
 - IT Technology Type: Lookup (IT Technology Type)
 - Technology Status: Choice (IT Technology Status)
@@ -325,8 +346,10 @@ Represents a technology concept, platform, framework, protocol, runtime, standar
 - Approved By: Lookup (Person)
 - Is Restricted: Yes / No
 - Restriction Reason: Memo
-- Documentation URL: Text
-- Vendor URL: Text
+- Documentation URL: URL
+- Vendor URL: URL
+
+**Planned:**
 
 ---
 
@@ -335,10 +358,12 @@ Defines classification categories for IT Technologies (e.g., Operating System, D
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Type Code: Text
 - Description: Memo
 - Parent Type: Lookup (IT Technology Type)
+
+**Planned:**
 
 ---
 
@@ -349,7 +374,7 @@ Represents the physical or logical hosting environment for a system or component
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Location Code: Text
 - Hosting Type: Choice (IT Hosting Type)
 - Physical Location: Lookup (Location)
@@ -357,7 +382,6 @@ Represents the physical or logical hosting environment for a system or component
 - Cloud Provider: Lookup (Account)
 - Hosting Provider: Lookup (Account)
 - Environment Type: Choice (IT Environment Type)
-- Lifecycle Stage: Choice (Lifecycle Stage)
 - Security Classification: Choice (Security Classification)
 - Network Address Range: Text
 - Primary Contact: Lookup (Person)
@@ -366,6 +390,8 @@ Represents the physical or logical hosting environment for a system or component
 - Capacity: Text
 - Utilization: Text
 - Description: Memo
+
+**Planned:**
 
 ---
 
@@ -376,7 +402,7 @@ Represents the formal authorization or approval status of an IT System to operat
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Accreditation Number: Text
 - IT System: Lookup (IT System)
 - Accreditation Type: Choice (IT Accreditation Type)
@@ -395,6 +421,8 @@ Represents the formal authorization or approval status of an IT System to operat
 - Next Assessment Date: Date
 - Supporting Document: Lookup (Document)
 
+**Planned:**
+
 ---
 
 ### IT Compliance Assessment
@@ -402,7 +430,7 @@ Represents a formal evaluation of a system, component, or technology against def
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Assessment Number: Text
 - Assessment Type: Choice (IT Assessment Type)
 - Stage: Choice (IT Compliance Assessment Stage)
@@ -413,7 +441,6 @@ Represents a formal evaluation of a system, component, or technology against def
 - Assessment Start Date: Date
 - Assessment Completion Date: Date
 - Assessor: Lookup (Person)
-- Assessment Team: Text
 - Assessment Scope: Memo
 - Assessment Method: Memo
 - Overall Result: Choice (Overall Result)
@@ -429,6 +456,8 @@ Represents a formal evaluation of a system, component, or technology against def
 - Next Assessment Date: Date
 - Supporting Document: Lookup (Document)
 
+**Planned:**
+
 ---
 
 ### IT POAM Item
@@ -436,7 +465,7 @@ Plan of Action and Milestones (POAM) record used to track remediation of identif
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - POAM Number: Text
 - IT System: Lookup (IT System)
 - IT System Component: Lookup (IT System Component)
@@ -464,8 +493,9 @@ Plan of Action and Milestones (POAM) record used to track remediation of identif
 - Verification Date: Date
 - Verified By: Lookup (Person)
 - Related Risk Item: Lookup (Risk Item)
-- Related Action Item: Lookup (Action Item)
 - Supporting Document: Lookup (Document)
+
+**Planned:**
 
 ---
 

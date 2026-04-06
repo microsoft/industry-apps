@@ -1137,66 +1137,72 @@ class DataverseClient:
         new_display_name: str
     ) -> Dict[str, Any]:
         """
-        Update the display name of the built-in Name field (appbase_name)
+        Update the display name of the built-in Name field (always appbase_name)
         
         Args:
-            table_logical_name: Logical name of the table
+            table_logical_name: Logical name of the table (e.g., 'appbase_dispute')
             new_display_name: New display name for the Name field
         
         Returns:
             {"success": bool, "error": str (if failed)}
         """
         try:
-            # URL for the Name field attribute
-            url = f"{self.environment_url}/api/data/{self.API_VERSION}/EntityDefinitions(LogicalName='{table_logical_name}')/Attributes(LogicalName='appbase_name')"
+            # URL for the Name field attribute (always appbase_name)
+            attr_url = f"{self.environment_url}/api/data/{self.API_VERSION}/EntityDefinitions(LogicalName='{table_logical_name}')/Attributes(LogicalName='appbase_name')"
             
             headers = self._get_headers()
             
             with httpx.Client() as client:
-                # First GET to ensure field exists
-                get_response = client.get(url, headers=headers, timeout=30.0)
+                # First, GET the current attribute metadata
+                get_response = client.get(attr_url, headers=headers, timeout=30.0)
                 
                 if get_response.status_code != 200:
                     return {
                         "success": False,
-                        "error": f"Name field not found on table '{table_logical_name}'"
+                        "error": f"Name field 'appbase_name' not found on table '{table_logical_name}'"
                     }
                 
-                # Now PATCH to update display name
-                patch_data = {
-                    "DisplayName": {
-                        "@odata.type": "Microsoft.Dynamics.CRM.Label",
-                        "LocalizedLabels": [
-                            {
-                                "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
-                                "Label": new_display_name,
-                                "LanguageCode": 1033
-                            }
-                        ]
-                    }
+                # Get the existing attribute data
+                attr_data = get_response.json()
+                
+                # Update only the DisplayName
+                attr_data["DisplayName"] = {
+                    "@odata.type": "Microsoft.Dynamics.CRM.Label",
+                    "LocalizedLabels": [
+                        {
+                            "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
+                            "Label": new_display_name,
+                            "LanguageCode": 1033
+                        }
+                    ]
                 }
                 
-                # Add required header for PATCH
-                patch_headers = {**headers, "If-Match": "*"}
+                # PUT the full attribute back with updated DisplayName
+                put_headers = {
+                    **headers,
+                    "If-Match": "*",
+                    "MSCRM.MergeLabels": "true"
+                }
                 
-                patch_response = client.patch(
-                    url, 
-                    json=patch_data, 
-                    headers=patch_headers, 
+                put_response = client.put(
+                    attr_url, 
+                    json=attr_data, 
+                    headers=put_headers, 
                     timeout=30.0
                 )
                 
-                if patch_response.status_code == 204:
+                if put_response.status_code in [200, 204]:
                     return {"success": True}
                 else:
-                    error_detail = patch_response.text
+                    error_detail = put_response.text
                     return {
                         "success": False,
-                        "error": f"API returned {patch_response.status_code}: {error_detail}"
+                        "error": f"API returned {put_response.status_code}: {error_detail}"
                     }
                     
         except Exception as e:
             logger.error(f"Error updating Name field: {e}")
+            return {"success": False, "error": str(e)}
             return {"success": False, "error": str(e)}
     
     def create_global_optionset(

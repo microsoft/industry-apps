@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.26024.173" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26024.173" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26031.00180">
+<ImportExportXml version="9.2.26031.180" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26031.180" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26031.00182">
   <SolutionManifest>
     <UniqueName>appbase_trainingandcertification</UniqueName>
     <LocalizedNames>
       <LocalizedName description="App Base - Training and Certification" languagecode="1033" />
     </LocalizedNames>
     <Descriptions />
-    <Version>1.0.0.3</Version>
+    <Version>1.0.0.4</Version>
     <Managed>2</Managed>
     <Publisher>
       <UniqueName>appbase</UniqueName>
@@ -131,10 +131,394 @@
     </RootComponents>
     <MissingDependencies>
       <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_clearancelevel" parentDisplayName="Clearance Level" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_qualificationrequirementitem_RequiredClearanceLevel" displayName="appbase_qualificationrequirementitem_RequiredClearanceLevel" parentSchemaName="appbase_clearancelevel" parentDisplayName="Clearance Level" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_competency" parentDisplayName="Competency" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_qualificationrequirementitem_RequiredCompetency" displayName="appbase_qualificationrequirementitem_RequiredCompetency" parentSchemaName="appbase_competency" parentDisplayName="Competency" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_competency" parentDisplayName="Competency" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_trainingcertificaterequirement_RequiredCompetency" displayName="appbase_trainingcertificaterequirement_RequiredCompetency" parentSchemaName="appbase_competency" parentDisplayName="Competency" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_competency" parentDisplayName="Competency" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_trainingcourserequirement_RequiredCompetency" displayName="appbase_trainingcourserequirement_RequiredCompetency" parentSchemaName="appbase_competency" parentDisplayName="Competency" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_competency" parentDisplayName="Competency" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_trainingobjective_RelatedCompetency" displayName="appbase_trainingobjective_RelatedCompetency" parentSchemaName="appbase_competency" parentDisplayName="Competency" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_complianceframework" parentDisplayName="Compliance Framework" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_qualificationrequirement_ComplianceFramework" displayName="appbase_qualificationrequirement_ComplianceFramework" parentSchemaName="appbase_complianceframework" parentDisplayName="Compliance Framework" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_complianceframework" parentDisplayName="Compliance Framework" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_trainingcertificate_ComplianceFramework" displayName="appbase_trainingcertificate_ComplianceFramework" parentSchemaName="appbase_complianceframework" parentDisplayName="Compliance Framework" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_academicprogram_ProgramCatalog" displayName="appbase_academicprogram_ProgramCatalog" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_academicprogramcompletion_DiplomaDocument" displayName="appbase_academicprogramcompletion_DiplomaDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_academicprogramcompletion_OfficialTranscript" displayName="appbase_academicprogramcompletion_OfficialTranscript" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_trainingcertificate_CertificateTemplate" displayName="appbase_trainingcertificate_CertificateTemplate" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_trainingcertificateachievement_CertificateDocument" displayName="appbase_trainingcertificateachievement_CertificateDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_trainingcertificaterenewal_SupportingDocument" displayName="appbase_trainingcertificaterenewal_SupportingDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_trainingcompletion_SupportingDocument" displayName="appbase_trainingcompletion_SupportingDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_trainingcourse_CourseMaterials" displayName="appbase_trainingcourse_CourseMaterials" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_trainingcourse_CourseSyllabus" displayName="appbase_trainingcourse_CourseSyllabus" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_trainingenrollment_SupportingDocument" displayName="appbase_trainingenrollment_SupportingDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_trainingsession_SessionAgenda" displayName="appbase_trainingsession_SessionAgenda" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_trainingsession_SessionMaterials" displayName="appbase_trainingsession_SessionMaterials" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_qualificationrequirement_LegalAuthority" displayName="appbase_qualificationrequirement_LegalAuthority" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_trainingcertificate_LegalAuthority" displayName="appbase_trainingcertificate_LegalAuthority" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_location" parentDisplayName="Location" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_trainingsession_Location" displayName="appbase_trainingsession_Location" parentSchemaName="appbase_location" parentDisplayName="Location" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_location" parentDisplayName="Location" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_trainingsessionattendance_Location" displayName="appbase_trainingsessionattendance_Location" parentSchemaName="appbase_location" parentDisplayName="Location" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_academicprogram_OwningOrganizationUnit" displayName="appbase_academicprogram_OwningOrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_learningpath_OwningOrganizationUnit" displayName="appbase_learningpath_OwningOrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_qualificationrequirement_OwningOrganizationUnit" displayName="appbase_qualificationrequirement_OwningOrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_trainingcertificate_IssuingOrganizationUnit" displayName="appbase_trainingcertificate_IssuingOrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_trainingcertificateachievement_IssuingOrganizationUnit" displayName="appbase_trainingcertificateachievement_IssuingOrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_trainingcompletion_OrganizationUnit" displayName="appbase_trainingcompletion_OrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_trainingcourse_OwningOrganizationUnit" displayName="appbase_trainingcourse_OwningOrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_traininginstructor_OrganizationUnit" displayName="appbase_traininginstructor_OrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="name" displayName="Name" parentSchemaName="credential" parentDisplayName="Credential" solution="MicrosoftFlowExtensionsCore (1.9.46.0)">
+          <package appName="MicrosoftFlowExtensionsCore" version="1.9.46.0">MicrosoftFlowExtensionsAnchor (1.9.46.0)</package>
+        </Required>
+        <Dependent type="10" schemaName="appbase_qualificationrequirementitem_RequiredCredential" displayName="appbase_qualificationrequirementitem_RequiredCredential" parentSchemaName="credential" parentDisplayName="Credential" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="name" displayName="Name" parentSchemaName="credential" parentDisplayName="Credential" solution="MicrosoftFlowExtensionsCore (1.9.46.0)">
+          <package appName="MicrosoftFlowExtensionsCore" version="1.9.46.0">MicrosoftFlowExtensionsAnchor (1.9.46.0)</package>
+        </Required>
+        <Dependent type="10" schemaName="appbase_trainingcertificate_Credential" displayName="appbase_trainingcertificate_Credential" parentSchemaName="credential" parentDisplayName="Credential" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="name" displayName="Name" parentSchemaName="credential" parentDisplayName="Credential" solution="MicrosoftFlowExtensionsCore (1.9.46.0)">
+          <package appName="MicrosoftFlowExtensionsCore" version="1.9.46.0">MicrosoftFlowExtensionsAnchor (1.9.46.0)</package>
+        </Required>
+        <Dependent type="10" schemaName="appbase_trainingcertificaterequirement_RequiredCredential" displayName="appbase_trainingcertificaterequirement_RequiredCredential" parentSchemaName="credential" parentDisplayName="Credential" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="name" displayName="Name" parentSchemaName="credential" parentDisplayName="Credential" solution="MicrosoftFlowExtensionsCore (1.9.46.0)">
+          <package appName="MicrosoftFlowExtensionsCore" version="1.9.46.0">MicrosoftFlowExtensionsAnchor (1.9.46.0)</package>
+        </Required>
+        <Dependent type="10" schemaName="appbase_trainingcourserequirement_RequiredCredential" displayName="appbase_trainingcourserequirement_RequiredCredential" parentSchemaName="credential" parentDisplayName="Credential" />
+      </MissingDependency>
+      <MissingDependency>
         <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)">
           <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
         </Required>
         <Dependent type="80" schemaName="appbase_TrainingandCertification" displayName="Training and Certification" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_approvalstatus" displayName="Approval Status" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_approvalstatus" displayName="Approval Status" parentSchemaName="appbase_trainingcertificaterenewal" parentDisplayName="Training Certificate Renewal" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_approvalstatus" displayName="Approval Status" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_approvalstatus" displayName="Approval Status" parentSchemaName="appbase_trainingenrollment" parentDisplayName="Training Enrollment" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_conferralstatus" displayName="Conferral Status" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_conferralstatus" displayName="Conferral Status" parentSchemaName="appbase_academicprogramcompletion" parentDisplayName="Academic Program Completion" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_contentlevel" displayName="Content Level" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_courselevel" displayName="Course Level" parentSchemaName="appbase_trainingcourse" parentDisplayName="Training Course" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_credentialstatus" displayName="Credential Status" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_credentialstatus" displayName="Credential Status" parentSchemaName="appbase_trainingcertificateachievement" parentDisplayName="Training Certificate Achievement" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_difficultylevel" displayName="Difficulty Level" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_difficultylevel" displayName="Difficulty Level" parentSchemaName="appbase_learningpath" parentDisplayName="Learning Path" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_dutystatus" displayName="Duty Status" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_instructorstatus" displayName="Instructor Status" parentSchemaName="appbase_traininginstructor" parentDisplayName="Training Instructor" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_methodofcontact" displayName="Method of Contact" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_enrollmentmethod" displayName="Enrollment Method" parentSchemaName="appbase_trainingenrollment" parentDisplayName="Training Enrollment" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_obligationlevel" displayName="Obligation Level" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_enforcementlevel" displayName="Enforcement Level" parentSchemaName="appbase_qualificationrequirement" parentDisplayName="Qualification Requirement" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_overallresult" displayName="Overall Result" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_result" displayName="Result" parentSchemaName="appbase_trainingcompletion" parentDisplayName="Training Completion" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_participationmode" displayName="Participation Mode" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_attendancemethod" displayName="Attendance Method" parentSchemaName="appbase_trainingsessionattendance" parentDisplayName="Training Session Attendance" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_paymentstatus" displayName="Payment Status" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_paymentstatus" displayName="Payment Status" parentSchemaName="appbase_trainingenrollment" parentDisplayName="Training Enrollment" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_publicationstatus" displayName="Publication Status" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_publicationstatus" displayName="Publication Status" parentSchemaName="appbase_academicprogram" parentDisplayName="Academic Program" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_publicationstatus" displayName="Publication Status" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_publicationstatus" displayName="Publication Status" parentSchemaName="appbase_learningpath" parentDisplayName="Learning Path" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_publicationstatus" displayName="Publication Status" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_publicationstatus" displayName="Publication Status" parentSchemaName="appbase_trainingcertificate" parentDisplayName="Training Certificate" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_publicationstatus" displayName="Publication Status" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_publicationstatus" displayName="Publication Status" parentSchemaName="appbase_trainingcourse" parentDisplayName="Training Course" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_registrationstatus" displayName="Registration Status" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_enrollmentstatus" displayName="Enrollment Status" parentSchemaName="appbase_trainingenrollment" parentDisplayName="Training Enrollment" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_renewalstatus" displayName="Renewal Status" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_renewalstatus" displayName="Renewal Status" parentSchemaName="appbase_trainingcertificaterenewal" parentDisplayName="Training Certificate Renewal" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_scheduledeventstatus" displayName="Scheduled Event Status" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_sessionstatus" displayName="Session Status" parentSchemaName="appbase_trainingsession" parentDisplayName="Training Session" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_schedulefrequency" displayName="Schedule Frequency" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_validationfrequency" displayName="Validation Frequency" parentSchemaName="appbase_qualificationrequirement" parentDisplayName="Qualification Requirement" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_simplecertificationstatus" displayName="Simple Certification Status" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_actionstatus" displayName="Action Status" parentSchemaName="appbase_trainingcompletion" parentDisplayName="Training Completion" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_simplecertificationstatus" displayName="Simple Certification Status" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_actionstatus" displayName="Action Status" parentSchemaName="appbase_trainingenrollment" parentDisplayName="Training Enrollment" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_termstatus" displayName="Term Status" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_termstatus" displayName="Term Status" parentSchemaName="appbase_academicterm" parentDisplayName="Academic Term" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_ispublished" displayName="Is Published" parentSchemaName="appbase_academicprogram" parentDisplayName="Academic Program" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_transcriptissued" displayName="Transcript Issued" parentSchemaName="appbase_academicprogramcompletion" parentDisplayName="Academic Program Completion" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_iselective" displayName="Is Elective" parentSchemaName="appbase_academicprogramrequirement" parentDisplayName="Academic Program Requirement" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_isrequired" displayName="Is Required" parentSchemaName="appbase_academicprogramrequirement" parentDisplayName="Academic Program Requirement" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_ispublished" displayName="Is Published" parentSchemaName="appbase_learningpath" parentDisplayName="Learning Path" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_iselective" displayName="Is Elective" parentSchemaName="appbase_learningpathcourse" parentDisplayName="Learning Path Course" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_isrequired" displayName="Is Required" parentSchemaName="appbase_learningpathcourse" parentDisplayName="Learning Path Course" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_isalternative" displayName="Is Alternative" parentSchemaName="appbase_qualificationrequirementitem" parentDisplayName="Qualification Requirement Item" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_isrequired" displayName="Is Required" parentSchemaName="appbase_qualificationrequirementitem" parentDisplayName="Qualification Requirement Item" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_ispublished" displayName="Is Published" parentSchemaName="appbase_trainingcertificate" parentDisplayName="Training Certificate" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_isrenewable" displayName="Is Renewable" parentSchemaName="appbase_trainingcertificate" parentDisplayName="Training Certificate" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_istransferable" displayName="Is Transferable" parentSchemaName="appbase_trainingcertificate" parentDisplayName="Training Certificate" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_requirescontinuingeducation" displayName="Requires Continuing Education" parentSchemaName="appbase_trainingcertificate" parentDisplayName="Training Certificate" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_isexpired" displayName="Is Expired" parentSchemaName="appbase_trainingcertificateachievement" parentDisplayName="Training Certificate Achievement" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_feepaid" displayName="Fee Paid" parentSchemaName="appbase_trainingcertificaterenewal" parentDisplayName="Training Certificate Renewal" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_requirementsmet" displayName="Requirements Met" parentSchemaName="appbase_trainingcertificaterenewal" parentDisplayName="Training Certificate Renewal" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_isrequired" displayName="Is Required" parentSchemaName="appbase_trainingcertificaterequirement" parentDisplayName="Training Certificate Requirement" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_iswaivable" displayName="Is Waivable" parentSchemaName="appbase_trainingcertificaterequirement" parentDisplayName="Training Certificate Requirement" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_certificateissued" displayName="Certificate Issued" parentSchemaName="appbase_trainingcompletion" parentDisplayName="Training Completion" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_externalcourse" displayName="External Course" parentSchemaName="appbase_trainingcompletion" parentDisplayName="Training Completion" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_transcriptentry" displayName="Transcript Entry" parentSchemaName="appbase_trainingcompletion" parentDisplayName="Training Completion" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_transfercredits" displayName="Transfer Credits" parentSchemaName="appbase_trainingcompletion" parentDisplayName="Training Completion" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_isinstructorled" displayName="Is Instructor Led" parentSchemaName="appbase_trainingcourse" parentDisplayName="Training Course" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_isonline" displayName="Is Online" parentSchemaName="appbase_trainingcourse" parentDisplayName="Training Course" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_ispublished" displayName="Is Published" parentSchemaName="appbase_trainingcourse" parentDisplayName="Training Course" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_isselfpaced" displayName="Is Self Paced" parentSchemaName="appbase_trainingcourse" parentDisplayName="Training Course" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_requirescertification" displayName="Requires Certification" parentSchemaName="appbase_trainingcourse" parentDisplayName="Training Course" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_iscorequisite" displayName="Is Corequisite" parentSchemaName="appbase_trainingcourserequirement" parentDisplayName="Training Course Requirement" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_isprerequisite" displayName="Is Prerequisite" parentSchemaName="appbase_trainingcourserequirement" parentDisplayName="Training Course Requirement" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_iswaivable" displayName="Is Waivable" parentSchemaName="appbase_trainingcourserequirement" parentDisplayName="Training Course Requirement" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_certificateissued" displayName="Certificate Issued" parentSchemaName="appbase_trainingenrollment" parentDisplayName="Training Enrollment" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_requiresaccommodation" displayName="Requires Accommodation" parentSchemaName="appbase_trainingenrollment" parentDisplayName="Training Enrollment" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_ismeasurable" displayName="Is Measurable" parentSchemaName="appbase_trainingobjective" parentDisplayName="Training Objective" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_iscancelled" displayName="Is Cancelled" parentSchemaName="appbase_trainingsession" parentDisplayName="Training Session" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_ispublished" displayName="Is Published" parentSchemaName="appbase_trainingsession" parentDisplayName="Training Session" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_isexcused" displayName="Is Excused" parentSchemaName="appbase_trainingsessionattendance" parentDisplayName="Training Session Attendance" />
       </MissingDependency>
       <MissingDependency>
         <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.15)" id.uniquename="AppChannel">

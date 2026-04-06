@@ -11,9 +11,8 @@ Represents a high-level initiative or policy area under which services are offer
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Program Code: Text
-- Lifecycle Stage: Choice (Lifecycle Stage)
 - Program Type: Choice (Program Type)
 - Parent Program: Lookup (Program)
 - Administering Organization Unit: Lookup (Organization Unit)
@@ -29,9 +28,11 @@ Represents a high-level initiative or policy area under which services are offer
 - Annual Budget: Currency
 - Legal Authority: Lookup (Legal Authority)
 - Policy Document: Lookup (Document)
-- Website URL: Text
+- Website URL: URL
 - Is Public: Yes / No
 - Visibility: Choice (Visibility)
+
+**Planned:**
 
 ---
 
@@ -40,11 +41,10 @@ Represents a defined type of service provided under a Program. A Service describ
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Service Code: Text
 - Program: Lookup (Program)
 - Service Category: Lookup (Service Category)
-- Lifecycle Stage: Choice (Lifecycle Stage)
 - Service Type: Choice (Service Type)
 - Description: Memo
 - Service Scope: Memo
@@ -60,9 +60,11 @@ Represents a defined type of service provided under a Program. A Service describ
 - Legal Authority: Lookup (Legal Authority)
 - Policy Reference: Text
 - Service Guide Document: Lookup (Document)
-- Website URL: Text
+- Website URL: URL
 - Is Published: Yes / No
 - Publication Status: Choice (Publication Status)
+
+**Planned:**
 
 ---
 
@@ -71,11 +73,12 @@ Represents a classification used to group Services for reporting, organization, 
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Category Code: Text
 - Parent Category: Lookup (Service Category)
 - Description: Memo
-- Icon URL: Text
+
+**Planned:**
 
 ---
 
@@ -84,7 +87,7 @@ Represents a specific version or configuration of a Service, typically bounded b
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Offering Code: Text
 - Service: Lookup (Service)
 - Stage: Choice (Service Offering Stage)
@@ -118,6 +121,8 @@ Represents a specific version or configuration of a Service, typically bounded b
 - Is Published: Yes / No
 - Publication Status: Choice (Publication Status)
 
+**Planned:**
+
 ---
 
 ## Eligibility Management
@@ -127,7 +132,7 @@ Represents a reusable eligibility condition that may be applied to one or more S
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Rule Code: Text
 - Rule Type: Choice (Eligibility Rule Type)
 - Rule Category: Choice (Eligibility Rule Category)
@@ -148,6 +153,8 @@ Represents a reusable eligibility condition that may be applied to one or more S
 - Verification Method: Memo
 - Priority: Choice (Priority)
 
+**Planned:**
+
 ---
 
 ### Service Offering Eligibility Rule
@@ -155,7 +162,7 @@ Represents the association between a Service Offering and a Service Eligibility 
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Service Offering: Lookup (Service Offering)
 - Service Eligibility Rule: Lookup (Service Eligibility Rule)
 - Is Required: Yes / No
@@ -165,6 +172,8 @@ Represents the association between a Service Offering and a Service Eligibility 
 - Effective End Date: Date
 - Waiver Authority: Lookup (Person)
 
+**Planned:**
+
 ---
 
 ### Service Offering Geography
@@ -172,7 +181,7 @@ Represents geographic constraints or applicability for a Service Offering. This 
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Service Offering: Lookup (Service Offering)
 - Location: Lookup (Location)
 - Judicial District: Lookup (Judicial District)
@@ -181,6 +190,8 @@ Represents geographic constraints or applicability for a Service Offering. This 
 - Is Primary: Yes / No
 - Effective Start Date: Date
 - Effective End Date: Date
+
+**Planned:**
 
 ---
 
@@ -191,7 +202,7 @@ Represents a person's or organization's enrollment or engagement in a specific S
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Participation Number: Text
 - Service Offering: Lookup (Service Offering)
 - Participant Person: Lookup (Person)
@@ -222,6 +233,8 @@ Represents a person's or organization's enrollment or engagement in a specific S
 - Privacy Consent: Lookup (Privacy Consent)
 - Supporting Document: Lookup (Document)
 
+**Planned:**
+
 ---
 
 ### Service Activity
@@ -229,12 +242,11 @@ Represents an operational event or action performed during delivery of a Service
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Activity Number: Text
 - Service Participation: Lookup (Service Participation)
 - Service Activity Type: Choice (Service Activity Type)
 - Action Status: Choice (Action Status)
-- Activity Date: Date
 - Activity Date Time: Date Time
 - Performed By: Lookup (Person)
 - Performing Organization Unit: Lookup (Organization Unit)
@@ -247,8 +259,9 @@ Represents an operational event or action performed during delivery of a Service
 - Outcome: Memo
 - Next Steps: Memo
 - Follow Up Date: Date
-- Related Action Item: Lookup (Action Item)
 - Supporting Document: Lookup (Document)
+
+**Planned:**
 
 ---
 
@@ -257,7 +270,7 @@ Represents an official, factual outcome that occurred for a specific Service Par
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Result Number: Text
 - Service Participation: Lookup (Service Participation)
 - Service Result Type: Lookup (Service Result Type)
@@ -288,6 +301,8 @@ Represents an official, factual outcome that occurred for a specific Service Par
 - Formal Decision: Lookup (Formal Decision)
 - Supporting Document: Lookup (Document)
 
+**Planned:**
+
 ---
 
 ### Service Result Type
@@ -295,7 +310,7 @@ Represents the predefined set of allowable result classifications that may be ap
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Result Type Code: Text
 - Service Result Category: Choice (Service Result Category)
 - Description: Memo
@@ -305,6 +320,8 @@ Represents the predefined set of allowable result classifications that may be ap
 - Requires Notification: Yes / No
 - Allows Appeal: Yes / No
 - Appeal Window (Days): Integer
+
+**Planned:**
 
 ---
 

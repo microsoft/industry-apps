@@ -11,20 +11,18 @@ Represents a single submitted request for work, information, approval, or action
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Request Number: Text
 - Request Type: Lookup (Request Type)
 - Approval Status: Choice (Approval Status)
 - Priority: Choice (Priority)
 - Submitted By: Lookup (Person)
-- Submitted By (External): Lookup (Person)
 - Submitting Account: Lookup (Account)
 - Submitting Organization Unit: Lookup (Organization Unit)
 - Contact Person: Lookup (Person)
-- Contact Email: Text
-- Contact Phone: Text
+- Contact Email: Email
+- Contact Phone: Phone
 - Contact Preference: Choice (Method of Contact)
-- Submission Date: Date
 - Submission Date Time: Date Time
 - Submission Method: Choice (Method of Contact)
 - Received Date: Date
@@ -42,13 +40,11 @@ Represents a single submitted request for work, information, approval, or action
 - Review Notes: Memo
 - Requires Approval: Yes / No
 - Approver: Lookup (Person)
-- Approval Status: Choice (Approval Status)
 - Approval Date: Date
 - Approval Notes: Memo
 - Response Date: Date Time
 - Response: Memo
 - Resolution Date: Date Time
-- Resolution: Memo
 - Outcome: Choice (Overall Result)
 - Completion Date: Date Time
 - Completed By: Lookup (Person)
@@ -60,8 +56,6 @@ Represents a single submitted request for work, information, approval, or action
 - Closure Notes: Memo
 - Satisfaction Rating: Integer
 - Feedback: Memo
-- Related Action Item: Lookup (Action Item)
-- Related Project Work Item: Lookup (Project Work Item)
 - Related Discussion Item: Lookup (Discussion Item)
 - Related Document: Lookup (Document)
 - Supporting Document: Lookup (Document)
@@ -70,6 +64,9 @@ Represents a single submitted request for work, information, approval, or action
 - Security Classification: Choice (Security Classification)
 - Visibility: Choice (Visibility)
 - Tags: Text
+- Resolution: Memo
+
+**Planned:**
 
 ---
 
@@ -78,7 +75,7 @@ Defines the classification of a request and supports routing, prioritization, an
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Type Code: Text
 - Parent Request Type: Lookup (Request Type)
 - Request Type Category: Choice (Request Type Category)
@@ -101,11 +98,13 @@ Defines the classification of a request and supports routing, prioritization, an
 - Icon: Text
 - Color: Text
 
+**Planned:**
+
 ---
 
 ## Choice Fields
 
-**Planned:**
+**Completed Last Round:**
 
 ### Request Type Category
 - Information Request
@@ -122,3 +121,5 @@ Defines the classification of a request and supports routing, prioritization, an
 - Research Request
 - Report Request
 - Approval Request
+
+**Planned:**

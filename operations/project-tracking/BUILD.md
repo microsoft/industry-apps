@@ -11,7 +11,7 @@ Represents an intake record used to propose or initiate a new project. Captures 
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Request Number: Text
 - Stage: Choice (Project Request Stage)
 - Decision Status: Choice (Item Decision Status)
@@ -54,6 +54,8 @@ Represents an intake record used to propose or initiate a new project. Captures 
 - Rejection Reason: Memo
 - Supporting Document: Lookup (Document)
 
+**Planned:**
+
 ---
 
 ## Project Execution
@@ -63,7 +65,7 @@ Represents the primary delivery record for a defined body of work with scope, ob
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Project Code: Text
 - Stage: Choice (Project Stage)
 - Completion Status: Choice (Item Completion Status)
@@ -87,7 +89,6 @@ Represents the primary delivery record for a defined body of work with scope, ob
 - Actual End Date: Date
 - Forecast Completion Date: Date
 - Current Phase: Text
-- Lifecycle Stage: Choice (Lifecycle Stage)
 - Priority: Choice (Priority)
 - Visibility: Choice (Visibility)
 - Is Confidential: Yes / No
@@ -111,10 +112,12 @@ Represents the primary delivery record for a defined body of work with scope, ob
 - Master Agreement: Lookup (Agreement)
 - Project Charter: Lookup (Document)
 - Project Plan: Lookup (Document)
-- Repository URL: Text
-- Project Site URL: Text
+- Repository URL: URL
+- Project Site URL: URL
 - Lessons Learned: Memo
 - Closeout Summary: Memo
+
+**Planned:**
 
 ---
 
@@ -123,12 +126,14 @@ Represents standardized roles used within projects (e.g., Project Manager, Busin
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Role Code: Text
 - Role Category: Choice (Project Role Category)
 - Description: Memo
 - Responsibilities: Memo
 - Standard Allocation Percentage: Integer
+
+**Planned:**
 
 ---
 
@@ -137,7 +142,7 @@ Represents the assignment of a person or resource to a project (and optionally t
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Assignment Number: Text
 - Project: Lookup (Project)
 - Assigned Person: Lookup (Person)
@@ -158,6 +163,8 @@ Represents the assignment of a person or resource to a project (and optionally t
 - Cost Rate: Currency
 - Assignment Notes: Memo
 
+**Planned:**
+
 ---
 
 ## Work Planning & Execution
@@ -167,7 +174,7 @@ Represents a planning container that groups and prioritizes future work items fo
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Backlog Code: Text
 - Project: Lookup (Project)
 - Stage: Choice (Project Backlog Stage)
@@ -177,6 +184,8 @@ Represents a planning container that groups and prioritizes future work items fo
 - Target Iteration: Lookup (Project Iteration)
 - Priority: Choice (Priority)
 
+**Planned:**
+
 ---
 
 ### Project Iteration
@@ -184,7 +193,7 @@ Represents a defined timebox or execution cycle within a project (e.g., sprint, 
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Iteration Code: Text
 - Project: Lookup (Project)
 - Stage: Choice (Project Iteration Stage)
@@ -203,6 +212,8 @@ Represents a defined timebox or execution cycle within a project (e.g., sprint, 
 - Review Notes: Memo
 - Retrospective Notes: Memo
 
+**Planned:**
+
 ---
 
 ### Project Work Item Type
@@ -210,7 +221,7 @@ Represents the configuration table defining categories of work items (e.g., Epic
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Type Code: Text
 - Type Category: Choice (Project Work Item Category)
 - Description: Memo
@@ -221,6 +232,8 @@ Represents the configuration table defining categories of work items (e.g., Epic
 - Allows Time Tracking: Yes / No
 - Allows Sub Items: Yes / No
 
+**Planned:**
+
 ---
 
 ### Project Work Item
@@ -228,7 +241,7 @@ Represents the core execution record for a unit of work within a project. May re
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Work Item Number: Text
 - Project: Lookup (Project)
 - Project Work Item Type: Lookup (Project Work Item Type)
@@ -238,8 +251,6 @@ Represents the core execution record for a unit of work within a project. May re
 - Parent Work Item: Lookup (Project Work Item)
 - Project Backlog: Lookup (Project Backlog)
 - Project Iteration: Lookup (Project Iteration)
-- Created By: Lookup (Person)
-- Created Date: Date Time
 - Description: Memo
 - Acceptance Criteria: Memo
 - Business Value: Integer
@@ -267,8 +278,11 @@ Represents the core execution record for a unit of work within a project. May re
 - Tags: Text
 - Discussion: Memo
 - Related Risk: Lookup (Risk Item)
-- Related Action Item: Lookup (Action Item)
 - Supporting Document: Lookup (Document)
+
+**Planned:**
+- Created By: Lookup (Person)
+- Created Date: Date Time
 
 ---
 
@@ -279,7 +293,7 @@ Represents a significant event or checkpoint within a project timeline. Represen
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Milestone Code: Text
 - Parent Milestone: Lookup (Project Milestone)
 - Project: Lookup (Project)
@@ -306,6 +320,8 @@ Represents a significant event or checkpoint within a project timeline. Represen
 - Related Work Item: Lookup (Project Work Item)
 - Related Document: Lookup (Document)
 
+**Planned:**
+
 ---
 
 ### Project Change Request
@@ -313,7 +329,7 @@ Represents a formal proposal to modify approved project scope, schedule, cost, d
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Change Request Number: Text
 - Project: Lookup (Project)
 - Stage: Choice (Project Change Request Stage)
@@ -354,9 +370,8 @@ Represents a formal proposal to modify approved project scope, schedule, cost, d
 - Priority: Choice (Priority)
 - Supporting Document: Lookup (Document)
 
-## Choice Fields
-
-### Project Type
+**Planned:**
+## Choice Fields### Project Type
 - IT Implementation
 - Infrastructure Project
 - Policy Initiative

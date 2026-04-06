@@ -11,7 +11,7 @@ Represents a defined reporting cycle such as a week, pay period, or month used t
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Period Code: Text
 - Period Type: Choice (Schedule Frequency)
 - Period Start Date: Date
@@ -25,6 +25,8 @@ Represents a defined reporting cycle such as a week, pay period, or month used t
 - Is Locked: Yes / No
 - Locked By: Lookup (Person)
 
+**Planned:**
+
 ---
 
 ### Time Code
@@ -32,14 +34,13 @@ Represents a hierarchical classification structure used to categorize Time Entri
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Time Code: Text
 - Parent Time Code: Lookup (Time Code)
 - Time Code Category: Choice (Time Code Category)
 - Description: Memo
 - Organization Unit: Lookup (Organization Unit)
 - Organization Initiative: Lookup (Organization Initiative)
-- Project: Lookup (Project)
 - Cost Center: Text
 - Funding Source: Text
 - Is Billable: Yes / No
@@ -49,6 +50,8 @@ Represents a hierarchical classification structure used to categorize Time Entri
 - Effective Start Date: Date
 - Effective End Date: Date
 
+**Planned:**
+
 ---
 
 ### Time Entry
@@ -56,9 +59,10 @@ Represents the actual time worked by a person on a specific date, including hour
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Entry Number: Text
 - Person: Lookup (Person)
+- User: Lookup (User)
 - Organization Unit: Lookup (Organization Unit)
 - Time Period: Lookup (Time Period)
 - Entry Date: Date
@@ -73,22 +77,24 @@ Represents the actual time worked by a person on a specific date, including hour
 - Total Billing: Currency
 - Work Description: Memo
 - Location: Lookup (Location)
-- Related Project: Lookup (Project)
-- Related Project Work Item: Lookup (Project Work Item)
-- Related Action Item: Lookup (Action Item)
 - Related Travel Request: Lookup (Travel Request)
-- Submitted Date: Date
+- Submitted Date Time: Date Time
 - Submitted By: Lookup (Person)
+- Submitted By User: Lookup (User)
 - Reviewed Date: Date
 - Reviewed By: Lookup (Person)
+- Reviewed By User: Lookup (User)
 - Review Notes: Memo
-- Approved Date: Date
+- Approved Date Time: Date Time
 - Approved By: Lookup (Person)
+- Approved By User: Lookup (User)
 - Approval Status: Choice (Approval Status)
 - Approval Notes: Memo
-- Rejected Date: Date
+- Rejected Date Time: Date Time
 - Rejection Reason: Memo
 - Is Locked: Yes / No
+
+**Planned:**
 
 ---
 
@@ -97,14 +103,12 @@ Represents a planned availability or obligation for a person over a defined date
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Commitment Number: Text
 - Person: Lookup (Person)
 - Organization Unit: Lookup (Organization Unit)
 - Commitment Type: Choice (Time Commitment Type)
 - Stage: Choice (Time Commitment Stage)
-- Start Date: Date
-- End Date: Date
 - Start Date Time: Date Time
 - End Date Time: Date Time
 - All Day: Yes / No
@@ -113,8 +117,6 @@ Represents a planned availability or obligation for a person over a defined date
 - Time Code: Lookup (Time Code)
 - Location: Lookup (Location)
 - Description: Memo
-- Related Action Item: Lookup (Action Item)
-- Related Project: Lookup (Project)
 - Related Travel Request: Lookup (Travel Request)
 - Requires Approval: Yes / No
 - Requested Date: Date
@@ -125,6 +127,8 @@ Represents a planned availability or obligation for a person over a defined date
 - Is Recurring: Yes / No
 - Recurrence Pattern: Text
 
+**Planned:**
+
 ---
 
 ## Travel Management
@@ -134,13 +138,15 @@ Represents standardized reasons for travel such as training, site visits, inspec
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Purpose Code: Text
 - Purpose Category: Choice (Travel Purpose Category)
 - Description: Memo
 - Requires Justification: Yes / No
 - Requires Advance Approval: Yes / No
 - Default Approver: Lookup (Person)
+
+**Planned:**
 
 ---
 
@@ -149,7 +155,7 @@ Represents a planned or approved trip, including traveler details, purpose, date
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Travel Request Number: Text
 - Traveler: Lookup (Person)
 - Traveler Organization Unit: Lookup (Organization Unit)
@@ -183,8 +189,6 @@ Represents a planned or approved trip, including traveler details, purpose, date
 - Funding Source: Text
 - Cost Center: Text
 - Organization Initiative: Lookup (Organization Initiative)
-- Project: Lookup (Project)
-- Related Event: Lookup (Event)
 - Requested Date: Date
 - Requested By: Lookup (Person)
 - Submitted Date: Date
@@ -202,6 +206,8 @@ Represents a planned or approved trip, including traveler details, purpose, date
 - Trip Report: Memo
 - Supporting Document: Lookup (Document)
 
+**Planned:**
+
 ---
 
 ### Travel Segment
@@ -209,7 +215,7 @@ Represents an individual component of a trip, such as a flight, lodging stay, or
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Segment Number: Text
 - Travel Request: Lookup (Travel Request)
 - Segment Type: Choice (Travel Segment Type)
@@ -227,7 +233,7 @@ Represents an individual component of a trip, such as a flight, lodging stay, or
 - Destination Country: Lookup (Country)
 - Destination Location: Lookup (Location)
 - Transportation Method: Choice (Travel Transportation Method)
-- Carrier: Text
+- Carrier: Lookup (Account)
 - Flight Number: Text
 - Confirmation Number: Text
 - Booking Reference: Text
@@ -236,13 +242,15 @@ Represents an individual component of a trip, such as a flight, lodging stay, or
 - Check In Date: Date
 - Check Out Date: Date
 - Nights: Integer
-- Hotel Name: Text
+- Hotel: Lookup (Account)
 - Hotel Address: Text
-- Rental Company: Text
+- Rental Company: Lookup (Account)
 - Vehicle Type: Text
 - Estimated Cost: Currency
 - Actual Cost: Currency
 - Segment Notes: Memo
+
+**Planned:**
 
 ---
 
@@ -253,7 +261,7 @@ Represents standardized classifications for expenses such as lodging, meals, mil
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Category Code: Text
 - Parent Category: Lookup (Expense Category)
 - Expense Category Type: Choice (Expense Category Type)
@@ -270,6 +278,8 @@ Represents standardized classifications for expenses such as lodging, meals, mil
 - Mileage Rate: Currency
 - GL Account: Text
 
+**Planned:**
+
 ---
 
 ### Expense Report
@@ -277,7 +287,7 @@ Represents a grouped submission of multiple Expense Items for review, approval, 
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Expense Report Number: Text
 - Person: Lookup (Person)
 - Organization Unit: Lookup (Organization Unit)
@@ -300,7 +310,6 @@ Represents a grouped submission of multiple Expense Items for review, approval, 
 - Amount Due from Person: Currency
 - Funding Source: Text
 - Cost Center: Text
-- Project: Lookup (Project)
 - Submitted Date: Date
 - Submitted By: Lookup (Person)
 - Reviewed Date: Date
@@ -317,6 +326,8 @@ Represents a grouped submission of multiple Expense Items for review, approval, 
 - Rejection Reason: Memo
 - Supporting Document: Lookup (Document)
 
+**Planned:**
+
 ---
 
 ### Expense Item
@@ -324,7 +335,7 @@ Represents an individual expense transaction recorded under an Expense Report. C
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Item Number: Text
 - Expense Report: Lookup (Expense Report)
 - Expense Category: Lookup (Expense Category)
@@ -368,6 +379,8 @@ Represents an individual expense transaction recorded under an Expense Report. C
 - GL Account: Text
 - Cost Center: Text
 - Supporting Document: Lookup (Document)
+
+**Planned:**
 
 ---
 

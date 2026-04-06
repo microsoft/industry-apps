@@ -11,7 +11,7 @@ Represents a structured gamification initiative or campaign. A Game defines the 
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Game Code: Text
 - Game Type: Choice (Gamification Game Type)
 - Description: Memo
@@ -33,9 +33,11 @@ Represents a structured gamification initiative or campaign. A Game defines the 
 - Scoring Enabled: Yes / No
 - Leaderboard Enabled: Yes / No
 - Team Based: Yes / No
-- Logo URL: Text
-- Banner URL: Text
+- Logo URL: URL
+- Banner URL: URL
 - Rules: Memo
+
+**Planned:**
 
 ---
 
@@ -44,20 +46,21 @@ Defines the types of actions that are tracked within a Game. Activities represen
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Game: Lookup (Game)
 - Parent Game Activity: Lookup (Game Activity)
 - Activity Code: Text
 - Activity Type: Choice (Gamification Activity Type)
 - Description: Memo
-- Lifecycle Stage: Choice (Lifecycle Stage)
 - Points Value: Integer
 - Can Repeat: Yes / No
 - Maximum Occurrences: Integer
 - Requires Verification: Yes / No
 - Auto Award: Yes / No
 - Verification Criteria: Memo
-- Icon URL: Text
+- Icon URL: URL
+
+**Planned:**
 
 ---
 
@@ -66,13 +69,12 @@ Defines the achievements that can be earned within a Game. These may represent b
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Game: Lookup (Game)
 - Parent Game Achievement: Lookup (Game Achievement)
 - Achievement Code: Text
 - Achievement Type: Choice (Gamification Achievement Type)
 - Description: Memo
-- Lifecycle Stage: Choice (Lifecycle Stage)
 - Points Required: Integer
 - Criteria: Memo
 - Required Activities: Memo
@@ -81,11 +83,13 @@ Defines the achievements that can be earned within a Game. These may represent b
 - Can Be Revoked: Yes / No
 - Is Public: Yes / No
 - Tier Level: Integer
-- Badge URL: Text
+- Badge URL: URL
 - Certificate Template: Lookup (Content Template)
-- Reward Value: Currency
+- Reward Monetary Value: Currency
 - Reward Description: Memo
 - Total Earned: Integer
+
+**Planned:**
 
 ---
 
@@ -96,7 +100,7 @@ Represents an individual or team enrolled in a specific Game. This table tracks 
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Game: Lookup (Game)
 - Person: Lookup (Person)
 - Participant Organization Unit: Lookup (Organization Unit)
@@ -118,6 +122,8 @@ Represents an individual or team enrolled in a specific Game. This table tracks 
 - Eligibility Status: Choice (Eligibility Status)
 - Description: Memo
 
+**Planned:**
+
 ---
 
 ### Game Participant Activity
@@ -125,7 +131,7 @@ Logs instances of Participants performing defined Game Activities. This table ca
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Game Participant: Lookup (Game Participant)
 - Game: Lookup (Game)
 - Game Activity: Lookup (Game Activity)
@@ -142,9 +148,11 @@ Logs instances of Participants performing defined Game Activities. This table ca
 - Duration (Minutes): Integer
 - Quantity: Float
 - Description: Memo
-- Evidence URL: Text
+- Evidence URL: URL
 - Supporting Document: Lookup (Document)
 - Auto Recorded: Yes / No
+
+**Planned:**
 
 ---
 
@@ -153,7 +161,7 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Game Participant: Lookup (Game Participant)
 - Game: Lookup (Game)
 - Game Achievement: Lookup (Game Achievement)
@@ -178,6 +186,8 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 - Is Visible: Yes / No
 - Display on Profile: Yes / No
 - Achievement Notes: Memo
+
+**Planned:**
 
 ---
 

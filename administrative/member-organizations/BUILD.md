@@ -28,11 +28,11 @@ Represents a structured group of people formed for a defined purpose, such as a 
 - Secretary: Lookup (Person)
 - Treasurer: Lookup (Person)
 - Primary Contact: Lookup (Person)
-- Contact Email: Text
-- Contact Phone: Text
+- Contact Email: Email
+- Contact Phone: Phone
 - Meeting Location: Lookup (Location)
 - Meeting Schedule: Text
-- Website URL: Text
+- Website URL: URL
 - Total Members: Integer
 - Active Members: Integer
 - Quorum Required: Integer

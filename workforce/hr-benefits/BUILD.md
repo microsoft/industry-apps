@@ -11,13 +11,12 @@ Defines a specific benefit offering provided by the organization (e.g., Medical 
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Plan Code: Text
 - Parent Benefit Plan: Lookup (HR Benefit Plan)
 - Benefit Category: Choice (Benefit Category)
 - HR Benefit Provider: Lookup (HR Benefit Provider)
 - Plan Year: Text
-- Lifecycle Stage: Choice (Lifecycle Stage)
 - Effective Start Date: Date
 - Effective End Date: Date
 - Enrollment Allowed: Yes / No
@@ -31,6 +30,8 @@ Defines a specific benefit offering provided by the organization (e.g., Medical 
 - Legal Authority: Lookup (Legal Authority)
 - Compliance Framework: Lookup (Compliance Framework)
 
+**Planned:**
+
 ---
 
 ### HR Benefit Option
@@ -38,16 +39,17 @@ Defines selectable options within a benefit plan (e.g., PPO vs. HDHP, Basic vs. 
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Option Code: Text
 - HR Benefit Plan: Lookup (HR Benefit Plan)
 - Description: Memo
-- Lifecycle Stage: Choice (Lifecycle Stage)
 - Effective Start Date: Date
 - Effective End Date: Date
 - Is Default: Yes / No
 - Premium Amount: Currency
 - Coverage Summary: Memo
+
+**Planned:**
 
 ---
 
@@ -56,13 +58,15 @@ Defines coverage tiers available under benefit plans (e.g., Employee Only, Emplo
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Coverage Code: Text
 - HR Benefit Plan: Lookup (HR Benefit Plan)
 - Coverage Type: Choice (Benefit Coverage Type)
 - Description: Memo
 - Allows Dependents: Yes / No
 - Maximum Dependents: Integer
+
+**Planned:**
 
 ---
 
@@ -71,16 +75,15 @@ Stores information about the external or internal organization administering the
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Provider Code: Text
 - Provider Account: Lookup (Account)
 - Provider Type: Choice (Benefit Provider Type)
-- Lifecycle Stage: Choice (Lifecycle Stage)
 - Primary Contact: Lookup (Person)
-- Contact Phone: Text
-- Contact Email: Text
-- Website URL: Text
-- Portal URL: Text
+- Contact Phone: Phone
+- Contact Email: Email
+- Website URL: URL
+- Portal URL: URL
 - Service Agreement: Lookup (Agreement)
 - Agreement Start Date: Date
 - Agreement End Date: Date
@@ -89,6 +92,8 @@ Stores information about the external or internal organization administering the
 - Tax ID: Text
 - Description: Memo
 
+**Planned:**
+
 ---
 
 ### HR Benefit Plan Document
@@ -96,7 +101,7 @@ Stores plan-related documentation such as summary plan descriptions, policy docu
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - HR Benefit Plan: Lookup (HR Benefit Plan)
 - Document Type: Choice (Benefit Document Type)
 - Document: Lookup (Document)
@@ -105,6 +110,8 @@ Stores plan-related documentation such as summary plan descriptions, policy docu
 - Expiration Date: Date
 - Version Number: Text
 - Description: Memo
+
+**Planned:**
 
 ---
 
@@ -115,7 +122,7 @@ Defines reusable eligibility conditions for benefit participation, such as emplo
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - HR Benefit Plan: Lookup (HR Benefit Plan)
 - Rule Type: Choice (Benefit Eligibility Rule Type)
 - Description: Memo
@@ -131,6 +138,8 @@ Defines reusable eligibility conditions for benefit participation, such as emplo
 - Age Maximum: Integer
 - Rule Priority: Integer
 
+**Planned:**
+
 ---
 
 ### HR Benefit Waiting Period
@@ -138,13 +147,15 @@ Defines waiting period rules before an employee becomes eligible for enrollment 
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - HR Benefit Plan: Lookup (HR Benefit Plan)
 - Waiting Period Type: Choice (Benefit Waiting Period Type)
 - Waiting Days: Integer
 - Calculation Method: Choice (Benefit Calculation Method)
 - Effective Date Rule: Memo
 - Description: Memo
+
+**Planned:**
 
 ---
 
@@ -153,7 +164,7 @@ Defines enrollment windows such as Open Enrollment, New Hire Enrollment, or Spec
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Period Type: Choice (Benefit Enrollment Period Type)
 - Stage: Choice (Term Status)
 - Start Date: Date
@@ -168,6 +179,8 @@ Defines enrollment windows such as Open Enrollment, New Hire Enrollment, or Spec
 - Communication Date: Date
 - Description: Memo
 
+**Planned:**
+
 ---
 
 ## Enrollment & Elections
@@ -177,7 +190,7 @@ Represents an individual's enrollment in a specific benefit plan, including sele
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Enrollment Number: Text
 - Person: Lookup (Person)
 - HR Benefit Plan: Lookup (HR Benefit Plan)
@@ -206,6 +219,8 @@ Represents an individual's enrollment in a specific benefit plan, including sele
 - Confirmation Date: Date
 - Supporting Document: Lookup (Document)
 
+**Planned:**
+
 ---
 
 ### HR Benefit Election
@@ -213,12 +228,14 @@ Captures detailed selections made under a benefit enrollment, such as optional r
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - HR Benefit Enrollment: Lookup (HR Benefit Enrollment)
 - Election Type: Choice (Benefit Election Type)
 - Election Value: Text
 - Election Amount: Currency
 - Description: Memo
+
+**Planned:**
 
 ---
 
@@ -227,7 +244,7 @@ Stores beneficiary designations for benefit plans that require them (e.g., life 
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - HR Benefit Enrollment: Lookup (HR Benefit Enrollment)
 - Person: Lookup (Person)
 - Beneficiary Type: Choice (Benefit Beneficiary Type)
@@ -239,11 +256,13 @@ Stores beneficiary designations for benefit plans that require them (e.g., life 
 - Date of Birth: Date
 - Social Security Number: Text
 - Address: Text
-- Phone: Text
-- Email: Text
+- Phone: Phone
+- Email: Email
 - Effective Start Date: Date
 - Effective End Date: Date
 - Description: Memo
+
+**Planned:**
 
 ---
 
@@ -254,7 +273,7 @@ Records a reported qualifying life event for an individual (e.g., marriage, birt
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Event Number: Text
 - Person: Lookup (Person)
 - Life Event Type: Choice (Benefit Life Event Type)
@@ -272,6 +291,8 @@ Records a reported qualifying life event for an individual (e.g., marriage, birt
 - Description: Memo
 - Supporting Document: Lookup (Document)
 
+**Planned:**
+
 ---
 
 ### HR Benefit Life Event Change
@@ -279,7 +300,7 @@ Tracks specific benefit enrollment changes resulting from a life event, includin
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - HR Benefit Life Event: Lookup (HR Benefit Life Event)
 - HR Benefit Enrollment: Lookup (HR Benefit Enrollment)
 - Change Type: Choice (Benefit Enrollment Change Type)
@@ -298,6 +319,8 @@ Tracks specific benefit enrollment changes resulting from a life event, includin
 - Processed Date: Date
 - Description: Memo
 
+**Planned:**
+
 ---
 
 ## Cost & Contribution Management
@@ -307,7 +330,7 @@ Defines employer and employee contribution structures for a benefit plan, option
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - HR Benefit Plan: Lookup (HR Benefit Plan)
 - HR Benefit Option: Lookup (HR Benefit Option)
 - HR Benefit Coverage Level: Lookup (HR Benefit Coverage Level)
@@ -325,6 +348,8 @@ Defines employer and employee contribution structures for a benefit plan, option
 - Applies To Pay Grades: Text
 - Description: Memo
 
+**Planned:**
+
 ---
 
 ### HR Benefit Cost Allocation
@@ -332,7 +357,7 @@ Defines how employer benefit costs are allocated across funds, cost centers, gra
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - HR Benefit Plan: Lookup (HR Benefit Plan)
 - Organization Unit: Lookup (Organization Unit)
 - Funding Source: Text
@@ -344,6 +369,8 @@ Defines how employer benefit costs are allocated across funds, cost centers, gra
 - Effective End Date: Date
 - Description: Memo
 
+**Planned:**
+
 ---
 
 ### HR Benefit Deduction Code
@@ -351,7 +378,7 @@ Maps benefit enrollments to payroll deduction identifiers. Supports integration 
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Deduction Code: Text
 - HR Benefit Plan: Lookup (HR Benefit Plan)
 - Deduction Type: Choice (Benefit Deduction Type)
@@ -360,6 +387,8 @@ Maps benefit enrollments to payroll deduction identifiers. Supports integration 
 - Is Post-Tax: Yes / No
 - Payroll System Code: Text
 - Description: Memo
+
+**Planned:**
 
 ---
 
@@ -370,7 +399,7 @@ Tracks internal benefit-related claims or reimbursement requests (e.g., tuition 
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Claim Number: Text
 - Person: Lookup (Person)
 - HR Benefit Enrollment: Lookup (HR Benefit Enrollment)
@@ -395,6 +424,8 @@ Tracks internal benefit-related claims or reimbursement requests (e.g., tuition 
 - Approval Date: Date
 - Description: Memo
 - Supporting Document: Lookup (Document)
+
+**Planned:**
 
 ---
 

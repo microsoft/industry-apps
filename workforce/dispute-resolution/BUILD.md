@@ -7,8 +7,7 @@ Tracks lifecycle status, case type, regulatory framework, assigned staff, key da
 
 **Completed:**
 
-**Planned:**
-- Case Title: Name
+**Completed Last Round:**
 - Case Number: Text
 - Dispute Type: Choice (Dispute Type)
 - Stage: Choice (Dispute Stage)
@@ -24,8 +23,12 @@ Tracks lifecycle status, case type, regulatory framework, assigned staff, key da
 - Is Anonymous: Yes / No
 - Overall Result: Choice (Overall Result)
 - Description: Memo
+- Case Title: Name
 
----
+**Planned:**
+
+
+**
 
 ### Dispute Appeal
 
@@ -34,7 +37,7 @@ Tracks appeal authority, filing date, appeal basis, review process, and final ap
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Appeal Title: Name
 - Appeal Number: Text
 - Dispute: Lookup (Dispute)
@@ -50,7 +53,10 @@ Tracks appeal authority, filing date, appeal basis, review process, and final ap
 - Overall Result: Choice (Overall Result)
 - Description: Memo
 
----
+**Planned:**
+
+
+**
 
 ### Dispute Corrective Action
 
@@ -59,7 +65,7 @@ Examples include training requirements, disciplinary measures, policy updates, o
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Action Title: Name
 - Action Number: Text
 - Dispute: Lookup (Dispute)
@@ -73,7 +79,10 @@ Examples include training requirements, disciplinary measures, policy updates, o
 - Verified By: Lookup (Person)
 - Description: Memo
 
----
+**Planned:**
+
+
+**
 
 ### Dispute Determination
 
@@ -82,7 +91,7 @@ May include findings, remedies, dismissals, settlements, or final agency decisio
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Determination Title: Name
 - Determination Number: Text
 - Dispute: Lookup (Dispute)
@@ -97,7 +106,10 @@ May include findings, remedies, dismissals, settlements, or final agency decisio
 - Document: Lookup (Document)
 - Description: Memo
 
----
+**Planned:**
+
+
+**
 
 ### Dispute Evidence
 
@@ -106,7 +118,7 @@ Examples include documents, communications, records, media files, and external r
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Evidence Title: Name
 - Evidence Number: Text
 - Dispute: Lookup (Dispute)
@@ -120,7 +132,10 @@ Examples include documents, communications, records, media files, and external r
 - Chain of Custody: Memo
 - Description: Memo
 
----
+**Planned:**
+
+
+**
 
 ### Dispute Finding
 
@@ -129,7 +144,7 @@ Examples: Substantiated, Unsubstantiated, Inconclusive, Policy Violation Confirm
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Finding Title: Name
 - Finding Number: Text
 - Dispute: Lookup (Dispute)
@@ -139,7 +154,10 @@ Examples: Substantiated, Unsubstantiated, Inconclusive, Policy Violation Confirm
 - Finding Date: Date
 - Description: Memo
 
----
+**Planned:**
+
+
+**
 
 ### Dispute Intake
 
@@ -148,7 +166,7 @@ Supports anonymous reporting, early resolution efforts, and triage decisions.
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Intake Title: Name
 - Intake Number: Text
 - Stage: Choice (Dispute Intake Stage)
@@ -163,7 +181,10 @@ Supports anonymous reporting, early resolution efforts, and triage decisions.
 - Conversion Date: Date
 - Description: Memo
 
----
+**Planned:**
+
+
+**
 
 ### Dispute Interview
 
@@ -172,7 +193,7 @@ Includes interviewee, role, date, summary, and related evidence.
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Interview Title: Name
 - Interview Number: Text
 - Dispute: Lookup (Dispute)
@@ -186,7 +207,10 @@ Includes interviewee, role, date, summary, and related evidence.
 - Document: Lookup (Document)
 - Description: Memo
 
----
+**Planned:**
+
+
+**
 
 ### Dispute Investigation
 
@@ -195,7 +219,7 @@ Tracks investigator assignment, scope, timeline, methodology, and Action Status.
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Investigation Title: Name
 - Investigation Number: Text
 - Dispute: Lookup (Dispute)
@@ -211,7 +235,10 @@ Tracks investigator assignment, scope, timeline, methodology, and Action Status.
 - Summary: Memo
 - Description: Memo
 
----
+**Planned:**
+
+
+**
 
 ### Dispute Issue
 
@@ -220,7 +247,7 @@ A single dispute may include multiple issues (e.g., discrimination, retaliation,
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Issue Title: Name
 - Issue Number: Text
 - Dispute: Lookup (Dispute)
@@ -234,7 +261,10 @@ A single dispute may include multiple issues (e.g., discrimination, retaliation,
 - Legal Authority: Lookup (Legal Authority)
 - Description: Memo
 
----
+**Planned:**
+
+
+**
 
 ### Dispute Mediation
 
@@ -243,7 +273,7 @@ Tracks mediator, session dates, agreements reached, and mediation outcomes.
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Mediation Title: Name
 - Mediation Number: Text
 - Dispute: Lookup (Dispute)
@@ -259,7 +289,10 @@ Tracks mediator, session dates, agreements reached, and mediation outcomes.
 - Document: Lookup (Document)
 - Description: Memo
 
----
+**Planned:**
+
+
+**
 
 ### Dispute Party
 
@@ -268,8 +301,7 @@ Roles may include complainant, respondent, witness, representative, investigator
 
 **Completed:**
 
-**Planned:**
-- Name: Text
+**Completed Last Round:**
 - Dispute: Lookup (Dispute)
 - Person: Lookup (Person)
 - Account: Lookup (Account)
@@ -281,7 +313,11 @@ Roles may include complainant, respondent, witness, representative, investigator
 - Notified Date Time: Date Time
 - Description: Memo
 
----
+**Planned:**
+- Name: Text
+
+
+**
 
 ### Dispute Referral
 
@@ -289,9 +325,6 @@ Tracks referral of an intake or case to another office, authority, or support fu
 Examples include HR, Legal, Security, Compliance, or external agencies.
 
 **Completed:**
-
-**Planned:**
-- Referral Title: Name
 - Referral Number: Text
 - Dispute Intake: Lookup (Dispute Intake)
 - Dispute: Lookup (Dispute)
@@ -305,13 +338,17 @@ Examples include HR, Legal, Security, Compliance, or external agencies.
 - Response Date: Date
 - Response Summary: Memo
 
----
+**Planned:**
+
+**
 
 ## ✅ Choice Fields
 
 **Completed Last Round:**
 
-### Dispute Stage
+- Referral Title: Name
+
+**### Dispute Stage
 Workflow progression for dispute cases:
 - Intake
 - Initial Review

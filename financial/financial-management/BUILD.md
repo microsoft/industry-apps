@@ -11,9 +11,10 @@ Represents an approved financial plan for a defined fiscal period and organizati
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Budget Number: Text
 - Fiscal Year: Text
+- Fiscal Period: Lookup (Fiscal Period)
 - Budget Period Start Date: Date
 - Budget Period End Date: Date
 - Stage: Choice (Budget Stage)
@@ -28,6 +29,8 @@ Represents an approved financial plan for a defined fiscal period and organizati
 - Approval Date: Date
 - Description: Memo
 
+**Planned:**
+
 ---
 
 ### Budget Line Item
@@ -35,10 +38,10 @@ Detailed allocation within a Budget tied to a specific Financial Funding Source,
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Line Item Title: Name
 - Budget: Lookup (Budget)
-- Parent Budget Line Item: Lookup (Budget Line Item)
+- Parent Line Item: Lookup (Budget Line Item)
 - Line Number: Text
 - Financial Funding Source: Lookup (Financial Funding Source)
 - Financial Classification: Lookup (Financial Classification)
@@ -52,6 +55,8 @@ Detailed allocation within a Budget tied to a specific Financial Funding Source,
 - Line Item Status: Choice (Budget Stage)
 - Description: Memo
 
+**Planned:**
+
 ---
 
 ### Financial Funding Source
@@ -59,11 +64,10 @@ Identifies the origin of funds used to finance expenditures, such as a grant, ap
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Funding Source Code: Text
 - Funding Source Type: Choice (Financial Funding Source Type)
 - Organization Unit: Lookup (Organization Unit)
-- Funding Source Status: Choice (Operational Status)
 - Total Authorized Amount: Currency
 - Total Allocated Amount: Currency
 - Total Available Amount: Currency
@@ -76,6 +80,8 @@ Identifies the origin of funds used to finance expenditures, such as a grant, ap
 - Description: Memo
 - Restrictions: Memo
 
+**Planned:**
+
 ---
 
 ### Financial Classification
@@ -83,12 +89,14 @@ A categorization structure used to classify financial transactions, such as expe
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Classification Code: Text
 - Classification Type: Choice (Financial Classification Type)
 - Parent Classification: Lookup (Financial Classification)
 - Account Code: Text
 - Description: Memo
+
+**Planned:**
 
 ---
 
@@ -99,7 +107,7 @@ An internal request to procure goods or services, typically initiated by program
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Request Title: Name
 - Request Number: Text
 - Stage: Choice (Purchase Request Stage)
@@ -122,6 +130,8 @@ An internal request to procure goods or services, typically initiated by program
 - Related Procurement Package: Lookup (Procurement Package)
 - Related Purchase Order: Lookup (Purchase Order)
 
+**Planned:**
+
 ---
 
 ### Purchase Request Item
@@ -129,7 +139,7 @@ Line-level detail associated with a Purchase Request, specifying requested goods
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Item Description: Name
 - Purchase Request: Lookup (Purchase Request)
 - Line Number: Integer
@@ -143,6 +153,8 @@ Line-level detail associated with a Purchase Request, specifying requested goods
 - Financial Classification: Lookup (Financial Classification)
 - Delivery Required Date: Date
 
+**Planned:**
+
 ---
 
 ### Procurement Package
@@ -150,7 +162,7 @@ A container for a sourcing process, such as a Request for Quote (RFQ), Request f
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Package Title: Name
 - Package Number: Text
 - Procurement Type: Choice (Procurement Type)
@@ -173,6 +185,8 @@ A container for a sourcing process, such as a Request for Quote (RFQ), Request f
 - Awarded Contract: Lookup (Contract)
 - Description: Memo
 
+**Planned:**
+
 ---
 
 ## Contract Management
@@ -182,7 +196,7 @@ A formal agreement with an external organization defining scope of work, pricing
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Contract Title: Name
 - Contract Number: Text
 - Contract Type: Choice (Contract Type)
@@ -218,6 +232,8 @@ A formal agreement with an external organization defining scope of work, pricing
 - Scope of Work: Memo
 - Terms and Conditions: Memo
 
+**Planned:**
+
 ---
 
 ### Contract Amendment
@@ -225,7 +241,7 @@ A modification to an existing Contract that changes scope, funding amount, prici
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Amendment Title: Name
 - Amendment Number: Text
 - Contract: Lookup (Contract)
@@ -246,6 +262,8 @@ A modification to an existing Contract that changes scope, funding amount, prici
 - Approved By: Lookup (Person)
 - Approval Date: Date
 
+**Planned:**
+
 ---
 
 ### Contract Line
@@ -253,8 +271,7 @@ A structured pricing or scope element within a Contract, such as a labor categor
 
 **Completed:**
 
-**Planned:**
-- Line Description: Name
+**Completed Last Round:**
 - Contract: Lookup (Contract)
 - Line Number: Text
 - Line Type: Choice (Contract Line Type)
@@ -268,6 +285,8 @@ A structured pricing or scope element within a Contract, such as a labor categor
 - Period of Performance Start Date: Date
 - Period of Performance End Date: Date
 
+**Planned:**
+
 ---
 
 ### Contract Deliverable
@@ -275,8 +294,7 @@ A specific output, service, or product required under a Contract. Deliverables t
 
 **Completed:**
 
-**Planned:**
-- Deliverable Title: Name
+**Completed Last Round:**
 - Contract: Lookup (Contract)
 - Deliverable Number: Text
 - Deliverable Type: Choice (Contract Deliverable Type)
@@ -293,6 +311,8 @@ A specific output, service, or product required under a Contract. Deliverables t
 - Supporting Document: Lookup (Document)
 - Is Critical: Yes / No
 
+**Planned:**
+
 ---
 
 ### Contract Milestone
@@ -300,7 +320,7 @@ A significant contractual event or date, such as kickoff, phase completion, rene
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Contract: Lookup (Contract)
 - Milestone Type: Choice (Contract Milestone Type)
 - Description: Memo
@@ -313,6 +333,8 @@ A significant contractual event or date, such as kickoff, phase completion, rene
 - Payment Linked: Yes / No
 - Completion Criteria: Memo
 
+**Planned:**
+
 ---
 
 ## Financial Execution
@@ -322,8 +344,7 @@ Represents funds that have been formally reserved or obligated for an approved f
 
 **Completed:**
 
-**Planned:**
-- Commitment Title: Name
+**Completed Last Round:**
 - Commitment Number: Text
 - Commitment Type: Choice (Financial Commitment Type)
 - Stage: Choice (Financial Commitment Stage)
@@ -348,6 +369,8 @@ Represents funds that have been formally reserved or obligated for an approved f
 - Certification Date: Date
 - Description: Memo
 
+**Planned:**
+
 ---
 
 ### Purchase Order
@@ -355,8 +378,7 @@ An authorized order issued to a supplier under a Contract or approved procuremen
 
 **Completed:**
 
-**Planned:**
-- Order Title: Name
+**Completed Last Round:**
 - Purchase Order Number: Text
 - Purchase Order Type: Choice (Purchase Order Type)
 - Stage: Choice (Purchase Order Stage)
@@ -384,6 +406,8 @@ An authorized order issued to a supplier under a Contract or approved procuremen
 - Approval Date: Date
 - Special Instructions: Memo
 
+**Planned:**
+
 ---
 
 ### Purchase Order Line
@@ -391,8 +415,7 @@ Line-level detail within a Purchase Order specifying item or service description
 
 **Completed:**
 
-**Planned:**
-- Line Description: Name
+**Completed Last Round:**
 - Purchase Order: Lookup (Purchase Order)
 - Line Number: Integer
 - Item Type: Choice (Procurement Item Type)
@@ -411,6 +434,8 @@ Line-level detail within a Purchase Order specifying item or service description
 - Delivery Required Date: Date
 - Stage: Choice (Purchase Order Line Stage)
 
+**Planned:**
+
 ---
 
 ### Payment
@@ -418,7 +443,7 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Payment Number: Text
 - Stage: Choice (Payment Stage)
 - Payment Status: Choice (Payment Status)
@@ -439,8 +464,10 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 - Check Number: Text
 - Transaction ID: Text
 - Fiscal Year: Text
-- Payment Period: Text
+- Payment Period: Lookup (Fiscal Period)
 - Description: Memo
+
+**Planned:**
 
 ---
 

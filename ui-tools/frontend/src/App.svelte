@@ -8,6 +8,7 @@
   // Import route components
   import Deploy from './routes/Deploy.svelte';
   import FieldCreator from './routes/FieldCreator.svelte';
+  import BatchFieldCreator from './routes/BatchFieldCreator.svelte';
   import ChoiceCreator from './routes/ChoiceCreator.svelte';
   import ReleaseManager from './routes/ReleaseManager.svelte';
   
@@ -15,6 +16,7 @@
   const routes = {
     '/': Deploy,
     '/field-creator': FieldCreator,
+    '/batch-field-creator': BatchFieldCreator,
     '/choice-creator': ChoiceCreator,
     '/release-manager': ReleaseManager,
   };

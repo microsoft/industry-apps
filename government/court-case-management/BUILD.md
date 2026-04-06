@@ -218,8 +218,8 @@ Used to track plaintiffs, defendants, petitioners, respondents, and other involv
 - Representation Required: Yes / No
 - Is Pro Se: Yes / No
 - Contact Method: Choice (Method of Contact)
-- Notification Email: Text
-- Notification Phone: Text
+- Notification Email: Email
+- Notification Phone: Phone
 - Service Address Line 1: Text
 - Service Address City: Text
 - Service Address State: Lookup (State or Province)
@@ -253,8 +253,8 @@ Identifies which party is represented by which attorney, guardian, or agent, inc
 - Bar State: Lookup (State or Province)
 - Admission Date: Date
 - Pro Hac Vice: Yes / No
-- Contact Email: Text
-- Contact Phone: Text
+- Contact Email: Email
+- Contact Phone: Phone
 - Description: Memo
 
 **Completed Last Round:**

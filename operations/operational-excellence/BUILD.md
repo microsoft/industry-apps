@@ -11,7 +11,7 @@ Represents an unplanned operational disruption, failure, or adverse event that i
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Incident Number: Text
 - Incident Type: Choice (Operational Incident Type)
 - Incident Stage: Choice (Operational Incident Stage)
@@ -25,7 +25,6 @@ Represents an unplanned operational disruption, failure, or adverse event that i
 - Impacted Location: Lookup (Location)
 - Impacted Operational Item: Lookup (Operational Item)
 - Incident Commander: Lookup (Person)
-- Assigned Team: Lookup (Organization Unit)
 - Description: Memo
 - Impact Description: Memo
 - Root Cause: Memo
@@ -46,6 +45,8 @@ Represents an unplanned operational disruption, failure, or adverse event that i
 - Related After Action Report: Lookup (After Action Report)
 - Supporting Document: Lookup (Document)
 
+**Planned:**
+
 ---
 
 ## Inspection Management
@@ -55,11 +56,10 @@ Represents a facility, asset, program, process, site, or other entity subject to
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Item Code: Text
 - Parent Operational Item: Lookup (Operational Item)
 - Item Type: Choice (Operational Item Type)
-- Lifecycle Stage: Choice (Lifecycle Stage)
 - Owning Organization Unit: Lookup (Organization Unit)
 - Item Owner: Lookup (Person)
 - Primary Location: Lookup (Location)
@@ -73,6 +73,8 @@ Represents a facility, asset, program, process, site, or other entity subject to
 - Is Critical: Yes / No
 - Security Classification: Choice (Security Classification)
 
+**Planned:**
+
 ---
 
 ### Operational Inspection
@@ -80,7 +82,7 @@ Represents a structured evaluation or review of an Operational Item to assess co
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Inspection Number: Text
 - Inspection Type: Choice (Operational Inspection Type)
 - Inspection Stage: Choice (Operational Inspection Stage)
@@ -89,7 +91,6 @@ Represents a structured evaluation or review of an Operational Item to assess co
 - Scheduled Date: Date
 - Actual Inspection Date: Date
 - Lead Inspector: Lookup (Person)
-- Inspection Team: Text
 - Inspecting Organization Unit: Lookup (Organization Unit)
 - Inspection Location: Lookup (Location)
 - Compliance Framework: Lookup (Compliance Framework)
@@ -109,6 +110,8 @@ Represents a structured evaluation or review of an Operational Item to assess co
 - Recommendations: Memo
 - Supporting Document: Lookup (Document)
 
+**Planned:**
+
 ---
 
 ## Operational Events & Exercises
@@ -118,7 +121,7 @@ Represents a planned proactive operational activity such as an exercise, drill, 
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Event Number: Text
 - Event Type: Choice (Operational Event Type)
 - Event Stage: Choice (Operational Event Stage)
@@ -146,6 +149,8 @@ Represents a planned proactive operational activity such as an exercise, drill, 
 - Actual Cost: Currency
 - Supporting Document: Lookup (Document)
 
+**Planned:**
+
 ---
 
 ### Operational Event Objective
@@ -153,7 +158,7 @@ Defines a specific objective or capability that an Operational Event intends to 
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Operational Event: Lookup (Operational Event)
 - Objective Number: Integer
 - Objective Description: Memo
@@ -165,6 +170,8 @@ Defines a specific objective or capability that an Operational Event intends to 
 - Actual Performance: Text
 - Evaluation Notes: Memo
 
+**Planned:**
+
 ---
 
 ### Operational Event Outcome
@@ -172,7 +179,7 @@ Captures the results of an Operational Event, including whether objectives were 
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Operational Event: Lookup (Operational Event)
 - Operational Event Objective: Lookup (Operational Event Objective)
 - Outcome Type: Choice (Operational Outcome Type)
@@ -188,6 +195,8 @@ Captures the results of an Operational Event, including whether objectives were 
 - Evaluator: Lookup (Person)
 - Evaluation Date: Date
 
+**Planned:**
+
 ---
 
 ### Operational Event Participant
@@ -195,7 +204,7 @@ Identifies individuals, teams, or organizations involved in an Operational Event
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Operational Event: Lookup (Operational Event)
 - Person: Lookup (Person)
 - Organization Unit: Lookup (Organization Unit)
@@ -206,6 +215,8 @@ Identifies individuals, teams, or organizations involved in an Operational Event
 - Performance Notes: Memo
 - Feedback: Memo
 
+**Planned:**
+
 ---
 
 ## Readiness Assessment
@@ -215,7 +226,7 @@ Represents a formal evaluation of whether an organization, unit, facility, progr
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Assessment Number: Text
 - Assessment Type: Choice (Operational Readiness Assessment Type)
 - Readiness Assessment Stage: Choice (Operational Readiness Assessment Stage)
@@ -225,7 +236,6 @@ Represents a formal evaluation of whether an organization, unit, facility, progr
 - Assessment Period End Date: Date
 - Assessment Date: Date
 - Lead Assessor: Lookup (Person)
-- Assessment Team: Text
 - Assessment Scope: Memo
 - Mission Statement: Memo
 - Readiness Criteria: Memo
@@ -248,6 +258,8 @@ Represents a formal evaluation of whether an organization, unit, facility, progr
 - Next Assessment Date: Date
 - Supporting Document: Lookup (Document)
 
+**Planned:**
+
 ---
 
 ## Findings & Recommendations
@@ -257,7 +269,7 @@ Represents a deficiency, gap, issue, observation, or lesson identified during an
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Finding Number: Text
 - Parent Operational Finding: Lookup (Operational Finding)
 - Finding Type: Choice (Operational Finding Type)
@@ -291,6 +303,8 @@ Represents a deficiency, gap, issue, observation, or lesson identified during an
 - Related Risk Item: Lookup (Risk Item)
 - Supporting Document: Lookup (Document)
 
+**Planned:**
+
 ---
 
 ### Operational Recommendation
@@ -298,7 +312,7 @@ Represents a proposed corrective, preventive, or improvement action developed in
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Recommendation Number: Text
 - Parent Recommendation: Lookup (Operational Recommendation)
 - Operational Finding: Lookup (Operational Finding)
@@ -324,11 +338,12 @@ Represents a proposed corrective, preventive, or improvement action developed in
 - Implementation Date: Date
 - Target Completion Date: Date
 - Actual Completion Date: Date
-- Related Action Item: Lookup (Action Item)
 - Verification Required: Yes / No
 - Verified By: Lookup (Person)
 - Verification Date: Date
 - Verification Notes: Memo
+
+**Planned:**
 
 ---
 
@@ -339,7 +354,7 @@ Captures reported operational contributions, improvements, cost savings, efficie
 
 **Completed:**
 
-**Planned:**
+**Completed Last Round:**
 - Impact Number: Text
 - Impact Type: Choice (Operational Impact Type)
 - Impact Stage: Choice (Operational Impact Stage)
@@ -372,6 +387,8 @@ Captures reported operational contributions, improvements, cost savings, efficie
 - Recognition Type: Text
 - Recognition Date: Date
 - Supporting Document: Lookup (Document)
+
+**Planned:**
 
 ---
 

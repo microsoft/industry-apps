@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.26024.173" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26024.173" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26031.00180">
+<ImportExportXml version="9.2.26031.180" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26031.180" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26031.00182">
   <SolutionManifest>
     <UniqueName>appbase_personnelsecurity</UniqueName>
     <LocalizedNames>
       <LocalizedName description="App Base - Personnel Security" languagecode="1033" />
     </LocalizedNames>
     <Descriptions />
-    <Version>1.0.0.2</Version>
+    <Version>1.0.0.3</Version>
     <Managed>2</Managed>
     <Publisher>
       <UniqueName>appbase</UniqueName>
@@ -124,10 +124,398 @@
     </RootComponents>
     <MissingDependencies>
       <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_clearancelevel" parentDisplayName="Clearance Level" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelaccesscredential_ClearanceLevelRequired" displayName="appbase_personnelaccesscredential_ClearanceLevelRequired" parentSchemaName="appbase_clearancelevel" parentDisplayName="Clearance Level" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_clearancelevel" parentDisplayName="Clearance Level" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personneladjudication_AdjudicatedClearanceLevel" displayName="appbase_personneladjudication_AdjudicatedClearanceLevel" parentSchemaName="appbase_clearancelevel" parentDisplayName="Clearance Level" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_clearancelevel" parentDisplayName="Clearance Level" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personneladjudication_CurrentClearanceLevel" displayName="appbase_personneladjudication_CurrentClearanceLevel" parentSchemaName="appbase_clearancelevel" parentDisplayName="Clearance Level" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_clearancelevel" parentDisplayName="Clearance Level" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personneladjudication_RequestedClearanceLevel" displayName="appbase_personneladjudication_RequestedClearanceLevel" parentSchemaName="appbase_clearancelevel" parentDisplayName="Clearance Level" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_clearancelevel" parentDisplayName="Clearance Level" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelbackgroundinvestigation_RequestedClearanceLevel" displayName="appbase_personnelbackgroundinvestigation_RequestedClearanceLevel" parentSchemaName="appbase_clearancelevel" parentDisplayName="Clearance Level" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_clearancelevel" parentDisplayName="Clearance Level" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelsecurityeligibility_ClearanceLevel" displayName="appbase_personnelsecurityeligibility_ClearanceLevel" parentSchemaName="appbase_clearancelevel" parentDisplayName="Clearance Level" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_clearancelevel" parentDisplayName="Clearance Level" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelsecurityreview_CurrentClearanceLevel" displayName="appbase_personnelsecurityreview_CurrentClearanceLevel" parentSchemaName="appbase_clearancelevel" parentDisplayName="Clearance Level" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_clearancelevel" parentDisplayName="Clearance Level" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelsecurityreview_RequestedClearanceLevel" displayName="appbase_personnelsecurityreview_RequestedClearanceLevel" parentSchemaName="appbase_clearancelevel" parentDisplayName="Clearance Level" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_complianceframework" parentDisplayName="Compliance Framework" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelsecurityreview_ComplianceFramework" displayName="appbase_personnelsecurityreview_ComplianceFramework" parentSchemaName="appbase_complianceframework" parentDisplayName="Compliance Framework" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_country" parentDisplayName="Country" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelreportableevent_EventCountry" displayName="appbase_personnelreportableevent_EventCountry" parentSchemaName="appbase_country" parentDisplayName="Country" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_country" parentDisplayName="Country" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelreportableevent_ForeignContactCountry" displayName="appbase_personnelreportableevent_ForeignContactCountry" parentSchemaName="appbase_country" parentDisplayName="Country" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelaccesscredential_IssuanceDocument" displayName="appbase_personnelaccesscredential_IssuanceDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelaccesscredential_PhotoDocument" displayName="appbase_personnelaccesscredential_PhotoDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelaccesscredential_SupportingDocument" displayName="appbase_personnelaccesscredential_SupportingDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personneladjudication_AdjudicationReport" displayName="appbase_personneladjudication_AdjudicationReport" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personneladjudication_DecisionDocument" displayName="appbase_personneladjudication_DecisionDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personneladjudication_SupportingDocument" displayName="appbase_personneladjudication_SupportingDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelbackgroundinvestigation_InvestigationReport" displayName="appbase_personnelbackgroundinvestigation_InvestigationReport" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelcontinuousevaluation_ProgramDocumentation" displayName="appbase_personnelcontinuousevaluation_ProgramDocumentation" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelreportableevent_IncidentReport" displayName="appbase_personnelreportableevent_IncidentReport" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelreportableevent_SupportingDocument" displayName="appbase_personnelreportableevent_SupportingDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelsecurityeligibility_CertificateDocument" displayName="appbase_personnelsecurityeligibility_CertificateDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelsecurityeligibility_IndoctrinationDocument" displayName="appbase_personnelsecurityeligibility_IndoctrinationDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelsecurityeligibility_SupportingDocument" displayName="appbase_personnelsecurityeligibility_SupportingDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_document" parentDisplayName="Document" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelsecurityreview_SupportingDocument" displayName="appbase_personnelsecurityreview_SupportingDocument" parentSchemaName="appbase_document" parentDisplayName="Document" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_formaldecision" parentDisplayName="Formal Decision" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personneladjudication_FormalDecision" displayName="appbase_personneladjudication_FormalDecision" parentSchemaName="appbase_formaldecision" parentDisplayName="Formal Decision" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelaccesscredential_LegalAuthority" displayName="appbase_personnelaccesscredential_LegalAuthority" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personneladjudication_LegalAuthority" displayName="appbase_personneladjudication_LegalAuthority" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelcontinuousevaluation_LegalAuthority" displayName="appbase_personnelcontinuousevaluation_LegalAuthority" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelreportableevent_LegalAuthority" displayName="appbase_personnelreportableevent_LegalAuthority" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelsecurityeligibility_LegalAuthority" displayName="appbase_personnelsecurityeligibility_LegalAuthority" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelsecurityreview_LegalAuthority" displayName="appbase_personnelsecurityreview_LegalAuthority" parentSchemaName="appbase_legalauthority" parentDisplayName="Legal Authority" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_location" parentDisplayName="Location" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelreportableevent_EventLocation" displayName="appbase_personnelreportableevent_EventLocation" parentSchemaName="appbase_location" parentDisplayName="Location" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_location" parentDisplayName="Location" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelsecurityeligibility_PrimaryWorkLocation" displayName="appbase_personnelsecurityeligibility_PrimaryWorkLocation" parentSchemaName="appbase_location" parentDisplayName="Location" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelaccesscredential_IssuingOrganizationUnit" displayName="appbase_personnelaccesscredential_IssuingOrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personneladjudication_AdjudicatingOrganizationUnit" displayName="appbase_personneladjudication_AdjudicatingOrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelbackgroundinvestigation_InitiatingOrganizationUnit" displayName="appbase_personnelbackgroundinvestigation_InitiatingOrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelsecurityeligibility_GrantingOrganizationUnit" displayName="appbase_personnelsecurityeligibility_GrantingOrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelsecurityeligibility_SponsoringOrganizationUnit" displayName="appbase_personnelsecurityeligibility_SponsoringOrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelsecurityreview_OrganizationUnit" displayName="appbase_personnelsecurityreview_OrganizationUnit" parentSchemaName="appbase_organizationunit" parentDisplayName="Organization Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_privacyconsent" parentDisplayName="Privacy Consent" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="10" schemaName="appbase_personnelcontinuousevaluation_PrivacyConsent" displayName="appbase_personnelcontinuousevaluation_PrivacyConsent" parentSchemaName="appbase_privacyconsent" parentDisplayName="Privacy Consent" />
+      </MissingDependency>
+      <MissingDependency>
         <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)">
           <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
         </Required>
         <Dependent type="80" schemaName="appbase_PersonnelSecurity" displayName="Personnel Security" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_appealstatus" displayName="Appeal Status" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_appealstatus" displayName="Appeal Status" parentSchemaName="appbase_personnelsecurityreview" parentDisplayName="Personnel Security Review" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_issueresolutionstatus" displayName="Issue Resolution Status" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_resolutionstatus" displayName="Resolution Status" parentSchemaName="appbase_personnelreportableevent" parentDisplayName="Personnel Reportable Event" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_itemcompletionstatus" displayName="Item Completion Status" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_completionstatus" displayName="Completion Status" parentSchemaName="appbase_personnelsecurityreview" parentDisplayName="Personnel Security Review" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_itemvalidationstatus" displayName="Item Validation Status" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_validationstatus" displayName="Validation Status" parentSchemaName="appbase_personnelbackgroundinvestigation" parentDisplayName="Personnel Background Investigation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_methodofcontact" displayName="Method of Contact" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_reportmethod" displayName="Report Method" parentSchemaName="appbase_personnelreportableevent" parentDisplayName="Personnel Reportable Event" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_priority" displayName="Priority" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_reviewpriority" displayName="Review Priority" parentSchemaName="appbase_personnelsecurityreview" parentDisplayName="Personnel Security Review" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_severitylevel" displayName="Severity Level" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_impactoneligibility" displayName="Impact on Eligibility" parentSchemaName="appbase_personnelreportableevent" parentDisplayName="Personnel Reportable Event" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_severitylevel" displayName="Severity Level" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_securityconcernlevel" displayName="Security Concern Level" parentSchemaName="appbase_personnelreportableevent" parentDisplayName="Personnel Reportable Event" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_biometricenrolled" displayName="Biometric Enrolled" parentSchemaName="appbase_personnelaccesscredential" parentDisplayName="Personnel Access Credential" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_buildingaccess" displayName="Building Access" parentSchemaName="appbase_personnelaccesscredential" parentDisplayName="Personnel Access Credential" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_escortrequired" displayName="Escort Required" parentSchemaName="appbase_personnelaccesscredential" parentDisplayName="Personnel Access Credential" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_facilityaccess" displayName="Facility Access" parentSchemaName="appbase_personnelaccesscredential" parentDisplayName="Personnel Access Credential" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_lostorstolen" displayName="Lost or Stolen" parentSchemaName="appbase_personnelaccesscredential" parentDisplayName="Personnel Access Credential" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_networkaccess" displayName="Network Access" parentSchemaName="appbase_personnelaccesscredential" parentDisplayName="Personnel Access Credential" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_photoattached" displayName="Photo Attached" parentSchemaName="appbase_personnelaccesscredential" parentDisplayName="Personnel Access Credential" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_pinrequired" displayName="PIN Required" parentSchemaName="appbase_personnelaccesscredential" parentDisplayName="Personnel Access Credential" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_restrictedareaaccess" displayName="Restricted Area Access" parentSchemaName="appbase_personnelaccesscredential" parentDisplayName="Personnel Access Credential" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_returnrequired" displayName="Return Required" parentSchemaName="appbase_personnelaccesscredential" parentDisplayName="Personnel Access Credential" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_systemaccess" displayName="System Access" parentSchemaName="appbase_personnelaccesscredential" parentDisplayName="Personnel Access Credential" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_tempcredential" displayName="Temp Credential" parentSchemaName="appbase_personnelaccesscredential" parentDisplayName="Personnel Access Credential" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_vehicleaccess" displayName="Vehicle Access" parentSchemaName="appbase_personnelaccesscredential" parentDisplayName="Personnel Access Credential" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_acknowledgmentreceived" displayName="Acknowledgment Received" parentSchemaName="appbase_personneladjudication" parentDisplayName="Personnel Adjudication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_conditionsapplied" displayName="Conditions Applied" parentSchemaName="appbase_personneladjudication" parentDisplayName="Personnel Adjudication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_limitationsapplied" displayName="Limitations Applied" parentSchemaName="appbase_personneladjudication" parentDisplayName="Personnel Adjudication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_notificationsent" displayName="Notification Sent" parentSchemaName="appbase_personneladjudication" parentDisplayName="Personnel Adjudication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_restrictionsapplied" displayName="Restrictions Applied" parentSchemaName="appbase_personneladjudication" parentDisplayName="Personnel Adjudication" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_derogatoryinformation" displayName="Derogatory Information" parentSchemaName="appbase_personnelbackgroundinvestigation" parentDisplayName="Personnel Background Investigation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_issuesidentified" displayName="Issues Identified" parentSchemaName="appbase_personnelbackgroundinvestigation" parentDisplayName="Personnel Background Investigation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_automatedchecksenabled" displayName="Automated Checks Enabled" parentSchemaName="appbase_personnelcontinuousevaluation" parentDisplayName="Personnel Continuous Evaluation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_consentobtained" displayName="Consent Obtained" parentSchemaName="appbase_personnelcontinuousevaluation" parentDisplayName="Personnel Continuous Evaluation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_creditrecordscheck" displayName="Credit Records Check" parentSchemaName="appbase_personnelcontinuousevaluation" parentDisplayName="Personnel Continuous Evaluation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_criminalrecordscheck" displayName="Criminal Records Check" parentSchemaName="appbase_personnelcontinuousevaluation" parentDisplayName="Personnel Continuous Evaluation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_financialrecordscheck" displayName="Financial Records Check" parentSchemaName="appbase_personnelcontinuousevaluation" parentDisplayName="Personnel Continuous Evaluation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_foreigncontactcheck" displayName="Foreign Contact Check" parentSchemaName="appbase_personnelcontinuousevaluation" parentDisplayName="Personnel Continuous Evaluation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_insiderthreatindicators" displayName="Insider Threat Indicators" parentSchemaName="appbase_personnelcontinuousevaluation" parentDisplayName="Personnel Continuous Evaluation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_issuesidentified" displayName="Issues Identified" parentSchemaName="appbase_personnelcontinuousevaluation" parentDisplayName="Personnel Continuous Evaluation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_privacynoticeprovided" displayName="Privacy Notice Provided" parentSchemaName="appbase_personnelcontinuousevaluation" parentDisplayName="Personnel Continuous Evaluation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_reviewtriggered" displayName="Review Triggered" parentSchemaName="appbase_personnelcontinuousevaluation" parentDisplayName="Personnel Continuous Evaluation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_socialmediamonitoring" displayName="Social Media Monitoring" parentSchemaName="appbase_personnelcontinuousevaluation" parentDisplayName="Personnel Continuous Evaluation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_travelrecordscheck" displayName="Travel Records Check" parentSchemaName="appbase_personnelcontinuousevaluation" parentDisplayName="Personnel Continuous Evaluation" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_immediatethreat" displayName="Immediate Threat" parentSchemaName="appbase_personnelreportableevent" parentDisplayName="Personnel Reportable Event" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_securitymanagernotified" displayName="Security Manager Notified" parentSchemaName="appbase_personnelreportableevent" parentDisplayName="Personnel Reportable Event" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_triggeredsecurityreview" displayName="Triggered Security Review" parentSchemaName="appbase_personnelreportableevent" parentDisplayName="Personnel Reportable Event" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_compartmentedaccess" displayName="Compartmented Access" parentSchemaName="appbase_personnelsecurityeligibility" parentDisplayName="Personnel Security Eligibility" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_conditionsapplied" displayName="Conditions Applied" parentSchemaName="appbase_personnelsecurityeligibility" parentDisplayName="Personnel Security Eligibility" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_continuousevaluationenrollment" displayName="Continuous Evaluation Enrollment" parentSchemaName="appbase_personnelsecurityeligibility" parentDisplayName="Personnel Security Eligibility" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_foreigngovernmentinformationaccess" displayName="Foreign Government Information Access" parentSchemaName="appbase_personnelsecurityeligibility" parentDisplayName="Personnel Security Eligibility" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_interimeligibility" displayName="Interim Eligibility" parentSchemaName="appbase_personnelsecurityeligibility" parentDisplayName="Personnel Security Eligibility" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_limitationsapplied" displayName="Limitations Applied" parentSchemaName="appbase_personnelsecurityeligibility" parentDisplayName="Personnel Security Eligibility" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_scidebriefingrequired" displayName="SCI Debriefing Required" parentSchemaName="appbase_personnelsecurityeligibility" parentDisplayName="Personnel Security Eligibility" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_sensitivecompartmentedinformation" displayName="Sensitive Compartmented Information" parentSchemaName="appbase_personnelsecurityeligibility" parentDisplayName="Personnel Security Eligibility" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_appealfiled" displayName="Appeal Filed" parentSchemaName="appbase_personnelsecurityreview" parentDisplayName="Personnel Security Review" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_interimeligibilitygranted" displayName="Interim Eligibility Granted" parentSchemaName="appbase_personnelsecurityreview" parentDisplayName="Personnel Security Review" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_interimeligibilityrequested" displayName="Interim Eligibility Requested" parentSchemaName="appbase_personnelsecurityreview" parentDisplayName="Personnel Security Review" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_investigationrequired" displayName="Investigation Required" parentSchemaName="appbase_personnelsecurityreview" parentDisplayName="Personnel Security Review" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="appbase_yesno" displayName="Yes No" solution="appbase_core (1.1.2.9)" />
+        <Dependent type="2" schemaName="appbase_reciprocityacceptance" displayName="Reciprocity Acceptance" parentSchemaName="appbase_personnelsecurityreview" parentDisplayName="Personnel Security Review" />
       </MissingDependency>
       <MissingDependency>
         <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.15)" id.uniquename="AppChannel">
