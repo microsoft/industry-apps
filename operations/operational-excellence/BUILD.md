@@ -10,8 +10,6 @@ The **Operational Excellence** module provides a structured framework for managi
 Represents an unplanned operational disruption, failure, or adverse event that impacts services, assets, programs, personnel, or mission execution.
 
 **Completed:**
-
-**Completed Last Round:**
 - Incident Number: Text
 - Incident Type: Choice (Operational Incident Type)
 - Incident Stage: Choice (Operational Incident Stage)
@@ -45,6 +43,8 @@ Represents an unplanned operational disruption, failure, or adverse event that i
 - Related After Action Report: Lookup (After Action Report)
 - Supporting Document: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -55,8 +55,6 @@ Represents an unplanned operational disruption, failure, or adverse event that i
 Represents a facility, asset, program, process, site, or other entity subject to inspection, evaluation, or operational oversight.
 
 **Completed:**
-
-**Completed Last Round:**
 - Item Code: Text
 - Parent Operational Item: Lookup (Operational Item)
 - Item Type: Choice (Operational Item Type)
@@ -73,6 +71,8 @@ Represents a facility, asset, program, process, site, or other entity subject to
 - Is Critical: Yes / No
 - Security Classification: Choice (Security Classification)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -81,8 +81,6 @@ Represents a facility, asset, program, process, site, or other entity subject to
 Represents a structured evaluation or review of an Operational Item to assess compliance, condition, performance, or adherence to standards or requirements.
 
 **Completed:**
-
-**Completed Last Round:**
 - Inspection Number: Text
 - Inspection Type: Choice (Operational Inspection Type)
 - Inspection Stage: Choice (Operational Inspection Stage)
@@ -110,6 +108,8 @@ Represents a structured evaluation or review of an Operational Item to assess co
 - Recommendations: Memo
 - Supporting Document: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -120,8 +120,6 @@ Represents a structured evaluation or review of an Operational Item to assess co
 Represents a planned proactive operational activity such as an exercise, drill, workshop, or structured operational test conducted to evaluate performance, coordination, or capability.
 
 **Completed:**
-
-**Completed Last Round:**
 - Event Number: Text
 - Event Type: Choice (Operational Event Type)
 - Event Stage: Choice (Operational Event Stage)
@@ -149,6 +147,8 @@ Represents a planned proactive operational activity such as an exercise, drill, 
 - Actual Cost: Currency
 - Supporting Document: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -157,8 +157,6 @@ Represents a planned proactive operational activity such as an exercise, drill, 
 Defines a specific objective or capability that an Operational Event intends to test, validate, or achieve. Used to measure whether the event met its intended purpose.
 
 **Completed:**
-
-**Completed Last Round:**
 - Operational Event: Lookup (Operational Event)
 - Objective Number: Integer
 - Objective Description: Memo
@@ -170,6 +168,8 @@ Defines a specific objective or capability that an Operational Event intends to 
 - Actual Performance: Text
 - Evaluation Notes: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -178,8 +178,6 @@ Defines a specific objective or capability that an Operational Event intends to 
 Captures the results of an Operational Event, including whether objectives were met, performance observations, metrics achieved, and summary conclusions.
 
 **Completed:**
-
-**Completed Last Round:**
 - Operational Event: Lookup (Operational Event)
 - Operational Event Objective: Lookup (Operational Event Objective)
 - Outcome Type: Choice (Operational Outcome Type)
@@ -195,7 +193,9 @@ Captures the results of an Operational Event, including whether objectives were 
 - Evaluator: Lookup (Person)
 - Evaluation Date: Date
 
-**Planned:**
+**Completed Last Round:**
+
+**Planned:****
 
 ---
 
@@ -203,8 +203,6 @@ Captures the results of an Operational Event, including whether objectives were 
 Identifies individuals, teams, or organizations involved in an Operational Event, including their role (e.g., participant, evaluator, facilitator, observer).
 
 **Completed:**
-
-**Completed Last Round:**
 - Operational Event: Lookup (Operational Event)
 - Person: Lookup (Person)
 - Organization Unit: Lookup (Organization Unit)
@@ -214,6 +212,8 @@ Identifies individuals, teams, or organizations involved in an Operational Event
 - Attendance Confirmed: Yes / No
 - Performance Notes: Memo
 - Feedback: Memo
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -225,8 +225,6 @@ Identifies individuals, teams, or organizations involved in an Operational Event
 Represents a formal evaluation of whether an organization, unit, facility, program, or capability is prepared to perform its intended mission or function during a specified period.
 
 **Completed:**
-
-**Completed Last Round:**
 - Assessment Number: Text
 - Assessment Type: Choice (Operational Readiness Assessment Type)
 - Readiness Assessment Stage: Choice (Operational Readiness Assessment Stage)
@@ -258,6 +256,8 @@ Represents a formal evaluation of whether an organization, unit, facility, progr
 - Next Assessment Date: Date
 - Supporting Document: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -268,8 +268,6 @@ Represents a formal evaluation of whether an organization, unit, facility, progr
 Represents a deficiency, gap, issue, observation, or lesson identified during an Incident, Inspection, Operational Event, or Readiness Assessment. Findings typically require review and potential corrective action.
 
 **Completed:**
-
-**Completed Last Round:**
 - Finding Number: Text
 - Parent Operational Finding: Lookup (Operational Finding)
 - Finding Type: Choice (Operational Finding Type)
@@ -303,6 +301,8 @@ Represents a deficiency, gap, issue, observation, or lesson identified during an
 - Related Risk Item: Lookup (Risk Item)
 - Supporting Document: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -311,8 +311,6 @@ Represents a deficiency, gap, issue, observation, or lesson identified during an
 Represents a proposed corrective, preventive, or improvement action developed in response to an Operational Finding. Recommendations may result in formal action items and tracked remediation efforts.
 
 **Completed:**
-
-**Completed Last Round:**
 - Recommendation Number: Text
 - Parent Recommendation: Lookup (Operational Recommendation)
 - Operational Finding: Lookup (Operational Finding)
@@ -343,6 +341,8 @@ Represents a proposed corrective, preventive, or improvement action developed in
 - Verification Date: Date
 - Verification Notes: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -353,8 +353,6 @@ Represents a proposed corrective, preventive, or improvement action developed in
 Captures reported operational contributions, improvements, cost savings, efficiencies, or risk reductions submitted by personnel. Used to track bottom-up operational impact and improvement signals.
 
 **Completed:**
-
-**Completed Last Round:**
 - Impact Number: Text
 - Impact Type: Choice (Operational Impact Type)
 - Impact Stage: Choice (Operational Impact Stage)
@@ -387,6 +385,8 @@ Captures reported operational contributions, improvements, cost savings, efficie
 - Recognition Type: Text
 - Recognition Date: Date
 - Supporting Document: Lookup (Document)
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -430,7 +430,7 @@ Inspection reports, event plans, assessment documents.
 
 ## Choice Fields
 
-**Completed Last Round:**
+**Completed:**
 
 ### Operational Impact Type
 - Cost Savings
