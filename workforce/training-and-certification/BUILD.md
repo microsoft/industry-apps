@@ -10,8 +10,6 @@ The **Training and Certification** module provides a comprehensive framework for
 Represents a catalog entry for a learning offering, including description, objectives, credit value, and prerequisites.
 
 **Completed:**
-
-**Completed Last Round:**
 - Course Code: Text
 - Parent Training Course: Lookup (Training Course)
 - Course Type: Choice (Training Course Type)
@@ -49,6 +47,8 @@ Represents a catalog entry for a learning offering, including description, objec
 - Effective End Date: Date
 - Version: Text
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -57,8 +57,6 @@ Represents a catalog entry for a learning offering, including description, objec
 Represents prerequisite conditions required before enrolling in or completing a Training Course.
 
 **Completed:**
-
-**Completed Last Round:**
 - Training Course: Lookup (Training Course)
 - Requirement Type: Choice (Training Requirement Type)
 - Required Training Course: Lookup (Training Course)
@@ -73,6 +71,8 @@ Represents prerequisite conditions required before enrolling in or completing a 
 - Waiver Authority: Lookup (Person)
 - Requirement Notes: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -81,8 +81,6 @@ Represents prerequisite conditions required before enrolling in or completing a 
 Represents a learning objective or outcome associated with a Training Course.
 
 **Completed:**
-
-**Completed Last Round:**
 - Objective Code: Text
 - Training Course: Lookup (Training Course)
 - Objective Type: Choice (Training Objective Type)
@@ -94,6 +92,8 @@ Represents a learning objective or outcome associated with a Training Course.
 - Bloom's Taxonomy Level: Choice (Training Blooms Level)
 - Is Measurable: Yes / No
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -102,8 +102,6 @@ Represents a learning objective or outcome associated with a Training Course.
 Represents an individual authorized to deliver Training Sessions.
 
 **Completed:**
-
-**Completed Last Round:**
 - Instructor Code: Text
 - Person: Lookup (Person)
 - Instructor Status: Choice (Duty Status)
@@ -120,6 +118,8 @@ Represents an individual authorized to deliver Training Sessions.
 - Effective Start Date: Date
 - Effective End Date: Date
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -128,8 +128,6 @@ Represents an individual authorized to deliver Training Sessions.
 Represents a defined academic period (e.g., Fall 2026, Spring 2027) used to organize and schedule Training Sessions.
 
 **Completed:**
-
-**Completed Last Round:**
 - Term Code: Text
 - Term Type: Choice (Training Term Type)
 - Academic Year: Integer
@@ -143,6 +141,8 @@ Represents a defined academic period (e.g., Fall 2026, Spring 2027) used to orga
 - Final Exam Start Date: Date
 - Final Exam End Date: Date
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -151,8 +151,6 @@ Represents a defined academic period (e.g., Fall 2026, Spring 2027) used to orga
 Represents a scheduled offering of a Training Course within a specific Academic Term, often referred to as a "class" or "section."
 
 **Completed:**
-
-**Completed Last Round:**
 - Session Code: Text
 - Training Course: Lookup (Training Course)
 - Academic Term: Lookup (Academic Term)
@@ -190,6 +188,8 @@ Represents a scheduled offering of a Training Course within a specific Academic 
 - Session Materials: Lookup (Document)
 - Session Agenda: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -198,8 +198,6 @@ Represents a scheduled offering of a Training Course within a specific Academic 
 Represents an individual's registration in a specific Training Session.
 
 **Completed:**
-
-**Completed Last Round:**
 - Enrollment Number: Text
 - Training Session: Lookup (Training Session)
 - Person: Lookup (Person)
@@ -237,6 +235,8 @@ Represents an individual's registration in a specific Training Session.
 - Accommodation Notes: Memo
 - Supporting Document: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -245,8 +245,6 @@ Represents an individual's registration in a specific Training Session.
 Represents an individual's attendance status for a specific Training Session (and optionally per meeting occurrence).
 
 **Completed:**
-
-**Completed Last Round:**
 - Training Enrollment: Lookup (Training Enrollment)
 - Attendance Date: Date
 - Attendance Status: Choice (Training Attendance Status)
@@ -261,6 +259,8 @@ Represents an individual's attendance status for a specific Training Session (an
 - Recorded By: Lookup (Person)
 - Recorded Date Time: Date Time
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -269,8 +269,6 @@ Represents an individual's attendance status for a specific Training Session (an
 Represents an individual's successful or attempted completion of a Training Course, including result, score, and completion date.
 
 **Completed:**
-
-**Completed Last Round:**
 - Completion Number: Text
 - Training Course: Lookup (Training Course)
 - Training Enrollment: Lookup (Training Enrollment)
@@ -303,6 +301,8 @@ Represents an individual's successful or attempted completion of a Training Cour
 - Transfer Credits: Yes / No
 - Supporting Document: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -313,8 +313,6 @@ Represents an individual's successful or attempted completion of a Training Cour
 Represents an ordered or curated sequence of Training Courses intended to guide learners toward a specific outcome or skill set.
 
 **Completed:**
-
-**Completed Last Round:**
 - Path Code: Text
 - Parent Learning Path: Lookup (Learning Path)
 - Path Type: Choice (Training Learning Path Type)
@@ -334,6 +332,8 @@ Represents an ordered or curated sequence of Training Courses intended to guide 
 - Effective Start Date: Date
 - Effective End Date: Date
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -342,8 +342,6 @@ Represents an ordered or curated sequence of Training Courses intended to guide 
 Represents the association between a Learning Path and its component Training Courses, including sequence order and requirement status.
 
 **Completed:**
-
-**Completed Last Round:**
 - Learning Path: Lookup (Learning Path)
 - Training Course: Lookup (Training Course)
 - Is Required: Yes / No
@@ -352,6 +350,8 @@ Represents the association between a Learning Path and its component Training Co
 - Credit Hours: Float
 - Prerequisite Courses: Text
 - Course Notes: Memo
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -363,8 +363,6 @@ Represents the association between a Learning Path and its component Training Co
 Represents a credential that may be awarded upon meeting defined requirements. Includes issuing authority, validity period, and renewal rules.
 
 **Completed:**
-
-**Completed Last Round:**
 - Certificate Code: Text
 - Certificate Type: Choice (Training Certificate Type)
 - Certificate Category: Text
@@ -394,6 +392,8 @@ Represents a credential that may be awarded upon meeting defined requirements. I
 - Effective End Date: Date
 - Website URL: URL
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -402,8 +402,6 @@ Represents a credential that may be awarded upon meeting defined requirements. I
 Represents the criteria required to earn a Training Certificate, such as completion of specific courses or paths.
 
 **Completed:**
-
-**Completed Last Round:**
 - Training Certificate: Lookup (Training Certificate)
 - Requirement Type: Choice (Training Requirement Type)
 - Required Training Course: Lookup (Training Course)
@@ -418,6 +416,8 @@ Represents the criteria required to earn a Training Certificate, such as complet
 - Waiver Authority: Lookup (Person)
 - Requirement Notes: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -426,8 +426,6 @@ Represents the criteria required to earn a Training Certificate, such as complet
 Represents a specific instance of a Training Certificate awarded to an individual, including issue date, expiration date, and current status.
 
 **Completed:**
-
-**Completed Last Round:**
 - Certificate Number: Text
 - Training Certificate: Lookup (Training Certificate)
 - Person: Lookup (Person)
@@ -449,6 +447,8 @@ Represents a specific instance of a Training Certificate awarded to an individua
 - Digital Badge URL: URL
 - Verification URL: URL
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -457,8 +457,6 @@ Represents a specific instance of a Training Certificate awarded to an individua
 Represents a renewal event for a Training Certificate Achievement, including renewal date and updated expiration details.
 
 **Completed:**
-
-**Completed Last Round:**
 - Renewal Number: Text
 - Training Certificate Achievement: Lookup (Training Certificate Achievement)
 - Renewal Status: Choice (Renewal Status)
@@ -480,6 +478,8 @@ Represents a renewal event for a Training Certificate Achievement, including ren
 - Approval Status: Choice (Approval Status)
 - Supporting Document: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -490,8 +490,6 @@ Represents a renewal event for a Training Certificate Achievement, including ren
 Represents a structured curriculum such as a degree, diploma, or formal certificate program. Contains overall program metadata, credit requirements, and governance information.
 
 **Completed:**
-
-**Completed Last Round:**
 - Program Code: Text
 - Parent Academic Program: Lookup (Academic Program)
 - Program Type: Choice (Training Academic Program Type)
@@ -524,6 +522,8 @@ Represents a structured curriculum such as a degree, diploma, or formal certific
 - Effective Start Date: Date
 - Effective End Date: Date
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -532,8 +532,6 @@ Represents a structured curriculum such as a degree, diploma, or formal certific
 Represents the specific course, path, credit, or rule requirements that must be met to complete an Academic Program.
 
 **Completed:**
-
-**Completed Last Round:**
 - Academic Program: Lookup (Academic Program)
 - Requirement Type: Choice (Training Program Requirement Type)
 - Requirement Category: Text
@@ -548,6 +546,8 @@ Represents the specific course, path, credit, or rule requirements that must be 
 - Recommended Term: Text
 - Requirement Notes: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -556,8 +556,6 @@ Represents the specific course, path, credit, or rule requirements that must be 
 Represents an individual's Action Status for an Academic Program, including completion date, final standing, and honors if applicable.
 
 **Completed:**
-
-**Completed Last Round:**
 - Completion Number: Text
 - Academic Program: Lookup (Academic Program)
 - Person: Lookup (Person)
@@ -586,6 +584,8 @@ Represents an individual's Action Status for an Academic Program, including comp
 - Diploma Document: Lookup (Document)
 - Official Transcript: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -596,8 +596,6 @@ Represents an individual's Action Status for an Academic Program, including comp
 Represents a reusable eligibility rule set that specifies what an individual must possess (courses, certificates, competencies) to perform a role, access a resource, or participate in an activity.
 
 **Completed:**
-
-**Completed Last Round:**
 - Requirement Code: Text
 - Requirement Type: Choice (Training Qualification Requirement Type)
 - Requirement Category: Text
@@ -614,6 +612,8 @@ Represents a reusable eligibility rule set that specifies what an individual mus
 - Legal Authority: Lookup (Legal Authority)
 - Compliance Framework: Lookup (Compliance Framework)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -622,8 +622,6 @@ Represents a reusable eligibility rule set that specifies what an individual mus
 Represents an individual requirement within a Qualification Requirement, such as a required course, certificate, or competency level.
 
 **Completed:**
-
-**Completed Last Round:**
 - Qualification Requirement: Lookup (Qualification Requirement)
 - Item Type: Choice (Training Qualification Item Type)
 - Required Training Course: Lookup (Training Course)
@@ -640,13 +638,15 @@ Represents an individual requirement within a Qualification Requirement, such as
 - Validity Period (Months): Integer
 - Requirement Notes: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
 
 ## Choice Fields
 
-**Completed Last Round:**
+**Completed:**
 
 ### Training Course Type
 - Instructor Led
