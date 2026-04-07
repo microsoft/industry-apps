@@ -10,8 +10,6 @@ The **IT Service Management (Lite) / IT System Catalog** module provides a struc
 Represents a general service transaction submitted by a user for IT support, provisioning, hardware, software, or other service needs. Parent record for request items.
 
 **Completed:**
-
-**Completed Last Round:**
 - Request Number: Text
 - Request Type: Choice (IT Request Type)
 - Stage: Choice (IT Service Request Stage)
@@ -33,6 +31,8 @@ Represents a general service transaction submitted by a user for IT support, pro
 - Satisfaction Rating: Integer
 - Feedback: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -41,8 +41,6 @@ Represents a general service transaction submitted by a user for IT support, pro
 A line-level record under an IT Service Request that references a specific IT Catalog Item or fulfillment action.
 
 **Completed:**
-
-**Completed Last Round:**
 - IT Service Request: Lookup (IT Service Request)
 - Line Number: Integer
 - IT Catalog Item: Lookup (IT Catalog Item)
@@ -55,6 +53,8 @@ A line-level record under an IT Service Request that references a specific IT Ca
 - Delivery Date: Date
 - Fulfillment Notes: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -65,8 +65,6 @@ A line-level record under an IT Service Request that references a specific IT Ca
 Represents a request submitted to obtain, modify, or remove access to systems, applications, data, or other secured resources. Serves as the parent transaction record for access-related actions.
 
 **Completed:**
-
-**Completed Last Round:**
 - Request Number: Text
 - Access Request Type: Choice (IT Access Request Type)
 - Stage: Choice (IT Access Request Stage)
@@ -92,6 +90,8 @@ Represents a request submitted to obtain, modify, or remove access to systems, a
 - Fulfillment Date: Date
 - Closed Date: Date
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -100,8 +100,6 @@ Represents a request submitted to obtain, modify, or remove access to systems, a
 A line-level record under an IT Access Request specifying the individual entitlement, system, or role being requested. Allows a single request to contain multiple access changes.
 
 **Completed:**
-
-**Completed Last Round:**
 - IT Access Request: Lookup (IT Access Request)
 - Line Number: Integer
 - Access Action: Choice (IT Access Action)
@@ -116,6 +114,8 @@ A line-level record under an IT Access Request specifying the individual entitle
 - Related Entitlement Assignment: Lookup (IT Entitlement Assignment)
 - Description: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -124,8 +124,6 @@ A line-level record under an IT Access Request specifying the individual entitle
 Defines a specific access right, permission set, license assignment, or role that can be granted to a user or system account.
 
 **Completed:**
-
-**Completed Last Round:**
 - Entitlement Code: Text
 - Entitlement Type: Choice (IT Entitlement Type)
 - IT System: Lookup (IT System)
@@ -140,6 +138,8 @@ Defines a specific access right, permission set, license assignment, or role tha
 - Risk Level: Choice (Severity Level)
 - Compliance Requirement: Lookup (Compliance Requirement)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -148,8 +148,6 @@ Defines a specific access right, permission set, license assignment, or role tha
 Represents the assignment of an IT Entitlement to a person, account, or system. Tracks who has what access and its lifecycle status.
 
 **Completed:**
-
-**Completed Last Round:**
 - Assignment Number: Text
 - Person: Lookup (Person)
 - IT Entitlement: Lookup (IT Entitlement)
@@ -170,6 +168,8 @@ Represents the assignment of an IT Entitlement to a person, account, or system. 
 - Revocation Reason: Memo
 - Account Username: Text
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -180,8 +180,6 @@ Represents the assignment of an IT Entitlement to a person, account, or system. 
 Defines an orderable IT offering. Represents a published service, product package, provisioning action, or access offering that users can request.
 
 **Completed:**
-
-**Completed Last Round:**
 - Item Code: Text
 - Parent IT Catalog Item: Lookup (IT Catalog Item)
 - Item Category: Choice (IT Catalog Item Category)
@@ -205,6 +203,8 @@ Defines an orderable IT offering. Represents a published service, product packag
 - Is Orderable: Yes / No
 - Tags: Text
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -213,14 +213,14 @@ Defines an orderable IT offering. Represents a published service, product packag
 A junction table linking an IT Catalog Item to one or more IT Technologies. Identifies technologies that are required, delivered, approved, or restricted for that offering.
 
 **Completed:**
-
-**Completed Last Round:**
 - IT Catalog Item: Lookup (IT Catalog Item)
 - IT Technology: Lookup (IT Technology)
 - Technology Relationship: Choice (IT Technology Relationship)
 - Version: Text
 - Is Required: Yes / No
 - Description: Memo
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -232,8 +232,6 @@ A junction table linking an IT Catalog Item to one or more IT Technologies. Iden
 Represents a logical or operational information system. Serves as the primary record for tracking ownership, purpose, lifecycle status, and governance attributes.
 
 **Completed:**
-
-**Completed Last Round:**
 - System Code: Text
 - System Type: Choice (IT System Type)
 - Security Classification: Choice (Security Classification)
@@ -261,6 +259,8 @@ Represents a logical or operational information system. Serves as the primary re
 - Compliance Framework: Lookup (Compliance Framework)
 - Legal Authority: Lookup (Legal Authority)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -269,8 +269,6 @@ Represents a logical or operational information system. Serves as the primary re
 Represents a structural part of an IT System, such as an application module, service, database, infrastructure element, or interface.
 
 **Completed:**
-
-**Completed Last Round:**
 - Component Code: Text
 - Parent IT System Component: Lookup (IT System Component)
 - IT System: Lookup (IT System)
@@ -284,6 +282,8 @@ Represents a structural part of an IT System, such as an application module, ser
 - Is Critical: Yes / No
 - Dependencies: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -292,11 +292,11 @@ Represents a structural part of an IT System, such as an application module, ser
 Defines categories or classifications of system components (e.g., Application, Database, API, Infrastructure, Interface).
 
 **Completed:**
-
-**Completed Last Round:**
 - Type Code: Text
 - Component Category: Choice (IT Component Category)
 - Description: Memo
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -306,8 +306,6 @@ Defines categories or classifications of system components (e.g., Application, D
 A junction table linking an IT System (or optionally a specific System Component) to the IT Technologies it uses. Tracks technology usage and version information.
 
 **Completed:**
-
-**Completed Last Round:**
 - IT System: Lookup (IT System)
 - IT System Component: Lookup (IT System Component)
 - IT Technology: Lookup (IT Technology)
@@ -317,6 +315,8 @@ A junction table linking an IT System (or optionally a specific System Component
 - Is Production: Yes / No
 - Installation Date: Date
 - End of Support Date: Date
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -328,8 +328,6 @@ A junction table linking an IT System (or optionally a specific System Component
 Represents a technology concept, platform, framework, protocol, runtime, standard, or tool used within IT systems.
 
 **Completed:**
-
-**Completed Last Round:**
 - Technology Code: Text
 - IT Technology Type: Lookup (IT Technology Type)
 - Technology Status: Choice (IT Technology Status)
@@ -349,6 +347,8 @@ Represents a technology concept, platform, framework, protocol, runtime, standar
 - Documentation URL: URL
 - Vendor URL: URL
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -357,11 +357,11 @@ Represents a technology concept, platform, framework, protocol, runtime, standar
 Defines classification categories for IT Technologies (e.g., Operating System, Database Engine, Framework, Protocol, Security Standard).
 
 **Completed:**
-
-**Completed Last Round:**
 - Type Code: Text
 - Description: Memo
 - Parent Type: Lookup (IT Technology Type)
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -373,8 +373,6 @@ Defines classification categories for IT Technologies (e.g., Operating System, D
 Represents the physical or logical hosting environment for a system or component, such as a data center, cloud region, or managed hosting facility.
 
 **Completed:**
-
-**Completed Last Round:**
 - Location Code: Text
 - Hosting Type: Choice (IT Hosting Type)
 - Physical Location: Lookup (Location)
@@ -391,6 +389,8 @@ Represents the physical or logical hosting environment for a system or component
 - Utilization: Text
 - Description: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -401,8 +401,6 @@ Represents the physical or logical hosting environment for a system or component
 Represents the formal authorization or approval status of an IT System to operate within defined security and compliance parameters.
 
 **Completed:**
-
-**Completed Last Round:**
 - Accreditation Number: Text
 - IT System: Lookup (IT System)
 - Accreditation Type: Choice (IT Accreditation Type)
@@ -421,6 +419,8 @@ Represents the formal authorization or approval status of an IT System to operat
 - Next Assessment Date: Date
 - Supporting Document: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -429,8 +429,6 @@ Represents the formal authorization or approval status of an IT System to operat
 Represents a formal evaluation of a system, component, or technology against defined standards, policies, or regulatory requirements. May generate findings or POAM items.
 
 **Completed:**
-
-**Completed Last Round:**
 - Assessment Number: Text
 - Assessment Type: Choice (IT Assessment Type)
 - Stage: Choice (IT Compliance Assessment Stage)
@@ -456,6 +454,8 @@ Represents a formal evaluation of a system, component, or technology against def
 - Next Assessment Date: Date
 - Supporting Document: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -464,8 +464,6 @@ Represents a formal evaluation of a system, component, or technology against def
 Plan of Action and Milestones (POAM) record used to track remediation of identified compliance findings, vulnerabilities, or control gaps.
 
 **Completed:**
-
-**Completed Last Round:**
 - POAM Number: Text
 - IT System: Lookup (IT System)
 - IT System Component: Lookup (IT System Component)
@@ -495,52 +493,15 @@ Plan of Action and Milestones (POAM) record used to track remediation of identif
 - Related Risk Item: Lookup (Risk Item)
 - Supporting Document: Lookup (Document)
 
-**Planned:**
+**Completed Last Round:**
 
----
-
-## Reused Core Tables
-
-The following Core tables are used directly by this module:
-
-### Person *(Core)*
-Represents requesters, approvers, system owners, technical contacts, assessors.
-
-### Account *(Core)*
-Represents vendors, cloud providers, hosting providers.
-
-### Organization Unit *(Core)*
-Departments requesting services, owning systems, providing support.
-
-### Location *(Core)*
-Physical locations for systems, hosting facilities, data centers.
-
-### Action Item *(Core)*
-Operational tasks linked to service requests, access provisioning, POAM remediation.
-
-### Agreement *(Core)*
-Service level agreements, hosting agreements, vendor contracts.
-
-### Compliance Framework *(Core)*
-NIST, FedRAMP, ISO 27001, HIPAA, PCI-DSS frameworks.
-
-### Compliance Requirement *(Core)*
-Specific control requirements for systems and entitlements.
-
-### Legal Authority *(Core)*
-Regulatory basis for system operations and compliance.
-
-### Risk Item *(Core)*
-Risks identified during assessments linked to POAM items.
-
-### Document *(Core)*
-System documentation, assessment reports, accreditation packages.
+**Planned:****
 
 ---
 
 ## Choice Fields
 
-**Planned:**
+**Completed:**
 
 ### IT Request Type
 - Service Request
