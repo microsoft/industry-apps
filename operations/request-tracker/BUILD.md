@@ -10,8 +10,6 @@ The **Request Tracker** module provides a lightweight, centralized way for teams
 Represents a single submitted request for work, information, approval, or action. This is the primary tracking record from intake through completion and closure.
 
 **Completed:**
-
-**Completed Last Round:**
 - Request Number: Text
 - Request Type: Lookup (Request Type)
 - Approval Status: Choice (Approval Status)
@@ -66,6 +64,8 @@ Represents a single submitted request for work, information, approval, or action
 - Tags: Text
 - Resolution: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -74,8 +74,6 @@ Represents a single submitted request for work, information, approval, or action
 Defines the classification of a request and supports routing, prioritization, and reporting. Provides default routing rules, target timelines, and workflow configuration.
 
 **Completed:**
-
-**Completed Last Round:**
 - Type Code: Text
 - Parent Request Type: Lookup (Request Type)
 - Request Type Category: Choice (Request Type Category)
@@ -98,13 +96,15 @@ Defines the classification of a request and supports routing, prioritization, an
 - Icon: Text
 - Color: Text
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
 
 ## Choice Fields
 
-**Completed Last Round:**
+**Completed:**
 
 ### Request Type Category
 - Information Request
