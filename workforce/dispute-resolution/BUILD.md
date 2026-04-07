@@ -6,8 +6,6 @@ Represents the primary case record for a formal internal dispute or complaint.
 Tracks lifecycle status, case type, regulatory framework, assigned staff, key dates, and overall outcome.
 
 **Completed:**
-
-**Completed Last Round:**
 - Case Number: Text
 - Dispute Type: Choice (Dispute Type)
 - Stage: Choice (Dispute Stage)
@@ -25,6 +23,8 @@ Tracks lifecycle status, case type, regulatory framework, assigned staff, key da
 - Description: Memo
 - Case Title: Name
 
+**Completed Last Round:**
+
 **Planned:**
 
 
@@ -36,8 +36,6 @@ Represents a formal challenge to a determination or decision.
 Tracks appeal authority, filing date, appeal basis, review process, and final appellate outcome.
 
 **Completed:**
-
-**Completed Last Round:**
 - Appeal Title: Name
 - Appeal Number: Text
 - Dispute: Lookup (Dispute)
@@ -53,6 +51,8 @@ Tracks appeal authority, filing date, appeal basis, review process, and final ap
 - Overall Result: Choice (Overall Result)
 - Description: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 
@@ -64,8 +64,6 @@ Tracks actions required as a result of a determination or settlement.
 Examples include training requirements, disciplinary measures, policy updates, or monitoring plans.
 
 **Completed:**
-
-**Completed Last Round:**
 - Action Title: Name
 - Action Number: Text
 - Dispute: Lookup (Dispute)
@@ -79,6 +77,8 @@ Examples include training requirements, disciplinary measures, policy updates, o
 - Verified By: Lookup (Person)
 - Description: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 
@@ -90,8 +90,6 @@ Represents the formal outcome or decision for a dispute or specific issue.
 May include findings, remedies, dismissals, settlements, or final agency decisions.
 
 **Completed:**
-
-**Completed Last Round:**
 - Determination Title: Name
 - Determination Number: Text
 - Dispute: Lookup (Dispute)
@@ -106,6 +104,8 @@ May include findings, remedies, dismissals, settlements, or final agency decisio
 - Document: Lookup (Document)
 - Description: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 
@@ -117,8 +117,6 @@ Stores or references materials collected during investigation.
 Examples include documents, communications, records, media files, and external reports.
 
 **Completed:**
-
-**Completed Last Round:**
 - Evidence Title: Name
 - Evidence Number: Text
 - Dispute: Lookup (Dispute)
@@ -132,6 +130,8 @@ Examples include documents, communications, records, media files, and external r
 - Chain of Custody: Memo
 - Description: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 
@@ -143,8 +143,6 @@ Captures the conclusion reached for a specific dispute issue after investigation
 Examples: Substantiated, Unsubstantiated, Inconclusive, Policy Violation Confirmed.
 
 **Completed:**
-
-**Completed Last Round:**
 - Finding Title: Name
 - Finding Number: Text
 - Dispute: Lookup (Dispute)
@@ -153,6 +151,8 @@ Examples: Substantiated, Unsubstantiated, Inconclusive, Policy Violation Confirm
 - Finding Type: Choice (Finding Result)
 - Finding Date: Date
 - Description: Memo
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -165,8 +165,6 @@ Represents an initial inquiry, concern, or report prior to formal case creation.
 Supports anonymous reporting, early resolution efforts, and triage decisions.
 
 **Completed:**
-
-**Completed Last Round:**
 - Intake Title: Name
 - Intake Number: Text
 - Stage: Choice (Dispute Intake Stage)
@@ -181,6 +179,8 @@ Supports anonymous reporting, early resolution efforts, and triage decisions.
 - Conversion Date: Date
 - Description: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 
@@ -192,8 +192,6 @@ Tracks interviews conducted as part of an investigation.
 Includes interviewee, role, date, summary, and related evidence.
 
 **Completed:**
-
-**Completed Last Round:**
 - Interview Title: Name
 - Interview Number: Text
 - Dispute: Lookup (Dispute)
@@ -207,6 +205,8 @@ Includes interviewee, role, date, summary, and related evidence.
 - Document: Lookup (Document)
 - Description: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 
@@ -218,8 +218,6 @@ Represents the formal investigative process associated with a dispute.
 Tracks investigator assignment, scope, timeline, methodology, and Action Status.
 
 **Completed:**
-
-**Completed Last Round:**
 - Investigation Title: Name
 - Investigation Number: Text
 - Dispute: Lookup (Dispute)
@@ -235,6 +233,8 @@ Tracks investigator assignment, scope, timeline, methodology, and Action Status.
 - Summary: Memo
 - Description: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 
@@ -246,8 +246,6 @@ Defines the specific allegation, claim, or concern within a dispute case.
 A single dispute may include multiple issues (e.g., discrimination, retaliation, harassment).
 
 **Completed:**
-
-**Completed Last Round:**
 - Issue Title: Name
 - Issue Number: Text
 - Dispute: Lookup (Dispute)
@@ -261,6 +259,8 @@ A single dispute may include multiple issues (e.g., discrimination, retaliation,
 - Legal Authority: Lookup (Legal Authority)
 - Description: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 
@@ -272,8 +272,6 @@ Represents a structured mediation or alternative dispute resolution effort.
 Tracks mediator, session dates, agreements reached, and mediation outcomes.
 
 **Completed:**
-
-**Completed Last Round:**
 - Mediation Title: Name
 - Mediation Number: Text
 - Dispute: Lookup (Dispute)
@@ -289,6 +287,8 @@ Tracks mediator, session dates, agreements reached, and mediation outcomes.
 - Document: Lookup (Document)
 - Description: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 
@@ -300,8 +300,6 @@ Associates individuals or entities to a dispute with defined roles.
 Roles may include complainant, respondent, witness, representative, investigator, or mediator.
 
 **Completed:**
-
-**Completed Last Round:**
 - Dispute: Lookup (Dispute)
 - Person: Lookup (Person)
 - Account: Lookup (Account)
@@ -312,6 +310,8 @@ Roles may include complainant, respondent, witness, representative, investigator
 - Is Primary: Yes / No
 - Notified Date Time: Date Time
 - Description: Memo
+
+**Completed Last Round:**
 
 **Planned:**
 - Name: Text
@@ -337,18 +337,15 @@ Examples include HR, Legal, Security, Compliance, or external agencies.
 - Description: Memo
 - Response Date: Date
 - Response Summary: Memo
+- Referral Title: Name
 
 **Planned:**
 
-**
-
 ## ✅ Choice Fields
 
-**Completed Last Round:**
+**Completed:**
 
-- Referral Title: Name
-
-**### Dispute Stage
+### Dispute Stage
 Workflow progression for dispute cases:
 - Intake
 - Initial Review
