@@ -8,8 +8,6 @@
 The primary record representing a planned occurrence (conference, meeting, hearing, training, festival, etc.). Stores core details such as title, description, dates, location, status, and overall ownership.
 
 **Completed:**
-
-**Completed Last Round:**
 - Event Title: Name
 - Event Code: Text
 - Event Type: Lookup (Event Type)
@@ -38,6 +36,8 @@ The primary record representing a planned occurrence (conference, meeting, heari
 - Website URL: URL
 - Tags: Text
 
+**Completed Last Round:**
+
 **Planned:**
 
 
@@ -47,11 +47,11 @@ The primary record representing a planned occurrence (conference, meeting, heari
 A classification table defining categories of events (e.g., Conference, Training, Public Hearing, Webinar). Often used to drive default behaviors, templates, or required fields.
 
 **Completed:**
-
-**Completed Last Round:**
 - Description: Memo
 - Default Duration (Hours): Float
 - Requires Approval: Yes / No
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -62,14 +62,14 @@ A classification table defining categories of events (e.g., Conference, Training
 Represents a thematic or organizational grouping within an event (e.g., "Technology," "Policy," "Community Outreach"). Sessions and/or entries may be associated with a track.
 
 **Completed:**
-
-**Completed Last Round:**
 - Event: Lookup (Event)
 - Parent Event Track: Lookup (Event Track)
 - Track Code: Text
 - Description: Memo
 - Track Lead: Lookup (Person)
 - Color Code: Text
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -112,8 +112,6 @@ Captures a proposed or requested event prior to formal approval or scheduling. U
 Represents an individual or organization involved in the event. This can include attendees, speakers, staff, volunteers, exhibitors, VIPs, or panelists. Tracks participation status (invited, registered, confirmed, checked-in, etc.).
 
 **Completed:**
-
-**Completed Last Round:**
 - Participant Name: Name
 - Event: Lookup (Event)
 - Person: Lookup (Person)
@@ -136,6 +134,8 @@ Represents an individual or organization involved in the event. This can include
 - Badge Printed: Yes / No
 - Certificate Issued: Yes / No
 
+**Completed Last Round:**
+
 **Planned:**
 
 
@@ -145,8 +145,6 @@ Represents an individual or organization involved in the event. This can include
 Links participants to specific sessions. Used when attendance, roles, or responsibilities differ by session (e.g., a speaker in one session, attendee in another).
 
 **Completed:**
-
-**Completed Last Round:**
 - Session Participant Name: Name
 - Event Session: Lookup (Event Session)
 - Event Participant: Lookup (Event Participant)
@@ -156,6 +154,8 @@ Links participants to specific sessions. Used when attendance, roles, or respons
 - Check In Date Time: Date Time
 - Attended: Yes / No
 - Presentation Order: Integer
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -168,8 +168,6 @@ Links participants to specific sessions. Used when attendance, roles, or respons
 Represents a scheduled time block within an event (e.g., breakout session, hearing segment, workshop, keynote slot). Includes start/end time, location/room, capacity, and session-specific details.
 
 **Completed:**
-
-**Completed Last Round:**
 - Session Title: Name
 - Event: Lookup (Event)
 - Parent Event Session: Lookup (Event Session)
@@ -193,6 +191,8 @@ Represents a scheduled time block within an event (e.g., breakout session, heari
 - Recording URL: URL
 - Materials URL: URL
 
+**Completed Last Round:**
+
 **Planned:**
 
 
@@ -204,8 +204,6 @@ Represents a scheduled time block within an event (e.g., breakout session, heari
 Represents an exhibition, presentation, booth, poster, demonstration, or other showcased submission within an event. Typically includes submission details, review/approval status, assigned session or track, and associated presenters.
 
 **Completed:**
-
-**Completed Last Round:**
 - Entry Title: Name
 - Entry Code: Text
 - Event: Lookup (Event)
@@ -232,6 +230,8 @@ Represents an exhibition, presentation, booth, poster, demonstration, or other s
 - Supporting Document: Lookup (Document)
 - Presentation URL: URL
 
+**Completed Last Round:**
+
 **Planned:**
 
 
@@ -243,9 +243,6 @@ Represents an exhibition, presentation, booth, poster, demonstration, or other s
 Represents an organization or entity providing financial or in-kind support for the event. May track sponsorship level, benefits, commitments, and related agreements.
 
 **Completed:**
-
-**Completed Last Round:**
-
 - Sponsor Name: Name
 - Event: Lookup (Event)
 - Sponsor Account: Lookup (Account)
@@ -265,6 +262,8 @@ Represents an organization or entity providing financial or in-kind support for 
 - Logo URL: URL
 - Website URL: URL
 
+**Completed Last Round:**
+
 **Planned:**
 
 
@@ -273,8 +272,6 @@ Represents an organization or entity providing financial or in-kind support for 
 ## Choice Fields
 
 **Completed:**
-
-**Completed Last Round:**
 
 ### Event Participant Type
 - Attendee
