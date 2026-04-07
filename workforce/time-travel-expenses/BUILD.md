@@ -10,8 +10,6 @@ The **Time, Travel, and Expense** module provides a unified structure for captur
 Represents a defined reporting cycle such as a week, pay period, or month used to group Time Entries and optionally Expense Reports for administrative or financial purposes.
 
 **Completed:**
-
-**Completed Last Round:**
 - Period Code: Text
 - Period Type: Choice (Schedule Frequency)
 - Period Start Date: Date
@@ -25,6 +23,8 @@ Represents a defined reporting cycle such as a week, pay period, or month used t
 - Is Locked: Yes / No
 - Locked By: Lookup (Person)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -33,8 +33,6 @@ Represents a defined reporting cycle such as a week, pay period, or month used t
 Represents a hierarchical classification structure used to categorize Time Entries. Supports parent/child relationships for organizing work types such as investigations, operations, initiatives, or administrative activities.
 
 **Completed:**
-
-**Completed Last Round:**
 - Time Code: Text
 - Parent Time Code: Lookup (Time Code)
 - Time Code Category: Choice (Time Code Category)
@@ -50,6 +48,8 @@ Represents a hierarchical classification structure used to categorize Time Entri
 - Effective Start Date: Date
 - Effective End Date: Date
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -58,8 +58,6 @@ Represents a hierarchical classification structure used to categorize Time Entri
 Represents the actual time worked by a person on a specific date, including hours and associated Time Code. Serves as the foundational operational record for time tracking and reporting.
 
 **Completed:**
-
-**Completed Last Round:**
 - Entry Number: Text
 - Person: Lookup (Person)
 - User: Lookup (User)
@@ -94,6 +92,8 @@ Represents the actual time worked by a person on a specific date, including hour
 - Rejection Reason: Memo
 - Is Locked: Yes / No
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -102,8 +102,6 @@ Represents the actual time worked by a person on a specific date, including hour
 Represents a planned availability or obligation for a person over a defined date and time range. Used for scheduling, duty assignments, leave tracking, or other forward-looking planning purposes.
 
 **Completed:**
-
-**Completed Last Round:**
 - Commitment Number: Text
 - Person: Lookup (Person)
 - Organization Unit: Lookup (Organization Unit)
@@ -127,6 +125,8 @@ Represents a planned availability or obligation for a person over a defined date
 - Is Recurring: Yes / No
 - Recurrence Pattern: Text
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -137,14 +137,14 @@ Represents a planned availability or obligation for a person over a defined date
 Represents standardized reasons for travel such as training, site visits, inspections, or conferences. Used to categorize and report on Travel Requests.
 
 **Completed:**
-
-**Completed Last Round:**
 - Purpose Code: Text
 - Purpose Category: Choice (Travel Purpose Category)
 - Description: Memo
 - Requires Justification: Yes / No
 - Requires Advance Approval: Yes / No
 - Default Approver: Lookup (Person)
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -154,8 +154,6 @@ Represents standardized reasons for travel such as training, site visits, inspec
 Represents a planned or approved trip, including traveler details, purpose, dates, and estimated costs. Serves as the primary authorization and oversight record for organizational travel.
 
 **Completed:**
-
-**Completed Last Round:**
 - Travel Request Number: Text
 - Traveler: Lookup (Person)
 - Traveler Organization Unit: Lookup (Organization Unit)
@@ -206,6 +204,8 @@ Represents a planned or approved trip, including traveler details, purpose, date
 - Trip Report: Memo
 - Supporting Document: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -214,8 +214,6 @@ Represents a planned or approved trip, including traveler details, purpose, date
 Represents an individual component of a trip, such as a flight, lodging stay, or rental car, under a Travel Request. Enables structured tracking of itinerary details and associated estimated costs.
 
 **Completed:**
-
-**Completed Last Round:**
 - Segment Number: Text
 - Travel Request: Lookup (Travel Request)
 - Segment Type: Choice (Travel Segment Type)
@@ -250,6 +248,8 @@ Represents an individual component of a trip, such as a flight, lodging stay, or
 - Actual Cost: Currency
 - Segment Notes: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -260,8 +260,6 @@ Represents an individual component of a trip, such as a flight, lodging stay, or
 Represents standardized classifications for expenses such as lodging, meals, mileage, registration fees, and supplies. Used to categorize Expense Items for reporting, policy enforcement, and financial analysis.
 
 **Completed:**
-
-**Completed Last Round:**
 - Category Code: Text
 - Parent Category: Lookup (Expense Category)
 - Expense Category Type: Choice (Expense Category Type)
@@ -278,6 +276,8 @@ Represents standardized classifications for expenses such as lodging, meals, mil
 - Mileage Rate: Currency
 - GL Account: Text
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -286,8 +286,6 @@ Represents standardized classifications for expenses such as lodging, meals, mil
 Represents a grouped submission of multiple Expense Items for review, approval, and reimbursement. Serves as the primary expense workflow record for an individual reporting period or trip.
 
 **Completed:**
-
-**Completed Last Round:**
 - Expense Report Number: Text
 - Person: Lookup (Person)
 - Organization Unit: Lookup (Organization Unit)
@@ -326,6 +324,8 @@ Represents a grouped submission of multiple Expense Items for review, approval, 
 - Rejection Reason: Memo
 - Supporting Document: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -334,8 +334,6 @@ Represents a grouped submission of multiple Expense Items for review, approval, 
 Represents an individual expense transaction recorded under an Expense Report. Captures details such as date, amount, category, and optional travel linkage for reimbursement and accounting purposes.
 
 **Completed:**
-
-**Completed Last Round:**
 - Item Number: Text
 - Expense Report: Lookup (Expense Report)
 - Expense Category: Lookup (Expense Category)
@@ -379,6 +377,8 @@ Represents an individual expense transaction recorded under an Expense Report. C
 - GL Account: Text
 - Cost Center: Text
 - Supporting Document: Lookup (Document)
+
+**Completed Last Round:**
 
 **Planned:**
 
