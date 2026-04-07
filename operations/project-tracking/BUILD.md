@@ -10,8 +10,6 @@ The **Project Tracking** module supports the structured intake, planning, execut
 Represents an intake record used to propose or initiate a new project. Captures initial business need, justification, high-level scope, and evaluation prior to formal project approval.
 
 **Completed:**
-
-**Completed Last Round:**
 - Request Number: Text
 - Stage: Choice (Project Request Stage)
 - Decision Status: Choice (Item Decision Status)
@@ -54,6 +52,8 @@ Represents an intake record used to propose or initiate a new project. Captures 
 - Rejection Reason: Memo
 - Supporting Document: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -64,8 +64,6 @@ Represents an intake record used to propose or initiate a new project. Captures 
 Represents the primary delivery record for a defined body of work with scope, objectives, schedule, ownership, and overall status. Serves as the parent container for backlog items, iterations, milestones, resources, and change requests.
 
 **Completed:**
-
-**Completed Last Round:**
 - Project Code: Text
 - Stage: Choice (Project Stage)
 - Completion Status: Choice (Item Completion Status)
@@ -117,6 +115,8 @@ Represents the primary delivery record for a defined body of work with scope, ob
 - Lessons Learned: Memo
 - Closeout Summary: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -125,13 +125,13 @@ Represents the primary delivery record for a defined body of work with scope, ob
 Represents standardized roles used within projects (e.g., Project Manager, Business Lead, Technical Lead). Supports consistent staffing structures and reporting.
 
 **Completed:**
-
-**Completed Last Round:**
 - Role Code: Text
 - Role Category: Choice (Project Role Category)
 - Description: Memo
 - Responsibilities: Memo
 - Standard Allocation Percentage: Integer
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -141,8 +141,6 @@ Represents standardized roles used within projects (e.g., Project Manager, Busin
 Represents the assignment of a person or resource to a project (and optionally to specific work items), including role, allocation percentage, and assignment duration.
 
 **Completed:**
-
-**Completed Last Round:**
 - Assignment Number: Text
 - Project: Lookup (Project)
 - Assigned Person: Lookup (Person)
@@ -163,6 +161,8 @@ Represents the assignment of a person or resource to a project (and optionally t
 - Cost Rate: Currency
 - Assignment Notes: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -173,8 +173,6 @@ Represents the assignment of a person or resource to a project (and optionally t
 Represents a planning container that groups and prioritizes future work items for a project. Used to manage the queue of pending work before assignment to an iteration or execution phase.
 
 **Completed:**
-
-**Completed Last Round:**
 - Backlog Code: Text
 - Project: Lookup (Project)
 - Stage: Choice (Project Backlog Stage)
@@ -184,6 +182,8 @@ Represents a planning container that groups and prioritizes future work items fo
 - Target Iteration: Lookup (Project Iteration)
 - Priority: Choice (Priority)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -192,8 +192,6 @@ Represents a planning container that groups and prioritizes future work items fo
 Represents a defined timebox or execution cycle within a project (e.g., sprint, phase, increment). Used to organize and track work items scheduled for completion during that period.
 
 **Completed:**
-
-**Completed Last Round:**
 - Iteration Code: Text
 - Project: Lookup (Project)
 - Stage: Choice (Project Iteration Stage)
@@ -212,6 +210,8 @@ Represents a defined timebox or execution cycle within a project (e.g., sprint, 
 - Review Notes: Memo
 - Retrospective Notes: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -220,8 +220,6 @@ Represents a defined timebox or execution cycle within a project (e.g., sprint, 
 Represents the configuration table defining categories of work items (e.g., Epic, Feature, Task, Defect). Controls classification, reporting, and workflow behavior for Project Work Items.
 
 **Completed:**
-
-**Completed Last Round:**
 - Type Code: Text
 - Type Category: Choice (Project Work Item Category)
 - Description: Memo
@@ -232,6 +230,8 @@ Represents the configuration table defining categories of work items (e.g., Epic
 - Allows Time Tracking: Yes / No
 - Allows Sub Items: Yes / No
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -240,8 +240,6 @@ Represents the configuration table defining categories of work items (e.g., Epic
 Represents the core execution record for a unit of work within a project. May represent an epic, feature, task, defect, or other work category as defined by its type.
 
 **Completed:**
-
-**Completed Last Round:**
 - Work Item Number: Text
 - Project: Lookup (Project)
 - Project Work Item Type: Lookup (Project Work Item Type)
@@ -280,6 +278,8 @@ Represents the core execution record for a unit of work within a project. May re
 - Related Risk: Lookup (Risk Item)
 - Supporting Document: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
 - Created By: Lookup (Person)
 - Created Date: Date Time
@@ -292,8 +292,6 @@ Represents the core execution record for a unit of work within a project. May re
 Represents a significant event or checkpoint within a project timeline. Represents key delivery dates, approvals, or completion markers used for progress tracking and reporting.
 
 **Completed:**
-
-**Completed Last Round:**
 - Milestone Code: Text
 - Parent Milestone: Lookup (Project Milestone)
 - Project: Lookup (Project)
@@ -320,6 +318,8 @@ Represents a significant event or checkpoint within a project timeline. Represen
 - Related Work Item: Lookup (Project Work Item)
 - Related Document: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -328,8 +328,6 @@ Represents a significant event or checkpoint within a project timeline. Represen
 Represents a formal proposal to modify approved project scope, schedule, cost, deliverables, or other baseline elements. Tracks impact analysis, review, approval decision, and implementation status.
 
 **Completed:**
-
-**Completed Last Round:**
 - Change Request Number: Text
 - Project: Lookup (Project)
 - Stage: Choice (Project Change Request Stage)
@@ -370,8 +368,15 @@ Represents a formal proposal to modify approved project scope, schedule, cost, d
 - Priority: Choice (Priority)
 - Supporting Document: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
-## Choice Fields### Project Type
+
+## Choice Fields
+
+**Completed:**
+
+### Project Type
 - IT Implementation
 - Infrastructure Project
 - Policy Initiative
