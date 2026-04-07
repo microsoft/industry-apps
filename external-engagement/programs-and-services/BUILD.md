@@ -10,8 +10,6 @@ The **Programs and Services** module provides a structured framework for definin
 Represents a high-level initiative or policy area under which services are offered. A Program groups related Services and provides strategic, organizational, or funding context.
 
 **Completed:**
-
-**Completed Last Round:**
 - Program Code: Text
 - Program Type: Choice (Program Type)
 - Parent Program: Lookup (Program)
@@ -32,6 +30,8 @@ Represents a high-level initiative or policy area under which services are offer
 - Is Public: Yes / No
 - Visibility: Choice (Visibility)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -40,8 +40,6 @@ Represents a high-level initiative or policy area under which services are offer
 Represents a defined type of service provided under a Program. A Service describes what is offered in general terms and may have one or more Service Offerings over time.
 
 **Completed:**
-
-**Completed Last Round:**
 - Service Code: Text
 - Program: Lookup (Program)
 - Service Category: Lookup (Service Category)
@@ -64,6 +62,8 @@ Represents a defined type of service provided under a Program. A Service describ
 - Is Published: Yes / No
 - Publication Status: Choice (Publication Status)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -72,11 +72,11 @@ Represents a defined type of service provided under a Program. A Service describ
 Represents a classification used to group Services for reporting, organization, or navigation purposes. Categories help structure the service catalog without affecting delivery logic.
 
 **Completed:**
-
-**Completed Last Round:**
 - Category Code: Text
 - Parent Category: Lookup (Service Category)
 - Description: Memo
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -86,8 +86,6 @@ Represents a classification used to group Services for reporting, organization, 
 Represents a specific version or configuration of a Service, typically bounded by time, geography, or policy parameters. A Service Offering defines the concrete instance of a Service that participants may enroll in.
 
 **Completed:**
-
-**Completed Last Round:**
 - Offering Code: Text
 - Service: Lookup (Service)
 - Stage: Choice (Service Offering Stage)
@@ -121,6 +119,8 @@ Represents a specific version or configuration of a Service, typically bounded b
 - Is Published: Yes / No
 - Publication Status: Choice (Publication Status)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -131,8 +131,6 @@ Represents a specific version or configuration of a Service, typically bounded b
 Represents a reusable eligibility condition that may be applied to one or more Service Offerings. Eligibility Rules define qualification logic but are not scoped to a specific offering until linked.
 
 **Completed:**
-
-**Completed Last Round:**
 - Rule Code: Text
 - Rule Type: Choice (Eligibility Rule Type)
 - Rule Category: Choice (Eligibility Rule Category)
@@ -153,6 +151,8 @@ Represents a reusable eligibility condition that may be applied to one or more S
 - Verification Method: Memo
 - Priority: Choice (Priority)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -161,8 +161,6 @@ Represents a reusable eligibility condition that may be applied to one or more S
 Represents the association between a Service Offering and a Service Eligibility Rule. This table defines which eligibility rules apply to a specific offering and may control rule behavior (e.g., required, optional, effective dates).
 
 **Completed:**
-
-**Completed Last Round:**
 - Service Offering: Lookup (Service Offering)
 - Service Eligibility Rule: Lookup (Service Eligibility Rule)
 - Is Required: Yes / No
@@ -172,6 +170,8 @@ Represents the association between a Service Offering and a Service Eligibility 
 - Effective End Date: Date
 - Waiver Authority: Lookup (Person)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -180,8 +180,6 @@ Represents the association between a Service Offering and a Service Eligibility 
 Represents geographic constraints or applicability for a Service Offering. This table defines where an offering is available or valid.
 
 **Completed:**
-
-**Completed Last Round:**
 - Service Offering: Lookup (Service Offering)
 - Location: Lookup (Location)
 - Judicial District: Lookup (Judicial District)
@@ -190,6 +188,8 @@ Represents geographic constraints or applicability for a Service Offering. This 
 - Is Primary: Yes / No
 - Effective Start Date: Date
 - Effective End Date: Date
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -201,8 +201,6 @@ Represents geographic constraints or applicability for a Service Offering. This 
 Represents a person's or organization's enrollment or engagement in a specific Service Offering. This table anchors the lifecycle of participation, including status, dates, and eligibility determination.
 
 **Completed:**
-
-**Completed Last Round:**
 - Participation Number: Text
 - Service Offering: Lookup (Service Offering)
 - Participant Person: Lookup (Person)
@@ -233,6 +231,8 @@ Represents a person's or organization's enrollment or engagement in a specific S
 - Privacy Consent: Lookup (Privacy Consent)
 - Supporting Document: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -241,8 +241,6 @@ Represents a person's or organization's enrollment or engagement in a specific S
 Represents an operational event or action performed during delivery of a Service to a specific Participation. Service Activities track the timeline of work or milestones related to service execution.
 
 **Completed:**
-
-**Completed Last Round:**
 - Activity Number: Text
 - Service Participation: Lookup (Service Participation)
 - Service Activity Type: Choice (Service Activity Type)
@@ -261,6 +259,8 @@ Represents an operational event or action performed during delivery of a Service
 - Follow Up Date: Date
 - Supporting Document: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -269,8 +269,6 @@ Represents an operational event or action performed during delivery of a Service
 Represents an official, factual outcome that occurred for a specific Service Participation. Examples include approval, denial, issuance, adjustment, or completion. Service Results are auditable and historical.
 
 **Completed:**
-
-**Completed Last Round:**
 - Result Number: Text
 - Service Participation: Lookup (Service Participation)
 - Service Result Type: Lookup (Service Result Type)
@@ -301,6 +299,8 @@ Represents an official, factual outcome that occurred for a specific Service Par
 - Formal Decision: Lookup (Formal Decision)
 - Supporting Document: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -309,8 +309,6 @@ Represents an official, factual outcome that occurred for a specific Service Par
 Represents the predefined set of allowable result classifications that may be applied to Service Results. This table defines the controlled vocabulary of possible outcomes.
 
 **Completed:**
-
-**Completed Last Round:**
 - Result Type Code: Text
 - Service Result Category: Choice (Service Result Category)
 - Description: Memo
@@ -320,6 +318,8 @@ Represents the predefined set of allowable result classifications that may be ap
 - Requires Notification: Yes / No
 - Allows Appeal: Yes / No
 - Appeal Window (Days): Integer
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -373,8 +373,6 @@ Used in eligibility rules.
 ## Choice Fields
 
 **Completed:**
-
-**Completed Last Round:**
 
 ### Program Type
 - Benefits Program
