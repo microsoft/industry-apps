@@ -10,8 +10,6 @@ Financial Management is an end-to-end module that supports the planning, acquisi
 Represents an approved financial plan for a defined fiscal period and organizational scope. A Budget establishes the total planned spending authority and serves as the parent record for detailed allocations. It is used to monitor planned versus committed and expended amounts over time.
 
 **Completed:**
-
-**Completed Last Round:**
 - Budget Number: Text
 - Fiscal Year: Text
 - Fiscal Period: Lookup (Fiscal Period)
@@ -29,6 +27,8 @@ Represents an approved financial plan for a defined fiscal period and organizati
 - Approval Date: Date
 - Description: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -37,8 +37,6 @@ Represents an approved financial plan for a defined fiscal period and organizati
 Detailed allocation within a Budget tied to a specific Financial Funding Source, Financial Classification, and Financial Period. Budget Line Items define how funds are distributed across categories and are used during funds checks and commitment creation to ensure spending stays within approved limits.
 
 **Completed:**
-
-**Completed Last Round:**
 - Line Item Title: Name
 - Budget: Lookup (Budget)
 - Parent Line Item: Lookup (Budget Line Item)
@@ -55,6 +53,8 @@ Detailed allocation within a Budget tied to a specific Financial Funding Source,
 - Line Item Status: Choice (Budget Stage)
 - Description: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -63,8 +63,6 @@ Detailed allocation within a Budget tied to a specific Financial Funding Source,
 Identifies the origin of funds used to finance expenditures, such as a grant, appropriation, cost center, project, or internal budget. Funding Sources are referenced by budgets, commitments, and transactions to maintain traceability and compliance.
 
 **Completed:**
-
-**Completed Last Round:**
 - Funding Source Code: Text
 - Funding Source Type: Choice (Financial Funding Source Type)
 - Organization Unit: Lookup (Organization Unit)
@@ -80,6 +78,8 @@ Identifies the origin of funds used to finance expenditures, such as a grant, ap
 - Description: Memo
 - Restrictions: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -88,13 +88,13 @@ Identifies the origin of funds used to finance expenditures, such as a grant, ap
 A categorization structure used to classify financial transactions, such as expense type, revenue type, object class, or fee category. Financial Classifications support reporting, budget allocation, compliance, and accounting integration.
 
 **Completed:**
-
-**Completed Last Round:**
 - Classification Code: Text
 - Classification Type: Choice (Financial Classification Type)
 - Parent Classification: Lookup (Financial Classification)
 - Account Code: Text
 - Description: Memo
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -106,8 +106,6 @@ A categorization structure used to classify financial transactions, such as expe
 An internal request to procure goods or services, typically initiated by program or operational staff. Purchase Requests capture business justification, estimated cost, and required approvals prior to sourcing or issuing a purchase order.
 
 **Completed:**
-
-**Completed Last Round:**
 - Request Title: Name
 - Request Number: Text
 - Stage: Choice (Purchase Request Stage)
@@ -130,6 +128,8 @@ An internal request to procure goods or services, typically initiated by program
 - Related Procurement Package: Lookup (Procurement Package)
 - Related Purchase Order: Lookup (Purchase Order)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -138,8 +138,6 @@ An internal request to procure goods or services, typically initiated by program
 Line-level detail associated with a Purchase Request, specifying requested goods or services, quantities, and estimated pricing. These items support evaluation, sourcing, and budget validation activities.
 
 **Completed:**
-
-**Completed Last Round:**
 - Item Description: Name
 - Purchase Request: Lookup (Purchase Request)
 - Line Number: Integer
@@ -153,6 +151,8 @@ Line-level detail associated with a Purchase Request, specifying requested goods
 - Financial Classification: Lookup (Financial Classification)
 - Delivery Required Date: Date
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -161,8 +161,6 @@ Line-level detail associated with a Purchase Request, specifying requested goods
 A container for a sourcing process, such as a Request for Quote (RFQ), Request for Proposal (RFP), or sole-source procurement. The Procurement Package tracks vendor responses, evaluations, approvals, and award decisions prior to contract execution.
 
 **Completed:**
-
-**Completed Last Round:**
 - Package Title: Name
 - Package Number: Text
 - Procurement Type: Choice (Procurement Type)
@@ -185,6 +183,8 @@ A container for a sourcing process, such as a Request for Quote (RFQ), Request f
 - Awarded Contract: Lookup (Contract)
 - Description: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -195,8 +195,6 @@ A container for a sourcing process, such as a Request for Quote (RFQ), Request f
 A formal agreement with an external organization defining scope of work, pricing structure, performance period, terms and conditions, and total authorized value. Contracts serve as the governing instrument under which purchase orders, deliverables, and payments are executed.
 
 **Completed:**
-
-**Completed Last Round:**
 - Contract Title: Name
 - Contract Number: Text
 - Contract Type: Choice (Contract Type)
@@ -232,6 +230,8 @@ A formal agreement with an external organization defining scope of work, pricing
 - Scope of Work: Memo
 - Terms and Conditions: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -240,8 +240,6 @@ A formal agreement with an external organization defining scope of work, pricing
 A modification to an existing Contract that changes scope, funding amount, pricing, performance period, or contractual terms. Amendments maintain a structured history of changes and ensure traceability of contract evolution over time.
 
 **Completed:**
-
-**Completed Last Round:**
 - Amendment Title: Name
 - Amendment Number: Text
 - Contract: Lookup (Contract)
@@ -262,6 +260,8 @@ A modification to an existing Contract that changes scope, funding amount, prici
 - Approved By: Lookup (Person)
 - Approval Date: Date
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -270,8 +270,6 @@ A modification to an existing Contract that changes scope, funding amount, prici
 A structured pricing or scope element within a Contract, such as a labor category, fixed-price item, or cost-reimbursable component. Contract Lines allow financial tracking and purchase orders to align with defined contract elements.
 
 **Completed:**
-
-**Completed Last Round:**
 - Contract: Lookup (Contract)
 - Line Number: Text
 - Line Type: Choice (Contract Line Type)
@@ -285,6 +283,8 @@ A structured pricing or scope element within a Contract, such as a labor categor
 - Period of Performance Start Date: Date
 - Period of Performance End Date: Date
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -293,8 +293,6 @@ A structured pricing or scope element within a Contract, such as a labor categor
 A specific output, service, or product required under a Contract. Deliverables typically include due dates, acceptance criteria, and status tracking to monitor contractual performance and compliance.
 
 **Completed:**
-
-**Completed Last Round:**
 - Contract: Lookup (Contract)
 - Deliverable Number: Text
 - Deliverable Type: Choice (Contract Deliverable Type)
@@ -311,6 +309,8 @@ A specific output, service, or product required under a Contract. Deliverables t
 - Supporting Document: Lookup (Document)
 - Is Critical: Yes / No
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -319,8 +319,6 @@ A specific output, service, or product required under a Contract. Deliverables t
 A significant contractual event or date, such as kickoff, phase completion, renewal decision, or option exercise. Milestones help monitor contract lifecycle progress and key decision points.
 
 **Completed:**
-
-**Completed Last Round:**
 - Contract: Lookup (Contract)
 - Milestone Type: Choice (Contract Milestone Type)
 - Description: Memo
@@ -333,6 +331,8 @@ A significant contractual event or date, such as kickoff, phase completion, rene
 - Payment Linked: Yes / No
 - Completion Criteria: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -343,8 +343,6 @@ A significant contractual event or date, such as kickoff, phase completion, rene
 Represents funds that have been formally reserved or obligated for an approved financial action, such as issuing a purchase order. Commitments reduce available budget and provide forward visibility into planned spending prior to invoice and payment.
 
 **Completed:**
-
-**Completed Last Round:**
 - Commitment Number: Text
 - Commitment Type: Choice (Financial Commitment Type)
 - Stage: Choice (Financial Commitment Stage)
@@ -369,6 +367,8 @@ Represents funds that have been formally reserved or obligated for an approved f
 - Certification Date: Date
 - Description: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -377,8 +377,6 @@ Represents funds that have been formally reserved or obligated for an approved f
 An authorized order issued to a supplier under a Contract or approved procurement action. A Purchase Order formally commits funds and defines the goods or services to be delivered, along with pricing and delivery terms.
 
 **Completed:**
-
-**Completed Last Round:**
 - Purchase Order Number: Text
 - Purchase Order Type: Choice (Purchase Order Type)
 - Stage: Choice (Purchase Order Stage)
@@ -406,6 +404,8 @@ An authorized order issued to a supplier under a Contract or approved procuremen
 - Approval Date: Date
 - Special Instructions: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -414,8 +414,6 @@ An authorized order issued to a supplier under a Contract or approved procuremen
 Line-level detail within a Purchase Order specifying item or service description, quantity, unit price, and funding allocation. Purchase Order Lines enable detailed receiving, invoice matching, and financial tracking.
 
 **Completed:**
-
-**Completed Last Round:**
 - Purchase Order: Lookup (Purchase Order)
 - Line Number: Integer
 - Item Type: Choice (Procurement Item Type)
@@ -434,6 +432,8 @@ Line-level detail within a Purchase Order specifying item or service description
 - Delivery Required Date: Date
 - Stage: Choice (Purchase Order Line Stage)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -442,8 +442,6 @@ Line-level detail within a Purchase Order specifying item or service description
 Represents the disbursement of funds to a supplier or payee in satisfaction of an approved financial obligation. Payments may reference invoices, purchase orders, contracts, and funding sources, and support audit and reconciliation processes.
 
 **Completed:**
-
-**Completed Last Round:**
 - Payment Number: Text
 - Stage: Choice (Payment Stage)
 - Payment Status: Choice (Payment Status)
@@ -467,6 +465,8 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 - Payment Period: Lookup (Fiscal Period)
 - Description: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -474,8 +474,6 @@ Represents the disbursement of funds to a supplier or payee in satisfaction of a
 ## Choice Fields
 
 **Completed:**
-
-**Completed Last Round:**
 
 ### Financial Funding Source Type
 - Appropriation
