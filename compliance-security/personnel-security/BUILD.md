@@ -10,8 +10,6 @@ The **Personnel Security** module manages the lifecycle of evaluating, granting,
 Represents the lifecycle container for evaluating a person's suitability for a security eligibility decision. Used to track initial reviews, renewals, upgrades, reciprocity evaluations, or incident-triggered reviews from initiation through investigation, adjudication, and final outcome.
 
 **Completed:**
-
-**Completed Last Round:**
 - Review Number: Text
 - Person: Lookup (Person)
 - Review Type: Choice (Security Review Type)
@@ -54,6 +52,8 @@ Represents the lifecycle container for evaluating a person's suitability for a s
 - Case File Number: Text
 - Supporting Document: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
 
 **Planned Next:**
@@ -68,8 +68,6 @@ Represents the lifecycle container for evaluating a person's suitability for a s
 Represents a formal investigative effort conducted to support a personnel security determination. Tracks the type, scope, provider, and status of the investigation and may include investigative activities, interviews, and records checks.
 
 **Completed:**
-
-**Completed Last Round:**
 - Investigation Number: Text
 - Personnel Security Review: Lookup (Personnel Security Review)
 - Person: Lookup (Person)
@@ -114,6 +112,8 @@ Represents a formal investigative effort conducted to support a personnel securi
 - Verified By: Lookup (Person)
 - Verification Date: Date
 
+**Completed Last Round:**
+
 **Planned:**
 
 **Planned Next:**
@@ -128,8 +128,6 @@ Represents a formal investigative effort conducted to support a personnel securi
 Represents the formal decision made as part of a personnel security review. Captures the determination outcome (e.g., favorable, unfavorable, conditional), decision authority, decision date, and rationale associated with a background investigation or security review.
 
 **Completed:**
-
-**Completed Last Round:**
 - Adjudication Number: Text
 - Personnel Security Review: Lookup (Personnel Security Review)
 - Personnel Background Investigation: Lookup (Personnel Background Investigation)
@@ -175,6 +173,8 @@ Represents the formal decision made as part of a personnel security review. Capt
 - Acknowledgment Received: Yes / No
 - Acknowledgment Date: Date
 
+**Completed Last Round:**
+
 **Planned:**
 
 **Planned Next:**
@@ -191,8 +191,6 @@ Represents the formal decision made as part of a personnel security review. Capt
 Represents the approved level of trust, clearance, or access authorization granted to a person following adjudication. Tracks eligibility type, level, effective date, expiration date, status, and the review that resulted in the determination.
 
 **Completed:**
-
-**Completed Last Round:**
 - Eligibility Number: Text
 - Person: Lookup (Person)
 - Personnel Security Review: Lookup (Personnel Security Review)
@@ -243,6 +241,8 @@ Represents the approved level of trust, clearance, or access authorization grant
 - Indoctrination Document: Lookup (Document)
 - Supporting Document: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
 
 **Planned Next:**
@@ -257,8 +257,6 @@ Represents the approved level of trust, clearance, or access authorization grant
 Represents enrollment in ongoing monitoring or recurring vetting processes following an approved security eligibility. Used to track automated record checks, recurring reviews, or continuous monitoring programs designed to identify new risk indicators over time.
 
 **Completed:**
-
-**Completed Last Round:**
 - Enrollment Number: Text
 - Person: Lookup (Person)
 - Personnel Security Eligibility: Lookup (Personnel Security Eligibility)
@@ -298,6 +296,8 @@ Represents enrollment in ongoing monitoring or recurring vetting processes follo
 - Policy Reference: Text
 - Program Documentation: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
 
 **Planned Next:**
@@ -312,8 +312,6 @@ Represents enrollment in ongoing monitoring or recurring vetting processes follo
 Represents an event or circumstance that may impact a person's security eligibility or access status. Examples include foreign travel, foreign contact, legal incidents, financial issues, or other policy-defined reportable matters. These events may trigger a new personnel security review.
 
 **Completed:**
-
-**Completed Last Round:**
 - Event Number: Text
 - Person: Lookup (Person)
 - Event Type: Choice (Security Reportable Event Type)
@@ -367,6 +365,8 @@ Represents an event or circumstance that may impact a person's security eligibil
 - Event Country: Lookup (Country)
 - Foreign Contact Country: Lookup (Country)
 
+**Completed Last Round:**
+
 **Planned:**
 
 **Planned Next:**
@@ -383,8 +383,6 @@ Represents an event or circumstance that may impact a person's security eligibil
 Represents a physical or logical access artifact issued to a person based on approved security eligibility. Used to track badges, smart cards, mobile credentials, tokens, or other organization-issued access identifiers, including issuance, status, expiration, suspension, or revocation.
 
 **Completed:**
-
-**Completed Last Round:**
 - Credential Number: Text
 - Credential Type: Choice (Security Access Credential Type)
 - Person: Lookup (Person)
@@ -449,6 +447,8 @@ Represents a physical or logical access artifact issued to a person based on app
 - Photo Document: Lookup (Document)
 - Supporting Document: Lookup (Document)
 
+**Completed Last Round:**
+
 **Planned:**
 
 **Planned Next:**
@@ -462,8 +462,6 @@ Represents a physical or logical access artifact issued to a person based on app
 ## Choice Fields
 
 **Completed:**
-
-**Completed Last Round:**
 
 ### Security Review Type
 - Initial Review
