@@ -10,8 +10,6 @@ The **HR Recruiting module** manages the end-to-end hiring lifecycle from workfo
 Represents the initial request or justification to create or fill a position. Typically used in workforce planning and budgeting prior to requisition approval.
 
 **Completed:**
-
-**Completed Last Round:**
 - Request Number: Text
 - Request Type: Choice (HR Workforce Request Type)
 - Stage: Choice (HR Workforce Request Stage)
@@ -36,6 +34,8 @@ Represents the initial request or justification to create or fill a position. Ty
 - Related Requisition: Lookup (HR Requisition)
 - Description: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -44,8 +44,6 @@ Represents the initial request or justification to create or fill a position. Ty
 Represents the authorized request to recruit for a position. Contains hiring details such as department, hiring manager, employment type, funding source, salary range, and approval status.
 
 **Completed:**
-
-**Completed Last Round:**
 - Requisition Number: Text
 - Stage: Choice (HR Requisition Stage)
 - Decision Status: Choice (Item Decision Status)
@@ -81,6 +79,8 @@ Represents the authorized request to recruit for a position. Contains hiring det
 - Legal Authority: Lookup (Legal Authority)
 - Description: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -89,8 +89,6 @@ Represents the authorized request to recruit for a position. Contains hiring det
 Represents a specific publication or advertisement instance of a requisition. Tracks posting channel, posting dates, and versioned job description content.
 
 **Completed:**
-
-**Completed Last Round:**
 - HR Requisition: Lookup (HR Requisition)
 - Posting Channel: Choice (HR Requisition Posting Channel)
 - Stage: Choice (HR Requisition Posting Stage)
@@ -107,6 +105,8 @@ Represents a specific publication or advertisement instance of a requisition. Tr
 - View Count: Integer
 - Application Count: Integer
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -115,8 +115,6 @@ Represents a specific publication or advertisement instance of a requisition. Tr
 Defines the required and preferred qualifications, competencies, or eligibility criteria associated with a requisition. May include weighting, proficiency levels, or minimum thresholds.
 
 **Completed:**
-
-**Completed Last Round:**
 - HR Requisition: Lookup (HR Requisition)
 - Requirement Type: Choice (HR Requisition Requirement Type)
 - Competency: Lookup (Competency)
@@ -130,6 +128,8 @@ Defines the required and preferred qualifications, competencies, or eligibility 
 - Description: Memo
 - Evaluation Criteria: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -140,8 +140,6 @@ Defines the required and preferred qualifications, competencies, or eligibility 
 Represents the persistent recruiting profile of an individual across applications. Stores contact details, high-level background information, and historical application activity independent of any single requisition.
 
 **Completed:**
-
-**Completed Last Round:**
 - Candidate Number: Text
 - Person: Lookup (Person)
 - First Name: Text
@@ -175,6 +173,8 @@ Represents the persistent recruiting profile of an individual across application
 - Opt In Communications: Yes / No
 - Description: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -183,8 +183,6 @@ Represents the persistent recruiting profile of an individual across application
 Represents a candidate's formal submission for a specific requisition or posting. Tracks the lifecycle status (submitted, under review, interviewed, selected, not selected, withdrawn) and serves as the central operational record for evaluating and processing applicants.
 
 **Completed:**
-
-**Completed Last Round:**
 - Application Number: Text
 - HR Candidate: Lookup (HR Candidate)
 - HR Requisition: Lookup (HR Requisition)
@@ -206,6 +204,8 @@ Represents a candidate's formal submission for a specific requisition or posting
 - Total Interviews: Integer
 - Description: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -214,8 +214,6 @@ Represents a candidate's formal submission for a specific requisition or posting
 Stores detailed scoring or rating of how well an applicant meets specific skills, competencies, or requisition requirements. Supports structured, defensible evaluation using weighted criteria.
 
 **Completed:**
-
-**Completed Last Round:**
 - HR Application: Lookup (HR Application)
 - HR Requisition Requirement: Lookup (HR Requisition Requirement)
 - Competency: Lookup (Competency)
@@ -229,6 +227,8 @@ Stores detailed scoring or rating of how well an applicant meets specific skills
 - Evidence: Memo
 - Comments: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -237,8 +237,6 @@ Stores detailed scoring or rating of how well an applicant meets specific skills
 Provides the consolidated summary assessment of an application. Captures overall score, recommendation, decision rationale, and disposition outcome based on interviews, skill assessments, and reviewer input.
 
 **Completed:**
-
-**Completed Last Round:**
 - HR Application: Lookup (HR Application)
 - Evaluation Type: Choice (HR Application Evaluation Type)
 - Evaluation Date: Date
@@ -252,6 +250,8 @@ Provides the consolidated summary assessment of an application. Captures overall
 - Move to Next Stage: Yes / No
 - Recommended Stage: Choice (HR Application Stage)
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -262,8 +262,6 @@ Provides the consolidated summary assessment of an application. Captures overall
 Represents a scheduled interview event for an application. Tracks interview type (phone, panel, virtual, in-person), date/time, participants, and outcome notes.
 
 **Completed:**
-
-**Completed Last Round:**
 - HR Application: Lookup (HR Application)
 - HR Requisition: Lookup (HR Requisition)
 - Interview Type: Choice (HR Interview Type)
@@ -285,6 +283,8 @@ Represents a scheduled interview event for an application. Tracks interview type
 - Follow Up Required: Yes / No
 - Follow Up Notes: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -293,8 +293,6 @@ Represents a scheduled interview event for an application. Tracks interview type
 Captures an individual reviewer's structured assessment of a candidate, typically tied to an interview or evaluation stage. May include rubric-based scoring, comments, and competency ratings.
 
 **Completed:**
-
-**Completed Last Round:**
 - HR Application: Lookup (HR Application)
 - HR Interview: Lookup (HR Interview)
 - Evaluator: Lookup (Person)
@@ -306,6 +304,8 @@ Captures an individual reviewer's structured assessment of a candidate, typicall
 - Comments: Memo
 - Supporting Evidence: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -316,8 +316,6 @@ Captures an individual reviewer's structured assessment of a candidate, typicall
 Documents the formal hiring decision for a requisition. Identifies the selected candidate, ranking (if applicable), approvals, and justification supporting the final selection.
 
 **Completed:**
-
-**Completed Last Round:**
 - Decision Number: Text
 - HR Requisition: Lookup (HR Requisition)
 - Selected Application: Lookup (HR Application)
@@ -344,6 +342,8 @@ Documents the formal hiring decision for a requisition. Identifies the selected 
 - Related Offer: Lookup (HR Offer)
 - Description: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -352,8 +352,6 @@ Documents the formal hiring decision for a requisition. Identifies the selected 
 Documents the formal employment offer extended to a selected candidate. Captures compensation details, employment terms, start date, expiration, negotiation status, and final acceptance or decline.
 
 **Completed:**
-
-**Completed Last Round:**
 - Offer Number: Text
 - HR Application: Lookup (HR Application)
 - HR Selection Decision: Lookup (HR Selection Decision)
@@ -387,6 +385,8 @@ Documents the formal employment offer extended to a selected candidate. Captures
 - Decline Reason: Memo
 - Actual Start Date: Date
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -395,8 +395,6 @@ Documents the formal employment offer extended to a selected candidate. Captures
 Tracks conditional requirements that must be completed prior to employment start. Examples include background checks, credential verification, medical screening, or security clearance initiation.
 
 **Completed:**
-
-**Completed Last Round:**
 - HR Offer: Lookup (HR Offer)
 - HR Candidate: Lookup (HR Candidate)
 - Requirement Type: Choice (HR Pre-Hire Requirement Type)
@@ -413,13 +411,15 @@ Tracks conditional requirements that must be completed prior to employment start
 - Is Blocking: Yes / No
 - Description: Memo
 
-**Planned:**
+**Completed Last Round:**
+
+**Planned:****
 
 ---
 
 ## Choice Fields
 
-**Completed Last Round:**
+**Completed:**
 
 ### HR Workforce Request Stage
 - Draft
