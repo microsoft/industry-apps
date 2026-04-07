@@ -10,8 +10,6 @@ The **Gamification** module provides a structured way to encourage, track, and r
 Represents a structured gamification initiative or campaign. A Game defines the scope, timeframe, participation model, and overall purpose of the engagement effort (e.g., training challenge, performance drive, volunteer campaign).
 
 **Completed:**
-
-**Completed Last Round:**
 - Game Code: Text
 - Game Type: Choice (Gamification Game Type)
 - Description: Memo
@@ -37,6 +35,8 @@ Represents a structured gamification initiative or campaign. A Game defines the 
 - Banner URL: URL
 - Rules: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -45,8 +45,6 @@ Represents a structured gamification initiative or campaign. A Game defines the 
 Defines the types of actions that are tracked within a Game. Activities represent measurable behaviors such as completing training, closing a case, attending an event, or submitting a task. These are definitional and not transactional.
 
 **Completed:**
-
-**Completed Last Round:**
 - Game: Lookup (Game)
 - Parent Game Activity: Lookup (Game Activity)
 - Activity Code: Text
@@ -60,6 +58,8 @@ Defines the types of actions that are tracked within a Game. Activities represen
 - Verification Criteria: Memo
 - Icon URL: URL
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -68,8 +68,6 @@ Defines the types of actions that are tracked within a Game. Activities represen
 Defines the achievements that can be earned within a Game. These may represent badges, levels, milestones, point thresholds, or titles. This table stores the criteria and configuration for what participants can earn.
 
 **Completed:**
-
-**Completed Last Round:**
 - Game: Lookup (Game)
 - Parent Game Achievement: Lookup (Game Achievement)
 - Achievement Code: Text
@@ -89,6 +87,8 @@ Defines the achievements that can be earned within a Game. These may represent b
 - Reward Description: Memo
 - Total Earned: Integer
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -99,8 +99,6 @@ Defines the achievements that can be earned within a Game. These may represent b
 Represents an individual or team enrolled in a specific Game. This table tracks participation status, enrollment, and contextual role within the Game (participant, admin, etc.), separate from the core person or team record.
 
 **Completed:**
-
-**Completed Last Round:**
 - Game: Lookup (Game)
 - Person: Lookup (Person)
 - Participant Organization Unit: Lookup (Organization Unit)
@@ -122,6 +120,8 @@ Represents an individual or team enrolled in a specific Game. This table tracks 
 - Eligibility Status: Choice (Eligibility Status)
 - Description: Memo
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -130,8 +130,6 @@ Represents an individual or team enrolled in a specific Game. This table tracks 
 Logs instances of Participants performing defined Game Activities. This table captures the behavioral history used to evaluate achievement criteria and calculate performance metrics.
 
 **Completed:**
-
-**Completed Last Round:**
 - Game Participant: Lookup (Game Participant)
 - Game: Lookup (Game)
 - Game Activity: Lookup (Game Activity)
@@ -152,6 +150,8 @@ Logs instances of Participants performing defined Game Activities. This table ca
 - Supporting Document: Lookup (Document)
 - Auto Recorded: Yes / No
 
+**Completed Last Round:**
+
 **Planned:**
 
 ---
@@ -160,8 +160,6 @@ Logs instances of Participants performing defined Game Activities. This table ca
 Records when a Participant earns a specific Game Achievement. This is the transactional recognition record, including when it was granted, its status, and any related activity or approval.
 
 **Completed:**
-
-**Completed Last Round:**
 - Game Participant: Lookup (Game Participant)
 - Game: Lookup (Game)
 - Game Achievement: Lookup (Game Achievement)
@@ -186,6 +184,8 @@ Records when a Participant earns a specific Game Achievement. This is the transa
 - Is Visible: Yes / No
 - Display on Profile: Yes / No
 - Achievement Notes: Memo
+
+**Completed Last Round:**
 
 **Planned:**
 
