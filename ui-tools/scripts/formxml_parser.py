@@ -62,6 +62,31 @@ def generate_section_name(label: str, prefix: str = "sec") -> str:
     return f"{prefix}{camel_case}"
 
 
+def translate_column_count(columns: int) -> int:
+    """
+    Translate user-friendly column count to Dataverse's internal notation.
+    
+    Dataverse uses specific values for section column layout:
+    - 1 column: 1
+    - 2 columns: 11
+    
+    Args:
+        columns: User-friendly column count (1 or 2)
+        
+    Returns:
+        Dataverse internal column value
+        
+    Raises:
+        ValueError: If columns is not 1 or 2
+    """
+    if columns == 1:
+        return 1
+    elif columns == 2:
+        return 11
+    else:
+        raise ValueError(f"Only 1 or 2 columns are supported. Got: {columns}")
+
+
 @dataclass
 class Label:
     """Represents a label element in FormXml."""
@@ -413,17 +438,20 @@ class Column:
         Args:
             section_name: Internal name for the section
             section_label: Display label for the section
-            columns: Number of columns in the section
+            columns: Number of columns in the section (1 or 2)
             
         Returns:
             The created Section object
         """
+        # Translate user-friendly column count to Dataverse notation
+        dataverse_columns = translate_column_count(columns)
+        
         section = Section(
             id=generate_guid(),
             name=section_name,
             labels=[Label(description=section_label)],
             rows=[Row()],  # Empty row (matches UI pattern)
-            columns=columns,
+            columns=dataverse_columns,
             is_user_defined=False,
             showlabel=True,
             showbar=False,

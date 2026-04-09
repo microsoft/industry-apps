@@ -128,12 +128,19 @@ def add_section_to_tab(unmanaged_path: Path, tab_name: str,
         section_label: Display label for the section
         section_name: Internal name for the section (optional, auto-generated from label if not provided)
                       Example: "My Section" -> "secMySection"
-        columns: Number of columns in the section (default: 1)
+        columns: Number of columns in the section - accepts 1 or 2 (default: 1)
         managed_path: Path to the managed form XML file (optional)
         create_backup: Whether to create backup files (default: True)
         
     Returns:
         The modified FormDefinition
+        
+    Example:
+        # Add a 1-column section
+        add_section_to_tab(form_path, "General", "Contact Information")
+        
+        # Add a 2-column section
+        add_section_to_tab(form_path, "General", "Address", columns=2)
     """
     # Create backups
     if create_backup:
