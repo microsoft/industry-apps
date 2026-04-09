@@ -15,10 +15,13 @@ class ControlClassId(Enum):
     # Text-based controls
     TEXT_BOX = "{4273EDBD-AC1D-40d3-9FB2-095C621B552D}"
     MULTILINE_TEXT = "{E0DECE4B-6FC8-4A8F-A065-082708572369}"
+    EMAIL = "{ADA2203E-B4CD-49BE-9DDF-234642B43B52}"
+    URL = "{71716B6C-711E-476C-8AB8-5D11542BFB47}"
     
     # Numeric controls
     WHOLE_NUMBER = "{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}"
-    DECIMAL_NUMBER = "{0D2C745A-E5A8-4C8F-BA63-C6D3BB604660}"
+    DECIMAL_NUMBER = "{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}"
+    FLOAT_NUMBER = "{0D2C745A-E5A8-4C8F-BA63-C6D3BB604660}"
     CURRENCY = "{533B9E00-756B-4312-95A0-DC888637AC78}"
     
     # Date and time controls
@@ -90,13 +93,15 @@ class CellLabelPosition(Enum):
 FIELD_TYPE_TO_CLASSID: Dict[str, str] = {
     "text": ControlClassId.TEXT_BOX.value,
     "singleline": ControlClassId.TEXT_BOX.value,
+    "email": ControlClassId.EMAIL.value,
+    "url": ControlClassId.URL.value,
     "multiline": ControlClassId.MULTILINE_TEXT.value,
     "memo": ControlClassId.MULTILINE_TEXT.value,
     "richtext": ControlClassId.MULTILINE_TEXT.value,
     "integer": ControlClassId.WHOLE_NUMBER.value,
     "wholenumber": ControlClassId.WHOLE_NUMBER.value,
     "decimal": ControlClassId.DECIMAL_NUMBER.value,
-    "float": ControlClassId.DECIMAL_NUMBER.value,
+    "float": ControlClassId.FLOAT_NUMBER.value,
     "currency": ControlClassId.CURRENCY.value,
     "money": ControlClassId.CURRENCY.value,
     "datetime": ControlClassId.DATE_TIME.value,
@@ -124,9 +129,12 @@ FIELD_TYPE_TO_CLASSID: Dict[str, str] = {
 # Reverse mapping from class ID to friendly name
 CLASSID_TO_FIELD_TYPE: Dict[str, str] = {
     ControlClassId.TEXT_BOX.value: "text",
+    ControlClassId.EMAIL.value: "email",
+    ControlClassId.URL.value: "url",
     ControlClassId.MULTILINE_TEXT.value: "multiline",
     ControlClassId.WHOLE_NUMBER.value: "integer",
     ControlClassId.DECIMAL_NUMBER.value: "decimal",
+    ControlClassId.FLOAT_NUMBER.value: "float",
     ControlClassId.CURRENCY.value: "currency",
     ControlClassId.DATE_TIME.value: "datetime",
     ControlClassId.OPTION_SET.value: "optionset",

@@ -339,3 +339,96 @@ def remove_field_from_section(unmanaged_path: Path, tab_name: str, section_name:
     save_forms(form, unmanaged_path, managed_path)
     
     return form
+
+
+def add_fields_to_section(unmanaged_path: Path, tab_name: str, section_name: str,
+                          fields: list[tuple[str, str, str]],
+                          managed_path: Optional[Path] = None,
+                          create_backup: bool = True) -> FormDefinition:
+    """
+    Add multiple fields to a section. 
+    
+    For 1-column sections: each field is added in a new row.
+    For 2-column sections: fields are added two per row (side-by-side).
+    
+    Args:
+        unmanaged_path: Path to the unmanaged form XML file
+        tab_name: Name or label of the tab containing the section
+        section_name: Name or label of the section to add fields to
+        fields: List of (field_name, field_label, field_type) tuples
+                Example: [("appbase_name", "Name", "text"), 
+                         ("appbase_email", "Email", "email")]
+        managed_path: Path to the managed form XML file (optional)
+        create_backup: Whether to create backup files (default: True)
+        
+    Returns:
+        The modified FormDefinition
+        
+    Example:
+        # Add fields to a 1-column section (each in its own row)
+        add_fields_to_section(
+            form_path, 
+            "General", 
+            "Contact Info",
+            [
+                ("appbase_firstname", "First Name", "text"),
+                ("appbase_lastname", "Last Name", "text"),
+                ("appbase_email", "Email", "email")
+            ]
+        )
+        
+        # Add fields to a 2-column section (two per row)
+        add_fields_to_section(
+            form_path,
+            "Details", 
+            "Address",
+            [
+                ("appbase_city", "City", "text"),
+                ("appbase_state", "State", "text"),
+                ("appbase_zip", "Zip", "text"),
+                ("appbase_country", "Country", "text")
+            ]
+        )
+    """
+    # Create backups
+    if create_backup:
+        backup_forms(unmanaged_path, managed_path)
+    
+    # Load form
+    form = FormXmlParser.parse_file(unmanaged_path)
+    
+    # Find the tab
+    tab = form.get_tab_by_name(tab_name)
+    if not tab:
+        raise ValueError(f"Tab '{tab_name}' not found in form")
+    
+    # Find the section
+    section = tab.get_section_by_name(section_name)
+    if not section:
+        raise ValueError(f"Section '{section_name}' not found in tab '{tab_name}'")
+    
+    # Determine if this is a 2-column section
+    is_two_column = section.columns == 11
+    
+    # Add fields
+    if is_two_column:
+        # Add two fields per row
+        for i in range(0, len(fields), 2):
+            # Add first field in the pair (creates new row)
+            field_name, field_label, field_type = fields[i]
+            section.add_field(field_name, field_label, field_type)
+            
+            # Add second field if it exists (adds to last row)
+            if i + 1 < len(fields):
+                field_name, field_label, field_type = fields[i + 1]
+                section.add_field(field_name, field_label, field_type, 
+                                row_index=-1, cell_position=1)
+    else:
+        # Add each field in its own row
+        for field_name, field_label, field_type in fields:
+            section.add_field(field_name, field_label, field_type)
+    
+    # Save forms
+    save_forms(form, unmanaged_path, managed_path)
+    
+    return form
