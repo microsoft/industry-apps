@@ -3401,7 +3401,8 @@ async def build_form_from_yaml(request: BuildFormRequest):
                         tab_label=tab_label,
                         managed_path=managed_path if managed_path.exists() else None,
                         create_backup=create_backup,
-                        skip_if_exists=True
+                        skip_if_exists=True,
+                        create_default_section=False  # YAML explicitly defines sections
                     )
                     tabs_added += 1
                 else:

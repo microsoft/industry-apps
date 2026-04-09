@@ -704,7 +704,8 @@ class FormDefinition:
                 return tab
         return None
     
-    def add_tab(self, tab_name: str, tab_label: str, index: Optional[int] = None) -> Tab:
+    def add_tab(self, tab_name: str, tab_label: str, index: Optional[int] = None, 
+                create_default_section: bool = True) -> Tab:
         """
         Add a new tab to the form.
         
@@ -712,6 +713,8 @@ class FormDefinition:
             tab_name: Internal name for the tab
             tab_label: Display label for the tab
             index: Position to insert the tab (None = append at end)
+            create_default_section: Whether to create a default section (default: True)
+                                   Set to False when building from YAML with explicit sections
             
         Returns:
             The created Tab object
@@ -719,31 +722,36 @@ class FormDefinition:
         # Check if this is the first user-created tab (not the default General tab)
         is_first_user_tab = len(self.tabs) <= 1
         
-        # Create default section for the new tab
-        # Use semantic naming: "Custom Tab" -> section name "secCustomTab", label "Custom Tab Section"
-        section_label = f"{tab_label} Section"
-        default_section = Section(
-            id=generate_guid(),
-            name=generate_section_name(section_label),
-            labels=[Label(description=section_label)],
-            rows=[Row()],  # Empty row
-            columns=1,
-            is_user_defined=False,
-            showlabel=True,
-            showbar=False,
-            layout=SectionLayout.VARWIDTH.value,
-            celllabelalignment=CellLabelAlignment.LEFT.value,
-            celllabelposition=CellLabelPosition.LEFT.value,
-            labelwidth=DEFAULT_SECTION_LABELWIDTH,
-            locklevel=0
-        )
+        # Create sections list
+        sections = []
         
-        # Create tab with default section
+        # Create default section for the new tab (only if requested)
+        if create_default_section:
+            # Use semantic naming: "Custom Tab" -> section name "secCustomTab", label "Custom Tab Section"
+            section_label = f"{tab_label} Section"
+            default_section = Section(
+                id=generate_guid(),
+                name=generate_section_name(section_label),
+                labels=[Label(description=section_label)],
+                rows=[Row()],  # Empty row
+                columns=1,
+                is_user_defined=False,
+                showlabel=True,
+                showbar=False,
+                layout=SectionLayout.VARWIDTH.value,
+                celllabelalignment=CellLabelAlignment.LEFT.value,
+                celllabelposition=CellLabelPosition.LEFT.value,
+                labelwidth=DEFAULT_SECTION_LABELWIDTH,
+                locklevel=0
+            )
+            sections.append(default_section)
+        
+        # Create tab with sections
         tab = Tab(
             id=generate_guid(),
             name=tab_name,
             labels=[Label(description=tab_label)],
-            columns=[Column(sections=[default_section])],
+            columns=[Column(sections=sections)],
             is_user_defined=False,  # UI sets this to 0 for new tabs
             verticallayout=None,  # Don't add verticallayout attribute to new tabs
             locklevel=0,

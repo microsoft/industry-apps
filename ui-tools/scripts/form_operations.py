@@ -71,16 +71,17 @@ def save_forms(form: FormDefinition, unmanaged_path: Path,
 def add_tab_to_form(unmanaged_path: Path, tab_name: str, tab_label: str,
                     managed_path: Optional[Path] = None,
                     create_backup: bool = True,
-                    skip_if_exists: bool = True) -> FormDefinition:
+                    skip_if_exists: bool = True,
+                    create_default_section: bool = True) -> FormDefinition:
     """
-    Add a new tab to a form with a default section.
+    Add a new tab to a form with an optional default section.
     
     This function:
     - Creates backups of both files (if create_backup=True)
     - Loads the unmanaged form
     - Checks if tab already exists (if skip_if_exists=True)
     - Adds a new tab with the specified name and label
-    - The tab includes a default section following UI conventions
+    - Optionally includes a default section following UI conventions (create_default_section=True)
     - Auto-generates header/footer if this is the first user tab
     - Saves to both unmanaged and managed files
     
@@ -91,6 +92,8 @@ def add_tab_to_form(unmanaged_path: Path, tab_name: str, tab_label: str,
         managed_path: Path to the managed form XML file (optional)
         create_backup: Whether to create backup files (default: True)
         skip_if_exists: If True, skip adding tab if it already exists (default: True)
+        create_default_section: Whether to create a default section in the tab (default: True)
+                               Set to False when building from YAML with explicit sections
         
     Returns:
         The modified FormDefinition
@@ -116,8 +119,8 @@ def add_tab_to_form(unmanaged_path: Path, tab_name: str, tab_label: str,
         else:
             raise ValueError(f"Tab '{tab_name}' already exists in form")
     
-    # Add tab (formxml_parser's add_tab already creates default section and header/footer)
-    form.add_tab(tab_name, tab_label)
+    # Add tab (optionally creates default section and header/footer)
+    form.add_tab(tab_name, tab_label, create_default_section=create_default_section)
     
     # Save forms
     save_forms(form, unmanaged_path, managed_path)
