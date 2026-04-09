@@ -10,7 +10,7 @@ from pathlib import Path
 from datetime import datetime
 from typing import Optional, Tuple
 
-from formxml_parser import FormXmlParser, FormDefinition
+from formxml_parser import FormXmlParser, FormDefinition, generate_section_name
 
 
 def backup_forms(unmanaged_path: Path, managed_path: Optional[Path] = None, 
@@ -114,7 +114,8 @@ def add_tab_to_form(unmanaged_path: Path, tab_name: str, tab_label: str,
 
 
 def add_section_to_tab(unmanaged_path: Path, tab_name: str, 
-                       section_name: str, section_label: str,
+                       section_label: str,
+                       section_name: Optional[str] = None,
                        columns: int = 1,
                        managed_path: Optional[Path] = None,
                        create_backup: bool = True) -> FormDefinition:
@@ -124,8 +125,9 @@ def add_section_to_tab(unmanaged_path: Path, tab_name: str,
     Args:
         unmanaged_path: Path to the unmanaged form XML file
         tab_name: Name or label of the tab to add the section to
-        section_name: Internal name for the section
         section_label: Display label for the section
+        section_name: Internal name for the section (optional, auto-generated from label if not provided)
+                      Example: "My Section" -> "secMySection"
         columns: Number of columns in the section (default: 1)
         managed_path: Path to the managed form XML file (optional)
         create_backup: Whether to create backup files (default: True)
@@ -144,6 +146,10 @@ def add_section_to_tab(unmanaged_path: Path, tab_name: str,
     tab = form.get_tab_by_name(tab_name)
     if not tab:
         raise ValueError(f"Tab '{tab_name}' not found in form")
+    
+    # Auto-generate section name if not provided
+    if section_name is None:
+        section_name = generate_section_name(section_label)
     
     # Add section to the tab
     tab.add_section(section_name, section_label, columns)

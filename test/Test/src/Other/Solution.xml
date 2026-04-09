@@ -6,7 +6,7 @@
       <LocalizedName description="App Base - Test" languagecode="1033" />
     </LocalizedNames>
     <Descriptions />
-    <Version>1.0.0.4</Version>
+    <Version>1.0.0.5</Version>
     <Managed>2</Managed>
     <Publisher>
       <UniqueName>appbase</UniqueName>
@@ -82,7 +82,15 @@
     <RootComponents>
       <RootComponent type="1" schemaName="appbase_sample" behavior="0" />
       <RootComponent type="1" schemaName="appbase_test" behavior="0" />
+      <RootComponent type="1" schemaName="contact" behavior="1" />
     </RootComponents>
-    <MissingDependencies />
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="9" schemaName="msdyn_flow_approval_priority" displayName="Priority" solution="msdyn_FlowApprovalsCore (2.2.13.0)">
+          <package appName="msdyn_FlowApprovals" version="2.2.13.0">msdyn_FlowApprovals (2.2.13.0)</package>
+        </Required>
+        <Dependent type="2" schemaName="appbase_choicefield" displayName="Choice Field" parentSchemaName="appbase_test" parentDisplayName="Test" />
+      </MissingDependency>
+    </MissingDependencies>
   </SolutionManifest>
 </ImportExportXml>

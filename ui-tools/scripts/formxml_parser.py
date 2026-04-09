@@ -34,6 +34,34 @@ def generate_guid() -> str:
     return "{" + str(uuid.uuid4()).upper() + "}"
 
 
+def generate_section_name(label: str, prefix: str = "sec") -> str:
+    """
+    Generate a section name from a label using camelCase convention.
+    
+    Examples:
+        "My New Section" -> "secMyNewSection"
+        "Details & Info" -> "secDetailsInfo"
+        "Test Section" -> "secTestSection"
+    
+    Args:
+        label: The section label/display name
+        prefix: Prefix for the section name (default: "sec")
+        
+    Returns:
+        Formatted section name with prefix and camelCase
+    """
+    # Remove special characters and split into words
+    words = ''.join(c if c.isalnum() or c.isspace() else ' ' for c in label).split()
+    
+    if not words:
+        return f"{prefix}Section"
+    
+    # Convert to camelCase (first word lowercase, rest title case)
+    camel_case = words[0].capitalize() + ''.join(word.capitalize() for word in words[1:])
+    
+    return f"{prefix}{camel_case}"
+
+
 @dataclass
 class Label:
     """Represents a label element in FormXml."""
@@ -394,6 +422,7 @@ class Column:
             id=generate_guid(),
             name=section_name,
             labels=[Label(description=section_label)],
+            rows=[Row()],  # Empty row (matches UI pattern)
             columns=columns,
             is_user_defined=False,
             showlabel=True,
@@ -638,10 +667,12 @@ class FormDefinition:
         is_first_user_tab = len(self.tabs) <= 1
         
         # Create default section for the new tab
+        # Use semantic naming: "Custom Tab" -> section name "secCustomTab", label "Custom Tab Section"
+        section_label = f"{tab_label} Section"
         default_section = Section(
             id=generate_guid(),
-            name=f"{tab_name}_section_1",
-            labels=[Label(description=f"{tab_label} Section")],
+            name=generate_section_name(section_label),
+            labels=[Label(description=section_label)],
             rows=[Row()],  # Empty row
             columns=1,
             is_user_defined=False,
@@ -1018,5 +1049,7 @@ class FormXmlParser:
         # Format the XML with indentation
         ET.indent(tree, space="  ", level=0)
         
-        # Write with XML declaration
-        tree.write(file_path, encoding="utf-8", xml_declaration=True)
+        # Write with XML declaration using double quotes (Dataverse convention)
+        with open(file_path, 'wb') as f:
+            f.write(b'<?xml version="1.0" encoding="utf-8"?>\n')
+            tree.write(f, encoding="utf-8", xml_declaration=False)
