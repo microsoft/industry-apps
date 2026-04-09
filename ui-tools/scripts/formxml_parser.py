@@ -40,9 +40,15 @@ class Label:
     description: str
     languagecode: int = DEFAULT_LANGUAGE_CODE
     
-    def to_xml(self, parent: ET.Element) -> ET.Element:
-        """Convert this label to an XML element."""
-        label_elem = ET.SubElement(parent, "label")
+    def to_xml(self, parent: ET.Element, element_name: str = "label") -> ET.Element:
+        """Convert this label to an XML element.
+        
+        Args:
+            parent: Parent XML element
+            element_name: Name of the XML element to create (default: "label")
+                         Can be "label", "LocalizedName", or "Description"
+        """
+        label_elem = ET.SubElement(parent, element_name)
         label_elem.set("description", self.description)
         label_elem.set("languagecode", str(self.languagecode))
         return label_elem
@@ -593,13 +599,13 @@ class FormDefinition:
         if self.localized_names:
             localized_names_elem = ET.SubElement(systemform_elem, "LocalizedNames")
             for label in self.localized_names:
-                label.to_xml(localized_names_elem)
+                label.to_xml(localized_names_elem, "LocalizedName")
                 
         # Descriptions
         if self.descriptions:
             descriptions_elem = ET.SubElement(systemform_elem, "Descriptions")
             for label in self.descriptions:
-                label.to_xml(descriptions_elem)
+                label.to_xml(descriptions_elem, "Description")
                 
         return forms_elem
     
@@ -737,11 +743,17 @@ class FormXmlParser:
         )
     
     @staticmethod
-    def parse_labels(labels_elem: Optional[ET.Element]) -> List[Label]:
-        """Parse a labels container element."""
+    def parse_labels(labels_elem: Optional[ET.Element], element_name: str = "label") -> List[Label]:
+        """Parse a labels container element.
+        
+        Args:
+            labels_elem: The container element (e.g., <labels>, <LocalizedNames>, <Descriptions>)
+            element_name: Name of child elements to parse (default: "label")
+                         Can be "label", "LocalizedName", or "Description"
+        """
         if labels_elem is None:
             return []
-        return [FormXmlParser.parse_label(label) for label in labels_elem.findall("label")]
+        return [FormXmlParser.parse_label(label) for label in labels_elem.findall(element_name)]
     
     @staticmethod
     def parse_subgrid_parameters(params_elem: Optional[ET.Element]) -> Optional[SubgridParameters]:
@@ -967,11 +979,11 @@ class FormXmlParser:
         
         # Parse localized names
         localized_names_elem = systemform.find("LocalizedNames")
-        localized_names = FormXmlParser.parse_labels(localized_names_elem)
+        localized_names = FormXmlParser.parse_labels(localized_names_elem, "LocalizedName")
         
         # Parse descriptions
         descriptions_elem = systemform.find("Descriptions")
-        descriptions = FormXmlParser.parse_labels(descriptions_elem)
+        descriptions = FormXmlParser.parse_labels(descriptions_elem, "Description")
         
         # Extract form name from localized names
         form_name = localized_names[0].description if localized_names else file_path.stem
