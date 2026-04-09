@@ -167,32 +167,39 @@ class Section:
     name: Optional[str] = None
     labels: List[Label] = field(default_factory=list)
     rows: List[Row] = field(default_factory=list)
-    columns: int = DEFAULT_SECTION_COLUMNS
+    columns: Optional[int] = None
     is_user_defined: bool = False
     showlabel: bool = True
     showbar: bool = False
-    layout: str = SectionLayout.VARWIDTH.value
-    celllabelalignment: str = CellLabelAlignment.LEFT.value
-    celllabelposition: str = CellLabelPosition.LEFT.value
-    labelwidth: int = DEFAULT_SECTION_LABELWIDTH
+    layout: Optional[str] = None
+    celllabelalignment: Optional[str] = None
+    celllabelposition: Optional[str] = None
+    labelwidth: Optional[int] = None
     locklevel: int = 0
     
     def to_xml(self, parent: ET.Element) -> ET.Element:
         """Convert this section to an XML element."""
         section_elem = ET.SubElement(parent, "section")
         
+        # Only write attributes if they have values (preserve original minimal structure)
         if self.name:
             section_elem.set("name", self.name)
         section_elem.set("id", self.id)
         section_elem.set("IsUserDefined", "1" if self.is_user_defined else "0")
-        section_elem.set("locklevel", str(self.locklevel))
+        if self.locklevel != 0:
+            section_elem.set("locklevel", str(self.locklevel))
         section_elem.set("showlabel", "true" if self.showlabel else "false")
         section_elem.set("showbar", "true" if self.showbar else "false")
-        section_elem.set("layout", self.layout)
-        section_elem.set("celllabelalignment", self.celllabelalignment)
-        section_elem.set("celllabelposition", self.celllabelposition)
-        section_elem.set("columns", str(self.columns))
-        section_elem.set("labelwidth", str(self.labelwidth))
+        if self.layout:
+            section_elem.set("layout", self.layout)
+        if self.celllabelalignment:
+            section_elem.set("celllabelalignment", self.celllabelalignment)
+        if self.celllabelposition:
+            section_elem.set("celllabelposition", self.celllabelposition)
+        if self.columns:
+            section_elem.set("columns", str(self.columns))
+        if self.labelwidth:
+            section_elem.set("labelwidth", str(self.labelwidth))
         
         if self.labels:
             labels_elem = ET.SubElement(section_elem, "labels")
@@ -382,9 +389,13 @@ class Column:
             name=section_name,
             labels=[Label(description=section_label)],
             columns=columns,
-            is_user_defined=True,
+            is_user_defined=False,
             showlabel=True,
-            showbar=False
+            showbar=False,
+            layout=SectionLayout.VARWIDTH.value,
+            celllabelalignment=CellLabelAlignment.LEFT.value,
+            celllabelposition=CellLabelPosition.LEFT.value,
+            labelwidth=DEFAULT_SECTION_LABELWIDTH
         )
         self.sections.append(section)
         return section
@@ -397,8 +408,8 @@ class Tab:
     name: Optional[str] = None
     labels: List[Label] = field(default_factory=list)
     columns: List[Column] = field(default_factory=list)
-    is_user_defined: bool = True
-    verticallayout: bool = True
+    is_user_defined: bool = False
+    verticallayout: Optional[bool] = None
     locklevel: int = 0
     showlabel: bool = True
     
@@ -412,10 +423,12 @@ class Tab:
         tab_elem.set("IsUserDefined", "1" if self.is_user_defined else "0")
         tab_elem.set("locklevel", str(self.locklevel))
         
-        if self.verticallayout:
+        # Only add verticallayout if it's explicitly True (for backwards compatibility with General tab)
+        if self.verticallayout is True:
             tab_elem.set("verticallayout", "true")
-        if not self.showlabel:
-            tab_elem.set("showlabel", "false")
+        
+        # Always add showlabel attribute
+        tab_elem.set("showlabel", "true" if self.showlabel else "false")
             
         if self.labels:
             labels_elem = ET.SubElement(tab_elem, "labels")
@@ -524,7 +537,7 @@ class FormDefinition:
     introduced_version: str = "1.0"
     form_presentation: int = FormPresentation.MAIN.value
     form_activation_state: int = FormActivationState.ACTIVE.value
-    headerdensity: str = HeaderDensity.HIGH_WITH_CONTROLS.value
+    headerdensity: Optional[str] = None
     shownavigationbar: bool = False
     localized_names: List[Label] = field(default_factory=list)
     descriptions: List[Label] = field(default_factory=list)
@@ -546,8 +559,11 @@ class FormDefinition:
         
         # Form element
         form_elem = ET.SubElement(systemform_elem, "form")
-        form_elem.set("headerdensity", self.headerdensity)
-        form_elem.set("shownavigationbar", "true" if self.shownavigationbar else "false")
+        if self.headerdensity:
+            form_elem.set("headerdensity", self.headerdensity)
+        # Only add shownavigationbar if it's not the default (False)
+        if self.shownavigationbar:
+            form_elem.set("shownavigationbar", "true")
         
         # Tabs
         if self.tabs:
@@ -612,21 +628,81 @@ class FormDefinition:
         Returns:
             The created Tab object
         """
+        # Check if this is the first user-created tab (not the default General tab)
+        is_first_user_tab = len(self.tabs) <= 1
+        
+        # Create default section for the new tab
+        default_section = Section(
+            id=generate_guid(),
+            name=f"{tab_name}_section_1",
+            labels=[Label(description=f"{tab_label} Section")],
+            rows=[Row()],  # Empty row
+            columns=1,
+            is_user_defined=False,
+            showlabel=True,
+            showbar=False,
+            layout=SectionLayout.VARWIDTH.value,
+            celllabelalignment=CellLabelAlignment.LEFT.value,
+            celllabelposition=CellLabelPosition.LEFT.value,
+            labelwidth=DEFAULT_SECTION_LABELWIDTH,
+            locklevel=0
+        )
+        
+        # Create tab with default section
         tab = Tab(
             id=generate_guid(),
             name=tab_name,
             labels=[Label(description=tab_label)],
-            columns=[Column()],  # Start with one column
-            is_user_defined=True,
-            verticallayout=True
+            columns=[Column(sections=[default_section])],
+            is_user_defined=False,  # UI sets this to 0 for new tabs
+            verticallayout=None,  # Don't add verticallayout attribute to new tabs
+            locklevel=0,
+            showlabel=True
         )
         
         if index is None:
             self.tabs.append(tab)
         else:
             self.tabs.insert(index, tab)
+        
+        # If this is the first user tab, add header and footer (if not already present)
+        if is_first_user_tab:
+            if not self.header:
+                self.header = self._create_default_header()
+            if not self.footer:
+                self.footer = self._create_default_footer()
             
         return tab
+    
+    def _create_default_header(self) -> FormHeader:
+        """Create a default header section with 3 empty cells."""
+        cells = [
+            Cell(
+                id=generate_guid(),
+                labels=[Label(description="")],
+                showlabel=False
+            )
+            for _ in range(3)
+        ]
+        return FormHeader(
+            id=generate_guid(),
+            rows=[Row(cells=cells)]
+        )
+    
+    def _create_default_footer(self) -> FormFooter:
+        """Create a default footer section with 3 empty cells."""
+        cells = [
+            Cell(
+                id=generate_guid(),
+                labels=[Label(description="")],
+                showlabel=False
+            )
+            for _ in range(3)
+        ]
+        return FormFooter(
+            id=generate_guid(),
+            rows=[Row(cells=cells)]
+        )
     
     def remove_tab(self, tab_name: str) -> bool:
         """
@@ -751,19 +827,32 @@ class FormXmlParser:
         rows_elem = section_elem.find("rows")
         rows = [FormXmlParser.parse_row(row) for row in rows_elem.findall("row")] if rows_elem is not None else []
         
+        # Only parse attributes if they are present in the XML
+        columns = None
+        if section_elem.get("columns") is not None:
+            columns = int(section_elem.get("columns"))
+        
+        layout = section_elem.get("layout")  # None if not present
+        celllabelalignment = section_elem.get("celllabelalignment")  # None if not present
+        celllabelposition = section_elem.get("celllabelposition")  # None if not present
+        
+        labelwidth = None
+        if section_elem.get("labelwidth") is not None:
+            labelwidth = int(section_elem.get("labelwidth"))
+        
         return Section(
             id=section_elem.get("id", generate_guid()),
             name=section_elem.get("name"),
             labels=labels,
             rows=rows,
-            columns=int(section_elem.get("columns", str(DEFAULT_SECTION_COLUMNS))),
+            columns=columns,
             is_user_defined=section_elem.get("IsUserDefined", "0") == "1",
             showlabel=section_elem.get("showlabel", "true").lower() == "true",
             showbar=section_elem.get("showbar", "false").lower() == "true",
-            layout=section_elem.get("layout", SectionLayout.VARWIDTH.value),
-            celllabelalignment=section_elem.get("celllabelalignment", CellLabelAlignment.LEFT.value),
-            celllabelposition=section_elem.get("celllabelposition", CellLabelPosition.LEFT.value),
-            labelwidth=int(section_elem.get("labelwidth", str(DEFAULT_SECTION_LABELWIDTH))),
+            layout=layout,
+            celllabelalignment=celllabelalignment,
+            celllabelposition=celllabelposition,
+            labelwidth=labelwidth,
             locklevel=int(section_elem.get("locklevel", "0"))
         )
     
@@ -786,13 +875,18 @@ class FormXmlParser:
         columns_elem = tab_elem.find("columns")
         columns = [FormXmlParser.parse_column(column) for column in columns_elem.findall("column")] if columns_elem is not None else []
         
+        # Parse verticallayout only if present (preserve None if not present)
+        verticallayout = None
+        if tab_elem.get("verticallayout") is not None:
+            verticallayout = tab_elem.get("verticallayout").lower() == "true"
+        
         return Tab(
             id=tab_elem.get("id", generate_guid()),
             name=tab_elem.get("name"),
             labels=labels,
             columns=columns,
             is_user_defined=tab_elem.get("IsUserDefined", "0") == "1",
-            verticallayout=tab_elem.get("verticallayout", "true").lower() == "true",
+            verticallayout=verticallayout,
             locklevel=int(tab_elem.get("locklevel", "0")),
             showlabel=tab_elem.get("showlabel", "true").lower() == "true"
         )
@@ -860,7 +954,7 @@ class FormXmlParser:
         if form_elem is None:
             raise ValueError("Invalid FormXml: missing <form> element")
             
-        headerdensity = form_elem.get("headerdensity", HeaderDensity.HIGH_WITH_CONTROLS.value)
+        headerdensity = form_elem.get("headerdensity")  # None if not present
         shownavigationbar = form_elem.get("shownavigationbar", "false").lower() == "true"
         
         # Parse tabs
