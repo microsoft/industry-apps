@@ -157,8 +157,9 @@ class Control:
         if self.datafieldname:
             control_elem.set("datafieldname", self.datafieldname)
         
-        # Always write disabled attribute (default is false)
-        control_elem.set("disabled", "true" if self.disabled else "false")
+        # Only write disabled attribute for regular controls (not subgrids)
+        if not self.indication_of_subgrid:
+            control_elem.set("disabled", "true" if self.disabled else "false")
         
         if self.indication_of_subgrid:
             control_elem.set("indicationOfSubgrid", "true")
@@ -193,9 +194,12 @@ class Cell:
             cell_elem.set("colspan", str(self.colspan))
             cell_elem.set("rowspan", str(self.rowspan))
         
+        # Only write auto="true" if explicitly True (omit if False)
         if self.auto:
             cell_elem.set("auto", "true")
-        if not self.showlabel:
+        
+        # Write showlabel="false" for subgrids or other cells where explicitly False
+        if not self.showlabel and self.control:
             cell_elem.set("showlabel", "false")
             
         if self.labels:
@@ -372,13 +376,16 @@ class Section:
             locklevel=0,
             colspan=1,
             rowspan=4,
-            auto=False
+            showlabel=False
         )
         
         # Add to appropriate row
         if row_index is None:
             row = Row(cells=[cell])
             self.rows.append(row)
+            # Add 3 empty padding rows after the subgrid (matches UI pattern)
+            for _ in range(3):
+                self.rows.append(Row())
         else:
             if row_index >= len(self.rows):
                 while len(self.rows) <= row_index:

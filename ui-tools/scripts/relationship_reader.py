@@ -146,8 +146,8 @@ def find_default_view(entity_saved_queries_path: Path) -> Optional[tuple[str, st
         except ET.ParseError:
             continue
     
-    # Return in priority order
-    return associated_default or main_default or first_associated or first_main
+    # Return in priority order (prefer Main views for subgrids, not Associated views)
+    return main_default or first_main or associated_default or first_associated
 
 
 def get_relationships_with_views(module_path: Path, entity_name: str) -> List[OneToManyRelationship]:

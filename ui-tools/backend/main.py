@@ -3533,7 +3533,7 @@ async def build_form_from_yaml(request: BuildFormRequest):
                             # Generate unique subgrid ID
                             subgrid_id = f"subgrid_{relationship_name}"
                             
-                            # Add subgrid to section
+                            # Add subgrid to section (use lowercase entity name)
                             add_subgrid_to_section(
                                 unmanaged_path=unmanaged_path,
                                 tab_name=tab_name,
@@ -3541,7 +3541,7 @@ async def build_form_from_yaml(request: BuildFormRequest):
                                 subgrid_id=subgrid_id,
                                 subgrid_label=subgrid_label,
                                 relationship_name=relationship_name,
-                                target_entity=rel.target_entity,
+                                target_entity=rel.target_entity.lower(),
                                 view_id=rel.default_view_id,
                                 managed_path=managed_path if managed_path.exists() else None,
                                 create_backup=False
