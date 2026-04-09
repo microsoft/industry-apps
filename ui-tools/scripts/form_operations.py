@@ -399,6 +399,7 @@ def add_fields_to_section_by_rows(unmanaged_path: Path, tab_name: str, section_n
             field_name = None
             colspan = 1
             rowspan = 1
+            rowspan_explicitly_set = False
             
             if isinstance(cell_spec, str):
                 # Simple field name
@@ -407,7 +408,9 @@ def add_fields_to_section_by_rows(unmanaged_path: Path, tab_name: str, section_n
                 # Field with spanning attributes
                 field_name = cell_spec.get('field')
                 colspan = cell_spec.get('colspan', 1)
-                rowspan = cell_spec.get('rowspan', 1)
+                if 'rowspan' in cell_spec:
+                    rowspan = cell_spec['rowspan']
+                    rowspan_explicitly_set = True
             elif cell_spec is None:
                 # Empty cell - just create a cell with empty label
                 pass
@@ -429,8 +432,7 @@ def add_fields_to_section_by_rows(unmanaged_path: Path, tab_name: str, section_n
                 classid = get_classid_for_field_type(field_type)
                 
                 # Auto-set rowspan for memo fields (default to 4 rows) if not explicitly specified
-                if field_type == 'memo' and isinstance(cell_spec, str):
-                    # Only auto-set if field was specified as simple string (not dict with explicit rowspan)
+                if field_type == 'memo' and not rowspan_explicitly_set:
                     rowspan = 4
                 
                 # Create control
