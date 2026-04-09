@@ -18,6 +18,7 @@ from client import DataverseClient
 # Add scripts to path for form builder and entity schema reader
 sys.path.insert(0, str(Path(__file__).parent.parent / 'scripts'))
 from entity_schema_reader import read_entity_definition, get_entity_name_from_xml, generate_yaml_template
+from formxml_parser import FormXmlParser, generate_section_name
 import yaml
 
 app = FastAPI(title="Module Deployment API")
@@ -2663,9 +2664,18 @@ class ValidateYamlRequest(BaseModel):
     module_path: str
 
 class BuildFormRequest(BaseModel):
-    yaml_config: str
-    module_path: str
+    yaml_config: Optional[str] = None
+    module_path: Optional[str] = None
+    file_path: Optional[str] = None
     dry_run: bool = False
+
+class ExtractAllEntitiesRequest(BaseModel):
+    module_path: str
+    overwrite: bool = False
+
+class ExtractSingleEntityRequest(BaseModel):
+    module_path: str
+    entity_name: str
 
 @app.get("/api/formbuilder/list-modules")
 async def list_modules_for_formbuilder():
@@ -2812,6 +2822,7 @@ async def extract_fields(request: ExtractFieldsRequest):
         
         # Get form GUID (auto-detect if not provided)
         form_guid = request.form_guid
+        form_xml_path = None
         if not form_guid:
             # Try to find a main form
             form_dir = module_path / "src" / "Entities" / request.entity_name / "FormXml" / "main"
@@ -2820,13 +2831,19 @@ async def extract_fields(request: ExtractFieldsRequest):
                 if form_files:
                     # Use first form found
                     form_guid = form_files[0].stem
+                    form_xml_path = form_files[0]
                 else:
                     form_guid = "{00000000-0000-0000-0000-000000000000}"
             else:
                 form_guid = "{00000000-0000-0000-0000-000000000000}"
+        else:
+            # Form GUID provided, construct path
+            form_xml_path = module_path / "src" / "Entities" / request.entity_name / "FormXml" / "main" / f"{form_guid}.xml"
+            if not form_xml_path.exists():
+                form_xml_path = None
         
-        # Generate YAML template
-        yaml_template = generate_yaml_template(request.entity_name, form_guid, fields)
+        # Generate YAML template with OOB structure if form exists
+        yaml_template = generate_yaml_template(request.entity_name, form_guid, fields, form_xml_path)
         
         return {
             "success": True,
@@ -2836,6 +2853,256 @@ async def extract_fields(request: ExtractFieldsRequest):
     
     except Exception as e:
         print(f"Error extracting fields: {e}", file=sys.stderr)
+        import traceback
+        traceback.print_exc(file=sys.stderr)
+        return {
+            "success": False,
+            "error": str(e)
+        }
+
+@app.post("/api/formbuilder/extract-all-entities")
+async def extract_all_entities(request: ExtractAllEntitiesRequest):
+    """
+    Extract all entities in a module to YAML layout files.
+    
+    Creates .design/layouts/<module>/ directory and generates one YAML file
+    per entity. Skips existing files unless overwrite=True.
+    """
+    try:
+        module_path = Path(request.module_path)
+        module_name = module_path.name
+        
+        # Create layouts directory
+        layouts_dir = PROJECT_ROOT / ".design" / "layouts" / module_name
+        layouts_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Find all entities
+        entities_dir = module_path / "src" / "Entities"
+        if not entities_dir.exists():
+            return {
+                "success": False,
+                "error": f"Entities directory not found: {entities_dir}"
+            }
+        
+        extracted = []
+        skipped_count = 0
+        total_count = 0
+        
+        # Iterate through all entity folders
+        for entity_dir in entities_dir.iterdir():
+            if not entity_dir.is_dir():
+                continue
+            
+            entity_xml = entity_dir / "Entity.xml"
+            if not entity_xml.exists():
+                continue
+            
+            total_count += 1
+            entity_name = entity_dir.name
+            layout_file = layouts_dir / f"{entity_name}.yaml"
+            
+            # Skip if file exists and overwrite is False
+            if layout_file.exists() and not request.overwrite:
+                skipped_count += 1
+                extracted.append({
+                    "entity": entity_name,
+                    "file_path": str(layout_file),
+                    "field_count": 0,
+                    "existed": True
+                })
+                continue
+            
+            # Read entity definition
+            try:
+                fields = read_entity_definition(entity_xml)
+                
+                # Get form GUID (auto-detect first form)
+                form_guid = "{00000000-0000-0000-0000-000000000000}"
+                form_xml_path = None
+                form_dir = entity_dir / "FormXml" / "main"
+                if form_dir.exists():
+                    form_files = list(form_dir.glob("{*}.xml"))
+                    if form_files:
+                        form_guid = form_files[0].stem
+                        form_xml_path = form_files[0]
+                
+                # Generate YAML template with OOB structure if form exists
+                yaml_content = generate_yaml_template(entity_name, form_guid, fields, form_xml_path)
+                
+                # Write to file
+                with open(layout_file, 'w', encoding='utf-8') as f:
+                    f.write(yaml_content)
+                
+                extracted.append({
+                    "entity": entity_name,
+                    "file_path": str(layout_file),
+                    "field_count": len(fields),
+                    "existed": False
+                })
+                
+            except Exception as e:
+                print(f"Error extracting {entity_name}: {e}", file=sys.stderr)
+                continue
+        
+        return {
+            "success": True,
+            "extracted": extracted,
+            "skipped_count": skipped_count,
+            "total_count": total_count
+        }
+    
+    except Exception as e:
+        print(f"Error in extract_all_entities: {e}", file=sys.stderr)
+        import traceback
+        traceback.print_exc(file=sys.stderr)
+        return {
+            "success": False,
+            "error": str(e)
+        }
+
+@app.post("/api/formbuilder/extract-single-entity")
+async def extract_single_entity(request: ExtractSingleEntityRequest):
+    """
+    Extract a single entity to a YAML layout file.
+    
+    Creates .design/layouts/<module>/<entity>.yaml file, overwriting if it exists.
+    """
+    try:
+        module_path = Path(request.module_path)
+        module_name = module_path.name
+        
+        # Create layouts directory
+        layouts_dir = PROJECT_ROOT / ".design" / "layouts" / module_name
+        layouts_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Find entity directory
+        entities_dir = module_path / "src" / "Entities"
+        if not entities_dir.exists():
+            return {
+                "success": False,
+                "error": f"Entities directory not found: {entities_dir}"
+            }
+        
+        entity_dir = entities_dir / request.entity_name
+        if not entity_dir.is_dir():
+            return {
+                "success": False,
+                "error": f"Entity directory not found: {entity_dir}"
+            }
+        
+        entity_xml = entity_dir / "Entity.xml"
+        if not entity_xml.exists():
+            return {
+                "success": False,
+                "error": f"Entity.xml not found: {entity_xml}"
+            }
+        
+        layout_file = layouts_dir / f"{request.entity_name}.yaml"
+        
+        # Read entity definition
+        fields = read_entity_definition(entity_xml)
+        
+        # Get form GUID (auto-detect first form)
+        form_guid = "{00000000-0000-0000-0000-000000000000}"
+        form_xml_path = None
+        form_dir = entity_dir / "FormXml" / "main"
+        if form_dir.exists():
+            form_files = list(form_dir.glob("{*}.xml"))
+            if form_files:
+                form_guid = form_files[0].stem
+                form_xml_path = form_files[0]
+        
+        # Generate YAML template with OOB structure if form exists
+        yaml_content = generate_yaml_template(request.entity_name, form_guid, fields, form_xml_path)
+        
+        # Write to file (always overwrite for single entity recreate)
+        with open(layout_file, 'w', encoding='utf-8') as f:
+            f.write(yaml_content)
+        
+        return {
+            "success": True,
+            "entity": request.entity_name,
+            "file_path": str(layout_file),
+            "field_count": len(fields)
+        }
+    
+    except Exception as e:
+        print(f"Error extracting {request.entity_name}: {e}", file=sys.stderr)
+        import traceback
+        traceback.print_exc(file=sys.stderr)
+        return {
+            "success": False,
+            "error": str(e)
+        }
+
+@app.get("/api/formbuilder/list-layouts")
+async def list_layouts(module_path: str):
+    """
+    List all layout files for a module.
+    
+    Returns YAML content, entity metadata, and file information.
+    """
+    try:
+        module_path_obj = Path(module_path)
+        module_name = module_path_obj.name
+        
+        layouts_dir = PROJECT_ROOT / ".design" / "layouts" / module_name
+        
+        # Return empty list if directory doesn't exist
+        if not layouts_dir.exists():
+            return {
+                "success": True,
+                "layouts": []
+            }
+        
+        layouts = []
+        
+        # Read all YAML files
+        for yaml_file in sorted(layouts_dir.glob("*.yaml")):
+            entity_name = yaml_file.stem
+            
+            try:
+                # Read YAML content
+                with open(yaml_file, 'r', encoding='utf-8') as f:
+                    yaml_content = f.read()
+                
+                # Get entity display name from Entity.xml
+                entity_xml = module_path_obj / "src" / "Entities" / entity_name / "Entity.xml"
+                display_name = entity_name
+                if entity_xml.exists():
+                    try:
+                        tree = ET.parse(entity_xml)
+                        root = tree.getroot()
+                        display_elem = root.find(".//LocalizedName[@languagecode='1033']")
+                        if display_elem is not None:
+                            display_name = display_elem.get('description', entity_name)
+                    except:
+                        pass
+                
+                # Get file modification time
+                modified_time = yaml_file.stat().st_mtime
+                from datetime import datetime
+                modified_date = datetime.fromtimestamp(modified_time).isoformat()
+                
+                layouts.append({
+                    "entity_name": entity_name,
+                    "file_path": str(yaml_file),
+                    "display_name": display_name,
+                    "modified_date": modified_date,
+                    "yaml_content": yaml_content
+                })
+                
+            except Exception as e:
+                print(f"Error reading layout {yaml_file}: {e}", file=sys.stderr)
+                continue
+        
+        return {
+            "success": True,
+            "layouts": layouts
+        }
+    
+    except Exception as e:
+        print(f"Error listing layouts: {e}", file=sys.stderr)
         import traceback
         traceback.print_exc(file=sys.stderr)
         return {
@@ -2951,11 +3218,83 @@ async def build_form_from_yaml(request: BuildFormRequest):
     4. Saves the updated form XML
     
     If dry_run=True, returns a preview of operations without modifying files.
+    
+    Accepts either:
+    - file_path: Read YAML from a saved layout file
+    - yaml_config + module_path: Use YAML from request body (backward compatible)
     """
     try:
+        # Determine source: file or request body
+        if request.file_path:
+            # Read YAML from file
+            file_path = Path(request.file_path)
+            if not file_path.exists():
+                return {
+                    "success": False,
+                    "error": f"Layout file not found: {file_path}"
+                }
+            
+            try:
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    yaml_content = f.read()
+            except Exception as e:
+                return {
+                    "success": False,
+                    "error": f"Error reading file: {str(e)}"
+                }
+            
+            # Extract module path from file path pattern: .design/layouts/<module>/<entity>.yaml
+            try:
+                parts = file_path.parts
+                layouts_idx = parts.index('layouts')
+                module_name = parts[layouts_idx + 1]
+                # Find module path in repository
+                # First check direct match
+                module_path = None
+                for module_dir in PROJECT_ROOT.iterdir():
+                    if module_dir.is_dir() and module_dir.name == module_name:
+                        # Check if it has src/Entities
+                        if (module_dir / 'src' / 'Entities').exists():
+                            module_path = module_dir
+                            break
+                
+                # If not found, check nested structures (e.g., test/Test/)
+                if not module_path:
+                    for parent_dir in PROJECT_ROOT.iterdir():
+                        if parent_dir.is_dir():
+                            for sub_dir in parent_dir.iterdir():
+                                if sub_dir.is_dir() and (sub_dir / 'src' / 'Entities').exists():
+                                    # Match by name (case-insensitive)
+                                    if sub_dir.name.lower() == module_name.lower():
+                                        module_path = sub_dir
+                                        break
+                            if module_path:
+                                break
+                
+                if not module_path:
+                    return {
+                        "success": False,
+                        "error": f"Could not find module '{module_name}' in repository. Searched for directory with src/Entities."
+                    }
+            except (ValueError, IndexError) as e:
+                return {
+                    "success": False,
+                    "error": f"Invalid file path format: {file_path}"
+                }
+        else:
+            # Use YAML from request body (backward compatible)
+            if not request.yaml_config or not request.module_path:
+                return {
+                    "success": False,
+                    "error": "Either file_path or (yaml_config + module_path) must be provided"
+                }
+            
+            yaml_content = request.yaml_config
+            module_path = Path(request.module_path)
+        
         # Parse YAML
         try:
-            config = yaml.safe_load(request.yaml_config)
+            config = yaml.safe_load(yaml_content)
         except yaml.YAMLError as e:
             return {
                 "success": False,
@@ -2968,8 +3307,6 @@ async def build_form_from_yaml(request: BuildFormRequest):
                 "success": False,
                 "error": "YAML missing required fields: entity, form_guid, or tabs"
             }
-        
-        module_path = Path(request.module_path)
         entity_name = config['entity']
         form_guid = config['form_guid'].strip('{}')  # Remove braces if present
         
@@ -3023,40 +3360,105 @@ async def build_form_from_yaml(request: BuildFormRequest):
             }
         
         # Import form_operations (needed for actual execution)
-        from form_operations import add_tab_to_form, add_section_to_tab, add_fields_to_section
+        from form_operations import add_tab_to_form, add_section_to_tab, add_fields_to_section, backup_forms
         
         # Execute form building operations
         try:
+            tabs_added = 0
+            sections_added = 0
+            fields_added = 0
+            
             # Process each tab
             for tab_idx, tab in enumerate(config['tabs']):
-                tab_name = tab.get('name', f"tab_{tab['label'].lower().replace(' ', '_')}")
+                tab_id = tab.get('id')  # OOB tabs have ID but no name
+                tab_name = tab.get('name')
                 tab_label = tab['label']
+                
+                # For finding tabs: if no name, use label (OOB tabs can be found by label)
+                # For adding tabs: if no name, generate from label
+                if not tab_name:
+                    tab_name_for_ops = tab_label  # Use label to find OOB tabs
+                    tab_name_for_add = f"tab_{tab_label.lower().replace(' ', '_')}"
+                else:
+                    tab_name_for_ops = tab_name
+                    tab_name_for_add = tab_name
                 
                 # Add tab (only creates backup on first operation)
                 create_backup = (tab_idx == 0)
-                add_tab_to_form(
-                    unmanaged_path=unmanaged_path,
-                    tab_name=tab_name,
-                    tab_label=tab_label,
-                    managed_path=managed_path if managed_path.exists() else None,
-                    create_backup=create_backup
-                )
+                form_before = FormXmlParser.parse_file(unmanaged_path)
+                
+                # Check if tab exists by ID (for OOB tabs) or name
+                if tab_id:
+                    tab_existed = form_before.get_tab_by_id(tab_id) is not None
+                else:
+                    tab_existed = form_before.get_tab_by_name(tab_name_for_ops) is not None
+                
+                # Only add tab if it doesn't exist
+                if not tab_existed:
+                    add_tab_to_form(
+                        unmanaged_path=unmanaged_path,
+                        tab_name=tab_name_for_add,
+                        tab_label=tab_label,
+                        managed_path=managed_path if managed_path.exists() else None,
+                        create_backup=create_backup,
+                        skip_if_exists=True
+                    )
+                    tabs_added += 1
+                else:
+                    # Tab exists (OOB tab), just use it
+                    if tab_idx == 0 and create_backup:
+                        # Still need to create backup for first operation
+                        backup_forms(unmanaged_path, managed_path)
                 
                 # Add sections to tab
                 for section in tab.get('sections', []):
+                    section_id = section.get('id')  # OOB sections have ID
                     section_label = section['label']
                     section_name = section.get('name')  # Optional, will auto-generate if not provided
                     columns = section.get('columns', 1)
+                    existing_field_names = section.get('existing_fields', [])  # OOB fields to preserve
                     
-                    add_section_to_tab(
-                        unmanaged_path=unmanaged_path,
-                        tab_name=tab_name,
-                        section_label=section_label,
-                        section_name=section_name,
-                        columns=columns,
-                        managed_path=managed_path if managed_path.exists() else None,
-                        create_backup=False  # Already backed up
-                    )
+                    # For operations: use label if no name (OOB sections); for adding: auto-generate
+                    if not section_name:
+                        section_name_for_ops = section_label
+                        section_name_for_add = None  # Let add_section_to_tab auto-generate
+                    else:
+                        section_name_for_ops = section_name
+                        section_name_for_add = section_name
+                    
+                    # Check if section exists
+                    form_check = FormXmlParser.parse_file(unmanaged_path)
+                    
+                    # Find the tab by ID or name/label
+                    if tab_id:
+                        tab_check = form_check.get_tab_by_id(tab_id)
+                    else:
+                        tab_check = form_check.get_tab_by_name(tab_name_for_ops)
+                    
+                    # Auto-generate actual section name for checking
+                    actual_section_name = section_name_for_add if section_name_for_add else generate_section_name(section_label)
+                    
+                    # Check if section exists by ID or name
+                    if section_id and tab_check:
+                        section_existed = tab_check.get_section_by_id(section_id) is not None
+                    elif tab_check:
+                        section_existed = tab_check.get_section_by_name(section_name_for_ops) is not None
+                    else:
+                        section_existed = False
+                    
+                    # Only add section if it doesn't exist
+                    if not section_existed:
+                        add_section_to_tab(
+                            unmanaged_path=unmanaged_path,
+                            tab_name=tab_name_for_ops,
+                            section_label=section_label,
+                            section_name=section_name_for_add,
+                            columns=columns,
+                            managed_path=managed_path if managed_path.exists() else None,
+                            create_backup=False,  # Already backed up
+                            skip_if_exists=True
+                        )
+                        sections_added += 1
                     
                     # Add fields to section
                     fields = section.get('fields', [])
@@ -3067,30 +3469,58 @@ async def build_form_from_yaml(request: BuildFormRequest):
                         field_type_map = {f.logical_name: f.form_field_type for f in entity_fields}
                         field_display_map = {f.logical_name: f.display_name for f in entity_fields}
                         
+                        # Get existing fields in section
+                        form_fields_check = FormXmlParser.parse_file(unmanaged_path)
+                        
+                        # Find tab by ID or name/label
+                        if tab_id:
+                            tab_fields_check = form_fields_check.get_tab_by_id(tab_id)
+                        else:
+                            tab_fields_check = form_fields_check.get_tab_by_name(tab_name_for_ops)
+                        
+                        # Find section by ID or name/label
+                        if section_id and tab_fields_check:
+                            section_fields_check = tab_fields_check.get_section_by_id(section_id)
+                        elif tab_fields_check:
+                            section_fields_check = tab_fields_check.get_section_by_name(section_name_for_ops)
+                        else:
+                            section_fields_check = None
+                        
+                        existing_fields = set()
+                        if section_fields_check:
+                            for row in section_fields_check.rows:
+                                for cell in row.cells:
+                                    if cell.control and cell.control.datafieldname:
+                                        existing_fields.add(cell.control.datafieldname)
+                        
                         # Build list of (field_name, field_label, field_type) tuples
                         field_tuples = []
                         for field_name in fields:
                             field_type = field_type_map.get(field_name, 'text')
                             field_label = field_display_map.get(field_name, field_name)
                             field_tuples.append((field_name, field_label, field_type))
-                        
-                        # Use auto-generated section name
-                        from formxml_parser import generate_section_name
-                        actual_section_name = section_name if section_name else generate_section_name(section_label)
+                            if field_name not in existing_fields:
+                                fields_added += 1
                         
                         add_fields_to_section(
                             unmanaged_path=unmanaged_path,
-                            tab_name=tab_name,
-                            section_name=actual_section_name,
+                            tab_name=tab_name_for_ops,
+                            section_name=section_name_for_ops,
                             fields=field_tuples,
                             managed_path=managed_path if managed_path.exists() else None,
-                            create_backup=False
+                            create_backup=False,
+                            skip_if_exists=True
                         )
             
             return {
                 "success": True,
-                "message": f"Form built successfully with {len(config['tabs'])} tabs",
-                "form_path": str(unmanaged_path)
+                "message": f"Form built successfully! Added {tabs_added} tabs, {sections_added} sections, {fields_added} fields. (Duplicates were skipped)",
+                "form_path": str(unmanaged_path),
+                "stats": {
+                    "tabs_added": tabs_added,
+                    "sections_added": sections_added,
+                    "fields_added": fields_added
+                }
             }
         
         except Exception as e:

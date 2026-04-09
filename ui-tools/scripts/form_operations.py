@@ -70,13 +70,15 @@ def save_forms(form: FormDefinition, unmanaged_path: Path,
 
 def add_tab_to_form(unmanaged_path: Path, tab_name: str, tab_label: str,
                     managed_path: Optional[Path] = None,
-                    create_backup: bool = True) -> FormDefinition:
+                    create_backup: bool = True,
+                    skip_if_exists: bool = True) -> FormDefinition:
     """
     Add a new tab to a form with a default section.
     
     This function:
     - Creates backups of both files (if create_backup=True)
     - Loads the unmanaged form
+    - Checks if tab already exists (if skip_if_exists=True)
     - Adds a new tab with the specified name and label
     - The tab includes a default section following UI conventions
     - Auto-generates header/footer if this is the first user tab
@@ -88,6 +90,7 @@ def add_tab_to_form(unmanaged_path: Path, tab_name: str, tab_label: str,
         tab_label: Display label for the tab (e.g., "Custom Tab")
         managed_path: Path to the managed form XML file (optional)
         create_backup: Whether to create backup files (default: True)
+        skip_if_exists: If True, skip adding tab if it already exists (default: True)
         
     Returns:
         The modified FormDefinition
@@ -104,6 +107,15 @@ def add_tab_to_form(unmanaged_path: Path, tab_name: str, tab_label: str,
     # Load form
     form = FormXmlParser.parse_file(unmanaged_path)
     
+    # Check if tab already exists
+    existing_tab = form.get_tab_by_name(tab_name)
+    if existing_tab:
+        if skip_if_exists:
+            print(f"Tab '{tab_name}' already exists, skipping...")
+            return form
+        else:
+            raise ValueError(f"Tab '{tab_name}' already exists in form")
+    
     # Add tab (formxml_parser's add_tab already creates default section and header/footer)
     form.add_tab(tab_name, tab_label)
     
@@ -118,7 +130,8 @@ def add_section_to_tab(unmanaged_path: Path, tab_name: str,
                        section_name: Optional[str] = None,
                        columns: int = 1,
                        managed_path: Optional[Path] = None,
-                       create_backup: bool = True) -> FormDefinition:
+                       create_backup: bool = True,
+                       skip_if_exists: bool = True) -> FormDefinition:
     """
     Add a new section to an existing tab.
     
@@ -131,6 +144,7 @@ def add_section_to_tab(unmanaged_path: Path, tab_name: str,
         columns: Number of columns in the section - accepts 1 or 2 (default: 1)
         managed_path: Path to the managed form XML file (optional)
         create_backup: Whether to create backup files (default: True)
+        skip_if_exists: If True, skip adding section if it already exists (default: True)
         
     Returns:
         The modified FormDefinition
@@ -157,6 +171,15 @@ def add_section_to_tab(unmanaged_path: Path, tab_name: str,
     # Auto-generate section name if not provided
     if section_name is None:
         section_name = generate_section_name(section_label)
+    
+    # Check if section already exists
+    existing_section = tab.get_section_by_name(section_name)
+    if existing_section:
+        if skip_if_exists:
+            print(f"Section '{section_name}' already exists in tab '{tab_name}', skipping...")
+            return form
+        else:
+            raise ValueError(f"Section '{section_name}' already exists in tab '{tab_name}'")
     
     # Add section to the tab
     tab.add_section(section_name, section_label, columns)
@@ -344,7 +367,8 @@ def remove_field_from_section(unmanaged_path: Path, tab_name: str, section_name:
 def add_fields_to_section(unmanaged_path: Path, tab_name: str, section_name: str,
                           fields: list[tuple[str, str, str]],
                           managed_path: Optional[Path] = None,
-                          create_backup: bool = True) -> FormDefinition:
+                          create_backup: bool = True,
+                          skip_if_exists: bool = True) -> FormDefinition:
     """
     Add multiple fields to a section. 
     
@@ -360,6 +384,7 @@ def add_fields_to_section(unmanaged_path: Path, tab_name: str, section_name: str
                          ("appbase_email", "Email", "email")]
         managed_path: Path to the managed form XML file (optional)
         create_backup: Whether to create backup files (default: True)
+        skip_if_exists: If True, skip fields that already exist in the section (default: True)
         
     Returns:
         The modified FormDefinition
@@ -406,6 +431,30 @@ def add_fields_to_section(unmanaged_path: Path, tab_name: str, section_name: str
     section = tab.get_section_by_name(section_name)
     if not section:
         raise ValueError(f"Section '{section_name}' not found in tab '{tab_name}'")
+    
+    # If skip_if_exists, filter out fields that already exist in the section
+    if skip_if_exists:
+        # Get existing field names in the section
+        existing_fields = set()
+        for row in section.rows:
+            for cell in row.cells:
+                if cell.control and cell.control.datafieldname:
+                    existing_fields.add(cell.control.datafieldname)
+        
+        # Filter out existing fields
+        fields_to_add = []
+        for field_name, field_label, field_type in fields:
+            if field_name in existing_fields:
+                print(f"Field '{field_name}' already exists in section '{section_name}', skipping...")
+            else:
+                fields_to_add.append((field_name, field_label, field_type))
+        
+        # If no fields to add, return early
+        if not fields_to_add:
+            print(f"All fields already exist in section '{section_name}', nothing to add.")
+            return form
+        
+        fields = fields_to_add
     
     # Determine if this is a 2-column section
     is_two_column = section.columns == 11

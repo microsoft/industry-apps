@@ -156,8 +156,10 @@ class Control:
         
         if self.datafieldname:
             control_elem.set("datafieldname", self.datafieldname)
-        if self.disabled:
-            control_elem.set("disabled", "true")
+        
+        # Always write disabled attribute (default is false)
+        control_elem.set("disabled", "true" if self.disabled else "false")
+        
         if self.indication_of_subgrid:
             control_elem.set("indicationOfSubgrid", "true")
             
@@ -184,12 +186,13 @@ class Cell:
         cell_elem = ET.SubElement(parent, "cell")
         cell_elem.set("id", self.id)
         
-        if self.locklevel != 0:
+        # Always write locklevel, colspan, rowspan for custom cells (not OOB)
+        # OOB cells don't have these attributes, but custom generated cells do
+        if self.control is not None:  # Only for cells with controls (not spacers)
             cell_elem.set("locklevel", str(self.locklevel))
-        if self.colspan != 1:
             cell_elem.set("colspan", str(self.colspan))
-        if self.rowspan != 1:
             cell_elem.set("rowspan", str(self.rowspan))
+        
         if self.auto:
             cell_elem.set("auto", "true")
         if not self.showlabel:
@@ -430,6 +433,13 @@ class Column:
                     return section
         return None
     
+    def get_section_by_id(self, section_id: str) -> Optional[Section]:
+        """Get a section by its ID."""
+        for section in self.sections:
+            if section.id == section_id:
+                return section
+        return None
+    
     def add_section(self, section_name: str, section_label: str,
                     columns: int = DEFAULT_SECTION_COLUMNS) -> Section:
         """
@@ -509,6 +519,14 @@ class Tab:
         """Get a section by its name from any column in this tab."""
         for column in self.columns:
             section = column.get_section_by_name(section_name)
+            if section:
+                return section
+        return None
+    
+    def get_section_by_id(self, section_id: str) -> Optional[Section]:
+        """Get a section by its ID from any column in this tab."""
+        for column in self.columns:
+            section = column.get_section_by_id(section_id)
             if section:
                 return section
         return None
@@ -677,6 +695,13 @@ class FormDefinition:
             for label in tab.labels:
                 if label.description.lower() == tab_name_lower:
                     return tab
+        return None
+    
+    def get_tab_by_id(self, tab_id: str) -> Optional[Tab]:
+        """Get a tab by its ID."""
+        for tab in self.tabs:
+            if tab.id == tab_id:
+                return tab
         return None
     
     def add_tab(self, tab_name: str, tab_label: str, index: Optional[int] = None) -> Tab:

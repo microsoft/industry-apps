@@ -203,7 +203,78 @@ def group_fields_by_type(fields: List[EntityField]) -> Dict[str, List[EntityFiel
     return grouped
 
 
-def generate_yaml_template(entity_name: str, form_guid: str, fields: List[EntityField]) -> str:
+def extract_form_default_tab(form_xml_path: Path) -> Optional[Dict]:
+    """
+    Extract the default (first) tab structure from a form XML file.
+    
+    This captures the out-of-box General tab with Name and Owner fields
+    so we can preserve them in the YAML structure.
+    
+    Args:
+        form_xml_path: Path to the form XML file
+        
+    Returns:
+        Dictionary with tab structure or None if form doesn't exist
+        {
+            "id": "{tab-guid}",
+            "label": "General", 
+            "sections": [{
+                "id": "{section-guid}",
+                "label": "General",
+                "fields": ["appbase_name", "ownerid"]
+            }]
+        }
+    """
+    if not form_xml_path.exists():
+        return None
+    
+    try:
+        tree = ET.parse(form_xml_path)
+        root = tree.getroot()
+        
+        # Find the first tab (default General tab)
+        first_tab = root.find(".//tab")
+        if first_tab is None:
+            return None
+        
+        tab_id = first_tab.get("id")
+        tab_label_elem = first_tab.find(".//label[@languagecode='1033']")
+        tab_label = tab_label_elem.get("description", "General") if tab_label_elem is not None else "General"
+        
+        # Extract sections from this tab
+        sections = []
+        for section_elem in first_tab.findall(".//section"):
+            section_id = section_elem.get("id")
+            section_label_elem = section_elem.find(".//label[@languagecode='1033']")
+            section_label = section_label_elem.get("description", "") if section_label_elem is not None else ""
+            
+            # Extract existing fields from this section
+            existing_fields = []
+            for control in section_elem.findall(".//control"):
+                datafieldname = control.get("datafieldname")
+                if datafieldname:
+                    existing_fields.append(datafieldname)
+            
+            if section_id and existing_fields:  # Only include sections with fields
+                sections.append({
+                    "id": section_id,
+                    "label": section_label,
+                    "fields": existing_fields
+                })
+        
+        return {
+            "id": tab_id,
+            "label": tab_label,
+            "sections": sections
+        }
+    
+    except Exception as e:
+        print(f"Warning: Could not parse form XML: {e}")
+        return None
+
+
+def generate_yaml_template(entity_name: str, form_guid: str, fields: List[EntityField], 
+                           form_xml_path: Optional[Path] = None) -> str:
     """
     Generate a YAML template with all custom fields listed as comments.
     
@@ -214,6 +285,7 @@ def generate_yaml_template(entity_name: str, form_guid: str, fields: List[Entity
         entity_name: Logical name of the entity (e.g., "appbase_Sample")
         form_guid: GUID of the form (with braces)
         fields: List of custom EntityField objects
+        form_xml_path: Optional path to form XML to extract default tab structure
         
     Returns:
         YAML string with template format
@@ -222,6 +294,11 @@ def generate_yaml_template(entity_name: str, form_guid: str, fields: List[Entity
     
     # Group fields by category
     grouped = group_fields_by_type(fields)
+    
+    # Extract default tab structure if form XML provided
+    default_tab = None
+    if form_xml_path:
+        default_tab = extract_form_default_tab(form_xml_path)
     
     # Build YAML template
     yaml_lines = [
@@ -283,14 +360,35 @@ def generate_yaml_template(entity_name: str, form_guid: str, fields: List[Entity
         "# " + "=" * 76,
         "",
         "tabs:",
-        "  - name: tab_general",
-        "    label: General",
-        "    sections:",
-        "      - label: Basic Information",
-        "        columns: 1",
-        "        fields:",
-        "          # TODO: Add fields here",
     ])
+    
+    # Add default tab if extracted from form
+    if default_tab:
+        yaml_lines.append(f"  - id: \"{default_tab['id']}\"  # Existing OOB tab")
+        yaml_lines.append(f"    label: {default_tab['label']}")
+        yaml_lines.append("    sections:")
+        
+        for section in default_tab['sections']:
+            yaml_lines.append(f"      - id: \"{section['id']}\"  # Existing section")
+            yaml_lines.append(f"        label: \"{section['label']}\"")
+            yaml_lines.append("        columns: 1")
+            yaml_lines.append("        existing_fields:  # These fields will be preserved")
+            for field in section['fields']:
+                yaml_lines.append(f"          - {field}")
+            yaml_lines.append("        fields:")
+            yaml_lines.append("          # TODO: Add custom fields here")
+            yaml_lines.append("")
+    else:
+        # Fallback to simple template if no form structure found
+        yaml_lines.extend([
+            "  - name: tab_general",
+            "    label: General",
+            "    sections:",
+            "      - label: Basic Information",
+            "        columns: 1",
+            "        fields:",
+            "          # TODO: Add fields here",
+        ])
     
     return "\n".join(yaml_lines)
 
