@@ -15,6 +15,11 @@ import xml.etree.ElementTree as ET
 sys.path.insert(0, str(Path(__file__).parent.parent / 'dataverse-client'))
 from client import DataverseClient
 
+# Add scripts to path for form builder and entity schema reader
+sys.path.insert(0, str(Path(__file__).parent.parent / 'scripts'))
+from entity_schema_reader import read_entity_definition, get_entity_name_from_xml, generate_yaml_template
+import yaml
+
 app = FastAPI(title="Module Deployment API")
 
 # CORS for local development
@@ -2639,6 +2644,472 @@ async def execute_single_step(request: StepExecutionRequest):
         stream_powershell_output(str(script_path), *args, operation_id=request.operationId),
         media_type="text/event-stream"
     )
+
+
+# ============================================================================
+# FORM BUILDER API ENDPOINTS
+# ============================================================================
+
+class ListEntitiesRequest(BaseModel):
+    module_path: str
+
+class ExtractFieldsRequest(BaseModel):
+    module_path: str
+    entity_name: str
+    form_guid: Optional[str] = None
+
+class ValidateYamlRequest(BaseModel):
+    yaml_config: str
+    module_path: str
+
+class BuildFormRequest(BaseModel):
+    yaml_config: str
+    module_path: str
+    dry_run: bool = False
+
+@app.get("/api/formbuilder/list-modules")
+async def list_modules_for_formbuilder():
+    """
+    List all modules in the repository for form building.
+    
+    Scans the repository root for module directories that contain
+    src/Entities folders.
+    """
+    try:
+        modules = []
+        
+        # Scan common module directories
+        module_categories = [
+            "administrative", "compliance-security", "external-engagement",
+            "financial", "government", "operations", "workforce", "shared", "test"
+        ]
+        
+        for category in module_categories:
+            category_path = PROJECT_ROOT / category
+            if not category_path.exists():
+                continue
+            
+            # Scan for subdirectories with src/Entities
+            for item in category_path.iterdir():
+                if not item.is_dir():
+                    continue
+                
+                entities_dir = item / "src" / "Entities"
+                if entities_dir.exists():
+                    # This is a valid module
+                    module_name = f"{category}/{item.name}"
+                    
+                    # Try to get display name from Solution.xml
+                    display_name = read_solution_display_name(item)
+                    if not display_name:
+                        display_name = item.name.replace("-", " ").title()
+                    
+                    modules.append({
+                        "path": str(item),
+                        "name": module_name,
+                        "display_name": display_name
+                    })
+        
+        # Sort by display name
+        modules.sort(key=lambda x: x['display_name'])
+        
+        return {
+            "success": True,
+            "modules": modules
+        }
+    
+    except Exception as e:
+        print(f"Error listing modules: {e}", file=sys.stderr)
+        import traceback
+        traceback.print_exc(file=sys.stderr)
+        return {
+            "success": False,
+            "error": str(e)
+        }
+
+@app.post("/api/formbuilder/list-entities")
+async def list_entities(request: ListEntitiesRequest):
+    """
+    List all entities in a module.
+    
+    Scans the module's src/Entities directory and returns entity names
+    with display names.
+    """
+    try:
+        module_path = Path(request.module_path)
+        entities_dir = module_path / "src" / "Entities"
+        
+        if not entities_dir.exists():
+            return {"success": False, "error": f"Entities directory not found: {entities_dir}"}
+        
+        entities = []
+        
+        for entity_dir in entities_dir.iterdir():
+            if not entity_dir.is_dir():
+                continue
+            
+            entity_xml = entity_dir / "Entity.xml"
+            if not entity_xml.exists():
+                continue
+            
+            entity_name = entity_dir.name
+            
+            # Try to get display name from Entity.xml
+            try:
+                tree = ET.parse(entity_xml)
+                root = tree.getroot()
+                localized_name = root.find(".//LocalizedName[@languagecode='1033']")
+                display_name = localized_name.get('description') if localized_name is not None else entity_name
+            except:
+                display_name = entity_name
+            
+            entities.append({
+                "name": entity_name,
+                "display_name": display_name
+            })
+        
+        # Sort by display name
+        entities.sort(key=lambda x: x['display_name'])
+        
+        return {
+            "success": True,
+            "entities": entities
+        }
+    
+    except Exception as e:
+        print(f"Error listing entities: {e}", file=sys.stderr)
+        import traceback
+        traceback.print_exc(file=sys.stderr)
+        return {
+            "success": False,
+            "error": str(e)
+        }
+
+@app.post("/api/formbuilder/extract-fields")
+async def extract_fields(request: ExtractFieldsRequest):
+    """
+    Extract custom fields from an entity and generate a YAML template.
+    
+    Reads the entity's Entity.xml file and generates a YAML configuration
+    file that can be organized by AI (like GitHub Copilot) and used to
+    build the form.
+    """
+    try:
+        module_path = Path(request.module_path)
+        entity_xml = module_path / "src" / "Entities" / request.entity_name / "Entity.xml"
+        
+        if not entity_xml.exists():
+            return {"success": False, "error": f"Entity.xml not found: {entity_xml}"}
+        
+        # Read custom fields from entity
+        fields = read_entity_definition(entity_xml)
+        
+        if not fields:
+            return {
+                "success": False,
+                "error": "No custom fields found in entity. Add custom fields to the entity first."
+            }
+        
+        # Get form GUID (auto-detect if not provided)
+        form_guid = request.form_guid
+        if not form_guid:
+            # Try to find a main form
+            form_dir = module_path / "src" / "Entities" / request.entity_name / "FormXml" / "main"
+            if form_dir.exists():
+                form_files = list(form_dir.glob("{*}.xml"))
+                if form_files:
+                    # Use first form found
+                    form_guid = form_files[0].stem
+                else:
+                    form_guid = "{00000000-0000-0000-0000-000000000000}"
+            else:
+                form_guid = "{00000000-0000-0000-0000-000000000000}"
+        
+        # Generate YAML template
+        yaml_template = generate_yaml_template(request.entity_name, form_guid, fields)
+        
+        return {
+            "success": True,
+            "yaml_template": yaml_template,
+            "field_count": len(fields)
+        }
+    
+    except Exception as e:
+        print(f"Error extracting fields: {e}", file=sys.stderr)
+        import traceback
+        traceback.print_exc(file=sys.stderr)
+        return {
+            "success": False,
+            "error": str(e)
+        }
+
+@app.post("/api/formbuilder/validate-yaml")
+async def validate_yaml_config(request: ValidateYamlRequest):
+    """
+    Validate a YAML form configuration.
+    
+    Checks:
+    - YAML syntax is valid
+    - Required fields are present
+    - All referenced fields exist in the entity
+    - Section structure is valid
+    """
+    try:
+        # Parse YAML
+        try:
+            config = yaml.safe_load(request.yaml_config)
+        except yaml.YAMLError as e:
+            return {
+                "success": False,
+                "valid": False,
+                "errors": [f"Invalid YAML syntax: {str(e)}"]
+            }
+        
+        errors = []
+        warnings = []
+        
+        # Check required fields in config
+        if 'entity' not in config:
+            errors.append("Missing required field: 'entity'")
+        
+        if 'form_guid' not in config:
+            errors.append("Missing required field: 'form_guid'")
+        
+        if 'tabs' not in config:
+            errors.append("Missing required field: 'tabs'")
+        elif not isinstance(config['tabs'], list):
+            errors.append("'tabs' must be a list")
+        
+        # Read entity definition to validate field names
+        if 'entity' in config:
+            module_path = Path(request.module_path)
+            entity_xml = module_path / "src" / "Entities" / config['entity'] / "Entity.xml"
+            
+            if not entity_xml.exists():
+                errors.append(f"Entity not found: {config['entity']}")
+            else:
+                try:
+                    entity_fields = read_entity_definition(entity_xml)
+                    valid_field_names = {f.logical_name for f in entity_fields}
+                    
+                    # Validate all field references in tabs/sections
+                    if 'tabs' in config and isinstance(config['tabs'], list):
+                        for tab_idx, tab in enumerate(config['tabs']):
+                            if not isinstance(tab, dict):
+                                errors.append(f"Tab {tab_idx + 1} is not a dictionary")
+                                continue
+                            
+                            if 'label' not in tab:
+                                errors.append(f"Tab {tab_idx + 1} missing 'label'")
+                            
+                            if 'sections' in tab and isinstance(tab['sections'], list):
+                                for section_idx, section in enumerate(tab['sections']):
+                                    if not isinstance(section, dict):
+                                        errors.append(f"Tab {tab_idx + 1}, Section {section_idx + 1} is not a dictionary")
+                                        continue
+                                    
+                                    if 'label' not in section:
+                                        errors.append(f"Tab {tab_idx + 1}, Section {section_idx + 1} missing 'label'")
+                                    
+                                    if 'columns' not in section:
+                                        warnings.append(f"Tab {tab_idx + 1}, Section {section_idx + 1} missing 'columns' (defaulting to 1)")
+                                    elif section['columns'] not in [1, 2]:
+                                        errors.append(f"Tab {tab_idx + 1}, Section {section_idx + 1} has invalid columns value (must be 1 or 2)")
+                                    
+                                    if 'fields' in section and isinstance(section['fields'], list):
+                                        for field_name in section['fields']:
+                                            if field_name not in valid_field_names:
+                                                errors.append(f"Field '{field_name}' does not exist in entity '{config['entity']}'")
+                except Exception as e:
+                    errors.append(f"Error reading entity definition: {str(e)}")
+        
+        return {
+            "success": True,
+            "valid": len(errors) == 0,
+            "errors": errors,
+            "warnings": warnings
+        }
+    
+    except Exception as e:
+        print(f"Error validating YAML: {e}", file=sys.stderr)
+        import traceback
+        traceback.print_exc(file=sys.stderr)
+        return {
+            "success": False,
+            "error": str(e)
+        }
+
+@app.post("/api/formbuilder/build-form")
+async def build_form_from_yaml(request: BuildFormRequest):
+    """
+    Build a form from a YAML configuration.
+    
+    This endpoint:
+    1. Validates the YAML configuration
+    2. Loads the form XML file
+    3. Uses form_operations to add tabs, sections, and fields
+    4. Saves the updated form XML
+    
+    If dry_run=True, returns a preview of operations without modifying files.
+    """
+    try:
+        # Parse YAML
+        try:
+            config = yaml.safe_load(request.yaml_config)
+        except yaml.YAMLError as e:
+            return {
+                "success": False,
+                "error": f"Invalid YAML syntax: {str(e)}"
+            }
+        
+        # Validate required fields
+        if 'entity' not in config or 'form_guid' not in config or 'tabs' not in config:
+            return {
+                "success": False,
+                "error": "YAML missing required fields: entity, form_guid, or tabs"
+            }
+        
+        module_path = Path(request.module_path)
+        entity_name = config['entity']
+        form_guid = config['form_guid'].strip('{}')  # Remove braces if present
+        
+        # Find form XML files
+        form_dir = module_path / "src" / "Entities" / entity_name / "FormXml" / "main"
+        unmanaged_path = form_dir / f"{{{form_guid}}}.xml"
+        managed_path = form_dir / f"{{{form_guid}}}_managed.xml"
+        
+        if not unmanaged_path.exists():
+            return {
+                "success": False,
+                "error": f"Form XML file not found: {unmanaged_path}"
+            }
+        
+        # Dry run: return preview of operations
+        if request.dry_run:
+            operations = []
+            
+            for tab in config['tabs']:
+                tab_name = tab.get('name', f"tab_{tab['label'].lower().replace(' ', '_')}")
+                operations.append({
+                    "type": "add_tab",
+                    "tab_name": tab_name,
+                    "tab_label": tab['label']
+                })
+                
+                for section in tab.get('sections', []):
+                    section_label = section['label']
+                    columns = section.get('columns', 1)
+                    field_count = len(section.get('fields', []))
+                    
+                    operations.append({
+                        "type": "add_section",
+                        "tab_name": tab_name,
+                        "section_label": section_label,
+                        "columns": columns
+                    })
+                    
+                    operations.append({
+                        "type": "add_fields",
+                        "tab_name": tab_name,
+                        "section_label": section_label,
+                        "field_count": field_count,
+                        "fields": section.get('fields', [])
+                    })
+            
+            return {
+                "success": True,
+                "dry_run": True,
+                "operations": operations
+            }
+        
+        # Import form_operations (needed for actual execution)
+        from form_operations import add_tab_to_form, add_section_to_tab, add_fields_to_section
+        
+        # Execute form building operations
+        try:
+            # Process each tab
+            for tab_idx, tab in enumerate(config['tabs']):
+                tab_name = tab.get('name', f"tab_{tab['label'].lower().replace(' ', '_')}")
+                tab_label = tab['label']
+                
+                # Add tab (only creates backup on first operation)
+                create_backup = (tab_idx == 0)
+                add_tab_to_form(
+                    unmanaged_path=unmanaged_path,
+                    tab_name=tab_name,
+                    tab_label=tab_label,
+                    managed_path=managed_path if managed_path.exists() else None,
+                    create_backup=create_backup
+                )
+                
+                # Add sections to tab
+                for section in tab.get('sections', []):
+                    section_label = section['label']
+                    section_name = section.get('name')  # Optional, will auto-generate if not provided
+                    columns = section.get('columns', 1)
+                    
+                    add_section_to_tab(
+                        unmanaged_path=unmanaged_path,
+                        tab_name=tab_name,
+                        section_label=section_label,
+                        section_name=section_name,
+                        columns=columns,
+                        managed_path=managed_path if managed_path.exists() else None,
+                        create_backup=False  # Already backed up
+                    )
+                    
+                    # Add fields to section
+                    fields = section.get('fields', [])
+                    if fields:
+                        # Read entity schema to get field types
+                        entity_xml = module_path / "src" / "Entities" / entity_name / "Entity.xml"
+                        entity_fields = read_entity_definition(entity_xml)
+                        field_type_map = {f.logical_name: f.form_field_type for f in entity_fields}
+                        field_display_map = {f.logical_name: f.display_name for f in entity_fields}
+                        
+                        # Build list of (field_name, field_label, field_type) tuples
+                        field_tuples = []
+                        for field_name in fields:
+                            field_type = field_type_map.get(field_name, 'text')
+                            field_label = field_display_map.get(field_name, field_name)
+                            field_tuples.append((field_name, field_label, field_type))
+                        
+                        # Use auto-generated section name
+                        from formxml_parser import generate_section_name
+                        actual_section_name = section_name if section_name else generate_section_name(section_label)
+                        
+                        add_fields_to_section(
+                            unmanaged_path=unmanaged_path,
+                            tab_name=tab_name,
+                            section_name=actual_section_name,
+                            fields=field_tuples,
+                            managed_path=managed_path if managed_path.exists() else None,
+                            create_backup=False
+                        )
+            
+            return {
+                "success": True,
+                "message": f"Form built successfully with {len(config['tabs'])} tabs",
+                "form_path": str(unmanaged_path)
+            }
+        
+        except Exception as e:
+            print(f"Error building form: {e}", file=sys.stderr)
+            import traceback
+            traceback.print_exc(file=sys.stderr)
+            return {
+                "success": False,
+                "error": f"Error building form: {str(e)}"
+            }
+    
+    except Exception as e:
+        print(f"Error in build_form_from_yaml: {e}", file=sys.stderr)
+        import traceback
+        traceback.print_exc(file=sys.stderr)
+        return {
+            "success": False,
+            "error": str(e)
+        }
 
 if __name__ == "__main__":
     import uvicorn

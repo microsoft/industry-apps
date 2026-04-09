@@ -9,6 +9,7 @@
     { path: '/field-creator', label: 'Field Creator', icon: '📋', description: 'Mass create fields' },
     { path: '/batch-field-creator', label: 'Batch Field Creator', icon: '⚡', description: 'Create fields from BUILD.md' },
     { path: '/choice-creator', label: 'Choice Creator', icon: '📝', description: 'Create global option sets' },
+    { path: '/form-builder', label: 'Form Builder', icon: '📺', description: 'Build forms from entity schemas' },
   ];
 
   function toggleSidebar() {

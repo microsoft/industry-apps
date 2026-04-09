@@ -11,6 +11,7 @@
   import BatchFieldCreator from './routes/BatchFieldCreator.svelte';
   import ChoiceCreator from './routes/ChoiceCreator.svelte';
   import ReleaseManager from './routes/ReleaseManager.svelte';
+  import FormBuilder from './routes/FormBuilder.svelte';
   
   // Define routes
   const routes = {
@@ -19,6 +20,7 @@
     '/batch-field-creator': BatchFieldCreator,
     '/choice-creator': ChoiceCreator,
     '/release-manager': ReleaseManager,
+    '/form-builder': FormBuilder,
   };
   
   // Load initial data
