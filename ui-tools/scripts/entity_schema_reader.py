@@ -273,19 +273,18 @@ def extract_form_default_tab(form_xml_path: Path) -> Optional[Dict]:
         return None
 
 
-def generate_yaml_template(entity_name: str, form_guid: str, fields: List[EntityField], 
-                           form_xml_path: Optional[Path] = None) -> str:
+def generate_yaml_template(entity_name: str, form_guid: str, fields: List[EntityField]) -> str:
     """
-    Generate a YAML template with all custom fields listed as comments.
+    Generate a declarative YAML template that completely defines the form layout.
     
-    This template is designed to be organized by AI (like GitHub Copilot) into
-    a proper form layout with tabs and sections.
+    This template will completely replace the existing form - all tabs, sections,
+    and fields are defined from scratch. The form builder will clear existing content
+    and rebuild based on this YAML.
     
     Args:
         entity_name: Logical name of the entity (e.g., "appbase_Sample")
         form_guid: GUID of the form (with braces)
         fields: List of custom EntityField objects
-        form_xml_path: Optional path to form XML to extract default tab structure
         
     Returns:
         YAML string with template format
@@ -294,11 +293,6 @@ def generate_yaml_template(entity_name: str, form_guid: str, fields: List[Entity
     
     # Group fields by category
     grouped = group_fields_by_type(fields)
-    
-    # Extract default tab structure if form XML provided
-    default_tab = None
-    if form_xml_path:
-        default_tab = extract_form_default_tab(form_xml_path)
     
     # Build YAML template
     yaml_lines = [
@@ -313,6 +307,10 @@ def generate_yaml_template(entity_name: str, form_guid: str, fields: List[Entity
         "# " + "=" * 76,
         f"# Available Custom Fields ({len(fields)} total)",
         "# " + "=" * 76,
+        "#",
+        "# IMPORTANT: This YAML completely defines the form layout.",
+        "# All existing tabs/sections will be cleared and rebuilt from this definition.",
+        "# You MUST include {}_name and ownerid fields - they are required by Dataverse.".format(entity_name.split('_')[0]),
         "#"
     ]
     
@@ -360,35 +358,31 @@ def generate_yaml_template(entity_name: str, form_guid: str, fields: List[Entity
         "# " + "=" * 76,
         "",
         "tabs:",
+        "  # General tab with required system fields (name and owner)",
+        "  - name: tab_general",
+        "    label: General",
+        "    sections:",
+        "      - label: General Information",
+        "        columns: 2  # 2-column layout. Change to 1 for simple forms.",
+        "        # Use 'rows' for explicit positioning or 'fields' for auto-layout",
+        "        rows:",
+        f"          - [{entity_name.split('_')[0]}_name, null]  # Row 1: Name field + empty cell",
+        "          - [ownerid, null]  # Row 2: Owner field + empty cell",
+        "          # Add your custom fields here. Examples:",
+        "          # - [field1, field2]  # Two fields side-by-side",
+        "          # - [{field: memo_field, colspan: 2}]  # Field spanning both columns",
+        "          # - [field3, null]  # Field + empty space",
+        "",
+        "  # Add more tabs as needed:",
+        "  # - name: tab_details",
+        "  #   label: Details",
+        "  #   sections:",
+        "  #     - label: Section Name",
+        "  #       columns: 2",
+        "  #       fields:",
+        "  #         - field1",
+        "  #         - field2",
     ])
-    
-    # Add default tab if extracted from form
-    if default_tab:
-        yaml_lines.append(f"  - id: \"{default_tab['id']}\"  # Existing OOB tab")
-        yaml_lines.append(f"    label: {default_tab['label']}")
-        yaml_lines.append("    sections:")
-        
-        for section in default_tab['sections']:
-            yaml_lines.append(f"      - id: \"{section['id']}\"  # Existing section")
-            yaml_lines.append(f"        label: \"{section['label']}\"")
-            yaml_lines.append("        columns: 1")
-            yaml_lines.append("        existing_fields:  # These fields will be preserved")
-            for field in section['fields']:
-                yaml_lines.append(f"          - {field}")
-            yaml_lines.append("        fields:")
-            yaml_lines.append("          # TODO: Add custom fields here")
-            yaml_lines.append("")
-    else:
-        # Fallback to simple template if no form structure found
-        yaml_lines.extend([
-            "  - name: tab_general",
-            "    label: General",
-            "    sections:",
-            "      - label: Basic Information",
-            "        columns: 1",
-            "        fields:",
-            "          # TODO: Add fields here",
-        ])
     
     return "\n".join(yaml_lines)
 

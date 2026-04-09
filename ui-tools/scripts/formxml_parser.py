@@ -531,6 +531,32 @@ class Tab:
                 return section
         return None
     
+    def get_section_by_id(self, section_id: str) -> Optional[Section]:
+        """Get a section by its ID from any column in this tab."""
+        for column in self.columns:
+            section = column.get_section_by_id(section_id)
+            if section:
+                return section
+        return None
+    
+    def update_section_columns(self, section_id: str, new_columns: int) -> bool:
+        """
+        Update the columns attribute of a section.
+        
+        Args:
+            section_id: The ID of the section to update
+            new_columns: The new column count (1 or 2 for UI; represented as 1 or 11 in XML)
+            
+        Returns:
+            True if section was found and updated, False otherwise
+        """
+        section = self.get_section_by_id(section_id)
+        if section:
+            # Convert columns: 1 -> 1, 2 -> 11 (varwidth dual column)
+            section.columns = 11 if new_columns == 2 else 1
+            return True
+        return False
+    
     def add_section(self, section_name: str, section_label: str,
                     columns: int = DEFAULT_SECTION_COLUMNS,
                     column_index: int = 0) -> Section:

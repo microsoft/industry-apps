@@ -8,9 +8,10 @@ handling both unmanaged and managed form files automatically.
 import shutil
 from pathlib import Path
 from datetime import datetime
-from typing import Optional, Tuple
+from typing import Optional, Tuple, List, Dict, Union
 
-from formxml_parser import FormXmlParser, FormDefinition, generate_section_name
+from formxml_parser import FormXmlParser, FormDefinition, generate_section_name, Row, Cell, Control, Label, generate_guid
+from formxml_constants import get_classid_for_field_type
 
 
 def backup_forms(unmanaged_path: Path, managed_path: Optional[Path] = None, 
@@ -281,6 +282,188 @@ def add_subgrid_to_section(unmanaged_path: Path, tab_name: str, section_name: st
     
     # Add subgrid to the section
     section.add_subgrid(subgrid_id, subgrid_label, relationship_name, target_entity, view_id)
+    
+    # Save forms
+    save_forms(form, unmanaged_path, managed_path)
+    
+    return form
+
+
+def update_section_columns(unmanaged_path: Path, tab_name: str, section_id: str,
+                           new_columns: int,
+                           managed_path: Optional[Path] = None,
+                           create_backup: bool = True) -> FormDefinition:
+    """
+    Update the column count for a section (typically to convert a 1-column OOB section to 2 columns).
+    
+    Args:
+        unmanaged_path: Path to the unmanaged form XML file
+        tab_name: Name or label of the tab containing the section
+        section_id: GUID of the section to modify
+        new_columns: Number of columns (1 or 2)
+        managed_path: Path to the managed form XML file (optional)
+        create_backup: Whether to create backup files (default: True)
+        
+    Returns:
+        The modified FormDefinition
+    """
+    # Create backups
+    if create_backup:
+        backup_forms(unmanaged_path, managed_path)
+    
+    # Load form
+    form = FormXmlParser.parse_file(unmanaged_path)
+    
+    # Find the tab
+    tab = form.get_tab_by_name(tab_name)
+    if not tab:
+        raise ValueError(f"Tab '{tab_name}' not found in form")
+    
+    # Update section columns
+    success = tab.update_section_columns(section_id, new_columns)
+    if not success:
+        raise ValueError(f"Section with ID '{section_id}' not found in tab '{tab_name}'")
+    
+    # Save forms
+    save_forms(form, unmanaged_path, managed_path)
+    
+    return form
+
+
+def add_fields_to_section_by_rows(unmanaged_path: Path, tab_name: str, section_name: str,
+                                   rows: List[List[Union[str, dict, None]]],
+                                   field_metadata: Dict[str, Tuple[str, str]],
+                                   managed_path: Optional[Path] = None,
+                                   create_backup: bool = False,
+                                   skip_if_exists: bool = True) -> FormDefinition:
+    """
+    Add fields to a section using explicit row/column positioning.
+    
+    This function provides precise control over field placement in multi-column sections.
+    Each row is a list that can contain:
+    - str: Field schema name (creates a cell with that field's control)
+    - None: Empty cell (creates a cell with an empty label, no control)
+    - dict: Field with spanning, e.g., {'field': 'fieldname', 'colspan': 2, 'rowspan': 1}
+    
+    Args:
+        unmanaged_path: Path to the unmanaged form XML file
+        tab_name: Name or label of the tab containing the section
+        section_name: Name or label of the section to add fields to
+        rows: List of rows, where each row is a list of field specifications
+        field_metadata: Dict mapping field schema name to (display_name, field_type)
+        managed_path: Path to the managed form XML file (optional)
+        create_backup: Whether to create backup files (default: False)
+        skip_if_exists: Skip fields that already exist in the section (default: True)
+        
+    Returns:
+        The modified FormDefinition
+        
+    Example:
+        rows = [
+            ['appbase_name', 'appbase_textfield'],      # Row 1: Name and Text in 2 columns
+            ['ownerid', None],                           # Row 2: Owner and empty cell
+            [{'field': 'appbase_memo', 'colspan': 2}]   # Row 3: Memo spanning both columns
+        ]
+    """
+    # Create backups
+    if create_backup:
+        backup_forms(unmanaged_path, managed_path)
+    
+    # Load form
+    form = FormXmlParser.parse_file(unmanaged_path)
+    
+    # Find the tab
+    tab = form.get_tab_by_name(tab_name)
+    if not tab:
+        raise ValueError(f"Tab '{tab_name}' not found in form")
+    
+    # Find the section
+    section = tab.get_section_by_name(section_name)
+    if not section:
+        raise ValueError(f"Section '{section_name}' not found in tab '{tab_name}'")
+    
+    # Get existing field names if skip_if_exists is True
+    existing_fields = set()
+    if skip_if_exists:
+        for row in section.rows:
+            for cell in row.cells:
+                if cell.control:
+                    existing_fields.add(cell.control.datafieldname)
+    
+    # Build rows
+    for row_spec in rows:
+        row = Row()
+        
+        for cell_spec in row_spec:
+            # Determine cell specifications
+            field_name = None
+            colspan = 1
+            rowspan = 1
+            
+            if isinstance(cell_spec, str):
+                # Simple field name
+                field_name = cell_spec
+            elif isinstance(cell_spec, dict):
+                # Field with spanning attributes
+                field_name = cell_spec.get('field')
+                colspan = cell_spec.get('colspan', 1)
+                rowspan = cell_spec.get('rowspan', 1)
+            elif cell_spec is None:
+                # Empty cell - just create a cell with empty label
+                pass
+            else:
+                raise ValueError(f"Invalid cell specification: {cell_spec}. Must be str, dict, or None.")
+            
+            # Create the cell
+            if field_name:
+                # Skip if field already exists
+                if skip_if_exists and field_name in existing_fields:
+                    print(f"Field '{field_name}' already exists in section '{section_name}', skipping")
+                    continue
+                
+                # Get field metadata
+                if field_name not in field_metadata:
+                    raise ValueError(f"Field '{field_name}' not found in field_metadata")
+                
+                display_name, field_type = field_metadata[field_name]
+                classid = get_classid_for_field_type(field_type)
+                
+                # Create control
+                control = Control(
+                    id=field_name,
+                    classid=classid,
+                    datafieldname=field_name,
+                    disabled=False
+                )
+                
+                # Create label
+                label = Label(description=display_name, languagecode="1033")
+                
+                # Create cell with control
+                cell = Cell(
+                    id=generate_guid(),
+                    control=control,
+                    labels=[label],
+                    locklevel=0,
+                    colspan=colspan,
+                    rowspan=rowspan
+                )
+            else:
+                # Empty cell - no control, just label
+                label = Label(description="", languagecode="1033")
+                cell = Cell(
+                    id=generate_guid(),
+                    labels=[label],
+                    locklevel=0,
+                    colspan=colspan,
+                    rowspan=rowspan
+                )
+            
+            row.cells.append(cell)
+        
+        # Add row to section
+        if row.cells:  # Only add non-empty rows
+            section.rows.append(row)
     
     # Save forms
     save_forms(form, unmanaged_path, managed_path)

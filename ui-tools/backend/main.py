@@ -2842,8 +2842,8 @@ async def extract_fields(request: ExtractFieldsRequest):
             if not form_xml_path.exists():
                 form_xml_path = None
         
-        # Generate YAML template with OOB structure if form exists
-        yaml_template = generate_yaml_template(request.entity_name, form_guid, fields, form_xml_path)
+        # Generate declarative YAML template
+        yaml_template = generate_yaml_template(request.entity_name, form_guid, fields)
         
         return {
             "success": True,
@@ -2926,8 +2926,8 @@ async def extract_all_entities(request: ExtractAllEntitiesRequest):
                         form_guid = form_files[0].stem
                         form_xml_path = form_files[0]
                 
-                # Generate YAML template with OOB structure if form exists
-                yaml_content = generate_yaml_template(entity_name, form_guid, fields, form_xml_path)
+                # Generate declarative YAML template
+                yaml_content = generate_yaml_template(entity_name, form_guid, fields)
                 
                 # Write to file
                 with open(layout_file, 'w', encoding='utf-8') as f:
@@ -3012,8 +3012,8 @@ async def extract_single_entity(request: ExtractSingleEntityRequest):
                 form_guid = form_files[0].stem
                 form_xml_path = form_files[0]
         
-        # Generate YAML template with OOB structure if form exists
-        yaml_content = generate_yaml_template(request.entity_name, form_guid, fields, form_xml_path)
+        # Generate declarative YAML template
+        yaml_content = generate_yaml_template(request.entity_name, form_guid, fields)
         
         # Write to file (always overwrite for single entity recreate)
         with open(layout_file, 'w', encoding='utf-8') as f:
@@ -3360,7 +3360,7 @@ async def build_form_from_yaml(request: BuildFormRequest):
             }
         
         # Import form_operations (needed for actual execution)
-        from form_operations import add_tab_to_form, add_section_to_tab, add_fields_to_section, backup_forms
+        from form_operations import add_tab_to_form, add_section_to_tab, add_fields_to_section, add_fields_to_section_by_rows, update_section_columns, backup_forms, save_forms
         
         # Execute form building operations
         try:
@@ -3368,154 +3368,142 @@ async def build_form_from_yaml(request: BuildFormRequest):
             sections_added = 0
             fields_added = 0
             
+            # DECLARATIVE REBUILD APPROACH: Clear existing form and rebuild from scratch
+            # This ensures the YAML is the complete definition of the form
+            print("Clearing existing form structure...")
+            backup_forms(unmanaged_path, managed_path if managed_path.exists() else None)
+            
+            # Load form and clear all tabs
+            form = FormXmlParser.parse_file(unmanaged_path)
+            form.tabs.clear()
+            
+            # Save empty form
+            save_forms(form, unmanaged_path, managed_path if managed_path.exists() else None)
+            print(f"Cleared {len(form.tabs)} existing tabs. Rebuilding from YAML...")
+            
             # Process each tab
             for tab_idx, tab in enumerate(config['tabs']):
-                tab_id = tab.get('id')  # OOB tabs have ID but no name
                 tab_name = tab.get('name')
                 tab_label = tab['label']
                 
-                # For finding tabs: if no name, use label (OOB tabs can be found by label)
-                # For adding tabs: if no name, generate from label
+                # Use tab name if provided, otherwise generate from label
                 if not tab_name:
-                    tab_name_for_ops = tab_label  # Use label to find OOB tabs
-                    tab_name_for_add = f"tab_{tab_label.lower().replace(' ', '_')}"
-                else:
-                    tab_name_for_ops = tab_name
-                    tab_name_for_add = tab_name
+                    tab_name = f"tab_{tab_label.lower().replace(' ', '_')}"
                 
-                # Add tab (only creates backup on first operation)
-                create_backup = (tab_idx == 0)
-                form_before = FormXmlParser.parse_file(unmanaged_path)
-                
-                # Check if tab exists by ID (for OOB tabs) or name
-                if tab_id:
-                    tab_existed = form_before.get_tab_by_id(tab_id) is not None
-                else:
-                    tab_existed = form_before.get_tab_by_name(tab_name_for_ops) is not None
-                
-                # Only add tab if it doesn't exist
-                if not tab_existed:
-                    add_tab_to_form(
-                        unmanaged_path=unmanaged_path,
-                        tab_name=tab_name_for_add,
-                        tab_label=tab_label,
-                        managed_path=managed_path if managed_path.exists() else None,
-                        create_backup=create_backup,
-                        skip_if_exists=True,
-                        create_default_section=False  # YAML explicitly defines sections
-                    )
-                    tabs_added += 1
-                else:
-                    # Tab exists (OOB tab), just use it
-                    if tab_idx == 0 and create_backup:
-                        # Still need to create backup for first operation
-                        backup_forms(unmanaged_path, managed_path)
+                # Add tab (all tabs are new since we cleared the form)
+                add_tab_to_form(
+                    unmanaged_path=unmanaged_path,
+                    tab_name=tab_name,
+                    tab_label=tab_label,
+                    managed_path=managed_path if managed_path.exists() else None,
+                    create_backup=False,  # Already backed up when clearing
+                    skip_if_exists=False,  # No tabs exist - we cleared them all
+                    create_default_section=False  # YAML explicitly defines sections
+                )
+                tabs_added += 1
                 
                 # Add sections to tab
                 for section in tab.get('sections', []):
-                    section_id = section.get('id')  # OOB sections have ID
                     section_label = section['label']
                     section_name = section.get('name')  # Optional, will auto-generate if not provided
                     columns = section.get('columns', 1)
-                    existing_field_names = section.get('existing_fields', [])  # OOB fields to preserve
                     
-                    # For operations: use label if no name (OOB sections); for adding: auto-generate
-                    if not section_name:
-                        section_name_for_ops = section_label
-                        section_name_for_add = None  # Let add_section_to_tab auto-generate
-                    else:
-                        section_name_for_ops = section_name
-                        section_name_for_add = section_name
+                    # Add section (all sections are new since we cleared the form)
+                    add_section_to_tab(
+                        unmanaged_path=unmanaged_path,
+                        tab_name=tab_name,
+                        section_label=section_label,
+                        section_name=section_name,
+                        columns=columns,
+                        managed_path=managed_path if managed_path.exists() else None,
+                        create_backup=False,  # Already backed up
+                        skip_if_exists=False  # No sections exist - we cleared them all
+                    )
+                    sections_added += 1
                     
-                    # Check if section exists
-                    form_check = FormXmlParser.parse_file(unmanaged_path)
-                    
-                    # Find the tab by ID or name/label
-                    if tab_id:
-                        tab_check = form_check.get_tab_by_id(tab_id)
-                    else:
-                        tab_check = form_check.get_tab_by_name(tab_name_for_ops)
-                    
-                    # Auto-generate actual section name for checking
-                    actual_section_name = section_name_for_add if section_name_for_add else generate_section_name(section_label)
-                    
-                    # Check if section exists by ID or name
-                    if section_id and tab_check:
-                        section_existed = tab_check.get_section_by_id(section_id) is not None
-                    elif tab_check:
-                        section_existed = tab_check.get_section_by_name(section_name_for_ops) is not None
-                    else:
-                        section_existed = False
-                    
-                    # Only add section if it doesn't exist
-                    if not section_existed:
-                        add_section_to_tab(
-                            unmanaged_path=unmanaged_path,
-                            tab_name=tab_name_for_ops,
-                            section_label=section_label,
-                            section_name=section_name_for_add,
-                            columns=columns,
-                            managed_path=managed_path if managed_path.exists() else None,
-                            create_backup=False,  # Already backed up
-                            skip_if_exists=True
-                        )
-                        sections_added += 1
-                    
-                    # Add fields to section
+                    # Check if section uses row-based or field-based layout
+                    rows_spec = section.get('rows')
                     fields = section.get('fields', [])
-                    if fields:
+                    
+                    if rows_spec:
+                        # Row-based layout (advanced mode with explicit positioning)
                         # Read entity schema to get field types
                         entity_xml = module_path / "src" / "Entities" / entity_name / "Entity.xml"
                         entity_fields = read_entity_definition(entity_xml)
-                        field_type_map = {f.logical_name: f.form_field_type for f in entity_fields}
-                        field_display_map = {f.logical_name: f.display_name for f in entity_fields}
                         
-                        # Get existing fields in section
-                        form_fields_check = FormXmlParser.parse_file(unmanaged_path)
+                        # Build field_metadata dict for row-based function
+                        field_metadata = {
+                            field.logical_name: (field.display_name, field.form_field_type)
+                            for field in entity_fields
+                        }
                         
-                        # Find tab by ID or name/label
-                        if tab_id:
-                            tab_fields_check = form_fields_check.get_tab_by_id(tab_id)
-                        else:
-                            tab_fields_check = form_fields_check.get_tab_by_name(tab_name_for_ops)
+                        # Add system fields that are always available
+                        field_metadata['ownerid'] = ('Owner', 'lookup')
+                        # Name field uses entity prefix
+                        entity_prefix = entity_name.split('_')[0] if '_' in entity_name else entity_name
+                        name_field = f"{entity_prefix}_name"
+                        field_metadata[name_field] = ('Name', 'text')
                         
-                        # Find section by ID or name/label
-                        if section_id and tab_fields_check:
-                            section_fields_check = tab_fields_check.get_section_by_id(section_id)
-                        elif tab_fields_check:
-                            section_fields_check = tab_fields_check.get_section_by_name(section_name_for_ops)
-                        else:
-                            section_fields_check = None
+                        # Count all fields that will be added
+                        for row_spec in rows_spec:
+                            for cell_spec in row_spec:
+                                if isinstance(cell_spec, str):
+                                    fields_added += 1
+                                elif isinstance(cell_spec, dict):
+                                    if cell_spec.get('field'):
+                                        fields_added += 1
                         
-                        existing_fields = set()
-                        if section_fields_check:
-                            for row in section_fields_check.rows:
-                                for cell in row.cells:
-                                    if cell.control and cell.control.datafieldname:
-                                        existing_fields.add(cell.control.datafieldname)
+                        # Add fields using row-based layout
+                        add_fields_to_section_by_rows(
+                            unmanaged_path=unmanaged_path,
+                            tab_name=tab_name,
+                            section_name=section_label,  # Use label - sections just created
+                            rows=rows_spec,
+                            field_metadata=field_metadata,
+                            managed_path=managed_path if managed_path.exists() else None,
+                            create_backup=False,
+                            skip_if_exists=False  # No fields exist - we cleared them all
+                        )
+                    
+                    elif fields:
+                        # Field-based layout (simple auto-layout mode)
+                        # Read entity schema to get field types
+                        entity_xml = module_path / "src" / "Entities" / entity_name / "Entity.xml"
+                        entity_fields = read_entity_definition(entity_xml)
+                        
+                        # Create system fields metadata
+                        entity_prefix = entity_name.split('_')[0] if '_' in entity_name else entity_name
+                        name_field = f"{entity_prefix}_name"
+                        system_fields = {
+                            'ownerid': ('Owner', 'lookup'),
+                            name_field: ('Name', 'text')
+                        }
                         
                         # Build list of (field_name, field_label, field_type) tuples
                         field_tuples = []
                         for field_name in fields:
-                            field_type = field_type_map.get(field_name, 'text')
-                            field_label = field_display_map.get(field_name, field_name)
+                            # Check system fields first, then entity fields
+                            if field_name in system_fields:
+                                field_label, field_type = system_fields[field_name]
+                            else:
+                                field_type = next((f.form_field_type for f in entity_fields if f.logical_name == field_name), 'text')
+                                field_label = next((f.display_name for f in entity_fields if f.logical_name == field_name), field_name)
                             field_tuples.append((field_name, field_label, field_type))
-                            if field_name not in existing_fields:
-                                fields_added += 1
+                            fields_added += 1
                         
                         add_fields_to_section(
                             unmanaged_path=unmanaged_path,
-                            tab_name=tab_name_for_ops,
-                            section_name=section_name_for_ops,
+                            tab_name=tab_name,
+                            section_name=section_label,  # Use label - sections just created
                             fields=field_tuples,
                             managed_path=managed_path if managed_path.exists() else None,
                             create_backup=False,
-                            skip_if_exists=True
+                            skip_if_exists=False  # No fields exist - we cleared them all
                         )
             
             return {
                 "success": True,
-                "message": f"Form built successfully! Added {tabs_added} tabs, {sections_added} sections, {fields_added} fields. (Duplicates were skipped)",
+                "message": f"Form rebuilt successfully! Added {tabs_added} tabs, {sections_added} sections, {fields_added} fields.",
                 "form_path": str(unmanaged_path),
                 "stats": {
                     "tabs_added": tabs_added,
