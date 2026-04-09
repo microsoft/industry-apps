@@ -273,7 +273,8 @@ def extract_form_default_tab(form_xml_path: Path) -> Optional[Dict]:
         return None
 
 
-def generate_yaml_template(entity_name: str, form_guid: str, fields: List[EntityField]) -> str:
+def generate_yaml_template(entity_name: str, form_guid: str, fields: List[EntityField],
+                           module_path: Optional[Path] = None) -> str:
     """
     Generate a declarative YAML template that completely defines the form layout.
     
@@ -285,14 +286,21 @@ def generate_yaml_template(entity_name: str, form_guid: str, fields: List[Entity
         entity_name: Logical name of the entity (e.g., "appbase_Sample")
         form_guid: GUID of the form (with braces)
         fields: List of custom EntityField objects
+        module_path: Optional path to module root for relationship discovery
         
     Returns:
         YAML string with template format
     """
     from datetime import datetime
+    from relationship_reader import get_relationships_with_views
     
     # Group fields by category
     grouped = group_fields_by_type(fields)
+    
+    # Get relationships if module path is provided
+    relationships = []
+    if module_path:
+        relationships = get_relationships_with_views(module_path, entity_name)
     
     # Build YAML template
     yaml_lines = [
@@ -354,6 +362,24 @@ def generate_yaml_template(entity_name: str, form_guid: str, fields: List[Entity
             yaml_lines.append(f"#   - {field.logical_name} ({field.display_name}) - {field.form_field_type}{required_marker}")
         yaml_lines.append("#")
     
+    # Add relationships section
+    if relationships:
+        yaml_lines.extend([
+            "# " + "=" * 76,
+            f"# Available Relationships (1:N) - {len(relationships)} total",
+            "# " + "=" * 76,
+            "#",
+            "# Use these in subgrids to show related records:",
+            "#"
+        ])
+        
+        for rel in relationships:
+            yaml_lines.append(f"# - {rel.name}")
+            yaml_lines.append(f"#     Target Entity: {rel.target_entity}")
+            if rel.default_view_id:
+                yaml_lines.append(f"#     Default View: {rel.default_view_name} ({rel.default_view_id})")
+            yaml_lines.append("#")
+    
     yaml_lines.extend([
         "# " + "=" * 76,
         "",
@@ -382,6 +408,15 @@ def generate_yaml_template(entity_name: str, form_guid: str, fields: List[Entity
         "  #       fields:",
         "  #         - field1",
         "  #         - field2",
+        "  #",
+        "  # Add subgrids to show related records:",
+        "  # - name: tab_related",
+        "  #   label: Related Records",
+        "  #   sections:",
+        "  #     - label: Related Items",
+        "  #       subgrids:",
+        "  #         - relationship: relationship_name_from_above",
+        "  #           label: Display Label for Grid",
     ])
     
     return "\n".join(yaml_lines)

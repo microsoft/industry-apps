@@ -2843,7 +2843,7 @@ async def extract_fields(request: ExtractFieldsRequest):
                 form_xml_path = None
         
         # Generate declarative YAML template
-        yaml_template = generate_yaml_template(request.entity_name, form_guid, fields)
+        yaml_template = generate_yaml_template(request.entity_name, form_guid, fields, module_path)
         
         return {
             "success": True,
@@ -2927,7 +2927,7 @@ async def extract_all_entities(request: ExtractAllEntitiesRequest):
                         form_xml_path = form_files[0]
                 
                 # Generate declarative YAML template
-                yaml_content = generate_yaml_template(entity_name, form_guid, fields)
+                yaml_content = generate_yaml_template(entity_name, form_guid, fields, module_path)
                 
                 # Write to file
                 with open(layout_file, 'w', encoding='utf-8') as f:
@@ -3013,7 +3013,7 @@ async def extract_single_entity(request: ExtractSingleEntityRequest):
                 form_xml_path = form_files[0]
         
         # Generate declarative YAML template
-        yaml_content = generate_yaml_template(request.entity_name, form_guid, fields)
+        yaml_content = generate_yaml_template(request.entity_name, form_guid, fields, module_path)
         
         # Write to file (always overwrite for single entity recreate)
         with open(layout_file, 'w', encoding='utf-8') as f:
@@ -3360,7 +3360,7 @@ async def build_form_from_yaml(request: BuildFormRequest):
             }
         
         # Import form_operations (needed for actual execution)
-        from form_operations import add_tab_to_form, add_section_to_tab, add_fields_to_section, add_fields_to_section_by_rows, update_section_columns, backup_forms, save_forms
+        from form_operations import add_tab_to_form, add_section_to_tab, add_fields_to_section, add_fields_to_section_by_rows, add_subgrid_to_section, update_section_columns, backup_forms, save_forms
         
         # Execute form building operations
         try:
@@ -3500,6 +3500,54 @@ async def build_form_from_yaml(request: BuildFormRequest):
                             create_backup=False,
                             skip_if_exists=False  # No fields exist - we cleared them all
                         )
+                    
+                    # Check for subgrids in the section
+                    subgrids_spec = section.get('subgrids', [])
+                    if subgrids_spec:
+                        from relationship_reader import get_relationships_with_views
+                        
+                        # Get relationships with view information
+                        all_relationships = get_relationships_with_views(module_path, entity_name)
+                        rel_map = {rel.name: rel for rel in all_relationships}
+                        
+                        for subgrid_spec in subgrids_spec:
+                            relationship_name = subgrid_spec.get('relationship')
+                            subgrid_label = subgrid_spec.get('label', 'Related Records')
+                            
+                            if not relationship_name:
+                                print(f"Warning: Subgrid missing 'relationship' field, skipping")
+                                continue
+                            
+                            # Look up relationship metadata
+                            if relationship_name not in rel_map:
+                                print(f"Warning: Relationship '{relationship_name}' not found in entity relationships")
+                                continue
+                            
+                            rel = rel_map[relationship_name]
+                            
+                            # Check if we have a default view
+                            if not rel.default_view_id:
+                                print(f"Warning: No default view found for relationship '{relationship_name}', skipping subgrid")
+                                continue
+                            
+                            # Generate unique subgrid ID
+                            subgrid_id = f"subgrid_{relationship_name}"
+                            
+                            # Add subgrid to section
+                            add_subgrid_to_section(
+                                unmanaged_path=unmanaged_path,
+                                tab_name=tab_name,
+                                section_name=section_label,
+                                subgrid_id=subgrid_id,
+                                subgrid_label=subgrid_label,
+                                relationship_name=relationship_name,
+                                target_entity=rel.target_entity,
+                                view_id=rel.default_view_id,
+                                managed_path=managed_path if managed_path.exists() else None,
+                                create_backup=False
+                            )
+                            
+                            print(f"Added subgrid '{subgrid_label}' for relationship '{relationship_name}'")
             
             return {
                 "success": True,
