@@ -678,9 +678,8 @@ class FormDefinition:
         form_elem = ET.SubElement(systemform_elem, "form")
         if self.headerdensity:
             form_elem.set("headerdensity", self.headerdensity)
-        # Only add shownavigationbar if it's not the default (False)
-        if self.shownavigationbar:
-            form_elem.set("shownavigationbar", "true")
+        # Always add shownavigationbar attribute (default to "false")
+        form_elem.set("shownavigationbar", "true" if self.shownavigationbar else "false")
         
         # Tabs
         if self.tabs:
