@@ -300,6 +300,9 @@ class Section:
             disabled=False
         )
         
+        # Auto-set rowspan for memo fields (default to 4 rows for better UX)
+        rowspan = 4 if field_type == 'memo' else 1
+        
         # Create the cell
         cell = Cell(
             id=generate_guid(),
@@ -307,7 +310,7 @@ class Section:
             control=control,
             locklevel=0,
             colspan=1,
-            rowspan=1
+            rowspan=rowspan
         )
         
         # Add to appropriate row
