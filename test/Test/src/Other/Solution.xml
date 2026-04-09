@@ -6,7 +6,7 @@
       <LocalizedName description="App Base - Test" languagecode="1033" />
     </LocalizedNames>
     <Descriptions />
-    <Version>1.0.0.12</Version>
+    <Version>1.0.0.13</Version>
     <Managed>2</Managed>
     <Publisher>
       <UniqueName>appbase</UniqueName>
@@ -84,8 +84,16 @@
       <RootComponent type="1" schemaName="appbase_sample" behavior="0" />
       <RootComponent type="1" schemaName="appbase_test" behavior="0" />
       <RootComponent type="1" schemaName="contact" behavior="1" />
+      <RootComponent type="62" schemaName="appbase_TestApp" behavior="0" />
+      <RootComponent type="80" schemaName="appbase_TestApp" behavior="0" />
     </RootComponents>
     <MissingDependencies>
+      <MissingDependency>
+        <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)">
+          <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
+        </Required>
+        <Dependent type="80" schemaName="appbase_TestApp" displayName="Test App" />
+      </MissingDependency>
       <MissingDependency>
         <Required type="9" schemaName="msdyn_flow_approval_priority" displayName="Priority" solution="msdyn_FlowApprovalsCore (2.2.13.0)">
           <package appName="msdyn_FlowApprovals" version="2.2.13.0">msdyn_FlowApprovals (2.2.13.0)</package>
@@ -97,6 +105,12 @@
           <package appName="msdyn_FlowApprovals" version="2.2.13.0">msdyn_FlowApprovals (2.2.13.0)</package>
         </Required>
         <Dependent type="2" schemaName="appbase_choicefield" displayName="Choice Field" parentSchemaName="appbase_test" parentDisplayName="Test" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.15)" id.uniquename="AppChannel">
+          <package appName="PowerAppsAppFramework Package" version="1.0.0.25">PowerAppsAppFramework_Anchor (1.0.0.25)</package>
+        </Required>
+        <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=appbase_TestApp,settingdefinitionid.uniquename=AppChannel" id.parentappmoduleid.uniquename="appbase_TestApp" id.settingdefinitionid.uniquename="AppChannel" />
       </MissingDependency>
     </MissingDependencies>
   </SolutionManifest>
