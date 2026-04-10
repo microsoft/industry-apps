@@ -2677,6 +2677,9 @@ class ExtractSingleEntityRequest(BaseModel):
     module_path: str
     entity_name: str
 
+class BuildAllFormsRequest(BaseModel):
+    module_path: str
+
 @app.get("/api/formbuilder/list-modules")
 async def list_modules_for_formbuilder():
     """
@@ -3602,6 +3605,305 @@ async def build_form_from_yaml(request: BuildFormRequest):
     
     except Exception as e:
         print(f"Error in build_form_from_yaml: {e}", file=sys.stderr)
+        import traceback
+        traceback.print_exc(file=sys.stderr)
+        return {
+            "success": False,
+            "error": str(e)
+        }
+
+@app.post("/api/formbuilder/build-all-forms")
+async def build_all_forms(request: BuildAllFormsRequest):
+    """
+    Build forms for all entities in a module.
+    
+    Reads all YAML files from .design/layouts/<module>/ and builds each form.
+    """
+    try:
+        module_path = Path(request.module_path)
+        module_name = module_path.name
+        
+        # Find layout files
+        layouts_dir = PROJECT_ROOT / ".design" / "layouts" / module_name
+        if not layouts_dir.exists():
+            return {
+                "success": False,
+                "error": f"Layouts directory not found: {layouts_dir}"
+            }
+        
+        layout_files = list(layouts_dir.glob("*.yaml"))
+        if not layout_files:
+            return {
+                "success": False,
+                "error": f"No layout files found in {layouts_dir}"
+            }
+        
+        # Build each form
+        results = []
+        success_count = 0
+        error_count = 0
+        
+        for layout_file in sorted(layout_files):
+            entity_name = layout_file.stem
+            print(f"\nBuilding form for {entity_name}...")
+            
+            try:
+                # Read and parse YAML
+                with open(layout_file, 'r', encoding='utf-8') as f:
+                    yaml_content = f.read()
+                
+                config = yaml.safe_load(yaml_content)
+                if not config:
+                    results.append({
+                        "entity": entity_name,
+                        "success": False,
+                        "error": "Empty YAML file"
+                    })
+                    error_count += 1
+                    continue
+                
+                # Validate required fields
+                if 'entity' not in config:
+                    results.append({
+                        "entity": entity_name,
+                        "success": False,
+                        "error": "Missing 'entity' field in YAML"
+                    })
+                    error_count += 1
+                    continue
+                
+                if 'form_guid' not in config:
+                    results.append({
+                        "entity": entity_name,
+                        "success": False,
+                        "error": "Missing 'form_guid' field in YAML"
+                    })
+                    error_count += 1
+                    continue
+                
+                if 'tabs' not in config or not config['tabs']:
+                    results.append({
+                        "entity": entity_name,
+                        "success": False,
+                        "error": "Missing or empty 'tabs' field in YAML"
+                    })
+                    error_count += 1
+                    continue
+                
+                # Find form XML file
+                form_guid = config['form_guid'].strip('{}')
+                entity_dir = module_path / "src" / "Entities" / config['entity']
+                
+                if not entity_dir.exists():
+                    results.append({
+                        "entity": entity_name,
+                        "success": False,
+                        "error": f"Entity directory not found: {entity_dir}"
+                    })
+                    error_count += 1
+                    continue
+                
+                form_xml_dir = entity_dir / "FormXml" / "main"
+                unmanaged_path = form_xml_dir / f"{{{form_guid}}}.xml"
+                managed_path = form_xml_dir / f"{{{form_guid}}}_managed.xml"
+                
+                if not unmanaged_path.exists():
+                    results.append({
+                        "entity": entity_name,
+                        "success": False,
+                        "error": f"Form XML not found: {unmanaged_path}"
+                    })
+                    error_count += 1
+                    continue
+                
+                # Import form operations
+                from formxml_parser import FormXmlParser
+                from form_operations import add_tab_to_form, add_section_to_tab, add_fields_to_section, add_fields_to_section_by_rows, update_section_columns, backup_forms, save_forms
+                from entity_schema_reader import read_entity_definition
+                
+                # Build the form (same logic as build-form endpoint)
+                tabs_added = 0
+                sections_added = 0
+                fields_added = 0
+                subgrids_to_add = []
+                
+                # Backup and clear form
+                backup_forms(unmanaged_path, managed_path if managed_path.exists() else None)
+                form = FormXmlParser.parse_file(unmanaged_path)
+                form.tabs.clear()
+                save_forms(form, unmanaged_path, managed_path if managed_path.exists() else None)
+                
+                # Process tabs
+                for tab in config['tabs']:
+                    tab_name = tab.get('name') or f"tab_{tab['label'].lower().replace(' ', '_')}"
+                    
+                    add_tab_to_form(
+                        unmanaged_path=unmanaged_path,
+                        tab_name=tab_name,
+                        tab_label=tab['label'],
+                        managed_path=managed_path if managed_path.exists() else None,
+                        create_backup=False,
+                        skip_if_exists=False,
+                        create_default_section=False
+                    )
+                    tabs_added += 1
+                    
+                    # Add sections
+                    for section in tab.get('sections', []):
+                        section_label = section['label']
+                        section_name = section.get('name')
+                        columns = section.get('columns', 1)
+                        
+                        add_section_to_tab(
+                            unmanaged_path=unmanaged_path,
+                            tab_name=tab_name,
+                            section_label=section_label,
+                            section_name=section_name,
+                            columns=columns,
+                            managed_path=managed_path if managed_path.exists() else None,
+                            create_backup=False,
+                            skip_if_exists=False
+                        )
+                        sections_added += 1
+                        
+                        # Add fields
+                        rows_spec = section.get('rows')
+                        fields = section.get('fields', [])
+                        
+                        if rows_spec:
+                            entity_xml = entity_dir / "Entity.xml"
+                            entity_fields = read_entity_definition(entity_xml)
+                            field_metadata = {f.logical_name: (f.display_name, f.form_field_type) for f in entity_fields}
+                            
+                            # Add system fields
+                            field_metadata['ownerid'] = ('Owner', 'lookup')
+                            entity_prefix = config['entity'].split('_')[0]
+                            field_metadata[f"{entity_prefix}_name"] = ('Name', 'text')
+                            
+                            for row_spec in rows_spec:
+                                for cell_spec in row_spec:
+                                    if isinstance(cell_spec, str):
+                                        fields_added += 1
+                                    elif isinstance(cell_spec, dict) and 'field' in cell_spec:
+                                        fields_added += 1
+                            
+                            add_fields_to_section_by_rows(
+                                unmanaged_path=unmanaged_path,
+                                tab_name=tab_name,
+                                section_label=section_label,
+                                rows=rows_spec,
+                                field_metadata=field_metadata,
+                                managed_path=managed_path if managed_path.exists() else None,
+                                create_backup=False,
+                                skip_if_exists=False
+                            )
+                        elif fields:
+                            fields_added += len(fields)
+                            entity_xml = entity_dir / "Entity.xml"
+                            entity_fields = read_entity_definition(entity_xml)
+                            field_types = {f.logical_name: f.form_field_type for f in entity_fields}
+                            
+                            field_types['ownerid'] = 'lookup'
+                            entity_prefix = config['entity'].split('_')[0]
+                            field_types[f"{entity_prefix}_name"] = 'text'
+                            
+                            add_fields_to_section(
+                                unmanaged_path=unmanaged_path,
+                                tab_name=tab_name,
+                                section_label=section_label,
+                                fields=fields,
+                                field_types=field_types,
+                                managed_path=managed_path if managed_path.exists() else None,
+                                create_backup=False,
+                                skip_if_exists=False
+                            )
+                        
+                        # Collect subgrids
+                        subgrids_spec = section.get('subgrids', [])
+                        if subgrids_spec:
+                            subgrids_to_add.append({
+                                'tab_name': tab_name,
+                                'section_label': section_label,
+                                'subgrids': subgrids_spec
+                            })
+                
+                # Process subgrids
+                if subgrids_to_add:
+                    from relationship_reader import get_relationships_with_views
+                    
+                    all_relationships = get_relationships_with_views(module_path, config['entity'])
+                    rel_map = {rel.name: rel for rel in all_relationships}
+                    
+                    form = FormXmlParser.parse_file(unmanaged_path)
+                    subgrids_added = 0
+                    
+                    for subgrid_section in subgrids_to_add:
+                        tab_name = subgrid_section['tab_name']
+                        section_label = subgrid_section['section_label']
+                        
+                        tab = form.get_tab_by_name(tab_name)
+                        if not tab:
+                            continue
+                        
+                        section = tab.get_section_by_name(section_label)
+                        if not section:
+                            continue
+                        
+                        for subgrid_spec in subgrid_section['subgrids']:
+                            relationship_name = subgrid_spec.get('relationship')
+                            subgrid_label = subgrid_spec.get('label', 'Related Records')
+                            
+                            if not relationship_name or relationship_name not in rel_map:
+                                continue
+                            
+                            rel = rel_map[relationship_name]
+                            if not rel.default_view_id:
+                                continue
+                            
+                            subgrid_id = f"subgrid_{relationship_name}"
+                            section.add_subgrid(
+                                subgrid_id=subgrid_id,
+                                subgrid_label=subgrid_label,
+                                relationship_name=relationship_name,
+                                target_entity=rel.target_entity.lower(),
+                                view_id=rel.default_view_id
+                            )
+                            subgrids_added += 1
+                    
+                    save_forms(form, unmanaged_path, managed_path if managed_path.exists() else None)
+                
+                # Success
+                results.append({
+                    "entity": entity_name,
+                    "success": True,
+                    "stats": {
+                        "tabs": tabs_added,
+                        "sections": sections_added,
+                        "fields": fields_added
+                    }
+                })
+                success_count += 1
+                print(f"✓ Built {entity_name}: {tabs_added} tabs, {sections_added} sections, {fields_added} fields")
+                
+            except Exception as e:
+                results.append({
+                    "entity": entity_name,
+                    "success": False,
+                    "error": str(e)
+                })
+                error_count += 1
+                print(f"✗ Error building {entity_name}: {e}")
+        
+        return {
+            "success": True,
+            "total": len(layout_files),
+            "success_count": success_count,
+            "error_count": error_count,
+            "results": results
+        }
+    
+    except Exception as e:
+        print(f"Error in build_all_forms: {e}", file=sys.stderr)
         import traceback
         traceback.print_exc(file=sys.stderr)
         return {

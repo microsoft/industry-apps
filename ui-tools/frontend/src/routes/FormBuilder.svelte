@@ -18,9 +18,11 @@
   // Build state
   let validating = false;
   let building = false;
+  let buildingAll = false;
   let validationResult = null;
   let buildResult = null;
   let dryRunResult = null;
+  let buildAllResult = null;
   
   // Load modules on mount
   onMount(() => {
@@ -262,6 +264,30 @@
     }
   }
   
+  async function buildAllForms() {
+    if (!selectedModule) return;
+    
+    buildingAll = true;
+    buildAllResult = null;
+    
+    try {
+      const response = await fetch('/api/formbuilder/build-all-forms', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          module_path: selectedModule
+        })
+      });
+      
+      const data = await response.json();
+      buildAllResult = data;
+    } catch (error) {
+      buildAllResult = { success: false, error: error.message };
+    } finally {
+      buildingAll = false;
+    }
+  }
+  
   function formatDate(isoDate) {
     const date = new Date(isoDate);
     return date.toLocaleString();
@@ -290,7 +316,7 @@
             <button 
               class="btn btn-secondary" 
               on:click={reloadFromDisk}
-              disabled={extracting}
+              disabled={extracting || buildingAll}
               title="Reload layout files from disk without modifying them"
             >
               ↻ Reload from Disk
@@ -298,10 +324,18 @@
             <button 
               class="btn btn-warning" 
               on:click={recreateAllLayouts}
-              disabled={extracting}
+              disabled={extracting || buildingAll}
               title="Regenerate ALL layout files from entity schemas (overwrites existing files)"
             >
               {extracting ? '⏳ Recreating...' : '🔄 Recreate All Layouts'}
+            </button>
+            <button 
+              class="btn btn-primary" 
+              on:click={buildAllForms}
+              disabled={extracting || buildingAll || layouts.length === 0}
+              title="Build forms for all entities in this module"
+            >
+              {buildingAll ? '⏳ Building...' : '🔨 Build All Forms'}
             </button>
           </div>
         {/if}
@@ -316,6 +350,37 @@
           {:else}
             <div class="alert alert-error">
               ✗ Extraction failed: {extractionResult.error}
+            </div>
+          {/if}
+        </div>
+      {/if}
+      
+      {#if buildAllResult}
+        <div class="extraction-summary">
+          {#if buildAllResult.success}
+            <div class="alert alert-success">
+              <strong>✓ Build All Complete!</strong>
+              <p>{buildAllResult.success_count} forms built successfully, {buildAllResult.error_count} errors ({buildAllResult.total} total)</p>
+              {#if buildAllResult.results && buildAllResult.results.length > 0}
+                <details>
+                  <summary>View Details</summary>
+                  <ul class="result-list">
+                    {#each buildAllResult.results as result}
+                      <li class:success={result.success} class:error={!result.success}>
+                        {#if result.success}
+                          ✓ <strong>{result.entity}</strong>: {result.stats.tabs} tabs, {result.stats.sections} sections, {result.stats.fields} fields
+                        {:else}
+                          ✗ <strong>{result.entity}</strong>: {result.error}
+                        {/if}
+                      </li>
+                    {/each}
+                  </ul>
+                </details>
+              {/if}
+            </div>
+          {:else}
+            <div class="alert alert-error">
+              ✗ Build All failed: {buildAllResult.error}
             </div>
           {/if}
         </div>
@@ -389,7 +454,6 @@
                   class="yaml-preview" 
                   readonly 
                   value={currentLayout.yaml_content}
-                  rows="20"
                 ></textarea>
               </div>
               
@@ -547,8 +611,8 @@
     border: 1px solid #3c3c3c;
     border-radius: 8px;
     padding: 16px;
-    height: calc(100vh - 300px);
-    min-height: 600px;
+    height: calc(100vh - 340px);
+    max-height: 700px;
     display: flex;
     flex-direction: column;
   }
@@ -578,6 +642,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 8px;
+    min-width: 0;
   }
   
   .entity-item:hover {
@@ -592,6 +658,8 @@
   
   .entity-info {
     flex: 1;
+    min-width: 0;
+    overflow: hidden;
   }
   
   .entity-name {
@@ -599,12 +667,18 @@
     font-size: 14px;
     font-weight: 500;
     margin-bottom: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   
   .entity-meta {
     color: #a0a0a0;
     font-size: 12px;
     font-family: 'Courier New', monospace;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   
   .entity-date {
@@ -622,6 +696,7 @@
     cursor: pointer;
     font-size: 14px;
     transition: all 0.2s;
+    flex-shrink: 0;
   }
   
   .recreate-btn:hover {
@@ -634,9 +709,11 @@
     border: 1px solid #3c3c3c;
     border-radius: 8px;
     padding: 24px;
-    height: calc(100vh - 300px);
-    min-height: 600px;
-    overflow-y: auto;
+    height: calc(100vh - 340px);
+    max-height: 700px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
   
   .empty-state {
@@ -657,7 +734,9 @@
   .preview-content {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
+    height: 100%;
+    overflow: hidden;
   }
   
   .entity-header {
@@ -666,6 +745,7 @@
     align-items: flex-start;
     padding-bottom: 16px;
     border-bottom: 1px solid #3c3c3c;
+    flex-shrink: 0;
   }
   
   .entity-header h3 {
@@ -678,6 +758,9 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
   }
   
   .section-header h4 {
@@ -689,6 +772,7 @@
   
   .yaml-preview {
     width: 100%;
+    height: 100%;
     background: #1a1a1a;
     border: 1px solid #3c3c3c;
     border-radius: 4px;
@@ -697,13 +781,17 @@
     font-family: 'Courier New', monospace;
     font-size: 13px;
     line-height: 1.5;
-    resize: vertical;
+    resize: none;
+    overflow-y: auto;
   }
   
   .actions-section {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    flex-shrink: 0;
+    padding-top: 16px;
+    border-top: 1px solid #3c3c3c;
   }
   
   .actions-section h4 {
@@ -816,14 +904,36 @@
     font-size: 15px;
   }
   
-  .error-list, .warning-list, .operation-list {
+  .error-list, .warning-list, .operation-list, .result-list {
     margin: 12px 0 0 0;
     padding-left: 20px;
   }
   
-  .error-list li, .warning-list li, .operation-list li {
+  .error-list li, .warning-list li, .operation-list li, .result-list li {
     margin: 6px 0;
     font-size: 14px;
+  }
+  
+  .result-list li.success {
+    color: #4ec9b0;
+  }
+  
+  .result-list li.error {
+    color: #f48771;
+  }
+  
+  details {
+    margin-top: 12px;
+    cursor: pointer;
+  }
+  
+  details summary {
+    color: #0078d4;
+    font-weight: 500;
+  }
+  
+  details summary:hover {
+    text-decoration: underline;
   }
   
   .help-text {
