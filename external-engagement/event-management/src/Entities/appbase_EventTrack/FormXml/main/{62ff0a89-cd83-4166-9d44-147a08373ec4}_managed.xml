@@ -5,34 +5,82 @@
     <IntroducedVersion>1.0</IntroducedVersion>
     <FormPresentation>1</FormPresentation>
     <FormActivationState>1</FormActivationState>
-    <form>
+    <form shownavigationbar="false">
       <tabs>
-        <tab verticallayout="true" id="{807209d0-1be2-4bc8-a784-f1818de0c7a7}" IsUserDefined="1">
+        <tab name="tab_general" id="{B8086766-75B8-4DC3-9F3C-A18946DB398E}" IsUserDefined="0" locklevel="0" showlabel="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section showlabel="false" showbar="false" IsUserDefined="0" id="{7afc938d-69e3-4113-85b4-f80c0c13b0ad}">
+                <section name="secTrackInformation" id="{6DCEAEBC-2B01-4D41-A5E0-C98501F47AF6}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
                   <labels>
-                    <label description="General" languagecode="1033" />
+                    <label description="Track Information" languagecode="1033" />
                   </labels>
                   <rows>
+                    <row />
                     <row>
-                      <cell id="{8d1e61fd-2366-4450-b8df-10afba28d3e9}">
+                      <cell id="{E2BFA9B8-5040-489A-B01B-C0E5C5BFA74C}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Name" languagecode="1033" />
+                          <label description="" languagecode="1033" />
                         </labels>
-                        <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" />
+                        <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" disabled="false" />
+                      </cell>
+                      <cell id="{F9E004EC-1055-4D38-9701-C9EC74E35E9C}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false" />
                       </cell>
                     </row>
                     <row>
-                      <cell id="{03319137-d38c-42dc-91e0-15958b161e67}">
+                      <cell id="{C99A7AA1-8223-4BDF-A543-936900FEA8F1}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Owner" languagecode="1033" />
+                          <label description="" languagecode="1033" />
                         </labels>
-                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                        <control id="appbase_trackcode" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_trackcode" disabled="false" />
+                      </cell>
+                      <cell id="{10D261F1-30A2-45A9-A5EC-AA55CB4F40BE}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_colorcode" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_colorcode" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{9CFAAB03-9E00-48AE-8B09-81820A756720}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_event" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_event" disabled="false" />
+                      </cell>
+                      <cell id="{BFBDC907-A498-48AE-BD04-5B4F0D65D0DF}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_parenteventtrack" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_parenteventtrack" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{69F7C4CF-CADE-4B12-9345-3C004F72F029}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_tracklead" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_tracklead" disabled="false" />
+                      </cell>
+                      <cell id="{662FC5D2-A2D0-4B9A-B2EC-74A80D5A2A5D}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{9FBDDC1D-5D2F-4132-A54F-6A2B5588CBFF}" locklevel="0" colspan="2" rowspan="4">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_description" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="appbase_description" disabled="false" />
                       </cell>
                     </row>
                   </rows>
@@ -41,7 +89,151 @@
             </column>
           </columns>
         </tab>
+        <tab name="tab_content" id="{A7705ED1-ACA9-48D5-9FD2-87F59419AB93}" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Content" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="secSessionsEntries" id="{05C2D0F5-DCED-4679-9297-1CAD0B5FF4D3}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Sessions &amp; Entries" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{AA634D18-9A2D-4241-9F21-1DE44249EDD3}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Track Sessions" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_eventsession_EventTrack" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_eventsession_EventTrack</RelationshipName>
+                            <TargetEntityType>appbase_eventsession</TargetEntityType>
+                            <ViewId>{21c53189-a664-47e4-9871-a21bb8af227c}</ViewId>
+                            <ViewIds>{21c53189-a664-47e4-9871-a21bb8af227c}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row>
+                      <cell id="{E07CA13A-AF50-46C0-86B8-37761F6A4677}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Track Entries" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_evententry_EventTrack" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_evententry_EventTrack</RelationshipName>
+                            <TargetEntityType>appbase_evententry</TargetEntityType>
+                            <ViewId>{ea7b1ec1-f6c3-49e0-8fe1-0064e012328b}</ViewId>
+                            <ViewIds>{ea7b1ec1-f6c3-49e0-8fe1-0064e012328b}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="secSubTracks" id="{A12676CA-8045-42C3-A276-E0A8829814FF}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Sub-Tracks" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{78CC4263-408C-4858-8A91-4E445A7EF18D}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Child Tracks" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_eventtrack_ParentEventTrack" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_eventtrack_ParentEventTrack</RelationshipName>
+                            <TargetEntityType>appbase_eventtrack</TargetEntityType>
+                            <ViewId>{827468c6-4245-465e-892e-4e0ddc1ef670}</ViewId>
+                            <ViewIds>{827468c6-4245-465e-892e-4e0ddc1ef670}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
       </tabs>
+      <header id="{0B633978-6989-473A-990B-56E95897D099}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{FC274AE3-A602-4906-BFE0-89F71B2704CA}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{0639C5B6-9525-4A82-8696-76826F265414}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{74707D2B-8EE6-482B-9F9C-06E9B56D7611}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{F29FA49F-41FC-4212-A62E-FBB66720EC83}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{83DA6531-5833-4E6E-966E-F48A8E6A2858}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{7C44E0AA-6328-4319-808C-DB80E414CD0F}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{20EA30B1-40A4-46DB-B5ED-1DF2B350D9F6}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>

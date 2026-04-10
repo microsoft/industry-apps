@@ -3790,7 +3790,7 @@ async def build_all_forms(request: BuildAllFormsRequest):
                             add_fields_to_section_by_rows(
                                 unmanaged_path=unmanaged_path,
                                 tab_name=tab_name,
-                                section_label=section_label,
+                                section_name=section_label,
                                 rows=rows_spec,
                                 field_metadata=field_metadata,
                                 managed_path=managed_path if managed_path.exists() else None,
@@ -3798,21 +3798,34 @@ async def build_all_forms(request: BuildAllFormsRequest):
                                 skip_if_exists=False
                             )
                         elif fields:
-                            fields_added += len(fields)
                             entity_xml = entity_dir / "Entity.xml"
                             entity_fields = read_entity_definition(entity_xml)
-                            field_types = {f.logical_name: f.form_field_type for f in entity_fields}
                             
-                            field_types['ownerid'] = 'lookup'
+                            # System fields
+                            system_fields = {
+                                'ownerid': ('Owner', 'lookup'),
+                            }
                             entity_prefix = config['entity'].split('_')[0]
-                            field_types[f"{entity_prefix}_name"] = 'text'
+                            system_fields[f"{entity_prefix}_name"] = ('Name', 'text')
+                            
+                            # Build list of (field_name, field_label, field_type) tuples
+                            field_tuples = []
+                            for field_name in fields:
+                                # Check system fields first, then entity fields
+                                if field_name in system_fields:
+                                    field_label, field_type = system_fields[field_name]
+                                else:
+                                    field_type = next((f.form_field_type for f in entity_fields if f.logical_name == field_name), 'text')
+                                    field_label = next((f.display_name for f in entity_fields if f.logical_name == field_name), field_name)
+                                field_tuples.append((field_name, field_label, field_type))
+                            
+                            fields_added += len(field_tuples)
                             
                             add_fields_to_section(
                                 unmanaged_path=unmanaged_path,
                                 tab_name=tab_name,
-                                section_label=section_label,
-                                fields=fields,
-                                field_types=field_types,
+                                section_name=section_label,
+                                fields=field_tuples,
                                 managed_path=managed_path if managed_path.exists() else None,
                                 create_backup=False,
                                 skip_if_exists=False

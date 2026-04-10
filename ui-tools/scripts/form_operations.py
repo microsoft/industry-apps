@@ -654,17 +654,35 @@ def add_fields_to_section(unmanaged_path: Path, tab_name: str, section_name: str
     
     # Add fields
     if is_two_column:
-        # Add two fields per row
-        for i in range(0, len(fields), 2):
-            # Add first field in the pair (creates new row)
+        # Add fields to 2-column section with special handling for memo fields
+        i = 0
+        while i < len(fields):
             field_name, field_label, field_type = fields[i]
-            section.add_field(field_name, field_label, field_type)
             
-            # Add second field if it exists (adds to last row)
-            if i + 1 < len(fields):
-                field_name, field_label, field_type = fields[i + 1]
-                section.add_field(field_name, field_label, field_type, 
-                                row_index=-1, cell_position=1)
+            # Check if this is a memo field
+            if field_type == 'memo':
+                # Memo fields should span both columns on their own row
+                section.add_field(field_name, field_label, field_type)
+                # Adjust the last row's cell to span both columns
+                if section.rows and section.rows[-1].cells:
+                    section.rows[-1].cells[-1].colspan = 2
+                i += 1
+            else:
+                # Regular field - add to left column (creates new row)
+                section.add_field(field_name, field_label, field_type)
+                
+                # Check if next field exists and is not a memo
+                if i + 1 < len(fields):
+                    next_field_name, next_field_label, next_field_type = fields[i + 1]
+                    if next_field_type != 'memo':
+                        # Add second field to right column (same row)
+                        section.add_field(next_field_name, next_field_label, next_field_type, 
+                                        row_index=-1, cell_position=1)
+                        i += 2  # Move past both fields
+                        continue
+                
+                # If next is memo or doesn't exist, just move to next field
+                i += 1
     else:
         # Add each field in its own row
         for field_name, field_label, field_type in fields:
