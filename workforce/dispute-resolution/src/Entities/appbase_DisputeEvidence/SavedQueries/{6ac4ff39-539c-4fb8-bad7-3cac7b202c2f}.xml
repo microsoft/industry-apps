@@ -11,7 +11,13 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_disputeevidenceid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_evidencenumber" width="150" />
+          <cell name="appbase_evidencetype" width="150" />
+          <cell name="appbase_dispute" width="180" />
+          <cell name="appbase_disputeinvestigation" width="180" />
+          <cell name="appbase_collectedby" width="150" />
+          <cell name="appbase_isconfidential" width="100" />
+          <cell name="appbase_collectiondate" width="120" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +27,13 @@
         <entity name="appbase_disputeevidence">
           <attribute name="appbase_disputeevidenceid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_evidencenumber" />
+          <attribute name="appbase_evidencetype" />
+          <attribute name="appbase_dispute" />
+          <attribute name="appbase_disputeinvestigation" />
+          <attribute name="appbase_collectedby" />
+          <attribute name="appbase_isconfidential" />
+          <attribute name="appbase_collectiondate" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
