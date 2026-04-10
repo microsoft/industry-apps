@@ -5,36 +5,93 @@
     <IntroducedVersion>1.0</IntroducedVersion>
     <FormPresentation>1</FormPresentation>
     <FormActivationState>1</FormActivationState>
-    <form>
+    <form shownavigationbar="false">
       <tabs>
-        <tab verticallayout="true" id="{de7a6939-e816-4064-8827-675bbee43c5f}" IsUserDefined="1">
+        <tab name="tab_general" id="{2F52DA36-D6E9-4449-B6E8-C77A10E2F48F}" IsUserDefined="0" locklevel="0" showlabel="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section showlabel="false" showbar="false" IsUserDefined="0" id="{1da380f6-3414-4f5a-9d1a-631a6e4715fa}">
+                <section name="secWaitingPeriodInformation" id="{0174902B-71BE-4EEB-AACB-DDC636DA2193}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
                   <labels>
-                    <label description="General" languagecode="1033" />
+                    <label description="Waiting Period Information" languagecode="1033" />
                   </labels>
                   <rows>
+                    <row />
                     <row>
-                      <cell id="{2f57463b-c5f2-48eb-89b8-7d35123afeb1}">
+                      <cell id="{2DC3057D-130D-446E-B0C3-662112C38B79}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Name" languagecode="1033" />
+                          <label description="" languagecode="1033" />
                         </labels>
-                        <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" />
+                        <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" disabled="false" />
+                      </cell>
+                      <cell id="{5D80A1C5-8BF2-4B2B-BC56-A7F1FAB0FC3C}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false" />
                       </cell>
                     </row>
                     <row>
-                      <cell id="{5d0bad93-57a5-4107-aa9b-64a64163997f}">
+                      <cell id="{39C1605F-90D3-46F5-A61A-F0D48CA75E5C}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Owner" languagecode="1033" />
+                          <label description="" languagecode="1033" />
                         </labels>
-                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                        <control id="appbase_hrbenefitplan" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_hrbenefitplan" disabled="false" />
+                      </cell>
+                      <cell id="{8949DF67-E97F-4135-AC21-9201EFC3A374}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_waitingperiodtype" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_waitingperiodtype" disabled="false" />
                       </cell>
                     </row>
+                    <row>
+                      <cell id="{418704B5-A7FB-4782-947A-3F1B083F85AF}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_waitingdays" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="appbase_waitingdays" disabled="false" />
+                      </cell>
+                      <cell id="{01C3ED81-AC98-4954-9FBC-33ACE30ABAE8}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_calculationmethod" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_calculationmethod" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1E5DF9DC-89B0-459C-BD65-812ABEE61F79}" locklevel="0" colspan="2" rowspan="4">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_description" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="appbase_description" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="secEffectiveDateRules" id="{371CDF9D-A6F5-424D-8A58-DABA9073A4F5}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Effective Date Rules" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{A33F547F-0D2A-4160-8DB2-58405F5D446C}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_effectivedaterule" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="appbase_effectivedaterule" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
                   </rows>
                 </section>
               </sections>
@@ -42,6 +99,51 @@
           </columns>
         </tab>
       </tabs>
+      <header id="{0F78D4ED-C3FA-4D4A-B835-1FB55971E1A7}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{34B76CAD-2DB4-4529-9C70-E88E9EBEA473}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{3A085EE2-FAE6-418D-9C76-D27DD437B75A}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{A9554770-F93C-471A-A3F0-7EFE86DDF47D}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{C4CC7226-04A8-495D-BA40-92324092E41A}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{E50D457B-4703-487D-B898-75A48B579B91}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{B273A3BA-97B6-44D5-BC35-FB0F1CC36186}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{2ED3A65D-B841-44FD-98E0-25AB1266C2AD}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>

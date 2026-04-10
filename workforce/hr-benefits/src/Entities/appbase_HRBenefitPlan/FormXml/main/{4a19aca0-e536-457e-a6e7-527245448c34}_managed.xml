@@ -5,36 +5,489 @@
     <IntroducedVersion>1.0</IntroducedVersion>
     <FormPresentation>1</FormPresentation>
     <FormActivationState>1</FormActivationState>
-    <form>
+    <form shownavigationbar="false">
       <tabs>
-        <tab verticallayout="true" id="{25cfdae1-f515-44bb-9708-b323ee861f59}" IsUserDefined="1">
+        <tab name="tab_general" id="{E386A1F2-CC11-49F4-A83C-B19A3C539F85}" IsUserDefined="0" locklevel="0" showlabel="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section showlabel="false" showbar="false" IsUserDefined="0" id="{4f483a0e-e28b-4e7d-ac9f-f49441ea71d2}">
+                <section name="secPlanInformation" id="{C83A7CE3-B5D1-447E-B979-5847855136A1}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
                   <labels>
-                    <label description="General" languagecode="1033" />
+                    <label description="Plan Information" languagecode="1033" />
                   </labels>
                   <rows>
+                    <row />
                     <row>
-                      <cell id="{1f74d17e-b214-4639-9f96-3c000a2a8ae5}">
+                      <cell id="{97F8B9AF-F12C-4A60-B28C-A12BBC501CD6}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Name" languagecode="1033" />
+                          <label description="" languagecode="1033" />
                         </labels>
-                        <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" />
+                        <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" disabled="false" />
+                      </cell>
+                      <cell id="{B5377E16-8428-4409-B78E-126FA7AC5129}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false" />
                       </cell>
                     </row>
                     <row>
-                      <cell id="{a06ad12f-780e-4315-9533-42988c2cb1d4}">
+                      <cell id="{D7EF33E5-3DB6-4BA5-9579-D3AFE7C78705}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Owner" languagecode="1033" />
+                          <label description="" languagecode="1033" />
                         </labels>
-                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                        <control id="appbase_plancode" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_plancode" disabled="false" />
+                      </cell>
+                      <cell id="{839ED368-137F-4B26-9398-8B298B174ACD}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_hrbenefitprovider" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_hrbenefitprovider" disabled="false" />
                       </cell>
                     </row>
+                    <row>
+                      <cell id="{07C67D7E-4DD8-4E35-A429-515866B2C41B}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_benefitcategory" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_benefitcategory" disabled="false" />
+                      </cell>
+                      <cell id="{3FD9320A-601A-4302-898C-F2DD6E31F503}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_parentbenefitplan" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_parentbenefitplan" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{2E082CBE-FA5D-41A2-9FA0-F956B11BE93E}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_planyear" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_planyear" disabled="false" />
+                      </cell>
+                      <cell id="{02DC0A7B-0560-40E9-801C-419BC1A26419}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_lifecyclestage" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_lifecyclestage" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{AFE2ABE1-14CA-48E4-986D-46FABE4D3A45}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_administratororganizationunit" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_administratororganizationunit" disabled="false" />
+                      </cell>
+                      <cell id="{7858BEFD-4364-4493-8202-54541637C1FA}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{F14D0005-2851-4FFD-BFEC-80A0B619D286}" locklevel="0" colspan="2" rowspan="4">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_plansummary" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="appbase_plansummary" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="secEffectiveDatesStatus" id="{BE98C462-2C55-4946-9267-EBC5FCB23D17}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
+                  <labels>
+                    <label description="Effective Dates &amp; Status" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{EE0E1746-8F74-496D-85AB-02EE79B37555}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_effectivestartdate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="appbase_effectivestartdate" disabled="false" />
+                      </cell>
+                      <cell id="{1346E7FD-E1D0-4147-A72D-B2F662493D64}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_effectiveenddate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="appbase_effectiveenddate" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{DB6D7C69-46D4-43C9-B4DF-53B67BED1B43}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_enrollmentallowed" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_enrollmentallowed" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="secPlanFeatures" id="{1C2F19C9-2049-4B69-8617-A88D641E13FA}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
+                  <labels>
+                    <label description="Plan Features" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{08600C1A-CC8D-46AC-AECE-B80346F8BFCB}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_ismandatory" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_ismandatory" disabled="false" />
+                      </cell>
+                      <cell id="{E1B08E89-7D7D-43D0-B021-E8C66752998A}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_allowsdependentcoverage" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_allowsdependentcoverage" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{CB2FB43E-9212-4EFE-80A5-389BE98D3372}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_allowsmultipleenrollments" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_allowsmultipleenrollments" disabled="false" />
+                      </cell>
+                      <cell id="{33E5A87F-CE15-4C70-BE93-D76BBE1C7408}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_requiresbeneficiary" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_requiresbeneficiary" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="secCompliance" id="{980F7BC5-C288-465F-8F1A-4C0CC67ECB77}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
+                  <labels>
+                    <label description="Compliance" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{75DB9F83-CD5D-4EB8-BFDF-270C1BBF2372}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_complianceframework" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_complianceframework" disabled="false" />
+                      </cell>
+                      <cell id="{BC160C86-39F5-443C-A57B-43CE8CB8313A}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_legalauthority" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_legalauthority" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0BEE90BD-4AFE-45D1-9E98-A7B3B273769A}" locklevel="0" colspan="2" rowspan="4">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_coveragedetails" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="appbase_coveragedetails" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="tab_options" id="{C410A737-44F7-4611-879A-F37FC5A88E8A}" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Options &amp; Rates" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="secPlanOptions" id="{116559DC-3CBF-4F01-BACD-28A25DFB364D}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Plan Options" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{57AF343F-0C01-4A2B-AFE3-E09B285BF7FF}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Benefit Options" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_hrbenefitoption_HRBenefitPlan" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_hrbenefitoption_HRBenefitPlan</RelationshipName>
+                            <TargetEntityType>appbase_hrbenefitoption</TargetEntityType>
+                            <ViewId>{9a328696-b6a5-4bb9-878c-863ad2e24749}</ViewId>
+                            <ViewIds>{9a328696-b6a5-4bb9-878c-863ad2e24749}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="secContributionRates" id="{C6A97D9F-8EED-4C04-B52E-BDF48923F8AD}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Contribution Rates" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{C0662756-7E44-4B95-9FFD-5A9A32526EB5}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Contribution Rates" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_hrbenefitcontributionrate_HRBenefitPlan" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_hrbenefitcontributionrate_HRBenefitPlan</RelationshipName>
+                            <TargetEntityType>appbase_hrbenefitcontributionrate</TargetEntityType>
+                            <ViewId>{877958d4-cc01-43e6-b088-6bc207aadd6e}</ViewId>
+                            <ViewIds>{877958d4-cc01-43e6-b088-6bc207aadd6e}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="secCoverageLevels" id="{D4B453AA-B4AF-403D-81BC-48F1E5744141}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Coverage Levels" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{6C6D177A-C72D-4D0F-8B26-1D044AB18D72}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Coverage Levels" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_hrbenefitcoveragelevel_HRBenefitPlan" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_hrbenefitcoveragelevel_HRBenefitPlan</RelationshipName>
+                            <TargetEntityType>appbase_hrbenefitcoveragelevel</TargetEntityType>
+                            <ViewId>{76a3a6c1-fc35-458a-9c36-6502929c407a}</ViewId>
+                            <ViewIds>{76a3a6c1-fc35-458a-9c36-6502929c407a}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="tab_eligibility" id="{CD982C41-A8EA-4A3A-90B9-91B9069296D1}" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Eligibility &amp; Enrollment" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="secEligibilityRules" id="{2D77CCB9-0101-4F26-97C3-C847C194BA23}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Eligibility Rules" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{5F622FF6-39E3-4D43-831E-5C928DFDE57F}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Eligibility Rules" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_hrbenefiteligibilityrule_HRBenefitPlan" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_hrbenefiteligibilityrule_HRBenefitPlan</RelationshipName>
+                            <TargetEntityType>appbase_hrbenefiteligibilityrule</TargetEntityType>
+                            <ViewId>{fcc0bc5e-377c-4814-aacd-bfdc053ea508}</ViewId>
+                            <ViewIds>{fcc0bc5e-377c-4814-aacd-bfdc053ea508}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="secWaitingPeriods" id="{D2163DD7-0DE2-4325-9975-11BEE123C88E}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Waiting Periods" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{86F4A328-5467-4E9B-81C4-9B4F4DC2FE7A}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Waiting Periods" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_hrbenefitwaitingperiod_HRBenefitPlan" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_hrbenefitwaitingperiod_HRBenefitPlan</RelationshipName>
+                            <TargetEntityType>appbase_hrbenefitwaitingperiod</TargetEntityType>
+                            <ViewId>{945dacf1-cb46-4144-a0e8-79722e8c26b8}</ViewId>
+                            <ViewIds>{945dacf1-cb46-4144-a0e8-79722e8c26b8}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="secPlanDocuments" id="{B9B4DC7C-3EA8-49D1-A083-2A3EC470421A}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Plan Documents" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{D9D07314-769C-4F8B-A5FE-ECA61B49D795}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Plan Documents" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_hrbenefitplandocument_HRBenefitPlan" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_hrbenefitplandocument_HRBenefitPlan</RelationshipName>
+                            <TargetEntityType>appbase_hrbenefitplandocument</TargetEntityType>
+                            <ViewId>{8683977c-c286-4432-ba4e-2b594d763bec}</ViewId>
+                            <ViewIds>{8683977c-c286-4432-ba4e-2b594d763bec}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="tab_enrollments" id="{DDDB2BD0-BCF5-4F5B-8999-859DAF8F0848}" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Enrollments &amp; Claims" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="secEnrollments" id="{742B41CB-5A36-4F86-89FD-885407B4E52F}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Enrollments" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{4144649A-813B-4E21-B85A-4A3896AE27BA}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Benefit Enrollments" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_hrbenefitenrollment_HRBenefitPlan" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_hrbenefitenrollment_HRBenefitPlan</RelationshipName>
+                            <TargetEntityType>appbase_hrbenefitenrollment</TargetEntityType>
+                            <ViewId>{be1837d5-5bde-4024-b643-c2796d84790a}</ViewId>
+                            <ViewIds>{be1837d5-5bde-4024-b643-c2796d84790a}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="secClaims" id="{D988CE72-DA81-4369-AD2C-03379460D217}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Claims" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{0BB86494-0241-4AA2-B005-D939AFB91B47}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Benefit Claims" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_hrbenefitclaim_HRBenefitPlan" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_hrbenefitclaim_HRBenefitPlan</RelationshipName>
+                            <TargetEntityType>appbase_hrbenefitclaim</TargetEntityType>
+                            <ViewId>{e32f2c45-7ec9-487a-bdf3-762b8a1b0ab0}</ViewId>
+                            <ViewIds>{e32f2c45-7ec9-487a-bdf3-762b8a1b0ab0}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
                   </rows>
                 </section>
               </sections>
@@ -42,6 +495,51 @@
           </columns>
         </tab>
       </tabs>
+      <header id="{7F328242-7FA6-47E2-B365-66FA6E5A214A}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{BC1E0EF4-8AD8-4A88-B608-9F0E9DF55F59}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{93250FEF-610C-45B3-8795-45C9C7B3D3BE}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{AD39DD48-49BF-4D2A-8608-8C4984EC120D}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{630849FC-76E9-4154-A365-8AF12C1F2CDC}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{A926F2B9-72FE-44F8-B943-054491289436}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{53A78FD5-A1AE-42EE-B181-9AD41CC85769}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{AD634284-AC08-4AE2-9998-EF360B761BF2}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>

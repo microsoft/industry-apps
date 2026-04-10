@@ -5,36 +5,144 @@
     <IntroducedVersion>1.0</IntroducedVersion>
     <FormPresentation>1</FormPresentation>
     <FormActivationState>1</FormActivationState>
-    <form>
+    <form shownavigationbar="false">
       <tabs>
-        <tab verticallayout="true" id="{c40e56a4-9cb5-4300-8ab6-45876b83edf2}" IsUserDefined="1">
+        <tab name="tab_general" id="{BDF5D7D4-3F58-4166-9A54-ED9199730E1D}" IsUserDefined="0" locklevel="0" showlabel="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section showlabel="false" showbar="false" IsUserDefined="0" id="{cf5328a8-631d-43ab-b43c-2912701bb96b}">
+                <section name="secDeductionCodeInformation" id="{416CED25-DF57-4701-8B5F-15B13074DD59}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
                   <labels>
-                    <label description="General" languagecode="1033" />
+                    <label description="Deduction Code Information" languagecode="1033" />
                   </labels>
                   <rows>
+                    <row />
                     <row>
-                      <cell id="{ee3c01d1-3eb8-4b1d-b5cc-9fd7a85670fa}">
+                      <cell id="{659263F0-5CB7-403E-9E6A-BF89DDF6E6F6}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Name" languagecode="1033" />
+                          <label description="" languagecode="1033" />
                         </labels>
-                        <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" />
+                        <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" disabled="false" />
+                      </cell>
+                      <cell id="{CDCC4257-FA63-4F9B-953E-F9EF1511F07A}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false" />
                       </cell>
                     </row>
                     <row>
-                      <cell id="{d1951196-d65c-4a8f-af2c-e8ed92d483b1}">
+                      <cell id="{9961E100-F35B-4F42-9F05-B0FD0C0E602A}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Owner" languagecode="1033" />
+                          <label description="" languagecode="1033" />
                         </labels>
-                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                        <control id="appbase_deductioncode" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_deductioncode" disabled="false" />
+                      </cell>
+                      <cell id="{702D0675-4D99-4658-AA09-897E5CB7B214}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_deductiontype" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_deductiontype" disabled="false" />
                       </cell>
                     </row>
+                    <row>
+                      <cell id="{44430686-E126-4B21-9E83-DCE027852ED6}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_hrbenefitplan" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_hrbenefitplan" disabled="false" />
+                      </cell>
+                      <cell id="{F2167D03-2741-45F9-830D-E0F560360189}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_deductioncategory" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_deductioncategory" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{CF169404-2E2E-4673-BACF-5C91D7CDBA90}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_ispretax" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_ispretax" disabled="false" />
+                      </cell>
+                      <cell id="{F2BA5238-8B96-49B4-A724-C8763CE8DFC5}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_isposttax" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_isposttax" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{C45A870A-DBBD-47A9-B15E-A21FF04C24C1}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_payrollsystemcode" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_payrollsystemcode" disabled="false" />
+                      </cell>
+                      <cell id="{6F5B7819-D27D-4984-B2DE-33CF76A02FFB}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{703C2A37-6AD4-499F-95AA-AFFD142A604C}" locklevel="0" colspan="2" rowspan="4">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_description" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="appbase_description" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="tab_enrollments" id="{D9D9AD46-BCD1-4F28-9049-B2B4C9B6A105}" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Enrollments" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="secEnrollmentsUsingThisCode" id="{34578AE5-05CC-4DF5-AC9B-3496D9C409D1}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Enrollments Using This Code" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{4D0C932F-9D68-4541-9795-718984A00CD7}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Benefit Enrollments" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_hrbenefitenrollment_HRBenefitDeductionCode" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_hrbenefitenrollment_HRBenefitDeductionCode</RelationshipName>
+                            <TargetEntityType>appbase_hrbenefitenrollment</TargetEntityType>
+                            <ViewId>{be1837d5-5bde-4024-b643-c2796d84790a}</ViewId>
+                            <ViewIds>{be1837d5-5bde-4024-b643-c2796d84790a}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
                   </rows>
                 </section>
               </sections>
@@ -42,6 +150,51 @@
           </columns>
         </tab>
       </tabs>
+      <header id="{434FB835-67C3-4051-B7AC-AD6B39D52E24}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{F26B4AC7-E85D-4523-9B5E-D7360F92B3FF}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{C0B0B509-120D-44FF-9422-03131B87760F}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{302DA018-4472-4AF7-A373-7B64A9E982C3}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{C9FEC8E8-68FF-4194-A279-49386BCFE2A7}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{0483CA5F-50BB-4F6A-8FB1-0FF873E68468}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{1EC0129F-FD51-4E10-B2E7-72613657000C}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{8628B26A-2D36-4211-8047-CDFA15968B16}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>

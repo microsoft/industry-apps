@@ -2740,6 +2740,132 @@ async def list_modules_for_formbuilder():
             "error": str(e)
         }
 
+# ============================================================================
+# YAML Field Validation Helper
+# ============================================================================
+
+def validate_yaml_field_references(yaml_content: str, config: dict) -> list[str]:
+    """
+    Validate that all field references in the YAML tabs/sections exist in the
+    'Available Custom Fields' comment section at the top of the file.
+    Also validates that all relationship references in subgrids exist in the
+    'Available Relationships' comment section.
+    
+    Returns a list of error messages for invalid field references.
+    """
+    errors = []
+    
+    # Extract available field names from YAML comments
+    available_fields = set()
+    available_relationships = set()
+    lines = yaml_content.split('\n')
+    in_fields_section = False
+    in_relationships_section = False
+    
+    for line in lines:
+        # Look for the Available Custom Fields section
+        if '# Available Custom Fields' in line:
+            in_fields_section = True
+            in_relationships_section = False
+            continue
+        
+        # Look for the Available Relationships section
+        if '# Available Relationships' in line:
+            in_fields_section = False
+            in_relationships_section = True
+            continue
+        
+        # Stop parsing when we hit the tabs section (actual YAML content we care about)
+        if line.strip().startswith('tabs:'):
+            in_fields_section = False
+            in_relationships_section = False
+            break
+        
+        # Extract field names from comment lines like "#   - appbase_fieldname (...)"
+        if in_fields_section and line.strip().startswith('#   - '):
+            # Parse field name (between "- " and first space or parenthesis)
+            field_line = line.strip()[5:]  # Remove "#   - "
+            if '(' in field_line:
+                field_name = field_line.split('(')[0].strip()
+            else:
+                field_name = field_line.split()[0].strip()
+            available_fields.add(field_name)
+        
+        # Extract relationship names from comment lines like "# - relationship_name"
+        if in_relationships_section and line.strip().startswith('# - '):
+            # Parse relationship name
+            rel_line = line.strip()[4:]  # Remove "# - "
+            relationship_name = rel_line.split()[0].strip()
+            available_relationships.add(relationship_name)
+    
+    # Add system fields that are always available
+    available_fields.add('ownerid')
+    
+    # Add entity name field (e.g., appbase_name for appbase_* entities)
+    entity_name = config.get('entity', '')
+    if '_' in entity_name:
+        entity_prefix = entity_name.split('_')[0]
+        available_fields.add(f"{entity_prefix}_name")
+    
+    # Collect all field references from tabs
+    referenced_fields = set()
+    referenced_relationships = set()
+    
+    for tab in config.get('tabs', []):
+        for section in tab.get('sections', []):
+            # Check fields in rows mode
+            if 'rows' in section:
+                for row_spec in section['rows']:
+                    for cell_spec in row_spec:
+                        if isinstance(cell_spec, str):
+                            # Simple field name
+                            referenced_fields.add(cell_spec)
+                        elif isinstance(cell_spec, dict):
+                            # Field with attributes like colspan
+                            if 'field' in cell_spec:
+                                referenced_fields.add(cell_spec['field'])
+            
+            # Check fields in fields mode
+            if 'fields' in section:
+                for field_name in section['fields']:
+                    referenced_fields.add(field_name)
+            
+            # Check relationships in subgrids
+            if 'subgrids' in section:
+                for subgrid_spec in section['subgrids']:
+                    if 'relationship' in subgrid_spec:
+                        referenced_relationships.add(subgrid_spec['relationship'])
+    
+    print(f"\nTotal referenced fields: {len(referenced_fields)}", file=sys.stderr)
+    print(f"Referenced fields: {sorted(referenced_fields)}", file=sys.stderr)
+    
+    # Validate each referenced field exists in available fields
+    for field_name in sorted(referenced_fields):
+        # Skip null/None placeholders
+        if field_name is None or field_name == 'null':
+            continue
+        
+    # Validate each referenced field exists in available fields
+    for field_name in sorted(referenced_fields):
+        # Skip null/None placeholders
+        if field_name is None or field_name == 'null':
+            continue
+        
+        # Check if field exists in available fields
+        if field_name not in available_fields:
+            errors.append(f"Field '{field_name}' not found in Available Custom Fields list")
+    
+    # Validate each referenced relationship exists in available relationships
+    for rel_name in sorted(referenced_relationships):
+        if rel_name not in available_relationships:
+            errors.append(f"Relationship '{rel_name}' not found in Available Relationships list")
+    
+    return errors
+
+# ============================================================================
+# Form Builder Endpoints
+# ============================================================================
+
 @app.post("/api/formbuilder/list-entities")
 async def list_entities(request: ListEntitiesRequest):
     """
@@ -3162,6 +3288,13 @@ async def validate_yaml_config(request: ValidateYamlRequest):
                     entity_fields = read_entity_definition(entity_xml)
                     valid_field_names = {f.logical_name for f in entity_fields}
                     
+                    # Add system fields that are always valid
+                    valid_field_names.add('ownerid')
+                    # Add entity name field (e.g., appbase_name for appbase_* entities)
+                    if '_' in config['entity']:
+                        entity_prefix = config['entity'].split('_')[0]
+                        valid_field_names.add(f"{entity_prefix}_name")
+                    
                     # Validate all field references in tabs/sections
                     if 'tabs' in config and isinstance(config['tabs'], list):
                         for tab_idx, tab in enumerate(config['tabs']):
@@ -3186,10 +3319,31 @@ async def validate_yaml_config(request: ValidateYamlRequest):
                                     elif section['columns'] not in [1, 2]:
                                         errors.append(f"Tab {tab_idx + 1}, Section {section_idx + 1} has invalid columns value (must be 1 or 2)")
                                     
+                                    # Validate fields in 'fields' mode
                                     if 'fields' in section and isinstance(section['fields'], list):
                                         for field_name in section['fields']:
                                             if field_name not in valid_field_names:
                                                 errors.append(f"Field '{field_name}' does not exist in entity '{config['entity']}'")
+                                    
+                                    # Validate fields in 'rows' mode
+                                    if 'rows' in section and isinstance(section['rows'], list):
+                                        for row_idx, row_spec in enumerate(section['rows']):
+                                            if not isinstance(row_spec, list):
+                                                errors.append(f"Tab {tab_idx + 1}, Section {section_idx + 1}, Row {row_idx + 1} is not a list")
+                                                continue
+                                            
+                                            for cell_spec in row_spec:
+                                                field_name = None
+                                                
+                                                # Extract field name from cell spec
+                                                if isinstance(cell_spec, str):
+                                                    field_name = cell_spec
+                                                elif isinstance(cell_spec, dict) and 'field' in cell_spec:
+                                                    field_name = cell_spec['field']
+                                                
+                                                # Validate field exists (skip null placeholders)
+                                                if field_name and field_name != 'null' and field_name not in valid_field_names:
+                                                    errors.append(f"Field '{field_name}' does not exist in entity '{config['entity']}'")
                 except Exception as e:
                     errors.append(f"Error reading entity definition: {str(e)}")
         
@@ -3312,6 +3466,16 @@ async def build_form_from_yaml(request: BuildFormRequest):
             }
         entity_name = config['entity']
         form_guid = config['form_guid'].strip('{}')  # Remove braces if present
+        
+        # VALIDATE FIELD REFERENCES: Check that all fields used in tabs exist in the YAML header
+        validation_errors = validate_yaml_field_references(yaml_content, config)
+        if validation_errors:
+            error_msg = "Invalid field references found:\n" + "\n".join(f"  • {err}" for err in validation_errors)
+            return {
+                "success": False,
+                "error": error_msg,
+                "validation_errors": validation_errors
+            }
         
         # Find form XML files
         form_dir = module_path / "src" / "Entities" / entity_name / "FormXml" / "main"
@@ -3686,6 +3850,19 @@ async def build_all_forms(request: BuildAllFormsRequest):
                         "entity": entity_name,
                         "success": False,
                         "error": "Missing or empty 'tabs' field in YAML"
+                    })
+                    error_count += 1
+                    continue
+                
+                # VALIDATE FIELD REFERENCES: Check that all fields used in tabs exist in the YAML header
+                validation_errors = validate_yaml_field_references(yaml_content, config)
+                if validation_errors:
+                    error_msg = "Invalid field references: " + "; ".join(validation_errors)
+                    results.append({
+                        "entity": entity_name,
+                        "success": False,
+                        "error": error_msg,
+                        "validation_errors": validation_errors
                     })
                     error_count += 1
                     continue
