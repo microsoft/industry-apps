@@ -393,6 +393,7 @@ def add_fields_to_section_by_rows(unmanaged_path: Path, tab_name: str, section_n
     # Build rows
     for row_spec in rows:
         row = Row()
+        max_rowspan = 1  # Track the maximum rowspan in this row
         
         for cell_spec in row_spec:
             # Determine cell specifications
@@ -431,9 +432,13 @@ def add_fields_to_section_by_rows(unmanaged_path: Path, tab_name: str, section_n
                 display_name, field_type = field_metadata[field_name]
                 classid = get_classid_for_field_type(field_type)
                 
-                # Note: We do NOT auto-set rowspan for memo fields in rows mode.
-                # In explicit rows mode, the user controls layout completely.
-                # Rowspan should only be auto-set in fields mode (add_fields_to_section).
+                # Auto-set rowspan for memo fields (default to 4 rows) if not explicitly specified
+                # This matches Power Apps behavior where memo fields are taller for better UX
+                if field_type == 'memo' and not rowspan_explicitly_set:
+                    rowspan = 4
+                
+                # Track max rowspan for adding spacing rows
+                max_rowspan = max(max_rowspan, rowspan)
                 
                 # Create control
                 control = Control(
@@ -471,6 +476,13 @@ def add_fields_to_section_by_rows(unmanaged_path: Path, tab_name: str, section_n
         # Add row to section
         if row.cells:  # Only add non-empty rows
             section.rows.append(row)
+            
+            # Add spacing rows if any cell has rowspan > 1
+            # This prevents overlap when consecutive rows have fields with rowspan
+            # Power Apps adds (rowspan - 1) empty rows after each row with rowspan
+            if max_rowspan > 1:
+                for _ in range(max_rowspan - 1):
+                    section.rows.append(Row())
     
     # Save forms
     save_forms(form, unmanaged_path, managed_path)
