@@ -5,34 +5,154 @@
     <IntroducedVersion>1.0</IntroducedVersion>
     <FormPresentation>1</FormPresentation>
     <FormActivationState>1</FormActivationState>
-    <form>
+    <form shownavigationbar="false">
       <tabs>
-        <tab verticallayout="true" id="{de4bb957-378e-4fbf-a3a8-2a818106ec1e}" IsUserDefined="1">
+        <tab name="tab_general" id="{5D6CC184-01D2-43C0-AC32-F4FD1CC8EC7B}" IsUserDefined="0" locklevel="0" showlabel="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section showlabel="false" showbar="false" IsUserDefined="0" id="{81c27f32-83a4-4082-a535-d78732aa91cb}">
+                <section name="secGeneralInformation" id="{56B041CE-C5AF-4840-8038-355530C90F10}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
                   <labels>
-                    <label description="General" languagecode="1033" />
+                    <label description="General Information" languagecode="1033" />
                   </labels>
                   <rows>
+                    <row />
                     <row>
-                      <cell id="{a1f26b22-d755-4fe4-a273-8da74b27c203}">
+                      <cell id="{465DA2AC-BF3B-411D-ABD6-0416A4FD5A14}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Name" languagecode="1033" />
+                          <label description="" languagecode="1033" />
                         </labels>
-                        <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" />
+                        <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" disabled="false" />
+                      </cell>
+                      <cell id="{C530E90C-22CA-4354-A31B-3A9591B37E85}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_academicprogram" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_academicprogram" disabled="false" />
                       </cell>
                     </row>
                     <row>
-                      <cell id="{43dd2870-8d3f-4473-9cdf-f48d64f460a9}">
+                      <cell id="{F6ABA32B-F26B-42DB-AD4A-14A1FB3AC05E}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Owner" languagecode="1033" />
+                          <label description="" languagecode="1033" />
                         </labels>
-                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false" />
+                      </cell>
+                      <cell id="{A260D2BE-C00A-4BAA-A336-D81BB0F5D3F6}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_requirementtype" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_requirementtype" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{25CE5788-A180-44F9-947F-7C28CCE8D300}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_requirementcategory" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_requirementcategory" disabled="false" />
+                      </cell>
+                      <cell id="{D3846A0C-8B6D-44A0-B025-555C02462118}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_sequenceorder" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="appbase_sequenceorder" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{9701AEFA-CC86-4F46-915B-036A53BF52FF}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_isrequired" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_isrequired" disabled="false" />
+                      </cell>
+                      <cell id="{170B7C53-727C-4FB7-9EA3-257B8B5EC591}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_iselective" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_iselective" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="secDescription" id="{800B9B93-3D85-4A7B-AE94-B18C46271895}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Description" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{67290681-231A-488C-B337-C52FDD588098}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_description" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="appbase_description" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row>
+                      <cell id="{E00385B1-0B55-4BA7-9F8D-697974DD7F5A}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_requirementnotes" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="appbase_requirementnotes" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="secRequirements" id="{3579E416-9788-42F9-8923-86752FD3D218}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
+                  <labels>
+                    <label description="Requirements" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{864DD3EE-20B3-4A36-B06A-D4E2CFE91644}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_requiredtrainingcourse" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_requiredtrainingcourse" disabled="false" />
+                      </cell>
+                      <cell id="{1B707682-FFBA-46B1-9630-5F26EA6092E4}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_requiredlearningpath" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_requiredlearningpath" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{745EA9BF-7EAC-48E5-94A0-BA863ACECB75}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_requiredcredithours" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="appbase_requiredcredithours" disabled="false" />
+                      </cell>
+                      <cell id="{6ABDE26B-4659-44FD-931C-A1667F428F96}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_minimumgrade" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_minimumgrade" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{5FE9F4D6-6083-4895-A97B-9745A3E04205}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_recommendedterm" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_recommendedterm" disabled="false" />
+                      </cell>
+                      <cell id="{84D807BB-09E5-438E-9E08-051B68E88D2C}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
                       </cell>
                     </row>
                   </rows>
@@ -42,6 +162,51 @@
           </columns>
         </tab>
       </tabs>
+      <header id="{1FE7BA36-06C0-415F-A5B7-3E361B6FEBED}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{59BB6B56-C601-471F-A47E-E1313EAEE614}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{23500627-CCE4-49F4-9191-F086D75784D2}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{68B4EE19-D26E-4095-8362-A6E4124F69E2}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{0A66459A-555F-44C2-BD23-DB746BC30DBB}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{3A06A2A5-6329-4E8D-9508-5D10E9CF9F41}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{B16FFEB4-52B5-4447-A066-6A19C23B12E7}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{B3E92DD3-F6E7-486A-BA4C-7333ADF7DF06}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>

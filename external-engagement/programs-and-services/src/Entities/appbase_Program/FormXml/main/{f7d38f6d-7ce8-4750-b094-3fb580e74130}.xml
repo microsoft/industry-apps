@@ -5,34 +5,209 @@
     <IntroducedVersion>1.0</IntroducedVersion>
     <FormPresentation>1</FormPresentation>
     <FormActivationState>1</FormActivationState>
-    <form>
+    <form shownavigationbar="false">
       <tabs>
-        <tab verticallayout="true" id="{6c34beeb-2c8a-4c36-b67b-42020b693560}" IsUserDefined="1">
+        <tab name="tab_general" id="{9C96AFDE-AEEB-437C-A9F5-9C1D31EB5B36}" IsUserDefined="0" locklevel="0" showlabel="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section showlabel="false" showbar="false" IsUserDefined="0" id="{9a474b85-337c-441a-b376-ce59a8ecaefb}">
+                <section name="secGeneralInformation" id="{C19E234A-8390-42CA-8592-A4EA64030EAF}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
                   <labels>
-                    <label description="General" languagecode="1033" />
+                    <label description="General Information" languagecode="1033" />
                   </labels>
                   <rows>
+                    <row />
                     <row>
-                      <cell id="{3787dfbe-6118-4104-9e40-0a9a69821f65}">
+                      <cell id="{E973624B-B656-49B7-A55E-8BE77F023400}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="Name" languagecode="1033" />
                         </labels>
-                        <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" />
+                        <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" disabled="false" />
+                      </cell>
+                      <cell id="{8A150BC2-73B5-45CD-BED1-042A9F3DD4F4}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Program Code" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_programcode" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_programcode" disabled="false" />
                       </cell>
                     </row>
                     <row>
-                      <cell id="{9d290678-05c1-485b-8264-032c8e04911b}">
+                      <cell id="{4A5B3F07-5077-40C9-9D04-B2DB3762A4DD}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="Owner" languagecode="1033" />
                         </labels>
-                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false" />
+                      </cell>
+                      <cell id="{88366F8C-DE26-47EE-AA69-714C0FDA45A7}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Program Manager" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_programmanager" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_programmanager" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8E065DCB-7CAA-49F9-B7F7-FB467274A7E6}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Program Type" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_programtype" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_programtype" disabled="false" />
+                      </cell>
+                      <cell id="{DDE2A61E-0C61-4D37-8DCA-0FC51C7EFC7E}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Parent Program" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_parentprogram" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_parentprogram" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{030A07E8-A0CD-4D69-8C61-212E2B289381}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Administering Organization Unit" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_administeringorganizationunit" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_administeringorganizationunit" disabled="false" />
+                      </cell>
+                      <cell id="{DFD9691B-C983-435A-BC59-8C0290101949}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Organization Initiative" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_organizationinitiative" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_organizationinitiative" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="secDescription" id="{33A44F5E-4D84-47D3-AA0C-C4B25EA89CF2}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Description" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{AEC1A4FB-7D56-4F3A-95E6-D8AB44DB1FCE}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Description" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_description" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="appbase_description" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row>
+                      <cell id="{0C4CBB84-FCD9-42E1-91D1-D7D8F287F80D}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Purpose" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_purpose" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="appbase_purpose" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="tab_goals" id="{DA63154C-6360-4AE6-8778-E4C30BDD706B}" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Goals &amp; Population" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="secStrategicGoals" id="{501D2A78-9D6F-4F2A-A70D-6FCFAE3F63F6}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Strategic Goals" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{EDF5D19C-1D44-4BAC-89EE-C68AC9179370}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Strategic Goals" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_strategicgoals" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="appbase_strategicgoals" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="secTargetPopulation" id="{FB5CAD1A-A330-44BF-8441-10A82D370239}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Target Population" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{1FE27BF7-EA2E-44FE-8965-04ADCBE7035F}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Target Population" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_targetpopulation" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="appbase_targetpopulation" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="tab_funding" id="{597F524A-0185-403E-8536-DB974E88424D}" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Funding &amp; Dates" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="secFundingInformation" id="{1A347BCE-DAD8-49D5-90A5-0EC82AAEDE6A}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
+                  <labels>
+                    <label description="Funding Information" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{02866A00-AA8E-495F-8278-3836E41281AA}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Annual Budget" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_annualbudget" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="appbase_annualbudget" disabled="false" />
+                      </cell>
+                      <cell id="{B44E584A-6380-4DE6-9D91-91832E2DB52E}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Funding Source" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_fundingsource" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_fundingsource" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="secProgramDates" id="{B7FC1274-F8CF-4993-BF92-0B288F1DF6FC}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
+                  <labels>
+                    <label description="Program Dates" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{96C54A8C-DDA4-4413-B24E-AEE0D47920F4}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Effective Start Date" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_effectivestartdate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="appbase_effectivestartdate" disabled="false" />
+                      </cell>
+                      <cell id="{42FD0086-7752-4C47-9A64-1E1BFC13B8BB}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Effective End Date" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_effectiveenddate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="appbase_effectiveenddate" disabled="false" />
                       </cell>
                     </row>
                   </rows>
@@ -41,7 +216,195 @@
             </column>
           </columns>
         </tab>
+        <tab name="tab_compliance" id="{06FC0A95-4EFE-4463-BCD1-6A23830AFE7F}" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Visibility &amp; Compliance" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="secVisibilitySettings" id="{1DABAE25-8033-4720-9FF9-B38FE0C7F380}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
+                  <labels>
+                    <label description="Visibility Settings" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{E903DE4E-024F-46B2-9121-B81CAE4064BE}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Is Public" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_ispublic" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_ispublic" disabled="false" />
+                      </cell>
+                      <cell id="{CC724F3E-23D7-4A0B-9683-4A08B4B0761F}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Visibility" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_visibility" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_visibility" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{AB376D94-ED96-4397-8C09-C8AB414D70E8}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Website URL" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_websiteurl" classid="{71716B6C-711E-476C-8AB8-5D11542BFB47}" datafieldname="appbase_websiteurl" disabled="false" />
+                      </cell>
+                      <cell id="{CF9ADF9A-9659-4367-A63D-C3A800706F96}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="secCompliance" id="{BAB84169-548F-42CE-A773-D66F22155537}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
+                  <labels>
+                    <label description="Compliance" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{2BCCA42B-B28A-4DC4-8F4D-2B5D30F0D263}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Legal Authority" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_legalauthority" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_legalauthority" disabled="false" />
+                      </cell>
+                      <cell id="{1A54FF22-D50A-4B94-991B-D620A9C86CD4}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Policy Document" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_policydocument" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_policydocument" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="tab_related" id="{F9EEBFA9-D7FA-44FA-B403-C414DCC75F92}" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Related Records" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="secSubprograms" id="{0773B1B4-8396-4A03-9327-D12569C62E81}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Subprograms" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{F23DBC4A-1B8E-4CE2-8AE8-3CA925104102}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Subprograms" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_program_ParentProgram" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_program_ParentProgram</RelationshipName>
+                            <TargetEntityType>appbase_program</TargetEntityType>
+                            <ViewId>{321de2e2-3c4d-4847-b748-ba8776420a01}</ViewId>
+                            <ViewIds>{321de2e2-3c4d-4847-b748-ba8776420a01}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="secServices" id="{31312B4D-729F-4E5D-9934-3564E84E3C13}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Services" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{F1508738-A954-486D-A04F-1DB2E932D1D8}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Services" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_service_Program" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_service_Program</RelationshipName>
+                            <TargetEntityType>appbase_service</TargetEntityType>
+                            <ViewId>{5cfcd3af-db60-4ed8-846f-397563acc94f}</ViewId>
+                            <ViewIds>{5cfcd3af-db60-4ed8-846f-397563acc94f}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
       </tabs>
+      <header id="{A6AC9EE6-7315-4B70-86A4-3957E871FDD9}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{65EDF88B-E3A8-4932-BA56-55A8E23B16EA}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{B920688C-3817-48E5-B25C-BA40F310A4F5}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{9052DDF2-6E74-4C19-86A6-BBA7555CAD7B}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{C71DCA46-4B4A-465E-8CB9-504539307663}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{B61493EF-FAE8-44B8-AEE6-022A835C5D25}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{777EF437-39AA-4358-BBBC-42500EAC3747}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{BA563E7D-C495-4627-9206-2721BF5DF6CD}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
