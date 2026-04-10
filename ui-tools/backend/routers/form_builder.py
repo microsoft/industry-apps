@@ -36,9 +36,8 @@ from formxml_parser import FormXmlParser
 # Import validation service
 from services.form_builder_service import validate_yaml_field_references
 
-# Import helper function from main (will refactor later)
-sys.path.insert(0, str(Path(__file__).parent.parent))
-import main as main_module
+# Import helper function from utils
+from utils import read_solution_display_name
 
 
 router = APIRouter(prefix="/api/formbuilder", tags=["Form Builder"])
@@ -77,7 +76,7 @@ async def list_modules_for_formbuilder():
                     module_name = f"{category}/{item.name}"
                     
                     # Try to get display name from Solution.xml
-                    display_name = main_module.read_solution_display_name(item)
+                    display_name = read_solution_display_name(item)
                     if not display_name:
                         display_name = item.name.replace("-", " ").title()
                     
