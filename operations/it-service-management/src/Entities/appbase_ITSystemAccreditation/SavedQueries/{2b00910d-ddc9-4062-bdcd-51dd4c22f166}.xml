@@ -11,7 +11,12 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_itsystemaccreditationid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_accreditationtype" width="125" />
+          <cell name="appbase_stage" width="125" />
+          <cell name="appbase_decisionstatus" width="125" />
+          <cell name="appbase_securitylevel" width="125" />
+          <cell name="appbase_itsystem" width="150" />
+          <cell name="appbase_authorizationdate" width="125" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +26,12 @@
         <entity name="appbase_itsystemaccreditation">
           <attribute name="appbase_itsystemaccreditationid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_accreditationtype" />
+          <attribute name="appbase_stage" />
+          <attribute name="appbase_decisionstatus" />
+          <attribute name="appbase_securitylevel" />
+          <attribute name="appbase_itsystem" />
+          <attribute name="appbase_authorizationdate" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

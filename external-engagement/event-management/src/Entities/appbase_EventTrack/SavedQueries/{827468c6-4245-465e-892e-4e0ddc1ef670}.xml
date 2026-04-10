@@ -11,7 +11,11 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_eventtrackid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_trackcode" width="150" />
+          <cell name="appbase_event" width="180" />
+          <cell name="appbase_parenteventtrack" width="180" />
+          <cell name="appbase_tracklead" width="150" />
+          <cell name="appbase_colorcode" width="120" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +25,11 @@
         <entity name="appbase_eventtrack">
           <attribute name="appbase_eventtrackid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_trackcode" />
+          <attribute name="appbase_event" />
+          <attribute name="appbase_parenteventtrack" />
+          <attribute name="appbase_tracklead" />
+          <attribute name="appbase_colorcode" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

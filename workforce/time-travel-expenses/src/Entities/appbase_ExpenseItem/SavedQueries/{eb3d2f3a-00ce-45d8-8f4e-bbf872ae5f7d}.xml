@@ -11,7 +11,12 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_expenseitemid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_expensereport" width="150" />
+          <cell name="appbase_expensecategory" width="150" />
+          <cell name="appbase_stage" width="100" />
+          <cell name="appbase_expensedate" width="100" />
+          <cell name="appbase_totalamount" width="100" />
+          <cell name="appbase_merchantname" width="150" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +26,12 @@
         <entity name="appbase_expenseitem">
           <attribute name="appbase_expenseitemid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_expensereport" />
+          <attribute name="appbase_expensecategory" />
+          <attribute name="appbase_stage" />
+          <attribute name="appbase_expensedate" />
+          <attribute name="appbase_totalamount" />
+          <attribute name="appbase_merchantname" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

@@ -10,8 +10,14 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_hrbenefitbeneficiaryid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="200" />
+          <cell name="appbase_hrbenefitenrollment" width="150" />
+          <cell name="appbase_beneficiarytype" width="125" />
+          <cell name="appbase_relationship" width="125" />
+          <cell name="appbase_beneficiaryname" width="150" />
+          <cell name="appbase_allocationpercentage" width="100" />
+          <cell name="appbase_effectivestartdate" width="100" />
+          <cell name="appbase_effectiveenddate" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +27,13 @@
         <entity name="appbase_hrbenefitbeneficiary">
           <attribute name="appbase_hrbenefitbeneficiaryid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_hrbenefitenrollment" />
+          <attribute name="appbase_beneficiarytype" />
+          <attribute name="appbase_relationship" />
+          <attribute name="appbase_beneficiaryname" />
+          <attribute name="appbase_allocationpercentage" />
+          <attribute name="appbase_effectivestartdate" />
+          <attribute name="appbase_effectiveenddate" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

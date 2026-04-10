@@ -11,7 +11,15 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_gameparticipantachievementid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_gameparticipant" width="150" />
+          <cell name="appbase_gameachievement" width="150" />
+          <cell name="appbase_game" width="150" />
+          <cell name="appbase_decisionstatus" width="125" />
+          <cell name="appbase_recognitionstatus" width="125" />
+          <cell name="appbase_earneddate" width="125" />
+          <cell name="appbase_awardeddate" width="125" />
+          <cell name="appbase_pointsearned" width="100" />
+          <cell name="appbase_approvalrequired" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +29,15 @@
         <entity name="appbase_gameparticipantachievement">
           <attribute name="appbase_gameparticipantachievementid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_gameparticipant" />
+          <attribute name="appbase_gameachievement" />
+          <attribute name="appbase_game" />
+          <attribute name="appbase_decisionstatus" />
+          <attribute name="appbase_recognitionstatus" />
+          <attribute name="appbase_earneddate" />
+          <attribute name="appbase_awardeddate" />
+          <attribute name="appbase_pointsearned" />
+          <attribute name="appbase_approvalrequired" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

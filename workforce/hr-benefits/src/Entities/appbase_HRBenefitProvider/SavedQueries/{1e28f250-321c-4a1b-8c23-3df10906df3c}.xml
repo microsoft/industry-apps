@@ -10,8 +10,14 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_hrbenefitproviderid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="200" />
+          <cell name="appbase_providercode" width="125" />
+          <cell name="appbase_providertype" width="125" />
+          <cell name="appbase_contactemail" width="150" />
+          <cell name="appbase_contactphone" width="125" />
+          <cell name="appbase_groupnumber" width="125" />
+          <cell name="appbase_agreementstartdate" width="100" />
+          <cell name="appbase_agreementenddate" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +27,13 @@
         <entity name="appbase_hrbenefitprovider">
           <attribute name="appbase_hrbenefitproviderid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_providercode" />
+          <attribute name="appbase_providertype" />
+          <attribute name="appbase_contactemail" />
+          <attribute name="appbase_contactphone" />
+          <attribute name="appbase_groupnumber" />
+          <attribute name="appbase_agreementstartdate" />
+          <attribute name="appbase_agreementenddate" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

@@ -10,8 +10,13 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_serviceofferinggeographyid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="200" />
+          <cell name="appbase_serviceoffering" width="175" />
+          <cell name="appbase_geographicscope" width="125" />
+          <cell name="appbase_location" width="150" />
+          <cell name="appbase_judicialdistrict" width="150" />
+          <cell name="appbase_isprimary" width="75" />
+          <cell name="appbase_effectivestartdate" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +26,12 @@
         <entity name="appbase_serviceofferinggeography">
           <attribute name="appbase_serviceofferinggeographyid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_serviceoffering" />
+          <attribute name="appbase_geographicscope" />
+          <attribute name="appbase_location" />
+          <attribute name="appbase_judicialdistrict" />
+          <attribute name="appbase_isprimary" />
+          <attribute name="appbase_effectivestartdate" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

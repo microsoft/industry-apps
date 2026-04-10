@@ -10,8 +10,12 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_operationaleventparticipantid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="200" />
+          <cell name="appbase_operationalevent" width="150" />
+          <cell name="appbase_person" width="150" />
+          <cell name="appbase_participantrole" width="125" />
+          <cell name="appbase_participationstatus" width="125" />
+          <cell name="appbase_attendanceconfirmed" width="125" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +25,11 @@
         <entity name="appbase_operationaleventparticipant">
           <attribute name="appbase_operationaleventparticipantid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_operationalevent" />
+          <attribute name="appbase_person" />
+          <attribute name="appbase_participantrole" />
+          <attribute name="appbase_participationstatus" />
+          <attribute name="appbase_attendanceconfirmed" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

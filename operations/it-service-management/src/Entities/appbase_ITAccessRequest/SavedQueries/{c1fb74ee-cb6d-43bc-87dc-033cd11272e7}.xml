@@ -11,7 +11,12 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_itaccessrequestid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_accessrequesttype" width="125" />
+          <cell name="appbase_stage" width="125" />
+          <cell name="appbase_decisionstatus" width="125" />
+          <cell name="appbase_requestedby" width="150" />
+          <cell name="appbase_priority" width="100" />
+          <cell name="appbase_requestdate" width="125" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +26,12 @@
         <entity name="appbase_itaccessrequest">
           <attribute name="appbase_itaccessrequestid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_accessrequesttype" />
+          <attribute name="appbase_stage" />
+          <attribute name="appbase_decisionstatus" />
+          <attribute name="appbase_requestedby" />
+          <attribute name="appbase_priority" />
+          <attribute name="appbase_requestdate" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

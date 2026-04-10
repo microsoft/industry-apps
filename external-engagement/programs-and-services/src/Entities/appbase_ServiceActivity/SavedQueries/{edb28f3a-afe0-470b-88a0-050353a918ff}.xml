@@ -10,8 +10,14 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_serviceactivityid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="200" />
+          <cell name="appbase_activitynumber" width="100" />
+          <cell name="appbase_serviceactivitytype" width="125" />
+          <cell name="appbase_actionstatus" width="100" />
+          <cell name="appbase_serviceparticipation" width="150" />
+          <cell name="appbase_activitydatetime" width="125" />
+          <cell name="appbase_performedby" width="150" />
+          <cell name="appbase_performingorganizationunit" width="150" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +27,13 @@
         <entity name="appbase_serviceactivity">
           <attribute name="appbase_serviceactivityid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_activitynumber" />
+          <attribute name="appbase_serviceactivitytype" />
+          <attribute name="appbase_actionstatus" />
+          <attribute name="appbase_serviceparticipation" />
+          <attribute name="appbase_activitydatetime" />
+          <attribute name="appbase_performedby" />
+          <attribute name="appbase_performingorganizationunit" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

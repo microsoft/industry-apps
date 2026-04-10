@@ -11,7 +11,13 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_contractamendmentid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_contract" width="150" />
+          <cell name="appbase_amendmenttype" width="125" />
+          <cell name="appbase_amendmentnumber" width="125" />
+          <cell name="appbase_amendmentdate" width="100" />
+          <cell name="appbase_decisionstatus" width="125" />
+          <cell name="appbase_effectivedate" width="100" />
+          <cell name="appbase_amendmentvalue" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +27,13 @@
         <entity name="appbase_contractamendment">
           <attribute name="appbase_contractamendmentid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_contract" />
+          <attribute name="appbase_amendmenttype" />
+          <attribute name="appbase_amendmentnumber" />
+          <attribute name="appbase_amendmentdate" />
+          <attribute name="appbase_decisionstatus" />
+          <attribute name="appbase_effectivedate" />
+          <attribute name="appbase_amendmentvalue" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

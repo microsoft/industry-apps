@@ -10,8 +10,15 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_requesttypeid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="200" />
+          <cell name="appbase_typecode" width="100" />
+          <cell name="appbase_requesttypecategory" width="150" />
+          <cell name="appbase_parentrequesttype" width="150" />
+          <cell name="appbase_requiresapproval" width="125" />
+          <cell name="appbase_allowsexternalsubmission" width="150" />
+          <cell name="appbase_defaultpriority" width="100" />
+          <cell name="appbase_targetresponsetimehours" width="125" />
+          <cell name="appbase_targetcompletiontimehours" width="125" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +28,14 @@
         <entity name="appbase_requesttype">
           <attribute name="appbase_requesttypeid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_typecode" />
+          <attribute name="appbase_requesttypecategory" />
+          <attribute name="appbase_parentrequesttype" />
+          <attribute name="appbase_requiresapproval" />
+          <attribute name="appbase_allowsexternalsubmission" />
+          <attribute name="appbase_defaultpriority" />
+          <attribute name="appbase_targetresponsetimehours" />
+          <attribute name="appbase_targetcompletiontimehours" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

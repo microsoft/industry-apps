@@ -11,7 +11,12 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_academictermid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_termtype" width="125" />
+          <cell name="appbase_termstatus" width="125" />
+          <cell name="appbase_academicyear" width="125" />
+          <cell name="appbase_startdate" width="125" />
+          <cell name="appbase_enddate" width="125" />
+          <cell name="appbase_registrationstartdate" width="125" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +26,12 @@
         <entity name="appbase_academicterm">
           <attribute name="appbase_academictermid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_termtype" />
+          <attribute name="appbase_termstatus" />
+          <attribute name="appbase_academicyear" />
+          <attribute name="appbase_startdate" />
+          <attribute name="appbase_enddate" />
+          <attribute name="appbase_registrationstartdate" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

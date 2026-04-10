@@ -11,7 +11,12 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_hrrequisitionpostingid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_hrrequisition" width="175" />
+          <cell name="appbase_jobtitle" width="175" />
+          <cell name="appbase_postingchannel" width="150" />
+          <cell name="appbase_posteddate" width="125" />
+          <cell name="appbase_postingenddate" width="125" />
+          <cell name="appbase_applicationcount" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +26,12 @@
         <entity name="appbase_hrrequisitionposting">
           <attribute name="appbase_hrrequisitionpostingid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_hrrequisition" />
+          <attribute name="appbase_jobtitle" />
+          <attribute name="appbase_postingchannel" />
+          <attribute name="appbase_posteddate" />
+          <attribute name="appbase_postingenddate" />
+          <attribute name="appbase_applicationcount" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

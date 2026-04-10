@@ -11,7 +11,12 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_trainingcertificaterenewalid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_trainingcertificateachievement" width="150" />
+          <cell name="appbase_renewalstatus" width="125" />
+          <cell name="appbase_approvalstatus" width="125" />
+          <cell name="appbase_renewaldate" width="125" />
+          <cell name="appbase_newexpirationdate" width="125" />
+          <cell name="appbase_priorexpirationdate" width="125" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +26,12 @@
         <entity name="appbase_trainingcertificaterenewal">
           <attribute name="appbase_trainingcertificaterenewalid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_trainingcertificateachievement" />
+          <attribute name="appbase_renewalstatus" />
+          <attribute name="appbase_approvalstatus" />
+          <attribute name="appbase_renewaldate" />
+          <attribute name="appbase_newexpirationdate" />
+          <attribute name="appbase_priorexpirationdate" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

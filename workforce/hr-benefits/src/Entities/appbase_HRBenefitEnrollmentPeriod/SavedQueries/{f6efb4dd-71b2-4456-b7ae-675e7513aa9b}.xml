@@ -10,8 +10,13 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_hrbenefitenrollmentperiodid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="200" />
+          <cell name="appbase_planyear" width="100" />
+          <cell name="appbase_periodtype" width="125" />
+          <cell name="appbase_stage" width="100" />
+          <cell name="appbase_startdate" width="100" />
+          <cell name="appbase_enddate" width="100" />
+          <cell name="appbase_defaulteffectivedate" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +26,12 @@
         <entity name="appbase_hrbenefitenrollmentperiod">
           <attribute name="appbase_hrbenefitenrollmentperiodid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_planyear" />
+          <attribute name="appbase_periodtype" />
+          <attribute name="appbase_stage" />
+          <attribute name="appbase_startdate" />
+          <attribute name="appbase_enddate" />
+          <attribute name="appbase_defaulteffectivedate" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

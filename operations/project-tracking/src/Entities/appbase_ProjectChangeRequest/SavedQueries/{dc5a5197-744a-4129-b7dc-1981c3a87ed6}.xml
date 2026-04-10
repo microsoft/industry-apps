@@ -11,7 +11,15 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_projectchangerequestid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_changerequestnumber" width="120" />
+          <cell name="appbase_changerequesttype" width="120" />
+          <cell name="appbase_priority" width="100" />
+          <cell name="appbase_decisionstatus" width="120" />
+          <cell name="appbase_stage" width="100" />
+          <cell name="appbase_project" width="150" />
+          <cell name="appbase_requestdate" width="100" />
+          <cell name="appbase_requestedby" width="150" />
+          <cell name="appbase_changeimpactlevel" width="120" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +29,15 @@
         <entity name="appbase_projectchangerequest">
           <attribute name="appbase_projectchangerequestid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_changerequestnumber" />
+          <attribute name="appbase_changerequesttype" />
+          <attribute name="appbase_priority" />
+          <attribute name="appbase_decisionstatus" />
+          <attribute name="appbase_stage" />
+          <attribute name="appbase_project" />
+          <attribute name="appbase_requestdate" />
+          <attribute name="appbase_requestedby" />
+          <attribute name="appbase_changeimpactlevel" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

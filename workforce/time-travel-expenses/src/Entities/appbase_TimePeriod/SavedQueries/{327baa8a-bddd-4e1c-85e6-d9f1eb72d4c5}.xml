@@ -11,7 +11,13 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_timeperiodid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_periodcode" width="100" />
+          <cell name="appbase_periodtype" width="100" />
+          <cell name="appbase_stage" width="100" />
+          <cell name="appbase_periodstartdate" width="100" />
+          <cell name="appbase_periodenddate" width="100" />
+          <cell name="appbase_fiscalyear" width="75" />
+          <cell name="appbase_islocked" width="75" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +27,13 @@
         <entity name="appbase_timeperiod">
           <attribute name="appbase_timeperiodid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_periodcode" />
+          <attribute name="appbase_periodtype" />
+          <attribute name="appbase_stage" />
+          <attribute name="appbase_periodstartdate" />
+          <attribute name="appbase_periodenddate" />
+          <attribute name="appbase_fiscalyear" />
+          <attribute name="appbase_islocked" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

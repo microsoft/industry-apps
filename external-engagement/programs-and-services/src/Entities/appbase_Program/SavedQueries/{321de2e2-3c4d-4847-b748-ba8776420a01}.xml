@@ -10,8 +10,14 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_programid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="200" />
+          <cell name="appbase_programcode" width="100" />
+          <cell name="appbase_programtype" width="125" />
+          <cell name="appbase_parentprogram" width="150" />
+          <cell name="appbase_programmanager" width="150" />
+          <cell name="appbase_administeringorganizationunit" width="150" />
+          <cell name="appbase_effectivestartdate" width="100" />
+          <cell name="appbase_effectiveenddate" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +27,13 @@
         <entity name="appbase_program">
           <attribute name="appbase_programid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_programcode" />
+          <attribute name="appbase_programtype" />
+          <attribute name="appbase_parentprogram" />
+          <attribute name="appbase_programmanager" />
+          <attribute name="appbase_administeringorganizationunit" />
+          <attribute name="appbase_effectivestartdate" />
+          <attribute name="appbase_effectiveenddate" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

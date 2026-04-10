@@ -10,8 +10,13 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_personnelaccesscredentialid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="200" />
+          <cell name="appbase_person" width="150" />
+          <cell name="appbase_credentialtype" width="125" />
+          <cell name="appbase_credentialstatus" width="125" />
+          <cell name="appbase_personnelsecurityeligibility" width="150" />
+          <cell name="appbase_issuedate" width="100" />
+          <cell name="appbase_expirationdate" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +26,12 @@
         <entity name="appbase_personnelaccesscredential">
           <attribute name="appbase_personnelaccesscredentialid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_person" />
+          <attribute name="appbase_credentialtype" />
+          <attribute name="appbase_credentialstatus" />
+          <attribute name="appbase_personnelsecurityeligibility" />
+          <attribute name="appbase_issuedate" />
+          <attribute name="appbase_expirationdate" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

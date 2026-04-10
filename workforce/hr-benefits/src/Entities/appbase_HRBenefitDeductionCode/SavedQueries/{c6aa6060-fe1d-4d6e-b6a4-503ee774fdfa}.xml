@@ -10,8 +10,13 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_hrbenefitdeductioncodeid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="200" />
+          <cell name="appbase_deductioncode" width="125" />
+          <cell name="appbase_hrbenefitplan" width="150" />
+          <cell name="appbase_deductiontype" width="125" />
+          <cell name="appbase_deductioncategory" width="125" />
+          <cell name="appbase_ispretax" width="100" />
+          <cell name="appbase_payrollsystemcode" width="125" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +26,12 @@
         <entity name="appbase_hrbenefitdeductioncode">
           <attribute name="appbase_hrbenefitdeductioncodeid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_deductioncode" />
+          <attribute name="appbase_hrbenefitplan" />
+          <attribute name="appbase_deductiontype" />
+          <attribute name="appbase_deductioncategory" />
+          <attribute name="appbase_ispretax" />
+          <attribute name="appbase_payrollsystemcode" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

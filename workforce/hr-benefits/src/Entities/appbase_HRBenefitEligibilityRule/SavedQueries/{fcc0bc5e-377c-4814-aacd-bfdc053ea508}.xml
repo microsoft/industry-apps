@@ -10,8 +10,13 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_hrbenefiteligibilityruleid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="200" />
+          <cell name="appbase_hrbenefitplan" width="150" />
+          <cell name="appbase_ruletype" width="125" />
+          <cell name="appbase_rulepriority" width="100" />
+          <cell name="appbase_minimumservicedays" width="125" />
+          <cell name="appbase_ageminimum" width="100" />
+          <cell name="appbase_agemaximum" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +26,12 @@
         <entity name="appbase_hrbenefiteligibilityrule">
           <attribute name="appbase_hrbenefiteligibilityruleid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_hrbenefitplan" />
+          <attribute name="appbase_ruletype" />
+          <attribute name="appbase_rulepriority" />
+          <attribute name="appbase_minimumservicedays" />
+          <attribute name="appbase_ageminimum" />
+          <attribute name="appbase_agemaximum" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

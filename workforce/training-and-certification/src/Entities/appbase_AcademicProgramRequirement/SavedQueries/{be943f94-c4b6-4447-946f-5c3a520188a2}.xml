@@ -11,7 +11,12 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_academicprogramrequirementid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_academicprogram" width="150" />
+          <cell name="appbase_requirementtype" width="125" />
+          <cell name="appbase_requirementcategory" width="125" />
+          <cell name="appbase_isrequired" width="100" />
+          <cell name="appbase_iselective" width="100" />
+          <cell name="appbase_sequenceorder" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +26,12 @@
         <entity name="appbase_academicprogramrequirement">
           <attribute name="appbase_academicprogramrequirementid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_academicprogram" />
+          <attribute name="appbase_requirementtype" />
+          <attribute name="appbase_requirementcategory" />
+          <attribute name="appbase_isrequired" />
+          <attribute name="appbase_iselective" />
+          <attribute name="appbase_sequenceorder" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

@@ -11,7 +11,14 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_trainingsessionid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_trainingcourse" width="150" />
+          <cell name="appbase_deliverymethod" width="125" />
+          <cell name="appbase_sessionstatus" width="125" />
+          <cell name="appbase_startdate" width="125" />
+          <cell name="appbase_enddate" width="125" />
+          <cell name="appbase_location" width="150" />
+          <cell name="appbase_currentenrollment" width="100" />
+          <cell name="appbase_ispublished" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +28,14 @@
         <entity name="appbase_trainingsession">
           <attribute name="appbase_trainingsessionid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_trainingcourse" />
+          <attribute name="appbase_deliverymethod" />
+          <attribute name="appbase_sessionstatus" />
+          <attribute name="appbase_startdate" />
+          <attribute name="appbase_enddate" />
+          <attribute name="appbase_location" />
+          <attribute name="appbase_currentenrollment" />
+          <attribute name="appbase_ispublished" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

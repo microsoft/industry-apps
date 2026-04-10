@@ -11,7 +11,12 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_itsystemid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_systemtype" width="125" />
+          <cell name="appbase_securityclassification" width="125" />
+          <cell name="appbase_systemowner" width="150" />
+          <cell name="appbase_owningorganizationunit" width="150" />
+          <cell name="appbase_ismissioncritical" width="100" />
+          <cell name="appbase_golivedate" width="125" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +26,12 @@
         <entity name="appbase_itsystem">
           <attribute name="appbase_itsystemid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_systemtype" />
+          <attribute name="appbase_securityclassification" />
+          <attribute name="appbase_systemowner" />
+          <attribute name="appbase_owningorganizationunit" />
+          <attribute name="appbase_ismissioncritical" />
+          <attribute name="appbase_golivedate" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

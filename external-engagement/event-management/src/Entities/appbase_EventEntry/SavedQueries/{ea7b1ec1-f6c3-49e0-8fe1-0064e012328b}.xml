@@ -11,7 +11,14 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_evententryid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_entrycode" width="150" />
+          <cell name="appbase_entrytype" width="150" />
+          <cell name="appbase_event" width="180" />
+          <cell name="appbase_eventtrack" width="150" />
+          <cell name="appbase_submittedby" width="150" />
+          <cell name="appbase_stage" width="120" />
+          <cell name="appbase_decisionstatus" width="120" />
+          <cell name="appbase_submissiondatetime" width="150" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +28,14 @@
         <entity name="appbase_evententry">
           <attribute name="appbase_evententryid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_entrycode" />
+          <attribute name="appbase_entrytype" />
+          <attribute name="appbase_event" />
+          <attribute name="appbase_eventtrack" />
+          <attribute name="appbase_submittedby" />
+          <attribute name="appbase_stage" />
+          <attribute name="appbase_decisionstatus" />
+          <attribute name="appbase_submissiondatetime" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

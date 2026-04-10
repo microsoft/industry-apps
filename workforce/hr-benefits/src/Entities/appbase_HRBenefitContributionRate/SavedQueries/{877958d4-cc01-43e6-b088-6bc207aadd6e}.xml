@@ -10,8 +10,15 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_hrbenefitcontributionrateid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="175" />
+          <cell name="appbase_hrbenefitplan" width="150" />
+          <cell name="appbase_hrbenefitoption" width="150" />
+          <cell name="appbase_hrbenefitcoveragelevel" width="150" />
+          <cell name="appbase_ratetype" width="125" />
+          <cell name="appbase_employeecontributiontype" width="125" />
+          <cell name="appbase_employercontributiontype" width="125" />
+          <cell name="appbase_totalpremiumamount" width="100" />
+          <cell name="appbase_effectivestartdate" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +28,14 @@
         <entity name="appbase_hrbenefitcontributionrate">
           <attribute name="appbase_hrbenefitcontributionrateid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_hrbenefitplan" />
+          <attribute name="appbase_hrbenefitoption" />
+          <attribute name="appbase_hrbenefitcoveragelevel" />
+          <attribute name="appbase_ratetype" />
+          <attribute name="appbase_employeecontributiontype" />
+          <attribute name="appbase_employercontributiontype" />
+          <attribute name="appbase_totalpremiumamount" />
+          <attribute name="appbase_effectivestartdate" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

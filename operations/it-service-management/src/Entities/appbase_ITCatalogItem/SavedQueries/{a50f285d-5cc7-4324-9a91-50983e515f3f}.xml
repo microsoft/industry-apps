@@ -11,7 +11,12 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_itcatalogitemid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_itemtype" width="125" />
+          <cell name="appbase_itemcategory" width="125" />
+          <cell name="appbase_publicationstatus" width="125" />
+          <cell name="appbase_isorderable" width="100" />
+          <cell name="appbase_serviceowner" width="150" />
+          <cell name="appbase_unitcost" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +26,12 @@
         <entity name="appbase_itcatalogitem">
           <attribute name="appbase_itcatalogitemid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_itemtype" />
+          <attribute name="appbase_itemcategory" />
+          <attribute name="appbase_publicationstatus" />
+          <attribute name="appbase_isorderable" />
+          <attribute name="appbase_serviceowner" />
+          <attribute name="appbase_unitcost" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

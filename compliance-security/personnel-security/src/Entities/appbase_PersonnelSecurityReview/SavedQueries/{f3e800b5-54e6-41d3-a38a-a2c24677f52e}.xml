@@ -10,8 +10,13 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_personnelsecurityreviewid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="200" />
+          <cell name="appbase_person" width="150" />
+          <cell name="appbase_reviewtype" width="125" />
+          <cell name="appbase_reviewpriority" width="100" />
+          <cell name="appbase_stage" width="100" />
+          <cell name="appbase_currentclearancelevel" width="150" />
+          <cell name="appbase_requestdate" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +26,12 @@
         <entity name="appbase_personnelsecurityreview">
           <attribute name="appbase_personnelsecurityreviewid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_person" />
+          <attribute name="appbase_reviewtype" />
+          <attribute name="appbase_reviewpriority" />
+          <attribute name="appbase_stage" />
+          <attribute name="appbase_currentclearancelevel" />
+          <attribute name="appbase_requestdate" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

@@ -11,7 +11,13 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_projectiterationid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_iterationcode" width="100" />
+          <cell name="appbase_iterationnumber" width="80" />
+          <cell name="appbase_project" width="150" />
+          <cell name="appbase_iterationstartdate" width="100" />
+          <cell name="appbase_iterationenddate" width="100" />
+          <cell name="appbase_stage" width="100" />
+          <cell name="appbase_iterationowner" width="150" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +27,13 @@
         <entity name="appbase_projectiteration">
           <attribute name="appbase_projectiterationid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_iterationcode" />
+          <attribute name="appbase_iterationnumber" />
+          <attribute name="appbase_project" />
+          <attribute name="appbase_iterationstartdate" />
+          <attribute name="appbase_iterationenddate" />
+          <attribute name="appbase_stage" />
+          <attribute name="appbase_iterationowner" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

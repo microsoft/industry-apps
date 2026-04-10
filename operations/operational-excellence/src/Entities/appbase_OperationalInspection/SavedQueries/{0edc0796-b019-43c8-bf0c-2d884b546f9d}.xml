@@ -10,8 +10,15 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_operationalinspectionid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="200" />
+          <cell name="appbase_inspectionnumber" width="125" />
+          <cell name="appbase_inspectiontype" width="125" />
+          <cell name="appbase_inspectionstage" width="125" />
+          <cell name="appbase_overallresult" width="125" />
+          <cell name="appbase_scheduleddate" width="125" />
+          <cell name="appbase_actualinspectiondate" width="125" />
+          <cell name="appbase_leadinspector" width="150" />
+          <cell name="appbase_operationalitem" width="150" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +28,14 @@
         <entity name="appbase_operationalinspection">
           <attribute name="appbase_operationalinspectionid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_inspectionnumber" />
+          <attribute name="appbase_inspectiontype" />
+          <attribute name="appbase_inspectionstage" />
+          <attribute name="appbase_overallresult" />
+          <attribute name="appbase_scheduleddate" />
+          <attribute name="appbase_actualinspectiondate" />
+          <attribute name="appbase_leadinspector" />
+          <attribute name="appbase_operationalitem" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

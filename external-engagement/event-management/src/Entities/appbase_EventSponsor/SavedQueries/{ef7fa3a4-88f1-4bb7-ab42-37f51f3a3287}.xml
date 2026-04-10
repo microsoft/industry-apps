@@ -11,7 +11,14 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_eventsponsorid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_event" width="180" />
+          <cell name="appbase_sponsoraccount" width="150" />
+          <cell name="appbase_sponsorshiptype" width="150" />
+          <cell name="appbase_sponsorshiplevel" width="150" />
+          <cell name="appbase_stage" width="120" />
+          <cell name="appbase_commitmentstatus" width="150" />
+          <cell name="appbase_commitmentamount" width="120" />
+          <cell name="appbase_commitmentdate" width="120" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +28,14 @@
         <entity name="appbase_eventsponsor">
           <attribute name="appbase_eventsponsorid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_event" />
+          <attribute name="appbase_sponsoraccount" />
+          <attribute name="appbase_sponsorshiptype" />
+          <attribute name="appbase_sponsorshiplevel" />
+          <attribute name="appbase_stage" />
+          <attribute name="appbase_commitmentstatus" />
+          <attribute name="appbase_commitmentamount" />
+          <attribute name="appbase_commitmentdate" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

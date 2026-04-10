@@ -10,8 +10,14 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_operationaleventid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="200" />
+          <cell name="appbase_eventnumber" width="125" />
+          <cell name="appbase_eventtype" width="125" />
+          <cell name="appbase_eventstage" width="125" />
+          <cell name="appbase_scheduledstartdatetime" width="125" />
+          <cell name="appbase_overallresult" width="125" />
+          <cell name="appbase_eventcoordinator" width="150" />
+          <cell name="appbase_hostorganizationunit" width="150" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +27,13 @@
         <entity name="appbase_operationalevent">
           <attribute name="appbase_operationaleventid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_eventnumber" />
+          <attribute name="appbase_eventtype" />
+          <attribute name="appbase_eventstage" />
+          <attribute name="appbase_scheduledstartdatetime" />
+          <attribute name="appbase_overallresult" />
+          <attribute name="appbase_eventcoordinator" />
+          <attribute name="appbase_hostorganizationunit" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

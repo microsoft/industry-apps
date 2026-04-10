@@ -11,7 +11,14 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_projectresourceassignmentid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_assignmentnumber" width="120" />
+          <cell name="appbase_assignmentstatus" width="120" />
+          <cell name="appbase_project" width="150" />
+          <cell name="appbase_assignedperson" width="150" />
+          <cell name="appbase_projectrole" width="120" />
+          <cell name="appbase_assignmentstartdate" width="100" />
+          <cell name="appbase_assignmentenddate" width="100" />
+          <cell name="appbase_stage" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +28,14 @@
         <entity name="appbase_projectresourceassignment">
           <attribute name="appbase_projectresourceassignmentid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_assignmentnumber" />
+          <attribute name="appbase_assignmentstatus" />
+          <attribute name="appbase_project" />
+          <attribute name="appbase_assignedperson" />
+          <attribute name="appbase_projectrole" />
+          <attribute name="appbase_assignmentstartdate" />
+          <attribute name="appbase_assignmentenddate" />
+          <attribute name="appbase_stage" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

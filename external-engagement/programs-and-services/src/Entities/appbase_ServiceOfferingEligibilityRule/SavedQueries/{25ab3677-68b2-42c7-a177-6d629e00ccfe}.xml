@@ -10,8 +10,13 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_serviceofferingeligibilityruleid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="200" />
+          <cell name="appbase_serviceoffering" width="175" />
+          <cell name="appbase_serviceeligibilityrule" width="175" />
+          <cell name="appbase_rulepriority" width="75" />
+          <cell name="appbase_isrequired" width="75" />
+          <cell name="appbase_iswaivable" width="75" />
+          <cell name="appbase_effectivestartdate" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +26,12 @@
         <entity name="appbase_serviceofferingeligibilityrule">
           <attribute name="appbase_serviceofferingeligibilityruleid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_serviceoffering" />
+          <attribute name="appbase_serviceeligibilityrule" />
+          <attribute name="appbase_rulepriority" />
+          <attribute name="appbase_isrequired" />
+          <attribute name="appbase_iswaivable" />
+          <attribute name="appbase_effectivestartdate" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

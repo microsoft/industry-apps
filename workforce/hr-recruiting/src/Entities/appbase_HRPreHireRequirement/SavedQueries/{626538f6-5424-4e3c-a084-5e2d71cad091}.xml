@@ -11,7 +11,12 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_hrprehirerequirementid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_completionstatus" width="150" />
+          <cell name="appbase_hrcandidate" width="175" />
+          <cell name="appbase_hroffer" width="175" />
+          <cell name="appbase_isblocking" width="100" />
+          <cell name="appbase_requiredbydate" width="125" />
+          <cell name="appbase_completeddate" width="125" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +26,12 @@
         <entity name="appbase_hrprehirerequirement">
           <attribute name="appbase_hrprehirerequirementid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_completionstatus" />
+          <attribute name="appbase_hrcandidate" />
+          <attribute name="appbase_hroffer" />
+          <attribute name="appbase_isblocking" />
+          <attribute name="appbase_requiredbydate" />
+          <attribute name="appbase_completeddate" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

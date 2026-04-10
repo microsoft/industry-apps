@@ -11,7 +11,13 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_travelsegmentid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_segmentnumber" width="100" />
+          <cell name="appbase_travelrequest" width="150" />
+          <cell name="appbase_segmenttype" width="100" />
+          <cell name="appbase_stage" width="100" />
+          <cell name="appbase_segmentdate" width="100" />
+          <cell name="appbase_sequenceorder" width="75" />
+          <cell name="appbase_destinationcity" width="125" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +27,13 @@
         <entity name="appbase_travelsegment">
           <attribute name="appbase_travelsegmentid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_segmentnumber" />
+          <attribute name="appbase_travelrequest" />
+          <attribute name="appbase_segmenttype" />
+          <attribute name="appbase_stage" />
+          <attribute name="appbase_segmentdate" />
+          <attribute name="appbase_sequenceorder" />
+          <attribute name="appbase_destinationcity" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

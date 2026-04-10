@@ -11,7 +11,13 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_contractmilestoneid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_contract" width="150" />
+          <cell name="appbase_milestonetype" width="125" />
+          <cell name="appbase_milestonestatus" width="125" />
+          <cell name="appbase_targetdate" width="100" />
+          <cell name="appbase_actualdate" width="100" />
+          <cell name="appbase_iscritical" width="75" />
+          <cell name="appbase_responsibleperson" width="150" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +27,13 @@
         <entity name="appbase_contractmilestone">
           <attribute name="appbase_contractmilestoneid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_contract" />
+          <attribute name="appbase_milestonetype" />
+          <attribute name="appbase_milestonestatus" />
+          <attribute name="appbase_targetdate" />
+          <attribute name="appbase_actualdate" />
+          <attribute name="appbase_iscritical" />
+          <attribute name="appbase_responsibleperson" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

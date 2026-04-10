@@ -11,7 +11,13 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_purchaseorderlineid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_purchaseorder" width="150" />
+          <cell name="appbase_linenumber" width="100" />
+          <cell name="appbase_itemtype" width="100" />
+          <cell name="appbase_product" width="150" />
+          <cell name="appbase_quantityordered" width="75" />
+          <cell name="appbase_linetotal" width="100" />
+          <cell name="appbase_stage" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +27,13 @@
         <entity name="appbase_purchaseorderline">
           <attribute name="appbase_purchaseorderlineid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_purchaseorder" />
+          <attribute name="appbase_linenumber" />
+          <attribute name="appbase_itemtype" />
+          <attribute name="appbase_product" />
+          <attribute name="appbase_quantityordered" />
+          <attribute name="appbase_linetotal" />
+          <attribute name="appbase_stage" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

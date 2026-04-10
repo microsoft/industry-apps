@@ -11,7 +11,12 @@
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_hrworkforcerequestid">
           <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_decisionstatus" width="150" />
+          <cell name="appbase_employmenttype" width="150" />
+          <cell name="appbase_isnewposition" width="125" />
+          <cell name="appbase_jobseries" width="175" />
+          <cell name="appbase_approvedby" width="175" />
+          <cell name="appbase_approvaldate" width="125" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +26,12 @@
         <entity name="appbase_hrworkforcerequest">
           <attribute name="appbase_hrworkforcerequestid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_decisionstatus" />
+          <attribute name="appbase_employmenttype" />
+          <attribute name="appbase_isnewposition" />
+          <attribute name="appbase_jobseries" />
+          <attribute name="appbase_approvedby" />
+          <attribute name="appbase_approvaldate" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

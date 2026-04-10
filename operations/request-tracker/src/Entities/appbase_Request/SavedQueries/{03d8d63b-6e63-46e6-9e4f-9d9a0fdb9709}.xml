@@ -10,8 +10,16 @@
     <layoutxml>
       <grid name="resultset" jump="appbase_name" select="1" icon="1" preview="1">
         <row name="result" id="appbase_requestid">
-          <cell name="appbase_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="appbase_name" width="200" />
+          <cell name="appbase_requesttype" width="150" />
+          <cell name="appbase_priority" width="100" />
+          <cell name="appbase_approvalstatus" width="125" />
+          <cell name="appbase_submittedby" width="150" />
+          <cell name="appbase_submissiondatetime" width="125" />
+          <cell name="appbase_duedate" width="125" />
+          <cell name="appbase_completiondate" width="125" />
+          <cell name="appbase_assignedorganizationunit" width="150" />
+          <cell name="appbase_outcome" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,7 +29,15 @@
         <entity name="appbase_request">
           <attribute name="appbase_requestid" />
           <attribute name="appbase_name" />
-          <attribute name="createdon" />
+          <attribute name="appbase_requesttype" />
+          <attribute name="appbase_priority" />
+          <attribute name="appbase_approvalstatus" />
+          <attribute name="appbase_submittedby" />
+          <attribute name="appbase_submissiondatetime" />
+          <attribute name="appbase_duedate" />
+          <attribute name="appbase_completiondate" />
+          <attribute name="appbase_assignedorganizationunit" />
+          <attribute name="appbase_outcome" />
           <order attribute="appbase_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
