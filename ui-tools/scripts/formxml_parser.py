@@ -198,7 +198,7 @@ class Cell:
         if self.auto:
             cell_elem.set("auto", "true")
         
-        # Write showlabel="false" for subgrids or other cells where explicitly False
+        # Only write showlabel="false" if explicitly False (omit if True, which is default)
         if not self.showlabel and self.control:
             cell_elem.set("showlabel", "false")
             
@@ -376,7 +376,7 @@ class Section:
             locklevel=0,
             colspan=1,
             rowspan=4,
-            showlabel=False
+            showlabel=True
         )
         
         # Add to appropriate row

@@ -3360,13 +3360,14 @@ async def build_form_from_yaml(request: BuildFormRequest):
             }
         
         # Import form_operations (needed for actual execution)
-        from form_operations import add_tab_to_form, add_section_to_tab, add_fields_to_section, add_fields_to_section_by_rows, add_subgrid_to_section, update_section_columns, backup_forms, save_forms
+        from form_operations import add_tab_to_form, add_section_to_tab, add_fields_to_section, add_fields_to_section_by_rows, update_section_columns, backup_forms, save_forms
         
         # Execute form building operations
         try:
             tabs_added = 0
             sections_added = 0
             fields_added = 0
+            subgrids_to_add = []  # Collect all subgrids for batch processing at the end
             
             # DECLARATIVE REBUILD APPROACH: Clear existing form and rebuild from scratch
             # This ensures the YAML is the complete definition of the form
@@ -3501,53 +3502,83 @@ async def build_form_from_yaml(request: BuildFormRequest):
                             skip_if_exists=False  # No fields exist - we cleared them all
                         )
                     
-                    # Check for subgrids in the section
+                    # Check for subgrids in the section - collect them for batch processing
                     subgrids_spec = section.get('subgrids', [])
                     if subgrids_spec:
-                        from relationship_reader import get_relationships_with_views
+                        subgrids_to_add.append({
+                            'tab_name': tab_name,
+                            'section_label': section_label,
+                            'subgrids': subgrids_spec
+                        })
+            
+            # Process all subgrids in one batch (avoids multiple save/load cycles)
+            if subgrids_to_add:
+                print(f"Adding {len(subgrids_to_add)} subgrid sections...")
+                from relationship_reader import get_relationships_with_views
+                
+                # Get relationships with view information ONCE
+                all_relationships = get_relationships_with_views(module_path, entity_name)
+                rel_map = {rel.name: rel for rel in all_relationships}
+                
+                # Load form ONCE
+                form = FormXmlParser.parse_file(unmanaged_path)
+                
+                # Add all subgrids to the in-memory form
+                subgrids_added = 0
+                for subgrid_section in subgrids_to_add:
+                    tab_name = subgrid_section['tab_name']
+                    section_label = subgrid_section['section_label']
+                    
+                    # Find the tab
+                    tab = form.get_tab_by_name(tab_name)
+                    if not tab:
+                        print(f"Warning: Tab '{tab_name}' not found for subgrids")
+                        continue
+                    
+                    # Find the section  
+                    section = tab.get_section_by_name(section_label)
+                    if not section:
+                        print(f"Warning: Section '{section_label}' not found in tab '{tab_name}'")
+                        continue
+                    
+                    # Add each subgrid to the section
+                    for subgrid_spec in subgrid_section['subgrids']:
+                        relationship_name = subgrid_spec.get('relationship')
+                        subgrid_label = subgrid_spec.get('label', 'Related Records')
                         
-                        # Get relationships with view information
-                        all_relationships = get_relationships_with_views(module_path, entity_name)
-                        rel_map = {rel.name: rel for rel in all_relationships}
+                        if not relationship_name:
+                            print(f"Warning: Subgrid missing 'relationship' field, skipping")
+                            continue
                         
-                        for subgrid_spec in subgrids_spec:
-                            relationship_name = subgrid_spec.get('relationship')
-                            subgrid_label = subgrid_spec.get('label', 'Related Records')
-                            
-                            if not relationship_name:
-                                print(f"Warning: Subgrid missing 'relationship' field, skipping")
-                                continue
-                            
-                            # Look up relationship metadata
-                            if relationship_name not in rel_map:
-                                print(f"Warning: Relationship '{relationship_name}' not found in entity relationships")
-                                continue
-                            
-                            rel = rel_map[relationship_name]
-                            
-                            # Check if we have a default view
-                            if not rel.default_view_id:
-                                print(f"Warning: No default view found for relationship '{relationship_name}', skipping subgrid")
-                                continue
-                            
-                            # Generate unique subgrid ID
-                            subgrid_id = f"subgrid_{relationship_name}"
-                            
-                            # Add subgrid to section (use lowercase entity name)
-                            add_subgrid_to_section(
-                                unmanaged_path=unmanaged_path,
-                                tab_name=tab_name,
-                                section_name=section_label,
-                                subgrid_id=subgrid_id,
-                                subgrid_label=subgrid_label,
-                                relationship_name=relationship_name,
-                                target_entity=rel.target_entity.lower(),
-                                view_id=rel.default_view_id,
-                                managed_path=managed_path if managed_path.exists() else None,
-                                create_backup=False
-                            )
-                            
-                            print(f"Added subgrid '{subgrid_label}' for relationship '{relationship_name}'")
+                        # Look up relationship metadata
+                        if relationship_name not in rel_map:
+                            print(f"Warning: Relationship '{relationship_name}' not found in entity relationships")
+                            continue
+                        
+                        rel = rel_map[relationship_name]
+                        
+                        # Check if we have a default view
+                        if not rel.default_view_id:
+                            print(f"Warning: No default view found for relationship '{relationship_name}', skipping subgrid")
+                            continue
+                        
+                        # Generate unique subgrid ID
+                        subgrid_id = f"subgrid_{relationship_name}"
+                        
+                        # Add subgrid directly to the section (in-memory)
+                        section.add_subgrid(
+                            subgrid_id=subgrid_id,
+                            subgrid_label=subgrid_label,
+                            relationship_name=relationship_name,
+                            target_entity=rel.target_entity.lower(),
+                            view_id=rel.default_view_id
+                        )
+                        subgrids_added += 1
+                        print(f"Added subgrid '{subgrid_label}' for relationship '{relationship_name}'")
+                
+                # Save form ONCE with all subgrids
+                save_forms(form, unmanaged_path, managed_path if managed_path.exists() else None)
+                print(f"Successfully added {subgrids_added} subgrids")
             
             return {
                 "success": True,
