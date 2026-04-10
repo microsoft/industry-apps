@@ -431,9 +431,9 @@ def add_fields_to_section_by_rows(unmanaged_path: Path, tab_name: str, section_n
                 display_name, field_type = field_metadata[field_name]
                 classid = get_classid_for_field_type(field_type)
                 
-                # Auto-set rowspan for memo fields (default to 4 rows) if not explicitly specified
-                if field_type == 'memo' and not rowspan_explicitly_set:
-                    rowspan = 4
+                # Note: We do NOT auto-set rowspan for memo fields in rows mode.
+                # In explicit rows mode, the user controls layout completely.
+                # Rowspan should only be auto-set in fields mode (add_fields_to_section).
                 
                 # Create control
                 control = Control(

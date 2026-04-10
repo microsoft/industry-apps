@@ -1,38 +1,73 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <systemform>
     <formid>{5f61239c-17c3-4c0a-8472-b1c0f0019c03}</formid>
     <IntroducedVersion>1.0</IntroducedVersion>
     <FormPresentation>1</FormPresentation>
     <FormActivationState>1</FormActivationState>
-    <form>
+    <form shownavigationbar="false">
       <tabs>
-        <tab verticallayout="true" id="{ba3173c3-1a21-4a6b-85c9-327e0775e469}" IsUserDefined="1">
+        <tab name="tab_general" id="{33BA47CB-8F45-4BF8-BAEC-D8C500523F67}" IsUserDefined="0" locklevel="0" showlabel="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section showlabel="false" showbar="false" IsUserDefined="0" id="{91b83297-5509-451c-a3b8-c3b271c39342}">
+                <section name="secClassificationInformation" id="{5E9BB6A0-5F3A-4FAB-8AAF-F34A1AE442CD}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
                   <labels>
-                    <label description="General" languagecode="1033" />
+                    <label description="Classification Information" languagecode="1033" />
                   </labels>
                   <rows>
+                    <row />
                     <row>
-                      <cell id="{ac82a641-d23f-42dd-94fd-8a973e834498}">
+                      <cell id="{3AFAFEE2-5B56-449A-A191-34155BF15C28}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="Name" languagecode="1033" />
                         </labels>
-                        <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" />
+                        <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" disabled="false" />
                       </cell>
-                    </row>
-                    <row>
-                      <cell id="{4ff1e9f6-06ec-4cbb-9264-f1fcb998d326}">
+                      <cell id="{80E5BB73-1BEF-4FD8-B25F-651BCEC943B4}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="Owner" languagecode="1033" />
                         </labels>
-                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{A5628924-570E-4E87-8CEB-734B16B8CA64}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Classification Code" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_classificationcode" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_classificationcode" disabled="false" />
+                      </cell>
+                      <cell id="{1C5261CA-6E24-414E-8C29-B0D2D1E58E3A}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Account Code" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_accountcode" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_accountcode" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{A69CB472-5817-45AD-B419-35206E032663}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Classification Type" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_classificationtype" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_classificationtype" disabled="false" />
+                      </cell>
+                      <cell id="{A9573229-C9DE-4797-9B20-7297EFDEA3CA}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Parent Classification" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_parentclassification" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_parentclassification" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{E9CC643C-CC8F-4D7E-8879-92C250C876E2}" locklevel="0" colspan="2" rowspan="4">
+                        <labels>
+                          <label description="Description" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_description" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="appbase_description" disabled="false" />
                       </cell>
                     </row>
                   </rows>
@@ -41,7 +76,231 @@
             </column>
           </columns>
         </tab>
+        <tab name="tab_usage" id="{2FD52382-8C8E-4DA3-8A61-43D585C6153C}" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Usage" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="secBudgetContracts" id="{5CDBCE6B-E81C-4844-8C29-630ECD797325}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Budget &amp; Contracts" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{9DFDE81F-90C5-4E46-BE31-ABB33E39FF93}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Budget Line Items" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_budgetlineitem_FinancialClassification" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_budgetlineitem_FinancialClassification</RelationshipName>
+                            <TargetEntityType>appbase_budgetlineitem</TargetEntityType>
+                            <ViewId>{b41e4aa3-7ad4-4824-a901-8b9cc6d0a3a3}</ViewId>
+                            <ViewIds>{b41e4aa3-7ad4-4824-a901-8b9cc6d0a3a3}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row>
+                      <cell id="{029A7C7B-3391-45A3-8F53-48A0A17255EC}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Contract Lines" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_contractline_FinancialClassification" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_contractline_FinancialClassification</RelationshipName>
+                            <TargetEntityType>appbase_contractline</TargetEntityType>
+                            <ViewId>{3bfda261-b934-4125-9bcd-30ea31a599d1}</ViewId>
+                            <ViewIds>{3bfda261-b934-4125-9bcd-30ea31a599d1}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="secProcurementActivity" id="{9279E663-8E40-4728-9882-BB214CACEB8D}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Procurement Activity" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{6E9F48AE-1BFC-44FE-88D6-4BDFB66BFFA3}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Financial Commitments" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_financialcommitment_FinancialClassification" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_financialcommitment_FinancialClassification</RelationshipName>
+                            <TargetEntityType>appbase_financialcommitment</TargetEntityType>
+                            <ViewId>{b2358b70-dd18-44f5-9c32-a38a89af5345}</ViewId>
+                            <ViewIds>{b2358b70-dd18-44f5-9c32-a38a89af5345}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row>
+                      <cell id="{3B9D3F88-27B8-4677-9472-E00795969A55}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Purchase Order Lines" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_purchaseorderline_FinancialClassification" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_purchaseorderline_FinancialClassification</RelationshipName>
+                            <TargetEntityType>appbase_purchaseorderline</TargetEntityType>
+                            <ViewId>{57b1addb-a48a-42e2-8ed2-36823ea16219}</ViewId>
+                            <ViewIds>{57b1addb-a48a-42e2-8ed2-36823ea16219}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row>
+                      <cell id="{3115A45D-5736-4509-928F-9B48545443ED}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Purchase Request Items" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_purchaserequestitem_FinancialClassification" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_purchaserequestitem_FinancialClassification</RelationshipName>
+                            <TargetEntityType>appbase_purchaserequestitem</TargetEntityType>
+                            <ViewId>{2c8a4d30-33fb-44c7-a4c0-3bcb6493f08a}</ViewId>
+                            <ViewIds>{2c8a4d30-33fb-44c7-a4c0-3bcb6493f08a}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="secSubClassifications" id="{019E4656-84C1-4282-A923-620F7B7ED2B2}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Sub-Classifications" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{FC3D8FEF-4D04-4C81-8127-3646FF6427F6}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Child Classifications" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_financialclassification_ParentClassification" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_financialclassification_ParentClassification</RelationshipName>
+                            <TargetEntityType>appbase_financialclassification</TargetEntityType>
+                            <ViewId>{251097fe-2f30-49a1-8670-2bf0bbd91bb9}</ViewId>
+                            <ViewIds>{251097fe-2f30-49a1-8670-2bf0bbd91bb9}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
       </tabs>
+      <header id="{133A3E71-2A7A-4E67-85ED-CB193D5D1C27}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{6C9A390F-517C-4F88-8CB5-FF8840BCA821}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{04BF7124-4F52-45D7-A3CF-EAF5EBB292EE}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{829690D5-5626-4E95-B5E2-C79E95DB115B}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{C13C79ED-2C2A-4F9F-9D00-583946282BC1}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{792EA439-D911-41D6-9453-0590011419A9}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{CF2BAFA8-B181-4CD9-B801-24BA95E66D87}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{338E61CF-034A-491A-98AB-27C55118FD2A}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>

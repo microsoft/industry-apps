@@ -1,38 +1,224 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <systemform>
     <formid>{860c8c84-642b-4142-94e5-a14418baa65b}</formid>
     <IntroducedVersion>1.0</IntroducedVersion>
     <FormPresentation>1</FormPresentation>
     <FormActivationState>1</FormActivationState>
-    <form>
+    <form shownavigationbar="false">
       <tabs>
-        <tab verticallayout="true" id="{ae48a711-3cee-4a89-b705-bcc9ca10ba5b}" IsUserDefined="1">
+        <tab name="tab_general" id="{CB3A9659-00B9-4306-99D6-CCC0987DF480}" IsUserDefined="0" locklevel="0" showlabel="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section showlabel="false" showbar="false" IsUserDefined="0" id="{246f8765-aacb-4055-ae33-4abc3593b051}">
+                <section name="secPaymentInformation" id="{1A235108-8215-4017-8BDC-172CA4C398B0}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
                   <labels>
-                    <label description="General" languagecode="1033" />
+                    <label description="Payment Information" languagecode="1033" />
                   </labels>
                   <rows>
+                    <row />
                     <row>
-                      <cell id="{0236d660-69b9-4c79-b7c5-3ee8e1403422}">
+                      <cell id="{5EB0C962-8FE4-4F64-B972-2F84BF541886}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="Name" languagecode="1033" />
                         </labels>
-                        <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" />
+                        <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" disabled="false" />
                       </cell>
-                    </row>
-                    <row>
-                      <cell id="{b7b4b3a3-085b-4114-8ad8-2a32eb67aad6}">
+                      <cell id="{41284140-6CA6-43D4-8C86-9696B1D4D6ED}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="Owner" languagecode="1033" />
                         </labels>
-                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0FEFDEE4-A069-488E-BB09-B4963298D015}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Payment Number" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_paymentnumber" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_paymentnumber" disabled="false" />
+                      </cell>
+                      <cell id="{A258775B-807C-4F03-BAFA-01F58EAD6742}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Payment Date" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_paymentdate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="appbase_paymentdate" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{423AA4E6-5C18-4E27-BD79-E0D0198C30F3}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Fiscal Year" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_fiscalyear" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_fiscalyear" disabled="false" />
+                      </cell>
+                      <cell id="{FC17BF85-D363-4850-AE27-241A64F7A9FB}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Payment Period" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_paymentperiod" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_paymentperiod" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{E03B9D20-89ED-4309-A7AF-27498A8293F8}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Contract" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_contract" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_contract" disabled="false" />
+                      </cell>
+                      <cell id="{6DF2C548-BC23-464D-8A2B-AF91608B58EC}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Purchase Order" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_purchaseorder" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_purchaseorder" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7E4CA381-4202-4557-BDD3-20A9DA8F71CA}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Financial Commitment" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_financialcommitment" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_financialcommitment" disabled="false" />
+                      </cell>
+                      <cell id="{24ADCBD2-6A9D-4D71-9CF2-2853E811D7E3}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Financial Funding Source" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_financialfundingsource" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_financialfundingsource" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7E14195D-336E-47F9-B32F-DD91232A8DAD}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Payee" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_payee" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_payee" disabled="false" />
+                      </cell>
+                      <cell id="{FF9C9EE9-41E6-46A2-8922-E20A99C2ACE7}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{3A3136F8-3683-424C-BBB4-2BC06A3F58B6}" locklevel="0" colspan="2" rowspan="4">
+                        <labels>
+                          <label description="Description" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_description" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="appbase_description" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="secInvoiceDetails" id="{6F2A3B7C-C2CD-44B2-81C2-DADD9B740643}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
+                  <labels>
+                    <label description="Invoice Details" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{71E7916C-81EE-4484-A7ED-D08D06F097E0}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Invoice Number" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_invoicenumber" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_invoicenumber" disabled="false" />
+                      </cell>
+                      <cell id="{E8EC6226-5FF2-4E85-BFC5-FB7E9933F4A8}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Invoice Date" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_invoicedate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="appbase_invoicedate" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{963718AF-1CA3-4856-8D88-B1A509471A63}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Invoice Amount" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_invoiceamount" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="appbase_invoiceamount" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="secPaymentDetails" id="{657058C5-4706-4E3E-B64D-9E7DB600B4AF}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
+                  <labels>
+                    <label description="Payment Details" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{4FCF8FF2-00CB-45A1-916E-BEDE7EBF1E1A}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Payment Amount" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_paymentamount" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="appbase_paymentamount" disabled="false" />
+                      </cell>
+                      <cell id="{2FB8F8E4-B53D-4CA2-ABBB-2546DBB94C56}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Payment Method" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_paymentmethod" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_paymentmethod" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{A0F199BF-E1B2-4F94-B844-C2B2FB5A4976}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Check Number" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_checknumber" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_checknumber" disabled="false" />
+                      </cell>
+                      <cell id="{DC3013F9-72A1-4D8C-9D44-22C4FC11BF7B}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Transaction ID" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_transactionid" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_transactionid" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{BF4E1A3F-F147-45A5-B19F-94953AC41B7F}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Reference Number" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_referencenumber" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_referencenumber" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="secStatusApproval" id="{6973052A-B929-475A-8E26-993E82365C09}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
+                  <labels>
+                    <label description="Status &amp; Approval" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{58AE46B3-F532-49A7-AA2F-0239AF0527C3}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Stage" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_stage" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_stage" disabled="false" />
+                      </cell>
+                      <cell id="{C002E24B-18C5-4B8C-824A-221475A0F417}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Payment Status" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_paymentstatus" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_paymentstatus" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0AC82A2D-F440-4A42-8400-1F000B47AA5D}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Payment Approved By" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_paymentapprovedby" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_paymentapprovedby" disabled="false" />
+                      </cell>
+                      <cell id="{E0C46331-528D-4DBE-BD32-C89856C6B7B8}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Payment Approval Date" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_paymentapprovaldate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="appbase_paymentapprovaldate" disabled="false" />
                       </cell>
                     </row>
                   </rows>
@@ -42,6 +228,51 @@
           </columns>
         </tab>
       </tabs>
+      <header id="{E840DFC5-B8C1-49E8-825D-5124128A0BBC}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{9102804D-730C-4B49-B627-F624D58A5375}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{06C2A12C-2063-4028-8D81-3CE9F33BBF53}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{379CE90A-5319-4BEA-A287-942A1A0BBBC8}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{204EFA5E-7539-4EBD-AD27-DD200EE54192}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{A3FBDAC0-EA8F-48AD-BD51-AAF255F21E82}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{195CD459-6F7C-4D0C-A342-78072D5CEAAA}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{B4E1D041-1986-4C9B-926E-2F464EAAA71A}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>

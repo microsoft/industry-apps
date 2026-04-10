@@ -1,38 +1,237 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <systemform>
     <formid>{fa947e94-fee7-4e50-b918-49a3ef7bae74}</formid>
     <IntroducedVersion>1.0</IntroducedVersion>
     <FormPresentation>1</FormPresentation>
     <FormActivationState>1</FormActivationState>
-    <form>
+    <form shownavigationbar="false">
       <tabs>
-        <tab verticallayout="true" id="{4472aeff-19be-49a6-a4c7-9184f18e2b94}" IsUserDefined="1">
+        <tab name="tab_general" id="{076558A2-B5D5-444D-B9A9-22A07F57F703}" IsUserDefined="0" locklevel="0" showlabel="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section showlabel="false" showbar="false" IsUserDefined="0" id="{8a7e6aeb-a85f-4de5-83f0-09ae1058c5df}">
+                <section name="secContractInformation" id="{3EE405FC-D274-414C-BCB0-60B618DB6230}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
                   <labels>
-                    <label description="General" languagecode="1033" />
+                    <label description="Contract Information" languagecode="1033" />
                   </labels>
                   <rows>
+                    <row />
                     <row>
-                      <cell id="{46050feb-e61c-46cb-b070-364a997a866e}">
+                      <cell id="{73CBFE3F-3D29-4539-8F19-F66F050D6574}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="Name" languagecode="1033" />
                         </labels>
-                        <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" />
+                        <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" disabled="false" />
                       </cell>
-                    </row>
-                    <row>
-                      <cell id="{f848e850-c985-4f26-b377-c4aab3c78f81}">
+                      <cell id="{687C4376-F530-48D4-91A9-129BF3A994E3}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="Owner" languagecode="1033" />
                         </labels>
-                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{F34CE21A-F2B3-40D2-B1A0-AFC8ADE53578}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Contract Number" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_contractnumber" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_contractnumber" disabled="false" />
+                      </cell>
+                      <cell id="{433BCF2A-90A0-4C66-B2B8-5673247D68DC}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Contract Type" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_contracttype" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_contracttype" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{728E6D2C-243D-4183-9A86-6EC6F0272797}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Agreement Type" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_agreementtype" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_agreementtype" disabled="false" />
+                      </cell>
+                      <cell id="{87AC63EA-F59B-4C0D-A753-35759C099926}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Pricing Structure" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_pricingstructure" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_pricingstructure" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{A74E82DA-3FE1-477B-BB30-6571B5C05FED}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Contractor" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_contractor" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_contractor" disabled="false" />
+                      </cell>
+                      <cell id="{0E9B61FC-D955-4E6A-ACFD-E8AF51D55860}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Contractor Contact" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_contractorcontact" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_contractorcontact" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{43A01AD4-EDC0-475E-BD6E-3B2CC753B5BA}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Contracting Officer" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_contractingofficer" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_contractingofficer" disabled="false" />
+                      </cell>
+                      <cell id="{D029EC9A-FC99-43C7-BEC4-C808CE529B87}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Contracting Organization Unit" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_contractingorganizationunit" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_contractingorganizationunit" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{C9248291-3648-4223-A547-F7C1AC4B18FC}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Procurement Package" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_procurementpackage" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_procurementpackage" disabled="false" />
+                      </cell>
+                      <cell id="{5000916F-D2C4-429C-9EDE-4794377E07ED}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Related Agreement" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_relatedagreement" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_relatedagreement" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{BFADFF0E-3A7F-4D7C-B6EC-A8251EC45AA7}" locklevel="0" colspan="2" rowspan="4">
+                        <labels>
+                          <label description="Description" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_description" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="appbase_description" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{627B04EF-9D3C-440A-839F-8334075119A4}" locklevel="0" colspan="2" rowspan="4">
+                        <labels>
+                          <label description="Scope of Work" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_scopeofwork" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="appbase_scopeofwork" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="secContractTerms" id="{9C3BAEC4-54EA-4E13-90E0-843715638A05}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
+                  <labels>
+                    <label description="Contract Terms" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{08C5CDCA-BD9A-42D6-B882-94D37291006B}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Effective Start Date" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_effectivestartdate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="appbase_effectivestartdate" disabled="false" />
+                      </cell>
+                      <cell id="{349899BC-3957-447B-8502-A68295764B4E}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Effective End Date" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_effectiveenddate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="appbase_effectiveenddate" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{B9075F3A-D795-4291-B8F0-E028C640F420}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Base Period End Date" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_baseperiodenddate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="appbase_baseperiodenddate" disabled="false" />
+                      </cell>
+                      <cell id="{8CAF9899-CBD3-492C-9CBE-4A0BE9F39B52}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Performance Period Start Date" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_performanceperiodstartdate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="appbase_performanceperiodstartdate" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{4EA99EBB-6F0C-4839-9849-FFDC627FBC37}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Performance Period End Date" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_performanceperiodenddate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="appbase_performanceperiodenddate" disabled="false" />
+                      </cell>
+                      <cell id="{56FE2F27-B6DF-4BD4-9394-75AC4698247A}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Renewable" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_renewable" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_renewable" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{C83F30E5-B800-4F16-B52D-F21A396AEDA3}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Next Renewal Date" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_nextrenewaldate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="appbase_nextrenewaldate" disabled="false" />
+                      </cell>
+                      <cell id="{CF121674-29C5-4FDC-8F5B-40879926F744}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Includes Options" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_includesoptions" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_includesoptions" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{DB8B3D88-56C5-42AC-8858-834FCBD411ED}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Number of Option Periods" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_numberofoptionperiods" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="appbase_numberofoptionperiods" disabled="false" />
+                      </cell>
+                      <cell id="{30044004-3117-46BE-A245-0E0B11377375}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Place of Performance" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_placeofperformance" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_placeofperformance" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="secStatus" id="{E00B95B6-6933-4A60-854C-A94BD3FDDA98}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
+                  <labels>
+                    <label description="Status" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{3FB08396-883D-4365-A38F-94BD461B75F9}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Stage" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_stage" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_stage" disabled="false" />
+                      </cell>
+                      <cell id="{E6B59FCF-90D5-4170-9673-4B8209B5A673}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Decision Status" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_decisionstatus" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_decisionstatus" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{80BAF6D9-BA4F-461C-8BF2-900D39DF229A}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Award Date" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_awarddate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="appbase_awarddate" disabled="false" />
+                      </cell>
+                      <cell id="{64A71C29-2DA9-4A18-84A1-BCA4D61B03B6}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Vehicle Contract" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_vehiclecontract" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_vehiclecontract" disabled="false" />
                       </cell>
                     </row>
                   </rows>
@@ -41,7 +240,399 @@
             </column>
           </columns>
         </tab>
+        <tab name="tab_financial" id="{42AE6722-ACFC-414B-8B56-DB5B00BEE249}" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Financial" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="secContractValue" id="{45E4EE6E-2066-46A5-9A38-59B15747CF0C}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
+                  <labels>
+                    <label description="Contract Value" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{BABA9985-D3F3-414D-AA0D-A693352F07F3}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Total Contract Value" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_totalcontractvalue" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="appbase_totalcontractvalue" disabled="false" />
+                      </cell>
+                      <cell id="{DF541379-3725-4B21-A1DF-79884A5B4800}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Total Funded Amount" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_totalfundedamount" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="appbase_totalfundedamount" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{48DF3E22-6548-47A0-9987-5764CA7B8872}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Total Committed Amount" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_totalcommittedamount" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="appbase_totalcommittedamount" disabled="false" />
+                      </cell>
+                      <cell id="{89819F67-B20F-47BF-8FB2-D6EADE189A40}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Total Invoiced Amount" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_totalinvoicedamount" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="appbase_totalinvoicedamount" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{D7F72C10-D669-43CD-8F66-09BEB346E241}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Total Paid Amount" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_totalpaidamount" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="appbase_totalpaidamount" disabled="false" />
+                      </cell>
+                      <cell id="{110B9DEE-7EDE-4A39-8A5B-F45616DB33DA}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Total Remaining Amount" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_totalremainingamount" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="appbase_totalremainingamount" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="secTermsConditions" id="{4B00D1D9-95D0-4056-BB0A-25A94E18A9C6}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Terms &amp; Conditions" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{109F6655-A0FB-40E1-AB02-A76BCA6CFE61}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Terms and Conditions" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_termsandconditions" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="appbase_termsandconditions" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="tab_lines" id="{5A95038B-C1E1-4602-9328-C146C474BB86}" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Lines &amp; Deliverables" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="secContractLines" id="{0174F1B7-9BE8-4729-8BDF-7DC0C2674A79}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Contract Lines" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{B831BE26-EEC8-4343-98A3-A1F54694354F}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Contract Lines" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_contractline_Contract" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_contractline_Contract</RelationshipName>
+                            <TargetEntityType>appbase_contractline</TargetEntityType>
+                            <ViewId>{3bfda261-b934-4125-9bcd-30ea31a599d1}</ViewId>
+                            <ViewIds>{3bfda261-b934-4125-9bcd-30ea31a599d1}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="secDeliverablesMilestones" id="{41CF3DA8-ED4E-4CC6-B02C-03EF8F3A23DC}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Deliverables &amp; Milestones" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{C6D8ABF0-7FA0-4E2D-8BD8-043AFD058CB0}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Deliverables" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_contractdeliverable_Contract" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_contractdeliverable_Contract</RelationshipName>
+                            <TargetEntityType>appbase_contractdeliverable</TargetEntityType>
+                            <ViewId>{5da8bfb6-60a0-472b-9fb4-e9228fa6556e}</ViewId>
+                            <ViewIds>{5da8bfb6-60a0-472b-9fb4-e9228fa6556e}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row>
+                      <cell id="{50BB6ACD-3A20-4534-9FD0-069EE163E085}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Milestones" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_contractmilestone_Contract" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_contractmilestone_Contract</RelationshipName>
+                            <TargetEntityType>appbase_contractmilestone</TargetEntityType>
+                            <ViewId>{4f12e606-cb13-41fa-af43-59da0c270975}</ViewId>
+                            <ViewIds>{4f12e606-cb13-41fa-af43-59da0c270975}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="tab_execution" id="{439FAB7A-61F9-4647-90B0-6C37BE7BC255}" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Execution" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="secOrdersPayments" id="{22601DF6-4FF7-471F-B71C-EE2FBF8A5D5E}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Orders &amp; Payments" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{D061AC79-2997-4374-B137-05EDDE9A6A87}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Purchase Orders" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_purchaseorder_Contract" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_purchaseorder_Contract</RelationshipName>
+                            <TargetEntityType>appbase_purchaseorder</TargetEntityType>
+                            <ViewId>{53de1055-b7c4-49e0-8c40-5a8cb304fa61}</ViewId>
+                            <ViewIds>{53de1055-b7c4-49e0-8c40-5a8cb304fa61}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row>
+                      <cell id="{19427DC8-2A31-4519-90B5-8A037CA738C7}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Financial Commitments" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_financialcommitment_Contract" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_financialcommitment_Contract</RelationshipName>
+                            <TargetEntityType>appbase_financialcommitment</TargetEntityType>
+                            <ViewId>{b2358b70-dd18-44f5-9c32-a38a89af5345}</ViewId>
+                            <ViewIds>{b2358b70-dd18-44f5-9c32-a38a89af5345}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row>
+                      <cell id="{B76A8BAC-AB1B-45FF-B231-0F0256EB233F}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Payments" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_payment_Contract" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_payment_Contract</RelationshipName>
+                            <TargetEntityType>appbase_payment</TargetEntityType>
+                            <ViewId>{663adbad-90fb-458f-8d0c-3a5537f2efe8}</ViewId>
+                            <ViewIds>{663adbad-90fb-458f-8d0c-3a5537f2efe8}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="secAmendmentsRelated" id="{0624573C-5A13-4BDB-88BF-DC62BFDF5392}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Amendments &amp; Related" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{341F822D-42DC-4F20-9723-E37AF08FD1BA}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Amendments" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_contractamendment_Contract" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_contractamendment_Contract</RelationshipName>
+                            <TargetEntityType>appbase_contractamendment</TargetEntityType>
+                            <ViewId>{f7a05281-0d0c-477d-9e38-793315447bec}</ViewId>
+                            <ViewIds>{f7a05281-0d0c-477d-9e38-793315447bec}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row>
+                      <cell id="{A77000DE-A033-4D96-8726-F6199199689B}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Task Orders" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_contract_VehicleContract" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_contract_VehicleContract</RelationshipName>
+                            <TargetEntityType>appbase_contract</TargetEntityType>
+                            <ViewId>{64de8947-cec7-466f-922e-0e17654c574f}</ViewId>
+                            <ViewIds>{64de8947-cec7-466f-922e-0e17654c574f}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row>
+                      <cell id="{DF95EE30-9334-4C4B-863A-7670E1D8AA54}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Related Procurement Packages" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_procurementpackage_AwardedContract" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_procurementpackage_AwardedContract</RelationshipName>
+                            <TargetEntityType>appbase_procurementpackage</TargetEntityType>
+                            <ViewId>{b8b923aa-54e9-4d5b-a6b5-6b6dc26c498f}</ViewId>
+                            <ViewIds>{b8b923aa-54e9-4d5b-a6b5-6b6dc26c498f}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
       </tabs>
+      <header id="{968ED719-1081-4F5F-A6F9-F11B544A8FE1}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{679F0EDA-C5A4-4A9F-B0DA-C7E22D872F77}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{43CC5B73-36D6-4B92-BF52-3D35FAB9A290}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{523AB192-425A-4BC9-AC3C-E6378FC37324}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{D40A6B21-0D3A-41A1-BA26-C973E94CE33A}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{87DE43B5-813E-45F0-B05F-CF7043BEE33B}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{542A46E2-4A81-44E5-89C7-A48331118CE1}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{306F10A7-3B7E-4FDE-BAD5-BF87CEADA34A}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
