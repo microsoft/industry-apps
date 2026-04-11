@@ -24,6 +24,14 @@
   let dryRunResult = null;
   let buildAllResult = null;
   
+  // Quick Create state
+  let addingQuickCreate = false;
+  let buildingQuickCreate = false;
+  let buildingAllQuickCreate = false;
+  let quickCreateResult = null;
+  let quickCreateBuildResult = null;
+  let quickCreateBuildAllResult = null;
+  
   // Load modules on mount
   onMount(() => {
     loadModules();
@@ -109,6 +117,15 @@
   async function selectEntity(layout) {
     selectedEntity = layout.entity_name;
     
+    // Clear all success/result messages when switching entities
+    quickCreateResult = null;
+    quickCreateBuildResult = null;
+    quickCreateBuildAllResult = null;
+    validationResult = null;
+    buildResult = null;
+    dryRunResult = null;
+    buildAllResult = null;
+    
     // Reload this specific entity from disk to get latest content
     try {
       const response = await fetch(`/api/formbuilder/list-layouts?module_path=${encodeURIComponent(selectedModule)}`);
@@ -119,6 +136,9 @@
         const updatedLayout = data.layouts.find(l => l.entity_name === layout.entity_name);
         if (updatedLayout) {
           currentLayout = updatedLayout;
+          console.log('Selected entity:', layout.entity_name);
+          console.log('YAML content length:', updatedLayout.yaml_content?.length || 0);
+          console.log('First 100 chars:', updatedLayout.yaml_content?.substring(0, 100));
           // Also update the layouts array to keep everything in sync
           const index = layouts.findIndex(l => l.entity_name === layout.entity_name);
           if (index !== -1) {
@@ -288,6 +308,127 @@
     }
   }
   
+  // Quick Create Functions
+  async function addQuickCreateSections() {
+    if (!selectedModule) return;
+    
+    addingQuickCreate = true;
+    quickCreateResult = null;
+    
+    try {
+      const response = await fetch('/api/formbuilder/add-quickcreate-sections', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          module_path: selectedModule,
+          overwrite: false
+        })
+      });
+      
+      const data = await response.json();
+      quickCreateResult = data;
+      
+      // Reload layouts to show updated quick_create sections
+      if (data.success) {
+        await loadLayouts();
+        if (currentLayout) {
+          // Reload current layout to show updated content
+          const updatedLayout = layouts.find(l => l.entity_name === currentLayout.entity_name);
+          if (updatedLayout) {
+            currentLayout = updatedLayout;
+          }
+        }
+      }
+    } catch (error) {
+      quickCreateResult = { success: false, error: error.message };
+    } finally {
+      addingQuickCreate = false;
+    }
+  }
+  
+  async function buildQuickCreateForm() {
+    if (!currentLayout) return;
+    
+    buildingQuickCreate = true;
+    quickCreateBuildResult = null;
+    
+    try {
+      const response = await fetch('/api/formbuilder/build-quickcreate-form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          module_path: selectedModule,
+          entity_name: currentLayout.entity_name,
+          use_single_column: true,
+          force: false
+        })
+      });
+      
+      const data = await response.json();
+      quickCreateBuildResult = data;
+    } catch (error) {
+      quickCreateBuildResult = { success: false, error: error.message };
+    } finally {
+      buildingQuickCreate = false;
+    }
+  }
+  
+  async function buildAllQuickCreateForms() {
+    if (!selectedModule) return;
+    
+    buildingAllQuickCreate = true;
+    quickCreateBuildAllResult = null;
+    
+    try {
+      const response = await fetch('/api/formbuilder/build-all-quickcreate-forms', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          module_path: selectedModule,
+          use_single_column: true,
+          force: false
+        })
+      });
+      
+      const data = await response.json();
+      quickCreateBuildAllResult = data;
+    } catch (error) {
+      quickCreateBuildAllResult = { success: false, error: error.message };
+    } finally {
+      buildingAllQuickCreate = false;
+    }
+  }
+  
+  function hasQuickCreateSection(layout) {
+    if (!layout || !layout.yaml_content) return false;
+    return layout.yaml_content.includes('quick_create:');
+  }
+  
+  function getQuickCreateFields(layout) {
+    if (!layout || !layout.yaml_content) return [];
+    
+    const lines = layout.yaml_content.split('\n');
+    const fields = [];
+    let inQuickCreate = false;
+    
+    for (const line of lines) {
+      if (line.trim() === 'quick_create:') {
+        inQuickCreate = true;
+        continue;
+      }
+      if (inQuickCreate) {
+        if (line.startsWith('  - ')) {
+          fields.push(line.trim().substring(2));
+        } else if (line.trim() && !line.trim().startsWith('#')) {
+          // End of quick_create section
+          break;
+        }
+      }
+    }
+    
+    return fields;
+  }
+  
   function formatDate(isoDate) {
     const date = new Date(isoDate);
     return date.toLocaleString();
@@ -338,8 +479,54 @@
               {buildingAll ? '⏳ Building...' : '🔨 Build All Forms'}
             </button>
           </div>
+          <div class="button-group quickcreate-buttons">
+            <button 
+              class="btn btn-info" 
+              on:click={addQuickCreateSections}
+              disabled={extracting || addingQuickCreate || layouts.length === 0}
+              title="Add quick_create sections to all entity YAML files with smart defaults"
+            >
+              {addingQuickCreate ? '⏳ Adding...' : '➕ Add Quick Create Sections'}
+            </button>
+            <button 
+              class="btn btn-success" 
+              on:click={buildAllQuickCreateForms}
+              disabled={extracting || buildingAllQuickCreate || layouts.length === 0}
+              title="Build Quick Create forms for all entities with quick_create sections"
+            >
+              {buildingAllQuickCreate ? '⏳ Building...' : '⚡ Build All Quick Create Forms'}
+            </button>
+          </div>
         {/if}
       </div>
+      
+      {#if quickCreateResult}
+        <div class="extraction-summary">
+          {#if quickCreateResult.success}
+            <div class="alert alert-success">
+              ✓ Quick Create sections added: {quickCreateResult.updated} entities updated, {quickCreateResult.skipped} skipped
+            </div>
+          {:else}
+            <div class="alert alert-error">
+              ✗ Failed to add Quick Create sections: {quickCreateResult.error}
+            </div>
+          {/if}
+        </div>
+      {/if}
+      
+      {#if quickCreateBuildAllResult}
+        <div class="extraction-summary">
+          {#if quickCreateBuildAllResult.success}
+            <div class="alert alert-success">
+              ✓ Quick Create forms built: {quickCreateBuildAllResult.success_count} created, {quickCreateBuildAllResult.skipped_count} skipped, {quickCreateBuildAllResult.error_count} errors
+            </div>
+          {:else}
+            <div class="alert alert-error">
+              ✗ Failed to build Quick Create forms: {quickCreateBuildAllResult.error}
+            </div>
+          {/if}
+        </div>
+      {/if}
       
       {#if extractionResult}
         <div class="extraction-summary">
@@ -444,22 +631,9 @@
                 </button>
               </div>
               
-              <!-- YAML Preview -->
-              <div class="yaml-preview-section">
-                <div class="section-header">
-                  <h4>Layout YAML (Read-Only)</h4>
-                  <p class="help-text">Edit this file in VS Code, then click the entity again to refresh</p>
-                </div>
-                <textarea 
-                  class="yaml-preview" 
-                  readonly 
-                  value={currentLayout.yaml_content}
-                ></textarea>
-              </div>
-              
               <!-- Actions -->
               <div class="actions-section">
-                <h4>Build Form</h4>
+                <h4>🔨 Build Main Form</h4>
                 <p class="help-text">Validate and build the form from the saved YAML file</p>
                 
                 <div class="button-group">
@@ -557,6 +731,83 @@
                     {/if}
                   </div>
                 {/if}
+              </div>
+              
+              <!-- Quick Create -->
+              <div class="actions-section quickcreate-section">
+                <h4>⚡ Quick Create Form</h4>
+                <p class="help-text">Generate a simplified Quick Create form with 3-5 key fields</p>
+                
+                {#if !hasQuickCreateSection(currentLayout)}
+                  <div class="quickcreate-info">
+                    <p>No quick_create section in YAML</p>
+                    <p class="help-text">Add one with smart defaults using the button below</p>
+                  </div>
+                  
+                  <div class="button-group">
+                    <button 
+                      class="btn btn-info" 
+                      on:click={addQuickCreateSections}
+                      disabled={addingQuickCreate}
+                      title="Add quick_create section to this entity's YAML"
+                    >
+                      {addingQuickCreate ? 'Adding...' : '➕ Add Quick Create Section'}
+                    </button>
+                  </div>
+                {:else}
+                  <div class="quickcreate-info">
+                    <p><strong>✓ Quick Create Configured</strong></p>
+                    <p class="field-list-preview">
+                      Fields ({getQuickCreateFields(currentLayout).length}): 
+                      {getQuickCreateFields(currentLayout).join(', ')}
+                    </p>
+                  </div>
+                  
+                  <div class="button-group">
+                    <button 
+                      class="btn btn-success" 
+                      on:click={buildQuickCreateForm}
+                      disabled={buildingQuickCreate}
+                    >
+                      {buildingQuickCreate ? 'Building...' : '⚡ Build Quick Create Form'}
+                    </button>
+                  </div>
+                  
+                  {#if quickCreateBuildResult}
+                    <div class="alert {quickCreateBuildResult.success ? 'alert-success' : 'alert-error'}">
+                      {#if quickCreateBuildResult.success}
+                        <strong>✓ Quick Create Form Created!</strong>
+                        <p>Form GUID: <code>{quickCreateBuildResult.form_guid}</code></p>
+                        <p>Fields: {quickCreateBuildResult.field_count} ({quickCreateBuildResult.fields.join(', ')})</p>
+                        <p class="file-path">Created:</p>
+                        <ul>
+                          <li>{quickCreateBuildResult.unmanaged_file}</li>
+                          <li>{quickCreateBuildResult.managed_file}</li>
+                        </ul>
+                        <p class="next-steps">
+                          Next: Run <code>pac solution sync --packagetype Both</code> to sync changes
+                        </p>
+                      {:else}
+                        <strong>✗ Quick Create Build Failed</strong>
+                        <p class="error-text">{quickCreateBuildResult.error}</p>
+                      {/if}
+                    </div>
+                  {/if}
+                {/if}
+              </div>
+              
+              <!-- YAML Preview -->
+              <div class="yaml-preview-section">
+                <div class="section-header">
+                  <h4>Layout YAML (Read-Only)</h4>
+                  <p class="help-text">Edit this file in VS Code, then click the entity again to refresh</p>
+                </div>
+                {#key currentLayout.entity_name}
+                  <textarea 
+                    class="yaml-preview" 
+                    readonly
+                  >{currentLayout.yaml_content || ''}</textarea>
+                {/key}
               </div>
             </div>
           {/if}
@@ -736,7 +987,7 @@
     flex-direction: column;
     gap: 20px;
     height: 100%;
-    overflow: hidden;
+    overflow-y: auto;
   }
   
   .entity-header {
@@ -759,8 +1010,7 @@
     flex-direction: column;
     gap: 12px;
     flex: 1;
-    min-height: 0;
-    overflow: hidden;
+    min-height: 400px;
   }
   
   .section-header h4 {
@@ -773,6 +1023,7 @@
   .yaml-preview {
     width: 100%;
     height: 100%;
+    min-height: 400px;
     background: #1a1a1a;
     border: 1px solid #3c3c3c;
     border-radius: 4px;
@@ -799,6 +1050,59 @@
     color: #e0e0e0;
     font-size: 16px;
     font-weight: 600;
+  }
+  
+  .quickcreate-section {
+    background: rgba(16, 110, 190, 0.05);
+    border: 1px solid rgba(0, 120, 212, 0.2);
+    border-radius: 4px;
+    padding: 16px;
+    margin-top: 8px;
+  }
+  
+  .quickcreate-buttons {
+    margin-top: 8px;
+  }
+  
+  .quickcreate-info {
+    background: #1a1a1a;
+    border: 1px solid #3c3c3c;
+    border-radius: 4px;
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+  
+  .quickcreate-info p {
+    margin: 4px 0;
+    color: #c0c0c0;
+  }
+  
+  .quickcreate-info strong {
+    color: #4ec9b0;
+  }
+  
+  .field-list-preview {
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 13px;
+    color: #9cdcfe;
+  }
+  
+  .btn-info {
+    background: #0e639c;
+    color: white;
+  }
+  
+  .btn-info:hover:not(:disabled) {
+    background: #1177bb;
+  }
+  
+  .btn-success {
+    background: #107c10;
+    color: white;
+  }
+  
+  .btn-success:hover:not(:disabled) {
+    background: #0e6a0e;
   }
   
   .form-group {

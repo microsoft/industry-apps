@@ -419,6 +419,62 @@ def generate_yaml_template(entity_name: str, form_guid: str, fields: List[Entity
         "  #           label: Display Label for Grid",
     ])
     
+    # Add Quick Create section
+    yaml_lines.extend([
+        "",
+        "# " + "=" * 76,
+        "# QUICK CREATE FORM (Optional)",
+        "# " + "=" * 76,
+        "#",
+        "# Uncomment and customize the quick_create section below to generate a",
+        "# Quick Create form. This creates a simplified dialog with 3-5 key fields",
+        "# for rapid record creation.",
+        "#",
+        "# The Quick Create form builder will CREATE NEW XML files (not rebuild existing)",
+        "# with a unique GUID in FormXml/quickCreate/ directory.",
+        "#",
+        "# Format: Simple list of field names (recommended 3-5 fields)",
+        "# Fields are displayed in a single column, in the order listed.",
+        "#",
+    ])
+    
+    # Generate smart default field list for Quick Create
+    entity_prefix = entity_name.split('_')[0] if '_' in entity_name else entity_name
+    name_field = f"{entity_prefix}_name"
+    
+    # Start with required system fields
+    default_qc_fields = [name_field, 'ownerid']
+    
+    # Add 2-3 important custom fields (required first, then text/lookup)
+    required_custom = [f for f in fields if f.required_level == 'required' and f.is_custom]
+    important_types = ['text', 'email', 'lookup', 'optionset', 'choice']
+    other_important = [f for f in fields if f.form_field_type in important_types and f.is_custom]
+    
+    for field in required_custom[:2]:  # Max 2 required custom fields
+        if field.logical_name not in default_qc_fields:
+            default_qc_fields.append(field.logical_name)
+    
+    # Add one more if we have room
+    if len(default_qc_fields) < 5:
+        for field in other_important:
+            if field.logical_name not in default_qc_fields:
+                default_qc_fields.append(field.logical_name)
+                break
+    
+    # Build the quick_create section 
+    yaml_lines.append("quick_create:")
+    for field_name in default_qc_fields:
+        yaml_lines.append(f"  - {field_name}")
+    
+    yaml_lines.extend([
+        "",
+        "# To disable Quick Create form generation, comment out or remove the",
+        "# quick_create section above.",
+        "#",
+        "# To add more fields, simply add field names to the list.",
+        "# All fields must exist in the entity (see available fields at top of file).",
+    ])
+    
     return "\n".join(yaml_lines)
 
 

@@ -233,3 +233,36 @@ class ExtractSingleEntityRequest(BaseModel):
 
 class BuildAllFormsRequest(BaseModel):
     module_path: str
+
+
+# ============================================================================
+# Quick Create Form Builder Models
+# ============================================================================
+
+class AddQuickCreateSectionsRequest(BaseModel):
+    """Add quick_create sections to all entity YAML files in a module."""
+    module_path: str
+    overwrite: bool = False  # If True, regenerate quick_create sections even if they exist
+
+
+class UpdateQuickCreateSectionRequest(BaseModel):
+    """Update or add quick_create section for a single entity."""
+    module_path: str
+    entity_name: str
+    fields: Optional[List[str]] = None  # If None, generate smart defaults
+
+
+class BuildQuickCreateRequest(BaseModel):
+    """Build a Quick Create form for a single entity."""
+    module_path: str
+    entity_name: str
+    file_path: Optional[str] = None  # Optional: read from specific YAML file
+    use_single_column: bool = True  # Use single column (True) or 3-column template (False)
+    force: bool = False  # If True, rebuild even if Quick Create form already exists
+
+
+class BuildAllQuickCreateFormsRequest(BaseModel):
+    """Build Quick Create forms for all entities in a module."""
+    module_path: str
+    use_single_column: bool = True
+    force: bool = False  # If True, rebuild existing forms

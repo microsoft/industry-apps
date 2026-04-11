@@ -25,13 +25,21 @@ from models import (
     BuildFormRequest,
     ExtractAllEntitiesRequest,
     ExtractSingleEntityRequest,
-    BuildAllFormsRequest
+    BuildAllFormsRequest,
+    AddQuickCreateSectionsRequest,
+    UpdateQuickCreateSectionRequest,
+    BuildQuickCreateRequest,
+    BuildAllQuickCreateFormsRequest
 )
 
 # Import scripts for entity/form operations
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / 'scripts'))
 from entity_schema_reader import read_entity_definition, generate_yaml_template
 from formxml_parser import FormXmlParser
+from quickcreate_builder import (
+    create_quickcreate_form_files,
+    get_smart_default_fields
+)
 
 # Import validation service
 from services.form_builder_service import validate_yaml_field_references
@@ -1345,3 +1353,419 @@ async def build_all_forms(request: BuildAllFormsRequest):
             "success": False,
             "error": str(e)
         }
+
+
+# ================================================================================
+# QUICK CREATE FORM BUILDER ENDPOINTS
+# ================================================================================
+
+@router.post("/add-quickcreate-sections")
+async def add_quickcreate_sections(request: AddQuickCreateSectionsRequest):
+    """
+    Add quick_create sections to all entity YAML files in a module.
+    
+    For each entity YAML file without a quick_create section, appends one
+    with smart default fields. Preserves all existing YAML content.
+    """
+    try:
+        module_path = Path(request.module_path)
+        layouts_dir = PROJECT_ROOT / ".design" / "layouts" / module_path.name
+        
+        if not layouts_dir.exists():
+            return {
+                "success": False,
+                "error": f"Layouts directory not found: {layouts_dir}"
+            }
+        
+        layout_files = list(layouts_dir.glob("*.yaml"))
+        if not layout_files:
+            return {
+                "success": False,
+                "error": f"No YAML files found in {layouts_dir}"
+            }
+        
+        updated_count = 0
+        skipped_count = 0
+        updated = []
+        
+        for layout_file in layout_files:
+            entity_name = layout_file.stem
+            
+            try:
+                # Read existing YAML
+                with open(layout_file, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                
+                # Check if quick_create section already exists
+                if 'quick_create:' in content and not request.overwrite:
+                    skipped_count += 1
+                    continue
+                
+                # Load YAML to extract entity info
+                config = yaml.safe_load(content)
+                if not config or 'entity' not in config:
+                    skipped_count += 1
+                    continue
+                
+                # Read entity definition to get fields
+                entity_xml = module_path / "src" / "Entities" / entity_name / "Entity.xml"
+                if not entity_xml.exists():
+                    skipped_count += 1
+                    continue
+                
+                entity_fields = read_entity_definition(entity_xml)
+                
+                # Generate smart default quick_create fields
+                qc_fields = get_smart_default_fields(entity_fields, entity_name, max_fields=5)
+                
+                # Remove existing quick_create section if overwrite
+                if request.overwrite and 'quick_create:' in content:
+                    # Find and remove the quick_create section
+                    lines = content.split('\n')
+                    new_lines = []
+                    in_qc_section = False
+                    skip_comments = False
+                    
+                    for i, line in enumerate(lines):
+                        if 'QUICK CREATE FORM' in line:
+                            skip_comments = True
+                            continue
+                        if skip_comments and line.strip().startswith('#'):
+                            continue
+                        if 'quick_create:' in line:
+                            in_qc_section = True
+                            skip_comments = False
+                            continue
+                        if in_qc_section:
+                            if line and not line.startswith('  '):
+                                # End of quick_create section
+                                in_qc_section = False
+                                skip_comments = False
+                            elif line.strip().startswith('#'):
+                                # Skip comments after quick_create
+                                continue
+                            else:
+                                # Skip quick_create field lines
+                                continue
+                        new_lines.append(line)
+                    
+                    content = '\n'.join(new_lines).rstrip()
+                
+                # Append quick_create section
+                qc_section = [
+                    "\n",
+                    "# " + "=" * 76,
+                    "# QUICK CREATE FORM (Optional)",
+                    "# " + "=" * 76,
+                    "#",
+                    "# This section defines fields for a Quick Create form.",
+                    "# Edit the field list below and use 'Build Quick Create Form' to generate",
+                    "# the XML files in FormXml/quickCreate/.",
+                    "#",
+                    "quick_create:"
+                ]
+                
+                for field_name in qc_fields:
+                    qc_section.append(f"  - {field_name}")
+                
+                qc_section.extend([
+                    "",
+                    "# To disable Quick Create, comment out or remove the quick_create section.",
+                    ""
+                ])
+                
+                updated_content = content.rstrip() + '\n' + '\n'.join(qc_section)
+                
+                # Write back to file
+                with open(layout_file, 'w', encoding='utf-8') as f:
+                    f.write(updated_content)
+                
+                updated_count += 1
+                updated.append({
+                    "entity": entity_name,
+                    "field_count": len(qc_fields),
+                    "fields": qc_fields
+                })
+                
+            except Exception as e:
+                print(f"Error processing {entity_name}: {e}", file=sys.stderr)
+                skipped_count += 1
+                continue
+        
+        return {
+            "success": True,
+            "total": len(layout_files),
+            "updated": updated_count,
+            "skipped": skipped_count,
+            "updated_entities": updated
+        }
+    
+    except Exception as e:
+        print(f"Error in add_quickcreate_sections: {e}", file=sys.stderr)
+        import traceback
+        traceback.print_exc(file=sys.stderr)
+        return {
+            "success": False,
+            "error": str(e)
+        }
+
+
+@router.post("/build-quickcreate-form")
+async def build_quickcreate_form(request: BuildQuickCreateRequest):
+    """
+    Build a Quick Create form for a single entity.
+    
+    Creates new XML files in FormXml/quickCreate/ with unique GUID.
+    """
+    try:
+        module_path = Path(request.module_path)
+        entity_name = request.entity_name
+        
+        # Determine YAML file path
+        if request.file_path:
+            yaml_file = Path(request.file_path)
+        else:
+            layouts_dir = PROJECT_ROOT / ".design" / "layouts" / module_path.name
+            yaml_file = layouts_dir / f"{entity_name}.yaml"
+        
+        if not yaml_file.exists():
+            return {
+                "success": False,
+                "error": f"YAML file not found: {yaml_file}"
+            }
+        
+        # Read YAML file
+        with open(yaml_file, 'r', encoding='utf-8') as f:
+            content = f.read()
+            config = yaml.safe_load(content)
+        
+        if not config:
+            return {
+                "success": False,
+                "error": "Empty YAML file"
+            }
+        
+        # Check for quick_create section
+        if 'quick_create' not in config:
+            return {
+                "success": False,
+                "error": "No quick_create section found in YAML. Add one first using 'Add Quick Create Sections'."
+            }
+        
+        qc_fields = config['quick_create']
+        if not qc_fields or not isinstance(qc_fields, list):
+            return {
+                "success": False,
+                "error": "quick_create section must be a list of field names"
+            }
+        
+        # Check if Quick Create form already exists
+        entity_dir = module_path / "src" / "Entities" / entity_name
+        quickcreate_dir = entity_dir / "FormXml" / "quickCreate"
+        
+        if quickcreate_dir.exists():
+            existing_forms = list(quickcreate_dir.glob("{*}.xml"))
+            if existing_forms and not request.force:
+                return {
+                    "success": False,
+                    "error": f"Quick Create form already exists. Use force=true to rebuild.",
+                    "existing_form": str(existing_forms[0])
+                }
+        
+        # Get entity XML path
+        entity_xml = entity_dir / "Entity.xml"
+        if not entity_xml.exists():
+            return {
+                "success": False,
+                "error": f"Entity.xml not found: {entity_xml}"
+            }
+        
+        # Get introduced version from Solution.xml
+        solution_xml = module_path / "src" / "Other" / "Solution.xml"
+        introduced_version = "1.0.0.0"
+        if solution_xml.exists():
+            try:
+                tree = ET.parse(solution_xml)
+                root = tree.getroot()
+                version_elem = root.find('.//Version')
+                if version_elem is not None and version_elem.text:
+                    introduced_version = version_elem.text
+            except:
+                pass
+        
+        # Create Quick Create form
+        form_guid, unmanaged_path, managed_path = create_quickcreate_form_files(
+            entity_name=entity_name,
+            fields=qc_fields,
+            entity_xml_path=entity_xml,
+            quickcreate_dir=quickcreate_dir,
+            introduced_version=introduced_version,
+            use_single_column=request.use_single_column
+        )
+        
+        return {
+            "success": True,
+            "form_guid": form_guid,
+            "field_count": len(qc_fields),
+            "fields": qc_fields,
+            "unmanaged_file": str(unmanaged_path.relative_to(PROJECT_ROOT)),
+            "managed_file": str(managed_path.relative_to(PROJECT_ROOT)),
+            "introduced_version": introduced_version
+        }
+    
+    except Exception as e:
+        print(f"Error in build_quickcreate_form: {e}", file=sys.stderr)
+        import traceback
+        traceback.print_exc(file=sys.stderr)
+        return {
+            "success": False,
+            "error": str(e)
+        }
+
+
+@router.post("/build-all-quickcreate-forms")
+async def build_all_quickcreate_forms(request: BuildAllQuickCreateFormsRequest):
+    """
+    Build Quick Create forms for all entities in a module that have quick_create sections.
+    """
+    try:
+        module_path = Path(request.module_path)
+        layouts_dir = PROJECT_ROOT / ".design" / "layouts" / module_path.name
+        
+        if not layouts_dir.exists():
+            return {
+                "success": False,
+                "error": f"Layouts directory not found: {layouts_dir}"
+            }
+        
+        layout_files = list(layouts_dir.glob("*.yaml"))
+        if not layout_files:
+            return {
+                "success": False,
+                "error": f"No YAML files found in {layouts_dir}"
+            }
+        
+        # Get solution version
+        solution_xml = module_path / "src" / "Other" / "Solution.xml"
+        introduced_version = "1.0.0.0"
+        if solution_xml.exists():
+            try:
+                tree = ET.parse(solution_xml)
+                root = tree.getroot()
+                version_elem = root.find('.//Version')
+                if version_elem is not None and version_elem.text:
+                    introduced_version = version_elem.text
+            except:
+                pass
+        
+        results = []
+        success_count = 0
+        skipped_count = 0
+        error_count = 0
+        
+        for layout_file in layout_files:
+            entity_name = layout_file.stem
+            
+            try:
+                # Read YAML
+                with open(layout_file, 'r', encoding='utf-8') as f:
+                    config = yaml.safe_load(f)
+                
+                if not config:
+                    skipped_count += 1
+                    continue
+                
+                # Check for quick_create section
+                if 'quick_create' not in config:
+                    skipped_count += 1
+                    results.append({
+                        "entity": entity_name,
+                        "status": "skipped",
+                        "reason": "No quick_create section"
+                    })
+                    continue
+                
+                qc_fields = config['quick_create']
+                if not qc_fields or not isinstance(qc_fields, list):
+                    error_count += 1
+                    results.append({
+                        "entity": entity_name,
+                        "status": "error",
+                        "error": "Invalid quick_create section (must be a list)"
+                    })
+                    continue
+                
+                # Check if already exists
+                entity_dir = module_path / "src" / "Entities" / entity_name
+                quickcreate_dir = entity_dir / "FormXml" / "quickCreate"
+                
+                if quickcreate_dir.exists():
+                    existing_forms = list(quickcreate_dir.glob("{*}.xml"))
+                    if existing_forms and not request.force:
+                        skipped_count += 1
+                        results.append({
+                            "entity": entity_name,
+                            "status": "skipped",
+                            "reason": "Quick Create form already exists (use force to rebuild)"
+                        })
+                        continue
+                
+                # Get entity XML
+                entity_xml = entity_dir / "Entity.xml"
+                if not entity_xml.exists():
+                    error_count += 1
+                    results.append({
+                        "entity": entity_name,
+                        "status": "error",
+                        "error": "Entity.xml not found"
+                    })
+                    continue
+                
+                # Create Quick Create form
+                form_guid, unmanaged_path, managed_path = create_quickcreate_form_files(
+                    entity_name=entity_name,
+                    fields=qc_fields,
+                    entity_xml_path=entity_xml,
+                    quickcreate_dir=quickcreate_dir,
+                    introduced_version=introduced_version,
+                    use_single_column=request.use_single_column
+                )
+                
+                success_count += 1
+                results.append({
+                    "entity": entity_name,
+                    "status": "created",
+                    "form_guid": form_guid,
+                    "field_count": len(qc_fields),
+                    "fields": qc_fields
+                })
+                
+                print(f"✓ Created Quick Create form for {entity_name}: {form_guid}")
+                
+            except Exception as e:
+                error_count += 1
+                results.append({
+                    "entity": entity_name,
+                    "status": "error",
+                    "error": str(e)
+                })
+                print(f"✗ Error building Quick Create for {entity_name}: {e}")
+        
+        return {
+            "success": True,
+            "total": len(layout_files),
+            "success_count": success_count,
+            "skipped_count": skipped_count,
+            "error_count": error_count,
+            "results": results
+        }
+    
+    except Exception as e:
+        print(f"Error in build_all_quickcreate_forms: {e}", file=sys.stderr)
+        import traceback
+        traceback.print_exc(file=sys.stderr)
+        return {
+            "success": False,
+            "error": str(e)
+        }
+
