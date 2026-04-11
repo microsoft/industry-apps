@@ -37,9 +37,9 @@
     loadModules();
   });
   
-  // Auto-extract and load layouts when module changes
+  // Load existing layouts when module changes
   $: if (selectedModule) {
-    extractAllEntities();
+    loadLayouts();
   }
   
   async function loadModules() {
