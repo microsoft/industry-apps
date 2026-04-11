@@ -13,7 +13,7 @@ from datetime import datetime
 
 from formxml_parser import generate_guid, Label, FormDefinition, Tab, Column, Section, Row, Cell, Control
 from formxml_constants import ControlClassId, FormPresentation, FormActivationState, DEFAULT_LANGUAGE_CODE
-from entity_schema_reader import read_entity_definition, EntityField
+from entity_schema_reader import read_entity_definition, get_entity_display_name, EntityField
 
 
 # Standard security role IDs used in Quick Create forms
@@ -27,6 +27,7 @@ def create_quickcreate_xml_structure(
     entity_name: str,
     fields: List[str],
     entity_fields: List[EntityField],
+    entity_display_name: str = "Entity",
     form_guid: Optional[str] = None,
     introduced_version: str = "1.0.0.0",
     use_single_column: bool = True
@@ -38,6 +39,7 @@ def create_quickcreate_xml_structure(
         entity_name: Logical name of the entity (e.g., "appbase_DisputeParty")
         fields: List of field logical names to include in the form
         entity_fields: List of EntityField objects with field metadata
+        entity_display_name: Display name of the entity (e.g., "Game")
         form_guid: Optional form GUID (generates new one if not provided)
         introduced_version: Solution version where form was introduced
         use_single_column: If True, use single column layout; if False, use 3-column template
@@ -96,7 +98,8 @@ def create_quickcreate_xml_structure(
             column_num=1,
             fields=fields,
             entity_fields=entity_fields,
-            entity_name=entity_name
+            entity_name=entity_name,
+            entity_display_name=entity_display_name
         )
     else:
         # Three-column template layout (like existing Quick Create forms)
@@ -107,12 +110,13 @@ def create_quickcreate_xml_structure(
             column_num=1,
             fields=fields,
             entity_fields=entity_fields,
-            entity_name=entity_name
+            entity_name=entity_name,
+            entity_display_name=entity_display_name
         )
         
         # Add two empty placeholder columns
-        _add_empty_quickcreate_column(columns_elem, width="33%", column_num=2)
-        _add_empty_quickcreate_column(columns_elem, width="33%", column_num=3)
+        _add_empty_quickcreate_column(columns_elem, width="33%", column_num=2, entity_display_name=entity_display_name)
+        _add_empty_quickcreate_column(columns_elem, width="33%", column_num=3, entity_display_name=entity_display_name)
     
     # Add DisplayConditions with standard security roles
     display_conditions = ET.SubElement(form_elem, 'DisplayConditions')
@@ -144,7 +148,8 @@ def _add_quickcreate_column_with_fields(
     column_num: int,
     fields: List[str],
     entity_fields: List[EntityField],
-    entity_name: str
+    entity_name: str,
+    entity_display_name: str = "Entity"
 ) -> None:
     """
     Add a column with a section containing the specified fields.
@@ -156,6 +161,7 @@ def _add_quickcreate_column_with_fields(
         fields: List of field logical names
         entity_fields: List of EntityField objects with metadata
         entity_name: Entity logical name
+        entity_display_name: Display name of the entity (e.g., "Game")
     """
     column = ET.SubElement(columns_elem, 'column')
     column.set('width', width)
@@ -177,7 +183,7 @@ def _add_quickcreate_column_with_fields(
     # Add section labels
     section_labels = ET.SubElement(section, 'labels')
     section_label = ET.SubElement(section_labels, 'label')
-    section_label.set('description', 'New Section')
+    section_label.set('description', f'New {entity_display_name}')
     section_label.set('languagecode', '1033')
     
     # Add rows with fields
@@ -227,7 +233,8 @@ def _add_quickcreate_column_with_fields(
 def _add_empty_quickcreate_column(
     columns_elem: ET.Element,
     width: str,
-    column_num: int
+    column_num: int,
+    entity_display_name: str = "Entity"
 ) -> None:
     """
     Add an empty placeholder column (used in 3-column template).
@@ -236,6 +243,7 @@ def _add_empty_quickcreate_column(
         columns_elem: Parent columns XML element
         width: Column width (e.g., "33%")
         column_num: Column number (2, 3)
+        entity_display_name: Display name of the entity (e.g., "Game")
     """
     column = ET.SubElement(columns_elem, 'column')
     column.set('width', width)
@@ -257,7 +265,7 @@ def _add_empty_quickcreate_column(
     # Add section labels
     section_labels = ET.SubElement(section, 'labels')
     section_label = ET.SubElement(section_labels, 'label')
-    section_label.set('description', 'New Section')
+    section_label.set('description', f'New {entity_display_name}')
     section_label.set('languagecode', '1033')
     
     # Add one empty row
@@ -375,6 +383,9 @@ def create_quickcreate_form_files(
     # Read entity definition to get field metadata
     entity_fields = read_entity_definition(entity_xml_path)
     
+    # Get entity display name
+    entity_display_name = get_entity_display_name(entity_xml_path)
+    
     # Generate new GUID for this form
     form_guid = generate_guid()
     
@@ -383,6 +394,7 @@ def create_quickcreate_form_files(
         entity_name=entity_name,
         fields=fields,
         entity_fields=entity_fields,
+        entity_display_name=entity_display_name,
         form_guid=form_guid,
         introduced_version=introduced_version,
         use_single_column=use_single_column

@@ -520,6 +520,16 @@
             <div class="alert alert-success">
               ✓ Quick Create forms built: {quickCreateBuildAllResult.success_count} created, {quickCreateBuildAllResult.skipped_count} skipped, {quickCreateBuildAllResult.error_count} errors
             </div>
+            {#if quickCreateBuildAllResult.error_count > 0 && quickCreateBuildAllResult.results}
+              <div class="error-details">
+                <strong>Errors:</strong>
+                <ul>
+                  {#each quickCreateBuildAllResult.results.filter(r => r.status === 'error') as result}
+                    <li><strong>{result.entity}:</strong> {result.error}</li>
+                  {/each}
+                </ul>
+              </div>
+            {/if}
           {:else}
             <div class="alert alert-error">
               ✗ Failed to build Quick Create forms: {quickCreateBuildAllResult.error}
@@ -1216,6 +1226,34 @@
   .error-list li, .warning-list li, .operation-list li, .result-list li {
     margin: 6px 0;
     font-size: 14px;
+  }
+  
+  .error-details {
+    margin-top: 12px;
+    padding: 12px;
+    background: rgba(232, 17, 35, 0.05);
+    border-radius: 4px;
+  }
+  
+  .error-details strong {
+    color: #ff6b7a;
+    font-size: 14px;
+  }
+  
+  .error-details ul {
+    margin: 8px 0 0 0;
+    padding-left: 20px;
+  }
+  
+  .error-details li {
+    margin: 6px 0;
+    font-size: 13px;
+    color: #e0e0e0;
+  }
+  
+  .error-details li strong {
+    color: #ffd666;
+    font-size: 13px;
   }
   
   .result-list li.success {

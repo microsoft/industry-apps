@@ -178,6 +178,39 @@ def get_entity_name_from_xml(entity_xml_path: Path) -> Optional[str]:
         return None
 
 
+def get_entity_display_name(entity_xml_path: Path) -> str:
+    """
+    Extract the entity display name from an Entity.xml file.
+    
+    Args:
+        entity_xml_path: Path to the Entity.xml file
+        
+    Returns:
+        Entity display name (e.g., "Game") or "Entity" if not found
+    """
+    try:
+        tree = ET.parse(entity_xml_path)
+        root = tree.getroot()
+        
+        # Try to find Name element with LocalizedName attribute
+        name_elem = root.find(".//Name[@LocalizedName]")
+        if name_elem is not None:
+            localized_name = name_elem.get("LocalizedName")
+            if localized_name:
+                return localized_name
+        
+        # Fallback: try LocalizedNames/LocalizedName
+        localized_elem = root.find(".//LocalizedNames/LocalizedName[@languagecode='1033']")
+        if localized_elem is not None:
+            description = localized_elem.get("description")
+            if description:
+                return description
+        
+        return "Entity"
+    except Exception:
+        return "Entity"
+
+
 def group_fields_by_type(fields: List[EntityField]) -> Dict[str, List[EntityField]]:
     """
     Group fields by their type category.
