@@ -1,5 +1,13 @@
 # Project Tracking Changelog
 
+## [1.2.0.0] - 2026-04-11
+
+### Added
+- Forms: Configured quick create forms for all Project Tracking entities including streamlined field layouts for rapid data entry
+- Subgrids: Configured related subgrids for all applicable Project Tracking entities to enable comprehensive related record navigation and management
+
+---
+
 ## [1.1.0.0] - 2026-04-07
 
 ### Added
