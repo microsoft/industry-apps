@@ -1,5 +1,13 @@
 # Time, Travel, and Expenses Changelog
 
+## [1.2.0.0] - 2026-04-11
+
+### Added
+- Forms: Configured quick create forms for all Time, Travel, and Expenses entities including streamlined field layouts for rapid data entry
+- Subgrids: Configured related subgrids for all applicable Time, Travel, and Expenses entities to enable comprehensive related record navigation and management
+
+---
+
 ## [1.1.0.0] - 2026-04-07
 
 ### Added
