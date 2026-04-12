@@ -46,12 +46,12 @@ The formal, authoritative tasker or mandate issued by leadership. Defines scope,
 - Compliance Driven: Yes / No
 
 **Completed Last Round:**
-- Configure Baseline Forms
-- Configure Baseline Views
-
-**Planned:**
+- Configure baseline forms
+- Configure baseline views
 - Configure Quick Create Forms
 - Configure Related Subgrids
+
+**Planned:**
 
 ---
 
@@ -67,12 +67,12 @@ Categorizes executive actions (e.g., Strategic Initiative, Compliance Action, In
 - Requires Risk Assessment: Yes / No
 
 **Completed Last Round:**
-- Configure Baseline Form
-- Configure Baseline View
+- Configure baseline forms
+- Configure baseline views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 **Planned:**
-- Configure Quick Create Form
-- Configure Related Subgrid
 
 ---
 
@@ -103,12 +103,12 @@ Provides leadership-level progress summaries for an executive action, including 
 - Notes: Memo
 
 **Completed Last Round:**
-- Configure Baseline Form
-- Configure Baseline View
+- Configure baseline forms
+- Configure baseline views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 **Planned:**
-- Configure Quick Create Form
-- Configure Related Subgrids
 
 ---
 
@@ -134,12 +134,12 @@ Records significant decisions made during execution of the executive action that
 - Notes: Memo
 
 **Completed Last Round:**
-- Configure Baseline Form
-- Configure Baseline View
+- Configure baseline forms
+- Configure baseline views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 **Planned:**
-- Configure Quick Create Form
-- Configure Related Subgrids
 
 ---
 
@@ -160,12 +160,12 @@ Defines relationships between executive actions where one action depends on, inf
 - Notes: Memo
 
 **Completed Last Round:**
-- Configure Baseline Form
-- Configure Baseline View
+- Configure baseline forms
+- Configure baseline views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 **Planned:**
-- Configure Quick Create Form
-- Configure Related Subgrids
 
 ---
 
