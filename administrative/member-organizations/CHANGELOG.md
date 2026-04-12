@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## [1.1.0.0] - 2026-04-11
+
+### Added
+- Forms: Configured quick create forms for all Member Organizations entities including streamlined field layouts for rapid data entry
+- Subgrids: Configured related subgrids for all applicable Member Organizations entities to enable comprehensive related record navigation and management
+
+---
+
 ### Added
 
 #### Organization Management
