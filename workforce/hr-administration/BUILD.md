@@ -42,6 +42,10 @@ The **HR Administration module** manages the core employment structure, transact
 - Requires Clearance: Yes / No
 
 **Completed Last Round:**
+- Configure baseline forms
+- Configure baseline views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 **Skipped:
 - Position Title: Text
@@ -51,8 +55,7 @@ The **HR Administration module** manages the core employment structure, transact
 - Configure Baseline View
 
 **Planned:**
-- Configure Quick Create Form
-- Configure Related Subgrids
+
 ---
 ### HR Position Assignment
 Links an employee to a position for a defined period, including reporting structure and assignment details.
@@ -73,10 +76,12 @@ Links an employee to a position for a defined period, including reporting struct
 - Is Primary: Yes / No
 
 **Completed Last Round:**
+- Configure baseline forms
+- Configure baseline views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 **Planned:**
-- Configure Quick Create Form
-- Configure Related Subgrids
 
 ---
 
@@ -101,10 +106,13 @@ Links an employee to a position for a defined period, including reporting struct
 - Description Status: Choice (Publication Status)
 
 **Completed Last Round:**
+- Configure baseline forms
+- Configure baseline views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 **Planned:**
-- Configure Quick Create Form
-- Configure Related Subgrids
+
 ---
 ### HR Job Classification
 Represents a defined job role or classification (title, exempt status, bargaining unit, etc.) used to categorize positions.
@@ -124,10 +132,12 @@ Represents a defined job role or classification (title, exempt status, bargainin
 - Description: Memo
 
 **Completed Last Round:**
+- Configure baseline forms
+- Configure baseline views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 **Planned:
-- Configure Quick Create Form
-- Configure Related Subgrids
 
 ---
 
@@ -171,10 +181,13 @@ Represents a defined job role or classification (title, exempt status, bargainin
 - Notes: Memo
 
 **Completed Last Round:**
+- Configure baseline forms
+- Configure baseline views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 **Planned:**
-- Configure Quick Create Form
-- Configure Related Subgrids
+
 ---
 ### HR Action Type
 **Completed:**
@@ -185,10 +198,13 @@ Represents a defined job role or classification (title, exempt status, bargainin
 - Requires Approval: Yes / No
 
 **Completed Last Round:**
+- Configure baseline forms
+- Configure baseline views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 **Planned:**
-- Configure Quick Create Form
-- Configure Related Subgrids
+
 ---
 ### HR Employment Milestone
 **Completed:**
@@ -208,10 +224,13 @@ Represents a defined job role or classification (title, exempt status, bargainin
 - Notes: Memo
 
 **Completed Last Round:**
+- Configure baseline forms
+- Configure baseline views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 **Planned:**
-- Configure Quick Create Form
-- Configure Related Subgrids
+
 ---
 ### HR Disciplinary Action
 **Completed:**
@@ -240,10 +259,13 @@ Represents a defined job role or classification (title, exempt status, bargainin
 - Notes: Memo
 
 **Completed Last Round:**
+- Configure baseline forms
+- Configure baseline views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 **Planned:**
-- Configure Quick Create Form
-- Configure Related Subgrids
+
 ---
 ## Employee Requests
 
@@ -270,11 +292,12 @@ Represents a defined job role or classification (title, exempt status, bargainin
 - Removed Approval Status (now handled by Request Status)
 - Configure Baseline Form
 - Configure Baseline View
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 **Planned:**
 - Request Status: Choice (Approval Status)
-- Configure Quick Create Form
-- Configure Related Subgrids
+
 ---
 ### HR Time Off Request
 Represents the header record for employee leave requests, including leave type, period, and approval status.
@@ -301,10 +324,12 @@ Represents the header record for employee leave requests, including leave type, 
 - Supporting Document: Lookup (Document)
 
 **Completed Last Round:**
+- Configure baseline forms
+- Configure baseline views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 **Planned:**
-- Configure Quick Create Form
-- Configure Related Subgrids
 
 ---
 
@@ -322,10 +347,12 @@ Stores individual leave date entries tied to a time off request (specific dates 
 - Notes: Memo
 
 **Completed Last Round:**
+- Configure baseline forms
+- Configure baseline views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 **Planned:**
-- Configure Quick Create Form
-- Configure Related Subgrids
 
 ---
 
@@ -350,10 +377,12 @@ Captures individual overtime or compensatory time work entries, including date, 
 - Notes: Memo
 
 **Completed Last Round:**
+- Configure baseline forms
+- Configure baseline views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 **Planned:**
-- Configure Quick Create Form
-- Configure Related Subgrids
 
 ---
 
@@ -385,10 +414,12 @@ Captures employee requests for telework or remote work arrangements, including s
 - Safety Checklist Completed: Yes / No
 
 **Completed Last Round:**
+- Configure baseline forms
+- Configure baseline views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 **Planned:**
-- Configure Quick Create Form
-- Configure Related Subgrids
 
 ---
 
@@ -424,10 +455,12 @@ Tracks requests and fulfillment of workplace accommodations, including approval 
 - Is Temporary: Yes / No
 
 **Completed Last Round:**
+- Configure baseline forms
+- Configure baseline views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 **Planned:**
-- Configure Quick Create Form
-- Configure Related Subgrids
 
 ---
 
@@ -456,10 +489,12 @@ Captures employee-submitted attestations or disclosures (e.g., conflict of inter
 - Attestation: Yes / No
 
 **Completed Last Round:**
+- Configure baseline forms
+- Configure baseline views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 **Planned:**
-- Configure Quick Create Form
-- Configure Related Subgrids
 
 ---
 
@@ -489,10 +524,12 @@ Records voluntary transfer or donation of leave hours from one employee to anoth
 - Notes: Memo
 
 **Completed Last Round:**
+- Configure baseline forms
+- Configure baseline views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 **Planned:**
-- Configure Quick Create Form
-- Configure Related Subgrids
 
 ---
 
