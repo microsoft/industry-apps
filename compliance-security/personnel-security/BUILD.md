@@ -53,14 +53,12 @@ Represents the lifecycle container for evaluating a person's suitability for a s
 - Supporting Document: Lookup (Document)
 
 **Completed Last Round:**
-
-**Planned:**
-
-**Planned Next:**
-- Configure Baseline Forms
-- Configure Baseline Views
+- Configure baseline forms
+- Configure baseline views
 - Configure Quick Create Forms
 - Configure Related Subgrids
+
+**Planned:**
 
 ---
 
@@ -113,14 +111,12 @@ Represents a formal investigative effort conducted to support a personnel securi
 - Verification Date: Date
 
 **Completed Last Round:**
-
-**Planned:**
-
-**Planned Next:**
-- Configure Baseline Forms
-- Configure Baseline Views
+- Configure baseline forms
+- Configure baseline views
 - Configure Quick Create Forms
 - Configure Related Subgrids
+
+**Planned:**
 
 ---
 
@@ -174,14 +170,12 @@ Represents the formal decision made as part of a personnel security review. Capt
 - Acknowledgment Date: Date
 
 **Completed Last Round:**
-
-**Planned:**
-
-**Planned Next:**
-- Configure Baseline Forms
-- Configure Baseline Views
+- Configure baseline forms
+- Configure baseline views
 - Configure Quick Create Forms
 - Configure Related Subgrids
+
+**Planned:**
 
 ---
 
@@ -242,14 +236,12 @@ Represents the approved level of trust, clearance, or access authorization grant
 - Supporting Document: Lookup (Document)
 
 **Completed Last Round:**
-
-**Planned:**
-
-**Planned Next:**
-- Configure Baseline Forms
-- Configure Baseline Views
+- Configure baseline forms
+- Configure baseline views
 - Configure Quick Create Forms
 - Configure Related Subgrids
+
+**Planned:**
 
 ---
 
@@ -297,14 +289,12 @@ Represents enrollment in ongoing monitoring or recurring vetting processes follo
 - Program Documentation: Lookup (Document)
 
 **Completed Last Round:**
-
-**Planned:**
-
-**Planned Next:**
-- Configure Baseline Forms
-- Configure Baseline Views
+- Configure baseline forms
+- Configure baseline views
 - Configure Quick Create Forms
 - Configure Related Subgrids
+
+**Planned:**
 
 ---
 
@@ -366,14 +356,12 @@ Represents an event or circumstance that may impact a person's security eligibil
 - Foreign Contact Country: Lookup (Country)
 
 **Completed Last Round:**
-
-**Planned:**
-
-**Planned Next:**
-- Configure Baseline Forms
-- Configure Baseline Views
+- Configure baseline forms
+- Configure baseline views
 - Configure Quick Create Forms
 - Configure Related Subgrids
+
+**Planned:**
 
 ---
 
@@ -448,14 +436,12 @@ Represents a physical or logical access artifact issued to a person based on app
 - Supporting Document: Lookup (Document)
 
 **Completed Last Round:**
-
-**Planned:**
-
-**Planned Next:**
-- Configure Baseline Forms
-- Configure Baseline Views
+- Configure baseline forms
+- Configure baseline views
 - Configure Quick Create Forms
 - Configure Related Subgrids
+
+**Planned:**
 
 ---
 
