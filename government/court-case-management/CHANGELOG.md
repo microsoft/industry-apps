@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## [1.3.0.0] - 2026-04-11
+
+### Added
+- Forms: Configured quick create forms for all Court Case Management entities including streamlined field layouts for rapid data entry
+- Subgrids: Configured related subgrids for all applicable Court Case Management entities to enable comprehensive related record navigation and management
+
+---
+
 ## [1.2.1.0] - 2026-03-13
 
 ### Added
