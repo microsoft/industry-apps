@@ -7,40 +7,53 @@
     <FormActivationState>1</FormActivationState>
     <form headerdensity="HighWithControls" shownavigationbar="false">
       <tabs>
-        <tab verticallayout="true" id="{6ddaffaf-08fc-4988-b15d-17b259132226}" IsUserDefined="1">
+        <tab name="tab_general" id="{3C176AC9-8BEB-4397-9B6D-D3EC9D592FF1}" IsUserDefined="0" locklevel="0" showlabel="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section showlabel="false" showbar="false" IsUserDefined="0" id="{2e5cfddc-00a1-4574-ac3d-79c5c24f06d8}" columns="11">
+                <section name="secPartyInformation" id="{D70699B3-AD98-428B-9763-9C367DCBA1F2}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
                   <labels>
-                    <label description="General" languagecode="1033" />
+                    <label description="Party Information" languagecode="1033" />
                   </labels>
                   <rows>
+                    <row />
                     <row>
-                      <cell id="{04bdc4b6-62f4-4be1-8b40-3d5c2e3310c4}">
-                        <labels>
-                          <label description="Name" languagecode="1033" />
-                        </labels>
-                        <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" />
-                      </cell>
-                      <cell id="{74ce99ce-bfad-4aae-934c-fc8bc54c4696}" locklevel="0" colspan="1" rowspan="1">
+                      <cell id="{B8B187E5-154F-4842-8780-6625A8C00E67}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
-                        <control id="appbase_partytype" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_partytype" disabled="false" />
+                        <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" disabled="false" />
+                      </cell>
+                      <cell id="{579FC032-F3AE-4C24-8E2B-0B714BB456CA}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
                       </cell>
                     </row>
                     <row>
-                      <cell id="{af373eab-3c30-4a7e-ad7c-a71bbe977b17}" locklevel="0" colspan="1" rowspan="1">
+                      <cell id="{A895F4A7-65E1-4628-B8A7-342D6D9979CF}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
-                        <control id="appbase_confidentialitylevel" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_confidentialitylevel" disabled="false" />
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false" />
                       </cell>
-                      <cell id="{4ae5ba8c-6c61-431b-a165-a2586df29a83}" locklevel="0" colspan="1" rowspan="1">
+                      <cell id="{43140D20-836D-44FA-8412-2D72C19DD4C1}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{D5CD1024-1373-43B7-9FF7-7D30B56E0C78}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_investigation" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_investigation" disabled="false" />
+                      </cell>
+                      <cell id="{629626B0-C367-437E-A44D-75C04FA632C5}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -48,63 +61,13 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{13c871b1-2344-415b-b43f-5388ecea2625}" locklevel="0" colspan="1" rowspan="1">
+                      <cell id="{629979F2-B5CD-4720-97E5-8363029F3165}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
-                        <control id="appbase_organizationunit" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_organizationunit" disabled="false" />
+                        <control id="appbase_partytype" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_partytype" disabled="false" />
                       </cell>
-                      <cell id="{c533d7ed-bdb3-41e2-b767-f7070a8e1757}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                        <control id="appbase_account" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_account" disabled="false" />
-                      </cell>
-                    </row>
-                    <row>
-                      <cell id="{7a3a88c7-c15b-454f-9bb8-f76a48f8b8c3}">
-                        <labels>
-                          <label description="Owner" languagecode="1033" />
-                        </labels>
-                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
-                      </cell>
-                      <cell id="{980698af-4ecb-4c9b-8856-219fb09c8e6a}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                        <control id="appbase_person" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_person" disabled="false" />
-                      </cell>
-                    </row>
-                  </rows>
-                </section>
-                <section name="null_section_3" id="f79673d9-d240-4992-836c-a7dd1d6ebda2" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
-                  <labels>
-                    <label description="Details" languagecode="1033" />
-                  </labels>
-                  <rows>
-                    <row />
-                    <row>
-                      <cell id="{52a82069-961f-4ed6-b16d-7731ce283e6e}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                        <control id="appbase_isprotected" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_isprotected" disabled="false" />
-                      </cell>
-                      <cell id="{33dd3c53-c09f-4aad-96c2-92097d3c9ffb}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                        <control id="appbase_contactinformation" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="appbase_contactinformation" disabled="false" />
-                      </cell>
-                    </row>
-                    <row>
-                      <cell id="{c6b67cf2-59c9-49f6-b174-d5debeb8f532}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                        <control id="appbase_firstcontactdate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="appbase_firstcontactdate" disabled="false" />
-                      </cell>
-                      <cell id="{c1cecfd7-de5e-4855-bb5e-e7269e28ba38}" locklevel="0" colspan="1" rowspan="1">
+                      <cell id="{C8AE5BC2-8B62-462D-98DA-78F1A67EB7EA}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -112,13 +75,27 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{6eb17b16-a0e8-4d7e-8767-15fe0e5de548}" locklevel="0" colspan="1" rowspan="1">
+                      <cell id="{637ACC71-5871-4934-B32F-AFE8320CBB94}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
-                        <control id="appbase_lastcontactdate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="appbase_lastcontactdate" disabled="false" />
+                        <control id="appbase_person" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_person" disabled="false" />
                       </cell>
-                      <cell locklevel="0" id="{ed8bb387-7e0a-4eaa-9324-d2af2ce6f932}">
+                      <cell id="{BC23B4D6-DF26-453D-806D-2477F3D4DE25}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_account" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_account" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{D2776AEC-E724-4A31-8945-F65C56990D78}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_organizationunit" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="appbase_organizationunit" disabled="false" />
+                      </cell>
+                      <cell id="{730BAB7F-79EC-4D3C-BAE7-AA3A558B25D0}">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -126,14 +103,66 @@
                     </row>
                   </rows>
                 </section>
-                <section name="null_section_4" id="e9846623-016f-415f-bf2a-c175090df174" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                <section name="secContact" id="{B0DADABB-6A54-4246-90EA-F943BA844F96}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
                   <labels>
-                    <label description="New Section" languagecode="1033" />
+                    <label description="Contact" languagecode="1033" />
                   </labels>
                   <rows>
                     <row />
                     <row>
-                      <cell id="{e9b0aa57-a2fc-46eb-91d3-5962fa6bb8e7}" locklevel="0" colspan="1" rowspan="4">
+                      <cell id="{F145ACA8-9370-4550-8BF6-745451C339FA}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_contactinformation" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_contactinformation" disabled="false" />
+                      </cell>
+                      <cell id="{8AEBC250-2E51-4C09-AC8D-94450DAF3BE1}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_firstcontactdate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="appbase_firstcontactdate" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{2D49C2A3-F582-4CA5-B694-E38E72CD97B4}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_lastcontactdate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="appbase_lastcontactdate" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="secSecurity" id="{8EC272E4-77C3-4D77-B3CF-DB115F09511C}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
+                  <labels>
+                    <label description="Security" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{8CB284C5-4F97-4926-A279-90B61FF6F31A}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_confidentialitylevel" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_confidentialitylevel" disabled="false" />
+                      </cell>
+                      <cell id="{9BE938C3-88C3-4046-9FB9-559176E6A2E0}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="appbase_isprotected" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="appbase_isprotected" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="secNotes" id="{90CBBC88-027A-4EC1-A29F-F39D365E8BD6}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Notes" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{27C0D212-49CA-4FDD-8937-7CE128FACCB0}" locklevel="0" colspan="1" rowspan="4">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -153,17 +182,17 @@
       <header id="{9153df2c-f59b-48ac-b84d-1835f6ef5cd5}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
         <rows>
           <row>
-            <cell id="{c89ebb66-b0d5-4a57-89df-651eed87f506}" showlabel="false">
+            <cell id="{c89ebb66-b0d5-4a57-89df-651eed87f506}">
               <labels>
                 <label description="" languagecode="1033" />
               </labels>
             </cell>
-            <cell id="{23eaa494-5a9b-4e1c-876f-0f4ee929dd77}" showlabel="false">
+            <cell id="{23eaa494-5a9b-4e1c-876f-0f4ee929dd77}">
               <labels>
                 <label description="" languagecode="1033" />
               </labels>
             </cell>
-            <cell id="{78480345-30f9-4a59-a5a2-2a61bfb3b787}" showlabel="false">
+            <cell id="{78480345-30f9-4a59-a5a2-2a61bfb3b787}">
               <labels>
                 <label description="" languagecode="1033" />
               </labels>
@@ -180,17 +209,17 @@
       <footer id="{8a663cc4-394d-4d63-9348-17866a9be562}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
         <rows>
           <row>
-            <cell id="{a09ab68c-95e6-44f3-b9d9-d4cbd946e345}" showlabel="false">
+            <cell id="{a09ab68c-95e6-44f3-b9d9-d4cbd946e345}">
               <labels>
                 <label description="" languagecode="1033" />
               </labels>
             </cell>
-            <cell id="{bb405e95-c581-48ba-b6d4-b4a7fd6838b0}" showlabel="false">
+            <cell id="{bb405e95-c581-48ba-b6d4-b4a7fd6838b0}">
               <labels>
                 <label description="" languagecode="1033" />
               </labels>
             </cell>
-            <cell id="{983322d5-c9be-49f1-bcb0-95b81aa2ffab}" showlabel="false">
+            <cell id="{983322d5-c9be-49f1-bcb0-95b81aa2ffab}">
               <labels>
                 <label description="" languagecode="1033" />
               </labels>
