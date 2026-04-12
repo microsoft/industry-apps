@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## [1.2.0.0] - 2026-04-11
+
+### Added
+- Forms: Configured quick create forms for all 14 Asset Management entities including streamlined field layouts for rapid data entry across Core Asset Records (Asset, Asset Type, Asset Category), Acquisition & Financial (Asset Acquisition, Asset Cost Entry), Ownership & Custody (Asset Owner, Asset Assignment, Asset Custody Event), Service & Operational History (Asset Service Record, Asset Service Type), Audit & Compliance (Asset Audit, Asset Audit Item, Asset Inspection Requirement), and Retirement & Disposition (Asset Disposition)
+- Subgrids: Configured related subgrids for all applicable Asset Management entities including parent-child relationships, lookup references, and transactional history connections to enable comprehensive related record navigation and management
+
+---
+
 ## [1.1.1.0] - 2026-03-02
 
 ### Changed

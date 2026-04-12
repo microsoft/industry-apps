@@ -33,10 +33,12 @@ Individual, accountable item instance. Stores identifying details, current statu
 - Requires Inspection: Yes / No
 
 **Completed Last Round:**
-
-**Planned:**
+- Configure baseline forms
+- Configure baseline views
 - Configure Quick Create Forms
 - Configure Related Subgrids
+
+**Planned:**
 
 ---
 
@@ -52,10 +54,12 @@ Operational classification of assets (e.g., Laptop, Vehicle, Generator). Used fo
 - Requires Inspection: Yes / No
 
 **Completed Last Round:**
-
-**Planned:**
+- Configure baseline forms
+- Configure baseline views
 - Configure Quick Create Forms
 - Configure Related Subgrids
+
+**Planned:**
 
 ---
 
@@ -69,10 +73,12 @@ Higher-level grouping of Asset Types (e.g., IT Equipment, Fleet, Facilities Equi
 - Capitalization Threshold: Currency
 
 **Completed Last Round:**
-
-**Planned:**
+- Configure baseline forms
+- Configure baseline views
 - Configure Quick Create Forms
 - Configure Related Subgrids
+
+**Planned:**
 
 ---
 
@@ -98,10 +104,12 @@ Represents the acquisition event for one or more assets (purchase, lease, donati
 - Notes: Memo
 
 **Completed Last Round:**
-
-**Planned:**
+- Configure baseline forms
+- Configure baseline views
 - Configure Quick Create Forms
 - Configure Related Subgrids
+
+**Planned:**
 
 ---
 
@@ -121,10 +129,12 @@ Additional capital or operational costs associated with an asset (repairs, upgra
 - Capitalizable: Yes / No
 
 **Completed Last Round:**
-
-**Planned:**
+- Configure baseline forms
+- Configure baseline views
 - Configure Quick Create Forms
 - Configure Related Subgrids
+
+**Planned:**
 
 ---
 
@@ -145,9 +155,12 @@ Tracks legal or financial ownership of the asset over time (e.g., owned, leased,
 - Is Current: Yes / No
 
 **Completed Last Round:**
+- Configure baseline forms
+- Configure baseline views
+- Configure Quick Create Forms
+- Configure Related Subgrids
 
 **Planned:**
-- Configure Quick Create Forms
 - Configure Related Subgrids
 
 ---
@@ -169,10 +182,12 @@ Tracks custody or responsibility for the asset over time (assigned to a person, 
 - Is Current: Yes / No
 
 **Completed Last Round:**
-
-**Planned:**
+- Configure baseline forms
+- Configure baseline views
 - Configure Quick Create Forms
 - Configure Related Subgrids
+
+**Planned:**
 
 ---
 
@@ -195,10 +210,12 @@ Timeline-based record of significant custody or control changes (assign, return,
 - Notes: Memo
 
 **Completed Last Round:**
-
-**Planned:**
+- Configure baseline forms
+- Configure baseline views
 - Configure Quick Create Forms
 - Configure Related Subgrids
+
+**Planned:**
 
 ---
 
@@ -222,10 +239,12 @@ Lightweight maintenance/service log entry for an asset. Captures service date, s
 - Notes: Memo
 
 **Completed Last Round:**
-
-**Planned:**
+- Configure baseline forms
+- Configure baseline views
 - Configure Quick Create Forms
 - Configure Related Subgrids
+
+**Planned:**
 
 ---
 
@@ -237,10 +256,12 @@ Reference list defining types of service events (Preventive, Repair, Inspection,
 - Description: Memo
 
 **Completed Last Round:**
-
-**Planned:**
+- Configure baseline forms
+- Configure baseline views
 - Configure Quick Create Forms
 - Configure Related Subgrids
+
+**Planned:**
 
 ---
 
@@ -265,10 +286,12 @@ Represents an audit cycle or inventory verification event (e.g., Annual Inventor
 - Action Status: Choice (Action Status)
 
 **Completed Last Round:**
-
-**Planned:**
+- Configure baseline forms
+- Configure baseline views
 - Configure Quick Create Forms
 - Configure Related Subgrids
+
+**Planned:**
 
 ---
 
@@ -294,10 +317,12 @@ Asset-level audit result within an Asset Audit. Records expected vs observed dat
 - Resolution Date: Date
 
 **Completed Last Round:**
-
-**Planned:**
+- Configure baseline forms
+- Configure baseline views
 - Configure Quick Create Forms
 - Configure Related Subgrids
+
+**Planned:**
 
 ---
 
@@ -315,10 +340,12 @@ Defines recurring inspection rules that apply to an Asset Type or specific Asset
 - Description: Memo
 
 **Completed Last Round:**
-
-**Planned:**
+- Configure baseline forms
+- Configure baseline views
 - Configure Quick Create Forms
 - Configure Related Subgrids
+
+**Planned:**
 
 ---
 
@@ -346,10 +373,12 @@ Captures retirement and disposal details for an asset, including retirement reas
 - Data Sanitization Verified: Yes / No
 
 **Completed Last Round:**
-
-**Planned:**
+- Configure baseline forms
+- Configure baseline views
 - Configure Quick Create Forms
 - Configure Related Subgrids
+
+**Planned:**
 
 ---
 
