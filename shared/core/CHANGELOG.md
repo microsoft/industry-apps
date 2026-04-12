@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+## [1.2.0.0] - 2026-04-11
+
+### Added
+- Forms: Configured quick create forms for all Core module entities including streamlined field layouts for rapid data entry
+- Subgrids: Configured related subgrids for all applicable Core module entities to enable comprehensive related record navigation and management
+
+---
+
 ## [1.1.2.0] - 2026-03-11
 
 ### Added
