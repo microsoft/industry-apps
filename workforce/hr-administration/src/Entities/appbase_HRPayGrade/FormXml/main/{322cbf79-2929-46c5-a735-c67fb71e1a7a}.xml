@@ -5,36 +5,111 @@
     <IntroducedVersion>1.0</IntroducedVersion>
     <FormPresentation>1</FormPresentation>
     <FormActivationState>1</FormActivationState>
-    <form>
+    <form shownavigationbar="false">
       <tabs>
-        <tab verticallayout="true" id="{0fc5479d-e570-4086-b4d4-f780c4b95e71}" IsUserDefined="1">
+        <tab name="tab_general" id="{3A024B6E-EC5A-4F82-8A8A-30CED4552715}" IsUserDefined="0" locklevel="0" showlabel="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section showlabel="false" showbar="false" IsUserDefined="0" id="{b730616e-1657-4dfe-839d-0aa660515059}">
+                <section name="secPayGradeInformation" id="{552F3E82-8BDD-49EA-84C5-BBFB1D13C4CB}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
                   <labels>
-                    <label description="General" languagecode="1033" />
+                    <label description="Pay Grade Information" languagecode="1033" />
                   </labels>
                   <rows>
+                    <row />
                     <row>
-                      <cell id="{70bee662-a48d-4f89-a41a-b3695f7facb3}">
+                      <cell id="{2797419F-613B-4CE8-B599-807F249BA80A}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="Name" languagecode="1033" />
                         </labels>
-                        <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" />
+                        <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" disabled="false" />
+                      </cell>
+                      <cell id="{1A90838D-05F3-44BA-87D2-82F143AD3B5A}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
                       </cell>
                     </row>
                     <row>
-                      <cell id="{5643f721-f390-4008-a3f5-ea3f437ee98a}">
+                      <cell id="{C1C1BD13-5E1D-48F9-8622-EB753BAF82E7}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="Owner" languagecode="1033" />
                         </labels>
-                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false" />
+                      </cell>
+                      <cell id="{B0571410-F556-4DA9-9228-22FA9718B830}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
                       </cell>
                     </row>
+                  </rows>
+                </section>
+                <section name="secEmploymentActionsFrom" id="{A072E96D-8123-4447-BC0A-34A7D55D768D}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Employment Actions (From)" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{6675F105-DD1D-4A34-AC0C-B6EB1710BC8A}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Actions From This Pay Grade" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_hremploymentaction_FromPayGrade" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_hremploymentaction_FromPayGrade</RelationshipName>
+                            <TargetEntityType>appbase_hremploymentaction</TargetEntityType>
+                            <ViewId>{c9eb402b-a752-4b6d-ab7b-56bb2c01f007}</ViewId>
+                            <ViewIds>{c9eb402b-a752-4b6d-ab7b-56bb2c01f007}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="secEmploymentActionsTo" id="{5DAB16AE-9633-4A7B-B442-640E6C873BB9}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Employment Actions (To)" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{9777A852-830A-4555-BA9E-0E21B5E0EB35}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Actions To This Pay Grade" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_hremploymentaction_ToPayGrade" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_hremploymentaction_ToPayGrade</RelationshipName>
+                            <TargetEntityType>appbase_hremploymentaction</TargetEntityType>
+                            <ViewId>{c9eb402b-a752-4b6d-ab7b-56bb2c01f007}</ViewId>
+                            <ViewIds>{c9eb402b-a752-4b6d-ab7b-56bb2c01f007}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
                   </rows>
                 </section>
               </sections>
@@ -42,6 +117,51 @@
           </columns>
         </tab>
       </tabs>
+      <header id="{D302E2E1-CF4E-46E8-87D6-303B418EFED9}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{B2BCFEE2-E35A-4B3F-88E0-C710F5D0EA50}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{CAF6F83D-AF3E-4EE6-A0C9-8A40832B0A4A}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{F1A6E45E-E59E-4395-A794-3F7479B5BE74}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{0D8C955D-47B7-431C-B559-11F02F2E91E2}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{6A9520AF-C403-4556-888F-EEAC4692E6BB}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{A1259957-BAA9-4124-AD22-CEF9EFB0A7D4}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{B8EFA912-F203-4E9D-851A-562C9716CFDE}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>

@@ -5,36 +5,111 @@
     <IntroducedVersion>1.0</IntroducedVersion>
     <FormPresentation>1</FormPresentation>
     <FormActivationState>1</FormActivationState>
-    <form>
+    <form shownavigationbar="false">
       <tabs>
-        <tab verticallayout="true" id="{47ac92a5-df61-4755-a765-489074215bdf}" IsUserDefined="1">
+        <tab name="tab_general" id="{E6FE5D7B-6B45-402E-82C4-FDE803E8EFC9}" IsUserDefined="0" locklevel="0" showlabel="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section showlabel="false" showbar="false" IsUserDefined="0" id="{98963a5b-3cd9-4c46-8fd6-4c258378094b}">
+                <section name="secRankInformation" id="{ABA85E31-D5B1-4904-8612-2A09254F1486}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
                   <labels>
-                    <label description="General" languagecode="1033" />
+                    <label description="Rank Information" languagecode="1033" />
                   </labels>
                   <rows>
+                    <row />
                     <row>
-                      <cell id="{a43c3f5e-0e64-472f-87a8-15c0380f0b1e}">
+                      <cell id="{7F956E46-4442-4FEE-82A3-025C68C865BC}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Name" languagecode="1033" />
+                          <label description="" languagecode="1033" />
                         </labels>
-                        <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" />
+                        <control id="appbase_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="appbase_name" disabled="false" />
+                      </cell>
+                      <cell id="{A3DF1F90-76C7-4957-8213-A71F0D859F6D}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
                       </cell>
                     </row>
                     <row>
-                      <cell id="{92855822-7914-4422-9520-7c981baab91d}">
+                      <cell id="{1827BC75-999C-4332-986C-B44E2C3012C1}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Owner" languagecode="1033" />
+                          <label description="" languagecode="1033" />
                         </labels>
-                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false" />
+                      </cell>
+                      <cell id="{6E841750-5CA9-4881-BDBA-9C805AD3D7EE}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
                       </cell>
                     </row>
+                  </rows>
+                </section>
+                <section name="secEmploymentActionsFrom" id="{703A5A6C-AEE7-4F41-8920-5DE74DB3C528}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Employment Actions (From)" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{5576A172-D80E-48A9-B205-E27F8FFC44E4}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Actions From This Rank" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_hremploymentaction_FromGradeRank" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_hremploymentaction_FromGradeRank</RelationshipName>
+                            <TargetEntityType>appbase_hremploymentaction</TargetEntityType>
+                            <ViewId>{c9eb402b-a752-4b6d-ab7b-56bb2c01f007}</ViewId>
+                            <ViewIds>{c9eb402b-a752-4b6d-ab7b-56bb2c01f007}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="secEmploymentActionsTo" id="{7627FAB5-4D9C-4CD0-B075-FC7C187AD675}" IsUserDefined="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Employment Actions (To)" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{045E7E74-C7C1-4DEB-BDA5-D8407047389C}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="Actions To This Rank" languagecode="1033" />
+                        </labels>
+                        <control id="subgrid_appbase_hremploymentaction_ToGradeRank" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>appbase_hremploymentaction_ToGradeRank</RelationshipName>
+                            <TargetEntityType>appbase_hremploymentaction</TargetEntityType>
+                            <ViewId>{c9eb402b-a752-4b6d-ab7b-56bb2c01f007}</ViewId>
+                            <ViewIds>{c9eb402b-a752-4b6d-ab7b-56bb2c01f007}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
                   </rows>
                 </section>
               </sections>
@@ -42,6 +117,51 @@
           </columns>
         </tab>
       </tabs>
+      <header id="{E75AEB06-5A41-448B-A260-DE5AB1199A9C}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{F0B8AAB2-82A2-4189-A3E5-48CEE7EEE7C9}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{B29E17C8-A7A6-4DF3-850C-BF6F4EA9A608}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{DFCBD28E-58DD-43C2-BA34-4394314359AB}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{6A8A7CF9-875B-4E7B-951B-C5E2A86441C2}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{9E7DB26A-E614-4534-B650-D9B68FD33F4D}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{841DE6F7-5142-4CBD-BA29-9E8049D28521}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{92BD1B20-283F-4B35-B8AB-C799F8643D1D}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
