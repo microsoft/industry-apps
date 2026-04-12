@@ -110,6 +110,9 @@ class StepExecutionRequest(BaseModel):
 
 class BuildPackagesRequest(BaseModel):
     module_path: str
+    module_name: str
+    version: str
+    operationId: str
 
 
 # ============================================================================
