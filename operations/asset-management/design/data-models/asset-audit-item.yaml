@@ -1,0 +1,21 @@
+name: Asset Audit Item
+schema_name: appbase_AssetAuditItem
+description:
+
+fields:
+  - Asset: Lookup (Asset); appbase_asset
+  - Asset Audit: Lookup (Asset Audit); appbase_assetaudit
+  - Discrepancy Type: Choice; appbase_discrepancytype
+  - Expected Assignee: Lookup (Contact); appbase_expectedassignee
+  - Expected Condition: Choice; appbase_expectedcondition
+  - Expected Location: Lookup (appbase_Location); appbase_expectedlocation
+  - Finding: Memo; appbase_finding
+  - Name: Text; appbase_name
+  - Observed Assignee: Lookup (Contact); appbase_observedassignee
+  - Observed Condition: Choice; appbase_observedcondition
+  - Observed Location: Lookup (appbase_Location); appbase_observedlocation
+  - Resolution: Memo; appbase_resolution
+  - Resolution Date: Date Time; appbase_resolutiondate
+  - Verification Date Time: Date Time; appbase_verificationdatetime
+  - Verification Status: Choice; appbase_verificationstatus
+  - Verified By: Lookup (Contact); appbase_verifiedby

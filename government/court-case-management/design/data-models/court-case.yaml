@@ -1,0 +1,30 @@
+name: Court Case
+schema_name: appbase_CourtCase
+plural_name: appbase_courtcases
+description: >
+  The primary record representing a legal matter before the court.
+  Tracks case number, type, jurisdiction, status, assigned judge, and overall lifecycle of the matter.
+
+fields:
+  - "Assigned Judge: Lookup (Contact); appbase_assignedjudge"
+  - "Case Number: Text; appbase_casenumber"
+  - "Case Relationship Type: Choice; appbase_caserelationshiptype"
+  - "Case Title: Text; appbase_casetitle"
+  - "Case Type: Choice; appbase_casetype; optionset=appbase_courtcasetype"
+  - "Close Date: Date Time; appbase_closedate"
+  - "Court Case Stage: Choice; appbase_courtcasestage"
+  - "Court Location: Lookup (appbase_Location); appbase_courtlocation"
+  - "Description: Memo; appbase_description"
+  - "Filing Date: Date Time; appbase_filingdate"
+  - "Is Sealed: Choice; appbase_issealed; optionset=appbase_yesno"
+  - "Judicial District: Lookup (appbase_JudicialDistrict); appbase_judicialdistrict"
+  - "Jury Trial Requested: Choice; appbase_jurytrialrequested; optionset=appbase_yesno"
+  - "Last Action Date: Date Time; appbase_lastactiondate"
+  - "Name: Text; appbase_name"
+  - "Next Hearing Date: Date Time; appbase_nexthearingdate"
+  - "Organization Unit: Lookup (appbase_OrganizationUnit); appbase_organizationunit"
+  - "Priority: Choice; appbase_priority"
+  - "Related Case: Lookup (Court Case); appbase_relatedcase"
+  - "Security Classification: Choice; appbase_securityclassification"
+  - "Settlement Amount: Currency; appbase_settlementamount"
+  - "Visibility: Choice; appbase_visibility"

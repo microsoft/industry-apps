@@ -95,6 +95,17 @@ The Field Creator requires app-based authentication to Dataverse:
 - 🐍 **Python Dataverse Web API integration** (no PAC CLI required)
 - ⚡ Direct API calls for better performance and error handling
 
+### Process Simulation
+- 🎬 Generate realistic test data through simulated business workflows
+- 📋 Define reusable business process definitions with personas and steps
+- 🎭 Create scenarios with specific context and test data
+- 🤖 Use GitHub Copilot to generate event streams from processes + scenarios
+- 🔍 Validate event streams against entity schemas before execution
+- 🧪 Dry-run mode to preview operations without creating records
+- ⚡ Execute event streams to create actual Dataverse records
+- 🗂️ Auto-generate data models from Entity.xml files
+- **📖 See [PROCESS_SIMULATION.md](PROCESS_SIMULATION.md) for detailed documentation**
+
 ### Future Utilities
 - 🔧 Additional solution management utilities
 - 📊 Data migration tools

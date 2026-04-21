@@ -1,0 +1,198 @@
+execution_name: small-claims-johnson-chen
+display_name: Small Claims Dispute - Johnson v. Chen
+module: government/court-case-management
+process: court-case-lifecycle
+scenario: small-claims-dispute
+generated: 2026-04-12T15:45:00Z
+version: "1.0"
+
+# Execution metadata
+metadata:
+  generated_by: LLM (GitHub Copilot)
+  purpose: Generate realistic test data for small claims court case workflow
+  execution_mode: create_new_records
+  stop_on_error: true
+
+# Sequential steps to execute
+steps:
+  - step: 1
+    title: Validate filing documents and collect fees
+    persona: court_clerk
+    persona_name: Maria Rodriguez
+    thinking: >
+      It's a busy morning - already processed 12 cases today. This looks like
+      a straightforward small claims matter between neighbors. All the filing
+      documents are in order, fee has been paid ($75 small claims filing fee),
+      and I have contact information for both parties. Time to create the case
+      record and assign a case number following our CC-YYYY-#### format.
+    
+    actions:
+      - action: create
+        table: Court Case
+        schema_name: appbase_CourtCase
+        description: Create the initial court case record
+        fields:
+          appbase_casenumber: CC-2026-1547
+          appbase_casetitle: Johnson v. Chen - Fence Damage Dispute
+          appbase_casetype: Civil
+          appbase_courtcasestage: Filed
+          appbase_filingdate: 2026-04-15T09:30:00Z
+          appbase_description: Property damage dispute - plaintiff claims defendant's tree removal damaged shared fence. Seeking $2500 in damages.
+          appbase_priority: Normal
+          appbase_jurytrialrequested: No
+          appbase_settlementamount: 2500.00
+        store_as: case_record
+        notes: Using standard case numbering for 2026, sequential number 1547
+
+  - step: 2
+    title: Register plaintiff Sarah Johnson
+    persona: court_clerk
+    persona_name: Maria Rodriguez
+    thinking: >
+      Now I need to add the plaintiff to the case. Sarah Johnson lives at
+      123 Oak Street - she's the one who filed the complaint. Her contact
+      info is all here on the filing form. She's representing herself (pro se)
+      so no attorney information needed.
+    
+    actions:
+      - action: create
+        table: Contact
+        schema_name: Contact
+        description: Create contact record for plaintiff if doesn't exist
+        fields:
+          firstname: Sarah
+          lastname: Johnson
+          emailaddress1: sarah.johnson@email.com
+          telephone1: 555-0123
+          address1_line1: 123 Oak Street
+          address1_city: Springfield
+          address1_stateorprovince: IL
+          address1_postalcode: 62701
+        store_as: plaintiff_contact
+        notes: Standard contact creation for individual plaintiff
+      
+      - action: create
+        table: Court Case Party
+        schema_name: appbase_CourtCaseParty
+        description: Link plaintiff to the case
+        fields:
+          appbase_courtcase: "{{case_record.id}}"
+          appbase_person: "{{plaintiff_contact.id}}"
+          appbase_partyrole: Plaintiff
+          appbase_partytype: Individual
+          appbase_startdate: 2026-04-15
+          appbase_isprimaryparty: Yes
+          appbase_isprose: Yes
+          appbase_partystatus: Active
+          appbase_representationrequired: No
+          appbase_notificationemail: sarah.johnson@email.com
+          appbase_notificationphone: 555-0123
+        store_as: plaintiff_party
+        notes: Pro se plaintiff, no legal representation
+
+  - step: 3
+    title: Register defendant Robert Chen
+    persona: court_clerk
+    persona_name: Maria Rodriguez
+    thinking: >
+      Next is the defendant, Mr. Chen from 125 Oak Street - literally next door
+      to the plaintiff. Classic neighbor dispute. I'll set him up the same way,
+      also appearing pro se according to the filing documents. Both parties will
+      receive notifications at the addresses provided.
+    
+    actions:
+      - action: create
+        table: Contact
+        schema_name: Contact
+        description: Create contact record for defendant
+        fields:
+          firstname: Robert
+          lastname: Chen
+          emailaddress1: robert.chen@email.com
+          telephone1: 555-0456
+          address1_line1: 125 Oak Street
+          address1_city: Springfield
+          address1_stateorprovince: IL
+          address1_postalcode: 62701
+        store_as: defendant_contact
+        notes: Neighbor at adjacent address
+      
+      - action: create
+        table: Court Case Party
+        schema_name: appbase_CourtCaseParty
+        description: Link defendant to the case
+        fields:
+          appbase_courtcase: "{{case_record.id}}"
+          appbase_person: "{{defendant_contact.id}}"
+          appbase_partyrole: Defendant
+          appbase_partytype: Individual
+          appbase_startdate: 2026-04-15
+          appbase_isprimaryparty: Yes
+          appbase_isprose: Yes
+          appbase_partystatus: Active
+          appbase_representationrequired: No
+          appbase_notificationemail: robert.chen@email.com
+          appbase_notificationphone: 555-0456
+        store_as: defendant_party
+        notes: Pro se defendant, no legal representation
+
+  - step: 4
+    title: Create initial docket entry for filing
+    persona: court_clerk
+    persona_name: Maria Rodriguez
+    thinking: >
+      Need to create the first official docket entry showing the case was
+      filed today. This creates the audit trail and makes it official in
+      our system. Entry number 001 for this case, filed by the plaintiff.
+    
+    actions:
+      - action: create
+        table: Court Case Docket Entry
+        schema_name: appbase_CourtCaseDocketEntry
+        description: Record the initial case filing in the docket
+        fields:
+          appbase_entrynumber: 001
+          appbase_entrydatetime: 2026-04-15T09:35:00Z
+          appbase_courtcase: "{{case_record.id}}"
+          appbase_entrytype: Case Filed
+          appbase_filedby: "{{plaintiff_contact.id}}"
+          appbase_ispublicrecord: Yes
+          appbase_description: Initial complaint filed - property damage dispute
+        store_as: filing_docket_entry
+        notes: First docket entry, establishes filing timestamp
+
+  - step: 5
+    title: Review case and assign to judge
+    persona: case_supervisor
+    persona_name: James Patterson
+    thinking: >
+      Reviewing the afternoon's new filings. This is a small claims civil case
+      under $5,000 - perfect for Judge Milton Hayes who specializes in small
+      claims and currently has the lightest caseload in that category. The case
+      is straightforward, no special complexity or conflicts of interest to worry
+      about. I'll assign it to him with a note about the caseload balancing.
+    
+    actions:
+      - action: update
+        table: Court Case
+        schema_name: appbase_CourtCase
+        record_reference: "{{case_record.id}}"
+        description: Assign the case to appropriate judge
+        fields:
+          appbase_assignedjudge: Judge Milton Hayes
+          appbase_courtcasestage: Assigned
+        notes: Assignment based on specialty and caseload - Judge Hayes has small claims expertise and lowest current load
+
+# Template variable references
+# Records created in earlier steps can be referenced using {{step_name.id}} or {{step_name.field}}
+# Example: {{case_record.id}} references the ID of the Court Case created in step 1
+# Example: {{plaintiff_contact.emailaddress1}} would reference the email field
+
+# Notes for execution engine
+execution_notes:
+  - Each step must complete successfully before proceeding to the next
+  - Template variables are resolved at runtime based on previously created records
+  - Choice field values should use the display label, engine will map to numeric value
+  - Lookup fields use either the special {{reference}} syntax or direct text for lookup by name
+  - Dates/times in ISO 8601 format
+  - All field references include both display name and schema name for clarity

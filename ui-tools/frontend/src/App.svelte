@@ -12,6 +12,8 @@
   import ChoiceCreator from './routes/ChoiceCreator.svelte';
   import ReleaseManager from './routes/ReleaseManager.svelte';
   import FormBuilder from './routes/FormBuilder.svelte';
+  import ProcessSimulation from './routes/ProcessSimulation.svelte';
+  import DataImporter from './routes/DataImporter.svelte';
   
   // Define routes
   const routes = {
@@ -21,6 +23,8 @@
     '/choice-creator': ChoiceCreator,
     '/release-manager': ReleaseManager,
     '/form-builder': FormBuilder,
+    '/process-simulation':ProcessSimulation,
+    '/data-importer': DataImporter,
   };
   
   // Load initial data

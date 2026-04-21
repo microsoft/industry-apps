@@ -1,0 +1,23 @@
+name: Investigation Allegation
+schema_name: appbase_InvestigationAllegation
+description:
+
+fields:
+  - Allegation Number: Text; appbase_allegationnumber
+  - Allegation Status: Choice; appbase_allegationstatus
+  - Allegation Type: Choice; appbase_allegationtype
+  - Alleged Date: Date Time; appbase_allegeddate
+  - Description: Memo; appbase_description
+  - Estimated Monetary Impact: Currency; appbase_estimatedmonetaryimpact
+  - Impacted Account: Lookup (Account); appbase_impactedaccount
+  - Impacted Person: Lookup (Contact); appbase_impactedperson
+  - Investigation: Lookup (Investigation); appbase_investigation
+  - Legal Authority: Lookup (appbase_LegalAuthority); appbase_legalauthority
+  - Name: Text; appbase_name
+  - Notes: Memo; appbase_notes
+  - Policy Violated: Text; appbase_policyviolated
+  - Regulation Violated: Text; appbase_regulationviolated
+  - Severity Level: Choice; appbase_severitylevel
+  - Subject Account: Lookup (Account); appbase_subjectaccount
+  - Subject Organization Unit: Lookup (appbase_OrganizationUnit); appbase_subjectorganizationunit
+  - Subject Person: Lookup (Contact); appbase_subjectperson

@@ -1,0 +1,28 @@
+name: Court Case Party
+schema_name: appbase_CourtCaseParty
+plural_name: appbase_courtcasepartys
+description: >
+  Links a person or organization to a case in a defined role.
+  Used to track plaintiffs, defendants, petitioners, respondents, and other involved parties.
+
+fields:
+  - "Account: Lookup (Account); appbase_account"
+  - "Contact Method: Choice; appbase_contactmethod; optionset=appbase_methodofcontact"
+  - "Court Case: Lookup (Court Case); appbase_courtcase"
+  - "Description: Memo; appbase_description"
+  - "End Date: Date Time; appbase_enddate"
+  - "Is Primary Party: Choice; appbase_isprimaryparty; optionset=appbase_yesno"
+  - "Is Pro Se: Choice; appbase_isprose; optionset=appbase_yesno"
+  - "Name: Text; appbase_name"
+  - "Notification Email: Text; appbase_notificationemail"
+  - "Notification Phone: Text; appbase_notificationphone"
+  - "Party Role: Choice; appbase_partyrole; optionset=appbase_courtpartyrole"
+  - "Party Status: Choice; appbase_partystatus; optionset=appbase_lifecyclestage"
+  - "Party Type: Choice; appbase_partytype; optionset=appbase_courtpartytype"
+  - "Person: Lookup (Contact); appbase_person"
+  - "Representation Required: Choice; appbase_representationrequired; optionset=appbase_yesno"
+  - "Service Address City: Text; appbase_serviceaddresscity"
+  - "Service Address Line 1: Text; appbase_serviceaddressline1"
+  - "Service Address Postal Code: Text; appbase_serviceaddresspostalcode"
+  - "Service Address State: Lookup (appbase_StateorProvince); appbase_serviceaddressstate"
+  - "Start Date: Date Time; appbase_startdate"

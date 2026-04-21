@@ -1,0 +1,25 @@
+name: Court Case Representation
+schema_name: appbase_CourtCaseRepresentation
+plural_name: appbase_courtcaserepresentations
+description: >
+  Tracks representation relationships within a case.
+  Identifies which party is represented by which attorney, guardian, or agent, including effective dates.
+
+fields:
+  - "Admission Date: Date Time; appbase_admissiondate"
+  - "Bar Number: Text; appbase_barnumber"
+  - "Bar State: Lookup (appbase_StateorProvince); appbase_barstate"
+  - "Contact Email: Text; appbase_contactemail"
+  - "Contact Phone: Text; appbase_contactphone"
+  - "Court Case: Lookup (Court Case); appbase_courtcase"
+  - "Court Case Party: Lookup (Court Case Party); appbase_courtcaseparty"
+  - "Description: Memo; appbase_description"
+  - "End Date: Date Time; appbase_enddate"
+  - "Is Lead Counsel: Choice; appbase_isleadcounsel; optionset=appbase_yesno"
+  - "Name: Text; appbase_name"
+  - "Operational Status: Choice; appbase_operationalstatus; optionset=appbase_lifecyclestage"
+  - "Pro Hac Vice: Choice; appbase_prohacvice; optionset=appbase_yesno"
+  - "Representation Type: Choice; appbase_representationtype; optionset=appbase_courtrepresentationtype"
+  - "Representative: Lookup (Contact); appbase_representative"
+  - "Representative Organization: Lookup (Account); appbase_representativeorganization"
+  - "Start Date: Date Time; appbase_startdate"

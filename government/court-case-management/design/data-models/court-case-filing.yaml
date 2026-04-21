@@ -1,0 +1,27 @@
+name: Court Case Filing
+schema_name: appbase_CourtCaseFiling
+plural_name: appbase_courtcasefilings
+description: >
+  Represents a document or submission formally entered into the case record.
+  Includes motions and other filings submitted by parties or external entities, along with filing date and status.
+
+fields:
+  - "Approval Status: Choice; appbase_approvalstatus"
+  - "Court Case: Lookup (Court Case); appbase_courtcase"
+  - "Description: Memo; appbase_description"
+  - "Document: Lookup (appbase_Document); appbase_document"
+  - "Filed By Party: Lookup (Court Case Party); appbase_filedbyparty"
+  - "Filed By Person: Lookup (Contact); appbase_filedbyperson"
+  - "Filing Date Time: Date Time; appbase_filingdatetime"
+  - "Filing Fee Amount: Currency; appbase_filingfeeamount"
+  - "Filing Number: Text; appbase_filingnumber"
+  - "Filing Title: Text; appbase_filingtitle"
+  - "Filing Type: Choice; appbase_filingtype; optionset=appbase_courtfilingtype"
+  - "Is Electronic Filing: Choice; appbase_iselectronicfiling; optionset=appbase_yesno"
+  - "Name: Text; appbase_name"
+  - "Organization Unit: Lookup (appbase_OrganizationUnit); appbase_organizationunit"
+  - "Page Count: Integer; appbase_pagecount"
+  - "Payment Status: Choice; appbase_paymentstatus"
+  - "Priority: Choice; appbase_priority"
+  - "Response Due Date: Date Time; appbase_responseduedate"
+  - "Response Received Date: Date Time; appbase_responsereceiveddate"

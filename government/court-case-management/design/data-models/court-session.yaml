@@ -1,0 +1,28 @@
+name: Court Session
+schema_name: appbase_CourtSession
+plural_name: appbase_courtsessions
+description: >
+  Represents a scheduled sitting of the court.
+  Defines the date, location, presiding official, and status of a court calendar block during which one or more case hearings may occur.
+
+fields:
+  - "Bailiff: Lookup (Contact); appbase_bailiff"
+  - "Capacity: Integer; appbase_capacity"
+  - "Court: Lookup (appbase_OrganizationUnit); appbase_court"
+  - "Court Reporter: Lookup (Contact); appbase_courtreporter"
+  - "Courtroom Number: Text; appbase_courtroomnumber"
+  - "Description: Memo; appbase_description"
+  - "End Time: Date Time; appbase_endtime"
+  - "Is Emergency Session: Choice; appbase_isemergencysession; optionset=appbase_yesno"
+  - "Is Public Session: Choice; appbase_ispublicsession; optionset=appbase_yesno"
+  - "Location: Lookup (appbase_Location); appbase_location"
+  - "Name: Text; appbase_name"
+  - "Operational Status: Choice; appbase_operationalstatus; optionset=appbase_lifecyclestage"
+  - "Participation Mode: Choice; appbase_participationmode"
+  - "Presiding Official: Lookup (Contact); appbase_presidingofficial"
+  - "Session Date: Date Time; appbase_sessiondate"
+  - "Session Notes: Memo; appbase_sessionnotes"
+  - "Session Number: Text; appbase_sessionnumber"
+  - "Session Title: Text; appbase_sessiontitle"
+  - "Session Type: Choice; appbase_sessiontype; optionset=appbase_courtsessiontype"
+  - "Start Time: Date Time; appbase_starttime"

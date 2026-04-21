@@ -1,0 +1,28 @@
+name: Court Case Order
+schema_name: appbase_CourtCaseOrder
+plural_name: appbase_courtcaseorders
+description: >
+  Represents a formal directive issued by the court. Often generated from a decision, and may include effective dates, status (draft/issued), and compliance implications.
+
+fields:
+  - "Appeal Status: Choice; appbase_appealstatus"
+  - "Compliance Due Date: Date Time; appbase_complianceduedate"
+  - "Compliance Notes: Memo; appbase_compliancenotes"
+  - "Compliance Requirement: Lookup (appbase_ComplianceRequirement); appbase_compliancerequirement"
+  - "Compliance Status: Choice; appbase_compliancestatus"
+  - "Court Case: Lookup (Court Case); appbase_courtcase"
+  - "Court Case Decision: Lookup (Court Case Decision); appbase_courtcasedecision"
+  - "Description: Memo; appbase_description"
+  - "Document: Lookup (appbase_Document); appbase_document"
+  - "Effective Date: Date Time; appbase_effectivedate"
+  - "Expiration Date: Date Time; appbase_expirationdate"
+  - "Issue Date: Date Time; appbase_issuedate"
+  - "Issuing Official: Lookup (Contact); appbase_issuingofficial"
+  - "Is Temporary: Choice; appbase_istemporary; optionset=appbase_yesno"
+  - "Name: Text; appbase_name"
+  - "Order Number: Text; appbase_ordernumber"
+  - "Order Stage: Choice; appbase_orderstage; optionset=appbase_courtorderstage"
+  - "Order Title: Text; appbase_ordertitle"
+  - "Order Type: Choice; appbase_ordertype; optionset=appbase_courtordertype"
+  - "Priority: Choice; appbase_priority"
+  - "Responsible Party: Lookup (Court Case Party); appbase_responsibleparty"

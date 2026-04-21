@@ -1,0 +1,26 @@
+name: Court Case Decision
+schema_name: appbase_CourtCaseDecision
+plural_name: appbase_courtcasedecisions
+description: >
+  Records a judicial ruling or determination made in a case.
+  Captures the decision type, date, deciding official, and links to related hearings or filings. May represent interim or final decisions.
+
+fields:
+  - "Appealed Date: Date Time; appbase_appealeddate"
+  - "Appeal Status: Choice; appbase_appealstatus"
+  - "Court Case: Lookup (Court Case); appbase_courtcase"
+  - "Deciding Official: Lookup (Contact); appbase_decidingofficial"
+  - "Decision Date Time: Date Time; appbase_decisiondatetime"
+  - "Decision Number: Text; appbase_decisionnumber"
+  - "Decision Title: Text; appbase_decisiontitle"
+  - "Decision Type: Choice; appbase_decisiontype; optionset=appbase_courtdecisiontype"
+  - "Description: Memo; appbase_description"
+  - "Is Final Decision: Choice; appbase_isfinaldecision; optionset=appbase_yesno"
+  - "Legal Authority: Lookup (appbase_LegalAuthority); appbase_legalauthority"
+  - "Legal Reasoning: Memo; appbase_legalreasoning"
+  - "Name: Text; appbase_name"
+  - "Overall Result: Choice; appbase_overallresult"
+  - "Publication Status: Choice; appbase_publicationstatus"
+  - "Related Filing: Lookup (Court Case Filing); appbase_relatedfiling"
+  - "Related Hearing: Lookup (Court Case Hearing); appbase_relatedhearing"
+  - "Supporting Document: Lookup (appbase_Document); appbase_supportingdocument"

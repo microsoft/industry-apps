@@ -1,0 +1,241 @@
+process_name: court-case-lifecycle
+display_name: Court Case Lifecycle - From Filing to Resolution
+module: government/court-case-management
+description: End-to-end workflow for managing a court case from initial filing through resolution and closure
+version: "1.0"
+
+# Personas involved in this process
+personas:
+  - role: court_clerk
+    name: Filing Clerk
+    responsibilities:
+      - Receive and process case filing documents
+      - Create case records and manage parties
+      - Schedule hearings and maintain case calendar
+      - Process case documents and filings
+
+  - role: case_supervisor
+    name: Case Supervisor
+    responsibilities:
+      - Review and assign cases to appropriate judges
+      - Monitor case workload distribution
+      - Ensure compliance with case management rules
+      - Handle case reassignments when needed
+
+  - role: judge
+    name: Presiding Judge
+    responsibilities:
+      - Review case materials and evidence
+      - Conduct hearings and trials
+      - Issue rulings and orders
+      - Make final decisions on case outcomes
+
+  - role: legal_assistant
+    name: Legal Assistant
+    responsibilities:
+      - Prepare hearing notices and documentation
+      - Coordinate with parties and attorneys
+      - Maintain case files and records
+      - Track deadlines and compliance
+
+# Sequential steps in the process
+steps:
+  - title: Receive and validate case filing
+    persona: court_clerk
+    description: >
+      Clerk receives case filing documents from the plaintiff or their attorney.
+      Reviews documents for completeness, validates filing fees are paid, and
+      checks that all required information is provided including party details,
+      case type, and jurisdiction.
+    business_rules:
+      - All required filing documents must be complete
+      - Filing fees must be paid or waiver granted
+      - Case must fall within court's jurisdiction
+      - Case number assigned following court's numbering convention
+
+  - title: Create case record and register parties
+    persona: court_clerk
+    description: >
+      Clerk creates the official case record in the system, assigns a unique
+      case number, and registers all parties involved (plaintiff, defendant,
+      and any additional parties). Enters basic case information including
+      case type, filing date, and initial case description.
+    business_rules:
+      - Case number must be unique and follow format rules
+      - At least one plaintiff and one defendant required
+      - Party contact information must be complete
+      - Case type determines applicable rules and procedures
+
+  - title: Review case and assign to judge
+    persona: case_supervisor
+    description: >
+      Supervisor reviews the new case filing, determines the appropriate judge
+      based on case type, specialty areas, and current caseload. Assigns the
+      case to a judge and sets initial case management deadlines.
+    business_rules:
+      - Assignment considers judge specialization and expertise
+      - Workload must be balanced across available judges
+      - Conflicts of interest must be checked and avoided
+      - Assignment completed within 2 business days of filing
+
+  - title: Schedule initial case management conference
+    persona: legal_assistant
+    description: >
+      Legal assistant schedules the initial case management conference,
+      coordinates with all parties to find suitable date and time, reserves
+      courtroom, and prepares notice of hearing to be sent to all parties.
+    business_rules:
+      - Conference must be scheduled within 30 days of filing
+      - Notice must be sent to all parties at least 14 days in advance
+      - Courtroom availability must be confirmed
+      - Conflicting hearings must be avoided
+
+  - title: Prepare and distribute case management order
+    persona: legal_assistant
+    description: >
+      Assistant prepares the case management order with discovery deadlines,
+      motions deadlines, and trial date. Distributes order to all parties
+      and enters key dates into case calendar.
+    business_rules:
+      - Standard case management timelines must be followed
+      - Discovery period typically 90-120 days
+      - All parties must receive copy of order
+      - Calendar entries must be accurate and complete
+
+  - title: Conduct initial case management conference
+    persona: judge
+    description: >
+      Judge meets with all parties to discuss the case, set schedules for
+      discovery and motions, address preliminary matters, and establish
+      trial timeline. Issues case management order formalizing agreements.
+    business_rules:
+      - All parties must be present or represented
+      - Scheduling must accommodate court calendar
+      - Special accommodations requested must be considered
+      - Conference minutes must be recorded
+
+  - title: Process discovery filings and motions
+    persona: court_clerk
+    description: >
+      Clerk receives and processes various filings during discovery phase
+      including document requests, interrogatories, depositions, and any
+      preliminary motions. Ensures filings are properly recorded and
+      distributed to relevant parties.
+    business_rules:
+      - Filing deadlines must be enforced
+      - Proper service of documents must be verified
+      - Filing fees collected when applicable
+      - Documents indexed and accessible to authorized parties
+
+  - title: Rule on pre-trial motions
+    persona: judge
+    description: >
+      Judge reviews and rules on any pre-trial motions filed by parties,
+      such as motions to dismiss, motions for summary judgment, or motions
+      to compel discovery. Issues written orders on each motion.
+    business_rules:
+      - Motions must be heard within prescribed timeframes
+      - All parties given opportunity to respond
+      - Rulings must be in writing with reasoning
+      - Orders distributed to all parties
+
+  - title: Prepare for trial
+    persona: legal_assistant
+    description: >
+      Assistant coordinates trial preparation including witness lists,
+      exhibit preparation, jury instructions if applicable, courtroom
+      setup, and all necessary trial documentation.
+    business_rules:
+      - Trial preparation materials due 14 days before trial
+      - Witness lists exchanged between parties
+      - Exhibits pre-marked and organized
+      - Courtroom technology and equipment tested
+
+  - title: Conduct trial or hearing
+    persona: judge
+    description: >
+      Judge presides over the trial or hearing, ensures proper procedures
+      are followed, rules on objections and procedural matters, hears
+      evidence and testimony, and manages the courtroom.
+    business_rules:
+      - Trial procedures strictly followed
+      - Evidence rules applied consistently
+      - All testimony properly recorded
+      - Impartiality maintained throughout
+
+  - title: Issue final ruling or judgment
+    persona: judge
+    description: >
+      Judge reviews all evidence and arguments, deliberates on the case,
+      and issues final ruling or judgment. Prepares written decision with
+      findings of fact and conclusions of law.
+    business_rules:
+      - Decision must be based on evidence presented
+      - Findings must be clearly articulated
+      - Legal reasoning must be sound
+      - Ruling issued within required timeframe after trial
+
+  - title: Enter judgment and process post-trial matters
+    persona: court_clerk
+    description: >
+      Clerk enters the final judgment into the case record, calculates
+      any monetary awards with interest, processes any post-trial motions,
+      and handles appeals filing if applicable.
+    business_rules:
+      - Judgment entered promptly after ruling issued
+      - Interest calculations must be accurate
+      - Appeal deadlines clearly communicated
+      - Judgment enforceability documented
+
+  - title: Close case and archive records
+    persona: court_clerk
+    description: >
+      Once all matters are resolved and appeal periods have expired,
+      clerk closes the case, ensures all documents are properly filed,
+      archives case records according to retention schedules, and
+      updates case statistics.
+    business_rules:
+      - Case cannot be closed while appeals pending
+      - All outstanding fees must be resolved
+      - Records archived per retention policy
+      - Case closure properly documented in system
+
+# Expected outcomes
+outcomes:
+  - outcome: judgment_entered
+    description: Case successfully resolved with final judgment entered
+    
+  - outcome: settled
+    description: Parties reached settlement and case dismissed
+
+  - outcome: dismissed
+    description: Case dismissed by court before trial
+
+  - outcome: appealed
+    description: Judgment appealed to higher court
+
+# Process variations
+variations:
+  - variation: settlement_before_trial
+    description: Parties settle case during discovery or before trial
+    notes: >
+      Common outcome where parties reach agreement. Requires settlement
+      agreement filing and dismissal order.
+
+  - variation: jury_trial
+    description: Case proceeds to jury trial instead of bench trial
+    notes: >
+      Adds jury selection, jury instructions, and jury deliberation steps.
+      Significantly more complex preparation required.
+
+  - variation: continuance_requested
+    description: Party requests postponement of hearings or trial
+    notes: >
+      Requires motion hearing, good cause showing, and rescheduling of
+      all affected dates.
+
+  - variation: emergency_motions
+    description: Urgent matters requiring immediate judicial attention
+    notes: >
+      May interrupt normal case flow for temporary restraining orders,
+      emergency protective orders, or other urgent relief.

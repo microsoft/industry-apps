@@ -24,7 +24,8 @@ from models import (
     BuildPackagesRequest,
     ReleaseValidationRequest,
     ReleaseExecutionRequest,
-    StepExecutionRequest
+    StepExecutionRequest,
+    ReleaseRequest
 )
 
 # Import helper functions from utils
@@ -50,130 +51,7 @@ async def build_packages(request: BuildPackagesRequest):
         media_type="text/event-stream"
     )
 
-@router.post("/api/cancel")
-async def cancel_operation(request: CancelRequest):
-    """Cancel a running operation"""
-    operation_id = request.operationId
-    
-    if operation_id not in active_processes:
-        return {"success": False, "message": "Operation not found or already completed"}
-    
-    try:
-        process = active_processes[operation_id]
-        
-        # Terminate the process (on Windows, this is like SIGTERM)
-        process.terminate()
-        
-        # Wait a bit for graceful termination
-        try:
-            process.wait(timeout=2)
-        except:
-            # If it doesn't terminate, kill it
-            process.kill()
-        
-        # Remove from active processes
-        del active_processes[operation_id]
-        
-        return {"success": True, "message": "Operation cancelled"}
-    except Exception as e:
-        return {"success": False, "message": f"Failed to cancel operation: {str(e)}"}
-
-@router.post("/api/ship")
-async def ship_module(request: ShipRequest):
-    """Ship a module to an external tenant/environment"""
-    script_path = PROJECT_ROOT / "ui-tools" / "scripts" / "Ship-Module-UI.ps1"
-    
-    args = [
-        str(script_path),
-        "-Deployment", request.tenant,
-        "-Environment", request.environment,
-        "-Category", request.category,
-        "-Module", request.module
-    ]
-    
-    if request.managed:
-        args.append("-Managed")
-    
-    if request.upgrade:
-        args.append("-Upgrade")
-    
-    # print(f"[DEBUG] Ship args: {args}")  # Debug logging
-    # print(f"[DEBUG] request.managed: {request.managed}, request.upgrade: {request.upgrade}")
-    
-    return StreamingResponse(
-        stream_powershell_output(*args, operation_id=request.operationId),
-        media_type="text/event-stream"
-    )
-
-@router.post("/api/modules/create")
-async def create_module(request: CreateModuleRequest):
-    """Create a new module"""
-    
-    # Debug logging
-    print(f"DEBUG: Received create module request:")
-    print(f"  - category: {request.category}")
-    print(f"  - moduleName: {request.moduleName}")
-    print(f"  - deployment: {request.deployment}")
-    print(f"  - sourceEnvironment: {request.sourceEnvironment}")
-    print(f"  - targetEnvironments: {request.targetEnvironments}")
-    print(f"  - deploy: {request.deploy}")
-    
-    script_path = PROJECT_ROOT / "ui-tools" / "scripts" / "New-Module-UI.ps1"
-    
-    # First, save the module configuration to deployments.json
-    config_path = PROJECT_ROOT / ".config" / "deployments.json"
-    
-    with open(config_path, "r") as f:
-        config = json.load(f)
-    
-    # Determine the module folder name (lowercase with hyphens)
-    module_folder = request.moduleName.lower()
-    module_folder = ''.join(c if c.isalnum() else '-' for c in module_folder)
-    module_folder = '-'.join(filter(None, module_folder.split('-')))
-    
-    # Check if module configuration matches DefaultModule
-    default_module = config.get("DefaultModule", {})
-    matches_default = (
-        default_module.get("Tenant") == request.deployment and
-        default_module.get("Environment") == request.sourceEnvironment and
-        default_module.get("DeploymentTargets", []) == request.targetEnvironments
-    )
-    
-    # Only add to Modules if it differs from DefaultModule
-    if not matches_default:
-        if "Modules" not in config:
-            config["Modules"] = {}
-        
-        config["Modules"][module_folder] = {
-            "Tenant": request.deployment,
-            "Environment": request.sourceEnvironment,
-            "DeploymentTargets": request.targetEnvironments
-        }
-        
-        # Save updated config
-        with open(config_path, "w") as f:
-            json.dump(config, f, indent=4)
-    
-    # Run the creation script
-    args = [
-        str(script_path),
-        "-Category", request.category,
-        "-ModuleName", request.moduleName
-    ]
-    
-    if request.deploy:
-        if not request.deployment or not request.sourceEnvironment:
-            raise HTTPException(status_code=400, detail="Deployment and sourceEnvironment are required when deploy=true")
-        args.append("-Deploy")
-        args.extend(["-Deployment", request.deployment])
-        args.extend(["-Environment", request.sourceEnvironment])
-    
-    return StreamingResponse(
-        stream_powershell_output(*args, operation_id=request.operationId),
-        media_type="text/event-stream"
-    )
-
-@router.post("/api/modules/release")
+@router.post("/modules/release")
 async def create_release(request: ReleaseRequest):
     """Create a release for a module"""
     script_path = PROJECT_ROOT / "ui-tools" / "scripts" / "Release-Module-UI.ps1"

@@ -72,6 +72,7 @@ from routers.helpers import router as helpers_router
 from routers.option_sets import router as option_sets_router
 from routers.release import router as release_router
 from routers.deployment import router as deployment_router
+from routers.process_simulation import router as process_simulation_router
 
 app = FastAPI(title="Module Deployment API")
 
@@ -90,6 +91,7 @@ app.include_router(helpers_router)
 app.include_router(option_sets_router)
 app.include_router(release_router)
 app.include_router(deployment_router)
+app.include_router(process_simulation_router)
 
 
 def load_pending_optionsets():
@@ -160,7 +162,11 @@ async def get_modules():
     default_config = config.get("DefaultModule", {})
     
     modules = []
-    exclude_folders = {"__pycache__", ".scripts", ".config", ".git", ".vscode", "bin", "obj", "ui-tools", "releases"}
+    seen_paths = set()  # Track paths to avoid duplicates
+    exclude_folders = {"__pycache__", ".scripts", ".config", ".git", ".vscode", "bin", "obj", "ui-tools", "releases", ".design", "design", "test", "backups"}
+    
+    # Only scan these specific category folders
+    valid_categories = {"administrative", "compliance-security", "external-engagement", "financial", "government", "operations", "shared", "workforce"}
     
     # Recursively scan for all modules (handles nested folder structures)
     def scan_for_modules(base_path, relative_path=""):
@@ -170,6 +176,14 @@ async def get_modules():
                 if list(item.glob("*.cdsproj")):
                     module_name = item.name
                     category = relative_path if relative_path else item.parent.name
+                    
+                    # Calculate relative path from project root
+                    relative_module_path = str(item.relative_to(PROJECT_ROOT))
+                    
+                    # Skip if we've already seen this path (avoid duplicates)
+                    if relative_module_path in seen_paths:
+                        continue
+                    seen_paths.add(relative_module_path)
                     
                     # Get module-specific config or use default
                     mod_config = module_configs.get(module_name, default_config)
@@ -191,9 +205,6 @@ async def get_modules():
                         version = read_solution_version(item)
                         display_name = read_solution_display_name(item)
                         
-                        # Calculate relative path from project root
-                        relative_module_path = str(item.relative_to(PROJECT_ROOT))
-                        
                         modules.append({
                             "name": module_name,
                             "displayName": display_name,
@@ -208,13 +219,13 @@ async def get_modules():
                             "version": version
                         })
                 else:
-                    # Recursively scan subdirectories
+                    # Recursively scan subdirectories only if no .cdsproj found
                     new_relative = f"{relative_path}/{item.name}" if relative_path else item.name
                     scan_for_modules(item, new_relative)
     
-    # Scan for all modules starting from project root
+    # Scan only the valid category folders
     for category_dir in PROJECT_ROOT.iterdir():
-        if category_dir.is_dir() and category_dir.name not in exclude_folders:
+        if category_dir.is_dir() and category_dir.name in valid_categories:
             scan_for_modules(category_dir, category_dir.name)
     
     return {"modules": modules}

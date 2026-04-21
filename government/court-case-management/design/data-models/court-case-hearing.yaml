@@ -1,0 +1,30 @@
+name: Court Case Hearing
+schema_name: appbase_CourtCaseHearing
+plural_name: appbase_courtcasehearings
+description: >
+  Represents a scheduled case appearance or proceeding. May be associated with a Court Session and records hearing type, scheduling details, and results.
+
+fields:
+  - "Actual End Date Time: Date Time; appbase_actualenddatetime"
+  - "Actual Start Date Time: Date Time; appbase_actualstartdatetime"
+  - "Attendance Status: Choice; appbase_attendancestatus"
+  - "Court Case: Lookup (Court Case); appbase_courtcase"
+  - "Court Reporter: Lookup (Contact); appbase_courtreporter"
+  - "Court Session: Lookup (Court Session); appbase_courtsession"
+  - "Description: Memo; appbase_description"
+  - "Duration Minutes: Integer; appbase_durationminutes"
+  - "Hearing Notes: Memo; appbase_hearingnotes"
+  - "Hearing Number: Text; appbase_hearingnumber"
+  - "Hearing Stage: Choice; appbase_hearingstage; optionset=appbase_courthearingstage"
+  - "Hearing Title: Text; appbase_hearingtitle"
+  - "Hearing Type: Choice; appbase_hearingtype; optionset=appbase_courthearingtype"
+  - "Is Sealed Hearing: Choice; appbase_issealedhearing; optionset=appbase_yesno"
+  - "Location: Lookup (appbase_Location); appbase_location"
+  - "Name: Text; appbase_name"
+  - "Overall Result: Choice; appbase_overallresult"
+  - "Participation Mode: Choice; appbase_participationmode"
+  - "Presiding Official: Lookup (Contact); appbase_presidingofficial"
+  - "Priority: Choice; appbase_priority"
+  - "Recording Available: Choice; appbase_recordingavailable; optionset=appbase_yesno"
+  - "Scheduled Date Time: Date Time; appbase_scheduleddatetime"
+  - "Transcript Available: Choice; appbase_transcriptavailable; optionset=appbase_yesno"

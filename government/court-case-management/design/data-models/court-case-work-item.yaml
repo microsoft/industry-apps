@@ -1,0 +1,31 @@
+name: Court Case Work Item
+schema_name: appbase_CourtCaseWorkItem
+plural_name: appbase_courtcaseworkitems
+description: >
+  Represents internal court staff tasks related to advancing a case.
+  Includes assignments, due dates, status, and links to related filings, hearings, or orders.
+
+fields:
+  - "Action Status: Choice; appbase_actionstatus"
+  - "Actual Hours: Decimal; appbase_actualhours"
+  - "Assigned By: Lookup (SystemUser); appbase_assignedby"
+  - "Assigned Date: Date Time; appbase_assigneddate"
+  - "Assigned To: Lookup (Contact); appbase_assignedto"
+  - "Completion Date: Date Time; appbase_completiondate"
+  - "Court Case: Lookup (Court Case); appbase_courtcase"
+  - "Description: Memo; appbase_description"
+  - "Due Date: Date Time; appbase_duedate"
+  - "Estimated Hours: Decimal; appbase_estimatedhours"
+  - "General Category: Choice; appbase_generalcategory"
+  - "Name: Text; appbase_name"
+  - "Organization Unit: Lookup (appbase_OrganizationUnit); appbase_organizationunit"
+  - "Priority: Choice; appbase_priority"
+  - "Related Decision: Lookup (Court Case Decision); appbase_relateddecision"
+  - "Related Filing: Lookup (Court Case Filing); appbase_relatedfiling"
+  - "Related Hearing: Lookup (Court Case Hearing); appbase_relatedhearing"
+  - "Related Order: Lookup (Court Case Order); appbase_relatedorder"
+  - "Resolution Notes: Memo; appbase_resolutionnotes"
+  - "Supporting Document: Lookup (appbase_Document); appbase_supportingdocument"
+  - "Work Item Number: Text; appbase_workitemnumber"
+  - "Work Item Title: Text; appbase_workitemtitle"
+  - "Work Item Type: Choice; appbase_workitemtype; optionset=appbase_courtworkitemtype"

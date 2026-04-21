@@ -10,6 +10,8 @@
     { path: '/batch-field-creator', label: 'Batch Field Creator', icon: '⚡', description: 'Create fields from BUILD.md' },
     { path: '/choice-creator', label: 'Choice Creator', icon: '📝', description: 'Create global option sets' },
     { path: '/form-builder', label: 'Form Builder', icon: '📺', description: 'Build forms from entity schemas' },
+    { path: '/data-importer', label: 'Data Importer', icon: '📦', description: 'Import sample data to environments' },
+    { path: '/process-simulation', label: 'Process Simulation', icon: '🎬', description: 'Simulate business processes' },
   ];
 
   function toggleSidebar() {

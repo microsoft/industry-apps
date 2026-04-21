@@ -1,0 +1,23 @@
+name: Court Case Docket Entry
+schema_name: appbase_CourtCaseDocketEntry
+plural_name: appbase_courtcasedocketentrys
+description: >
+  The official chronological log entry for activity in a case.
+  Provides an audit-friendly record of filings, hearings, orders, and other significant case events.
+
+fields:
+  - "Court Case: Lookup (Court Case); appbase_courtcase"
+  - "Description: Memo; appbase_description"
+  - "Entry Date Time: Date Time; appbase_entrydatetime"
+  - "Entry Number: Text; appbase_entrynumber"
+  - "Entry Type: Choice; appbase_entrytype; optionset=appbase_courtdocketentrytype"
+  - "Filed By: Lookup (Contact); appbase_filedby"
+  - "Filed By Organization: Lookup (Account); appbase_filedbyorganization"
+  - "Is Public Record: Choice; appbase_ispublicrecord; optionset=appbase_yesno"
+  - "Name: Text; appbase_name"
+  - "Related Decision: Lookup (Court Case Decision); appbase_relateddecision"
+  - "Related Filing: Lookup (Court Case Filing); appbase_relatedfiling"
+  - "Related Hearing: Lookup (Court Case Hearing); appbase_relatedhearing"
+  - "Related Order: Lookup (Court Case Order); appbase_relatedorder"
+  - "Security Classification: Choice; appbase_securityclassification"
+  - "Supporting Document: Lookup (appbase_Document); appbase_supportingdocument"
