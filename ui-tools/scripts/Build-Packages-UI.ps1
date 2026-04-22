@@ -6,13 +6,20 @@ param(
     [string]$ModuleName,
     
     [Parameter(Mandatory=$true)]
-    [string]$Version
+    [string]$Version,
+    
+    [Parameter(Mandatory=$false)]
+    [string]$RepoRoot  # Path to repo root for multi-repo support
 )
 
 $ErrorActionPreference = "Stop"
 
-# Get project root and source utility functions
-$projectRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
+# Get project root - use RepoRoot if provided, otherwise default
+if ($RepoRoot) {
+    $projectRoot = $RepoRoot
+} else {
+    $projectRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
+}
 . "$projectRoot\.scripts\Util.ps1"
 
 function Get-SolutionFriendlyName {
@@ -49,8 +56,12 @@ function Get-SolutionFriendlyName {
 }
 
 try {
-    # Convert relative path to absolute path
-    $fullModulePath = (Resolve-Path $ModulePath).Path
+    # Convert relative path to absolute path using projectRoot
+    $fullModulePath = Join-Path $projectRoot $ModulePath
+    
+    if (-not (Test-Path $fullModulePath)) {
+        throw "Module path not found: $fullModulePath"
+    }
     
     Write-Host "Building solution packages for $ModuleName v$Version..." -ForegroundColor Cyan
     Write-Host "Module Path: $fullModulePath" -ForegroundColor Gray

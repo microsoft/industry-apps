@@ -40,14 +40,19 @@ async def build_packages(request: BuildPackagesRequest):
     """Build solution packages with streaming output"""
     script_path = PROJECT_ROOT / "ui-tools" / "scripts" / "Build-Packages-UI.ps1"
     
+    args = [
+        str(script_path),
+        "-ModulePath", request.module_path,
+        "-ModuleName", request.module_name,
+        "-Version", request.version
+    ]
+    
+    # Add repo root if provided (for multi-repo support)
+    if request.repoPath:
+        args.extend(["-RepoRoot", request.repoPath])
+    
     return StreamingResponse(
-        stream_powershell_output(
-            str(script_path),
-            "-ModulePath", request.module_path,
-            "-ModuleName", request.module_name,
-            "-Version", request.version,
-            operation_id=request.operationId
-        ),
+        stream_powershell_output(*args, operation_id=request.operationId),
         media_type="text/event-stream"
     )
 
@@ -56,23 +61,30 @@ async def create_release(request: ReleaseRequest):
     """Create a release for a module"""
     script_path = PROJECT_ROOT / "ui-tools" / "scripts" / "Release-Module-UI.ps1"
     
+    args = [
+        str(script_path),
+        "-Category", request.category,
+        "-Module", request.module
+    ]
+    
+    # Add repo root if provided (for multi-repo support)
+    if request.repoPath:
+        args.extend(["-RepoRoot", request.repoPath])
+    
     return StreamingResponse(
-        stream_powershell_output(
-            str(script_path),
-            "-Category", request.category,
-            "-Module", request.module,
-            operation_id=request.operationId
-        ),
+        stream_powershell_output(*args, operation_id=request.operationId),
         media_type="text/event-stream"
     )
 # Release Manager Endpoints
 # ============================================================================
 
 @router.get("/get-version")
-async def get_module_version(module_path: str):
+async def get_module_version(module_path: str, repo_path: str = None):
     """Get current version from a module's Solution.xml"""
     try:
-        full_path = PROJECT_ROOT / module_path
+        # Use provided repo_path or default to PROJECT_ROOT
+        base_path = Path(repo_path) if repo_path else PROJECT_ROOT
+        full_path = base_path / module_path
         version = read_solution_version(full_path)
         return {"success": True, "version": version}
     except Exception as e:
@@ -86,10 +98,13 @@ async def validate_release(request: ReleaseValidationRequest):
     warnings = []
     
     try:
+        # Use provided repo_path or default to PROJECT_ROOT
+        repo_root = Path(request.repoPath) if request.repoPath else PROJECT_ROOT
+        
         # Check for uncommitted changes
         git_status = subprocess.run(
             ["git", "status", "--porcelain"],
-            cwd=PROJECT_ROOT,
+            cwd=repo_root,
             capture_output=True,
             text=True,
             timeout=10
@@ -99,7 +114,7 @@ async def validate_release(request: ReleaseValidationRequest):
             errors.append("Repository has uncommitted changes. Please commit or stash changes before creating a release.")
         
         # Check for CHANGELOG.md with Unreleased section
-        changelog_path = PROJECT_ROOT / request.module_path / "CHANGELOG.md"
+        changelog_path = repo_root / request.module_path / "CHANGELOG.md"
         if not changelog_path.exists():
             errors.append(f"CHANGELOG.md not found at {changelog_path}")
         else:
@@ -134,10 +149,12 @@ async def validate_release(request: ReleaseValidationRequest):
         }
 
 @router.get("/get-changelog")
-async def get_changelog(module_path: str):
+async def get_changelog(module_path: str, repo_path: str = None):
     """Get the full CHANGELOG.md content"""
     try:
-        changelog_path = PROJECT_ROOT / module_path / "CHANGELOG.md"
+        # Use provided repo_path or default to PROJECT_ROOT
+        base_path = Path(repo_path) if repo_path else PROJECT_ROOT
+        changelog_path = base_path / module_path / "CHANGELOG.md"
         
         if not changelog_path.exists():
             return {"success": False, "error": "CHANGELOG.md not found", "content": ""}
@@ -159,8 +176,11 @@ async def preview_changelog(request: dict):
         
         module_path = request.get("module_path")
         new_version = request.get("new_version")
+        repo_path = request.get("repo_path")
         
-        changelog_path = PROJECT_ROOT / module_path / "CHANGELOG.md"
+        # Use provided repo_path or default to PROJECT_ROOT
+        base_path = Path(repo_path) if repo_path else PROJECT_ROOT
+        changelog_path = base_path / module_path / "CHANGELOG.md"
         
         if not changelog_path.exists():
             return {"success": False, "error": "CHANGELOG.md not found"}
@@ -194,10 +214,12 @@ async def preview_changelog(request: dict):
         return {"success": False, "error": str(e)}
 
 @router.get("/extract-changelog")
-async def extract_changelog(module_path: str, version: str = None):
+async def extract_changelog(module_path: str, version: str = None, repo_path: str = None):
     """Extract release notes from CHANGELOG.md - either Unreleased or specific version"""
     try:
-        changelog_path = PROJECT_ROOT / module_path / "CHANGELOG.md"
+        # Use provided repo_path or default to PROJECT_ROOT
+        base_path = Path(repo_path) if repo_path else PROJECT_ROOT
+        changelog_path = base_path / module_path / "CHANGELOG.md"
         
         if not changelog_path.exists():
             return {"success": False, "error": "CHANGELOG.md not found", "content": ""}
@@ -240,17 +262,20 @@ async def extract_changelog(module_path: str, version: str = None):
         return {"success": False, "error": str(e), "content": ""}
 
 @router.get("/check-packages")
-async def check_packages(module_path: str):
+async def check_packages(module_path: str, repo_path: str = None):
     """Check for built solution packages in .releases folder and return their metadata"""
     try:
         from datetime import datetime
         import os
         
+        # Use provided repo_path or default to PROJECT_ROOT
+        base_path = Path(repo_path) if repo_path else PROJECT_ROOT
+        
         # Extract module name from path (e.g., "shared/core" -> "core")
         module_name = Path(module_path).name
         
         # Check .releases/<module> folder instead of bin/Release
-        releases_path = PROJECT_ROOT / ".releases" / module_name
+        releases_path = base_path / ".releases" / module_name
         
         if not releases_path.exists():
             return {"success": True, "packages": [], "message": "No .releases folder found yet"}
@@ -282,7 +307,7 @@ async def check_packages(module_path: str):
             "success": True,
             "packages": packages,
             "count": len(packages),
-            "folder": str(releases_path.relative_to(PROJECT_ROOT))
+            "folder": str(releases_path.relative_to(base_path))
         }
     except Exception as e:
         print(f"Error checking packages: {e}", file=sys.stderr)
@@ -293,6 +318,9 @@ async def execute_release(request: ReleaseExecutionRequest):
     """Execute the full release workflow"""
     try:
         from datetime import datetime
+        
+        # Use provided repo_path or default to PROJECT_ROOT
+        repo_root = Path(request.repoPath) if request.repoPath else PROJECT_ROOT
         
         # Build the script path
         script_path = PROJECT_ROOT / "ui-tools" / "scripts" / "Full-Release-UI.ps1"
@@ -318,6 +346,10 @@ async def execute_release(request: ReleaseExecutionRequest):
             "-EnabledSteps", ",".join(request.enabled_steps)
         ]
         
+        # Add repo root if provided (for multi-repo support)
+        if request.repoPath:
+            ps_command.extend(["-RepoRoot", request.repoPath])
+        
         # Add optional display name if provided
         if request.module_display_name:
             ps_command.extend(["-ModuleFriendlyName", request.module_display_name])
@@ -327,7 +359,7 @@ async def execute_release(request: ReleaseExecutionRequest):
         # Execute the PowerShell script
         result = subprocess.run(
             ps_command,
-            cwd=PROJECT_ROOT,
+            cwd=repo_root,
             capture_output=True,
             text=True,
             timeout=300  # 5 minute timeout
@@ -386,6 +418,7 @@ async def execute_single_step(request: StepExecutionRequest):
     
     # Build args list for stream_powershell_output
     args = [
+        str(script_path),
         "-ModulePath", request.module_path,
         "-ModuleName", request.module_name,
         "-ReleaseType", "standard",  # Doesn't matter for single steps
@@ -394,12 +427,16 @@ async def execute_single_step(request: StepExecutionRequest):
         "-EnabledSteps", request.step  # Only this step
     ]
     
+    # Add repo root if provided (for multi-repo support)
+    if request.repoPath:
+        args.extend(["-RepoRoot", request.repoPath])
+    
     # Add optional display name if provided
     if request.module_display_name:
         args.extend(["-ModuleFriendlyName", request.module_display_name])
     
     return StreamingResponse(
-        stream_powershell_output(str(script_path), *args, operation_id=request.operationId),
+        stream_powershell_output(*args, operation_id=request.operationId),
         media_type="text/event-stream"
     )
 

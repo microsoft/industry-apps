@@ -22,6 +22,7 @@ class DeployRequest(BaseModel):
     managed: bool = True
     upgrade: bool = False
     operationId: Optional[str] = None
+    repoPath: Optional[str] = None  # Path to repo root for multi-repo support
 
 
 class SyncRequest(BaseModel):
@@ -29,6 +30,7 @@ class SyncRequest(BaseModel):
     category: str
     module: str
     operationId: Optional[str] = None
+    repoPath: Optional[str] = None  # Path to repo root for multi-repo support
 
 
 class SyncFromRequest(BaseModel):
@@ -37,6 +39,7 @@ class SyncFromRequest(BaseModel):
     module: str
     sourceEnvironment: str
     operationId: Optional[str] = None
+    repoPath: Optional[str] = None  # Path to repo root for multi-repo support
 
 
 class ShipRequest(BaseModel):
@@ -47,6 +50,7 @@ class ShipRequest(BaseModel):
     managed: bool = True
     upgrade: bool = False
     operationId: Optional[str] = None
+    repoPath: Optional[str] = None  # Path to repo root for multi-repo support
 
 
 class ImportDataRequest(BaseModel):
@@ -68,6 +72,7 @@ class CreateModuleRequest(BaseModel):
     targetEnvironments: list[str] = []
     deploy: bool = False
     operationId: Optional[str] = None
+    repoPath: Optional[str] = None  # Path to repo root for multi-repo support
 
 
 # ============================================================================
@@ -78,6 +83,7 @@ class ReleaseRequest(BaseModel):
     category: str
     module: str
     operationId: Optional[str] = None
+    repoPath: Optional[str] = None  # Path to repo root for multi-repo support
 
 
 class UpdateVersionRequest(BaseModel):
@@ -86,10 +92,12 @@ class UpdateVersionRequest(BaseModel):
     module: str
     version: str
     operationId: Optional[str] = None
+    repoPath: Optional[str] = None  # Path to repo root for multi-repo support
 
 
 class ReleaseValidationRequest(BaseModel):
     module_path: str
+    repoPath: Optional[str] = None  # Path to repo root for multi-repo support
 
 
 class ReleaseExecutionRequest(BaseModel):
@@ -102,6 +110,7 @@ class ReleaseExecutionRequest(BaseModel):
     enabled_steps: list[str]
     sync_tenant: Optional[str] = None
     sync_environment: Optional[str] = None
+    repoPath: Optional[str] = None  # Path to repo root for multi-repo support
 
 
 class StepExecutionRequest(BaseModel):
@@ -114,6 +123,7 @@ class StepExecutionRequest(BaseModel):
     sync_tenant: Optional[str] = None
     sync_environment: Optional[str] = None
     operationId: str
+    repoPath: Optional[str] = None  # Path to repo root for multi-repo support
 
 
 class BuildPackagesRequest(BaseModel):
@@ -121,6 +131,7 @@ class BuildPackagesRequest(BaseModel):
     module_name: str
     version: str
     operationId: str
+    repoPath: Optional[str] = None  # Path to repo root for multi-repo support
 
 
 # ============================================================================

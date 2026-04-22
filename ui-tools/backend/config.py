@@ -5,6 +5,7 @@ This module contains all project-wide configuration values, paths, and constants
 """
 
 from pathlib import Path
+from workspace import WorkspaceManager
 
 
 # ============================================================================
@@ -13,6 +14,9 @@ from pathlib import Path
 
 # Get project root (go up from backend to repo root)
 PROJECT_ROOT = Path(__file__).parent.parent.parent
+
+# Initialize workspace manager for multi-repo support
+WORKSPACE_MANAGER = WorkspaceManager(PROJECT_ROOT)
 
 # Cache directory for pending option sets
 CACHE_DIR = Path(__file__).parent / ".cache"

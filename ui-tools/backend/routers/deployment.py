@@ -57,6 +57,10 @@ async def deploy_module(request: DeployRequest):
     if request.upgrade:
         args.append("-Upgrade")
     
+    # Add repo root if provided (for multi-repo support)
+    if request.repoPath:
+        args.extend(["-RepoRoot", request.repoPath])
+    
     # print(f"[DEBUG] Deploy args: {args}")  # Debug logging
     
     return StreamingResponse(
@@ -69,14 +73,19 @@ async def sync_module(request: SyncRequest):
     """Sync a module from the selected environment"""
     script_path = PROJECT_ROOT / "ui-tools" / "scripts" / "Sync-Module-UI.ps1"
     
+    args = [
+        str(script_path),
+        "-Deployment", request.deployment,
+        "-Category", request.category,
+        "-Module", request.module
+    ]
+    
+    # Add repo root if provided (for multi-repo support)
+    if request.repoPath:
+        args.extend(["-RepoRoot", request.repoPath])
+    
     return StreamingResponse(
-        stream_powershell_output(
-            str(script_path),
-            "-Deployment", request.deployment,
-            "-Category", request.category,
-            "-Module", request.module,
-            operation_id=request.operationId
-        ),
+        stream_powershell_output(*args, operation_id=request.operationId),
         media_type="text/event-stream"
     )
 
@@ -85,15 +94,20 @@ async def sync_module_from_environment(request: SyncFromRequest):
     """Sync a module FROM a specific environment (bidirectional sync for hotfixes)"""
     script_path = PROJECT_ROOT / "ui-tools" / "scripts" / "Sync-Module-From-Environment-UI.ps1"
     
+    args = [
+        str(script_path),
+        "-Deployment", request.deployment,
+        "-Category", request.category,
+        "-Module", request.module,
+        "-SourceEnvironment", request.sourceEnvironment
+    ]
+    
+    # Add repo root if provided (for multi-repo support)
+    if request.repoPath:
+        args.extend(["-RepoRoot", request.repoPath])
+    
     return StreamingResponse(
-        stream_powershell_output(
-            str(script_path),
-            "-Deployment", request.deployment,
-            "-Category", request.category,
-            "-Module", request.module,
-            "-SourceEnvironment", request.sourceEnvironment,
-            operation_id=request.operationId
-        ),
+        stream_powershell_output(*args, operation_id=request.operationId),
         media_type="text/event-stream"
     )
 
@@ -102,15 +116,20 @@ async def update_version(request: UpdateVersionRequest):
     """Update a module's version (online and local)"""
     script_path = PROJECT_ROOT / "ui-tools" / "scripts" / "Update-Version-UI.ps1"
     
+    args = [
+        str(script_path),
+        "-Deployment", request.deployment,
+        "-Category", request.category,
+        "-Module", request.module,
+        "-Version", request.version
+    ]
+    
+    # Add repo root if provided (for multi-repo support)
+    if request.repoPath:
+        args.extend(["-RepoRoot", request.repoPath])
+    
     return StreamingResponse(
-        stream_powershell_output(
-            str(script_path),
-            "-Deployment", request.deployment,
-            "-Category", request.category,
-            "-Module", request.module,
-            "-Version", request.version,
-            operation_id=request.operationId
-        ),
+        stream_powershell_output(*args, operation_id=request.operationId),
         media_type="text/event-stream"
     )
 
@@ -132,6 +151,10 @@ async def ship_module(request: ShipRequest):
     
     if request.upgrade:
         args.append("-Upgrade")
+    
+    # Add repo root if provided (for multi-repo support)
+    if request.repoPath:
+        args.extend(["-RepoRoot", request.repoPath])
     
     return StreamingResponse(
         stream_powershell_output(*args, operation_id=request.operationId),
@@ -184,6 +207,10 @@ async def create_module(request: CreateModuleRequest):
         "-Category", request.category,
         "-ModuleName", request.moduleName
     ]
+    
+    # Add repo root if provided (for multi-repo support)
+    if request.repoPath:
+        args.extend(["-RepoRoot", request.repoPath])
     
     if request.deploy:
         if not request.deployment or not request.sourceEnvironment:

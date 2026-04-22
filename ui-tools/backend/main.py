@@ -15,7 +15,8 @@ from config import (
     PROJECT_ROOT,
     CACHE_DIR,
     PENDING_CACHE_FILE,
-    ALLOWED_ORIGINS
+    ALLOWED_ORIGINS,
+    WORKSPACE_MANAGER
 )
 from models import (
     DeployRequest,
@@ -93,6 +94,20 @@ app.include_router(release_router)
 app.include_router(deployment_router)
 app.include_router(process_simulation_router)
 
+# Startup event - log workspace info
+@app.on_event("startup")
+async def startup_event():
+    """Log workspace configuration on startup"""
+    repo_summary = WORKSPACE_MANAGER.get_repo_summary()
+    print("=" * 60)
+    print("🚀 Industry Apps Backend Starting")
+    print("=" * 60)
+    print(f"Multi-repo mode: {repo_summary['multi_repo_mode']}")
+    print(f"Enabled repos: {repo_summary['count']}")
+    for repo in repo_summary['repos']:
+        print(f"  - {repo['name']} ({repo['type']}) at {repo['path']}")
+    print("=" * 60)
+
 
 def load_pending_optionsets():
     """Load pending option sets from cache file"""
@@ -121,55 +136,69 @@ def save_pending_optionsets(pending_list):
 
 @app.get("/api/config")
 async def get_config():
-    """Get deployment configuration and available modules"""
-    config_path = PROJECT_ROOT / ".config" / "deployments.json"
-    
-    with open(config_path, "r") as f:
-        config = json.load(f)
-    
-    # Get categories and modules
-    categories = {}
+    """Get deployment configuration and available modules from all repos"""
+    all_categories = {}
+    all_deployments = {}
+    all_module_configs = {}
+    all_default_configs = {}
     exclude_folders = {"__pycache__", ".scripts", ".config", ".git", ".vscode", "bin", "obj", "ui-tools"}
     
-    for item in PROJECT_ROOT.iterdir():
-        if item.is_dir() and item.name not in exclude_folders:
-            # Check if this directory has modules (subdirs with .cdsproj files)
-            modules = []
-            for module_dir in item.iterdir():
-                if module_dir.is_dir() and list(module_dir.glob("*.cdsproj")):
-                    modules.append(module_dir.name)
+    # Iterate through all enabled repos
+    for repo in WORKSPACE_MANAGER.get_all_repos():
+        repo_path = repo.path
+        config_path = repo_path / ".config" / "deployments.json"
+        
+        # Load repo's deployment config
+        if config_path.exists():
+            with open(config_path, "r") as f:
+                config = json.load(f)
             
-            if modules:
-                categories[item.name] = sorted(modules)
+            # Merge deployments (with repo prefix if conflicts)
+            deployments = config.get("Deployments", {})
+            for dep_name, dep_data in deployments.items():
+                key = f"{repo.name}:{dep_name}" if dep_name in all_deployments else dep_name
+                all_deployments[key] = dep_data
+            
+            # Merge module configs
+            all_module_configs.update(config.get("Modules", {}))
+            
+            # Keep default config from each repo (use primary repo's as fallback)
+            if repo.name == "industry-apps":
+                all_default_configs = config.get("DefaultModule", {})
+        
+        # Get categories and modules from this repo
+        for item in repo_path.iterdir():
+            if item.is_dir() and item.name not in exclude_folders:
+                modules = []
+                for module_dir in item.iterdir():
+                    if module_dir.is_dir() and list(module_dir.glob("*.cdsproj")):
+                        modules.append(module_dir.name)
+                
+                if modules:
+                    # Prefix category with repo name if multi-repo and not from primary
+                    category_key = item.name
+                    if WORKSPACE_MANAGER.is_multi_repo() and repo.name != "industry-apps":
+                        category_key = f"{repo.name}/{item.name}"
+                    
+                    all_categories[category_key] = sorted(modules)
     
     return {
-        "deployments": config.get("Deployments", {}),
-        "categories": categories,
-        "modules": config.get("Modules", {}),
-        "defaultModule": config.get("DefaultModule", {})
+        "deployments": all_deployments,
+        "categories": all_categories,
+        "modules": all_module_configs,
+        "defaultModule": all_default_configs,
+        "repos": WORKSPACE_MANAGER.get_repo_summary()
     }
 
 @app.get("/api/modules")
 async def get_modules():
-    """Get all modules with their metadata, source environments, and targets"""
-    config_path = PROJECT_ROOT / ".config" / "deployments.json"
-    
-    with open(config_path, "r") as f:
-        config = json.load(f)
-    
-    deployments = config.get("Deployments", {})
-    module_configs = config.get("Modules", {})
-    default_config = config.get("DefaultModule", {})
-    
-    modules = []
+    """Get all modules with their metadata from all repos"""
+    all_modules = []
     seen_paths = set()  # Track paths to avoid duplicates
     exclude_folders = {"__pycache__", ".scripts", ".config", ".git", ".vscode", "bin", "obj", "ui-tools", "releases", ".design", "design", "test", "backups"}
     
-    # Only scan these specific category folders
-    valid_categories = {"administrative", "compliance-security", "external-engagement", "financial", "government", "operations", "shared", "workforce"}
-    
     # Recursively scan for all modules (handles nested folder structures)
-    def scan_for_modules(base_path, relative_path=""):
+    def scan_for_modules(base_path, relative_path, repo_name, repo_path, deployments, module_configs, default_config):
         for item in base_path.iterdir():
             if item.is_dir() and item.name not in exclude_folders:
                 # Check if this directory contains a .cdsproj file (it's a module)
@@ -177,13 +206,16 @@ async def get_modules():
                     module_name = item.name
                     category = relative_path if relative_path else item.parent.name
                     
-                    # Calculate relative path from project root
-                    relative_module_path = str(item.relative_to(PROJECT_ROOT))
+                    # Calculate relative path from repo root
+                    relative_module_path = str(item.relative_to(repo_path))
+                    
+                    # Create unique path including repo name
+                    unique_path = f"{repo_name}:{relative_module_path}"
                     
                     # Skip if we've already seen this path (avoid duplicates)
-                    if relative_module_path in seen_paths:
+                    if unique_path in seen_paths:
                         continue
-                    seen_paths.add(relative_module_path)
+                    seen_paths.add(unique_path)
                     
                     # Get module-specific config or use default
                     mod_config = module_configs.get(module_name, default_config)
@@ -205,11 +237,13 @@ async def get_modules():
                         version = read_solution_version(item)
                         display_name = read_solution_display_name(item)
                         
-                        modules.append({
+                        all_modules.append({
                             "name": module_name,
                             "displayName": display_name,
                             "category": category,
                             "path": relative_module_path,
+                            "repo": repo_name,
+                            "repoPath": str(repo_path),
                             "tenant": tenant,
                             "deployment": deployment_name,
                             "sourceEnvironment": source_env,
@@ -221,44 +255,75 @@ async def get_modules():
                 else:
                     # Recursively scan subdirectories only if no .cdsproj found
                     new_relative = f"{relative_path}/{item.name}" if relative_path else item.name
-                    scan_for_modules(item, new_relative)
+                    scan_for_modules(item, new_relative, repo_name, repo_path, deployments, module_configs, default_config)
     
-    # Scan only the valid category folders
-    for category_dir in PROJECT_ROOT.iterdir():
-        if category_dir.is_dir() and category_dir.name in valid_categories:
-            scan_for_modules(category_dir, category_dir.name)
+    # Iterate through all enabled repos
+    for repo in WORKSPACE_MANAGER.get_all_repos():
+        repo_path = repo.path
+        config_path = repo_path / ".config" / "deployments.json"
+        
+        # Load repo's deployment config
+        if not config_path.exists():
+            continue
+        
+        with open(config_path, "r") as f:
+            config = json.load(f)
+        
+        deployments = config.get("Deployments", {})
+        module_configs = config.get("Modules", {})
+        default_config = config.get("DefaultModule", {})
+        
+        # Scan all directories in repo (no hardcoded category restrictions)
+        for item in repo_path.iterdir():
+            if item.is_dir() and item.name not in exclude_folders:
+                scan_for_modules(item, item.name, repo.name, repo_path, deployments, module_configs, default_config)
     
-    return {"modules": modules}
+    return {"modules": all_modules}
 
 @app.get("/api/environments")
 async def get_environments():
-    """Get environment topology organized by tenant"""
-    config_path = PROJECT_ROOT / ".config" / "deployments.json"
-    
-    with open(config_path, "r") as f:
-        config = json.load(f)
-    
-    deployments = config.get("Deployments", {})
-    
-    # Organize by tenant
+    """Get environment topology organized by tenant from all repos"""
     tenants = {}
-    for deployment_name, deployment_data in deployments.items():
-        tenant = deployment_data.get("Tenant", "Unknown")
-        environments = deployment_data.get("Environments", {})
+    
+    # Iterate through all enabled repos
+    for repo in WORKSPACE_MANAGER.get_all_repos():
+        config_path = repo.path / ".config" / "deployments.json"
         
-        if tenant not in tenants:
-            tenants[tenant] = {
-                "name": tenant,
-                "deployments": []
-            }
+        if not config_path.exists():
+            continue
         
-        tenants[tenant]["deployments"].append({
-            "name": deployment_name,
-            "environments": [
-                {"key": key, "name": value}
-                for key, value in environments.items()
-            ]
-        })
+        with open(config_path, "r") as f:
+            config = json.load(f)
+        
+        deployments = config.get("Deployments", {})
+        
+        # Organize by tenant
+        for deployment_name, deployment_data in deployments.items():
+            tenant = deployment_data.get("Tenant", "Unknown")
+            environments = deployment_data.get("Environments", {})
+            
+            if tenant not in tenants:
+                tenants[tenant] = {
+                    "name": tenant,
+                    "deployments": []
+                }
+            
+            # Check if deployment already exists (same name from different repo)
+            existing_dep = next((d for d in tenants[tenant]["deployments"] if d["name"] == deployment_name), None)
+            if existing_dep:
+                # Merge environments if deployment name conflicts
+                for env_dict in [{"key": key, "name": value} for key, value in environments.items()]:
+                    if env_dict not in existing_dep["environments"]:
+                        existing_dep["environments"].append(env_dict)
+            else:
+                tenants[tenant]["deployments"].append({
+                    "name": deployment_name,
+                    "repo": repo.name,
+                    "environments": [
+                        {"key": key, "name": value}
+                        for key, value in environments.items()
+                    ]
+                })
     
     return {"tenants": list(tenants.values())}
 

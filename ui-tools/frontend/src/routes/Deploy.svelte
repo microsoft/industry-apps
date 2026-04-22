@@ -8,6 +8,8 @@
   let selectedCategory = 'all';
   let searchQuery = '';
   let selectedTenantIndex = 0;
+  let selectedRepo = 'all';  // Repo filter
+  let repos = [];  // Available repos
   
   let draggedModule = null;
   let draggedEnvironment = null; // For reverse drag (environment → module)
@@ -59,16 +61,18 @@
     deployments = Object.keys($config.deployments || {});
   }
   
-  // Update categories when modules change
+  // Update categories and repos when modules change
   $: if ($modules) {
     categories = new Set($modules.map(m => m.category));
+    repos = [...new Set($modules.map(m => m.repo).filter(Boolean))];
   }
   
-  // Filtered modules based on search and category
+  // Filtered modules based on search, category, and repo
   $: filteredModules = $modules.filter(m => {
     const matchesCategory = selectedCategory === 'all' || m.category === selectedCategory;
     const matchesSearch = m.name.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
+    const matchesRepo = selectedRepo === 'all' || m.repo === selectedRepo;
+    return matchesCategory && matchesSearch && matchesRepo;
   });
   
   // Group modules by category
@@ -366,7 +370,8 @@
             category: module.category,
             module: module.name,
             version: newVersion,
-            operationId: operationId
+            operationId: operationId,
+            repoPath: module.repoPath
           })
         });
         
@@ -380,11 +385,17 @@
             deployment: module.deployment,
             category: module.category,
             module: module.name,
-            operationId: operationId
+            operationId: operationId,
+            repoPath: module.repoPath
           })
         });
         
         await streamResponse(response);
+      }
+      
+      // Reload modules after successful sync
+      if ($operationStatus === 'success') {
+        await loadModules();
       }
     } catch (error) {
       outputLines.update(lines => [...lines, `\n✗ Connection error: ${error.message}`]);
@@ -408,7 +419,8 @@
           category: module.category,
           module: module.name,
           sourceEnvironment: environmentName,
-          operationId: operationId
+          operationId: operationId,
+          repoPath: module.repoPath
         })
       });
       
@@ -440,7 +452,8 @@
           targetEnvironment: targetEnvKey,
           managed: isManaged,
           upgrade: upgrade && isManaged, // Only upgrade for managed deployments
-          operationId: operationId
+          operationId: operationId,
+          repoPath: module.repoPath
         })
       });
       
@@ -475,7 +488,8 @@
           module: module.name,
           managed: isManaged,
           upgrade: upgrade && isManaged, // Only upgrade for managed deployments
-          operationId: operationId
+          operationId: operationId,
+          repoPath: module.repoPath
         })
       });
       
@@ -685,7 +699,8 @@
           deployment: module.deployment,
           category: module.category,
           module: module.name,
-          version: version
+          version: version,
+          repoPath: module.repoPath
         })
       });
       
@@ -743,6 +758,24 @@
         </button>
       {/each}
     </div>
+    
+    {#if repos.length > 1}
+      <div class="repo-filter">
+        <span class="filter-label">📚 Repo:</span>
+        <button 
+          class="repo-chip {selectedRepo === 'all' ? 'active' : ''}"
+          on:click={() => selectedRepo = 'all'}>
+          All
+        </button>
+        {#each repos as repo}
+          <button 
+            class="repo-chip {selectedRepo === repo ? 'active' : ''}"
+            on:click={() => selectedRepo = repo}>
+            {repo}
+          </button>
+        {/each}
+      </div>
+    {/if}
   </div>
   
   <div class="workspace">
@@ -779,7 +812,12 @@
                   on:dragend={handleDragEnd}>
                 
                 <div class="module-header">
-                  <div class="module-name">{module.name}</div>
+                  <div class="module-name">
+                    {module.name}
+                    {#if module.repo && repos.length > 1}
+                      <span class="repo-badge" title="Repository: {module.repo}">{module.repo}</span>
+                    {/if}
+                  </div>
                   <div class="header-buttons">
                     <button 
                       class="icon-btn push-btn" 
@@ -1397,6 +1435,46 @@
     border-color: #0078d4;
   }
   
+  .repo-filter {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #3c3c3c;
+  }
+  
+  .filter-label {
+    font-size: 13px;
+    color: #999999;
+    font-weight: 600;
+  }
+  
+  .repo-chip {
+    padding: 6px 14px;
+    border: 1px solid #3c3c3c;
+    border-radius: 16px;
+    background: #2d2d30;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: inherit;
+    transition: all 0.2s;
+    color: #cccccc;
+  }
+  
+  .repo-chip:hover {
+    border-color: #17a2b8;
+    background: #1a5f6f;
+    color: #ffffff;
+  }
+  
+  .repo-chip.active {
+    background: #17a2b8;
+    color: white;
+    border-color: #17a2b8;
+  }
+  
   .workspace {
     display: grid;
     grid-template-columns: minmax(300px, 1fr) minmax(500px, 2fr) minmax(300px, 1fr);
@@ -1822,6 +1900,21 @@
     box-shadow: 0 4px 12px rgba(0, 120, 212, 0.3);
     transform: translateY(-2px);
     background: #333333;
+  }
+  
+  .repo-badge {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+    color: white;
+    border-radius: 10px;
+    text-transform: lowercase;
+    letter-spacing: 0.3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    vertical-align: middle;
   }
   
   .module-card:active {

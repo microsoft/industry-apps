@@ -23,13 +23,20 @@ param(
     [string]$ReleaseNotes,
     
     [Parameter(Mandatory=$true)]
-    [string]$EnabledSteps  # Comma-separated list
+    [string]$EnabledSteps,  # Comma-separated list
+    
+    [Parameter(Mandatory=$false)]
+    [string]$RepoRoot  # Path to repo root for multi-repo support
 )
 
 $ErrorActionPreference = "Stop"
 
-# Get project root
-$projectRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
+# Get project root - use RepoRoot if provided, otherwise default
+if ($RepoRoot) {
+    $projectRoot = $RepoRoot
+} else {
+    $projectRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
+}
 
 # Source utility functions
 . "$projectRoot\.scripts\Util.ps1"
@@ -312,18 +319,30 @@ try {
         try {
             Set-Location $projectRoot
             
+            # Normalize path for git (use forward slashes)
+            $gitModulePath = $ModulePath -replace '\\', '/'
+            
             # Stage all module files except .zip packages
             # Suppress line ending warnings (LF/CRLF) as they're informational only
             $prevErrorAction = $ErrorActionPreference
             $ErrorActionPreference = 'SilentlyContinue'
-            $gitAddOutput = git add "$ModulePath/" -- ':!*.zip' 2>&1 | Out-String
+            $gitAddOutput = git add "$gitModulePath/" -- ':!*.zip' 2>&1 | Out-String
             $ErrorActionPreference = $prevErrorAction
             
             # Only show output if it's not just line ending warnings
             if ($gitAddOutput -and $gitAddOutput -notmatch "LF will be replaced by CRLF") {
                 Write-Host $gitAddOutput -ForegroundColor Gray
             }
-            Write-Host "git add $ModulePath/ (excluding .zip files)" -ForegroundColor Gray
+            Write-Host "git add $gitModulePath/ (excluding .zip files)" -ForegroundColor Gray
+            
+            # Check what files were staged
+            $gitStatus = git status --short 2>&1 | Out-String
+            if ($gitStatus.Trim()) {
+                Write-Host "Staged changes:" -ForegroundColor Gray
+                Write-Host $gitStatus -ForegroundColor Gray
+            } else {
+                Write-Host "No files staged for commit" -ForegroundColor Yellow
+            }
             
             # Get friendly name for commit message (with spaces, not hyphens)
             $commitModuleName = $ModuleFriendlyName

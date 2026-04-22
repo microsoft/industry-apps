@@ -9,6 +9,7 @@
   }
   
   let selectedCategory = 'all';
+  let selectedRepo = 'all';  // Repo filter
   let selectedModule = null;
   let selectedStep = null;
   let releaseType = 'standard'; // 'standard', 'hotfix', or 'keep-current'
@@ -17,6 +18,7 @@
   let releaseNotes = '';
   let searchQuery = '';
   let categories = new Set();
+  let repos = [];  // Available repos
   
   // Environment override for version sync
   let syncTenant = '';
@@ -147,16 +149,18 @@
     await loadModules();
   });
   
-  // Update categories when modules change
+  // Update categories and repos when modules change
   $: if ($modules) {
     categories = new Set($modules.map(m => m.category));
+    repos = [...new Set($modules.map(m => m.repo).filter(Boolean))];
   }
   
-  // Filter modules by selected category and search query
+  // Filter modules by selected category, repo, and search query
   $: filteredModules = $modules.filter(m => {
     const matchesCategory = selectedCategory === 'all' || m.category === selectedCategory;
+    const matchesRepo = selectedRepo === 'all' || m.repo === selectedRepo;
     const matchesSearch = m.name.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
+    return matchesCategory && matchesRepo && matchesSearch;
   });
   
   // Auto-load packages when buildPackages step is selected
@@ -188,7 +192,7 @@
     
     // Load current version
     try {
-      const response = await fetch(`http://localhost:8000/api/release/get-version?module_path=${encodeURIComponent(module.path)}`);
+      const response = await fetch(`http://localhost:8000/api/release/get-version?module_path=${encodeURIComponent(module.path)}&repo_path=${encodeURIComponent(module.repoPath || '')}`);
       const data = await response.json();
       currentVersion = data.version;
       calculateNewVersion();
@@ -249,7 +253,10 @@
       const response = await fetch(`http://localhost:8000/api/release/validate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ module_path: selectedModule.path })
+        body: JSON.stringify({ 
+          module_path: selectedModule.path,
+          repoPath: selectedModule.repoPath 
+        })
       });
       
       const data = await response.json();
@@ -270,7 +277,7 @@
   
   async function loadChangelog() {
     try {
-      const response = await fetch(`http://localhost:8000/api/release/extract-changelog?module_path=${encodeURIComponent(selectedModule.path)}&version=${encodeURIComponent(newVersion)}`);
+      const response = await fetch(`http://localhost:8000/api/release/extract-changelog?module_path=${encodeURIComponent(selectedModule.path)}&version=${encodeURIComponent(newVersion)}&repo_path=${encodeURIComponent(selectedModule.repoPath || '')}`);
       const data = await response.json();
       const content = data.content || '';
       const header = `Release Notes - ${selectedModule.displayName} ${newVersion}\n\n`;
@@ -301,7 +308,8 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           module_path: selectedModule.path,
-          new_version: newVersion
+          new_version: newVersion,
+          repo_path: selectedModule.repoPath
         })
       });
       const data = await response.json();
@@ -325,7 +333,7 @@
     
     isLoadingPackages = true;
     try {
-      const response = await fetch(`http://localhost:8000/api/release/check-packages?module_path=${encodeURIComponent(selectedModule.path)}`);
+      const response = await fetch(`http://localhost:8000/api/release/check-packages?module_path=${encodeURIComponent(selectedModule.path)}&repo_path=${encodeURIComponent(selectedModule.repoPath || '')}`);
       const data = await response.json();
       if (data.success) {
         builtPackages = data.packages || [];
@@ -360,7 +368,8 @@
           release_notes: releaseNotes,
           enabled_steps: enabledSteps,
           sync_tenant: useCustomEnvironment ? syncTenant : selectedModule.tenant,
-          sync_environment: useCustomEnvironment ? syncEnvironment : selectedModule.sourceEnvironment
+          sync_environment: useCustomEnvironment ? syncEnvironment : selectedModule.sourceEnvironment,
+          repoPath: selectedModule.repoPath
         })
       });
       
@@ -489,7 +498,8 @@
             category: selectedModule.category,
             module: selectedModule.name,
             version: newVersion,
-            operationId: operationId
+            operationId: operationId,
+            repoPath: selectedModule.repoPath
           })
         });
         
@@ -499,7 +509,7 @@
         if (exitCode === 0) {
           stepCompletion[stepKey] = true;
           // Refresh current version
-          const versionData = await fetch(`http://localhost:8000/api/release/get-version?module_path=${encodeURIComponent(selectedModule.path)}`);
+          const versionData = await fetch(`http://localhost:8000/api/release/get-version?module_path=${encodeURIComponent(selectedModule.path)}&repo_path=${encodeURIComponent(selectedModule.repoPath || '')}`);
           const versionResult = await versionData.json();
           if (versionResult.success) {
             currentVersion = versionResult.version;
@@ -520,7 +530,8 @@
             module_path: selectedModule.path,
             module_name: selectedModule.name,
             version: newVersion,
-            operationId: operationId
+            operationId: operationId,
+            repoPath: selectedModule.repoPath
           })
         });
         
@@ -547,7 +558,8 @@
           step: stepKey,
           version: newVersion,
           release_notes: releaseNotes,
-          operationId: operationId
+          operationId: operationId,
+          repoPath: selectedModule.repoPath
         };
         
         const response = await fetch('http://localhost:8000/api/release/execute-step', {
@@ -614,6 +626,24 @@
         </button>
       {/each}
     </div>
+    
+    {#if repos.length > 1}
+      <div class="repo-filter">
+        <span class="filter-label">📚 Repo:</span>
+        <button 
+          class="repo-chip {selectedRepo === 'all' ? 'active' : ''}"
+          on:click={() => selectedRepo = 'all'}>
+          All
+        </button>
+        {#each repos as repo}
+          <button 
+            class="repo-chip {selectedRepo === repo ? 'active' : ''}"
+            on:click={() => selectedRepo = repo}>
+            {repo}
+          </button>
+        {/each}
+      </div>
+    {/if}
   </div>
   
   <div class="content-grid">
@@ -633,7 +663,12 @@
               on:click={() => selectModule(module)} 
               on:keypress={(e) => e.key === 'Enter' && selectModule(module)}
             >
-              <div class="module-name">{module.name}</div>
+              <div class="module-name">
+                {module.name}
+                {#if module.repo && repos.length > 1}
+                  <span class="repo-badge" title="Repository: {module.repo}">{module.repo}</span>
+                {/if}
+              </div>
               <div class="module-version">{module.version || '1.0.0.0'}</div>
             </div>
           {/each}
@@ -1199,6 +1234,59 @@
     background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
     color: white;
     border-color: #60a5fa;
+  }
+  
+  .filter-label {
+    font-size: 13px;
+    color: #999999;
+    font-weight: 600;
+  }
+  
+  .repo-filter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 0;
+    border-top: 1px solid #3c3c3c;
+  }
+  
+  .repo-chip {
+    padding: 6px 14px;
+    border: 1px solid #3c3c3c;
+    border-radius: 16px;
+    background: #2d2d30;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: inherit;
+    transition: all 0.2s;
+    color: #cccccc;
+  }
+  
+  .repo-chip:hover {
+    border-color: #17a2b8;
+    background: #1a5f6f;
+    color: #ffffff;
+  }
+  
+  .repo-chip.active {
+    background: #17a2b8;
+    color: white;
+    border-color: #17a2b8;
+  }
+  
+  .repo-badge {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+    color: white;
+    border-radius: 10px;
+    text-transform: lowercase;
+    letter-spacing: 0.3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    vertical-align: middle;
   }
   
   .module-cards {

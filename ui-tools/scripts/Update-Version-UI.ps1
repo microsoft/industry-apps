@@ -13,13 +13,20 @@ param(
     [string]$Module,
     
     [Parameter(Mandatory=$true)]
-    [string]$Version
+    [string]$Version,
+    
+    [Parameter(Mandatory=$false)]
+    [string]$RepoRoot
 )
 
 $ErrorActionPreference = "Stop"
 
-# Get project root (go up from deployment-ui/scripts to repo root)
-$projectRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
+# Get project root (use provided RepoRoot or calculate from script location)
+if ($RepoRoot) {
+    $projectRoot = $RepoRoot
+} else {
+    $projectRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
+}
 
 # Source utility functions
 . "$projectRoot\.scripts\Util.ps1"

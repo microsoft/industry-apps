@@ -7,13 +7,20 @@ param(
     [string]$Category,
     
     [Parameter(Mandatory=$true)]
-    [string]$Module
+    [string]$Module,
+    
+    [Parameter(Mandatory=$false)]
+    [string]$RepoRoot  # Path to repo root for multi-repo support
 )
 
 $ErrorActionPreference = "Stop"
 
-# Get project root (go up from deployment-ui/scripts to repo root)
-$projectRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
+# Get project root - use RepoRoot if provided, otherwise default
+if ($RepoRoot) {
+    $projectRoot = $RepoRoot
+} else {
+    $projectRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
+}
 
 # Source utility functions
 . "$projectRoot\.scripts\Util.ps1"
