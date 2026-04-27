@@ -417,6 +417,54 @@ class ExecuteEventStreamResponse(BaseModel):
 
 
 # ============================================================================
+# Process Simulation - Single Event Execution (Step-by-Step)
+# ============================================================================
+
+class ExecuteSingleEventRequest(BaseModel):
+    """Request to execute a single event from an event stream."""
+    module_path: str
+    event_stream_yaml: str
+    event_id: int
+    deployment: str
+    environment: str
+
+
+class ExecuteSingleEventResponse(BaseModel):
+    """Response for single event execution."""
+    success: bool
+    event_id: int
+    record_id: Optional[str] = None
+    errors: List[str] = []
+    duration_seconds: float
+    state_summary: Optional[Dict[str, Any]] = None
+
+
+class GetExecutionStateRequest(BaseModel):
+    """Request to get execution state for a simulation."""
+    module_path: str
+    simulation_name: str
+
+
+class ExecutionStateResponse(BaseModel):
+    """Response containing execution state."""
+    simulation_key: str
+    module_path: str
+    simulation_name: str
+    deployment: str
+    environment: str
+    executed_event_ids: List[int]
+    execution_results: List[Dict[str, Any]]
+    created_at: str
+    last_updated: str
+
+
+class ResetExecutionStateRequest(BaseModel):
+    """Request to reset execution state for a simulation."""
+    module_path: str
+    simulation_name: str
+
+
+# ============================================================================
 # Process Simulation - YAML Schema Models (for validation)
 # ============================================================================
 

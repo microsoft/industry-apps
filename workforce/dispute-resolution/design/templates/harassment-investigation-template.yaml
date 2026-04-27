@@ -1,0 +1,653 @@
+event_stream_template: harassment-investigation-template
+is_template: true
+display_name: Workplace Harassment Investigation Template
+module: workforce/dispute-resolution
+based_on_scenario: workplace-harassment-investigation
+template_version: "1.0"
+generated: 2026-04-24T10:00:00Z
+
+# Hydration configuration
+hydration:
+  # Record pools to query from Dataverse
+  record_pools:
+    contacts: query existing contacts (limit 100)
+    org_units: query existing organization units (limit 50)
+    compliance_frameworks: query existing compliance frameworks (limit 20)
+  
+  # Map generic personas to record selection criteria
+  persona_mapping:
+    PERSONA_COMPLAINANT: contacts[jobtitle contains 'Engineer' OR jobtitle contains 'Analyst' OR jobtitle contains 'Developer']
+    PERSONA_RESPONDENT: contacts[jobtitle contains 'Manager' OR jobtitle contains 'Lead' OR jobtitle contains 'Supervisor']
+    PERSONA_INTAKE_COORDINATOR: contacts[department='Human Resources' OR jobtitle contains 'Coordinator']
+    PERSONA_INVESTIGATOR: contacts[jobtitle contains 'Investigator' OR jobtitle contains 'Specialist']
+    PERSONA_WITNESS_1: contacts[jobtitle contains 'Engineer' OR jobtitle contains 'Analyst']
+    PERSONA_WITNESS_2: contacts[jobtitle contains 'Engineer' OR jobtitle contains 'Analyst']
+    ORG_UNIT: org_units[type='Department']
+    COMPLIANCE_FRAMEWORK: compliance_frameworks[type='Employment']
+  
+  # Date generation rules
+  date_generation:
+    base_date: random(2025-01-01, 2026-04-24)  # Random filing date
+    business_days: true  # Skip weekends/holidays
+    offsets:
+      DATE_FILING: base_date
+      DATE_INTAKE_ASSESSMENT: 0-2 days after DATE_FILING
+      DATE_DISPUTE_CREATION: 3-5 days after DATE_FILING
+      DATE_INVESTIGATION_START: 3-5 days after DATE_FILING
+      DATE_EVIDENCE_COLLECTION: 5-8 days after DATE_FILING
+      DATE_INTERVIEW_COMPLAINANT: 8-12 days after DATE_FILING
+      DATE_INTERVIEW_WITNESS_1: 12-16 days after DATE_FILING
+      DATE_INTERVIEW_WITNESS_2: 14-18 days after DATE_FILING
+      DATE_INTERVIEW_RESPONDENT: 18-22 days after DATE_FILING
+      DATE_INVESTIGATION_COMPLETE: 25-30 days after DATE_FILING
+      DATE_DETERMINATION_DRAFT: 28-33 days after DATE_FILING
+      DATE_DETERMINATION_ISSUED: 32-37 days after DATE_FILING
+  
+  # Parameter options for randomization
+  parameters:
+    INCIDENT_TYPE:
+      options: [Harassment, Discrimination, Hostile Work Environment]
+      weights: [0.5, 0.3, 0.2]
+    
+    INCIDENT_DESCRIPTION:
+      options:
+        - made repeated inappropriate comments about appearance and questioned technical abilities
+        - created hostile work environment through exclusion and demeaning behavior  
+        - engaged in discriminatory conduct regarding protected characteristics
+      weights: [0.5, 0.3, 0.2]
+    
+    SEVERITY_LEVEL:
+      options: [Serious, High Priority, Critical]
+      weights: [0.4, 0.5, 0.1]
+    
+    PRIORITY_VALUE:
+      options: [147130001, 147130002, 147130003]  # High, High, Critical
+      weights: [0.4, 0.5, 0.1]
+    
+    SEVERITY_VALUE:
+      options: [147130001, 147130002, 147130003]  # High, High, Critical  
+      weights: [0.4, 0.5, 0.1]
+    
+    EVIDENCE_QUALITY:
+      options: [moderate, substantial, extensive]
+      weights: [0.3, 0.5, 0.2]
+    
+    NUM_EVIDENCE_ITEMS:
+      min: 2
+      max: 5
+    
+    OUTCOME:
+      options: [Substantiated, Partially Substantiated, Unsubstantiated]
+      weights: [0.30, 0.40, 0.30]
+    
+    OUTCOME_VALUE:
+      options: [147130000, 147130001, 147130002]  # Substantiated, Partial, Unsubstantiated
+      weights: [0.30, 0.40, 0.30]
+
+# Execution metadata (will be filled during hydration)
+execution:
+  dry_run_only: false
+  clear_before_run: false
+  stop_on_error: true
+
+# Sequential events with placeholders
+events:
+  # ============================================================================
+  # STAGE: INTAKE
+  # ============================================================================
+  
+  # Event 1: Create intake record
+  - event_id: 1
+    timestamp: "{{DATE_FILING}}"
+    operation: create
+    entity: appbase_disputeintake
+    performed_by: "{{PERSONA_INTAKE_COORDINATOR}}"
+    
+    reasoning: >
+      {{PERSONA_INTAKE_COORDINATOR}}, an intake coordinator with {{EXPERIENCE_INTAKE}} years
+      of experience, receives {{PERSONA_COMPLAINANT}} who reports {{INCIDENT_TYPE}}.
+      They recognize this as a {{SEVERITY_LEVEL}} matter and create an intake record.
+      {{PERSONA_COMPLAINANT}} provides {{EVIDENCE_QUALITY}} documentation.
+    
+    fields:
+      appbase_name: "{{INCIDENT_TYPE}} Complaint - {{COMPLAINANT_LAST}}"
+      appbase_intakenumber: "{{CASE_NUMBER_INTAKE}}"
+      appbase_submissiondatetime: "{{DATE_FILING}}"
+      appbase_submittedby@odata.bind: "/contacts({{CONTACT_COMPLAINANT.id}})"
+      appbase_description: >
+        {{PERSONA_COMPLAINANT}} reports {{INCIDENT_DESCRIPTION}} by supervisor
+        {{PERSONA_RESPONDENT}}. Complaint involves incidents over {{TIMEFRAME}}.
+        Complainant provides {{EVIDENCE_QUALITY}} documentation.
+      appbase_isanonymous: 147130001  # No
+      appbase_priority: "{{PRIORITY_VALUE}}"
+      appbase_stage: 147130000  # Received
+      appbase_methodofcontact: 147130001  # In Person
+      appbase_organizationunit@odata.bind: "/appbase_organizationunits({{ORG_UNIT.id}})"
+    
+    store_as: intake_record
+  
+  # Event 2: Assess intake
+  - event_id: 2
+    timestamp: "{{DATE_INTAKE_ASSESSMENT}}"
+    operation: update
+    entity: appbase_disputeintake
+    record_reference: "{{intake_record.id}}"
+    performed_by: "{{PERSONA_INTAKE_COORDINATOR}}"
+    
+    reasoning: >
+      After initial intake, {{PERSONA_INTAKE_COORDINATOR}} reviews the complaint details
+      and {{EVIDENCE_QUALITY}} documentation. Given the nature of the allegations and
+      {{SEVERITY_LEVEL}} assessment, they determine this requires formal investigation
+      and escalate to a senior investigator.
+    
+    fields:
+      appbase_stage: 147130003  # Assessment
+      appbase_disposition: 147130002  # Forward to Investigation
+      appbase_description: >
+        {{PERSONA_COMPLAINANT}} reports {{INCIDENT_DESCRIPTION}} by supervisor
+        {{PERSONA_RESPONDENT}}. Complaint involves incidents over {{TIMEFRAME}}.
+        Complainant provides {{EVIDENCE_QUALITY}} documentation.
+        
+        ASSESSMENT: This intake raises {{SEVERITY_LEVEL}} concerns. The allegations
+        involve {{INCIDENT_TYPE}} in the workplace. Escalating to senior investigator
+        for formal investigation.
+  
+  # STAGE_MARKER: intake_complete
+  
+  # ============================================================================
+  # STAGE: FORMAL DISPUTE CREATION
+  # ============================================================================
+  
+  # Event 3: Create complainant contact (if needed)
+  - event_id: 3
+    timestamp: "{{DATE_DISPUTE_CREATION}}"
+    operation: create
+    entity: contact
+    performed_by: "{{PERSONA_INVESTIGATOR}}"
+    
+    reasoning: >
+      {{PERSONA_INVESTIGATOR}}, a senior investigator with {{EXPERIENCE_INVESTIGATOR}}
+      years of experience, begins setting up the formal case. They ensure
+      {{PERSONA_COMPLAINANT}} has proper contact record for linking to dispute.
+    
+    fields:
+      firstname: "{{COMPLAINANT_FIRST}}"
+      lastname: "{{COMPLAINANT_LAST}}"
+      jobtitle: "{{COMPLAINANT_JOBTITLE}}"
+      emailaddress1: "{{COMPLAINANT_EMAIL}}"
+      telephone1: "{{COMPLAINANT_PHONE}}"
+      department: Engineering
+    
+    store_as: complainant_contact
+  
+  # Event 4: Create respondent contact (if needed)
+  - event_id: 4
+    timestamp: "{{DATE_DISPUTE_CREATION}}"
+    operation: create
+    entity: contact
+    performed_by: "{{PERSONA_INVESTIGATOR}}"
+    
+    reasoning: >
+      {{PERSONA_INVESTIGATOR}} creates contact record for {{PERSONA_RESPONDENT}},
+      the supervisor who is the subject of the complaint.
+    
+    fields:
+      firstname: "{{RESPONDENT_FIRST}}"
+      lastname: "{{RESPONDENT_LAST}}"
+      jobtitle: "{{RESPONDENT_JOBTITLE}}"
+      emailaddress1: "{{RESPONDENT_EMAIL}}"
+      telephone1: "{{RESPONDENT_PHONE}}"
+      department: Engineering
+    
+    store_as: respondent_contact
+  
+  # Event 5: Create formal dispute case
+  - event_id: 5
+    timestamp: "{{DATE_DISPUTE_CREATION}}"
+    operation: create
+    entity: appbase_dispute
+    performed_by: "{{PERSONA_INVESTIGATOR}}"
+    
+    reasoning: >
+      {{PERSONA_INVESTIGATOR}} creates formal dispute case {{CASE_NUMBER}}.
+      They classify this as {{INCIDENT_TYPE}} with {{SEVERITY_LEVEL}} priority
+      based on the intake assessment and nature of allegations. The case requires
+      thorough investigation including witness interviews and evidence review.
+    
+    fields:
+      appbase_name: "{{PERSONA_COMPLAINANT}} v. {{PERSONA_RESPONDENT}} - {{INCIDENT_TYPE}}"
+      appbase_casenumber: "{{CASE_NUMBER}}"
+      appbase_disputetype: "{{DISPUTE_TYPE_VALUE}}"
+      appbase_stage: 147130001  # Investigation
+      appbase_fileddate: "{{DATE_FILING}}"
+      appbase_description: >
+        {{INCIDENT_TYPE}} complaint filed by {{PERSONA_COMPLAINANT}} against
+        supervisor {{PERSONA_RESPONDENT}}. Allegations: {{INCIDENT_DESCRIPTION}}
+        occurring over {{TIMEFRAME}}. Complainant presents {{EVIDENCE_QUALITY}}
+        documentation. Case classified as {{SEVERITY_LEVEL}}.
+      appbase_priority: "{{PRIORITY_VALUE}}"
+      appbase_severitylevel: "{{SEVERITY_VALUE}}"
+      appbase_isconfidential: 147130000  # Yes
+      appbase_isanonymous: 147130001  # No
+      appbase_decisionstatus: 147130000  # Pending
+      appbase_organizationunit@odata.bind: "/appbase_organizationunits({{ORG_UNIT.id}})"
+      appbase_complianceframework@odata.bind: "/appbase_complianceframeworks({{COMPLIANCE_FRAMEWORK.id}})"
+    
+    store_as: dispute_record
+  
+  # Event 6: Link intake to dispute
+  - event_id: 6
+    timestamp: "{{DATE_DISPUTE_CREATION}}"
+    operation: update
+    entity: appbase_disputeintake
+    record_reference: "{{intake_record.id}}"
+    performed_by: "{{PERSONA_INVESTIGATOR}}"
+    
+    reasoning: >
+      {{PERSONA_INVESTIGATOR}} links the intake record to the formal dispute
+      to maintain audit trail and closes the intake now that it has been
+      converted to formal case.
+    
+    fields:
+      appbase_convertedtodispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_conversiondate: "{{DATE_DISPUTE_CREATION}}"
+      appbase_stage: 147130005  # Closed
+  
+  # Event 7: Add complainant party
+  - event_id: 7
+    timestamp: "{{DATE_DISPUTE_CREATION}}"
+    operation: create
+    entity: appbase_disputeparty
+    performed_by: "{{PERSONA_INVESTIGATOR}}"
+    
+    reasoning: >
+      {{PERSONA_INVESTIGATOR}} creates party record linking {{PERSONA_COMPLAINANT}}
+      as the complainant. They mark them as primary party since they initiated
+      the complaint.
+    
+    fields:
+      appbase_name: "{{PERSONA_COMPLAINANT}} - Complainant"
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_person@odata.bind: "/contacts({{complainant_contact.id}})"
+      appbase_partyrole: 147130000  # Complainant
+      appbase_isprimary: 147130000  # Yes
+      appbase_startdate: "{{DATE_DISPUTE_CREATION}}"
+      appbase_description: "{{COMPLAINANT_JOBTITLE}} alleging {{INCIDENT_TYPE}}"
+      appbase_notifieddatetime: "{{DATE_DISPUTE_CREATION}}"
+    
+    store_as: complainant_party
+  
+  # Event 8: Add respondent party
+  - event_id: 8
+    timestamp: "{{DATE_DISPUTE_CREATION}}"
+    operation: create
+    entity: appbase_disputeparty
+    performed_by: "{{PERSONA_INVESTIGATOR}}"
+    
+    reasoning: >
+      {{PERSONA_INVESTIGATOR}} creates party record for {{PERSONA_RESPONDENT}}
+      as the respondent. They will notify the respondent later in the process
+      after initial evidence gathering to preserve investigative integrity.
+    
+    fields:
+      appbase_name: "{{PERSONA_RESPONDENT}} - Respondent"
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_person@odata.bind: "/contacts({{respondent_contact.id}})"
+      appbase_partyrole: 147130001  # Respondent
+      appbase_startdate: "{{DATE_DISPUTE_CREATION}}"
+      appbase_description: "{{RESPONDENT_JOBTITLE}} subject of {{INCIDENT_TYPE}} allegations"
+    
+    store_as: respondent_party
+  
+  # ============================================================================
+  # STAGE: INVESTIGATION
+  # ============================================================================
+  
+  # Event 9: Create investigation plan
+  - event_id: 9
+    timestamp: "{{DATE_INVESTIGATION_START}}"
+    operation: create
+    entity: appbase_disputeinvestigation
+    performed_by: "{{PERSONA_INVESTIGATOR}}"
+    
+    reasoning: >
+      {{PERSONA_INVESTIGATOR}} creates comprehensive investigation plan. Given the
+      {{INCIDENT_TYPE}} allegations, they plan to review documentation, interview
+      {{PERSONA_COMPLAINANT}}, interview witnesses, and finally interview
+      {{PERSONA_RESPONDENT}}. Expected duration is {{INVESTIGATION_DURATION}}.
+    
+    fields:
+      appbase_name: "Investigation - {{PERSONA_COMPLAINANT}} {{INCIDENT_TYPE}} Claim"
+      appbase_investigationnumber: "{{INVESTIGATION_NUMBER}}"
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_investigationtype: 147130001  # Formal Investigation
+      appbase_stage: 147130000  # Planning
+      appbase_startdate: "{{DATE_INVESTIGATION_START}}"
+      appbase_targetcompletiondate: "{{DATE_INVESTIGATION_COMPLETE}}"
+      appbase_organizationunit@odata.bind: "/appbase_organizationunits({{ORG_UNIT.id}})"
+      appbase_scope: >
+        Investigation will cover: (1) Review of {{EVIDENCE_QUALITY}} documentation
+        provided by complainant; (2) Interview with {{PERSONA_COMPLAINANT}};
+        (3) Interviews with identified witnesses; (4) Interview with {{PERSONA_RESPONDENT}};
+        (5) Analysis of evidence and credibility assessment.
+      appbase_methodology: >
+        Standard investigation protocol: Document review, complainant interview,
+        witness interviews, respondent interview, analysis, findings documentation.
+      appbase_completionstatus: 147130001  # In Progress
+    
+    store_as: investigation_record
+  
+  # Event 10: Collect evidence
+  - event_id: 10
+    timestamp: "{{DATE_EVIDENCE_COLLECTION}}"
+    operation: create
+    entity: appbase_disputeevidence
+    performed_by: "{{PERSONA_INVESTIGATOR}}"
+    
+    reasoning: >
+      {{PERSONA_INVESTIGATOR}} collects and catalogs the {{EVIDENCE_QUALITY}}
+      documentation provided by {{PERSONA_COMPLAINANT}}. This includes emails,
+      documentation, and other supporting materials related to the allegations.
+    
+    fields:
+      appbase_name: "Documentation Package - {{PERSONA_COMPLAINANT}}"
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputeinvestigation@odata.bind: "/appbase_disputeinvestigations({{investigation_record.id}})"
+      appbase_evidencetype: 147130000  # Document
+      appbase_collecteddatetime: "{{DATE_EVIDENCE_COLLECTION}}"
+      appbase_collectedby@odata.bind: "/contacts({{CONTACT_INVESTIGATOR.id}})"
+      appbase_description: >
+        {{EVIDENCE_QUALITY}} documentation provided by complainant including
+        emails, timeline, and contemporaneous notes related to {{INCIDENT_TYPE}}
+        allegations.
+      appbase_source: "Complainant submission"
+    
+    store_as: evidence_documentation
+  
+  # STAGE_MARKER: investigation_start_complete
+  
+  # Event 11: Schedule complainant interview
+  - event_id: 11
+    timestamp: "{{DATE_INTERVIEW_COMPLAINANT}}"
+    operation: create
+    entity: appbase_disputeinterview
+    performed_by: "{{PERSONA_INVESTIGATOR}}"
+    
+    reasoning: >
+      {{PERSONA_INVESTIGATOR}} schedules formal interview with {{PERSONA_COMPLAINANT}}
+      to obtain their complete statement regarding the {{INCIDENT_TYPE}} allegations.
+    
+    fields:
+      appbase_name: "Complainant Interview - {{PERSONA_COMPLAINANT}}"
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputeinvestigation@odata.bind: "/appbase_disputeinvestigations({{investigation_record.id}})"
+      appbase_interviewtype: 147130000  # Initial Interview
+      appbase_interviewee@odata.bind: "/contacts({{complainant_contact.id}})"
+      appbase_interviewer@odata.bind: "/contacts({{CONTACT_INVESTIGATOR.id}})"
+      appbase_scheduleddate: "{{DATE_INTERVIEW_COMPLAINANT}}"
+      appbase_stage: 147130000  # Scheduled
+      appbase_location: Conference Room
+      appbase_purpose: "Obtain complainant's full statement regarding {{INCIDENT_TYPE}} allegations"
+    
+    store_as: interview_complainant
+  
+  # Event 12: Conduct complainant interview
+  - event_id: 12
+    timestamp: "{{DATE_INTERVIEW_COMPLAINANT}}"
+    operation: update
+    entity: appbase_disputeinterview
+    record_reference: "{{interview_complainant.id}}"
+    performed_by: "{{PERSONA_INVESTIGATOR}}"
+    
+    reasoning: >
+      {{PERSONA_INVESTIGATOR}} conducts interview with {{PERSONA_COMPLAINANT}}.
+      Complainant provides detailed account of {{INCIDENT_DESCRIPTION}}. They
+      present as credible and organized with {{EVIDENCE_QUALITY}} supporting
+      documentation. Identifies {{NUM_WITNESSES}} potential witnesses.
+    
+    fields:
+      appbase_stage: 147130004  # Completed
+      appbase_actualdate: "{{DATE_INTERVIEW_COMPLAINANT}}"
+      appbase_interviewduration: 75
+      appbase_summary: >
+        {{PERSONA_COMPLAINANT}} provided detailed testimony about {{INCIDENT_TYPE}}
+        by {{PERSONA_RESPONDENT}}. Key allegations: {{INCIDENT_DESCRIPTION}}.
+        Complainant identified {{NUM_WITNESSES}} witnesses. Documentation reviewed
+        appears {{EVIDENCE_QUALITY}}. Complainant credible and consistent.
+      appbase_notes: "Interview well-documented. Evidence appears substantial. Witnesses identified for follow-up."
+  
+  # Event 13: Schedule witness 1 interview
+  - event_id: 13
+    timestamp: "{{DATE_INTERVIEW_WITNESS_1}}"
+    operation: create
+    entity: appbase_disputeinterview
+    performed_by: "{{PERSONA_INVESTIGATOR}}"
+    
+    fields:
+      appbase_name: "Witness Interview - {{PERSONA_WITNESS_1}}"
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputeinvestigation@odata.bind: "/appbase_disputeinvestigations({{investigation_record.id}})"
+      appbase_interviewtype: 147130002  # Witness Interview
+      appbase_interviewee@odata.bind: "/contacts({{CONTACT_WITNESS_1.id}})"
+      appbase_interviewer@odata.bind: "/contacts({{CONTACT_INVESTIGATOR.id}})"
+      appbase_scheduleddate: "{{DATE_INTERVIEW_WITNESS_1}}"
+      appbase_stage: 147130000  # Scheduled
+    
+    store_as: interview_witness_1
+  
+  # Event 14: Conduct witness 1 interview
+  - event_id: 14
+    timestamp: "{{DATE_INTERVIEW_WITNESS_1}}"
+    operation: update
+    entity: appbase_disputeinterview
+    record_reference: "{{interview_witness_1.id}}"
+    performed_by: "{{PERSONA_INVESTIGATOR}}"
+    
+    fields:
+      appbase_stage: 147130004  # Completed
+      appbase_actualdate: "{{DATE_INTERVIEW_WITNESS_1}}"
+      appbase_interviewduration: 45
+      appbase_summary: >
+        {{PERSONA_WITNESS_1}} corroborated some aspects of complainant's allegations.
+        Witness observed incidents consistent with {{INCIDENT_TYPE}}. Credible witness,
+        no apparent bias.
+  
+  # Event 15: Schedule witness 2 interview
+  - event_id: 15
+    timestamp: "{{DATE_INTERVIEW_WITNESS_2}}"
+    operation: create
+    entity: appbase_disputeinterview
+    performed_by: "{{PERSONA_INVESTIGATOR}}"
+    
+    fields:
+      appbase_name: "Witness Interview - {{PERSONA_WITNESS_2}}"
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputeinvestigation@odata.bind: "/appbase_disputeinvestigations({{investigation_record.id}})"
+      appbase_interviewtype: 147130002  # Witness Interview
+      appbase_interviewee@odata.bind: "/contacts({{CONTACT_WITNESS_2.id}})"
+      appbase_interviewer@odata.bind: "/contacts({{CONTACT_INVESTIGATOR.id}})"
+      appbase_scheduleddate: "{{DATE_INTERVIEW_WITNESS_2}}"
+      appbase_stage: 147130000  # Scheduled
+    
+    store_as: interview_witness_2
+  
+  # Event 16: Conduct witness 2 interview
+  - event_id: 16
+    timestamp: "{{DATE_INTERVIEW_WITNESS_2}}"
+    operation: update
+    entity: appbase_disputeinterview
+    record_reference: "{{interview_witness_2.id}}"
+    performed_by: "{{PERSONA_INVESTIGATOR}}"
+    
+    fields:
+      appbase_stage: 147130004  # Completed
+      appbase_actualdate: "{{DATE_INTERVIEW_WITNESS_2}}"
+      appbase_interviewduration: 40
+      appbase_summary: >
+        {{PERSONA_WITNESS_2}} provided additional corroboration. Observed behavior
+        consistent with {{INCIDENT_TYPE}} allegations. Credible and unbiased witness.
+  
+  # Event 17: Notify respondent
+  - event_id: 17
+    timestamp: "{{DATE_INTERVIEW_RESPONDENT}}"
+    operation: update
+    entity: appbase_disputeparty
+    record_reference: "{{respondent_party.id}}"
+    performed_by: "{{PERSONA_INVESTIGATOR}}"
+    
+    reasoning: >
+      With initial evidence gathered, {{PERSONA_INVESTIGATOR}} now formally notifies
+      {{PERSONA_RESPONDENT}} of the investigation and schedules their interview.
+      Due process requires respondent opportunity to respond to allegations.
+    
+    fields:
+      appbase_notifieddatetime: "{{DATE_INTERVIEW_RESPONDENT}}"
+  
+  # Event 18: Schedule respondent interview
+  - event_id: 18
+    timestamp: "{{DATE_INTERVIEW_RESPONDENT}}"
+    operation: create
+    entity: appbase_disputeinterview
+    performed_by: "{{PERSONA_INVESTIGATOR}}"
+    
+    fields:
+      appbase_name: "Respondent Interview - {{PERSONA_RESPONDENT}}"
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputeinvestigation@odata.bind: "/appbase_disputeinvestigations({{investigation_record.id}})"
+      appbase_interviewtype: 147130003  # Subject Interview
+      appbase_interviewee@odata.bind: "/contacts({{respondent_contact.id}})"
+      appbase_interviewer@odata.bind: "/contacts({{CONTACT_INVESTIGATOR.id}})"
+      appbase_scheduleddate: "{{DATE_INTERVIEW_RESPONDENT}}"
+      appbase_stage: 147130000  # Scheduled
+    
+    store_as: interview_respondent
+  
+  # Event 19: Conduct respondent interview
+  - event_id: 19
+    timestamp: "{{DATE_INTERVIEW_RESPONDENT}}"
+    operation: update
+    entity: appbase_disputeinterview
+    record_reference: "{{interview_respondent.id}}"
+    performed_by: "{{PERSONA_INVESTIGATOR}}"
+    
+    fields:
+      appbase_stage: 147130004  # Completed
+      appbase_actualdate: "{{DATE_INTERVIEW_RESPONDENT}}"
+      appbase_interviewduration: 60
+      appbase_summary: >
+        {{PERSONA_RESPONDENT}} provided their perspective. {{OUTCOME_BASED_SUMMARY}}
+  
+  # Event 20: Create finding
+  - event_id: 20
+    timestamp: "{{DATE_INVESTIGATION_COMPLETE}}"
+    operation: create
+    entity: appbase_disputefinding
+    performed_by: "{{PERSONA_INVESTIGATOR}}"
+    
+    reasoning: >
+      {{PERSONA_INVESTIGATOR}} analyzes all evidence, interviews, and documentation.
+      Based on preponderance of evidence, they reach conclusion of {{OUTCOME}}.
+    
+    fields:
+      appbase_name: "Finding - {{INCIDENT_TYPE}} Allegations"
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputeinvestigation@odata.bind: "/appbase_disputeinvestigations({{investigation_record.id}})"
+      appbase_findingtype: 147130002  # Conclusion
+      appbase_conclusion: "{{OUTCOME_VALUE}}"
+      appbase_basis: >
+        Based on totality of evidence: complainant statement, {{NUM_WITNESSES}}
+        witness interviews, {{EVIDENCE_QUALITY}} documentation, and respondent
+        statement. {{OUTCOME_RATIONALE}}
+      appbase_severityassessment: "{{SEVERITY_LEVEL}}"
+    
+    store_as: finding_record
+  
+  # Event 21: Complete investigation
+  - event_id: 21
+    timestamp: "{{DATE_INVESTIGATION_COMPLETE}}"
+    operation: update
+    entity: appbase_disputeinvestigation
+    record_reference: "{{investigation_record.id}}"
+    performed_by: "{{PERSONA_INVESTIGATOR}}"
+    
+    fields:
+      appbase_stage: 147130006  # Completed
+      appbase_completionstatus: 147130002  # Complete
+      appbase_actualcompletiondate: "{{DATE_INVESTIGATION_COMPLETE}}"
+      appbase_summary: >
+        Investigation of {{INCIDENT_TYPE}} allegations completed. Conducted interviews
+        with complainant, {{NUM_WITNESSES}} witnesses, and respondent. Reviewed
+        {{EVIDENCE_QUALITY}} documentation. Finding: {{OUTCOME}}.
+  
+  # STAGE_MARKER: investigation_complete
+  
+  # ============================================================================
+  # STAGE: DETERMINATION
+  # ============================================================================
+  
+  # Event 22: Create determination
+  - event_id: 22
+    timestamp: "{{DATE_DETERMINATION_DRAFT}}"
+    operation: create
+    entity: appbase_disputedetermination
+    performed_by: "{{PERSONA_DECIDING_OFFICIAL}}"
+    
+    reasoning: >
+      Deciding official reviews investigation findings and creates determination.
+      Based on {{OUTCOME}} finding, they determine appropriate remedies.
+    
+    fields:
+      appbase_name: "Determination - {{PERSONA_COMPLAINANT}} v. {{PERSONA_RESPONDENT}}"
+      appbase_determinationnumber: "{{DETERMINATION_NUMBER}}"
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputeinvestigation@odata.bind: "/appbase_disputeinvestigations({{investigation_record.id}})"
+      appbase_determinationtype: 147130000  # Finding
+      appbase_stage: 147130005  # Final
+      appbase_determinationdate: "{{DATE_DETERMINATION_DRAFT}}"
+      appbase_conclusion: "{{OUTCOME}}"
+      appbase_rationale: "{{OUTCOME_DETERMINATION_RATIONALE}}"
+      appbase_remedy: "{{OUTCOME_REMEDY}}"
+    
+    store_as: determination_record
+  
+  # Event 23: Issue determination
+  - event_id: 23
+    timestamp: "{{DATE_DETERMINATION_ISSUED}}"
+    operation: update
+    entity: appbase_disputedetermination
+    record_reference: "{{determination_record.id}}"
+    performed_by: "{{PERSONA_DECIDING_OFFICIAL}}"
+    
+    fields:
+      appbase_stage: 147130003  # Issued
+      appbase_issueddate: "{{DATE_DETERMINATION_ISSUED}}"
+  
+  # Event 24: Update dispute status
+  - event_id: 24
+    timestamp: "{{DATE_DETERMINATION_ISSUED}}"
+    operation: update
+    entity: appbase_dispute
+    record_reference: "{{dispute_record.id}}"
+    performed_by: "{{PERSONA_DECIDING_OFFICIAL}}"
+    
+    fields:
+      appbase_stage: 147130004  # Closed
+      appbase_closedate: "{{DATE_DETERMINATION_ISSUED}}"
+      appbase_decisionstatus: 147130002  # Decided
+      appbase_overallresult: "{{OUTCOME_VALUE}}"
+  
+  # STAGE_MARKER: determination_complete
+
+# Stage markers for truncation
+stage_markers:
+  intake_complete: 2
+  investigation_start_complete: 10
+  investigation_complete: 21
+  determination_complete: 24
+
+# Summary (filled during hydration)
+summary:
+  template_name: harassment-investigation-template
+  total_events: 24
+  based_on_scenario: workplace-harassment-investigation
+  hydration_note: "This template uses placeholders that will be filled with real data during hydration"

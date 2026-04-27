@@ -1,0 +1,324 @@
+process_name: issue-determination
+display_name: Issue Formal Determination
+module: workforce/dispute-resolution
+description: >
+  Process for reviewing investigation findings, drafting a formal determination with conclusions
+  and remedies, obtaining necessary approvals, issuing the decision to parties, and implementing
+  corrective actions. This ensures fair, legally compliant, and properly documented dispute
+  resolution outcomes.
+version: 1.0
+
+# Personas involved in this process
+personas:
+  - role: deciding_official
+    name: Deciding Official
+    responsibilities:
+      - Review investigation findings
+      - Draft determination documents
+      - Determine appropriate remedies
+      - Issue final decisions
+      - Approve corrective actions
+  
+  - role: legal_counsel
+    name: Legal Counsel
+    responsibilities:
+      - Review draft determinations for legal compliance
+      - Advise on precedent and policy alignment
+      - Ensure procedural due process followed
+  
+  - role: hr_specialist
+    name: HR Specialist
+    responsibilities:
+      - Implement personnel-related corrective actions
+      - Monitor action completion
+      - Verify compliance with corrective action plans
+
+# Sequential steps in the process
+steps:
+  - step: 1
+    action: create_draft_determination
+    description: Deciding official creates draft determination based on findings
+    performed_by: deciding_official
+    entities:
+      - appbase_disputedetermination
+    required_fields:
+      - appbase_name  # Determination title
+      - appbase_determinationnumber
+      - appbase_dispute  # Link to dispute
+      - appbase_determinationtype
+      - appbase_stage  # Draft (147130000)
+      - appbase_determinationdate
+    optional_fields:
+      - appbase_disputeinvestigation  # Link to investigation
+      - appbase_basis  # Legal/policy foundation
+      - appbase_conclusion  # Summary of decision
+      - appbase_rationale  # Detailed reasoning
+      - appbase_remedy  # Actions required
+      - appbase_effectivedate
+      - appbase_compliancedeadline
+    business_rules:
+      - Determination number format: DET-DSP-2026-0001
+      - Determination date is when decision made
+      - Must be based on investigation findings
+      - Type indicates nature of decision
+      - Stage progresses through approval workflow
+      - Rationale must explain how evidence supports conclusion
+    store_as: determination_record
+  
+  - step: 2
+    action: legal_review
+    description: Legal counsel reviews draft for compliance and precedent
+    performed_by: legal_counsel
+    entities:
+      - appbase_disputedetermination  # Update existing
+    required_fields:
+      - appbase_stage  # Under Review (147130001)
+    optional_fields:
+      - appbase_reviewcomments  # Legal counsel feedback
+      - appbase_reviewdate
+    business_rules:
+      - Legal review required for all determinations
+      - Counsel verifies procedural compliance
+      - May require revisions before approval
+      - Review focuses on legal risk and precedent
+  
+  - step: 3
+    action: revise_determination
+    description: Deciding official incorporates legal counsel feedback
+    performed_by: deciding_official
+    entities:
+      - appbase_disputedetermination  # Update existing
+    required_fields:
+      - appbase_stage  # Back to Draft or move to Approval Pending
+    optional_fields:
+      - appbase_basis  # May need refinement
+      - appbase_rationale
+      - appbase_remedy
+      - appbase_conclusion
+    business_rules:
+      - Revisions address legal counsel concerns
+      - May require multiple review cycles
+      - Changes tracked for audit purposes
+    notes: This step may be skipped if no revisions needed
+  
+  - step: 4
+    action: submit_for_approval
+    description: Deciding official submits for executive approval if required
+    performed_by: deciding_official
+    entities:
+      - appbase_disputedetermination  # Update existing
+    required_fields:
+      - appbase_stage  # Approval Pending (147130002)
+      - appbase_approvercontact  # Executive approver
+      - appbase_submittedforapprovaldate
+    business_rules:
+      - High-impact determinations require executive approval
+      - Approver authority level depends on severity/remedy
+      - Approval timeline defined by policy
+    notes: Some determinations may not require additional approval
+  
+  - step: 5
+    action: approve_determination
+    description: Executive approver reviews and approves determination
+    performed_by: deciding_official  # Or separate approver persona
+    entities:
+      - appbase_disputedetermination  # Update existing
+    required_fields:
+      - appbase_stage  # Final (147130005)
+      - appbase_approvaldate
+    optional_fields:
+      - appbase_approvercomments
+    business_rules:
+      - Approval finalizes determination
+      - Once final, determination is official decision
+      - Approval date marks when decision becomes binding
+  
+  - step: 6
+    action: issue_determination_to_parties
+    description: Deciding official formally issues determination to all parties
+    performed_by: deciding_official
+    entities:
+      - appbase_disputedetermination  # Update existing
+    required_fields:
+      - appbase_stage  # Issued (147130003)
+      - appbase_issueddate
+    optional_fields:
+      - appbase_notificationmethod
+      - appbase_acknowledgmentdate
+    business_rules:
+      - All parties must receive determination
+      - Issue date starts appeal clock
+      - Notification method documented (email, mail, hand delivery)
+      - Parties have right to appeal within specified timeframe
+  
+  - step: 7
+    action: update_dispute_status
+    description: Update parent dispute record to reflect determination
+    performed_by: deciding_official
+    entities:
+      - appbase_dispute  # Update existing
+    required_fields:
+      - appbase_stage  # Move to Determination stage
+      - appbase_decisionstatus  # Update based on determination
+      - appbase_overallresult  # Outcome of dispute
+    optional_fields:
+      - appbase_closedate  # If dispute is resolved
+    business_rules:
+      - Dispute status reflects determination issuance
+      - Overall result summarizes outcome
+      - Close date set if no appeal expected or resolution final
+  
+  - step: 8
+    action: create_corrective_action_training
+    description: HR creates training requirement corrective action if applicable
+    performed_by: hr_specialist
+    entities:
+      - appbase_disputecorrectiveaction
+    required_fields:
+      - appbase_name  # Action title
+      - appbase_actionnumber
+      - appbase_dispute
+      - appbase_disputedetermination  # Link to determination
+      - appbase_correctiveactiontype  # Training Required (147130000)
+      - appbase_completionstatus  # Not Started initially
+      - appbase_responsibleorganization
+      - appbase_duedate
+    optional_fields:
+      - appbase_description  # Details of training requirement
+      - appbase_assignedto  # Person responsible
+      - appbase_verificationrequired
+    business_rules:
+      - Action number format: CA-DSP-2026-0001
+      - Each corrective action tracked separately
+      - Due date based on urgency and complexity
+      - Responsible party must be identified
+      - Verification ensures completion
+    notes: This step repeats for each corrective action required
+  
+  - step: 9
+    action: create_corrective_action_policy_revision
+    description: Create policy revision corrective action if needed
+    performed_by: deciding_official
+    entities:
+      - appbase_disputecorrectiveaction
+    required_fields:
+      - appbase_name
+      - appbase_actionnumber
+      - appbase_dispute
+      - appbase_disputedetermination
+      - appbase_correctiveactiontype  # Policy Revision (147130001)
+      - appbase_completionstatus
+      - appbase_responsibleorganization
+      - appbase_duedate
+    optional_fields:
+      - appbase_description
+      - appbase_policyimpacted
+      - appbase_proposedchanges
+    business_rules:
+      - Policy revisions address systemic issues
+      - May require committee or executive approval
+      - Longer timeline than individual actions
+    notes: Only created if determination identifies policy gaps
+  
+  - step: 10
+    action: create_corrective_action_disciplinary
+    description: Create disciplinary action if warranted
+    performed_by: hr_specialist
+    entities:
+      - appbase_disputecorrectiveaction
+    required_fields:
+      - appbase_name
+      - appbase_actionnumber
+      - appbase_dispute
+      - appbase_disputedetermination
+      - appbase_correctiveactiontype  # Disciplinary Action (147130002)
+      - appbase_completionstatus
+      - appbase_responsibleorganization
+      - appbase_duedate
+    optional_fields:
+      - appbase_description
+      - appbase_disciplinaryaction  # Level of discipline
+      - appbase_confidential  # Personnel actions usually confidential
+    business_rules:
+      - Disciplinary actions follow HR policy
+      - Separate HR process initiated
+      - Highly confidential
+      - Verification by HR leadership required
+    notes: Only created if determination finds misconduct
+  
+  - step: 11
+    action: monitor_corrective_action_completion
+    description: HR specialist monitors corrective action progress
+    performed_by: hr_specialist
+    entities:
+      - appbase_disputecorrectiveaction  # Update existing
+    required_fields:
+      - appbase_completionstatus  # In Progress, Completed
+      - appbase_completiondate  # When action finished
+    optional_fields:
+      - appbase_verificationdate
+      - appbase_verifiedby  # Supervisor or auditor
+      - appbase_verificationnotes
+    business_rules:
+      - Status updated as actions progress
+      - Completion requires verification
+      - Overdue actions escalated
+      - All actions must be completed before dispute fully closed
+
+# Expected outcomes
+outcomes:
+  - outcome: determination_with_corrective_actions
+    description: Determination issued and corrective actions implemented
+    required_records:
+      - appbase_disputedetermination: 1  # Issued
+      - appbase_disputecorrectiveaction: 1+  # Actions created
+      - appbase_dispute: 1  # Updated status
+  
+  - outcome: determination_no_action_required
+    description: Determination issued but no corrective actions needed
+    required_records:
+      - appbase_disputedetermination: 1  # Issued
+      - appbase_dispute: 1  # Updated status
+  
+  - outcome: determination_appealed
+    description: Determination issued but party files appeal
+    required_records:
+      - appbase_disputedetermination: 1  # Issued, may show Appealed status
+      - appbase_disputeappeal: 1  # Appeal record created
+
+# Variations and decision points
+variations:
+  - variation: no_approval_required
+    description: Determination authority delegated, no executive approval needed
+    affects_steps: [4, 5]
+    notes: >
+      Steps 4 and 5 skipped. Deciding official has full authority to finalize
+      determination. Goes directly from review to final stage.
+  
+  - variation: substantiated_with_discipline
+    description: Findings substantiate misconduct requiring discipline
+    affects_steps: [8, 9, 10]
+    notes: >
+      Multiple corrective actions created including disciplinary action.
+      Coordination with HR disciplinary process required. Privacy controls applied.
+  
+  - variation: systemic_issues_identified
+    description: Investigation reveals broader organizational problems
+    affects_steps: [9]
+    notes: >
+      Multiple corrective actions addressing systemic issues. May include
+      policy revisions, process improvements, training programs, and monitoring plans.
+  
+  - variation: settlement_agreement
+    description: Parties reach settlement before formal determination
+    affects_steps: [1]
+    notes: >
+      Determination type is Settlement (147130001). Records agreed terms.
+      May still have corrective actions based on settlement agreement.
+  
+  - variation: dismissal
+    description: Dispute dismissed due to procedural issues or lack of merit
+    affects_steps: [8, 9, 10]
+    notes: >
+      Determination type is Dismissal (147130002). No corrective actions needed.
+      Dispute closed with no further action.

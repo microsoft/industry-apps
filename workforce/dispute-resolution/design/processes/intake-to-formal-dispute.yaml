@@ -1,0 +1,200 @@
+process_name: intake-to-formal-dispute
+display_name: Convert Intake to Formal Dispute
+module: workforce/dispute-resolution
+description: >
+  Complete workflow for receiving an initial complaint or concern through the intake process,
+  assessing whether it warrants formal investigation, and converting it to a formal dispute case
+  with proper classification and party assignments.
+version: 1.0
+
+# Personas involved in this process
+personas:
+  - role: intake_coordinator
+    name: Intake Coordinator
+    responsibilities:
+      - Receive initial complaints and concerns
+      - Log intake records with basic information
+      - Assess severity and urgency
+      - Determine if formal dispute is warranted
+      - Route cases to appropriate units
+  
+  - role: dispute_investigator
+    name: Dispute Resolution Specialist
+    responsibilities:
+      - Review intake assessments
+      - Accept cases for formal investigation
+      - Classify dispute types
+      - Assign preliminary priority levels
+      - Identify parties and stakeholders
+
+# Sequential steps in the process
+steps:
+  - step: 1
+    action: create_intake_record
+    description: Coordinator receives complaint and creates intake record
+    performed_by: intake_coordinator
+    entities:
+      - appbase_disputeintake
+    required_fields:
+      - appbase_name  # Intake Title
+      - appbase_intakenumber  # Auto-generated or manual
+      - appbase_submissiondatetime
+      - appbase_methodofcontact
+      - appbase_organizationunit
+    optional_fields:
+      - appbase_submittedby  # Contact lookup if known
+      - appbase_description
+      - appbase_isanonymous
+      - appbase_priority
+      - appbase_stage  # Default: Received (147130000)
+    business_rules:
+      - Intake number should follow organizational format
+      - Anonymous intakes don't link to submitter contact
+      - Stage starts at "Received"
+      - Submission date/time recorded at time of entry
+  
+  - step: 2
+    action: assess_intake
+    description: Coordinator reviews intake and determines disposition
+    performed_by: intake_coordinator
+    entities:
+      - appbase_disputeintake  # Update existing
+    required_fields:
+      - appbase_stage  # Move to Assessment (147130003)
+      - appbase_disposition  # Determine routing
+    optional_fields:
+      - appbase_description  # Add assessment notes
+    business_rules:
+      - Must assess within organizational SLA
+      - Disposition determines next steps
+      - Some intakes may be resolved without formal dispute
+      - Serious cases should be escalated to formal dispute
+  
+  - step: 3
+    action: create_formal_dispute
+    description: Specialist converts intake to formal dispute case
+    performed_by: dispute_investigator
+    entities:
+      - appbase_dispute
+    required_fields:
+      - appbase_name  # Case Title
+      - appbase_casenumber
+      - appbase_disputetype
+      - appbase_stage  # Intake (first stage)
+      - appbase_fileddate
+      - appbase_organizationunit
+    optional_fields:
+      - appbase_description
+      - appbase_priority
+      - appbase_severitylevel
+      - appbase_isconfidential
+      - appbase_isanonymous
+      - appbase_complianceframework  # If regulatory
+      - appbase_legalauthority
+      - appbase_decisionstatus
+    business_rules:
+      - Case number follows format (e.g., DSP-2026-0001)
+      - Filed date typically matches intake submission date
+      - Dispute type determines investigation approach
+      - Severity level influences resource allocation
+      - Confidential cases have restricted access
+    store_as: dispute_record
+  
+  - step: 4
+    action: link_intake_to_dispute
+    description: Specialist links intake record to new formal dispute
+    performed_by: dispute_investigator
+    entities:
+      - appbase_disputeintake  # Update existing
+    required_fields:
+      - appbase_convertedtodispute  # Link to dispute from step 3
+      - appbase_conversiondate
+      - appbase_stage  # Move to Closed (147130005)
+    business_rules:
+      - Conversion date is when dispute was created
+      - Intake is closed once converted
+      - Maintains audit trail from intake to dispute
+  
+  - step: 5
+    action: add_complainant_party
+    description: Specialist adds complainant as primary party
+    performed_by: dispute_investigator
+    entities:
+      - contact  # May already exist or create new
+      - appbase_disputeparty
+    required_fields:
+      - appbase_dispute  # Link to dispute from step 3
+      - appbase_partyrole  # Complainant role
+      - appbase_person  # Link to contact
+      - appbase_isprimary  # Yes
+      - appbase_startdate
+    optional_fields:
+      - appbase_name  # Auto-generated from contact name
+      - appbase_description
+      - appbase_organizationunit
+      - appbase_account  # If organizational party
+      - appbase_notifieddatetime
+    business_rules:
+      - Complainant is typically primary party
+      - May be anonymous (no contact link)
+      - Start date is when case formally filed
+      - Notification tracking for legal requirements
+  
+  - step: 6
+    action: add_respondent_party
+    description: Specialist adds person/entity being complained about
+    performed_by: dispute_investigator
+    entities:
+      - contact  # Or account
+      - appbase_disputeparty
+    required_fields:
+      - appbase_dispute
+      - appbase_partyrole  # Respondent role
+      - appbase_person  # Or appbase_account
+      - appbase_startdate
+    optional_fields:
+      - appbase_isprimary
+      - appbase_description
+      - appbase_organizationunit
+      - appbase_notifieddatetime
+    business_rules:
+      - Respondent must be notified per policy
+      - May be individual or organizational respondent
+      - Can have multiple respondents
+      - Notification tracking critical for due process
+
+# Expected outcomes
+outcomes:
+  - outcome: success
+    description: Intake successfully converted to formal dispute with parties identified
+    required_records:
+      - appbase_disputeintake: 1  # Closed
+      - appbase_dispute: 1  # Active
+      - appbase_disputeparty: 2+  # Complainant + Respondent(s)
+  
+  - outcome: intake_resolved
+    description: Intake assessed but not converted (resolved informally)
+    required_records:
+      - appbase_disputeintake: 1  # Closed without conversion
+
+# Variations and decision points
+variations:
+  - variation: anonymous_complaint
+    description: Complainant wishes to remain anonymous
+    affects_steps: [1, 5]
+    notes: >
+      Intake marked as anonymous. Complainant party may have no contact link
+      or link to generic "Anonymous Complainant" contact record.
+  
+  - variation: multiple_respondents
+    description: Complaint involves multiple people or departments
+    affects_steps: [6]
+    notes: >
+      Step 6 repeated for each respondent. Each gets their own party record
+      with appropriate notification tracking.
+  
+  - variation: organizational_respondent
+    description: Respondent is a department/division not individual
+    affects_steps: [6]
+    notes: >
+      Use account entity instead of contact. Link organizational unit.

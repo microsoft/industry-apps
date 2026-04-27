@@ -1,0 +1,129 @@
+scenario_name: workplace-harassment-investigation
+display_name: Workplace Harassment Complaint Investigation Template
+module: workforce/dispute-resolution
+process: intake-to-formal-dispute, conduct-investigation, issue-determination
+version: "2.0"
+format: generic_template
+
+# Generic persona roles (not specific people)
+personas:
+  complainant:
+    role: technical_employee
+    department: engineering
+    experience_years: 3-7
+    traits: [detailed, distressed, organized]
+    
+  respondent:
+    role: team_manager
+    department: engineering
+    experience_years: 5-10
+    traits: [defensive, professional]
+    
+  intake_coordinator:
+    role: employee_relations_specialist
+    experience_years: 5-10
+    traits: [empathetic, thorough, experienced]
+    
+  investigator:
+    role: senior_investigator
+    experience_years: 10-15
+    traits: [methodical, fair, unbiased]
+    
+  witnesses:
+    count: 2-3
+    role: peer_employees
+    department: engineering
+    experience_years: 2-5
+
+# Generic narrative using role placeholders
+description: >
+  This scenario involves a workplace harassment complaint filed by {{PERSONA_COMPLAINANT}},
+  a {{complainant.role}} with {{complainant.experience_years}} years at the company,
+  against {{PERSONA_RESPONDENT}}, their {{respondent.role}}. {{PERSONA_COMPLAINANT}} reports
+  that over {{TIMEFRAME}}, {{PERSONA_RESPONDENT}} has {{INCIDENT_DESCRIPTION}}.
+  
+  {{PERSONA_COMPLAINANT}} initially tried to address the behavior informally but felt the
+  situation was escalating. After a particularly offensive incident, they decided to file a
+  formal complaint. They provide {{EVIDENCE_QUALITY}} documentation including {{EVIDENCE_TYPES}}
+  and identify {{witnesses.count}} coworkers who witnessed some incidents.
+  
+  The complaint is received by {{PERSONA_INTAKE_COORDINATOR}}, an intake coordinator with
+  {{intake_coordinator.experience_years}} years of experience in employee relations. They
+  recognize this as a {{SEVERITY_LEVEL}} matter requiring formal investigation and take the
+  initial statement in a private setting.
+  
+  The case is assigned to {{PERSONA_INVESTIGATOR}}, a senior dispute resolution investigator
+  with {{investigator.experience_years}} years of experience. They are known for being
+  {{investigator.traits[0]}} and {{investigator.traits[1]}}. They review the intake notes
+  and determine this warrants a full investigation. The case is assigned number {{CASE_NUMBER}}
+  and classified as {{PRIORITY_LEVEL}} priority. The investigation is expected to take
+  {{INVESTIGATION_DURATION}}.
+
+# Parameterization for hydration engine
+parameters:
+  incident_type:
+    options: [harassment, discrimination, hostile_work_environment]
+    default: harassment
+    
+  incident_description:
+    options:
+      - made repeated inappropriate comments about appearance and questioned technical abilities
+      - created hostile work environment through exclusion and demeaning behavior
+      - engaged in discriminatory conduct regarding protected characteristics
+      - retaliated for reporting concerns through subtle exclusion and criticism
+    
+  timeframe:
+    options: ["3 months", "6 months", "9 months", "1 year"]
+    default: "6 months"
+    
+  severity_level:
+    options: [routine, serious, high_priority, critical]
+    weights: [0.1, 0.4, 0.4, 0.1]
+    
+  priority_level:
+    options: [medium, high, critical]
+    weights: [0.3, 0.6, 0.1]
+    
+  evidence_quality:
+    options: [minimal, moderate, substantial, extensive]
+    weights: [0.15, 0.35, 0.35, 0.15]
+    
+  evidence_types:
+    options:
+      - email records and witness names
+      - detailed timeline with specific dates and contemporaneous notes
+      - screenshots, email threads, and witness contemporaneous documentation
+      - comprehensive documentation with dates, witnesses, and supporting materials
+    
+  investigation_duration:
+    min_days: 14
+    max_days: 35
+    default: "3-4 weeks"
+    
+  outcome:
+    options: [substantiated, partially_substantiated, unsubstantiated]
+    weights: [0.30, 0.40, 0.30]
+
+# Stage distribution for batch generation
+stage_distribution:
+  intake_resolved: 0.05        # 5% resolved at intake without formal investigation
+  investigation_active: 0.25   # 25% currently in active investigation
+  determination_pending: 0.20  # 20% investigation complete, awaiting determination
+  closed_no_appeal: 0.35       # 35% closed with determination, no appeal
+  appeal_active: 0.10          # 10% in appeal process
+  appeal_complete: 0.05        # 5% appeal completed and final
+
+# Data generation hints for LLM
+generation_hints:
+  - Use realistic timestamps showing progression over investigation timeline
+  - Vary coordinator experience and approach (some thorough, some quicker)
+  - Investigator demonstrates methodical approach with detailed planning
+  - Interview summaries should reflect varying perspectives and corroboration levels
+  - Mix evidence quality - some cases have extensive documentation, others minimal
+  - Show realistic variation in witness credibility and corroboration
+  - Consider emotional impact on all parties while maintaining objectivity
+  - All contact information should be realistic but clearly test data
+  - Use appropriate examples of workplace conduct (professional context)
+  - Timeline shows proper notice periods and procedural compliance
+  - Demonstrate procedural fairness to both complainant and respondent
+  - Outcomes should reflect evidence quality and witness corroboration

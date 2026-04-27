@@ -1,0 +1,114 @@
+event_stream_name: supervisor-retaliation-appeal-001
+display_name: Robert Williams Performance Rating Retaliation Case
+module: workforce/dispute-resolution
+based_on_process: intake-to-formal-dispute, conduct-investigation, issue-determination, handle-appeal
+based_on_scenario: supervisor-retaliation-appeal
+generated: 2026-04-24T10:00:00Z
+generated_by: github-copilot
+
+# Execution metadata
+execution:
+  dry_run_only: false
+  clear_before_run: false
+  stop_on_error: true
+
+# Sequential operations/events
+events:
+  # ============================================================================
+  # PHASE 1: INTAKE (March 18, 2026)
+  # ============================================================================
+  
+  # Event 1: Create intake record
+  - event_id: 1
+    timestamp: 2026-03-18T10:30:00Z
+    operation: create
+    entity: appbase_disputeintake
+    performed_by: Kevin Park (intake_coordinator)
+    
+    reasoning: >
+      Kevin Park, a newer intake coordinator with 2 years of experience, receives
+      Robert Williams in his office. Robert is clearly frustrated and arrives with
+      a thick folder of documentation. Kevin listens as Robert explains his belief
+      that his recent "Needs Improvement" performance rating is retaliation for his
+      testimony in a previous investigation six months ago. Kevin creates the intake
+      record, noting the retaliation angle and Robert's detailed documentation.
+      He marks this as potentially serious due to whistleblower protection implications.
+    
+    fields:
+      appbase_name: Performance Rating Retaliation Concern - R. Williams
+      appbase_intakenumber: INT-2026-0142
+      appbase_submissiondatetime: 2026-03-18T10:30:00Z
+      appbase_methodofcontact: 147130001  # In Person
+      appbase_submittedby@odata.bind: "/contacts(lookup:robert.williams@company.com)"
+      appbase_description: >
+        Employee Robert Williams (QA Analyst, 7 years) reports unfair performance
+        rating allegedly in retaliation for witness participation in prior investigation.
+        Claims rating of "Needs Improvement" is first poor rating in career, received
+        2 months after providing testimony. Presents extensive documentation of previous
+        high performance and questions about supervisor's subjective criticism.
+      appbase_isanonymous: 147130001  # No
+      appbase_priority: 147130001  # High
+      appbase_stage: 147130000  # Received
+      appbase_organizationunit@odata.bind: "/appbase_organizationunits(lookup:Human Resources Department)"
+    
+    store_as: intake_record
+
+  # Event 2: Assess intake and escalate
+  - event_id: 2
+    timestamp: 2026-03-18T11:45:00Z
+    operation: update
+    entity: appbase_disputeintake
+    record_reference: "{{intake_record.id}}"
+    performed_by: Kevin Park (intake_coordinator)
+    
+    reasoning: >
+      After the meeting with Robert, Kevin reviews his notes and the documentation
+      Robert provided. He recognizes the pattern of potential retaliation and knows
+      this is serious - he learned about retaliation indicators in his training.
+      Kevin consults with his supervisor and decides to escalate immediately to
+      senior investigator Angela Morrison, who has extensive experience with
+      retaliation cases. He updates the intake to Assessment stage and adds notes
+      about why this needs senior investigator attention.
+    
+    fields:
+      appbase_stage: 147130003  # Assessment
+      appbase_disposition: 147130002  # Forward to Investigation
+      appbase_description: >
+        Employee Robert Williams (QA Analyst, 7 years) reports unfair performance
+        rating allegedly in retaliation for witness participation in prior investigation.
+        Claims rating of "Needs Improvement" is first poor rating in career, received
+        2 months after providing testimony. Presents extensive documentation of previous
+        high performance and questions about supervisor's subjective criticism.
+        
+        ASSESSMENT: This intake raises significant retaliation concerns under whistleblower
+        protection policy. Timing (2 months after witness testimony), shift from consistent
+        high performance to sudden poor rating, and subjective nature of criticism all
+        suggest potential retaliation. Escalating to senior investigator Angela Morrison
+        for formal investigation. High priority due to legal implications.
+
+  # ============================================================================
+  # PHASE 2: FORMAL DISPUTE CREATION (March 20, 2026)
+  # ============================================================================
+
+  # Event 3: Create complainant contact (if not exists)
+  - event_id: 3
+    timestamp: 2026-03-20T09:00:00Z
+    operation: create
+    entity: contact
+    performed_by: Angela Morrison (dispute_investigator)
+    
+    reasoning: >
+      Angela Morrison reviews the intake and begins setting up the formal case.
+      She needs to ensure Robert Williams has a proper contact record in the system
+      for linking to the dispute. She creates or updates his contact information.
+    
+    fields:
+      firstname: Robert
+      lastname: Williams
+      jobtitle: Quality Assurance Analyst
+      emailaddress1: robert.williams@company.com
+      telephone1: 555-0167
+      mobilephone: 555-0168
+      department: Quality Assurance
+    
+    store_as: complainant_contact

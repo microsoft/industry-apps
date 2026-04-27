@@ -1,0 +1,303 @@
+process_name: handle-appeal
+display_name: Handle Dispute Appeal
+module: workforce/dispute-resolution
+description: >
+  Process for receiving and adjudicating appeals of dispute determinations. Ensures parties have
+  due process rights to challenge decisions, appeals are reviewed thoroughly, and final appellate
+  decisions are properly documented and implemented.
+version: 1.0
+
+# Personas involved in this process
+personas:
+  - role: appeals_coordinator
+    name: Appeals Coordinator
+    responsibilities:
+      - Receive and log appeals
+      - Verify timeliness and standing
+      - Schedule appellate reviews
+      - Coordinate hearing logistics
+      - Manage appeal records
+  
+  - role: reviewing_authority
+    name: Reviewing Authority
+    responsibilities:
+      - Review original determination and appeal basis
+      - Conduct appellate hearings
+      - Issue appellate decisions
+      - Uphold, overturn, or modify determinations
+  
+  - role: legal_counsel
+    name: Legal Counsel
+    responsibilities:
+      - Advise on appellate procedures
+      - Review appellate decisions
+      - Ensure legal compliance
+
+# Sequential steps in the process
+steps:
+  - step: 1
+    action: receive_appeal
+    description: Coordinator receives appeal filing from party
+    performed_by: appeals_coordinator
+    entities:
+      - appbase_disputeappeal
+    required_fields:
+      - appbase_name  # Appeal Title
+      - appbase_appealnumber
+      - appbase_dispute  # Link to original dispute
+      - appbase_disputedetermination  # Link to determination being appealed
+      - appbase_appealbasis  # Reason for appeal
+      - appbase_appealdate  # When appeal was filed
+      - appbase_appellant  # Person filing appeal
+      - appbase_stage  # Filed (147130000)
+    optional_fields:
+      - appbase_description  # Appellant's arguments
+      - appbase_requestedrelief  # What appellant wants
+      - appbase_decisionstatus
+    business_rules:
+      - Appeal number format: APP-DSP-2026-0001
+      - Appeal must be filed within policy timeframe
+      - Appellant must have standing (party to dispute)
+      - Appeal basis must be valid ground for review
+      - Timeliness calculated from determination issue date
+    store_as: appeal_record
+  
+  - step: 2
+    action: verify_appeal_eligibility
+    description: Coordinator verifies appeal is timely and has proper basis
+    performed_by: appeals_coordinator
+    entities:
+      - appbase_disputeappeal  # Update existing
+    required_fields:
+      - appbase_stage  # Under Review (147130001) if valid
+      - appbase_eligibilityverified  # Yes/No field
+    optional_fields:
+      - appbase_verificationnotes
+      - appbase_filingtimely  # Whether filed within deadline
+      - appbase_standingverified  # Whether appellant has standing
+    business_rules:
+      - Must be filed within appeal window (typically 10-30 days)
+      - Appellant must be party to original dispute
+      - Appeal basis must be recognized ground (procedural error, new evidence, etc.)
+      - Untimely or improper appeals may be dismissed
+  
+  - step: 3
+    action: update_determination_status
+    description: Coordinator updates original determination to show appeal filed
+    performed_by: appeals_coordinator
+    entities:
+      - appbase_disputedetermination  # Update existing
+    required_fields:
+      - appbase_stage  # Appealed (147130004)
+    optional_fields:
+      - appbase_appealeddate
+    business_rules:
+      - Original determination status reflects appeal
+      - Determination may be stayed pending appeal
+      - Some corrective actions may be delayed pending appeal outcome
+  
+  - step: 4
+    action: assign_reviewing_authority
+    description: Coordinator assigns appeal to appropriate reviewing authority
+    performed_by: appeals_coordinator
+    entities:
+      - appbase_disputeappeal  # Update existing
+    required_fields:
+      - appbase_reviewingauthority  # Senior official/panel
+    optional_fields:
+      - appbase_assignmentdate
+      - appbase_assignmentnotes
+    business_rules:
+      - Reviewing authority must be higher level than deciding official
+      - Authority selected based on severity and appeal basis
+      - Must be impartial (no conflict of interest)
+  
+  - step: 5
+    action: schedule_appellate_hearing
+    description: Coordinator schedules hearing if required
+    performed_by: appeals_coordinator
+    entities:
+      - appbase_disputeappeal  # Update existing
+    required_fields:
+      - appbase_stage  # Hearing Scheduled (147130002)
+      - appbase_hearingdate
+      - appbase_hearinglocation
+    optional_fields:
+      - appbase_hearingduration
+      - appbase_participantsnotified
+      - appbase_noticedate
+    business_rules:
+      - Hearing required for certain appeal types
+      - Parties given adequate notice (typically 10-15 days)
+      - Location accessible to all participants
+      - Virtual hearings may be appropriate
+    notes: Some appeals decided on record without hearing
+  
+  - step: 6
+    action: conduct_appellate_review
+    description: Reviewing authority reviews record and conducts hearing
+    performed_by: reviewing_authority
+    entities:
+      - appbase_disputeappeal  # Update existing
+    required_fields:
+      - appbase_stage  # Hearing Conducted (147130003)
+      - appbase_hearingactualdate
+    optional_fields:
+      - appbase_hearingsummary
+      - appbase_evidencereviewed
+      - appbase_argumentssummary
+    business_rules:
+      - Authority reviews original investigation and determination
+      - Parties present arguments
+      - Standard of review depends on appeal basis
+      - May consider new evidence if that's the appeal basis
+      - Hearing documented for record
+  
+  - step: 7
+    action: issue_appellate_decision
+    description: Reviewing authority issues decision on appeal
+    performed_by: reviewing_authority
+    entities:
+      - appbase_disputeappeal  # Update existing
+    required_fields:
+      - appbase_stage  # Decision Pending (147130004)
+      - appbase_decisionstatus
+      - appbase_overallresult  # Upheld, Overturned, Modified
+      - appbase_decisiondate
+      - appbase_decisionsummary
+    optional_fields:
+      - appbase_decisionduedate
+      - appbase_rationale  # Explanation of decision
+      - appbase_remedy  # If modified, what changes required
+      - appbase_instructionstoparties
+    business_rules:
+      - Decision must address all appeal basis points
+      - If upheld: original determination stands
+      - If overturned: original determination vacated, new outcome
+      - If modified: specific changes to original determination
+      - Rationale explains why appeal succeeded or failed
+      - Decision is final unless further appeal available
+  
+  - step: 8
+    action: finalize_appellate_decision
+    description: Legal counsel reviews and decision is finalized
+    performed_by: legal_counsel
+    entities:
+      - appbase_disputeappeal  # Update existing
+    required_fields:
+      - appbase_stage  # Closed (147130005)
+      - appbase_decisionstatus  # Final
+    optional_fields:
+      - appbase_legalreviewdate
+      - appbase_legalreviewcomments
+    business_rules:
+      - Legal review ensures procedural compliance
+      - Once closed, appellate decision is final
+      - Further appeals only if policy allows
+  
+  - step: 9
+    action: update_original_determination
+    description: Update original determination based on appeal outcome
+    performed_by: appeals_coordinator
+    entities:
+      - appbase_disputedetermination  # Update existing
+    required_fields:
+      - appbase_stage  # Back to Final if upheld, or Draft if overturned
+      - appbase_appealoutcome
+    optional_fields:
+      - appbase_modifieddate  # If changes made
+      - appbase_modifiednotes
+    business_rules:
+      - If upheld: determination remains as issued
+      - If overturned: determination vacated, may need new determination
+      - If modified: determination updated with changes
+      - Appeal outcome documented on determination
+  
+  - step: 10
+    action: update_corrective_actions
+    description: Adjust corrective actions based on appeal outcome
+    performed_by: appeals_coordinator
+    entities:
+      - appbase_disputecorrectiveaction  # Update existing or create new
+    required_fields:
+      - appbase_completionstatus  # May cancel, modify, or create new
+    optional_fields:
+      - appbase_modificationreason
+      - appbase_duedate  # May need adjustment
+    business_rules:
+      - Upheld appeal: corrective actions proceed as planned
+      - Overturned: corrective actions may be cancelled
+      - Modified: corrective actions adjusted to match new determination
+      - Any suspended actions resumed or cancelled
+    notes: This step affects multiple corrective action records
+  
+  - step: 11
+    action: close_dispute_if_final
+    description: Close dispute if no further appeals available
+    performed_by: appeals_coordinator
+    entities:
+      - appbase_dispute  # Update existing
+    required_fields:
+      - appbase_stage  # Closed
+      - appbase_closedate
+      - appbase_overallresult  # Final outcome
+    optional_fields:
+      - appbase_closurenotes
+    business_rules:
+      - Dispute closed only when all appeals exhausted
+      - Close date is when appellate decision finalized
+      - Overall result reflects final outcome after appeals
+      - Closed disputes retained for records and precedent
+
+# Expected outcomes
+outcomes:
+  - outcome: appeal_upheld
+    description: Original determination upheld, appeal denied
+    required_records:
+      - appbase_disputeappeal: 1  # Closed, appeal denied
+      - appbase_disputedetermination: 1  # Remains as issued
+      - appbase_dispute: 1  # Closed if no further appeals
+  
+  - outcome: appeal_overturned
+    description: Original determination overturned, new outcome
+    required_records:
+      - appbase_disputeappeal: 1  # Closed, appeal granted
+      - appbase_disputedetermination: 1  # Vacated or modified
+      - appbase_dispute: 1  # May remain open for new determination
+  
+  - outcome: appeal_partially_granted
+    description: Some aspects of original determination modified
+    required_records:
+      - appbase_disputeappeal: 1  # Closed, partially granted
+      - appbase_disputedetermination: 1  # Modified
+      - appbase_disputecorrectiveaction: 1+  # Adjusted actions
+
+# Variations and decision points
+variations:
+  - variation: no_hearing_required
+    description: Appeal decided on written record without hearing
+    affects_steps: [5, 6]
+    notes: >
+      Steps 5 and 6 simplified. No hearing scheduled. Reviewing authority
+      decides based on written submissions and original record.
+  
+  - variation: expedited_appeal
+    description: Urgent matter requiring fast-track appeal process
+    affects_steps: [5, 7]
+    notes: >
+      Shortened timelines. Hearing scheduled quickly. Decision issued promptly.
+      Typically for cases with ongoing harm or time-sensitive issues.
+  
+  - variation: remand_for_new_investigation
+    description: Appeal reveals procedural flaws requiring new investigation
+    affects_steps: [7, 9]
+    notes: >
+      Appellate decision remands case for new investigation. Original
+      determination vacated. New investigation and determination required.
+  
+  - variation: settlement_during_appeal
+    description: Parties settle dispute while appeal is pending
+    affects_steps: [7, 9, 11]
+    notes: >
+      Appeal withdrawn. Settlement agreement recorded. Original determination
+      may be modified by consent. Dispute closed with settlement.

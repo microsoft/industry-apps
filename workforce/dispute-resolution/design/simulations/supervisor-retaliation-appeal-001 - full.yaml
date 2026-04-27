@@ -1,0 +1,1615 @@
+event_stream_name: supervisor-retaliation-appeal-001
+display_name: Robert Williams Performance Rating Retaliation Case
+module: workforce/dispute-resolution
+based_on_process: intake-to-formal-dispute, conduct-investigation, issue-determination, handle-appeal
+based_on_scenario: supervisor-retaliation-appeal
+generated: 2026-04-24T10:00:00Z
+generated_by: github-copilot
+
+# Execution metadata
+execution:
+  dry_run_only: false
+  clear_before_run: false
+  stop_on_error: true
+
+# Sequential operations/events
+events:
+  # ============================================================================
+  # PHASE 1: INTAKE (March 18, 2026)
+  # ============================================================================
+  
+  # Event 1: Create intake record
+  - event_id: 1
+    timestamp: 2026-03-18T10:30:00Z
+    operation: create
+    entity: appbase_disputeintake
+    performed_by: Kevin Park (intake_coordinator)
+    
+    reasoning: >
+      Kevin Park, a newer intake coordinator with 2 years of experience, receives
+      Robert Williams in his office. Robert is clearly frustrated and arrives with
+      a thick folder of documentation. Kevin listens as Robert explains his belief
+      that his recent "Needs Improvement" performance rating is retaliation for his
+      testimony in a previous investigation six months ago. Kevin creates the intake
+      record, noting the retaliation angle and Robert's detailed documentation.
+      He marks this as potentially serious due to whistleblower protection implications.
+    
+    fields:
+      appbase_name: Performance Rating Retaliation Concern - R. Williams
+      appbase_intakenumber: INT-2026-0142
+      appbase_submissiondatetime: 2026-03-18T10:30:00Z
+      appbase_methodofcontact: 147130001  # In Person
+      appbase_submittedby@odata.bind: "/contacts(lookup:robert.williams@company.com)"
+      appbase_description: >
+        Employee Robert Williams (QA Analyst, 7 years) reports unfair performance
+        rating allegedly in retaliation for witness participation in prior investigation.
+        Claims rating of "Needs Improvement" is first poor rating in career, received
+        2 months after providing testimony. Presents extensive documentation of previous
+        high performance and questions about supervisor's subjective criticism.
+      appbase_isanonymous: 147130001  # No
+      appbase_priority: 147130001  # High
+      appbase_stage: 147130000  # Received
+      appbase_organizationunit@odata.bind: "/appbase_organizationunits(lookup:HR Department)"
+    
+    store_as: intake_record
+
+  # Event 2: Assess intake and escalate
+  - event_id: 2
+    timestamp: 2026-03-18T11:45:00Z
+    operation: update
+    entity: appbase_disputeintake
+    record_reference: "{{intake_record.id}}"
+    performed_by: Kevin Park (intake_coordinator)
+    
+    reasoning: >
+      After the meeting with Robert, Kevin reviews his notes and the documentation
+      Robert provided. He recognizes the pattern of potential retaliation and knows
+      this is serious - he learned about retaliation indicators in his training.
+      Kevin consults with his supervisor and decides to escalate immediately to
+      senior investigator Angela Morrison, who has extensive experience with
+      retaliation cases. He updates the intake to Assessment stage and adds notes
+      about why this needs senior investigator attention.
+    
+    fields:
+      appbase_stage: 147130003  # Assessment
+      appbase_disposition: 147130002  # Forward to Investigation
+      appbase_description: >
+        Employee Robert Williams (QA Analyst, 7 years) reports unfair performance
+        rating allegedly in retaliation for witness participation in prior investigation.
+        Claims rating of "Needs Improvement" is first poor rating in career, received
+        2 months after providing testimony. Presents extensive documentation of previous
+        high performance and questions about supervisor's subjective criticism.
+        
+        ASSESSMENT: This intake raises significant retaliation concerns under whistleblower
+        protection policy. Timing (2 months after witness testimony), shift from consistent
+        high performance to sudden poor rating, and subjective nature of criticism all
+        suggest potential retaliation. Escalating to senior investigator Angela Morrison
+        for formal investigation. High priority due to legal implications.
+
+  # ============================================================================
+  # PHASE 2: FORMAL DISPUTE CREATION (March 20, 2026)
+  # ============================================================================
+
+  # Event 3: Create complainant contact (if not exists)
+  - event_id: 3
+    timestamp: 2026-03-20T09:00:00Z
+    operation: create
+    entity: contact
+    performed_by: Angela Morrison (dispute_investigator)
+    
+    reasoning: >
+      Angela Morrison reviews the intake and begins setting up the formal case.
+      She needs to ensure Robert Williams has a proper contact record in the system
+      for linking to the dispute. She creates or updates his contact information.
+    
+    fields:
+      firstname: Robert
+      lastname: Williams
+      jobtitle: Quality Assurance Analyst
+      emailaddress1: robert.williams@company.com
+      telephone1: 555-0167
+      mobilephone: 555-0168
+      department: Quality Assurance
+    
+    store_as: complainant_contact
+
+  # Event 4: Create respondent contact (supervisor)
+  - event_id: 4
+    timestamp: 2026-03-20T09:05:00Z
+    operation: create
+    entity: contact
+    performed_by: Angela Morrison (dispute_investigator)
+    
+    reasoning: >
+      Angela creates a contact record for Lisa Rodriguez, the supervisor who issued
+      the performance rating. She'll need this to link Lisa as the respondent in
+      the formal dispute case.
+    
+    fields:
+      firstname: Lisa
+      lastname: Rodriguez
+      jobtitle: QA Team Manager
+      emailaddress1: lisa.rodriguez@company.com
+      telephone1: 555-0189
+      department: Quality Assurance
+    
+    store_as: respondent_contact
+
+  # Event 5: Create formal dispute case
+  - event_id: 5
+    timestamp: 2026-03-20T09:30:00Z
+    operation: create
+    entity: appbase_dispute
+    performed_by: Angela Morrison (dispute_investigator)
+    
+    reasoning: >
+      Angela Morrison, with her 15 years of experience handling complex employment
+      matters, reviews Kevin's intake assessment and Robert's documentation. She
+      recognizes this as a serious retaliation allegation with potential legal
+      implications under whistleblower protection policies. She creates a formal
+      dispute case, classifying it as high severity due to the retaliation angle.
+      She assigns case number DSP-2026-0089 following the organizational format.
+      The case is marked confidential given the sensitive nature of retaliation
+      claims and marked high priority for expedited processing.
+    
+    fields:
+      appbase_name: Williams v. Rodriguez - Performance Rating Retaliation
+      appbase_casenumber: DSP-2026-0089
+      appbase_disputetype: 147130003  # Retaliation
+      appbase_stage: 147130001  # Investigation
+      appbase_fileddate: 2026-03-18T10:30:00Z
+      appbase_description: >
+        Retaliation complaint filed by Robert Williams (QA Analyst, 7 years) alleging
+        unfair performance rating by supervisor Lisa Rodriguez in retaliation for
+        witness testimony provided 6 months ago in separate workplace investigation.
+        Williams received first-ever "Needs Improvement" rating approximately 2 months
+        after providing testimony, with criticism focused on subjective areas (attitude,
+        team collaboration). Complainant presents strong documentation of prior consistent
+        high performance. Case raises concerns under whistleblower protection policy.
+      appbase_priority: 147130001  # High
+      appbase_severitylevel: 147130001  # High
+      appbase_isconfidential: 147130000  # Yes
+      appbase_isanonymous: 147130001  # No
+      appbase_decisionstatus: 147130000  # Pending
+      appbase_organizationunit@odata.bind: "/appbase_organizationunits(lookup:HR Department)"
+      appbase_complianceframework@odata.bind: "/appbase_complianceframeworks(lookup:Whistleblower Protection Policy)"
+    
+    store_as: dispute_record
+
+  # Event 6: Link intake to dispute
+  - event_id: 6
+    timestamp: 2026-03-20T09:35:00Z
+    operation: update
+    entity: appbase_disputeintake
+    record_reference: "{{intake_record.id}}"
+    performed_by: Angela Morrison (dispute_investigator)
+    
+    reasoning: >
+      Angela links the intake record to the newly created formal dispute to maintain
+      the audit trail and closes the intake now that it has been converted to a
+      formal case. This ensures proper tracking from initial complaint through
+      investigation.
+    
+    fields:
+      appbase_convertedtodispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_conversiondate: 2026-03-20T09:30:00Z
+      appbase_stage: 147130005  # Closed
+
+  # Event 7: Add complainant party
+  - event_id: 7
+    timestamp: 2026-03-20T09:40:00Z
+    operation: create
+    entity: appbase_disputeparty
+    performed_by: Angela Morrison (dispute_investigator)
+    
+    reasoning: >
+      Angela creates the party record linking Robert Williams as the complainant.
+      She marks him as the primary party since he initiated the complaint. The
+      start date reflects when the formal case was filed.
+    
+    fields:
+      appbase_name: Robert Williams - Complainant
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_person@odata.bind: "/contacts({{complainant_contact.id}})"
+      appbase_partyrole: 147130000  # Complainant
+      appbase_isprimary: 147130000  # Yes
+      appbase_startdate: 2026-03-20T09:30:00Z
+      appbase_description: QA Analyst alleging retaliation for witness testimony
+      appbase_notifieddatetime: 2026-03-20T09:30:00Z
+    
+    store_as: complainant_party
+
+  # Event 8: Add respondent party
+  - event_id: 8
+    timestamp: 2026-03-20T09:45:00Z
+    operation: create
+    entity: appbase_disputeparty
+    performed_by: Angela Morrison (dispute_investigator)
+    
+    reasoning: >
+      Angela creates the party record for Lisa Rodriguez as the respondent. Lisa
+      is the supervisor who issued the allegedly retaliatory performance rating.
+      Angela will need to ensure Lisa is properly notified of the investigation
+      per due process requirements. The notification will happen after initial
+      evidence gathering to preserve investigative integrity.
+    
+    fields:
+      appbase_name: Lisa Rodriguez - Respondent
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_person@odata.bind: "/contacts({{respondent_contact.id}})"
+      appbase_partyrole: 147130001  # Respondent
+      appbase_startdate: 2026-03-20T09:30:00Z
+      appbase_description: QA Team Manager who issued performance rating
+    
+    store_as: respondent_party
+
+  # ============================================================================
+  # PHASE 3: INVESTIGATION (March 20 - April 18, 2026)
+  # ============================================================================
+
+  # Event 9: Create investigation plan
+  - event_id: 9
+    timestamp: 2026-03-20T10:00:00Z
+    operation: create
+    entity: appbase_disputeinvestigation
+    performed_by: Angela Morrison (lead_investigator)
+    
+    reasoning: >
+      Angela creates a comprehensive investigation plan. Given the retaliation
+      allegation, she knows she needs to establish a timeline, review performance
+      documentation going back several years, examine the previous investigation
+      where Robert testified, interview both parties and their peers, and analyze
+      whether the timing and nature of the rating suggests retaliatory motive.
+      She sets a target completion of 4 weeks to be thorough while moving promptly
+      on this high-priority case.
+    
+    fields:
+      appbase_name: Investigation - Williams Retaliation Claim
+      appbase_investigationnumber: INV-DSP-2026-0089
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_investigationtype: 147130001  # Formal Investigation
+      appbase_stage: 147130000  # Planning
+      appbase_startdate: 2026-03-20T10:00:00Z
+      appbase_targetcompletiondate: 2026-04-18T17:00:00Z
+      appbase_organizationunit@odata.bind: "/appbase_organizationunits(lookup:HR Department)"
+      appbase_scope: >
+        Investigation will cover: (1) Timeline analysis of Robert Williams' testimony
+        in prior investigation and subsequent performance rating; (2) Review of
+        Williams' performance history for past 3 years; (3) Analysis of Lisa Rodriguez's
+        performance documentation and coaching notes; (4) Interviews with Williams,
+        Rodriguez, three peer QA analysts, and HR business partner; (5) Examination
+        of department performance rating patterns; (6) Assessment of whether rating
+        is supported by objective evidence or appears retaliatory.
+      appbase_methodology: >
+        Standard retaliation investigation protocol: (1) Document timeline; (2) Review
+        all written performance documentation; (3) Interview complainant for full
+        statement; (4) Interview witnesses/peers for corroboration; (5) Interview
+        respondent; (6) Interview HR partner for context; (7) Analyze temporal
+        relationship and comparative evidence; (8) Assess credibility and motivations;
+        (9) Determine whether legitimate performance concerns exist or if rating
+        appears retaliatory.
+      appbase_description: >
+        Formal investigation of retaliation allegation by Robert Williams (QA Analyst)
+        against supervisor Lisa Rodriguez regarding performance rating issued
+        approximately 2 months after Williams provided witness testimony.
+      appbase_completionstatus: 147130001  # In Progress
+    
+    store_as: investigation_record
+
+  # Event 10: Collect evidence - Performance reviews (3 years history)
+  - event_id: 10
+    timestamp: 2026-03-20T14:00:00Z
+    operation: create
+    entity: appbase_disputeevidence
+    performed_by: Angela Morrison (lead_investigator)
+    
+    reasoning: >
+      Angela begins evidence collection by obtaining Robert's performance review
+      history for the past three years. This will establish his baseline performance
+      and show whether the recent "Needs Improvement" rating represents a legitimate
+      performance decline or an anomaly. The HR records show consistent "Exceeds
+      Expectations" and "Meets Expectations" ratings until the most recent review.
+    
+    fields:
+      appbase_name: Performance Reviews 2023-2026 - R. Williams
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputeinvestigation@odata.bind: "/appbase_disputeinvestigations({{investigation_record.id}})"
+      appbase_evidencetype: 147130000  # Document
+      appbase_collecteddatetime: 2026-03-20T14:00:00Z
+      appbase_collectedby@odata.bind: "/contacts(lookup:angela.morrison@company.com)"
+      appbase_description: >
+        Complete performance review history: 2023 Annual (Exceeds Expectations),
+        2024 Annual (Exceeds Expectations), 2025 Mid-Year (Meets Expectations),
+        2025 Annual (Needs Improvement). Reviews show consistent high performance
+        until most recent rating.
+      appbase_source: HR Performance Management System
+      appbase_custodian: HR Records
+    
+    store_as: evidence_performance_reviews
+
+  # Event 11: Collect evidence - Previous investigation file
+  - event_id: 11
+    timestamp: 2026-03-20T14:30:00Z
+    operation: create
+    entity: appbase_disputeevidence
+    performed_by: Angela Morrison (lead_investigator)
+    
+    reasoning: >
+      Angela obtains the file from the previous investigation where Robert provided
+      testimony. She needs to verify when he testified, what he said, whether his
+      testimony was significant, and when that investigation concluded. This
+      establishes the timeline for the retaliation claim.
+    
+    fields:
+      appbase_name: Prior Investigation File DSP-2025-0234
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputeinvestigation@odata.bind: "/appbase_disputeinvestigations({{investigation_record.id}})"
+      appbase_evidencetype: 147130000  # Document
+      appbase_collecteddatetime: 2026-03-20T14:30:00Z
+      appbase_collectedby@odata.bind: "/contacts(lookup:angela.morrison@company.com)"
+      appbase_description: >
+        Investigation file from DSP-2025-0234 (September-October 2025). Robert Williams
+        provided witness interview on September 28, 2025, corroborating complainant's
+        allegations about department work practices. Investigation concluded October 20,
+        2025 with findings partially substantiating complaint. Williams' testimony
+        was significant to the outcome.
+      appbase_source: Dispute Resolution Case File
+      appbase_custodian: Dispute Resolution Office
+    
+    store_as: evidence_prior_investigation
+
+  # Event 12: Collect evidence - Email communications
+  - event_id: 12
+    timestamp: 2026-03-21T10:00:00Z
+    operation: create
+    entity: appbase_disputeevidence
+    performed_by: Angela Morrison (lead_investigator)
+    
+    reasoning: >
+      Angela requests and reviews email communications between Lisa and Robert
+      from the past six months, looking for evidence of coaching conversations,
+      performance concerns being communicated, or any indication of animus following
+      Robert's testimony. The emails show relatively normal work correspondence
+      with no documented performance coaching prior to the review.
+    
+    fields:
+      appbase_name: Email Communications Rodriguez-Williams (Sep 2025 - Mar 2026)
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputeinvestigation@odata.bind: "/appbase_disputeinvestigations({{investigation_record.id}})"
+      appbase_evidencetype: 147130001  # Email or Communication
+      appbase_collecteddatetime: 2026-03-21T10:00:00Z
+      appbase_collectedby@odata.bind: "/contacts(lookup:angela.morrison@company.com)"
+      appbase_description: >
+        Email correspondence between Lisa Rodriguez and Robert Williams from
+        September 2025 through March 2026. Emails show normal work-related
+        communication. Notable: No documented performance coaching or concerns
+        raised prior to annual review. No evidence of hostile tone or unusual
+        communication patterns.
+      appbase_source: Corporate Email System
+    
+    store_as: evidence_emails
+
+  # Event 13: Collect evidence - Coaching documentation
+  - event_id: 13
+    timestamp: 2026-03-21T11:00:00Z
+    operation: create
+    entity: appbase_disputeevidence
+    performed_by: Angela Morrison (lead_investigator)
+    
+    reasoning: >
+      Angela requests any coaching notes or performance improvement documentation
+      Lisa may have regarding Robert. Lisa provides some handwritten notes dated
+      from December 2025 and January 2026 referencing concerns about Robert's
+      "attitude" and "collaboration," but these were never formally shared with
+      Robert prior to the annual review.
+    
+    fields:
+      appbase_name: Coaching Notes - L. Rodriguez re R. Williams
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputeinvestigation@odata.bind: "/appbase_disputeinvestigations({{investigation_record.id}})"
+      appbase_evidencetype: 147130000  # Document
+      appbase_collecteddatetime: 2026-03-21T11:00:00Z
+      appbase_collectedby@odata.bind: "/contacts(lookup:angela.morrison@company.com)"
+      appbase_description: >
+        Handwritten coaching notes from Lisa Rodriguez dated December 2025 and
+        January 2026. Notes reference concerns about Robert's "attitude in meetings"
+        and "not being a team player." However, these concerns were not documented
+        in formal coaching conversations with Williams and he was not made aware
+        of specific performance issues until the annual review in February 2026.
+      appbase_source: Lisa Rodriguez personal files
+      appbase_custodian: Lisa Rodriguez
+    
+    store_as: evidence_coaching_notes
+
+  # Event 14: Schedule complainant interview
+  - event_id: 14
+    timestamp: 2026-03-22T09:00:00Z
+    operation: create
+    entity: appbase_disputeinterview
+    performed_by: Angela Morrison (lead_investigator)
+    
+    reasoning: >
+      Angela schedules a formal interview with Robert Williams to get his complete
+      statement. She wants to hear his perspective on his performance, the timeline
+      of events, any coaching he received (or didn't receive), and his belief about
+      the connection to his prior testimony. She schedules for March 25 to give
+      him a few days notice.
+    
+    fields:
+      appbase_name: Complainant Interview - Robert Williams
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputeinvestigation@odata.bind: "/appbase_disputeinvestigations({{investigation_record.id}})"
+      appbase_interviewtype: 147130000  # Initial Interview
+      appbase_interviewee@odata.bind: "/contacts({{complainant_contact.id}})"
+      appbase_interviewer@odata.bind: "/contacts(lookup:angela.morrison@company.com)"
+      appbase_scheduleddate: 2026-03-25T10:00:00Z
+      appbase_stage: 147130000  # Scheduled
+      appbase_location: Conference Room 3B
+      appbase_purpose: >
+        Obtain complainant's full statement regarding alleged retaliation, performance
+        history, and timeline of events following prior investigation testimony.
+    
+    store_as: interview_complainant
+
+  # Event 15: Conduct complainant interview
+  - event_id: 15
+    timestamp: 2026-03-25T10:00:00Z
+    operation: update
+    entity: appbase_disputeinterview
+    record_reference: "{{interview_complainant.id}}"
+    performed_by: Angela Morrison (lead_investigator)
+    
+    reasoning: >
+      Angela conducts the interview with Robert. He provides a detailed timeline
+      and presents organized documentation. He explains that he testified truthfully
+      in the previous investigation, his performance and work quality hasn't changed,
+      he received no coaching or warnings before the poor review, and the negative
+      feedback is subjective and doesn't match objective work metrics. He believes
+      Lisa gave him a poor rating to punish him for testifying. Angela finds him
+      credible and well-prepared, though understandably emotional about the situation.
+    
+    fields:
+      appbase_stage: 147130004  # Completed
+      appbase_actualdate: 2026-03-25T10:00:00Z
+      appbase_interviewduration: 90
+      appbase_summary: >
+        Robert Williams provided detailed testimony about his performance history,
+        involvement in prior investigation (DSP-2025-0234, testimony 9/28/25), and
+        subsequent performance rating. Key points: (1) Consistent high performance
+        for 7 years; (2) Testified truthfully in prior case corroborating workplace
+        practice concerns; (3) No coaching or performance warnings received between
+        testimony and annual review; (4) First learned of issues during 2/15/26 review
+        meeting; (5) Criticism focused on subjective areas (attitude, collaboration)
+        not supported by project outcomes or metrics; (6) Believes rating is retaliation.
+        Complainant presented organized documentation and timeline. Credible witness,
+        genuinely distressed by situation. No evidence of personal animus toward
+        Rodriguez, focused on fairness of rating.
+      appbase_notes: >
+        Williams maintains professional demeanor throughout interview. Documentation
+        supports his claims of prior high performance. Timeline is compelling - 6 weeks
+        between investigation conclusion and annual review. Notable: No email trail
+        of coaching, no prior warnings, subjective criticism only.
+    
+    store_as: null
+
+  # Event 16: Schedule witness interviews - Peer analysts
+  - event_id: 16
+    timestamp: 2026-03-26T09:00:00Z
+    operation: create
+    entity: appbase_disputeinterview
+    performed_by: Angela Morrison (lead_investigator)
+    
+    reasoning: >
+      Angela identifies three peer QA analysts who work with both Robert and Lisa.
+      She needs to understand whether they observed performance issues with Robert,
+      whether they noticed any change in Lisa's treatment of Robert after the
+      previous investigation, and how Robert's work quality compares to peers.
+      She schedules the first peer interview with Maria Santos.
+    
+    fields:
+      appbase_name: Witness Interview - Maria Santos (Peer)
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputeinvestigation@odata.bind: "/appbase_disputeinvestigations({{investigation_record.id}})"
+      appbase_interviewtype: 147130002  # Witness Interview
+      appbase_interviewee@odata.bind: "/contacts(lookup:maria.santos@company.com)"
+      appbase_interviewer@odata.bind: "/contacts(lookup:angela.morrison@company.com)"
+      appbase_scheduleddate: 2026-03-27T14:00:00Z
+      appbase_stage: 147130000  # Scheduled
+      appbase_location: Conference Room 2A
+      appbase_purpose: Obtain witness perspective on complainant's work performance and team dynamics
+    
+    store_as: interview_witness_maria
+
+  # Event 17: Conduct witness interview - Maria Santos
+  - event_id: 17
+    timestamp: 2026-03-27T14:00:00Z
+    operation: update
+    entity: appbase_disputeinterview
+    record_reference: "{{interview_witness_maria.id}}"
+    performed_by: Angela Morrison (lead_investigator)
+    
+    reasoning: >
+      Maria Santos is interviewed. She's been on the QA team for 4 years and works
+      closely with Robert. She reports that Robert is a solid performer, perhaps
+      a bit quiet but thorough and reliable. She wasn't aware of any performance
+      problems. She did notice that Lisa seemed "cooler" toward Robert after the
+      previous investigation but didn't think much of it. She was surprised to hear
+      Robert got a poor rating.
+    
+    fields:
+      appbase_stage: 147130004  # Completed
+      appbase_actualdate: 2026-03-27T14:00:00Z
+      appbase_interviewduration: 45
+      appbase_summary: >
+        Maria Santos (Senior QA Analyst, 4 years) characterized Robert Williams as
+        "solid performer, very thorough, maybe quiet but gets work done well." Not
+        aware of performance issues. Noticed Lisa Rodriguez seemed "less friendly"
+        with Robert after "something happened last fall" but didn't know details.
+        Surprised to learn Robert received poor rating. Believes Robert's work quality
+        is comparable to other team members. Did not observe attitude or collaboration
+        problems.
+      appbase_notes: >
+        Witness appears truthful and balanced. No obvious bias toward either party.
+        Corroborates that Robert's performance appeared consistent and adequate.
+        Observed subtle change in supervisor-employee dynamic post-fall 2025.
+
+  # Event 18: Schedule and conduct witness interview - David Chen
+  - event_id: 18
+    timestamp: 2026-03-28T10:00:00Z
+    operation: create
+    entity: appbase_disputeinterview
+    performed_by: Angela Morrison (lead_investigator)
+    
+    fields:
+      appbase_name: Witness Interview - David Chen (Peer)
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputeinvestigation@odata.bind: "/appbase_disputeinvestigations({{investigation_record.id}})"
+      appbase_interviewtype: 147130002  # Witness Interview
+      appbase_interviewee@odata.bind: "/contacts(lookup:david.chen@company.com)"
+      appbase_interviewer@odata.bind: "/contacts(lookup:angela.morrison@company.com)"
+      appbase_scheduleddate: 2026-03-28T10:00:00Z
+      appbase_stage: 147130000  # Scheduled
+      appbase_location: Conference Room 2A
+      appbase_purpose: Obtain additional peer perspective on work performance
+    
+    store_as: interview_witness_david
+
+  - event_id: 19
+    timestamp: 2026-03-28T10:00:00Z
+    operation: update
+    entity: appbase_disputeinterview
+    record_reference: "{{interview_witness_david.id}}"
+    performed_by: Angela Morrison (lead_investigator)
+    
+    reasoning: >
+      David Chen provides his perspective. He's been on the team for 2 years and
+      considers Robert a good colleague. David mentions that Robert can be "opinionated"
+      about testing approaches but that's part of being a good QA analyst. He didn't
+      observe problems with Robert's attitude or teamwork. He was also unaware of
+      any performance concerns before the review.
+    
+    fields:
+      appbase_stage: 147130004  # Completed
+      appbase_actualdate: 2026-03-28T10:00:00Z
+      appbase_interviewduration: 40
+      appbase_summary: >
+        David Chen (QA Analyst, 2 years) describes Robert as "good at his job,
+        knowledgeable, sometimes opinionated about testing methods but that's what
+        makes him good at QA." Did not observe attitude problems. Unaware of any
+        performance concerns. Believes Robert pulls his weight on the team. No
+        observation of collaboration issues.
+      appbase_notes: >
+        Witness credible. Characterization of Robert as "opinionated" about technical
+        matters is typical for QA role and not indicative of attitude problem.
+
+  # Event 20: Schedule and conduct HR Business Partner interview
+  - event_id: 20
+    timestamp: 2026-03-29T13:00:00Z
+    operation: create
+    entity: appbase_disputeinterview
+    performed_by: Angela Morrison (lead_investigator)
+    
+    fields:
+      appbase_name: Witness Interview - Jennifer Wu (HR Business Partner)
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputeinvestigation@odata.bind: "/appbase_disputeinvestigations({{investigation_record.id}})"
+      appbase_interviewtype: 147130004  # Expert Consultation
+      appbase_interviewee@odata.bind: "/contacts(lookup:jennifer.wu@company.com)"
+      appbase_interviewer@odata.bind: "/contacts(lookup:angela.morrison@company.com)"
+      appbase_scheduleddate: 2026-03-29T13:00:00Z
+      appbase_stage: 147130000  # Scheduled
+      appbase_location: HR Office
+      appbase_purpose: Understand performance review process and any documented coaching
+    
+    store_as: interview_hr_partner
+
+  - event_id: 21
+    timestamp: 2026-03-29T13:00:00Z
+    operation: update
+    entity: appbase_disputeinterview
+    record_reference: "{{interview_hr_partner.id}}"
+    performed_by: Angela Morrison (lead_investigator)
+    
+    reasoning: >
+      Jennifer Wu, the HR Business Partner for the QA department, provides context
+      on the performance review process. She confirms that Lisa did not bring any
+      performance concerns about Robert to HR prior to the annual review. The "Needs
+      Improvement" rating surprised Jennifer as well. Lisa's documentation at review
+      time focused on subjective behavioral observations rather than objective work
+      quality metrics. Jennifer advised Lisa that the rating should be supported by
+      prior coaching documentation, but Lisa insisted the rating was appropriate.
+    
+    fields:
+      appbase_stage: 147130004  # Completed
+      appbase_actualdate: 2026-03-29T13:00:00Z
+      appbase_interviewduration: 50
+      appbase_summary: >
+        Jennifer Wu (HR Business Partner, 6 years) confirmed that Lisa Rodriguez
+        did not raise performance concerns about Robert Williams prior to 2026 annual
+        review. No coaching conversations documented in HRMS. Wu was "surprised" by
+        Needs Improvement rating given lack of documentation. Rating justification
+        focused on subjective behaviors ("attitude," "team player") rather than
+        objective work metrics or deliverables. Wu advised Lisa that rating should
+        have prior coaching support, but Lisa maintained rating was justified. Wu
+        noted this was "unusual" given Robert's prior consistent performance.
+      appbase_notes: >
+        HR partner appears objective and professional. Confirms lack of documented
+        coaching trail. Expressed concern about subjectivity of rating criteria.
+        Important context about performance management best practices.
+
+  # Event 22: Notify respondent and schedule interview
+  - event_id: 22
+    timestamp: 2026-04-01T09:00:00Z
+    operation: update
+    entity: appbase_disputeparty
+    record_reference: "{{respondent_party.id}}"
+    performed_by: Angela Morrison (lead_investigator)
+    
+    reasoning: >
+      Now that initial evidence gathering is complete, Angela formally notifies
+      Lisa Rodriguez that an investigation has been opened and schedules her
+      interview. Lisa is entitled to know the allegations and have opportunity
+      to respond. Angela provides her with written notice of the investigation.
+    
+    fields:
+      appbase_notifieddatetime: 2026-04-01T09:00:00Z
+      appbase_description: >
+        QA Team Manager who issued performance rating. Formally notified of
+        investigation on 4/1/26 regarding retaliation allegation.
+
+  - event_id: 23
+    timestamp: 2026-04-01T09:15:00Z
+    operation: create
+    entity: appbase_disputeinterview
+    performed_by: Angela Morrison (lead_investigator)
+    
+    reasoning: >
+      Angela schedules Lisa's interview, giving her adequate notice and informing
+      her she has the right to bring a representative. The interview is scheduled
+      for April 4, giving Lisa several days to prepare and review the allegations.
+    
+    fields:
+      appbase_name: Respondent Interview - Lisa Rodriguez
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputeinvestigation@odata.bind: "/appbase_disputeinvestigations({{investigation_record.id}})"
+      appbase_interviewtype: 147130003  # Subject Interview
+      appbase_interviewee@odata.bind: "/contacts({{respondent_contact.id}})"
+      appbase_interviewer@odata.bind: "/contacts(lookup:angela.morrison@company.com)"
+      appbase_scheduleddate: 2026-04-04T14:00:00Z
+      appbase_stage: 147130000  # Scheduled
+      appbase_location: Conference Room 3B
+      appbase_noticedate: 2026-04-01T09:00:00Z
+      appbase_purpose: >
+        Obtain respondent's statement regarding performance rating process and
+        allegations of retaliation.
+    
+    store_as: interview_respondent
+
+  # Event 24: Conduct respondent interview
+  - event_id: 24
+    timestamp: 2026-04-04T14:00:00Z
+    operation: update
+    entity: appbase_disputeinterview
+    record_reference: "{{interview_respondent.id}}"
+    performed_by: Angela Morrison (lead_investigator)
+    
+    reasoning: >
+      Angela conducts Lisa's interview. Lisa is defensive but maintains her
+      professionalism. She insists the rating was based on legitimate performance
+      concerns - that Robert has become more difficult to work with, questions her
+      decisions, and isn't collaborative. She denies any connection to the previous
+      investigation and says she wasn't even upset about Robert's testimony because
+      it was about department practices, not about her personally. She acknowledges
+      she didn't document coaching conversations but says she had "informal discussions"
+      with Robert. Lisa believes her assessment was fair and appropriate.
+    
+    fields:
+      appbase_stage: 147130004  # Completed
+      appbase_actualdate: 2026-04-04T14:00:00Z
+      appbase_interviewduration: 75
+      appbase_summary: >
+        Lisa Rodriguez (QA Team Manager, 5 years as manager) denies retaliation
+        allegation. States performance rating based on legitimate concerns: (1) Robert
+        "questions decisions and pushes back on direction"; (2) "Not as collaborative
+        as he used to be"; (3) "Attitude has changed over past year." Acknowledges
+        concerns were not documented in formal coaching but maintains she had "informal
+        conversations" with Robert. Denies connection to prior investigation, states
+        she wasn't upset about testimony because it was about department practices,
+        not personal. Insists rating was appropriate and fair. When pressed on lack
+        of documentation, became defensive and stated "managers should be trusted to
+        assess their employees." Did not provide specific examples of concerning
+        behavior when asked for details.
+      appbase_notes: >
+        Respondent appears genuinely to believe her rating was justified, but unable
+        to provide specific documented examples. Defensive tone when questioned about
+        timing and lack of coaching trail. Characterization of Robert's behavior
+        focuses on him "questioning" and "pushing back" which could be legitimate
+        management concern OR could reflect annoyance at his prior testimony. Credibility
+        somewhat undermined by lack of contemporaneous documentation.
+
+  # Event 25: Create finding - Timeline analysis
+  - event_id: 25
+    timestamp: 2026-04-15T10:00:00Z
+    operation: create
+    entity: appbase_disputefinding
+    performed_by: Angela Morrison (lead_investigator)
+    
+    reasoning: >
+      Angela begins documenting her findings. First, she analyzes the timeline.
+      The temporal relationship between Robert's testimony (September 28, 2025),
+      the investigation conclusion (October 20, 2025), and the poor performance
+      rating (February 2026 annual review) is concerning. The timing is consistent
+      with potential retaliation, though not conclusive on its own.
+    
+    fields:
+      appbase_name: Finding 1 - Timeline Analysis
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputeinvestigation@odata.bind: "/appbase_disputeinvestigations({{investigation_record.id}})"
+      appbase_findingtype: 147130000  # Factual Finding
+      appbase_conclusion: 147130001  # Substantiated
+      appbase_basis: >
+        Timeline analysis establishes temporal relationship between protected activity
+        (witness testimony on 9/28/25) and adverse employment action (Needs Improvement
+        rating issued 2/15/26). Investigation in which Williams testified concluded
+        10/20/25, approximately 4 months before annual review. Approximately 6 weeks
+        elapsed between investigation conclusion and review cycle. While temporal
+        proximity alone does not prove retaliation, the timing is consistent with
+        retaliatory motive and raises significant concerns when considered with other
+        evidence.
+      appbase_description: >
+        Examination of timeline from protected activity to adverse action, establishing
+        temporal relationship required for retaliation analysis.
+      appbase_severityassessment: High
+
+  # Event 26: Create finding - Documentation analysis
+  - event_id: 26
+    timestamp: 2026-04-15T11:00:00Z
+    operation: create
+    entity: appbase_disputefinding
+    performed_by: Angela Morrison (lead_investigator)
+    
+    reasoning: >
+      Angela documents findings on the lack of performance coaching documentation.
+      The absence of documented coaching conversations prior to a "Needs Improvement"
+      rating, combined with no email trail of performance concerns, deviates from
+      standard performance management practices and company policy.
+    
+    fields:
+      appbase_name: Finding 2 - Documentation Analysis
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputeinvestigation@odata.bind: "/appbase_disputeinvestigations({{investigation_record.id}})"
+      appbase_findingtype: 147130001  # Procedural Finding
+      appbase_conclusion: 147130001  # Substantiated
+      appbase_basis: >
+        Review of documentation reveals significant deficiencies in performance
+        management process: (1) No documented coaching conversations in HRMS prior
+        to review; (2) No email trail of performance concerns communicated to Williams;
+        (3) Handwritten notes by Rodriguez dated 12/25 and 1/26 were not shared with
+        Williams; (4) HR Business Partner confirmed lack of documented coaching
+        trail and expressed surprise at rating; (5) Rodriguez's claim of "informal
+        discussions" is not supported by any contemporaneous documentation. This lack
+        of documentation violates company performance management policy requiring
+        coaching and progressive feedback before poor ratings. The absence of
+        documentation, combined with Williams' prior consistent high performance,
+        undermines the legitimacy of the rating.
+      appbase_description: >
+        Analysis of performance management documentation and adherence to company
+        coaching and feedback requirements.
+      appbase_severityassessment: High
+      appbase_recommendation: >
+        Company should reinforce performance management documentation requirements
+        with all managers. Consider mandatory training on progressive feedback.
+
+  # Event 27: Create finding - Subjectivity analysis
+  - event_id: 27
+    timestamp: 2026-04-15T14:00:00Z
+    operation: create
+    entity: appbase_disputefinding
+    performed_by: Angela Morrison (lead_investigator)
+    
+    reasoning: >
+      Angela analyzes the substance of Lisa's criticism. The rating focused on
+      subjective behavioral assessments ("attitude," "team collaboration") rather
+      than objective work quality metrics. The characterization of Robert as
+      "questioning" and "pushing back" could be interpreted as normal QA analyst
+      behavior or could reflect supervisor irritation.
+    
+    fields:
+      appbase_name: Finding 3 - Subjectivity of Rating Criteria
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputeinvestigation@odata.bind: "/appbase_disputeinvestigations({{investigation_record.id}})"
+      appbase_findingtype: 147130000  # Factual Finding
+      appbase_conclusion: 147130002  # Partially Substantiated
+      appbase_basis: >
+        Analysis of rating criteria shows heavy reliance on subjective behavioral
+        assessments: "attitude," "team collaboration," "questioning decisions,"
+        "pushing back." Rodriguez unable to provide specific objective examples or
+        metrics showing performance deficiency. Peer witnesses (Santos, Chen) did
+        not observe attitude or collaboration problems. Chen characterized Robert as
+        "opinionated about testing methods" which is appropriate for QA role. While
+        Rodriguez may have legitimate management concerns about Williams' receptiveness
+        to direction, the lack of objective criteria and contemporaneous documentation
+        raises questions about whether rating reflects genuine performance issues or
+        supervisor's subjective negative perception possibly influenced by protected
+        activity. HR Partner Wu noted rating was "unusual" given reliance on subjective
+        criteria without supporting documentation.
+      appbase_description: >
+        Evaluation of whether performance rating based on objective work quality
+        or subjective supervisor perceptions.
+      appbase_severityassessment: Moderate
+
+  # Event 28: Create finding - Overall retaliation determination
+  - event_id: 28
+    timestamp: 2026-04-15T16:00:00Z
+    operation: create
+    entity: appbase_disputefinding
+    performed_by: Angela Morrison (lead_investigator)
+    
+    reasoning: >
+      Angela synthesizes all findings into an overall determination on the retaliation
+      claim. While she cannot prove retaliatory intent definitively, the preponderance
+      of evidence suggests the rating was influenced by Robert's protected activity.
+      The timing, lack of documentation, subjectivity of criteria, and deviation from
+      performance management practices, taken together, support a finding that
+      retaliation more likely than not occurred.
+    
+    fields:
+      appbase_name: Finding 4 - Overall Retaliation Determination
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputeinvestigation@odata.bind: "/appbase_disputeinvestigations({{investigation_record.id}})"
+      appbase_findingtype: 147130002  # Conclusion
+      appbase_conclusion: 147130002  # Partially Substantiated
+      appbase_basis: >
+        Based on totality of evidence, investigation finds that retaliation claim
+        is partially substantiated. While cannot definitively establish retaliatory
+        intent, preponderance of evidence supports conclusion that performance rating
+        was more likely than not influenced by Williams' protected activity as witness
+        in prior investigation. Key factors: (1) Temporal proximity between testimony
+        and poor rating; (2) Deviation from established performance management practices;
+        (3) Lack of documented coaching or progressive feedback; (4) Heavy reliance
+        on subjective criteria not corroborated by peer observations; (5) Supervisor's
+        inability to provide objective examples; (6) Rating represents significant
+        departure from Williams' consistent prior high performance without documented
+        justification. While Rodriguez may have had some legitimate concerns about
+        Williams' receptiveness to direction, the manner in which rating was issued -
+        without prior coaching, documentation, or objective metrics - combined with
+        timing, creates inference of retaliatory motive. Finding: Performance rating
+        was disproportionately harsh and timing raises significant retaliation concerns.
+        Rating should be adjusted and corrective actions implemented.
+      appbase_description: >
+        Synthesis of all evidence and findings into overall determination on
+        retaliation allegation.
+      appbase_severityassessment: High
+      appbase_recommendation: >
+        (1) Adjust Williams' performance rating to Meets Expectations; (2) Provide
+        Rodriguez with training on retaliation prevention and performance management;
+        (3) Implement monitoring of Rodriguez's management practices; (4) Document
+        this matter in Rodriguez's supervisory record.
+
+  # Event 29: Complete investigation
+  - event_id: 29
+    timestamp: 2026-04-18T17:00:00Z
+    operation: update
+    entity: appbase_disputeinvestigation
+    record_reference: "{{investigation_record.id}}"
+    performed_by: Angela Morrison (lead_investigator)
+    
+    reasoning: >
+      Angela completes the investigation on schedule. She prepares a comprehensive
+      investigation report summarizing all evidence, interviews, and findings. The
+      report concludes that while retaliatory intent cannot be proven beyond doubt,
+      the preponderance of evidence supports a finding that the performance rating
+      was influenced by protected activity and should be adjusted.
+    
+    fields:
+      appbase_stage: 147130006  # Completed
+      appbase_completionstatus: 147130002  # Complete
+      appbase_actualcompletiondate: 2026-04-18T17:00:00Z
+      appbase_summary: >
+        Investigation of retaliation allegation completed. Evidence includes: 3-year
+        performance history showing consistent high ratings; prior investigation file
+        establishing protected activity; email communications showing no documented
+        coaching; supervisor's coaching notes never shared with employee; interviews
+        with complainant, respondent, 2 peer witnesses, and HR partner. Findings:
+        (1) Temporal relationship between testimony and poor rating established;
+        (2) Significant documentation deficiencies in performance management process;
+        (3) Rating relies heavily on subjective criteria not corroborated by peers;
+        (4) Overall determination: Retaliation claim partially substantiated.
+        Recommendation: Adjust rating, provide training, implement monitoring.
+        Investigation conducted in accordance with policy, both parties given full
+        opportunity to present their perspectives. Report forwarded to Deciding
+        Official Patricia Chen for determination.
+
+  # ============================================================================
+  # PHASE 4: DETERMINATION (April 19-22, 2026)
+  # ============================================================================
+
+  # Event 30: Create draft determination
+  - event_id: 30
+    timestamp: 2026-04-19T09:00:00Z
+    operation: create
+    entity: appbase_disputedetermination
+    performed_by: Patricia Chen (deciding_official)
+    
+    reasoning: >
+      Patricia Chen, the deciding official with 18 years in HR leadership, reviews
+      Angela's comprehensive investigation report. Patricia has handled many complex
+      employment cases and recognizes this as a difficult judgment call. The evidence
+      doesn't prove malicious retaliation, but the procedural failures and timing
+      are concerning. She decides to partially substantiate the claim - acknowledging
+      some of Lisa's concerns may be legitimate while finding that the rating process
+      was flawed and the outcome disproportionate. She drafts a determination that
+      adjusts the rating and requires corrective actions focused on training and
+      monitoring rather than discipline.
+    
+    fields:
+      appbase_name: Determination - Williams v. Rodriguez
+      appbase_determinationnumber: DET-DSP-2026-0089
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputeinvestigation@odata.bind: "/appbase_disputeinvestigations({{investigation_record.id}})"
+      appbase_determinationtype: 147130000  # Finding
+      appbase_stage: 147130000  # Draft
+      appbase_determinationdate: 2026-04-19T09:00:00Z
+      appbase_basis: >
+        Determination based on whistleblower protection policy and anti-retaliation
+        provisions of employee handbook. Legal standard: Complainant must establish
+        (1) protected activity, (2) adverse employment action, (3) causal connection.
+        Investigation established all three elements by preponderance of evidence.
+      appbase_conclusion: >
+        Retaliation claim PARTIALLY SUBSTANTIATED. While investigation cannot
+        definitively establish retaliatory intent, the totality of circumstances -
+        including timing, lack of documentation, procedural deficiencies, and
+        subjectivity of rating criteria - supports finding that performance rating
+        was more likely than not influenced by protected witness activity. Some
+        legitimate performance concerns may exist, but rating was disproportionately
+        harsh given lack of progressive discipline and prior consistent high performance.
+      appbase_rationale: >
+        Investigation findings support partial substantiation: (1) Robert Williams
+        engaged in protected activity by providing truthful witness testimony on
+        9/28/25; (2) Needs Improvement rating issued 2/15/26 constitutes adverse
+        employment action affecting compensation and career progression; (3) Temporal
+        relationship (approximately 3.5 months) combined with other evidence establishes
+        causal connection. Significant procedural failures include lack of documented
+        coaching, reliance on subjective criteria, deviation from performance management
+        best practices. While Lisa Rodriguez may have had some legitimate concerns
+        about Williams' receptiveness to supervisory direction, the manner in which
+        rating was issued - without prior coaching, objective metrics, or documentation -
+        undermines legitimacy of rating and creates inference of retaliatory motive.
+        Rating should be adjusted to Meets Expectations to remedy disproportionate
+        adverse action. Corrective actions focus on training and monitoring rather
+        than discipline, given lack of definitive proof of malicious intent.
+      appbase_remedy: >
+        (1) Adjust Robert Williams' 2025 annual performance rating from Needs
+        Improvement to Meets Expectations; (2) Provide Lisa Rodriguez with training
+        on retaliation prevention and proper performance management documentation;
+        (3) Implement 6-month monitoring of Rodriguez's performance management
+        practices by HR; (4) Document this matter in Rodriguez's supervisory file;
+        (5) No other disciplinary action against Rodriguez at this time.
+      appbase_effectivedate: 2026-04-22T00:00:00Z
+    
+    store_as: determination_record
+
+  # Event 31: Legal counsel review
+  - event_id: 31
+    timestamp: 2026-04-20T10:00:00Z
+    operation: update
+    entity: appbase_disputedetermination
+    record_reference: "{{determination_record.id}}"
+    performed_by: Michael Torres (legal_counsel)
+    
+    reasoning: >
+      Legal counsel Michael Torres reviews Patricia's draft determination. He
+      examines whether the legal standard was properly applied, whether the remedy
+      is appropriate, and whether the determination exposes the company to legal
+      risk. He finds the determination well-reasoned and legally sound. The "partial
+      substantiation" finding appropriately reflects the mixed evidence. He approves
+      moving forward.
+    
+    fields:
+      appbase_stage: 147130001  # Under Review
+      appbase_reviewcomments: >
+        Legal review completed. Determination appropriately applies preponderance
+        of evidence standard for retaliation claims. Finding of partial substantiation
+        reflects nuanced evidence - cannot prove malicious intent but procedural
+        failures and timing create inference. Remedy is measured and appropriate:
+        adjusts rating to remedy adverse action while avoiding punitive measures
+        against supervisor given lack of definitive proof. Training and monitoring
+        are reasonable corrective actions. Determination mitigates legal risk while
+        achieving fair outcome. Recommend approval.
+      appbase_reviewdate: 2026-04-20T10:00:00Z
+
+  # Event 32: Finalize determination
+  - event_id: 32
+    timestamp: 2026-04-22T09:00:00Z
+    operation: update
+    entity: appbase_disputedetermination
+    record_reference: "{{determination_record.id}}"
+    performed_by: Patricia Chen (deciding_official)
+    
+    reasoning: >
+      With legal counsel's approval, Patricia finalizes the determination. This
+      is a delegated authority determination that doesn't require executive approval.
+      She moves it to Final stage, ready for issuance to the parties.
+    
+    fields:
+      appbase_stage: 147130005  # Final
+      appbase_approvaldate: 2026-04-22T09:00:00Z
+
+  # Event 33: Issue determination to parties
+  - event_id: 33
+    timestamp: 2026-04-22T10:00:00Z
+    operation: update
+    entity: appbase_disputedetermination
+    record_reference: "{{determination_record.id}}"
+    performed_by: Patricia Chen (deciding_official)
+    
+    reasoning: >
+      Patricia formally issues the determination to both Robert Williams and Lisa
+      Rodriguez. Both receive written copies via email and certified mail. The
+      determination letter explains the findings, the remedy, and both parties'
+      right to appeal within 10 business days. The issuance starts the appeal clock.
+    
+    fields:
+      appbase_stage: 147130003  # Issued
+      appbase_issueddate: 2026-04-22T10:00:00Z
+      appbase_notificationmethod: Email and Certified Mail
+      appbase_acknowledgmentdate: 2026-04-22T14:30:00Z
+
+  # Event 34: Update dispute status
+  - event_id: 34
+    timestamp: 2026-04-22T10:15:00Z
+    operation: update
+    entity: appbase_dispute
+    record_reference: "{{dispute_record.id}}"
+    performed_by: Patricia Chen (deciding_official)
+    
+    reasoning: >
+      Patricia updates the parent dispute record to reflect that a determination
+      has been issued. The case remains open pending the appeal period and
+      implementation of corrective actions.
+    
+    fields:
+      appbase_stage: 147130003  # Determination Issued
+      appbase_decisionstatus: 147130002  # Decided
+      appbase_overallresult: 147130002  # Partially Substantiated
+
+  # Event 35: Create corrective action - Adjust performance rating
+  - event_id: 35
+    timestamp: 2026-04-22T11:00:00Z
+    operation: create
+    entity: appbase_disputecorrectiveaction
+    performed_by: Jennifer Wu (hr_specialist)
+    
+    reasoning: >
+      HR Business Partner Jennifer Wu creates the corrective action to adjust
+      Robert's performance rating in the HR system. This is the primary remedy
+      and needs to be completed promptly. She assigns it to herself to execute.
+    
+    fields:
+      appbase_name: Adjust Performance Rating - R. Williams
+      appbase_actionnumber: CA-DSP-2026-0089-01
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputedetermination@odata.bind: "/appbase_disputedeterminations({{determination_record.id}})"
+      appbase_correctiveactiontype: 147130009  # Communication Plan (closest match, or use appropriate type)
+      appbase_completionstatus: 147130001  # In Progress
+      appbase_responsibleorganization@odata.bind: "/appbase_organizationunits(lookup:HR Department)"
+      appbase_duedate: 2026-04-25T17:00:00Z
+      appbase_description: >
+        Change Robert Williams' 2025 annual performance rating in HRMS from
+        "Needs Improvement" to "Meets Expectations" per determination remedy.
+        Update all associated records and notify payroll of any compensation
+        implications.
+    
+    store_as: corrective_action_rating
+
+  # Event 36: Create corrective action - Training for Rodriguez
+  - event_id: 36
+    timestamp: 2026-04-22T11:15:00Z
+    operation: create
+    entity: appbase_disputecorrectiveaction
+    performed_by: Jennifer Wu (hr_specialist)
+    
+    reasoning: >
+      Jennifer creates the corrective action for Lisa Rodriguez's required training
+      on retaliation prevention and performance management. This training is
+      educational rather than punitive, designed to prevent future issues.
+    
+    fields:
+      appbase_name: Retaliation Prevention Training - L. Rodriguez
+      appbase_actionnumber: CA-DSP-2026-0089-02
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputedetermination@odata.bind: "/appbase_disputedeterminations({{determination_record.id}})"
+      appbase_correctiveactiontype: 147130000  # Training Required
+      appbase_completionstatus: 147130000  # Not Started
+      appbase_responsibleorganization@odata.bind: "/appbase_organizationunits(lookup:HR Department)"
+      appbase_duedate: 2026-05-15T17:00:00Z
+      appbase_description: >
+        Lisa Rodriguez must complete: (1) Retaliation Prevention and Whistleblower
+        Rights training (4 hours); (2) Performance Management Best Practices workshop
+        (4 hours). Training focuses on documentation requirements, progressive
+        feedback, objective performance criteria, and recognizing/avoiding retaliatory
+        conduct. Completion must be verified by HR.
+    
+    store_as: corrective_action_training
+
+  # Event 37: Create corrective action - Monitoring plan
+  - event_id: 37
+    timestamp: 2026-04-22T11:30:00Z
+    operation: create
+    entity: appbase_disputecorrectiveaction
+    performed_by: Jennifer Wu (hr_specialist)
+    
+    reasoning: >
+      Jennifer creates the monitoring plan corrective action. For the next 6 months,
+      HR will review Lisa's performance management activities more closely to ensure
+      she's following proper procedures and not engaging in any retaliatory conduct.
+    
+    fields:
+      appbase_name: Monitoring Plan - L. Rodriguez Performance Management
+      appbase_actionnumber: CA-DSP-2026-0089-03
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputedetermination@odata.bind: "/appbase_disputedeterminations({{determination_record.id}})"
+      appbase_correctiveactiontype: 147130004  # Monitoring Plan
+      appbase_completionstatus: 147130000  # Not Started
+      appbase_responsibleorganization@odata.bind: "/appbase_organizationunits(lookup:HR Department)"
+      appbase_duedate: 2026-10-22T17:00:00Z
+      appbase_description: >
+        HR will conduct enhanced monitoring of Lisa Rodriguez's performance management
+        practices for 6 months (through 10/22/26). Monitoring includes: (1) Monthly
+        review of any performance coaching documentation; (2) Quarterly meetings with
+        Rodriguez's direct reports; (3) Review of any performance ratings issued;
+        (4) Assessment of compliance with documentation requirements. Purpose is to
+        ensure proper practices and prevent any further retaliation concerns. HR
+        Business Partner Jennifer Wu responsible for oversight.
+    
+    store_as: corrective_action_monitoring
+
+  # ============================================================================
+  # PHASE 5: APPEAL BY LISA RODRIGUEZ (May 1-22, 2026)
+  # ============================================================================
+
+  # Event 38: Receive appeal from Lisa Rodriguez
+  - event_id: 38
+    timestamp: 2026-05-01T09:30:00Z
+    operation: create
+    entity: appbase_disputeappeal
+    performed_by: Tom Anderson (appeals_coordinator)
+    
+    reasoning: >
+      Appeals coordinator Tom Anderson receives Lisa Rodriguez's appeal, filed
+      through her union representative. Lisa believes the determination was unfair
+      to her and that the investigation failed to adequately consider her documented
+      performance concerns and coaching conversations with Robert. She argues that
+      her performance assessment was legitimate and should not have been overturned.
+      Tom logs the appeal, noting it was filed on the last day of the 10-business-day
+      appeal window.
+    
+    fields:
+      appbase_name: Appeal - Rodriguez challenges Williams Determination
+      appbase_appealnumber: APP-DSP-2026-0089
+      appbase_dispute@odata.bind: "/appbase_disputes({{dispute_record.id}})"
+      appbase_disputedetermination@odata.bind: "/appbase_disputedeterminations({{determination_record.id}})"
+      appbase_appealbasis: 147130005  # Insufficient Evidence
+      appbase_appealdate: 2026-05-01T09:30:00Z
+      appbase_appellant@odata.bind: "/contacts({{respondent_contact.id}})"
+      appbase_stage: 147130000  # Filed
+      appbase_description: >
+        Appeal filed by Lisa Rodriguez (through union representative) challenging
+        determination that partially substantiated retaliation claim. Rodriguez argues:
+        (1) Investigation failed to adequately consider her documented performance
+        concerns (coaching notes); (2) Informal coaching conversations occurred but
+        were discounted; (3) Williams' questioning of supervisory decisions is
+        legitimate performance concern, not protected activity response; (4) Rating
+        was based on professional judgment, not retaliation; (5) Determination
+        improperly discredits supervisor's good faith assessment. Requests reversal
+        of determination and restoration of original Needs Improvement rating.
+      appbase_requestedrelief: >
+        Reversal of determination finding partial substantiation. Restoration of
+        original Needs Improvement performance rating for Williams. Removal of
+        training and monitoring requirements for Rodriguez.
+      appbase_decisionstatus: 147130000  # Pending
+    
+    store_as: appeal_record
+
+  # Event 39: Verify appeal eligibility
+  - event_id: 39
+    timestamp: 2026-05-01T14:00:00Z
+    operation: update
+    entity: appbase_disputeappeal
+    record_reference: "{{appeal_record.id}}"
+    performed_by: Tom Anderson (appeals_coordinator)
+    
+    reasoning: >
+      Tom verifies the appeal meets eligibility requirements. It was filed on the
+      last day of the 10-business-day window (April 22 + 10 business days = May 6,
+      filed May 1, timely). Lisa has standing as a party to the dispute. The appeal
+      basis (insufficient evidence) is a recognized ground. Tom determines the appeal
+      is valid and moves it to Under Review stage.
+    
+    fields:
+      appbase_stage: 147130001  # Under Review
+      appbase_eligibilityverified: 147130000  # Yes (assuming this is a yes/no choice field)
+      appbase_verificationnotes: >
+        Appeal eligibility verified: (1) Filed May 1, within 10-business-day window
+        (issued 4/22, deadline 5/6); (2) Lisa Rodriguez has standing as respondent/
+        party; (3) Appeal basis of insufficient evidence is valid ground; (4) Appeal
+        presents substantive arguments regarding investigation's weighing of evidence.
+        Appeal is timely and proper. Proceeding to assignment.
+      appbase_filingtimely: 147130000  # Yes
+      appbase_standingverified: 147130000  # Yes
+
+  # Event 40: Update determination status to show appeal filed
+  - event_id: 40
+    timestamp: 2026-05-01T14:15:00Z
+    operation: update
+    entity: appbase_disputedetermination
+    record_reference: "{{determination_record.id}}"
+    performed_by: Tom Anderson (appeals_coordinator)
+    
+    reasoning: >
+      Tom updates the determination record to show it has been appealed. This puts
+      a hold on implementing some corrective actions pending appeal outcome. The
+      rating adjustment may be stayed, though the training and monitoring requirements
+      may proceed depending on organizational policy.
+    
+    fields:
+      appbase_stage: 147130004  # Appealed
+      appbase_appealeddate: 2026-05-01T09:30:00Z
+
+  # Event 41: Assign reviewing authority
+  - event_id: 41
+    timestamp: 2026-05-02T09:00:00Z
+    operation: update
+    entity: appbase_disputeappeal
+    record_reference: "{{appeal_record.id}}"
+    performed_by: Tom Anderson (appeals_coordinator)
+    
+    reasoning: >
+      Tom assigns the appeal to Michael Santos, Vice President of Human Resources.
+      Michael is a level above Patricia Chen (the deciding official) and has over
+      20 years of HR experience. He has no conflict of interest in this case and
+      has the seniority to conduct an impartial review. Michael is known for his
+      careful, balanced judgment.
+    
+    fields:
+      appbase_reviewingauthority@odata.bind: "/contacts(lookup:michael.santos@company.com)"
+      appbase_assignmentdate: 2026-05-02T09:00:00Z
+      appbase_assignmentnotes: >
+        Appeal assigned to VP HR Michael Santos. Santos has appropriate level of
+        authority for reviewing Director-level decision. No conflict of interest.
+        Extensive experience with complex employment matters and appeals.
+
+  # Event 42: Schedule appellate hearing
+  - event_id: 42
+    timestamp: 2026-05-05T10:00:00Z
+    operation: update
+    entity: appbase_disputeappeal
+    record_reference: "{{appeal_record.id}}"
+    performed_by: Tom Anderson (appeals_coordinator)
+    
+    reasoning: >
+      Tom schedules an appellate hearing. Given the nature of Lisa's arguments -
+      that the investigation didn't properly weigh her evidence - Michael Santos
+      decides a hearing is appropriate to allow Lisa to present her perspective
+      directly. The hearing is scheduled for May 15, giving all parties adequate
+      notice. Both Lisa and Robert will be invited to present arguments.
+    
+    fields:
+      appbase_stage: 147130002  # Hearing Scheduled
+      appbase_hearingdate: 2026-05-15T14:00:00Z
+      appbase_hearinglocation: Executive Conference Room
+      appbase_hearingduration: 120
+      appbase_participantsnotified: 2026-05-05T10:00:00Z
+      appbase_noticedate: 2026-05-05T10:00:00Z
+
+  # Event 43: Conduct appellate hearing and review
+  - event_id: 43
+    timestamp: 2026-05-15T14:00:00Z
+    operation: update
+    entity: appbase_disputeappeal
+    record_reference: "{{appeal_record.id}}"
+    performed_by: Michael Santos (reviewing_authority)
+    
+    reasoning: >
+      Michael Santos conducts the appellate hearing. Lisa Rodriguez (with union rep)
+      presents her arguments, emphasizing her handwritten notes and her good faith
+      belief that Robert's performance had declined. Robert Williams (with support
+      person) presents his counter-arguments, emphasizing the timing and lack of
+      prior coaching. Michael asks probing questions of both parties. He reviews
+      the complete investigation file, Angela's report, and Patricia's determination.
+      Michael must decide whether Patricia properly applied the evidence standard
+      and whether the determination was appropriate.
+    
+    fields:
+      appbase_stage: 147130003  # Hearing Conducted
+      appbase_hearingactualdate: 2026-05-15T14:00:00Z
+      appbase_hearingsummary: >
+        Appellate hearing conducted with both parties present. Lisa Rodriguez (with
+        union representative) argued: (1) Her coaching notes demonstrate genuine
+        performance concerns; (2) Williams' "questioning" behavior was disruptive;
+        (3) Informal conversations occurred but weren't documented; (4) She had no
+        retaliatory motive. Robert Williams (with support person) countered: (1)
+        No coaching was ever shared with him; (2) Handwritten notes were created
+        after the fact; (3) Timing is too coincidental; (4) His "questioning" is
+        normal QA analyst behavior. Reviewing Authority Santos asked detailed
+        questions about timeline, documentation practices, and performance management
+        procedures. Both parties professional and credible in their perspectives.
+      appbase_evidencereviewed: >
+        Complete investigation file, all interview summaries, evidence documents,
+        Angela Morrison's investigation report, Patricia Chen's determination,
+        appeal brief from Rodriguez, response brief from Williams.
+      appbase_argumentssummary: >
+        Rodriguez argues determination gave insufficient weight to her documented
+        concerns and supervisory judgment. Williams argues determination appropriately
+        recognized timing concerns and procedural failures. Both present reasonable
+        perspectives on ambiguous evidence.
+
+  # Event 44: Issue appellate decision
+  - event_id: 44
+    timestamp: 2026-05-20T10:00:00Z
+    operation: update
+    entity: appbase_disputeappeal
+    record_reference: "{{appeal_record.id}}"
+    performed_by: Michael Santos (reviewing_authority)
+    
+    reasoning: >
+      After careful review, Michael Santos issues his appellate decision. This is
+      a difficult case with reasonable arguments on both sides. Michael concludes
+      that Patricia's determination was within the range of reasonable decisions
+      given the evidence. However, he modifies slightly: he removes the monitoring
+      requirement for Lisa, finding that the training requirement alone is sufficient
+      corrective action. He upholds the rating adjustment and training requirement,
+      finding that the procedural failures (lack of documentation) justify those
+      remedies even if retaliatory intent wasn't definitively proven. He characterizes
+      this as a "modified affirmation" - mostly upholding but easing one requirement.
+    
+    fields:
+      appbase_stage: 147130004  # Decision Pending
+      appbase_decisionstatus: 147130003  # Modified
+      appbase_overallresult: 147130003  # Modified (assuming such a value exists)
+      appbase_decisiondate: 2026-05-20T10:00:00Z
+      appbase_decisionsummary: >
+        Appeal PARTIALLY GRANTED with MODIFICATION. Original determination is
+        substantially affirmed but modified to remove monitoring requirement.
+      appbase_rationale: >
+        After thorough review of complete record and appellate hearing, this reviewing
+        authority finds that deciding official Patricia Chen's determination was
+        within the range of reasonable decisions based on the evidence presented.
+        The investigation was thorough and fair. While Rodriguez raises valid points
+        about her good faith concerns, the procedural failures in performance
+        management documentation are undisputed and significant. The temporal
+        relationship between Williams' testimony and poor rating, combined with
+        lack of contemporaneous coaching documentation, provides reasonable basis
+        for concern about retaliation influence even if malicious intent cannot be
+        proven. Rodriguez's handwritten notes, while genuine, were not shared with
+        Williams and thus did not provide him fair opportunity to address concerns.
+        HOWEVER, the 6-month monitoring requirement is excessive given Rodriguez's
+        overall strong management record and lack of prior concerns. The training
+        requirement is sufficient corrective action to address the documentation
+        deficiencies. MODIFICATION: Remove monitoring requirement (CA-DSP-2026-0089-03).
+        AFFIRMATION: Uphold rating adjustment and training requirement. This balanced
+        approach recognizes both Rodriguez's legitimate supervisory prerogatives and
+        the need to protect employees who provide witness testimony.
+      appbase_remedy: >
+        Modified determination: (1) Affirm adjustment of Williams' rating to Meets
+        Expectations; (2) Affirm training requirement for Rodriguez; (3) Remove
+        6-month monitoring plan; (4) Note in Rodriguez's file should reflect modified
+        outcome, not full finding against her.
+      appbase_instructionstoparties: >
+        (1) HR to implement rating adjustment immediately; (2) Rodriguez to complete
+        required training by 6/15/26; (3) Monitoring plan cancelled; (4) This decision
+        is final, no further appeal available per policy.
+
+  # Event 45: Finalize appellate decision
+  - event_id: 45
+    timestamp: 2026-05-22T09:00:00Z
+    operation: update
+    entity: appbase_disputeappeal
+    record_reference: "{{appeal_record.id}}"
+    performed_by: Michael Santos (reviewing_authority)
+    
+    reasoning: >
+      Michael Santos finalizes the appellate decision after legal counsel reviews
+      and confirms it's legally sound. The decision becomes final and binding. Both
+      parties are notified. The appeal process is complete.
+    
+    fields:
+      appbase_stage: 147130005  # Closed
+      appbase_decisionstatus: 147130001  # Final
+      appbase_legalreviewdate: 2026-05-21T14:00:00Z
+      appbase_legalreviewcomments: >
+        Legal review completed. Appellate decision demonstrates careful balancing
+        of competing interests. Modification is reasonable and reduces organizational
+        risk while maintaining essential remedies. Decision is legally defensible.
+
+  # Event 46: Update original determination per appeal outcome
+  - event_id: 46
+    timestamp: 2026-05-22T10:00:00Z
+    operation: update
+    entity: appbase_disputedetermination
+    record_reference: "{{determination_record.id}}"
+    performed_by: Tom Anderson (appeals_coordinator)
+    
+    reasoning: >
+      Tom updates the original determination record to reflect the appeal outcome.
+      The determination was substantially affirmed with one modification. The
+      determination remains in effect with the modification applied.
+    
+    fields:
+      appbase_stage: 147130005  # Final (back to final with modification)
+      appbase_appealoutcome: Modified - Partially Granted
+      appbase_modifieddate: 2026-05-22T10:00:00Z
+      appbase_modifiednotes: >
+        Appellate decision by VP HR Michael Santos dated 5/20/26: Appeal partially
+        granted with modification. Rating adjustment and training requirement
+        affirmed. Monitoring plan (CA-DSP-2026-0089-03) removed per appellate
+        decision. Determination otherwise stands as issued.
+
+  # Event 47: Cancel monitoring corrective action
+  - event_id: 47
+    timestamp: 2026-05-22T10:30:00Z
+    operation: update
+    entity: appbase_disputecorrectiveaction
+    record_reference: "{{corrective_action_monitoring.id}}"
+    performed_by: Jennifer Wu (hr_specialist)
+    
+    reasoning: >
+      Jennifer Wu cancels the monitoring plan corrective action per the appellate
+      decision. She updates the record to show it was cancelled due to appeal
+      outcome, not because of any non-compliance.
+    
+    fields:
+      appbase_completionstatus: 147130004  # Cancelled (assuming such status exists)
+      appbase_description: >
+        HR will conduct enhanced monitoring of Lisa Rodriguez's performance management
+        practices for 6 months (through 10/22/26). Monitoring includes: (1) Monthly
+        review of any performance coaching documentation; (2) Quarterly meetings with
+        Rodriguez's direct reports; (3) Review of any performance ratings issued;
+        (4) Assessment of compliance with documentation requirements. Purpose is to
+        ensure proper practices and prevent any further retaliation concerns. HR
+        Business Partner Jennifer Wu responsible for oversight.
+        
+        **CANCELLED 5/22/26 per appellate decision APP-DSP-2026-0089. VP HR Santos
+        determined monitoring requirement excessive; training requirement sufficient.**
+
+  # Event 48: Complete rating adjustment corrective action
+  - event_id: 48
+    timestamp: 2026-05-23T14:00:00Z
+    operation: update
+    entity: appbase_disputecorrectiveaction
+    record_reference: "{{corrective_action_rating.id}}"
+    performed_by: Jennifer Wu (hr_specialist)
+    
+    reasoning: >
+      Jennifer Wu completes the rating adjustment now that the appeal process is
+      final. She updates Robert Williams' performance rating in the HRMS system
+      from "Needs Improvement" to "Meets Expectations," processes any compensation
+      adjustments, and notifies payroll and Robert's manager. The correction is
+      backdated to the original review date.
+    
+    fields:
+      appbase_completionstatus: 147130002  # Complete
+      appbase_completiondate: 2026-05-23T14:00:00Z
+      appbase_verificationdate: 2026-05-23T16:00:00Z
+      appbase_verifiedby@odata.bind: "/contacts(lookup:patricia.chen@company.com)"
+      appbase_verificationnotes: >
+        Rating adjustment completed in HRMS. Robert Williams' 2025 annual review
+        rating changed from "Needs Improvement" to "Meets Expectations" effective
+        backdated to 2/15/26 review date. Compensation and merit increase adjusted
+        accordingly. Payroll notified. Change documented in personnel file with
+        reference to determination DET-DSP-2026-0089. Williams notified of completion
+        on 5/23/26.
+
+  # Event 49: Training requirement in progress
+  - event_id: 49
+    timestamp: 2026-05-25T09:00:00Z
+    operation: update
+    entity: appbase_disputecorrectiveaction
+    record_reference: "{{corrective_action_training.id}}"
+    performed_by: Jennifer Wu (hr_specialist)
+    
+    reasoning: >
+      Jennifer Wu updates the training corrective action to reflect that Lisa
+      Rodriguez has been enrolled in the required courses and training is in
+      progress. Lisa is scheduled to complete both courses by the June 15 deadline.
+    
+    fields:
+      appbase_completionstatus: 147130001  # In Progress
+      appbase_description: >
+        Lisa Rodriguez must complete: (1) Retaliation Prevention and Whistleblower
+        Rights training (4 hours); (2) Performance Management Best Practices workshop
+        (4 hours). Training focuses on documentation requirements, progressive
+        feedback, objective performance criteria, and recognizing/avoiding retaliatory
+        conduct. Completion must be verified by HR.
+        
+        **UPDATE 5/25/26: Rodriguez enrolled in both courses. Retaliation Prevention
+        scheduled 6/5/26, Performance Management scheduled 6/12/26. On track for
+        completion by 6/15/26 deadline.**
+
+  # Event 50: Close dispute
+  - event_id: 50
+    timestamp: 2026-05-22T11:00:00Z
+    operation: update
+    entity: appbase_dispute
+    record_reference: "{{dispute_record.id}}"
+    performed_by: Tom Anderson (appeals_coordinator)
+    
+    reasoning: >
+      Tom Anderson closes the dispute case now that the appeal has been decided
+      and is final. The dispute went through the complete lifecycle: intake,
+      investigation, determination, and appeal. The final outcome partially
+      substantiated the retaliation claim with modified remedies. Corrective
+      actions are being implemented. The case is now closed and will serve as
+      precedent and training material.
+    
+    fields:
+      appbase_stage: 147130005  # Closed
+      appbase_closedate: 2026-05-22T11:00:00Z
+      appbase_overallresult: 147130002  # Partially Substantiated
+      appbase_decisionstatus: 147130001  # Final
+      appbase_description: >
+        Retaliation complaint filed by Robert Williams (QA Analyst, 7 years) alleging
+        unfair performance rating by supervisor Lisa Rodriguez in retaliation for
+        witness testimony provided 6 months ago in separate workplace investigation.
+        Williams received first-ever "Needs Improvement" rating approximately 2 months
+        after providing testimony, with criticism focused on subjective areas (attitude,
+        team collaboration). Complainant presents strong documentation of prior consistent
+        high performance. Case raises concerns under whistleblower protection policy.
+        
+        **OUTCOME: Investigation partially substantiated retaliation claim. Determination
+        issued 4/22/26 adjusting rating and requiring training/monitoring. Rodriguez
+        appealed determination 5/1/26. VP HR Santos issued appellate decision 5/20/26
+        affirming rating adjustment and training requirement, removing monitoring
+        requirement. Case closed 5/22/26. Final result: Williams' rating adjusted
+        to Meets Expectations, Rodriguez required to complete training. Matter resolved.**
+
+# Summary of what was created
+summary:
+  total_events: 50
+  records_created:
+    appbase_disputeintake: 1
+    contact: 2
+    appbase_dispute: 1
+    appbase_disputeparty: 2
+    appbase_disputeinvestigation: 1
+    appbase_disputeevidence: 4
+    appbase_disputeinterview: 7
+    appbase_disputefinding: 4
+    appbase_disputedetermination: 1
+    appbase_disputecorrectiveaction: 3
+    appbase_disputeappeal: 1
+  records_updated:
+    appbase_disputeintake: 2
+    appbase_disputeinvestigation: 1
+    appbase_disputeinterview: 7
+    appbase_disputedetermination: 5
+    appbase_dispute: 4
+    appbase_disputeparty: 1
+    appbase_disputeappeal: 7
+    appbase_disputecorrectiveaction: 3
+  estimated_duration: 65 days (March 18 - May 22)
+  process_completed: true
+  variations_used:
+    - Partial substantiation (not full finding either way)
+    - Appeal by respondent (unusual but important for due process)
+    - Modified determination on appeal (balanced outcome)

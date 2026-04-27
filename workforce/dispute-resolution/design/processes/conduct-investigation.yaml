@@ -1,0 +1,317 @@
+process_name: conduct-investigation
+display_name: Conduct Formal Investigation
+module: workforce/dispute-resolution
+description: >
+  Complete investigation workflow from planning through evidence collection, witness interviews,
+  documentation review, and analysis leading to formal findings. This process ensures thorough,
+  fair, and well-documented fact-finding for dispute resolution.
+version: 1.0
+
+# Personas involved in this process
+personas:
+  - role: lead_investigator
+    name: Lead Investigator
+    responsibilities:
+      - Plan investigation scope and methodology
+      - Assign investigation tasks
+      - Oversee evidence collection
+      - Conduct or delegate interviews
+      - Analyze findings
+      - Prepare investigation reports
+  
+  - role: assistant_investigator
+    name: Assistant Investigator
+    responsibilities:
+      - Collect and catalog evidence
+      - Conduct witness interviews
+      - Document observations
+      - Prepare interview summaries
+  
+  - role: legal_counsel
+    name: Legal Counsel
+    responsibilities:
+      - Review investigation plans
+      - Advise on procedural requirements
+      - Review findings for legal compliance
+
+# Sequential steps in the process
+steps:
+  - step: 1
+    action: create_investigation_record
+    description: Lead investigator creates investigation plan
+    performed_by: lead_investigator
+    entities:
+      - appbase_disputeinvestigation
+    required_fields:
+      - appbase_name  # Investigation Title
+      - appbase_investigationnumber
+      - appbase_dispute  # Link to dispute
+      - appbase_investigationtype
+      - appbase_stage  # Planning (147130000)
+      - appbase_startdate
+      - appbase_organizationunit
+    optional_fields:
+      - appbase_targetcompletiondate
+      - appbase_scope  # Investigation boundaries
+      - appbase_methodology  # Approach and techniques
+      - appbase_description
+      - appbase_completionstatus
+    business_rules:
+      - Investigation number format: INV-DSP-2026-0001
+      - Start date is when investigation formally authorized
+      - Scope defines what will/won't be investigated
+      - Methodology outlines investigative approach
+      - Target completion based on complexity and urgency
+    store_as: investigation_record
+  
+  - step: 2
+    action: identify_initial_evidence
+    description: Investigator identifies and collects initial documentary evidence
+    performed_by: assistant_investigator
+    entities:
+      - appbase_disputeevidence
+    required_fields:
+      - appbase_name  # Evidence description
+      - appbase_dispute  # Link to dispute
+      - appbase_evidencetype
+      - appbase_collecteddatetime
+      - appbase_collectedby  # Investigator contact
+    optional_fields:
+      - appbase_disputeinvestigation  # Link to investigation
+      - appbase_description
+      - appbase_source
+      - appbase_custodian
+      - appbase_location
+      - appbase_isjudgment  # Relevance assessment
+    business_rules:
+      - Each piece of evidence needs unique identifier
+      - Chain of custody documented
+      - Evidence type determines handling procedures
+      - Collected datetime is when obtained
+      - Source and custodian tracked for authenticity
+    notes: This step may repeat multiple times for different evidence items
+  
+  - step: 3
+    action: schedule_complainant_interview
+    description: Lead investigator schedules interview with complainant
+    performed_by: lead_investigator
+    entities:
+      - appbase_disputeinterview
+    required_fields:
+      - appbase_name  # Interview title
+      - appbase_dispute
+      - appbase_interviewtype  # Initial Interview (147130000)
+      - appbase_interviewee  # Complainant contact
+      - appbase_scheduleddate
+      - appbase_stage  # Scheduled (147130000)
+    optional_fields:
+      - appbase_disputeinvestigation
+      - appbase_interviewer  # Lead investigator
+      - appbase_location
+      - appbase_purpose
+      - appbase_description
+    business_rules:
+      - Complainant typically interviewed first
+      - Interview must be scheduled with reasonable notice
+      - Location should be neutral and appropriate
+      - Purpose documented for procedural compliance
+  
+  - step: 4
+    action: conduct_complainant_interview
+    description: Investigator conducts and documents complainant interview
+    performed_by: lead_investigator
+    entities:
+      - appbase_disputeinterview  # Update existing
+    required_fields:
+      - appbase_stage  # Completed (147130004)
+      - appbase_actualdate
+      - appbase_interviewduration
+    optional_fields:
+      - appbase_summary  # Key points from interview
+      - appbase_transcript  # Full transcript if recorded
+      - appbase_notes
+    business_rules:
+      - Interview summary prepared within 48 hours
+      - Key allegations and facts documented
+      - Complainant statement may become evidence
+      - Duration tracked for investigation metrics
+  
+  - step: 5
+    action: schedule_respondent_interview
+    description: Lead investigator schedules interview with respondent
+    performed_by: lead_investigator
+    entities:
+      - appbase_disputeinterview
+    required_fields:
+      - appbase_name
+      - appbase_dispute
+      - appbase_interviewtype  # Subject Interview (147130003)
+      - appbase_interviewee  # Respondent contact
+      - appbase_scheduleddate
+      - appbase_stage  # Scheduled
+    optional_fields:
+      - appbase_disputeinvestigation
+      - appbase_interviewer
+      - appbase_location
+      - appbase_purpose
+      - appbase_noticedate  # When respondent was notified
+    business_rules:
+      - Respondent must receive adequate notice
+      - Respondent has right to representation
+      - Interview location neutral
+      - Notice date tracked for procedural compliance
+  
+  - step: 6
+    action: conduct_respondent_interview
+    description: Investigator conducts and documents respondent interview
+    performed_by: lead_investigator
+    entities:
+      - appbase_disputeinterview  # Update existing
+    required_fields:
+      - appbase_stage  # Completed
+      - appbase_actualdate
+      - appbase_interviewduration
+    optional_fields:
+      - appbase_summary
+      - appbase_transcript
+      - appbase_notes
+      - appbase_representativepresent  # If respondent brought support
+    business_rules:
+      - Respondent statement critical for fair process
+      - Both sides must have opportunity to present case
+      - Summary prepared promptly
+  
+  - step: 7
+    action: schedule_witness_interviews
+    description: Investigator schedules interviews with relevant witnesses
+    performed_by: assistant_investigator
+    entities:
+      - appbase_disputeinterview
+    required_fields:
+      - appbase_name
+      - appbase_dispute
+      - appbase_interviewtype  # Witness Interview (147130002)
+      - appbase_interviewee  # Witness contact
+      - appbase_scheduleddate
+      - appbase_stage  # Scheduled
+    optional_fields:
+      - appbase_disputeinvestigation
+      - appbase_interviewer
+      - appbase_purpose
+    business_rules:
+      - Witnesses identified from evidence and interviews
+      - May be multiple witness interviews
+      - Witness cooperation may be voluntary or required
+    notes: This step repeats for each witness
+  
+  - step: 8
+    action: conduct_witness_interviews
+    description: Investigator conducts witness interviews
+    performed_by: assistant_investigator
+    entities:
+      - appbase_disputeinterview  # Update existing
+    required_fields:
+      - appbase_stage  # Completed
+      - appbase_actualdate
+      - appbase_interviewduration
+    optional_fields:
+      - appbase_summary
+      - appbase_transcript
+      - appbase_notes
+    business_rules:
+      - Witness statements corroborate or contradict allegations
+      - All witness interviews documented consistently
+    notes: This step repeats for each witness
+  
+  - step: 9
+    action: analyze_evidence_and_create_findings
+    description: Lead investigator analyzes all evidence and creates findings
+    performed_by: lead_investigator
+    entities:
+      - appbase_disputefinding
+    required_fields:
+      - appbase_name  # Finding title
+      - appbase_dispute
+      - appbase_findingtype
+      - appbase_conclusion  # Substantiated, Unsubstantiated, etc.
+      - appbase_basis  # Rationale for conclusion
+    optional_fields:
+      - appbase_disputeinvestigation
+      - appbase_disputeissue  # Link to specific issue
+      - appbase_description
+      - appbase_recommendation
+      - appbase_severityassessment
+    business_rules:
+      - Findings must be based on evidence
+      - Each major allegation gets a finding
+      - Conclusion must be clearly stated
+      - Basis explains reasoning and evidence relied upon
+      - May have multiple findings per investigation
+    notes: This step may repeat for multiple findings/issues
+  
+  - step: 10
+    action: complete_investigation
+    description: Lead investigator finalizes investigation with summary report
+    performed_by: lead_investigator
+    entities:
+      - appbase_disputeinvestigation  # Update existing
+    required_fields:
+      - appbase_stage  # Completed (147130006)
+      - appbase_completionstatus  # Complete (appropriate value)
+      - appbase_actualcompletiondate
+      - appbase_summary  # Executive summary of investigation
+    optional_fields:
+      - appbase_methodology  # Update if approach evolved
+    business_rules:
+      - Investigation marked complete only when all steps finished
+      - Summary includes findings and recommendations
+      - Actual completion date is when final report approved
+      - Investigation remains in system as permanent record
+
+# Expected outcomes
+outcomes:
+  - outcome: investigation_complete
+    description: Full investigation conducted with findings documented
+    required_records:
+      - appbase_disputeinvestigation: 1  # Completed
+      - appbase_disputeinterview: 3+  # Complainant, Respondent, Witnesses
+      - appbase_disputeevidence: 1+  # Supporting evidence
+      - appbase_disputefinding: 1+  # Conclusions
+  
+  - outcome: investigation_inconclusive
+    description: Investigation completed but insufficient evidence for findings
+    required_records:
+      - appbase_disputeinvestigation: 1  # Completed
+      - appbase_disputeinterview: 2+
+      - appbase_disputefinding: 1  # Inconclusive finding
+
+# Variations and decision points
+variations:
+  - variation: expert_consultation
+    description: Investigation requires subject matter expert input
+    affects_steps: [2, 9]
+    notes: >
+      Additional interview type (Expert Consultation) used. Expert provides
+      specialized analysis of evidence or testimony. Expert findings may be
+      treated as evidence.
+  
+  - variation: multiple_issues
+    description: Dispute involves several distinct allegations
+    affects_steps: [9]
+    notes: >
+      Create separate finding for each issue. May need to track findings
+      by linking to dispute issue records if issues are formalized.
+  
+  - variation: expedited_investigation
+    description: High-priority case requiring faster timeline
+    affects_steps: [1]
+    notes: >
+      Target completion date shortened. May streamline some steps but must
+      maintain procedural fairness and thoroughness.
+  
+  - variation: external_investigator
+    description: Investigation conducted by third-party for objectivity
+    affects_steps: [1, 3, 4, 5, 6, 7, 8, 9, 10]
+    notes: >
+      All investigator roles performed by external consultant. Organization
+      maintains oversight but doesn't conduct interviews directly.
