@@ -27,10 +27,10 @@ Tracks case number, type, jurisdiction, status, assigned judge, and overall life
 - Jury Trial Requested: Yes / No
 - Settlement Amount: Currency
 - Description: Memo
-
-**Completed Last Round:**
 - Configure Main form (Information)
 - Configure Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -59,10 +59,10 @@ Captures the decision type, date, deciding official, and links to related hearin
 - Legal Authority: Lookup (Legal Authority)
 - Description: Memo
 - Legal Reasoning: Memo
-
-**Completed Last Round:**
 - Configure Main form (Information)
 - Configure Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -88,10 +88,10 @@ Provides an audit-friendly record of filings, hearings, orders, and other signif
 - Supporting Document: Lookup (Document)
 - Is Public Record: Yes / No
 - Description: Memo
-
-**Completed Last Round:**
 - Configure Main form (Information)
 - Configure Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -121,10 +121,10 @@ Includes motions and other filings submitted by parties or external entities, al
 - Is Electronic Filing: Yes / No
 - Organization Unit: Lookup (Organization Unit)
 - Description: Memo
-
-**Completed Last Round:**
 - Configure Main form (Information)
 - Configure Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -157,10 +157,10 @@ Represents a scheduled case appearance or proceeding. May be associated with a C
 - Transcript Available: Yes / No
 - Description: Memo
 - Hearing Notes: Memo
-
-**Completed Last Round:**
 - Configure Main form (Information)
 - Configure Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -191,10 +191,10 @@ Represents a formal directive issued by the court. Often generated from a decisi
 - Appeal Status: Choice (Appeal Status)
 - Description: Memo
 - Compliance Notes: Memo
-
-**Completed Last Round:**
 - Configure Main form (Information)
 - Configure Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -225,10 +225,13 @@ Used to track plaintiffs, defendants, petitioners, respondents, and other involv
 - Service Address State: Lookup (State or Province)
 - Service Address Postal Code: Text
 - Description: Memo
-
-**Completed Last Round:**
 - Configure Main form (Information)
 - Configure Active view
+
+**Completed Last Round:**
+ - Changed Notification Email to email format
+ - Changed Notification Phone to phone format
+
 
 **Planned:**
 
@@ -256,10 +259,12 @@ Identifies which party is represented by which attorney, guardian, or agent, inc
 - Contact Email: Email
 - Contact Phone: Phone
 - Description: Memo
-
-**Completed Last Round:**
 - Configure Main form (Information)
 - Configure Active view
+
+**Completed Last Round:**
+- Changed Contact Email to email format
+- Changed Contact Phone to phone format
 
 **Planned:**
 
@@ -293,10 +298,10 @@ Includes assignments, due dates, status, and links to related filings, hearings,
 - Supporting Document: Lookup (Document)
 - Description: Memo
 - Resolution Notes: Memo
-
-**Completed Last Round:**
 - Configure Main form (Information)
 - Configure Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
@@ -327,10 +332,10 @@ Defines the date, location, presiding official, and status of a court calendar b
 - Is Emergency Session: Yes / No
 - Description: Memo
 - Session Notes: Memo
-
-**Completed Last Round:**
 - Configure Main form (Information)
 - Configure Active view
+
+**Completed Last Round:**
 
 **Planned:**
 
