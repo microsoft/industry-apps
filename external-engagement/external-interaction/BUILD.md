@@ -1,42 +1,66 @@
-# 💰 External Interaction — Build Plan
+# External Interaction
 
-Overview - TBD
+The **External Interaction module** provides structured tracking for external communications and engagements with constituents, stakeholders, and the public. It supports intake, categorization, assignment, and response tracking for inquiries, requests, complaints, feedback, and other interaction types from individuals and organizations outside the entity.
 
 ---
 
-## Sub Domain
+## Custom Tables
 
-### Tables
-Table Overview
+### External Interaction
+Tracks individual external communications including inquiries, requests, complaints, feedback, reports, applications, and referrals from external parties.
 
 **Completed:**
+- All custom fields
+- Baseline forms and views
+- Quick create forms
+- Related subgrids
 
-**Planned:**
-- Field 1: Type
-- Field 2: Type
-- Baseline Form
-- Baseline View
-- Quick Create Form
-- Configure Related Subgrids
+---
+
+### External Interaction Source
+Reference table defining channels through which external interactions are received (e.g., Phone, Email, Web Form, Social Media, In-Person, Mail).
+
+**Completed:**
+- All custom fields
+- Baseline forms and views
+- Quick create forms
+- Related subgrids
+
+---
+
+### External Interaction Topic
+Categorizes interactions by subject matter or functional area for routing, reporting, and analysis.
+
+**Completed:**
+- All custom fields
+- Baseline forms and views
+- Quick create forms
+- Related subgrids
+
 
 ---
 
 ## 🚀 Module Configuration
 
-**Completed Last Round:**
+**Completed:**
 - Configure Model-Driven App
+- Configure baseline forms and views
+- Configure quick create forms
+- Configure related subgrids
+- Create Sample Data
 
 **Planned:**
-- Create Sample Data
 
 ---
 
 ## Choice Fields
 
-**Completed:**
-
-## New Choice Fields
-
-### Sample Choice
-- Sample Value One
-- Sample Value Two
+### External Interaction Type
+- Inquiry
+- Request
+- Complaint
+- Feedback
+- Report
+- Application / Submission
+- Referral
+- Other
