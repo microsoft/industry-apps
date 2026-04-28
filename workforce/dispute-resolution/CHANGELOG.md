@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [1.2.1.0] - 2026-04-28
+
+### Fixed
+- Fixed Dispute Investigation and Dispute Resolution form memo fields
+
+---
+
 ## [1.2.0.0] - 2026-04-11
 
 ### Added
