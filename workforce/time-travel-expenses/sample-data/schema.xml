@@ -1,0 +1,550 @@
+<entities >
+  <entity name="appbase_expensecategory" displayname="Expense Category" etc="10960" primaryidfield="appbase_expensecategoryid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Category Code" name="appbase_categorycode" type="string" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Currency" name="transactioncurrencyid" type="entityreference" lookupType="transactioncurrency" />
+      <field displayname="Default Approver" name="appbase_defaultapprover" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Description" name="appbase_description" type="string" customfield="true" />
+      <field displayname="Exchange Rate" name="exchangerate" type="decimal" />
+      <field displayname="Expense Category" name="appbase_expensecategoryid" type="guid" primaryKey="true" />
+      <field displayname="Expense Category Type" name="appbase_expensecategorytype" type="optionsetvalue" customfield="true" />
+      <field displayname="GL Account" name="appbase_glaccount" type="string" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Is Mileage Based" name="appbase_ismileagebased" type="optionsetvalue" customfield="true" />
+      <field displayname="Is Reimbursable" name="appbase_isreimbursable" type="optionsetvalue" customfield="true" />
+      <field displayname="Maximum Amount Per Day" name="appbase_maximumamountperday" type="money" customfield="true" />
+      <field displayname="Maximum Amount Per Day (Base)" name="appbase_maximumamountperday_base" type="money" customfield="true" />
+      <field displayname="Maximum Amount Per Trip" name="appbase_maximumamountpertrip" type="money" customfield="true" />
+      <field displayname="Maximum Amount Per Trip (Base)" name="appbase_maximumamountpertrip_base" type="money" customfield="true" />
+      <field displayname="Mileage Rate" name="appbase_mileagerate" type="money" customfield="true" />
+      <field displayname="Mileage Rate (Base)" name="appbase_mileagerate_base" type="money" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Parent Category" name="appbase_parentcategory" type="entityreference" lookupType="appbase_expensecategory" customfield="true" />
+      <field displayname="Receipt Threshold Amount" name="appbase_receiptthresholdamount" type="money" customfield="true" />
+      <field displayname="Receipt Threshold Amount (Base)" name="appbase_receiptthresholdamount_base" type="money" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Requires Approval" name="appbase_requiresapproval" type="optionsetvalue" customfield="true" />
+      <field displayname="Requires Justification" name="appbase_requiresjustification" type="optionsetvalue" customfield="true" />
+      <field displayname="Requires Receipt" name="appbase_requiresreceipt" type="optionsetvalue" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_expenseitem" displayname="Expense Item" etc="10961" primaryidfield="appbase_expenseitemid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Amount in Local Currency" name="appbase_amountinlocalcurrency" type="money" customfield="true" />
+      <field displayname="Amount in Local Currency (Base)" name="appbase_amountinlocalcurrency_base" type="money" customfield="true" />
+      <field displayname="Approval Notes" name="appbase_approvalnotes" type="string" customfield="true" />
+      <field displayname="Approved Amount" name="appbase_approvedamount" type="money" customfield="true" />
+      <field displayname="Approved Amount (Base)" name="appbase_approvedamount_base" type="money" customfield="true" />
+      <field displayname="Attendees" name="appbase_attendees" type="string" customfield="true" />
+      <field displayname="Billable Amount" name="appbase_billableamount" type="money" customfield="true" />
+      <field displayname="Billable Amount (Base)" name="appbase_billableamount_base" type="money" customfield="true" />
+      <field displayname="City" name="appbase_city" type="string" customfield="true" />
+      <field displayname="Cost Center" name="appbase_costcenter" type="string" customfield="true" />
+      <field displayname="Cost Per Person" name="appbase_costperperson" type="money" customfield="true" />
+      <field displayname="Cost Per Person (Base)" name="appbase_costperperson_base" type="money" customfield="true" />
+      <field displayname="Country" name="appbase_country" type="entityreference" lookupType="appbase_country" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Currency" name="transactioncurrencyid" type="entityreference" lookupType="transactioncurrency" />
+      <field displayname="Currency Code" name="appbase_currencycode" type="string" customfield="true" />
+      <field displayname="Description" name="appbase_description" type="string" customfield="true" />
+      <field displayname="End Odometer" name="appbase_endodometer" type="decimal" customfield="true" />
+      <field displayname="Exchange Rate" name="appbase_exchangerate" type="decimal" customfield="true" />
+      <field displayname="Exchange Rate" name="exchangerate" type="decimal" />
+      <field displayname="Expense Category" name="appbase_expensecategory" type="entityreference" lookupType="appbase_expensecategory" customfield="true" />
+      <field displayname="Expense Date" name="appbase_expensedate" type="datetime" customfield="true" />
+      <field displayname="Expense Item" name="appbase_expenseitemid" type="guid" primaryKey="true" />
+      <field displayname="Expense Report" name="appbase_expensereport" type="entityreference" lookupType="appbase_expensereport" customfield="true" />
+      <field displayname="GL Account" name="appbase_glaccount" type="string" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Is Billable" name="appbase_isbillable" type="optionsetvalue" customfield="true" />
+      <field displayname="Is Personal Card" name="appbase_ispersonalcard" type="optionsetvalue" customfield="true" />
+      <field displayname="Is Reimbursable" name="appbase_isreimbursable" type="optionsetvalue" customfield="true" />
+      <field displayname="Item Number" name="appbase_itemnumber" type="string" customfield="true" />
+      <field displayname="Location" name="appbase_location" type="entityreference" lookupType="appbase_location" customfield="true" />
+      <field displayname="Merchant Location" name="appbase_merchantlocation" type="string" customfield="true" />
+      <field displayname="Merchant Name" name="appbase_merchantname" type="string" customfield="true" />
+      <field displayname="Mileage" name="appbase_mileage" type="decimal" customfield="true" />
+      <field displayname="Mileage Rate" name="appbase_mileagerate" type="money" customfield="true" />
+      <field displayname="Mileage Rate (Base)" name="appbase_mileagerate_base" type="money" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Number of Attendees" name="appbase_numberofattendees" type="number" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Payment Method" name="appbase_paymentmethod" type="optionsetvalue" customfield="true" />
+      <field displayname="Quantity" name="appbase_quantity" type="decimal" customfield="true" />
+      <field displayname="Receipt Attached" name="appbase_receiptattached" type="optionsetvalue" customfield="true" />
+      <field displayname="Receipt Number" name="appbase_receiptnumber" type="string" customfield="true" />
+      <field displayname="Receipt Required" name="appbase_receiptrequired" type="optionsetvalue" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Reimbursable Amount" name="appbase_reimbursableamount" type="money" customfield="true" />
+      <field displayname="Reimbursable Amount (Base)" name="appbase_reimbursableamount_base" type="money" customfield="true" />
+      <field displayname="Rejected" name="appbase_rejected" type="optionsetvalue" customfield="true" />
+      <field displayname="Rejection Reason" name="appbase_rejectionreason" type="string" customfield="true" />
+      <field displayname="Related Travel Segment" name="appbase_relatedtravelsegment" type="entityreference" lookupType="appbase_travelsegment" customfield="true" />
+      <field displayname="Stage" name="appbase_stage" type="optionsetvalue" customfield="true" />
+      <field displayname="Start Odometer" name="appbase_startodometer" type="decimal" customfield="true" />
+      <field displayname="State or Province" name="appbase_stateorprovince" type="entityreference" lookupType="appbase_stateorprovince" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Supporting Document" name="appbase_supportingdocument" type="entityreference" lookupType="appbase_document" customfield="true" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Total Amount" name="appbase_totalamount" type="money" customfield="true" />
+      <field displayname="Total Amount (Base)" name="appbase_totalamount_base" type="money" customfield="true" />
+      <field displayname="Trip Purpose" name="appbase_trippurpose" type="string" customfield="true" />
+      <field displayname="Unit Cost" name="appbase_unitcost" type="money" customfield="true" />
+      <field displayname="Unit Cost (Base)" name="appbase_unitcost_base" type="money" customfield="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_expensereport" displayname="Expense Report" etc="10962" primaryidfield="appbase_expensereportid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Advance Amount Received" name="appbase_advanceamountreceived" type="money" customfield="true" />
+      <field displayname="Advance Amount Received (Base)" name="appbase_advanceamountreceived_base" type="money" customfield="true" />
+      <field displayname="Amount Due from Person" name="appbase_amountduefromperson" type="money" customfield="true" />
+      <field displayname="Amount Due from Person (Base)" name="appbase_amountduefromperson_base" type="money" customfield="true" />
+      <field displayname="Amount Due to Person" name="appbase_amountduetoperson" type="money" customfield="true" />
+      <field displayname="Amount Due to Person (Base)" name="appbase_amountduetoperson_base" type="money" customfield="true" />
+      <field displayname="Approval Notes" name="appbase_approvalnotes" type="string" customfield="true" />
+      <field displayname="Approval Status" name="appbase_approvalstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Approved By" name="appbase_approvedby" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Approved Date" name="appbase_approveddate" type="datetime" customfield="true" />
+      <field displayname="Business Justification" name="appbase_businessjustification" type="string" customfield="true" />
+      <field displayname="Cost Center" name="appbase_costcenter" type="string" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Currency" name="transactioncurrencyid" type="entityreference" lookupType="transactioncurrency" />
+      <field displayname="Currency Code" name="appbase_currencycode" type="string" customfield="true" />
+      <field displayname="Exchange Rate" name="exchangerate" type="decimal" />
+      <field displayname="Expense Report" name="appbase_expensereportid" type="guid" primaryKey="true" />
+      <field displayname="Expense Report Number" name="appbase_expensereportnumber" type="string" customfield="true" />
+      <field displayname="Funding Source" name="appbase_fundingsource" type="string" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Organization Unit" name="appbase_organizationunit" type="entityreference" lookupType="appbase_organizationunit" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Payment Date" name="appbase_paymentdate" type="datetime" customfield="true" />
+      <field displayname="Payment Method" name="appbase_paymentmethod" type="optionsetvalue" customfield="true" />
+      <field displayname="Payment Reference" name="appbase_paymentreference" type="string" customfield="true" />
+      <field displayname="Person" name="appbase_person" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Purpose" name="appbase_purpose" type="string" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Rejected Date" name="appbase_rejecteddate" type="datetime" customfield="true" />
+      <field displayname="Rejection Reason" name="appbase_rejectionreason" type="string" customfield="true" />
+      <field displayname="Related Travel Request" name="appbase_relatedtravelrequest" type="entityreference" lookupType="appbase_travelrequest" customfield="true" />
+      <field displayname="Report End Date" name="appbase_reportenddate" type="datetime" customfield="true" />
+      <field displayname="Report Start Date" name="appbase_reportstartdate" type="datetime" customfield="true" />
+      <field displayname="Report Type" name="appbase_reporttype" type="optionsetvalue" customfield="true" />
+      <field displayname="Review Notes" name="appbase_reviewnotes" type="string" customfield="true" />
+      <field displayname="Reviewed By" name="appbase_reviewedby" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Reviewed Date" name="appbase_revieweddate" type="datetime" customfield="true" />
+      <field displayname="Stage" name="appbase_stage" type="optionsetvalue" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Submitted By" name="appbase_submittedby" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Submitted Date" name="appbase_submitteddate" type="datetime" customfield="true" />
+      <field displayname="Supporting Document" name="appbase_supportingdocument" type="entityreference" lookupType="appbase_document" customfield="true" />
+      <field displayname="Time Period" name="appbase_timeperiod" type="entityreference" lookupType="appbase_timeperiod" customfield="true" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Total Amount" name="appbase_totalamount" type="money" customfield="true" />
+      <field displayname="Total Amount (Base)" name="appbase_totalamount_base" type="money" customfield="true" />
+      <field displayname="Total Approved Amount" name="appbase_totalapprovedamount" type="money" customfield="true" />
+      <field displayname="Total Approved Amount (Base)" name="appbase_totalapprovedamount_base" type="money" customfield="true" />
+      <field displayname="Total Non Reimbursable Amount" name="appbase_totalnonreimbursableamount" type="money" customfield="true" />
+      <field displayname="Total Non Reimbursable Amount (Base)" name="appbase_totalnonreimbursableamount_base" type="money" customfield="true" />
+      <field displayname="Total Paid Amount" name="appbase_totalpaidamount" type="money" customfield="true" />
+      <field displayname="Total Paid Amount (Base)" name="appbase_totalpaidamount_base" type="money" customfield="true" />
+      <field displayname="Total Reimbursable Amount" name="appbase_totalreimbursableamount" type="money" customfield="true" />
+      <field displayname="Total Reimbursable Amount (Base)" name="appbase_totalreimbursableamount_base" type="money" customfield="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_timecode" displayname="Time Code" etc="10963" primaryidfield="appbase_timecodeid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Cost Center" name="appbase_costcenter" type="string" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Default Approver" name="appbase_defaultapprover" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Description" name="appbase_description" type="string" customfield="true" />
+      <field displayname="Effective End Date" name="appbase_effectiveenddate" type="datetime" customfield="true" />
+      <field displayname="Effective Start Date" name="appbase_effectivestartdate" type="datetime" customfield="true" />
+      <field displayname="Funding Source" name="appbase_fundingsource" type="string" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Is Billable" name="appbase_isbillable" type="optionsetvalue" customfield="true" />
+      <field displayname="Is Overtime Eligible" name="appbase_isovertimeeligible" type="optionsetvalue" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Organization Initiative" name="appbase_organizationinitiative" type="entityreference" lookupType="appbase_organizationinitiative" customfield="true" />
+      <field displayname="Organization Unit" name="appbase_organizationunit" type="entityreference" lookupType="appbase_organizationunit" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Parent Time Code" name="appbase_parenttimecode" type="entityreference" lookupType="appbase_timecode" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Requires Approval" name="appbase_requiresapproval" type="optionsetvalue" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Code" name="appbase_timecode" type="string" customfield="true" />
+      <field displayname="Time Code" name="appbase_timecodeid" type="guid" primaryKey="true" />
+      <field displayname="Time Code Category" name="appbase_timecodecategory" type="optionsetvalue" customfield="true" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_timecommitment" displayname="Time Commitment" etc="10964" primaryidfield="appbase_timecommitmentid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="All Day" name="appbase_allday" type="optionsetvalue" customfield="true" />
+      <field displayname="Approval Notes" name="appbase_approvalnotes" type="string" customfield="true" />
+      <field displayname="Approval Status" name="appbase_approvalstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Approved By" name="appbase_approvedby" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Approved Date" name="appbase_approveddate" type="datetime" customfield="true" />
+      <field displayname="Availability" name="appbase_availability" type="optionsetvalue" customfield="true" />
+      <field displayname="Commitment Number" name="appbase_commitmentnumber" type="string" customfield="true" />
+      <field displayname="Commitment Type" name="appbase_commitmenttype" type="optionsetvalue" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Description" name="appbase_description" type="string" customfield="true" />
+      <field displayname="End Date Time" name="appbase_enddatetime" type="datetime" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Is Recurring" name="appbase_isrecurring" type="optionsetvalue" customfield="true" />
+      <field displayname="Location" name="appbase_location" type="entityreference" lookupType="appbase_location" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Organization Unit" name="appbase_organizationunit" type="entityreference" lookupType="appbase_organizationunit" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Person" name="appbase_person" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Recurrence Pattern" name="appbase_recurrencepattern" type="string" customfield="true" />
+      <field displayname="Related Travel Request" name="appbase_relatedtravelrequest" type="entityreference" lookupType="appbase_travelrequest" customfield="true" />
+      <field displayname="Requested Date" name="appbase_requesteddate" type="datetime" customfield="true" />
+      <field displayname="Requires Approval" name="appbase_requiresapproval" type="optionsetvalue" customfield="true" />
+      <field displayname="Stage" name="appbase_stage" type="optionsetvalue" customfield="true" />
+      <field displayname="Start Date Time" name="appbase_startdatetime" type="datetime" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Code" name="appbase_timecode" type="entityreference" lookupType="appbase_timecode" customfield="true" />
+      <field displayname="Time Commitment" name="appbase_timecommitmentid" type="guid" primaryKey="true" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Total Hours" name="appbase_totalhours" type="decimal" customfield="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_timeentry" displayname="Time Entry" etc="10965" primaryidfield="appbase_timeentryid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Approval Notes" name="appbase_approvalnotes" type="string" customfield="true" />
+      <field displayname="Approval Status" name="appbase_approvalstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Approved By" name="appbase_approvedby" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Approved By User" name="appbase_approvedbyuser" type="entityreference" lookupType="systemuser" customfield="true" />
+      <field displayname="Approved Date Time" name="appbase_approveddatetime" type="datetime" customfield="true" />
+      <field displayname="Billing Rate" name="appbase_billingrate" type="money" customfield="true" />
+      <field displayname="Billing Rate (Base)" name="appbase_billingrate_base" type="money" customfield="true" />
+      <field displayname="Cost Rate" name="appbase_costrate" type="money" customfield="true" />
+      <field displayname="Cost Rate (Base)" name="appbase_costrate_base" type="money" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Currency" name="transactioncurrencyid" type="entityreference" lookupType="transactioncurrency" />
+      <field displayname="Entry Date" name="appbase_entrydate" type="datetime" customfield="true" />
+      <field displayname="Entry Number" name="appbase_entrynumber" type="string" customfield="true" />
+      <field displayname="Exchange Rate" name="exchangerate" type="decimal" />
+      <field displayname="Hours" name="appbase_hours" type="decimal" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Is Billable" name="appbase_isbillable" type="optionsetvalue" customfield="true" />
+      <field displayname="Is Locked" name="appbase_islocked" type="optionsetvalue" customfield="true" />
+      <field displayname="Location" name="appbase_location" type="entityreference" lookupType="appbase_location" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Organization Unit" name="appbase_organizationunit" type="entityreference" lookupType="appbase_organizationunit" customfield="true" />
+      <field displayname="Overtime Hours" name="appbase_overtimehours" type="decimal" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Person" name="appbase_person" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Rejected Date Time" name="appbase_rejecteddatetime" type="datetime" customfield="true" />
+      <field displayname="Rejection Reason" name="appbase_rejectionreason" type="string" customfield="true" />
+      <field displayname="Related Travel Request" name="appbase_relatedtravelrequest" type="entityreference" lookupType="appbase_travelrequest" customfield="true" />
+      <field displayname="Review Notes" name="appbase_reviewnotes" type="string" customfield="true" />
+      <field displayname="Reviewed By" name="appbase_reviewedby" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Reviewed By User" name="appbase_reviewedbyuser" type="entityreference" lookupType="systemuser" customfield="true" />
+      <field displayname="Reviewed Date" name="appbase_revieweddate" type="datetime" customfield="true" />
+      <field displayname="Stage" name="appbase_stage" type="optionsetvalue" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Submitted By" name="appbase_submittedby" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Submitted By User" name="appbase_submittedbyuser" type="entityreference" lookupType="systemuser" customfield="true" />
+      <field displayname="Submitted Date Time" name="appbase_submitteddatetime" type="datetime" customfield="true" />
+      <field displayname="Time Code" name="appbase_timecode" type="entityreference" lookupType="appbase_timecode" customfield="true" />
+      <field displayname="Time Entry" name="appbase_timeentryid" type="guid" primaryKey="true" />
+      <field displayname="Time Period" name="appbase_timeperiod" type="entityreference" lookupType="appbase_timeperiod" customfield="true" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Total Billing" name="appbase_totalbilling" type="money" customfield="true" />
+      <field displayname="Total Billing (Base)" name="appbase_totalbilling_base" type="money" customfield="true" />
+      <field displayname="Total Cost" name="appbase_totalcost" type="money" customfield="true" />
+      <field displayname="Total Cost (Base)" name="appbase_totalcost_base" type="money" customfield="true" />
+      <field displayname="User" name="appbase_user" type="entityreference" lookupType="systemuser" customfield="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+      <field displayname="Work Description" name="appbase_workdescription" type="string" customfield="true" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_timeperiod" displayname="Time Period" etc="10966" primaryidfield="appbase_timeperiodid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Due Date" name="appbase_duedate" type="datetime" customfield="true" />
+      <field displayname="Fiscal Month" name="appbase_fiscalmonth" type="number" customfield="true" />
+      <field displayname="Fiscal Quarter" name="appbase_fiscalquarter" type="number" customfield="true" />
+      <field displayname="Fiscal Year" name="appbase_fiscalyear" type="number" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Is Locked" name="appbase_islocked" type="optionsetvalue" customfield="true" />
+      <field displayname="Locked By" name="appbase_lockedby" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Locked Date" name="appbase_lockeddate" type="datetime" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Period Code" name="appbase_periodcode" type="string" customfield="true" />
+      <field displayname="Period End Date" name="appbase_periodenddate" type="datetime" customfield="true" />
+      <field displayname="Period Start Date" name="appbase_periodstartdate" type="datetime" customfield="true" />
+      <field displayname="Period Type" name="appbase_periodtype" type="optionsetvalue" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Stage" name="appbase_stage" type="optionsetvalue" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Period" name="appbase_timeperiodid" type="guid" primaryKey="true" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_travelpurpose" displayname="Travel Purpose" etc="10967" primaryidfield="appbase_travelpurposeid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Default Approver" name="appbase_defaultapprover" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Description" name="appbase_description" type="string" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Purpose Category" name="appbase_purposecategory" type="optionsetvalue" customfield="true" />
+      <field displayname="Purpose Code" name="appbase_purposecode" type="string" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Requires Advance Approval" name="appbase_requiresadvanceapproval" type="optionsetvalue" customfield="true" />
+      <field displayname="Requires Justification" name="appbase_requiresjustification" type="optionsetvalue" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Travel Purpose" name="appbase_travelpurposeid" type="guid" primaryKey="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_travelrequest" displayname="Travel Request" etc="10968" primaryidfield="appbase_travelrequestid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Actual Total Cost" name="appbase_actualtotalcost" type="money" customfield="true" />
+      <field displayname="Actual Total Cost (Base)" name="appbase_actualtotalcost_base" type="money" customfield="true" />
+      <field displayname="Additional Travelers" name="appbase_additionaltravelers" type="string" customfield="true" />
+      <field displayname="Approval Notes" name="appbase_approvalnotes" type="string" customfield="true" />
+      <field displayname="Approval Status" name="appbase_approvalstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Approved By" name="appbase_approvedby" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Approved Date" name="appbase_approveddate" type="datetime" customfield="true" />
+      <field displayname="Authorization Number" name="appbase_authorizationnumber" type="string" customfield="true" />
+      <field displayname="Business Justification" name="appbase_businessjustification" type="string" customfield="true" />
+      <field displayname="Cancellation Reason" name="appbase_cancellationreason" type="string" customfield="true" />
+      <field displayname="Cancelled Date" name="appbase_cancelleddate" type="datetime" customfield="true" />
+      <field displayname="Completed Date" name="appbase_completeddate" type="datetime" customfield="true" />
+      <field displayname="Cost Center" name="appbase_costcenter" type="string" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Currency" name="transactioncurrencyid" type="entityreference" lookupType="transactioncurrency" />
+      <field displayname="Departure Date" name="appbase_departuredate" type="datetime" customfield="true" />
+      <field displayname="Destination City" name="appbase_destinationcity" type="string" customfield="true" />
+      <field displayname="Destination Country" name="appbase_destinationcountry" type="entityreference" lookupType="appbase_country" customfield="true" />
+      <field displayname="Destination Location" name="appbase_destinationlocation" type="entityreference" lookupType="appbase_location" customfield="true" />
+      <field displayname="Destination State or Province" name="appbase_destinationstateorprovince" type="entityreference" lookupType="appbase_stateorprovince" customfield="true" />
+      <field displayname="Estimated Lodging Cost" name="appbase_estimatedlodgingcost" type="money" customfield="true" />
+      <field displayname="Estimated Lodging Cost (Base)" name="appbase_estimatedlodgingcost_base" type="money" customfield="true" />
+      <field displayname="Estimated Meal Cost" name="appbase_estimatedmealcost" type="money" customfield="true" />
+      <field displayname="Estimated Meal Cost (Base)" name="appbase_estimatedmealcost_base" type="money" customfield="true" />
+      <field displayname="Estimated Other Cost" name="appbase_estimatedothercost" type="money" customfield="true" />
+      <field displayname="Estimated Other Cost (Base)" name="appbase_estimatedothercost_base" type="money" customfield="true" />
+      <field displayname="Estimated Total Cost" name="appbase_estimatedtotalcost" type="money" customfield="true" />
+      <field displayname="Estimated Total Cost (Base)" name="appbase_estimatedtotalcost_base" type="money" customfield="true" />
+      <field displayname="Estimated Transportation Cost" name="appbase_estimatedtransportationcost" type="money" customfield="true" />
+      <field displayname="Estimated Transportation Cost (Base)" name="appbase_estimatedtransportationcost_base" type="money" customfield="true" />
+      <field displayname="Exchange Rate" name="exchangerate" type="decimal" />
+      <field displayname="Funding Source" name="appbase_fundingsource" type="string" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Is International" name="appbase_isinternational" type="optionsetvalue" customfield="true" />
+      <field displayname="Is Overnight" name="appbase_isovernight" type="optionsetvalue" customfield="true" />
+      <field displayname="Lodging Required" name="appbase_lodgingrequired" type="optionsetvalue" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Organization Initiative" name="appbase_organizationinitiative" type="entityreference" lookupType="appbase_organizationinitiative" customfield="true" />
+      <field displayname="Origin City" name="appbase_origincity" type="string" customfield="true" />
+      <field displayname="Origin Country" name="appbase_origincountry" type="entityreference" lookupType="appbase_country" customfield="true" />
+      <field displayname="Origin Location" name="appbase_originlocation" type="entityreference" lookupType="appbase_location" customfield="true" />
+      <field displayname="Origin State or Province" name="appbase_originstateorprovince" type="entityreference" lookupType="appbase_stateorprovince" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Rental Car Required" name="appbase_rentalcarrequired" type="optionsetvalue" customfield="true" />
+      <field displayname="Requested By" name="appbase_requestedby" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Requested Date" name="appbase_requesteddate" type="datetime" customfield="true" />
+      <field displayname="Return Date" name="appbase_returndate" type="datetime" customfield="true" />
+      <field displayname="Review Notes" name="appbase_reviewnotes" type="string" customfield="true" />
+      <field displayname="Reviewed By" name="appbase_reviewedby" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Reviewed Date" name="appbase_revieweddate" type="datetime" customfield="true" />
+      <field displayname="Stage" name="appbase_stage" type="optionsetvalue" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Submitted Date" name="appbase_submitteddate" type="datetime" customfield="true" />
+      <field displayname="Supporting Document" name="appbase_supportingdocument" type="entityreference" lookupType="appbase_document" customfield="true" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Total Days" name="appbase_totaldays" type="number" customfield="true" />
+      <field displayname="Transportation Method" name="appbase_transportationmethod" type="optionsetvalue" customfield="true" />
+      <field displayname="Travel Purpose" name="appbase_travelpurpose" type="entityreference" lookupType="appbase_travelpurpose" customfield="true" />
+      <field displayname="Travel Request" name="appbase_travelrequestid" type="guid" primaryKey="true" />
+      <field displayname="Travel Request Number" name="appbase_travelrequestnumber" type="string" customfield="true" />
+      <field displayname="Traveler" name="appbase_traveler" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Traveler Organization Unit" name="appbase_travelerorganizationunit" type="entityreference" lookupType="appbase_organizationunit" customfield="true" />
+      <field displayname="Trip Description" name="appbase_tripdescription" type="string" customfield="true" />
+      <field displayname="Trip Report" name="appbase_tripreport" type="string" customfield="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_travelsegment" displayname="Travel Segment" etc="10969" primaryidfield="appbase_travelsegmentid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Actual Cost" name="appbase_actualcost" type="money" customfield="true" />
+      <field displayname="Actual Cost (Base)" name="appbase_actualcost_base" type="money" customfield="true" />
+      <field displayname="Booked By" name="appbase_bookedby" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Booking Date" name="appbase_bookingdate" type="datetime" customfield="true" />
+      <field displayname="Booking Reference" name="appbase_bookingreference" type="string" customfield="true" />
+      <field displayname="Carrier" name="appbase_carrier" type="entityreference" lookupType="account" customfield="true" />
+      <field displayname="Check In Date" name="appbase_checkindate" type="datetime" customfield="true" />
+      <field displayname="Check Out Date" name="appbase_checkoutdate" type="datetime" customfield="true" />
+      <field displayname="Confirmation Number" name="appbase_confirmationnumber" type="string" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Currency" name="transactioncurrencyid" type="entityreference" lookupType="transactioncurrency" />
+      <field displayname="Destination City" name="appbase_destinationcity" type="string" customfield="true" />
+      <field displayname="Destination Country" name="appbase_destinationcountry" type="entityreference" lookupType="appbase_country" customfield="true" />
+      <field displayname="Destination Location" name="appbase_destinationlocation" type="entityreference" lookupType="appbase_location" customfield="true" />
+      <field displayname="Destination State or Province" name="appbase_destinationstateorprovince" type="entityreference" lookupType="appbase_stateorprovince" customfield="true" />
+      <field displayname="End Date Time" name="appbase_enddatetime" type="datetime" customfield="true" />
+      <field displayname="Estimated Cost" name="appbase_estimatedcost" type="money" customfield="true" />
+      <field displayname="Estimated Cost (Base)" name="appbase_estimatedcost_base" type="money" customfield="true" />
+      <field displayname="Exchange Rate" name="exchangerate" type="decimal" />
+      <field displayname="Flight Number" name="appbase_flightnumber" type="string" customfield="true" />
+      <field displayname="Hotel" name="appbase_hotel" type="entityreference" lookupType="account" customfield="true" />
+      <field displayname="Hotel Address" name="appbase_hoteladdress" type="string" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Nights" name="appbase_nights" type="number" customfield="true" />
+      <field displayname="Origin City" name="appbase_origincity" type="string" customfield="true" />
+      <field displayname="Origin Country" name="appbase_origincountry" type="entityreference" lookupType="appbase_country" customfield="true" />
+      <field displayname="Origin Location" name="appbase_originlocation" type="entityreference" lookupType="appbase_location" customfield="true" />
+      <field displayname="Origin State or Province" name="appbase_originstateorprovince" type="entityreference" lookupType="appbase_stateorprovince" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Rental Company" name="appbase_rentalcompany" type="entityreference" lookupType="account" customfield="true" />
+      <field displayname="Segment Date" name="appbase_segmentdate" type="datetime" customfield="true" />
+      <field displayname="Segment Notes" name="appbase_segmentnotes" type="string" customfield="true" />
+      <field displayname="Segment Number" name="appbase_segmentnumber" type="string" customfield="true" />
+      <field displayname="Segment Type" name="appbase_segmenttype" type="optionsetvalue" customfield="true" />
+      <field displayname="Sequence Order" name="appbase_sequenceorder" type="number" customfield="true" />
+      <field displayname="Stage" name="appbase_stage" type="optionsetvalue" customfield="true" />
+      <field displayname="Start Date Time" name="appbase_startdatetime" type="datetime" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Transportation Method" name="appbase_transportationmethod" type="optionsetvalue" customfield="true" />
+      <field displayname="Travel Request" name="appbase_travelrequest" type="entityreference" lookupType="appbase_travelrequest" customfield="true" />
+      <field displayname="Travel Segment" name="appbase_travelsegmentid" type="guid" primaryKey="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Vehicle Type" name="appbase_vehicletype" type="string" customfield="true" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+</entities>
