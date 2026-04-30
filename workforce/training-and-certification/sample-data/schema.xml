@@ -1,0 +1,943 @@
+<entities >
+  <entity name="appbase_academicprogram" displayname="Academic Program" etc="10970" primaryidfield="appbase_academicprogramid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Academic Department" name="appbase_academicdepartment" type="string" customfield="true" />
+      <field displayname="Academic Program" name="appbase_academicprogramid" type="guid" primaryKey="true" />
+      <field displayname="Accreditation Body" name="appbase_accreditationbody" type="entityreference" lookupType="account" customfield="true" />
+      <field displayname="Accreditation Date" name="appbase_accreditationdate" type="datetime" customfield="true" />
+      <field displayname="Accreditation Expiration Date" name="appbase_accreditationexpirationdate" type="datetime" customfield="true" />
+      <field displayname="Accreditation Status" name="appbase_accreditationstatus" type="string" customfield="true" />
+      <field displayname="Admission Requirements" name="appbase_admissionrequirements" type="string" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Currency" name="transactioncurrencyid" type="entityreference" lookupType="transactioncurrency" />
+      <field displayname="Current Enrollment" name="appbase_currentenrollment" type="number" customfield="true" />
+      <field displayname="Degree Awarded" name="appbase_degreeawarded" type="string" customfield="true" />
+      <field displayname="Description" name="appbase_description" type="string" customfield="true" />
+      <field displayname="Effective End Date" name="appbase_effectiveenddate" type="datetime" customfield="true" />
+      <field displayname="Effective Start Date" name="appbase_effectivestartdate" type="datetime" customfield="true" />
+      <field displayname="Enrollment Capacity" name="appbase_enrollmentcapacity" type="number" customfield="true" />
+      <field displayname="Exchange Rate" name="exchangerate" type="decimal" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Is Published" name="appbase_ispublished" type="optionsetvalue" customfield="true" />
+      <field displayname="Learning Outcomes" name="appbase_learningoutcomes" type="string" customfield="true" />
+      <field displayname="Maximum Time to Complete (Years)" name="appbase_maximumtimetocompleteyears" type="number" customfield="true" />
+      <field displayname="Minimum GPA" name="appbase_minimumgpa" type="decimal" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Organization Unit" name="appbase_owningorganizationunit" type="entityreference" lookupType="appbase_organizationunit" customfield="true" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Parent Academic Program" name="appbase_parentacademicprogram" type="entityreference" lookupType="appbase_academicprogram" customfield="true" />
+      <field displayname="Program Catalog" name="appbase_programcatalog" type="entityreference" lookupType="appbase_document" customfield="true" />
+      <field displayname="Program Code" name="appbase_programcode" type="string" customfield="true" />
+      <field displayname="Program Director" name="appbase_programdirector" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Program Level" name="appbase_programlevel" type="optionsetvalue" customfield="true" />
+      <field displayname="Program Objectives" name="appbase_programobjectives" type="string" customfield="true" />
+      <field displayname="Program Type" name="appbase_programtype" type="optionsetvalue" customfield="true" />
+      <field displayname="Publication Status" name="appbase_publicationstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Required Core Credits" name="appbase_requiredcorecredits" type="decimal" customfield="true" />
+      <field displayname="Required Elective Credits" name="appbase_requiredelectivecredits" type="decimal" customfield="true" />
+      <field displayname="Standard Duration (Years)" name="appbase_standarddurationyears" type="number" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Total Credit Hours Required" name="appbase_totalcredithoursrequired" type="decimal" customfield="true" />
+      <field displayname="Tuition Amount" name="appbase_tuitionamount" type="money" customfield="true" />
+      <field displayname="Tuition Amount (Base)" name="appbase_tuitionamount_base" type="money" customfield="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+      <field displayname="Website URL" name="appbase_websiteurl" type="string" customfield="true" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_academicprogramcompletion" displayname="Academic Program Completion" etc="10971" primaryidfield="appbase_academicprogramcompletionid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Academic Advisor" name="appbase_academicadvisor" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Academic Program" name="appbase_academicprogram" type="entityreference" lookupType="appbase_academicprogram" customfield="true" />
+      <field displayname="Academic Program Completion" name="appbase_academicprogramcompletionid" type="guid" primaryKey="true" />
+      <field displayname="Academic Standing" name="appbase_academicstanding" type="optionsetvalue" customfield="true" />
+      <field displayname="Action Status" name="appbase_actionstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Actual Completion Date" name="appbase_actualcompletiondate" type="datetime" customfield="true" />
+      <field displayname="Class Rank" name="appbase_classrank" type="number" customfield="true" />
+      <field displayname="Class Size" name="appbase_classsize" type="number" customfield="true" />
+      <field displayname="Commencement Date" name="appbase_commencementdate" type="datetime" customfield="true" />
+      <field displayname="Completion Number" name="appbase_completionnumber" type="string" customfield="true" />
+      <field displayname="Conferral Status" name="appbase_conferralstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Degree Award Date" name="appbase_degreeawarddate" type="datetime" customfield="true" />
+      <field displayname="Degree Awarded" name="appbase_degreeawarded" type="string" customfield="true" />
+      <field displayname="Diploma Document" name="appbase_diplomadocument" type="entityreference" lookupType="appbase_document" customfield="true" />
+      <field displayname="Diploma Issue Date" name="appbase_diplomaissuedate" type="datetime" customfield="true" />
+      <field displayname="Diploma Number" name="appbase_diplomanumber" type="string" customfield="true" />
+      <field displayname="Distinction" name="appbase_distinction" type="string" customfield="true" />
+      <field displayname="Enrollment Date" name="appbase_enrollmentdate" type="datetime" customfield="true" />
+      <field displayname="Expected Completion Date" name="appbase_expectedcompletiondate" type="datetime" customfield="true" />
+      <field displayname="Final GPA" name="appbase_finalgpa" type="decimal" customfield="true" />
+      <field displayname="Honors" name="appbase_honors" type="optionsetvalue" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Official Transcript" name="appbase_officialtranscript" type="entityreference" lookupType="appbase_document" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Person" name="appbase_person" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Program Director" name="appbase_programdirector" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Total Credits Earned" name="appbase_totalcreditsearned" type="decimal" customfield="true" />
+      <field displayname="Transcript Issue Date" name="appbase_transcriptissuedate" type="datetime" customfield="true" />
+      <field displayname="Transcript Issued" name="appbase_transcriptissued" type="optionsetvalue" customfield="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Verification Code" name="appbase_verificationcode" type="string" customfield="true" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_academicprogramrequirement" displayname="Academic Program Requirement" etc="10972" primaryidfield="appbase_academicprogramrequirementid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Academic Program" name="appbase_academicprogram" type="entityreference" lookupType="appbase_academicprogram" customfield="true" />
+      <field displayname="Academic Program Requirement" name="appbase_academicprogramrequirementid" type="guid" primaryKey="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Description" name="appbase_description" type="string" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Is Elective" name="appbase_iselective" type="optionsetvalue" customfield="true" />
+      <field displayname="Is Required" name="appbase_isrequired" type="optionsetvalue" customfield="true" />
+      <field displayname="Minimum Grade" name="appbase_minimumgrade" type="string" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Recommended Term" name="appbase_recommendedterm" type="string" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Required Credit Hours" name="appbase_requiredcredithours" type="decimal" customfield="true" />
+      <field displayname="Required Learning Path" name="appbase_requiredlearningpath" type="entityreference" lookupType="appbase_learningpath" customfield="true" />
+      <field displayname="Required Training Course" name="appbase_requiredtrainingcourse" type="entityreference" lookupType="appbase_trainingcourse" customfield="true" />
+      <field displayname="Requirement Category" name="appbase_requirementcategory" type="string" customfield="true" />
+      <field displayname="Requirement Notes" name="appbase_requirementnotes" type="string" customfield="true" />
+      <field displayname="Requirement Type" name="appbase_requirementtype" type="optionsetvalue" customfield="true" />
+      <field displayname="Sequence Order" name="appbase_sequenceorder" type="number" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_academicterm" displayname="Academic Term" etc="10973" primaryidfield="appbase_academictermid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Academic Term" name="appbase_academictermid" type="guid" primaryKey="true" />
+      <field displayname="Academic Year" name="appbase_academicyear" type="number" customfield="true" />
+      <field displayname="Add Drop Deadline Date" name="appbase_adddropdeadlinedate" type="datetime" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="End Date" name="appbase_enddate" type="datetime" customfield="true" />
+      <field displayname="Final Exam End Date" name="appbase_finalexamenddate" type="datetime" customfield="true" />
+      <field displayname="Final Exam Start Date" name="appbase_finalexamstartdate" type="datetime" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Registration End Date" name="appbase_registrationenddate" type="datetime" customfield="true" />
+      <field displayname="Registration Start Date" name="appbase_registrationstartdate" type="datetime" customfield="true" />
+      <field displayname="Start Date" name="appbase_startdate" type="datetime" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Term Code" name="appbase_termcode" type="string" customfield="true" />
+      <field displayname="Term Status" name="appbase_termstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Term Type" name="appbase_termtype" type="optionsetvalue" customfield="true" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+      <field displayname="Withdrawal Deadline Date" name="appbase_withdrawaldeadlinedate" type="datetime" customfield="true" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_learningpath" displayname="Learning Path" etc="10974" primaryidfield="appbase_learningpathid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Description" name="appbase_description" type="string" customfield="true" />
+      <field displayname="Difficulty Level" name="appbase_difficultylevel" type="optionsetvalue" customfield="true" />
+      <field displayname="Effective End Date" name="appbase_effectiveenddate" type="datetime" customfield="true" />
+      <field displayname="Effective Start Date" name="appbase_effectivestartdate" type="datetime" customfield="true" />
+      <field displayname="Estimated Completion Time (Weeks)" name="appbase_estimatedcompletiontimeweeks" type="number" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Is Published" name="appbase_ispublished" type="optionsetvalue" customfield="true" />
+      <field displayname="Learning Objectives" name="appbase_learningobjectives" type="string" customfield="true" />
+      <field displayname="Learning Path" name="appbase_learningpathid" type="guid" primaryKey="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Organization Unit" name="appbase_owningorganizationunit" type="entityreference" lookupType="appbase_organizationunit" customfield="true" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Parent Learning Path" name="appbase_parentlearningpath" type="entityreference" lookupType="appbase_learningpath" customfield="true" />
+      <field displayname="Path Category" name="appbase_pathcategory" type="string" customfield="true" />
+      <field displayname="Path Code" name="appbase_pathcode" type="string" customfield="true" />
+      <field displayname="Path Owner" name="appbase_pathowner" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Path Type" name="appbase_pathtype" type="optionsetvalue" customfield="true" />
+      <field displayname="Prerequisites" name="appbase_prerequisites" type="string" customfield="true" />
+      <field displayname="Publication Status" name="appbase_publicationstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Target Audience" name="appbase_targetaudience" type="string" customfield="true" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Total Credit Hours" name="appbase_totalcredithours" type="decimal" customfield="true" />
+      <field displayname="Total Duration (Hours)" name="appbase_totaldurationhours" type="decimal" customfield="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_learningpathcourse" displayname="Learning Path Course" etc="10975" primaryidfield="appbase_learningpathcourseid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Course Notes" name="appbase_coursenotes" type="string" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Credit Hours" name="appbase_credithours" type="decimal" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Is Elective" name="appbase_iselective" type="optionsetvalue" customfield="true" />
+      <field displayname="Is Required" name="appbase_isrequired" type="optionsetvalue" customfield="true" />
+      <field displayname="Learning Path" name="appbase_learningpath" type="entityreference" lookupType="appbase_learningpath" customfield="true" />
+      <field displayname="Learning Path Course" name="appbase_learningpathcourseid" type="guid" primaryKey="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Prerequisite Courses" name="appbase_prerequisitecourses" type="string" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Sequence Order" name="appbase_sequenceorder" type="number" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Training Course" name="appbase_trainingcourse" type="entityreference" lookupType="appbase_trainingcourse" customfield="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_qualificationrequirement" displayname="Qualification Requirement" etc="10976" primaryidfield="appbase_qualificationrequirementid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Compliance Framework" name="appbase_complianceframework" type="entityreference" lookupType="appbase_complianceframework" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Description" name="appbase_description" type="string" customfield="true" />
+      <field displayname="Effective End Date" name="appbase_effectiveenddate" type="datetime" customfield="true" />
+      <field displayname="Effective Start Date" name="appbase_effectivestartdate" type="datetime" customfield="true" />
+      <field displayname="Enforcement Level" name="appbase_enforcementlevel" type="optionsetvalue" customfield="true" />
+      <field displayname="Evaluation Logic" name="appbase_evaluationlogic" type="string" customfield="true" />
+      <field displayname="Grace Period (Days)" name="appbase_graceperioddays" type="number" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Legal Authority" name="appbase_legalauthority" type="entityreference" lookupType="appbase_legalauthority" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Organization Unit" name="appbase_owningorganizationunit" type="entityreference" lookupType="appbase_organizationunit" customfield="true" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Purpose" name="appbase_purpose" type="string" customfield="true" />
+      <field displayname="Qualification Requirement" name="appbase_qualificationrequirementid" type="guid" primaryKey="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Requirement Category" name="appbase_requirementcategory" type="string" customfield="true" />
+      <field displayname="Requirement Code" name="appbase_requirementcode" type="string" customfield="true" />
+      <field displayname="Requirement Owner" name="appbase_requirementowner" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Requirement Type" name="appbase_requirementtype" type="optionsetvalue" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Validation Frequency" name="appbase_validationfrequency" type="optionsetvalue" customfield="true" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_qualificationrequirementitem" displayname="Qualification Requirement Item" etc="10977" primaryidfield="appbase_qualificationrequirementitemid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Alternative Group" name="appbase_alternativegroup" type="string" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Is Alternative" name="appbase_isalternative" type="optionsetvalue" customfield="true" />
+      <field displayname="Is Required" name="appbase_isrequired" type="optionsetvalue" customfield="true" />
+      <field displayname="Item Type" name="appbase_itemtype" type="optionsetvalue" customfield="true" />
+      <field displayname="Minimum Proficiency Level" name="appbase_minimumproficiencylevel" type="number" customfield="true" />
+      <field displayname="Minimum Score" name="appbase_minimumscore" type="number" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Qualification Requirement" name="appbase_qualificationrequirement" type="entityreference" lookupType="appbase_qualificationrequirement" customfield="true" />
+      <field displayname="Qualification Requirement Item" name="appbase_qualificationrequirementitemid" type="guid" primaryKey="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Required Clearance Level" name="appbase_requiredclearancelevel" type="entityreference" lookupType="appbase_clearancelevel" customfield="true" />
+      <field displayname="Required Competency" name="appbase_requiredcompetency" type="entityreference" lookupType="appbase_competency" customfield="true" />
+      <field displayname="Required Credential" name="appbase_requiredcredential" type="entityreference" lookupType="credential" customfield="true" />
+      <field displayname="Required Learning Path" name="appbase_requiredlearningpath" type="entityreference" lookupType="appbase_learningpath" customfield="true" />
+      <field displayname="Required Training Certificate" name="appbase_requiredtrainingcertificate" type="entityreference" lookupType="appbase_trainingcertificate" customfield="true" />
+      <field displayname="Required Training Course" name="appbase_requiredtrainingcourse" type="entityreference" lookupType="appbase_trainingcourse" customfield="true" />
+      <field displayname="Requirement Notes" name="appbase_requirementnotes" type="string" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Validity Period (Months)" name="appbase_validityperiodmonths" type="number" customfield="true" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_trainingcertificate" displayname="Training Certificate" etc="10978" primaryidfield="appbase_trainingcertificateid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Accreditation Number" name="appbase_accreditationnumber" type="string" customfield="true" />
+      <field displayname="Accrediting Body" name="appbase_accreditingbody" type="entityreference" lookupType="account" customfield="true" />
+      <field displayname="Certificate Category" name="appbase_certificatecategory" type="string" customfield="true" />
+      <field displayname="Certificate Code" name="appbase_certificatecode" type="string" customfield="true" />
+      <field displayname="Certificate Template" name="appbase_certificatetemplate" type="entityreference" lookupType="appbase_document" customfield="true" />
+      <field displayname="Certificate Type" name="appbase_certificatetype" type="optionsetvalue" customfield="true" />
+      <field displayname="Compliance Framework" name="appbase_complianceframework" type="entityreference" lookupType="appbase_complianceframework" customfield="true" />
+      <field displayname="Continuing Education Hours Required" name="appbase_continuingeducationhoursrequired" type="decimal" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Credential" name="appbase_credential" type="entityreference" lookupType="credential" customfield="true" />
+      <field displayname="Currency" name="transactioncurrencyid" type="entityreference" lookupType="transactioncurrency" />
+      <field displayname="Description" name="appbase_description" type="string" customfield="true" />
+      <field displayname="Effective End Date" name="appbase_effectiveenddate" type="datetime" customfield="true" />
+      <field displayname="Effective Start Date" name="appbase_effectivestartdate" type="datetime" customfield="true" />
+      <field displayname="Exchange Rate" name="exchangerate" type="decimal" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Is Published" name="appbase_ispublished" type="optionsetvalue" customfield="true" />
+      <field displayname="Is Renewable" name="appbase_isrenewable" type="optionsetvalue" customfield="true" />
+      <field displayname="Is Transferable" name="appbase_istransferable" type="optionsetvalue" customfield="true" />
+      <field displayname="Issuing Authority" name="appbase_issuingauthority" type="entityreference" lookupType="account" customfield="true" />
+      <field displayname="Issuing Organization Unit" name="appbase_issuingorganizationunit" type="entityreference" lookupType="appbase_organizationunit" customfield="true" />
+      <field displayname="Legal Authority" name="appbase_legalauthority" type="entityreference" lookupType="appbase_legalauthority" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Publication Status" name="appbase_publicationstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Purpose" name="appbase_purpose" type="string" customfield="true" />
+      <field displayname="Recognition Level" name="appbase_recognitionlevel" type="optionsetvalue" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Renewal Period (Months)" name="appbase_renewalperiodmonths" type="number" customfield="true" />
+      <field displayname="Renewal Requirements" name="appbase_renewalrequirements" type="string" customfield="true" />
+      <field displayname="Requires Continuing Education" name="appbase_requirescontinuingeducation" type="optionsetvalue" customfield="true" />
+      <field displayname="Standard Cost" name="appbase_standardcost" type="money" customfield="true" />
+      <field displayname="Standard Cost (Base)" name="appbase_standardcost_base" type="money" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Training Certificate" name="appbase_trainingcertificateid" type="guid" primaryKey="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Validity Period (Months)" name="appbase_validityperiodmonths" type="number" customfield="true" />
+      <field displayname="Validity Period (Years)" name="appbase_validityperiodyears" type="number" customfield="true" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+      <field displayname="Website URL" name="appbase_websiteurl" type="string" customfield="true" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_trainingcertificateachievement" displayname="Training Certificate Achievement" etc="10979" primaryidfield="appbase_trainingcertificateachievementid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Certificate Document" name="appbase_certificatedocument" type="entityreference" lookupType="appbase_document" customfield="true" />
+      <field displayname="Certificate Number" name="appbase_certificatenumber" type="string" customfield="true" />
+      <field displayname="Continuing Education Hours Completed" name="appbase_continuingeducationhourscompleted" type="decimal" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Credential Status" name="appbase_credentialstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Days Until Expiration" name="appbase_daysuntilexpiration" type="number" customfield="true" />
+      <field displayname="Digital Badge URL" name="appbase_digitalbadgeurl" type="string" customfield="true" />
+      <field displayname="Effective Date" name="appbase_effectivedate" type="datetime" customfield="true" />
+      <field displayname="Expiration Date" name="appbase_expirationdate" type="datetime" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Is Expired" name="appbase_isexpired" type="optionsetvalue" customfield="true" />
+      <field displayname="Issue Date" name="appbase_issuedate" type="datetime" customfield="true" />
+      <field displayname="Issued By" name="appbase_issuedby" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Issuing Organization Unit" name="appbase_issuingorganizationunit" type="entityreference" lookupType="appbase_organizationunit" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Person" name="appbase_person" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Related Training Completion" name="appbase_relatedtrainingcompletion" type="entityreference" lookupType="appbase_trainingcompletion" customfield="true" />
+      <field displayname="Renewal Required Date" name="appbase_renewalrequireddate" type="datetime" customfield="true" />
+      <field displayname="Revocation Date" name="appbase_revocationdate" type="datetime" customfield="true" />
+      <field displayname="Revocation Reason" name="appbase_revocationreason" type="string" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Training Certificate" name="appbase_trainingcertificate" type="entityreference" lookupType="appbase_trainingcertificate" customfield="true" />
+      <field displayname="Training Certificate Achievement" name="appbase_trainingcertificateachievementid" type="guid" primaryKey="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Verification Code" name="appbase_verificationcode" type="string" customfield="true" />
+      <field displayname="Verification URL" name="appbase_verificationurl" type="string" customfield="true" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_trainingcertificaterenewal" displayname="Training Certificate Renewal" etc="10980" primaryidfield="appbase_trainingcertificaterenewalid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Approval Date" name="appbase_approvaldate" type="datetime" customfield="true" />
+      <field displayname="Approval Status" name="appbase_approvalstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Approved By" name="appbase_approvedby" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Continuing Education Hours Approved" name="appbase_continuingeducationhoursapproved" type="decimal" customfield="true" />
+      <field displayname="Continuing Education Hours Submitted" name="appbase_continuingeducationhourssubmitted" type="decimal" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Currency" name="transactioncurrencyid" type="entityreference" lookupType="transactioncurrency" />
+      <field displayname="Exchange Rate" name="exchangerate" type="decimal" />
+      <field displayname="Fee Paid" name="appbase_feepaid" type="optionsetvalue" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="New Expiration Date" name="appbase_newexpirationdate" type="datetime" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Payment Date" name="appbase_paymentdate" type="datetime" customfield="true" />
+      <field displayname="Prior Expiration Date" name="appbase_priorexpirationdate" type="datetime" customfield="true" />
+      <field displayname="Processed By" name="appbase_processedby" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Processed Date" name="appbase_processeddate" type="datetime" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Renewal Date" name="appbase_renewaldate" type="datetime" customfield="true" />
+      <field displayname="Renewal Fee" name="appbase_renewalfee" type="money" customfield="true" />
+      <field displayname="Renewal Fee (Base)" name="appbase_renewalfee_base" type="money" customfield="true" />
+      <field displayname="Renewal Method" name="appbase_renewalmethod" type="optionsetvalue" customfield="true" />
+      <field displayname="Renewal Number" name="appbase_renewalnumber" type="string" customfield="true" />
+      <field displayname="Renewal Status" name="appbase_renewalstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Requirements Met" name="appbase_requirementsmet" type="optionsetvalue" customfield="true" />
+      <field displayname="Requirements Notes" name="appbase_requirementsnotes" type="string" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Supporting Document" name="appbase_supportingdocument" type="entityreference" lookupType="appbase_document" customfield="true" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Training Certificate Achievement" name="appbase_trainingcertificateachievement" type="entityreference" lookupType="appbase_trainingcertificateachievement" customfield="true" />
+      <field displayname="Training Certificate Renewal" name="appbase_trainingcertificaterenewalid" type="guid" primaryKey="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_trainingcertificaterequirement" displayname="Training Certificate Requirement" etc="10981" primaryidfield="appbase_trainingcertificaterequirementid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Is Required" name="appbase_isrequired" type="optionsetvalue" customfield="true" />
+      <field displayname="Is Waivable" name="appbase_iswaivable" type="optionsetvalue" customfield="true" />
+      <field displayname="Minimum Credit Hours" name="appbase_minimumcredithours" type="decimal" customfield="true" />
+      <field displayname="Minimum Experience (Months)" name="appbase_minimumexperiencemonths" type="number" customfield="true" />
+      <field displayname="Minimum Score" name="appbase_minimumscore" type="number" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Required Competency" name="appbase_requiredcompetency" type="entityreference" lookupType="appbase_competency" customfield="true" />
+      <field displayname="Required Credential" name="appbase_requiredcredential" type="entityreference" lookupType="credential" customfield="true" />
+      <field displayname="Required Learning Path" name="appbase_requiredlearningpath" type="entityreference" lookupType="appbase_learningpath" customfield="true" />
+      <field displayname="Required Training Course" name="appbase_requiredtrainingcourse" type="entityreference" lookupType="appbase_trainingcourse" customfield="true" />
+      <field displayname="Requirement Notes" name="appbase_requirementnotes" type="string" customfield="true" />
+      <field displayname="Requirement Type" name="appbase_requirementtype" type="optionsetvalue" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Training Certificate" name="appbase_trainingcertificate" type="entityreference" lookupType="appbase_trainingcertificate" customfield="true" />
+      <field displayname="Training Certificate Requirement" name="appbase_trainingcertificaterequirementid" type="guid" primaryKey="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+      <field displayname="Waiver Authority" name="appbase_waiverauthority" type="entityreference" lookupType="contact" customfield="true" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_trainingcompletion" displayname="Training Completion" etc="10982" primaryidfield="appbase_trainingcompletionid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Academic Term" name="appbase_academicterm" type="entityreference" lookupType="appbase_academicterm" customfield="true" />
+      <field displayname="Action Status" name="appbase_actionstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Attempts" name="appbase_attempts" type="number" customfield="true" />
+      <field displayname="Certificate Expiration Date" name="appbase_certificateexpirationdate" type="datetime" customfield="true" />
+      <field displayname="Certificate Issue Date" name="appbase_certificateissuedate" type="datetime" customfield="true" />
+      <field displayname="Certificate Issued" name="appbase_certificateissued" type="optionsetvalue" customfield="true" />
+      <field displayname="Certificate Number" name="appbase_certificatenumber" type="string" customfield="true" />
+      <field displayname="Completion Date" name="appbase_completiondate" type="datetime" customfield="true" />
+      <field displayname="Completion Method" name="appbase_completionmethod" type="optionsetvalue" customfield="true" />
+      <field displayname="Completion Number" name="appbase_completionnumber" type="string" customfield="true" />
+      <field displayname="Continuing Education Units Earned" name="appbase_continuingeducationunitsearned" type="decimal" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Credit Hours Earned" name="appbase_credithoursearned" type="decimal" customfield="true" />
+      <field displayname="Duration (Hours)" name="appbase_durationhours" type="decimal" customfield="true" />
+      <field displayname="External Course" name="appbase_externalcourse" type="optionsetvalue" customfield="true" />
+      <field displayname="External Provider" name="appbase_externalprovider" type="string" customfield="true" />
+      <field displayname="Grade" name="appbase_grade" type="string" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Instructor" name="appbase_instructor" type="entityreference" lookupType="appbase_traininginstructor" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Organization Unit" name="appbase_organizationunit" type="entityreference" lookupType="appbase_organizationunit" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Pass Fail" name="appbase_passfail" type="optionsetvalue" customfield="true" />
+      <field displayname="Percentage" name="appbase_percentage" type="number" customfield="true" />
+      <field displayname="Person" name="appbase_person" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Result" name="appbase_result" type="optionsetvalue" customfield="true" />
+      <field displayname="Score" name="appbase_score" type="number" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Supporting Document" name="appbase_supportingdocument" type="entityreference" lookupType="appbase_document" customfield="true" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Training Completion" name="appbase_trainingcompletionid" type="guid" primaryKey="true" />
+      <field displayname="Training Course" name="appbase_trainingcourse" type="entityreference" lookupType="appbase_trainingcourse" customfield="true" />
+      <field displayname="Training Enrollment" name="appbase_trainingenrollment" type="entityreference" lookupType="appbase_trainingenrollment" customfield="true" />
+      <field displayname="Transcript Entry" name="appbase_transcriptentry" type="optionsetvalue" customfield="true" />
+      <field displayname="Transfer Credits" name="appbase_transfercredits" type="optionsetvalue" customfield="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Verification Code" name="appbase_verificationcode" type="string" customfield="true" />
+      <field displayname="Verification Date" name="appbase_verificationdate" type="datetime" customfield="true" />
+      <field displayname="Verified By" name="appbase_verifiedby" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_trainingcourse" displayname="Training Course" etc="10983" primaryidfield="appbase_trainingcourseid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Certification Authority" name="appbase_certificationauthority" type="string" customfield="true" />
+      <field displayname="Contact Hours" name="appbase_contacthours" type="decimal" customfield="true" />
+      <field displayname="Continuing Education Units" name="appbase_continuingeducationunits" type="decimal" customfield="true" />
+      <field displayname="Course Category" name="appbase_coursecategory" type="optionsetvalue" customfield="true" />
+      <field displayname="Course Code" name="appbase_coursecode" type="string" customfield="true" />
+      <field displayname="Course Level" name="appbase_courselevel" type="optionsetvalue" customfield="true" />
+      <field displayname="Course Materials" name="appbase_coursematerials" type="entityreference" lookupType="appbase_document" customfield="true" />
+      <field displayname="Course Objectives" name="appbase_courseobjectives" type="string" customfield="true" />
+      <field displayname="Course Owner" name="appbase_courseowner" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Course Syllabus" name="appbase_coursesyllabus" type="entityreference" lookupType="appbase_document" customfield="true" />
+      <field displayname="Course Type" name="appbase_coursetype" type="optionsetvalue" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Credit Hours" name="appbase_credithours" type="decimal" customfield="true" />
+      <field displayname="Currency" name="transactioncurrencyid" type="entityreference" lookupType="transactioncurrency" />
+      <field displayname="Delivery Method" name="appbase_deliverymethod" type="optionsetvalue" customfield="true" />
+      <field displayname="Description" name="appbase_description" type="string" customfield="true" />
+      <field displayname="Duration (Days)" name="appbase_durationdays" type="number" customfield="true" />
+      <field displayname="Duration (Hours)" name="appbase_durationhours" type="decimal" customfield="true" />
+      <field displayname="Effective End Date" name="appbase_effectiveenddate" type="datetime" customfield="true" />
+      <field displayname="Effective Start Date" name="appbase_effectivestartdate" type="datetime" customfield="true" />
+      <field displayname="Exchange Rate" name="exchangerate" type="decimal" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Is Instructor Led" name="appbase_isinstructorled" type="optionsetvalue" customfield="true" />
+      <field displayname="Is Online" name="appbase_isonline" type="optionsetvalue" customfield="true" />
+      <field displayname="Is Published" name="appbase_ispublished" type="optionsetvalue" customfield="true" />
+      <field displayname="Is Self Paced" name="appbase_isselfpaced" type="optionsetvalue" customfield="true" />
+      <field displayname="Learning Outcomes" name="appbase_learningoutcomes" type="string" customfield="true" />
+      <field displayname="Materials Cost" name="appbase_materialscost" type="money" customfield="true" />
+      <field displayname="Materials Cost (Base)" name="appbase_materialscost_base" type="money" customfield="true" />
+      <field displayname="Materials List" name="appbase_materialslist" type="string" customfield="true" />
+      <field displayname="Maximum Enrollment" name="appbase_maximumenrollment" type="number" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Organization Unit" name="appbase_owningorganizationunit" type="entityreference" lookupType="appbase_organizationunit" customfield="true" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Parent Training Course" name="appbase_parenttrainingcourse" type="entityreference" lookupType="appbase_trainingcourse" customfield="true" />
+      <field displayname="Prerequisites" name="appbase_prerequisites" type="string" customfield="true" />
+      <field displayname="Publication Status" name="appbase_publicationstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Requires Certification" name="appbase_requirescertification" type="optionsetvalue" customfield="true" />
+      <field displayname="Standard Cost" name="appbase_standardcost" type="money" customfield="true" />
+      <field displayname="Standard Cost (Base)" name="appbase_standardcost_base" type="money" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Subject Area" name="appbase_subjectarea" type="string" customfield="true" />
+      <field displayname="Target Audience" name="appbase_targetaudience" type="string" customfield="true" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Training Course" name="appbase_trainingcourseid" type="guid" primaryKey="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version" name="appbase_version" type="string" customfield="true" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+      <field displayname="Website URL" name="appbase_websiteurl" type="string" customfield="true" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_trainingcourserequirement" displayname="Training Course Requirement" etc="10984" primaryidfield="appbase_trainingcourserequirementid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Is Corequisite" name="appbase_iscorequisite" type="optionsetvalue" customfield="true" />
+      <field displayname="Is Prerequisite" name="appbase_isprerequisite" type="optionsetvalue" customfield="true" />
+      <field displayname="Is Waivable" name="appbase_iswaivable" type="optionsetvalue" customfield="true" />
+      <field displayname="Minimum Score" name="appbase_minimumscore" type="number" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Required Competency" name="appbase_requiredcompetency" type="entityreference" lookupType="appbase_competency" customfield="true" />
+      <field displayname="Required Credential" name="appbase_requiredcredential" type="entityreference" lookupType="credential" customfield="true" />
+      <field displayname="Required Learning Path" name="appbase_requiredlearningpath" type="entityreference" lookupType="appbase_learningpath" customfield="true" />
+      <field displayname="Required Training Certificate" name="appbase_requiredtrainingcertificate" type="entityreference" lookupType="appbase_trainingcertificate" customfield="true" />
+      <field displayname="Required Training Course" name="appbase_requiredtrainingcourse" type="entityreference" lookupType="appbase_trainingcourse" customfield="true" />
+      <field displayname="Requirement Notes" name="appbase_requirementnotes" type="string" customfield="true" />
+      <field displayname="Requirement Type" name="appbase_requirementtype" type="optionsetvalue" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Training Course" name="appbase_trainingcourse" type="entityreference" lookupType="appbase_trainingcourse" customfield="true" />
+      <field displayname="Training Course Requirement" name="appbase_trainingcourserequirementid" type="guid" primaryKey="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+      <field displayname="Waiver Authority" name="appbase_waiverauthority" type="entityreference" lookupType="contact" customfield="true" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_trainingenrollment" displayname="Training Enrollment" etc="10985" primaryidfield="appbase_trainingenrollmentid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Accommodation Notes" name="appbase_accommodationnotes" type="string" customfield="true" />
+      <field displayname="Action Status" name="appbase_actionstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Amount Paid" name="appbase_amountpaid" type="money" customfield="true" />
+      <field displayname="Amount Paid (Base)" name="appbase_amountpaid_base" type="money" customfield="true" />
+      <field displayname="Approval Status" name="appbase_approvalstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Approved By" name="appbase_approvedby" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Approved Date" name="appbase_approveddate" type="datetime" customfield="true" />
+      <field displayname="Attendance Status" name="appbase_attendancestatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Certificate Issue Date" name="appbase_certificateissuedate" type="datetime" customfield="true" />
+      <field displayname="Certificate Issued" name="appbase_certificateissued" type="optionsetvalue" customfield="true" />
+      <field displayname="Completion Date" name="appbase_completiondate" type="datetime" customfield="true" />
+      <field displayname="Confirmed Date" name="appbase_confirmeddate" type="datetime" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Credit Hours Earned" name="appbase_credithoursearned" type="decimal" customfield="true" />
+      <field displayname="Currency" name="transactioncurrencyid" type="entityreference" lookupType="transactioncurrency" />
+      <field displayname="Drop Date" name="appbase_dropdate" type="datetime" customfield="true" />
+      <field displayname="Drop Reason" name="appbase_dropreason" type="string" customfield="true" />
+      <field displayname="Enrolled By" name="appbase_enrolledby" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Enrollment Date" name="appbase_enrollmentdate" type="datetime" customfield="true" />
+      <field displayname="Enrollment Method" name="appbase_enrollmentmethod" type="optionsetvalue" customfield="true" />
+      <field displayname="Enrollment Number" name="appbase_enrollmentnumber" type="string" customfield="true" />
+      <field displayname="Enrollment Status" name="appbase_enrollmentstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Exchange Rate" name="exchangerate" type="decimal" />
+      <field displayname="Funding Source" name="appbase_fundingsource" type="string" customfield="true" />
+      <field displayname="Grade" name="appbase_grade" type="string" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Materials Amount" name="appbase_materialsamount" type="money" customfield="true" />
+      <field displayname="Materials Amount (Base)" name="appbase_materialsamount_base" type="money" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Pass Fail" name="appbase_passfail" type="optionsetvalue" customfield="true" />
+      <field displayname="Payment Status" name="appbase_paymentstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Person" name="appbase_person" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Requires Accommodation" name="appbase_requiresaccommodation" type="optionsetvalue" customfield="true" />
+      <field displayname="Score" name="appbase_score" type="number" customfield="true" />
+      <field displayname="Start Date" name="appbase_startdate" type="datetime" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Supporting Document" name="appbase_supportingdocument" type="entityreference" lookupType="appbase_document" customfield="true" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Total Amount" name="appbase_totalamount" type="money" customfield="true" />
+      <field displayname="Total Amount (Base)" name="appbase_totalamount_base" type="money" customfield="true" />
+      <field displayname="Training Enrollment" name="appbase_trainingenrollmentid" type="guid" primaryKey="true" />
+      <field displayname="Training Session" name="appbase_trainingsession" type="entityreference" lookupType="appbase_trainingsession" customfield="true" />
+      <field displayname="Tuition Amount" name="appbase_tuitionamount" type="money" customfield="true" />
+      <field displayname="Tuition Amount (Base)" name="appbase_tuitionamount_base" type="money" customfield="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+      <field displayname="Waitlist Date" name="appbase_waitlistdate" type="datetime" customfield="true" />
+      <field displayname="Waitlist Position" name="appbase_waitlistposition" type="number" customfield="true" />
+      <field displayname="Withdrawal Date" name="appbase_withdrawaldate" type="datetime" customfield="true" />
+      <field displayname="Withdrawal Reason" name="appbase_withdrawalreason" type="string" customfield="true" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_traininginstructor" displayname="Training Instructor" etc="10986" primaryidfield="appbase_traininginstructorid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Authorized Courses" name="appbase_authorizedcourses" type="string" customfield="true" />
+      <field displayname="Biography" name="appbase_biography" type="string" customfield="true" />
+      <field displayname="Certification Expiration Date" name="appbase_certificationexpirationdate" type="datetime" customfield="true" />
+      <field displayname="Certification Number" name="appbase_certificationnumber" type="string" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Currency" name="transactioncurrencyid" type="entityreference" lookupType="transactioncurrency" />
+      <field displayname="Effective End Date" name="appbase_effectiveenddate" type="datetime" customfield="true" />
+      <field displayname="Effective Start Date" name="appbase_effectivestartdate" type="datetime" customfield="true" />
+      <field displayname="Exchange Rate" name="exchangerate" type="decimal" />
+      <field displayname="Hourly Rate" name="appbase_hourlyrate" type="money" customfield="true" />
+      <field displayname="Hourly Rate (Base)" name="appbase_hourlyrate_base" type="money" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Instructor Code" name="appbase_instructorcode" type="string" customfield="true" />
+      <field displayname="Instructor Status" name="appbase_instructorstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Instructor Type" name="appbase_instructortype" type="optionsetvalue" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Organization Unit" name="appbase_organizationunit" type="entityreference" lookupType="appbase_organizationunit" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Person" name="appbase_person" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Qualifications" name="appbase_qualifications" type="string" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Subject Matter Expertise" name="appbase_subjectmatterexpertise" type="string" customfield="true" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Training Instructor" name="appbase_traininginstructorid" type="guid" primaryKey="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+      <field displayname="Years of Experience" name="appbase_yearsofexperience" type="number" customfield="true" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_trainingobjective" displayname="Training Objective" etc="10987" primaryidfield="appbase_trainingobjectiveid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Assessment Method" name="appbase_assessmentmethod" type="string" customfield="true" />
+      <field displayname="Bloom's Taxonomy Level" name="appbase_bloomstaxonomylevel" type="optionsetvalue" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Description" name="appbase_description" type="string" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Is Measurable" name="appbase_ismeasurable" type="optionsetvalue" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Objective Category" name="appbase_objectivecategory" type="string" customfield="true" />
+      <field displayname="Objective Code" name="appbase_objectivecode" type="string" customfield="true" />
+      <field displayname="Objective Type" name="appbase_objectivetype" type="optionsetvalue" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Related Competency" name="appbase_relatedcompetency" type="entityreference" lookupType="appbase_competency" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Success Criteria" name="appbase_successcriteria" type="string" customfield="true" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Training Course" name="appbase_trainingcourse" type="entityreference" lookupType="appbase_trainingcourse" customfield="true" />
+      <field displayname="Training Objective" name="appbase_trainingobjectiveid" type="guid" primaryKey="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_trainingsession" displayname="Training Session" etc="10988" primaryidfield="appbase_trainingsessionid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Academic Term" name="appbase_academicterm" type="entityreference" lookupType="appbase_academicterm" customfield="true" />
+      <field displayname="Cancellation Date" name="appbase_cancellationdate" type="datetime" customfield="true" />
+      <field displayname="Cancellation Reason" name="appbase_cancellationreason" type="string" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Credit Hours" name="appbase_credithours" type="decimal" customfield="true" />
+      <field displayname="Currency" name="transactioncurrencyid" type="entityreference" lookupType="transactioncurrency" />
+      <field displayname="Current Enrollment" name="appbase_currentenrollment" type="number" customfield="true" />
+      <field displayname="Delivery Method" name="appbase_deliverymethod" type="optionsetvalue" customfield="true" />
+      <field displayname="Duration (Hours)" name="appbase_durationhours" type="decimal" customfield="true" />
+      <field displayname="End Date" name="appbase_enddate" type="datetime" customfield="true" />
+      <field displayname="End Time" name="appbase_endtime" type="string" customfield="true" />
+      <field displayname="Enrollment Fee" name="appbase_enrollmentfee" type="money" customfield="true" />
+      <field displayname="Enrollment Fee (Base)" name="appbase_enrollmentfee_base" type="money" customfield="true" />
+      <field displayname="Exchange Rate" name="exchangerate" type="decimal" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Is Cancelled" name="appbase_iscancelled" type="optionsetvalue" customfield="true" />
+      <field displayname="Is Published" name="appbase_ispublished" type="optionsetvalue" customfield="true" />
+      <field displayname="Location" name="appbase_location" type="entityreference" lookupType="appbase_location" customfield="true" />
+      <field displayname="Materials Fee" name="appbase_materialsfee" type="money" customfield="true" />
+      <field displayname="Materials Fee (Base)" name="appbase_materialsfee_base" type="money" customfield="true" />
+      <field displayname="Maximum Enrollment" name="appbase_maximumenrollment" type="number" customfield="true" />
+      <field displayname="Minimum Enrollment" name="appbase_minimumenrollment" type="number" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Number of Sessions" name="appbase_numberofsessions" type="number" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Primary Instructor" name="appbase_primaryinstructor" type="entityreference" lookupType="appbase_traininginstructor" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Registration Close Date" name="appbase_registrationclosedate" type="datetime" customfield="true" />
+      <field displayname="Registration Open Date" name="appbase_registrationopendate" type="datetime" customfield="true" />
+      <field displayname="Room Number" name="appbase_roomnumber" type="string" customfield="true" />
+      <field displayname="Schedule Pattern" name="appbase_schedulepattern" type="string" customfield="true" />
+      <field displayname="Secondary Instructor" name="appbase_secondaryinstructor" type="entityreference" lookupType="appbase_traininginstructor" customfield="true" />
+      <field displayname="Section Number" name="appbase_sectionnumber" type="string" customfield="true" />
+      <field displayname="Session Agenda" name="appbase_sessionagenda" type="entityreference" lookupType="appbase_document" customfield="true" />
+      <field displayname="Session Code" name="appbase_sessioncode" type="string" customfield="true" />
+      <field displayname="Session Materials" name="appbase_sessionmaterials" type="entityreference" lookupType="appbase_document" customfield="true" />
+      <field displayname="Session Status" name="appbase_sessionstatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Session Type" name="appbase_sessiontype" type="optionsetvalue" customfield="true" />
+      <field displayname="Start Date" name="appbase_startdate" type="datetime" customfield="true" />
+      <field displayname="Start Time" name="appbase_starttime" type="string" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Total Fee" name="appbase_totalfee" type="money" customfield="true" />
+      <field displayname="Total Fee (Base)" name="appbase_totalfee_base" type="money" customfield="true" />
+      <field displayname="Training Course" name="appbase_trainingcourse" type="entityreference" lookupType="appbase_trainingcourse" customfield="true" />
+      <field displayname="Training Session" name="appbase_trainingsessionid" type="guid" primaryKey="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+      <field displayname="Virtual Meeting URL" name="appbase_virtualmeetingurl" type="string" customfield="true" />
+      <field displayname="Waitlist Capacity" name="appbase_waitlistcapacity" type="number" customfield="true" />
+      <field displayname="Waitlist Count" name="appbase_waitlistcount" type="number" customfield="true" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_trainingsessionattendance" displayname="Training Session Attendance" etc="10989" primaryidfield="appbase_trainingsessionattendanceid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Attendance Date" name="appbase_attendancedate" type="datetime" customfield="true" />
+      <field displayname="Attendance Method" name="appbase_attendancemethod" type="optionsetvalue" customfield="true" />
+      <field displayname="Attendance Status" name="appbase_attendancestatus" type="optionsetvalue" customfield="true" />
+      <field displayname="Check In Date Time" name="appbase_checkindatetime" type="datetime" customfield="true" />
+      <field displayname="Check Out Date Time" name="appbase_checkoutdatetime" type="datetime" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Duration (Minutes)" name="appbase_durationminutes" type="number" customfield="true" />
+      <field displayname="Excuse Reason" name="appbase_excusereason" type="string" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Is Excused" name="appbase_isexcused" type="optionsetvalue" customfield="true" />
+      <field displayname="Location" name="appbase_location" type="entityreference" lookupType="appbase_location" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Recorded By" name="appbase_recordedby" type="entityreference" lookupType="contact" customfield="true" />
+      <field displayname="Recorded Date Time" name="appbase_recordeddatetime" type="datetime" customfield="true" />
+      <field displayname="Session Number" name="appbase_sessionnumber" type="number" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Training Enrollment" name="appbase_trainingenrollment" type="entityreference" lookupType="appbase_trainingenrollment" customfield="true" />
+      <field displayname="Training Session Attendance" name="appbase_trainingsessionattendanceid" type="guid" primaryKey="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="appbase_trainingsessioninstructor" displayname="Training Session Instructor" etc="10990" primaryidfield="appbase_trainingsessioninstructorid" primarynamefield="appbase_name" disableplugins="false">
+    <fields>
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="appbase_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="Training Session Instructor" name="appbase_trainingsessioninstructorid" type="guid" primaryKey="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+</entities>
