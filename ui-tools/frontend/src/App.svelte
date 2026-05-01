@@ -14,6 +14,7 @@
   import FormBuilder from './routes/FormBuilder.svelte';
   import ProcessSimulation from './routes/ProcessSimulation.svelte';
   import DataImporter from './routes/DataImporter.svelte';
+  import IconSelector from './routes/IconSelector.svelte';
   
   // Define routes
   const routes = {
@@ -25,6 +26,7 @@
     '/form-builder': FormBuilder,
     '/process-simulation':ProcessSimulation,
     '/data-importer': DataImporter,
+    '/icon-selector': IconSelector,
   };
   
   // Load initial data

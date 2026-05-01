@@ -74,6 +74,7 @@ from routers.option_sets import router as option_sets_router
 from routers.release import router as release_router
 from routers.deployment import router as deployment_router
 from routers.process_simulation import router as process_simulation_router
+from routers.icon_selector import router as icon_selector_router
 
 app = FastAPI(title="Module Deployment API")
 
@@ -93,6 +94,7 @@ app.include_router(option_sets_router)
 app.include_router(release_router)
 app.include_router(deployment_router)
 app.include_router(process_simulation_router)
+app.include_router(icon_selector_router)
 
 # Startup event - log workspace info
 @app.on_event("startup")
