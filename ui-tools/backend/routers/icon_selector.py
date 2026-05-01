@@ -15,6 +15,8 @@ from pydantic import BaseModel
 from pathlib import Path
 import json
 import re
+import subprocess
+import sys
 from collections import defaultdict
 
 router = APIRouter(prefix="/api/icon-selector", tags=["Icon Selector"])
@@ -22,6 +24,7 @@ router = APIRouter(prefix="/api/icon-selector", tags=["Icon Selector"])
 # Paths
 REPO_ROOT = Path(__file__).parent.parent.parent.parent
 ICONS_DIR = REPO_ROOT / ".icons"
+SCRIPTS_DIR = Path(__file__).parent.parent / "scripts"  # ui-tools/backend/scripts
 MERGED_ICONS_CACHE = ICONS_DIR / "merged_icons_cache_clean.json"
 ENTITY_INVENTORY = ICONS_DIR / "entity_inventory.json"
 ENTITY_CONTEXT = ICONS_DIR / "entities_with_context.json"
@@ -37,6 +40,9 @@ class IconSelectionRequest(BaseModel):
     entity_logical_name: str
     icon_name: str
     icon_source: str
+
+class ApplyToModuleRequest(BaseModel):
+    module_path: str
 
 class Icon(BaseModel):
     name: str
@@ -329,6 +335,13 @@ async def get_icon_svg(icon_name: str, source: str) -> Response:
             svg_content = svg_path.read_text(encoding='utf-8')
         else:
             svg_content = f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><text x="12" y="12" text-anchor="middle">{icon_name}</text></svg>'
+    elif source == 'phosphor':
+        # Phosphor - need to load from repo
+        svg_path = ICONS_DIR / "phosphor-repo" / "assets" / "regular" / f"{icon_name}.svg"
+        if svg_path.exists():
+            svg_content = svg_path.read_text(encoding='utf-8')
+        else:
+            svg_content = f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><text x="12" y="12" text-anchor="middle">{icon_name}</text></svg>'
     else:
         svg_content = f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><text x="12" y="12" text-anchor="middle">?</text></svg>'
     
@@ -419,3 +432,105 @@ async def export_selections() -> Dict[str, Any]:
         'export_file': str(export_file),
         'count': len(approved_icons)
     }
+
+@router.post("/apply-to-module")
+async def apply_to_module(request: ApplyToModuleRequest) -> Dict[str, Any]:
+    """
+    Apply icon selections to a specific module.
+    Runs process_icon_approvals.py and create_icon_webresources.py for the module.
+    """
+    module_path = request.module_path
+    
+    # First, ensure approved_icons.json is exported
+    export_result = await export_selections()
+    if not export_result['success']:
+        raise HTTPException(status_code=500, detail="Failed to export selections")
+    
+    # Get Python executable
+    python_exe = sys.executable
+    
+    # Paths to scripts in ui-tools/backend/scripts
+    process_script = SCRIPTS_DIR / "process_icon_approvals.py"
+    create_script = SCRIPTS_DIR / "create_icon_webresources.py"
+    
+    results = {
+        'module_path': module_path,
+        'steps': []
+    }
+    
+    try:
+        # Step 1: Run process_icon_approvals.py
+        step1_result = {
+            'name': 'Validate Approvals',
+            'command': f'process_icon_approvals.py --module {module_path}'
+        }
+        
+        process_result = subprocess.run(
+            [python_exe, str(process_script), '--module', module_path],
+            cwd=str(REPO_ROOT),
+            capture_output=True,
+            text=True,
+            timeout=30
+        )
+        
+        step1_result['exit_code'] = process_result.returncode
+        step1_result['output'] = process_result.stdout
+        step1_result['error'] = process_result.stderr
+        step1_result['success'] = process_result.returncode == 0
+        results['steps'].append(step1_result)
+        
+        if process_result.returncode != 0:
+            results['success'] = False
+            results['error'] = f"Validation failed: {process_result.stderr}"
+            return results
+        
+        # Step 2: Run create_icon_webresources.py
+        step2_result = {
+            'name': 'Create WebResources',
+            'command': f'create_icon_webresources.py --module {module_path} --yes'
+        }
+        
+        create_result = subprocess.run(
+            [python_exe, str(create_script), '--module', module_path, '--yes'],
+            cwd=str(REPO_ROOT),
+            capture_output=True,
+            text=True,
+            timeout=60
+        )
+        
+        step2_result['exit_code'] = create_result.returncode
+        step2_result['output'] = create_result.stdout
+        step2_result['error'] = create_result.stderr
+        step2_result['success'] = create_result.returncode == 0
+        results['steps'].append(step2_result)
+        
+        if create_result.returncode != 0:
+            results['success'] = False
+            results['error'] = f"WebResource creation failed: {create_result.stderr}"
+            return results
+        
+        # Success!
+        results['success'] = True
+        results['message'] = f"Successfully applied icons to module: {module_path}"
+        
+        # Extract counts from output
+        output = create_result.stdout
+        if 'WebResources created:' in output:
+            for line in output.split('\n'):
+                if 'WebResources created:' in line:
+                    results['webresources_created'] = line.split(':')[1].strip()
+                elif 'Entity.xml files updated:' in line:
+                    results['entities_updated'] = line.split(':')[1].strip()
+                elif 'Solution.xml files updated:' in line:
+                    results['solutions_updated'] = line.split(':')[1].strip()
+        
+        return results
+        
+    except subprocess.TimeoutExpired:
+        results['success'] = False
+        results['error'] = "Script execution timed out"
+        return results
+    except Exception as e:
+        results['success'] = False
+        results['error'] = f"Unexpected error: {str(e)}"
+        return results

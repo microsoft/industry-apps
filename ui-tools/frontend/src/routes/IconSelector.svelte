@@ -14,13 +14,17 @@
   let iconSearchQuery = '';
   let iconResults = [];
   let selectedIcon = null;
-  let iconSources = { tabler: true, material: true, lucide: true };
+  let iconSources = { tabler: true, material: true, lucide: true, phosphor: true };
   let isSearching = false;
   let hasSearched = false;
   
   // Progress
   let totalEntities = 0;
   let completedEntities = 0;
+  
+  // Apply to module state
+  let isApplying = false;
+  let applyResult = null;
   
   let searchDebounceTimer = null;
   
@@ -126,6 +130,7 @@
       if (iconSources.tabler) sources.push('tabler');
       if (iconSources.material) sources.push('material-design');
       if (iconSources.lucide) sources.push('lucide');
+      if (iconSources.phosphor) sources.push('phosphor');
       
       const response = await fetch('/api/icon-selector/icons/search', {
         method: 'POST',
@@ -242,6 +247,57 @@
     }
   }
   
+  // Apply to current module
+  async function applyToModule() {
+    if (!selectedModulePath) {
+      alert('Please select a module first');
+      return;
+    }
+    
+    if (!selectedModule) {
+      alert('Module data not loaded');
+      return;
+    }
+    
+    const moduleEntities = entities.filter(e => e.has_selection).length;
+    if (moduleEntities === 0) {
+      alert('No icons selected for this module yet');
+      return;
+    }
+    
+    if (!confirm(`Apply ${moduleEntities} icon(s) to module:\n${selectedModulePath}\n\nThis will:\n1. Validate selections\n2. Create WebResource files\n3. Update Entity.xml files\n4. Update Solution.xml\n\nContinue?`)) {
+      return;
+    }
+    
+    isApplying = true;
+    applyResult = null;
+    
+    try {
+      const response = await fetch('/api/icon-selector/apply-to-module', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ module_path: selectedModulePath })
+      });
+      
+      if (!response.ok) throw new Error('Apply failed');
+      
+      const result = await response.json();
+      applyResult = result;
+      
+      if (result.success) {
+        alert(`✅ Successfully applied icons to module!\n\nWebResources created: ${result.webresources_created || 'N/A'}\nEntity.xml updated: ${result.entities_updated || 'N/A'}\nSolution.xml updated: ${result.solutions_updated || 'N/A'}\n\nNext steps:\n1. Review changes (git diff)\n2. Build and test the solution`);
+      } else {
+        alert(`❌ Error applying icons:\n${result.error || 'Unknown error'}\n\nCheck console for details.`);
+        console.error('Apply error:', result);
+      }
+    } catch (error) {
+      console.error('Error applying to module:', error);
+      alert(`Error applying to module: ${error.message}`);
+    } finally {
+      isApplying = false;
+    }
+  }
+  
   // Get icon SVG URL
   function getIconSvgUrl(iconName, source) {
     return `/api/icon-selector/icons/${encodeURIComponent(iconName)}/svg?source=${source}`;
@@ -280,6 +336,16 @@
       {#if completedEntities > 0}
         <button class="export-btn-compact" on:click={exportSelections}>
           📦 Export
+        </button>
+      {/if}
+      
+      {#if selectedModulePath && selectedEntities > 0}
+        <button 
+          class="apply-btn-compact" 
+          on:click={applyToModule}
+          disabled={isApplying}
+        >
+          {isApplying ? '⏳ Applying...' : '⚙️ Apply to Module'}
         </button>
       {/if}
     </div>
@@ -359,6 +425,10 @@
                   <label>
                     <input type="checkbox" bind:checked={iconSources.lucide} on:change={searchIcons} />
                     Lucide (1,703)
+                  </label>
+                  <label>
+                    <input type="checkbox" bind:checked={iconSources.phosphor} on:change={searchIcons} />
+                    Phosphor (1,512)
                   </label>
                 </div>
               </div>
@@ -510,6 +580,28 @@
 
   .export-btn-compact:hover {
     background: #059669;
+  }
+
+  .apply-btn-compact {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .apply-btn-compact:hover:not(:disabled) {
+    background: #2563eb;
+  }
+
+  .apply-btn-compact:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 
   /* Two Column Layout */

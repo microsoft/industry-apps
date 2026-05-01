@@ -1,0 +1,102 @@
+# Icon Assignment System - .gitignore
+
+# Python
+*.pyc
+__pycache__/
+.venv/
+.env
+
+# ========================================
+# EXCLUDED: Cloned icon library repositories (DO NOT CHECK IN - too large)
+# ========================================
+tabler-repo/
+material-repo/
+lucide-repo/
+fontawesome-repo/
+phosphor-repo/
+
+# ========================================
+# EXCLUDED: One-time extraction and setup scripts
+# ========================================
+# These were used to initially populate the merged cache
+# Not needed for ongoing Icon Selector operation
+extract_tabler_icons.py
+extract_material_icons.py
+extract_lucide_icons.py
+extract_fontawesome_icons.py
+extract_phosphor.py
+merge_icon_libraries.py
+inventory_entities.py
+
+# Application scripts (moved to ui-tools/backend/scripts/)
+process_icon_approvals.py
+create_icon_webresources.py
+
+# Old pipeline scripts (replaced by Icon Selector UI)
+generate_entity_tags.py
+score_icon_matches.py
+generate_icon_report.py
+map_entity_descriptions.py
+update_entity_descriptions.py
+generate_change_summary.py
+run_pipeline.py
+
+# Debug and test scripts
+check_financial_icons.py
+debug_cache.py
+debug_fiscal.py
+test_module_entities.py
+
+# Redundant documentation
+ICON_SELECTOR_README.md
+
+# ========================================
+# EXCLUDED: Generated data files (intermediate/can be regenerated)
+# ========================================
+# Individual library caches (source for merged cache)
+tabler_icons_cache.json
+material_icons_cache.json
+lucide_icons_cache.json
+fontawesome_icons_cache.json
+tabler_tag_vocabulary.json
+
+# Unmerged/uncleaned caches (use merged_icons_cache_clean.json instead)
+merged_icons_cache.json
+merged_tag_vocabulary.json
+
+# Old pipeline generated files
+icon_preview_report.html
+entities_with_context.json
+entity_tags.json
+icon_suggestions.json
+change_summary.md
+
+# ========================================
+# EXCLUDED: Working files (optional - uncomment to track)
+# ========================================
+# These can be checked in if you want to share progress
+# icon_selections.json
+# approved_icons.json
+# approved_icons_validated.json
+
+# ========================================
+# EXCLUDED: Temporary files
+# ========================================
+*.tmp
+*.log
+
+# ========================================
+# INCLUDED: Essential data files for Icon Selector (will be checked in)
+# ========================================
+# Data:
+# - merged_icons_cache_clean.json (14,189 icons, ~8MB)
+# - entity_inventory.json (entity metadata)
+#
+# Documentation:
+# - README.md
+# - GIT_TRACKING.md
+# - .gitignore (this file)
+#
+# Note: Python scripts moved to ui-tools/backend/scripts/
+# - process_icon_approvals.py
+# - create_icon_webresources.py
