@@ -49,9 +49,11 @@ def process_approvals(
     
     # Filter by module if specified
     if module_filter:
+        # Normalize path separators to forward slashes for consistent comparison
+        module_filter_normalized = module_filter.replace('\\', '/')
         approvals = {
             k: v for k, v in all_approvals.items()
-            if v.get('module', '').startswith(module_filter)
+            if v.get('module', '').replace('\\', '/').startswith(module_filter_normalized)
         }
         print(f"Filtered to {len(approvals)} approvals for module: {module_filter}")
         print(f"(Total across all modules: {len(all_approvals)})")

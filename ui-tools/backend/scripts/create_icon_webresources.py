@@ -165,6 +165,58 @@ def update_solution_xml(module_path: Path, webresource_name: str) -> bool:
         return False
 
 
+def ensure_webresources_in_customizations(module_path: Path) -> bool:
+    """
+    Ensure Customizations.xml has a <WebResources /> element.
+    This is required for the solution packager to include WebResource files.
+    
+    Args:
+        module_path: Path to module root (e.g., government/court-case-management)
+        
+    Returns:
+        True if element exists or was added successfully
+    """
+    try:
+        customizations_xml_path = module_path / 'src' / 'Other' / 'Customizations.xml'
+        
+        if not customizations_xml_path.exists():
+            print(f"    WARNING: Customizations.xml not found at {customizations_xml_path}")
+            return False
+        
+        # Parse Customizations.xml
+        tree = ET.parse(customizations_xml_path)
+        root = tree.getroot()
+        
+        # Check if WebResources element already exists
+        webresources_elem = root.find('.//WebResources')
+        if webresources_elem is not None:
+            return True  # Already exists
+        
+        # Need to add <WebResources /> element
+        # Find the insertion point (after CustomControls, before AppModuleSiteMaps)
+        insert_index = len(root)  # Default to end
+        
+        for idx, child in enumerate(root):
+            # Insert after CustomControls or optionsets
+            if child.tag in ['AppModuleSiteMaps', 'AppModules', 'EntityDataProviders']:
+                insert_index = idx
+                break
+        
+        # Create and insert WebResources element
+        webresources_elem = ET.Element('WebResources')
+        root.insert(insert_index, webresources_elem)
+        
+        # Write back to file with proper formatting
+        tree.write(customizations_xml_path, encoding='utf-8', xml_declaration=True)
+        
+        print(f"    [OK] Added <WebResources /> to Customizations.xml")
+        return True
+        
+    except Exception as e:
+        print(f"    ERROR: Failed to update Customizations.xml: {e}")
+        return False
+
+
 def update_entity_icon(entity_xml_path: Path, icon_vector_name: str) -> bool:
     """
     Update Entity.xml with IconVectorName.
@@ -246,9 +298,11 @@ def create_webresources_and_update_entities(
     
     # Filter by module if specified
     if module_filter:
+        # Normalize path separators to forward slashes for consistent comparison
+        module_filter_normalized = module_filter.replace('\\', '/')
         validated = {
             k: v for k, v in all_validated.items()
-            if v['module_path'] == module_filter
+            if v['module_path'].replace('\\', '/') == module_filter_normalized
         }
         print(f"Loaded {len(validated)} approved icons for module: {module_filter}")
         print(f"(Total across all modules: {len(all_validated)})")
@@ -275,6 +329,7 @@ def create_webresources_and_update_entities(
     failed_count = 0
     
     by_module = {}
+    modules_customizations_checked = set()  # Track which modules we've checked
     
     for logical_name, approval_data in validated.items():
         icon_name = approval_data['icon_name']
@@ -290,6 +345,11 @@ def create_webresources_and_update_entities(
         # Get paths
         module_path = repo_root / module_path_str
         entity_xml_path = Path(entity_xml_path_str)
+        
+        # Ensure Customizations.xml has WebResources element (once per module)
+        if module_path_str not in modules_customizations_checked:
+            ensure_webresources_in_customizations(module_path)
+            modules_customizations_checked.add(module_path_str)
         
         try:
             # Create WebResource files

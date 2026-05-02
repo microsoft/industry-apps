@@ -284,11 +284,55 @@
       const result = await response.json();
       applyResult = result;
       
+      // Log full details to console
+      console.log('Apply to Module Result:', result);
+      
       if (result.success) {
-        alert(`✅ Successfully applied icons to module!\n\nWebResources created: ${result.webresources_created || 'N/A'}\nEntity.xml updated: ${result.entities_updated || 'N/A'}\nSolution.xml updated: ${result.solutions_updated || 'N/A'}\n\nNext steps:\n1. Review changes (git diff)\n2. Build and test the solution`);
+        // Show detailed output
+        let output = `✅ Successfully applied icons to module!\n\n`;
+        output += `WebResources created: ${result.webresources_created || 'N/A'}\n`;
+        output += `Entity.xml updated: ${result.entities_updated || 'N/A'}\n`;
+        output += `Solution.xml updated: ${result.solutions_updated || 'N/A'}\n\n`;
+        
+        // Show script outputs if available
+        if (result.steps && result.steps.length > 0) {
+          output += `\nScript Details:\n`;
+          result.steps.forEach(step => {
+            output += `\n${step.name}: ${step.success ? '✓ Success' : '✗ Failed'}\n`;
+            if (step.output) {
+              // Show last few lines of output
+              const lines = step.output.trim().split('\n');
+              const lastLines = lines.slice(-3).join('\n');
+              output += `${lastLines}\n`;
+            }
+            if (!step.success && step.error) {
+              output += `Error: ${step.error}\n`;
+            }
+          });
+        }
+        
+        output += `\nNext steps:\n1. Review changes (git diff)\n2. Build and test the solution`;
+        alert(output);
       } else {
-        alert(`❌ Error applying icons:\n${result.error || 'Unknown error'}\n\nCheck console for details.`);
+        let errorMsg = `❌ Error applying icons:\n${result.error || 'Unknown error'}\n\n`;
+        
+        // Show step details
+        if (result.steps && result.steps.length > 0) {
+          errorMsg += `\nStep Details:\n`;
+          result.steps.forEach(step => {
+            errorMsg += `\n${step.name}: ${step.success ? '✓' : '✗'}\n`;
+            if (step.error) {
+              errorMsg += `Error: ${step.error}\n`;
+            }
+            if (step.output) {
+              errorMsg += `Output: ${step.output.substring(0, 200)}...\n`;
+            }
+          });
+        }
+        
+        errorMsg += `\nCheck browser console for full details.`;
         console.error('Apply error:', result);
+        alert(errorMsg);
       }
     } catch (error) {
       console.error('Error applying to module:', error);
