@@ -29,4 +29,4 @@ Write-Host "  Press Ctrl+C to stop" -ForegroundColor Yellow
 Write-Host "=============================================" -ForegroundColor Cyan
 Write-Host ""
 
-python -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+python -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload --log-level warning --no-access-log
