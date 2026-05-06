@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [1.3.1.0] - 2026-05-06
+
+### Added
+- Icons: Assigned custom table icons for all Court Case Management entities
+
+---
+
 ## [1.3.0.0] - 2026-04-11
 
 ### Added
