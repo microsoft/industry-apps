@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [1.1.1.0] - 2026-05-06
+
+### Added
+- Icons: Assigned custom table icons for all External Interaction entities
+
+---
+
 ## [1.1.0.0] - 2026-04-28
 
 ### Added

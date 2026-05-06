@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.26034.189" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26034.189" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26034.00189">
+<ImportExportXml version="9.2.26035.200" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26035.200" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26035.00200">
   <SolutionManifest>
     <UniqueName>appbase_externalinteraction</UniqueName>
     <LocalizedNames>
       <LocalizedName description="App Base - External Interaction" languagecode="1033" />
     </LocalizedNames>
     <Descriptions />
-    <Version>1.1.0.0</Version>
+    <Version>1.1.1.0</Version>
     <Managed>2</Managed>
     <Publisher>
       <UniqueName>appbase</UniqueName>
@@ -14,7 +14,7 @@
         <LocalizedName description="App Base" languagecode="1033" />
       </LocalizedNames>
       <Descriptions>
-        <Description description="App Base" languagecode="1033" />
+        <Description description="App Base Modules" languagecode="1033" />
       </Descriptions>
       <EMailAddress xsi:nil="true"></EMailAddress>
       <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
@@ -88,6 +88,7 @@
       <RootComponent type="1" schemaName="contact" behavior="1" />
       <RootComponent type="1" schemaName="queue" behavior="2" />
       <RootComponent type="1" schemaName="queueitem" behavior="2" />
+      <RootComponent type="300" schemaName="appbase_externalinteractionslite_56790" behavior="0" />
       <RootComponent type="300" schemaName="appbase_interactionassistant_aae2b" behavior="0" />
       <RootComponent type="401" id="{14af0f5a-68d0-4db5-9de8-b6e273cbced5}" behavior="0" />
       <RootComponent type="61" schemaName="appbase_externalinteractionicon" behavior="0" />
@@ -99,11 +100,11 @@
     </RootComponents>
     <MissingDependencies>
       <MissingDependency>
-        <Required type="1" schemaName="appbase_country" displayName="Country" solution="appbase_core (1.1.2.12)" />
+        <Required type="1" schemaName="appbase_country" displayName="Country" solution="appbase_core (1.2.0.2)" />
         <Dependent type="1" schemaName="appbase_country" displayName="Country" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="1" schemaName="appbase_stateorprovince" displayName="State or Province" solution="appbase_core (1.1.2.12)" />
+        <Required type="1" schemaName="appbase_stateorprovince" displayName="State or Province" solution="appbase_core (1.2.0.2)" />
         <Dependent type="1" schemaName="appbase_stateorprovince" displayName="State or Province" />
       </MissingDependency>
       <MissingDependency>
@@ -113,19 +114,19 @@
         <Dependent type="300" schemaName="appbase_interactionassistant_aae2b" displayName="Interaction Assistant" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_country" parentDisplayName="Country" solution="appbase_core (1.1.2.12)" />
+        <Required type="2" schemaName="appbase_name" displayName="Name" parentSchemaName="appbase_country" parentDisplayName="Country" solution="appbase_core (1.2.0.2)" />
         <Dependent type="10" schemaName="appbase_externalinteraction_Country_appbase_country" displayName="appbase_externalinteraction_Country_appbase_country" parentSchemaName="appbase_country" parentDisplayName="Country" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="2" schemaName="appbase_name" displayName="Abbreviation" parentSchemaName="appbase_stateorprovince" parentDisplayName="State or Province" solution="appbase_core (1.1.2.12)" />
+        <Required type="2" schemaName="appbase_name" displayName="Abbreviation" parentSchemaName="appbase_stateorprovince" parentDisplayName="State or Province" solution="appbase_core (1.2.0.2)" />
         <Dependent type="10" schemaName="appbase_externalinteraction_StateorProvince_appbase_stateorprovince" displayName="appbase_externalinteraction_StateorProvince_appbase_stateorprovince" parentSchemaName="appbase_stateorprovince" parentDisplayName="State or Province" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="300" schemaName="appbase_quickactions_bc538" displayName="Quick Actions" solution="appbase_core (1.1.2.12)" />
+        <Required type="300" schemaName="appbase_quickactions_bc538" displayName="Quick Actions" solution="appbase_core (1.2.0.2)" />
         <Dependent type="AppElement" displayName="appbase_appbase_ExternalInteraction_canvasappid_appbase_quickactions_bc538" id.uniquename="appbase_appbase_ExternalInteraction_canvasappid_appbase_quickactions_bc538" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="61" schemaName="appbase_coresidepaneutility" displayName="appbase_coresidepaneutility" solution="appbase_core (1.1.2.12)" />
+        <Required type="61" schemaName="appbase_coresidepaneutility" displayName="appbase_coresidepaneutility" solution="appbase_core (1.2.0.2)" />
         <Dependent type="60" displayName="Information" parentDisplayName="External Interaction" id="{fbcc6bbf-d5d4-4d34-ae93-cdc15d3beabf}" />
       </MissingDependency>
       <MissingDependency>
@@ -135,15 +136,15 @@
         <Dependent type="80" schemaName="appbase_ExternalInteraction" displayName="External Interactions" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="9" schemaName="appbase_actionstatus" displayName="Action Status" solution="appbase_core (1.1.2.12)" />
+        <Required type="9" schemaName="appbase_actionstatus" displayName="Action Status" solution="appbase_core (1.2.0.2)" />
         <Dependent type="2" schemaName="appbase_actionstatus" displayName="Action Status" parentSchemaName="appbase_externalinteraction" parentDisplayName="External Interaction" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="9" schemaName="appbase_methodofcontact" displayName="Method of Contact" solution="appbase_core (1.1.2.12)" />
+        <Required type="9" schemaName="appbase_methodofcontact" displayName="Method of Contact" solution="appbase_core (1.2.0.2)" />
         <Dependent type="2" schemaName="appbase_methodofcontact" displayName="Method of Contact" parentSchemaName="appbase_externalinteraction" parentDisplayName="External Interaction" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="9" schemaName="appbase_priority" displayName="Priority" solution="appbase_core (1.1.2.12)" />
+        <Required type="9" schemaName="appbase_priority" displayName="Priority" solution="appbase_core (1.2.0.2)" />
         <Dependent type="2" schemaName="appbase_priority" displayName="Priority" parentSchemaName="appbase_externalinteraction" parentDisplayName="External Interaction" />
       </MissingDependency>
       <MissingDependency>
