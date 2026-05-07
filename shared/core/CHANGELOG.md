@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [1.2.1.0] - 2026-05-06
 
 ### Added
-- Icons: Created custom table icons for all Core module entities
+- Icons: Assigned custom table icons for all Core module entities
 
 ---
 
