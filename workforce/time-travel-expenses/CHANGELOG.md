@@ -1,5 +1,14 @@
 # Time, Travel, and Expenses Changelog
 
+## Unreleased
+
+## [1.2.1.0] - 2026-05-06
+
+### Added
+- Icons: Assigned custom table icons for all Time, Travel, and Expenses entities
+
+---
+
 ## [1.2.0.0] - 2026-04-11
 
 ### Added
